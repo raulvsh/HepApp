@@ -1,7 +1,6 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
-import 'vista/SquareHomeWidget.dart';
+import 'vista/HomePageWidget.dart';
 //import 'package:flutter_widget_guide/utils.dart';
 
 void main() => runApp(MyApp());
@@ -35,11 +34,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  bool _isBorderEnabled = false;
-  var _actionIcon = Icons.border_all;
-  final _saved = Set<WordPair>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
-  List<String> litems = ["1", "2", "Third", "4"];
 
   void _incrementCounter() {
     setState(() {
@@ -56,53 +51,50 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
-          child: PreferredSize(
-            preferredSize: Size.fromHeight(30),
-            child: AppBar(
-              //iconTheme: IconThemeData(color: Colors.red),
-              //shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+        preferredSize: Size.fromHeight(80),
+        child: PreferredSize(
+          preferredSize: Size.fromHeight(20),
+          child: AppBar(
+            //iconTheme: IconThemeData(color: Colors.red),
+            //shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
 
-              // Here we take the value from the MyHomePage object that was created by
-              // the App.build method, and use it to set our appbar title.
-              title: Text(
-                widget.title,
-                style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  fontSize: 18,
-                ),
-              ),
-              centerTitle: true,
-              bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(70.0),
-                child: Theme(
-                  data: Theme.of(context).copyWith(accentColor: Colors.white),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-
-                        image: AssetImage('/images/goma_borrar.png'),
-                        fit: BoxFit.fitWidth,
-
-                      ),
-                    ),
-                    height: 60.0,
-                    padding: EdgeInsets.all(3),
-                    alignment: Alignment.center,
-                    //child: Image.asset('images/hepapplogo.png',
-                    //fit: BoxFit.contain),
-                  ),
-                ),
+            // Here we take the value from the MyHomePage object that was created by
+            // the App.build method, and use it to set our appbar title.
+            title: Text(
+              widget.title,
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontSize: 14,
               ),
             ),
-          )),
-      body: SquareHomeWidget(),
+            centerTitle: true,
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(60.0),
+              child: Stack(
+                children: <Widget>[
+                  Image.asset(
+                    'images/header4.png',
+                  ),
+                  Center(
+                    child: Container(
+                      padding: EdgeInsets.all(2),
+                      child: Image.asset(
+                        'images/hepapplogo.png',
+                        width: 50,
+                        height: 50,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      body: HomePageWidget(),
     );
   }
 }
