@@ -13,12 +13,19 @@ class _InformationPageState extends State<InformationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Information"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Information Page"),
       ),
-      body: new Center(
-        child: new Text("Some text"),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            // Navigate back to the first screen by popping the current route
+            // off the stack.
+            Navigator.pushNamed(context, '/CLIPCalc');
+          },
+          child: Text('CLIP Calculator'),
+        ),
       ),
     );
   }

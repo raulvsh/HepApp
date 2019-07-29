@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/vista/Calculators/AllCalcPageWidget.dart';
+import 'package:hepapp/vista/Calculators/CLIPCalcPageWidget.dart';
+import 'package:hepapp/vista/Calculators/ChildCalcPageWidget.dart';
+import 'package:hepapp/vista/Calculators/MELDCalcPageWidget.dart';
+import 'package:hepapp/vista/Calculators/OkudaCalcPageWidget.dart';
+import 'package:hepapp/vista/CalculatorsPageWidget.dart';
+import 'package:hepapp/vista/CardsPageWidget.dart';
+import 'package:hepapp/vista/ChaptersPageWidget.dart';
+import 'package:hepapp/vista/FiguresPageWidget.dart';
+import 'package:hepapp/vista/InformationPageWidget.dart';
+import 'package:hepapp/vista/PodcastsPageWidget.dart';
+import 'package:hepapp/vista/PubMedPageWidget.dart';
+import 'package:hepapp/vista/ResourcesPageWidget.dart';
 
 import 'vista/HomePageWidget.dart';
-//import 'package:flutter_widget_guide/utils.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -18,7 +31,31 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color.fromARGB(255, 93, 188, 210),
       ),
-      home: MyHomePage(title: title),
+      //home: MyHomePage(title: title), //No usar home al usar routes
+      // Start the app with the "/" named route. In this case, the app starts
+      // on the FirstScreen widget.
+      initialRoute: '/',
+      routes: {
+        // Ruta base, accedemos a HomePage.
+        '/': (context) => HomePageWidget(),
+        //Rutas desde la página principal, se definen aqui para poder acceder a ellas desde cualquier punto del programa
+        '/Chapters': (context) => ChaptersPage(),
+        '/Podcasts': (context) => PodcastsPage(),
+        '/Cards': (context) => CardsPage(),
+        '/Figures': (context) => FiguresPage(),
+        '/Calculators': (context) => CalculatorsPage(),
+        '/Resources': (context) => ResourcesPage(),
+        '/PubMed': (context) => PubMedPage(),
+        '/Information': (context) => InformationPage(),
+        //Rutas de los distintos tipos de calculadora
+        '/AllCalc': (context) => AllCalcPage(),
+        '/ChildCalc': (context) => ChildCalcPage(),
+        '/CLIPCalc': (context) => CLIPCalcPage(),
+        '/MELDCalc': (context) => MELDCalcPage(),
+        '/OkudaCalc': (context) => OkudaCalcPage(),
+
+
+      },
     );
   }
 }
@@ -33,7 +70,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  //Reservado para variables de estado, que se vayan actualizando
+  //En principio la homepage no tiene ninguna
+
+  /*int _counter = 0;
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   void _incrementCounter() {
@@ -45,55 +85,15 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
 
+    //Se devuelve la página HomePage
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80),
-        child: PreferredSize(
-          preferredSize: Size.fromHeight(20),
-          child: AppBar(
-            //iconTheme: IconThemeData(color: Colors.red),
-            //shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-
-            // Here we take the value from the MyHomePage object that was created by
-            // the App.build method, and use it to set our appbar title.
-            title: Text(
-              widget.title,
-              style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontSize: 14,
-              ),
-            ),
-            centerTitle: true,
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(60.0),
-              child: Stack(
-                children: <Widget>[
-                  Image.asset(
-                    'images/header4.png',
-                  ),
-                  Center(
-                    child: Container(
-                      padding: EdgeInsets.all(2),
-                      child: Image.asset(
-                        'images/hepapplogo.png',
-                        width: 50,
-                        height: 50,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
       body: HomePageWidget(),
     );
   }

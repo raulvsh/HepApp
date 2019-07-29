@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/Calculators/AllCalcPageWidget.dart';
-import 'package:hepapp/vista/Calculators/CLIPCalcPageWidget.dart';
-import 'package:hepapp/vista/Calculators/ChildCalcPageWidget.dart';
-import 'package:hepapp/vista/Calculators/MELDCalcPageWidget.dart';
-import 'package:hepapp/vista/Calculators/OkudaCalcPageWidget.dart';
 
 class CalculatorsPage extends StatefulWidget {
   @override
@@ -22,7 +17,7 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(65, 105, 65, 70),
         child: Table(
-            //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
+            border: _isBorderEnabled ? TableBorder.all() : null,
             //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
             children: <TableRow>[
               TableRow(children: <Widget>[
@@ -55,10 +50,12 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamed(context, '/AllCalc');
+
+                          /* Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AllCalcPage()));
+                                  builder: (context) => AllCalcPage()));*/
                         }),
                   ),
                 ),
@@ -90,10 +87,12 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamed(context, '/ChildCalc');
+
+                          /* Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ChildCalcPage()));
+                                  builder: (context) => ChildCalcPage()));*/
                         }),
                   ),
                 ),
@@ -128,10 +127,12 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamed(context, '/MELDCalc');
+
+                          /*Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MELDCalcPage()));
+                                  builder: (context) => MELDCalcPage()));*/
                         }),
                   ),
                 ),
@@ -164,10 +165,12 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamed(context, '/OkudaCalc');
+
+                          /*Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => OkudaCalcPage()));
+                                  builder: (context) => OkudaCalcPage()));*/
                         }),
                   ),
                 ),
@@ -202,10 +205,7 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CLIPCalcPage()));
+                          Navigator.pushNamed(context, '/CLIPCalc');
                         }),
                   ),
                 ),

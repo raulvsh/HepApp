@@ -13,12 +13,17 @@ class _ResourcesPageState extends State<ResourcesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Resources"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Resources"),
       ),
-      body: new Center(
-        child: new Text("Some text"),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
       ),
     );
   }

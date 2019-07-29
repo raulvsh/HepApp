@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/CalculatorsPageWidget.dart';
-import 'package:hepapp/vista/CardsPageWidget.dart';
-import 'package:hepapp/vista/ChaptersPageWidget.dart';
-import 'package:hepapp/vista/FiguresPageWidget.dart';
-import 'package:hepapp/vista/InformationPageWidget.dart';
-import 'package:hepapp/vista/PodcastsPageWidget.dart';
-import 'package:hepapp/vista/PubMedPageWidget.dart';
-import 'package:hepapp/vista/ResourcesPageWidget.dart';
+
 
 class HomePageWidget extends StatefulWidget {
   @override
@@ -18,12 +11,52 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final title = 'HepApp';
+
+
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(90),
+        child: PreferredSize(
+          preferredSize: Size.fromHeight(20),
+          child: AppBar(
+            title: Text(
+              title,
+              style: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontSize: 14,
+              ),
+            ),
+            centerTitle: true,
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(60.0),
+              child: Stack(
+                children: <Widget>[
+                  Image.asset(
+                    'images/header4.png',
+                  ),
+                  Center(
+                    child: Container(
+                      padding: EdgeInsets.all(2),
+                      child: Image.asset(
+                        'images/hepapplogo.png',
+                        width: 60,
+                        height: 60,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
         child: Table(
-            //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
-            //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+          //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
+          //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
             children: <TableRow>[
               TableRow(children: <Widget>[
                 //Primera fila: Chapters y podcasts
@@ -55,10 +88,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamed(context, '/Chapters');
+
+                          /*Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ChaptersPage()));
+                                  builder: (context) => ChaptersPage()));*/
                         }),
                   ),
                 ),
@@ -90,10 +125,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamed(context, '/Podcasts');
+
+                          /*Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PodcastsPage()));
+                                  builder: (context) => PodcastsPage()));*/
                         }),
                   ),
                 ),
@@ -128,10 +165,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamed(context, '/Cards');
+
+                          /*Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CardsPage()));
+                                  builder: (context) => CardsPage()));*/
                         }),
                   ),
                 ),
@@ -163,10 +202,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamed(context, '/Figures');
+
+                          /*Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => FiguresPage()));
+                                  builder: (context) => FiguresPage()));*/
                         }),
                   ),
                 ),
@@ -201,10 +242,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamed(context, '/Calculators');
+
+
+                          /* Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CalculatorsPage()));
+                                  builder: (context) => CalculatorsPage()));*/
                         }),
                   ),
                 ),
@@ -236,10 +280,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamed(context, '/Resources');
+                          /*Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ResourcesPage()));
+                                  builder: (context) => ResourcesPage()));*/
                         }),
                   ),
                 ),
@@ -274,10 +319,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamed(context, '/PubMed');
+
+                          /*Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PubMedPage()));
+                                  builder: (context) => PubMedPage()));*/
                         }),
                   ),
                 ),
@@ -309,10 +356,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ],
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamed(context, '/Information');
+
+                          /*Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => InformationPage()));
+                                  builder: (context) => InformationPage()));*/
                         }),
                   ),
                 ),
