@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class HomePageWidget extends StatefulWidget {
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
@@ -12,59 +11,102 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   Widget build(BuildContext context) {
     final title = 'HepApp';
-
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
 
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(90),
-        child: PreferredSize(
-          preferredSize: Size.fromHeight(60),
-          child: AppBar(
-            title: Text(
+        /*child: Container(
+          height: 80,*/
+        /*PreferredSize(
+          preferredSize: Size.fromHeight(30),*/
+
+        child: AppBar(
+          title: Container(
+            height: 30,
+            //width: MediaQuery.of(context).size.width,
+            child: Text(
               title,
               style: TextStyle(
                 color: Color.fromARGB(255, 255, 255, 255),
                 fontSize: 14,
+                backgroundColor: Color.fromARGB(255, 93, 188, 210),
               ),
             ),
-            centerTitle: true,
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(60.0),
-              child: Stack(
-                children: <Widget>[
+          ),
+          centerTitle: true,
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(70),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/header4.png',
+                  height: 70,
+                  //width: 1200,
+                  width: width,
 
-                  Image.asset(
-                    'images/header4.png',
-                  ),
-                  Center(
-                    child: Container(
-                      padding: EdgeInsets.all(2),
-                      child: Image.asset(
-                        'images/hepapplogo.png',
-                        width: 60,
-                        height: 60,
-                      ),
+                  //width: context.,
+                ),
+                Center(
+                  child: Container(
+                    //height: 60,
+                    //padding: EdgeInsets.all(2),
+                    child: Image.asset(
+                      'images/hepapplogo.png',
+                      width: 60,
+                      height: 60,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
       ),
 
+      /*PreferredSize(
+        preferredSize: Size.fromHeight(100),
+        child: Stack(
+          children: <Widget>[
+            Image.asset(
+              'images/header4.png',
+              //width: context.,
+            ),
+            Center(
+              child: Container(
+                padding: EdgeInsets.all(2),
+                child: Image.asset(
+                  'images/hepapplogo.png',
+                  width: 60,
+                  height: 60,
+                ),
+              ),
+            ),
+            PreferredSize(
+              preferredSize: Size.fromHeight(30),
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontSize: 14,
+                  backgroundColor: Color.fromARGB(255, 93, 188, 210),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),*/
+
       body: OrientationBuilder(
         builder: (context, orientation) {
           return orientation == Orientation.portrait
               ? _buildVerticalLayout()
-          //         : _buildVerticalLayout();
               : _buildHorizontalLayout();
         },
       ),
-
-
-
-
     );
   }
 
@@ -75,7 +117,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
         //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
 
-          children: <TableRow>[ //Cuatro filas de dos elementos cada una
+          children: <TableRow>[
+            //Cuatro filas de dos elementos cada una
             TableRow(children: <Widget>[
               //Primera fila: Chapters y podcasts
               _iconoChapters(),
@@ -95,7 +138,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               //Cuarta fila: PubMed e Information
               _iconoPubMed(),
               _iconoInformation(),
-
             ]),
           ]),
     );
@@ -103,29 +145,29 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   _buildHorizontalLayout() {
     return SingleChildScrollView(
-      padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
-      child: Table(
-          children: <TableRow>[ //Dos filas de cuatro elementos cada una
-            TableRow(children: <Widget>[
-              //Primera fila: Chapters, podcasts, cards, figures
-              _iconoChapters(),
-              _iconoPodcasts(),
-              _iconoCards(),
-              _iconoFigures(),
-            ]),
-            TableRow(children: <Widget>[
-              //Segunda fila: Calculators, resources, pubmed, information
-              _iconoCalculators(),
-              _iconoResources(),
-              _iconoPubMed(),
-              _iconoInformation(),
-
-            ]),
-          ]),
+      padding: EdgeInsets.fromLTRB(100, 0, 100, 0),
+      child: Table(children: <TableRow>[
+        //Dos filas de cuatro elementos cada una
+        TableRow(children: <Widget>[
+          //Primera fila: Chapters, podcasts, cards, figures
+          _iconoChapters(),
+          _iconoPodcasts(),
+          _iconoCards(),
+          _iconoFigures(),
+        ]),
+        TableRow(children: <Widget>[
+          //Segunda fila: Calculators, resources, pubmed, information
+          _iconoCalculators(),
+          _iconoResources(),
+          _iconoPubMed(),
+          _iconoInformation(),
+        ]),
+      ]),
     );
   }
 
   _iconoChapters() {
+    //bool orientation == Orientation.portrait;
     return FittedBox(
       //Chapters
       fit: BoxFit.fill,
@@ -404,4 +446,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       ),
     );
   }
+
+  _buildVerticalAppBar() {}
+
+  _buildHorizontalAppBar() {}
 }
