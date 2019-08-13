@@ -18,7 +18,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(90),
         child: PreferredSize(
-          preferredSize: Size.fromHeight(20),
+          preferredSize: Size.fromHeight(60),
           child: AppBar(
             title: Text(
               title,
@@ -32,6 +32,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               preferredSize: const Size.fromHeight(60.0),
               child: Stack(
                 children: <Widget>[
+
                   Image.asset(
                     'images/header4.png',
                   ),
@@ -52,321 +53,354 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         ),
       ),
 
-      body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
-        child: Table(
-          //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
-          //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-            children: <TableRow>[
-              TableRow(children: <Widget>[
-                //Primera fila: Chapters y podcasts
-                FittedBox(
-                  //Chapters
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/chapters.png',
-                            ),
-                            Center(
-                              child: Align(
-                                alignment: Alignment(0, 0.7),
-                                child: Text(
-                                  'Chapters',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 93, 188, 210),
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/Chapters');
-
-                          /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ChaptersPage()));*/
-                        }),
-                  ),
-                ),
-                FittedBox(
-                  //Podcasts
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/podcast.png',
-                            ),
-                            Center(
-                              child: Align(
-                                alignment: Alignment(0, 0.7),
-                                child: Text(
-                                  'Podcasts',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 93, 188, 210),
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/Podcasts');
-
-                          /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PodcastsPage()));*/
-                        }),
-                  ),
-                ),
-              ]),
-              TableRow(children: <Widget>[
-                //Segunda fila: Cards y figures
-                FittedBox(
-                  //Cards
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/cards.png',
-                            ),
-                            Center(
-                              child: Align(
-                                alignment: Alignment(0, 0.7),
-                                child: Text(
-                                  'Cards',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 93, 188, 210),
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/Cards');
-
-                          /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CardsPage()));*/
-                        }),
-                  ),
-                ),
-                FittedBox(
-                  //Figures
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/newfiguresbutton.png',
-                            ),
-                            Center(
-                              child: Align(
-                                alignment: Alignment(0, 0.7),
-                                child: Text(
-                                  'Figures',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 93, 188, 210),
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/Figures');
-
-                          /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => FiguresPage()));*/
-                        }),
-                  ),
-                ),
-              ]),
-              TableRow(children: <Widget>[
-                //Tercera fila: Calculators y resources
-                FittedBox(
-                  //Calculators
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/calc.png',
-                            ),
-                            Center(
-                              child: Align(
-                                alignment: Alignment(0, 0.7),
-                                child: Text(
-                                  'Calculators',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 93, 188, 210),
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/Calculators');
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          return orientation == Orientation.portrait
+              ? _buildVerticalLayout()
+          //         : _buildVerticalLayout();
+              : _buildHorizontalLayout();
+        },
+      ),
 
 
-                          /* Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CalculatorsPage()));*/
-                        }),
-                  ),
-                ),
-                FittedBox(
-                  //Resources
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/favs.png',
-                            ),
-                            Center(
-                              child: Align(
-                                alignment: Alignment(0, 0.7),
-                                child: Text(
-                                  'Resources',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 93, 188, 210),
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/Resources');
-                          /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ResourcesPage()));*/
-                        }),
-                  ),
-                ),
-              ]),
-              TableRow(children: <Widget>[
-                //Cuarta fila: PubMed e Information
-                FittedBox(
-                  //PubMed
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/pubmed.png',
-                            ),
-                            Center(
-                              child: Align(
-                                alignment: Alignment(0, 0.7),
-                                child: Text(
-                                  'PubMed',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 93, 188, 210),
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/PubMed');
 
-                          /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PubMedPage()));*/
-                        }),
-                  ),
-                ),
-                FittedBox(
-                  //Information
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/questionmarkicon.png',
-                            ),
-                            Center(
-                              child: Align(
-                                alignment: Alignment(0, 0.7),
-                                child: Text(
-                                  'Information',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 93, 188, 210),
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/Information');
 
-                          /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => InformationPage()));*/
-                        }),
-                  ),
-                ),
-              ]),
+    );
+  }
+
+  _buildVerticalLayout() {
+    return SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
+      child: Table(
+        //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
+        //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+
+          children: <TableRow>[ //Cuatro filas de dos elementos cada una
+            TableRow(children: <Widget>[
+              //Primera fila: Chapters y podcasts
+              _iconoChapters(),
+              _iconoPodcasts(),
             ]),
+            TableRow(children: <Widget>[
+              //Segunda fila: Cards y figures
+              _iconoCards(),
+              _iconoFigures(),
+            ]),
+            TableRow(children: <Widget>[
+              //Tercera fila: Calculators y resources
+              _iconoCalculators(),
+              _iconoResources(),
+            ]),
+            TableRow(children: <Widget>[
+              //Cuarta fila: PubMed e Information
+              _iconoPubMed(),
+              _iconoInformation(),
+
+            ]),
+          ]),
+    );
+  }
+
+  _buildHorizontalLayout() {
+    return SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
+      child: Table(
+          children: <TableRow>[ //Dos filas de cuatro elementos cada una
+            TableRow(children: <Widget>[
+              //Primera fila: Chapters, podcasts, cards, figures
+              _iconoChapters(),
+              _iconoPodcasts(),
+              _iconoCards(),
+              _iconoFigures(),
+            ]),
+            TableRow(children: <Widget>[
+              //Segunda fila: Calculators, resources, pubmed, information
+              _iconoCalculators(),
+              _iconoResources(),
+              _iconoPubMed(),
+              _iconoInformation(),
+
+            ]),
+          ]),
+    );
+  }
+
+  _iconoChapters() {
+    return FittedBox(
+      //Chapters
+      fit: BoxFit.fill,
+      child: Container(
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/chapters.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'Chapters',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/Chapters');
+            }),
+      ),
+    );
+  }
+
+  _iconoPodcasts() {
+    return FittedBox(
+      //Podcasts
+      fit: BoxFit.fill,
+      child: Container(
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/podcast.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'Podcasts',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/Podcasts');
+            }),
+      ),
+    );
+  }
+
+  _iconoCards() {
+    return FittedBox(
+      //Cards
+      fit: BoxFit.fill,
+      child: Container(
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/cards.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'Cards',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/Cards');
+            }),
+      ),
+    );
+  }
+
+  _iconoFigures() {
+    return FittedBox(
+      //Figures
+      fit: BoxFit.fill,
+      child: Container(
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/newfiguresbutton.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'Figures',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/Figures');
+            }),
+      ),
+    );
+  }
+
+  _iconoCalculators() {
+    return FittedBox(
+      //Calculators
+      fit: BoxFit.fill,
+      child: Container(
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/calc.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'Calculators',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/Calculators');
+            }),
+      ),
+    );
+  }
+
+  _iconoResources() {
+    return FittedBox(
+      //Resources
+      fit: BoxFit.fill,
+      child: Container(
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/favs.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'Resources',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/Resources');
+            }),
+      ),
+    );
+  }
+
+  _iconoPubMed() {
+    return FittedBox(
+      //PubMed
+      fit: BoxFit.fill,
+      child: Container(
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/pubmed.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'PubMed',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/PubMed');
+            }),
+      ),
+    );
+  }
+
+  _iconoInformation() {
+    return FittedBox(
+      //Information
+      fit: BoxFit.fill,
+      child: Container(
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/questionmarkicon.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'Information',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/Information');
+            }),
       ),
     );
   }

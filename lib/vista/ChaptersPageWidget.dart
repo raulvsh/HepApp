@@ -18,6 +18,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
         title: new Text("Module Chapters"),
       ),
       body: new Center(
+        //TODO: Hacer recuperación de datos de internet
         child: new Text("Some text"),
       ),
     );
