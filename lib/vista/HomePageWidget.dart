@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class HomePageWidget extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    //bool orientationPortrait =        MediaQuery.of(context).orientation == Orientation.portrait;
+
     final title = 'HepApp';
     final width = MediaQuery
         .of(context)
@@ -19,15 +22,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(90),
-        /*child: Container(
-          height: 80,*/
-        /*PreferredSize(
-          preferredSize: Size.fromHeight(30),*/
-
         child: AppBar(
           title: Container(
             height: 30,
-            //width: MediaQuery.of(context).size.width,
             child: Text(
               title,
               style: TextStyle(
@@ -45,15 +42,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 Image.asset(
                   'images/header4.png',
                   height: 70,
-                  //width: 1200,
                   width: width,
-
-                  //width: context.,
+                  fit: BoxFit.fitWidth,
                 ),
                 Center(
                   child: Container(
                     //height: 60,
-                    //padding: EdgeInsets.all(2),
+                    padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
                     child: Image.asset(
                       'images/hepapplogo.png',
                       width: 60,
@@ -66,51 +61,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           ),
         ),
       ),
-
-      /*PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: Stack(
-          children: <Widget>[
-            Image.asset(
-              'images/header4.png',
-              //width: context.,
-            ),
-            Center(
-              child: Container(
-                padding: EdgeInsets.all(2),
-                child: Image.asset(
-                  'images/hepapplogo.png',
-                  width: 60,
-                  height: 60,
-                ),
-              ),
-            ),
-            PreferredSize(
-              preferredSize: Size.fromHeight(30),
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  fontSize: 14,
-                  backgroundColor: Color.fromARGB(255, 93, 188, 210),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),*/
-
       body: OrientationBuilder(
         builder: (context, orientation) {
           return orientation == Orientation.portrait
-              ? _buildVerticalLayout()
-              : _buildHorizontalLayout();
+              ? _buildVerticalLayout(orientation)
+              : _buildHorizontalLayout(orientation);
         },
       ),
     );
   }
 
-  _buildVerticalLayout() {
+  _buildVerticalLayout(orientation) {
     return SingleChildScrollView(
       padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
       child: Table(
@@ -121,53 +82,53 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             //Cuatro filas de dos elementos cada una
             TableRow(children: <Widget>[
               //Primera fila: Chapters y podcasts
-              _iconoChapters(),
-              _iconoPodcasts(),
+              _iconoChapters(orientation),
+              _iconoPodcasts(orientation),
             ]),
             TableRow(children: <Widget>[
               //Segunda fila: Cards y figures
-              _iconoCards(),
-              _iconoFigures(),
+              _iconoCards(orientation),
+              _iconoFigures(orientation),
             ]),
             TableRow(children: <Widget>[
               //Tercera fila: Calculators y resources
-              _iconoCalculators(),
-              _iconoResources(),
+              _iconoCalculators(orientation),
+              _iconoResources(orientation),
             ]),
             TableRow(children: <Widget>[
               //Cuarta fila: PubMed e Information
-              _iconoPubMed(),
-              _iconoInformation(),
+              _iconoPubMed(orientation),
+              _iconoInformation(orientation),
             ]),
           ]),
     );
   }
 
-  _buildHorizontalLayout() {
+  _buildHorizontalLayout(orientation) {
     return SingleChildScrollView(
-      padding: EdgeInsets.fromLTRB(100, 0, 100, 0),
+      padding: EdgeInsets.fromLTRB(200, 50, 200, 50),
       child: Table(children: <TableRow>[
         //Dos filas de cuatro elementos cada una
         TableRow(children: <Widget>[
           //Primera fila: Chapters, podcasts, cards, figures
-          _iconoChapters(),
-          _iconoPodcasts(),
-          _iconoCards(),
-          _iconoFigures(),
+          _iconoChapters(orientation),
+          _iconoPodcasts(orientation),
+          _iconoCards(orientation),
+          _iconoFigures(orientation),
         ]),
         TableRow(children: <Widget>[
           //Segunda fila: Calculators, resources, pubmed, information
-          _iconoCalculators(),
-          _iconoResources(),
-          _iconoPubMed(),
-          _iconoInformation(),
+          _iconoCalculators(orientation),
+          _iconoResources(orientation),
+          _iconoPubMed(orientation),
+          _iconoInformation(orientation),
         ]),
       ]),
     );
   }
 
-  _iconoChapters() {
-    //bool orientation == Orientation.portrait;
+  /*_iconoChapters(orientation) {
+
     return FittedBox(
       //Chapters
       fit: BoxFit.fill,
@@ -200,21 +161,57 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             }),
       ),
     );
-  }
+  }*/
 
-  _iconoPodcasts() {
+  _iconoChapters(orientation) {
     return FittedBox(
-      //Podcasts
-      fit: BoxFit.fill,
+      //Chapters
+      fit: BoxFit.scaleDown,
       child: Container(
-        width: 145,
-        height: 145,
+        width: orientation == Orientation.portrait ? 110 : 100,
+        height: orientation == Orientation.portrait ? 110 : 100,
         child: FlatButton(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(2),
             child: Stack(
               children: <Widget>[
                 Image.asset(
-                  'images/podcast.png',
+                  'images/chapters.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'Chapters',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: orientation == Orientation.portrait ? 16 : 16,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/Chapters');
+            }),
+      ),
+    );
+    // },
+    // );
+  }
+
+  _iconoPodcasts(orientation) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Container(
+        width: orientation == Orientation.portrait ? 110 : 100,
+        height: orientation == Orientation.portrait ? 110 : 100,
+        child: FlatButton(
+            padding: EdgeInsets.all(2),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/podcasts.png',
                 ),
                 Center(
                   child: Align(
@@ -223,7 +220,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       'Podcasts',
                       style: TextStyle(
                         color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 18,
+                        fontSize: orientation == Orientation.portrait ? 16 : 16,
                       ),
                     ),
                   ),
@@ -235,17 +232,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             }),
       ),
     );
+    // },
+    // );
   }
 
-  _iconoCards() {
+  _iconoCards(orientation) {
     return FittedBox(
-      //Cards
-      fit: BoxFit.fill,
+      fit: BoxFit.scaleDown,
       child: Container(
-        width: 145,
-        height: 145,
+        width: orientation == Orientation.portrait ? 110 : 100,
+        height: orientation == Orientation.portrait ? 110 : 100,
         child: FlatButton(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(2),
             child: Stack(
               children: <Widget>[
                 Image.asset(
@@ -258,7 +256,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       'Cards',
                       style: TextStyle(
                         color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 18,
+                        fontSize: orientation == Orientation.portrait ? 16 : 16,
                       ),
                     ),
                   ),
@@ -270,21 +268,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             }),
       ),
     );
+    // },
+    // );
   }
 
-  _iconoFigures() {
+  _iconoFigures(orientation) {
     return FittedBox(
-      //Figures
-      fit: BoxFit.fill,
+      fit: BoxFit.scaleDown,
       child: Container(
-        width: 145,
-        height: 145,
+        width: orientation == Orientation.portrait ? 110 : 100,
+        height: orientation == Orientation.portrait ? 110 : 100,
         child: FlatButton(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(2),
             child: Stack(
               children: <Widget>[
                 Image.asset(
-                  'images/newfiguresbutton.png',
+                  'images/figures.png',
                 ),
                 Center(
                   child: Align(
@@ -293,7 +292,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       'Figures',
                       style: TextStyle(
                         color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 18,
+                        fontSize: orientation == Orientation.portrait ? 16 : 16,
                       ),
                     ),
                   ),
@@ -305,21 +304,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             }),
       ),
     );
+    // },
+    // );
   }
 
-  _iconoCalculators() {
+  _iconoCalculators(orientation) {
     return FittedBox(
-      //Calculators
-      fit: BoxFit.fill,
+      fit: BoxFit.scaleDown,
       child: Container(
-        width: 145,
-        height: 145,
+        width: orientation == Orientation.portrait ? 110 : 100,
+        height: orientation == Orientation.portrait ? 110 : 100,
         child: FlatButton(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(2),
             child: Stack(
               children: <Widget>[
                 Image.asset(
-                  'images/calc.png',
+                  'images/calculators.png',
                 ),
                 Center(
                   child: Align(
@@ -328,7 +328,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       'Calculators',
                       style: TextStyle(
                         color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 18,
+                        fontSize: orientation == Orientation.portrait ? 16 : 16,
                       ),
                     ),
                   ),
@@ -340,21 +340,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             }),
       ),
     );
+    // },
+    // );
   }
 
-  _iconoResources() {
+  _iconoResources(orientation) {
     return FittedBox(
-      //Resources
-      fit: BoxFit.fill,
+      fit: BoxFit.scaleDown,
       child: Container(
-        width: 145,
-        height: 145,
+        width: orientation == Orientation.portrait ? 110 : 100,
+        height: orientation == Orientation.portrait ? 110 : 100,
         child: FlatButton(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(2),
             child: Stack(
               children: <Widget>[
                 Image.asset(
-                  'images/favs.png',
+                  'images/resources.png',
                 ),
                 Center(
                   child: Align(
@@ -363,7 +364,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       'Resources',
                       style: TextStyle(
                         color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 18,
+                        fontSize: orientation == Orientation.portrait ? 16 : 16,
                       ),
                     ),
                   ),
@@ -375,17 +376,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             }),
       ),
     );
+    // },
+    // );
   }
 
-  _iconoPubMed() {
+  _iconoPubMed(orientation) {
     return FittedBox(
-      //PubMed
-      fit: BoxFit.fill,
+      fit: BoxFit.scaleDown,
       child: Container(
-        width: 145,
-        height: 145,
+        width: orientation == Orientation.portrait ? 110 : 100,
+        height: orientation == Orientation.portrait ? 110 : 100,
         child: FlatButton(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(2),
             child: Stack(
               children: <Widget>[
                 Image.asset(
@@ -398,7 +400,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       'PubMed',
                       style: TextStyle(
                         color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 18,
+                        fontSize: orientation == Orientation.portrait ? 16 : 16,
                       ),
                     ),
                   ),
@@ -410,21 +412,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             }),
       ),
     );
+    // },
+    // );
   }
 
-  _iconoInformation() {
+  _iconoInformation(orientation) {
     return FittedBox(
-      //Information
-      fit: BoxFit.fill,
+      fit: BoxFit.scaleDown,
       child: Container(
-        width: 145,
-        height: 145,
+        width: orientation == Orientation.portrait ? 110 : 100,
+        height: orientation == Orientation.portrait ? 110 : 100,
         child: FlatButton(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(2),
             child: Stack(
               children: <Widget>[
                 Image.asset(
-                  'images/questionmarkicon.png',
+                  'images/information.png',
                 ),
                 Center(
                   child: Align(
@@ -433,7 +436,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       'Information',
                       style: TextStyle(
                         color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 18,
+                        fontSize: orientation == Orientation.portrait ? 16 : 16,
                       ),
                     ),
                   ),
@@ -445,9 +448,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             }),
       ),
     );
+    // },
+    // );
   }
 
-  _buildVerticalAppBar() {}
-
-  _buildHorizontalAppBar() {}
 }
