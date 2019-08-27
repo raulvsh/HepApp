@@ -15,27 +15,53 @@ class _ChaptersPageState extends State<ChaptersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.white,
+        automaticallyImplyLeading: true,
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            Navigator.pushNamed(context, '/');
+          },
         ),
-        title: Text(
-          "Module Chapters",
-          /*style: TextStyle(
-            color: Color.fromARGB(255, 255, 255, 255),
-          ),*/
-        ),
-        actions: <Widget>[
-          // action button
-          IconButton(
-            icon: Image.asset(
-              'images/homeicon.png',
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/');
-            },
+        title: Container(
+          child: Row(
+            children: <Widget>[
+              FlatButton(
+                  padding: EdgeInsets.all(2),
+                  child: Row(
+                    children: <Widget>[
+                      Image.asset(
+                        'images/arrowthickleft.png',
+                        width: 25,
+                        height: 25,
+                      ),
+                      Text(
+                        'Back',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/');
+                  }),
+              IconButton(
+                icon: Image.asset(
+                  'images/homeicon.png',
+                  width: 25,
+                  height: 25,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/');
+                },
+              ),
+              Text(
+                "Chapters",
+              ),
+            ],
           ),
-          // action button
-        ],
+        ),
       ),
       body: Center(
         //TODO: Hacer recuperación de datos de internet

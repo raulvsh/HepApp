@@ -15,11 +15,51 @@ class _InformationPageState extends State<InformationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.white,
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            Navigator.pushNamed(context, '/');
+          },
         ),
-        title: Text(
-          "Information",
+        title: Container(
+          child: Row(
+            children: <Widget>[
+              FlatButton(
+                  padding: EdgeInsets.all(2),
+                  child: Row(
+                    children: <Widget>[
+                      Image.asset(
+                        'images/arrowthickleft.png',
+                        width: 25,
+                        height: 25,
+                      ),
+                      Text(
+                        'Back',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/');
+                  }),
+              IconButton(
+                icon: Image.asset(
+                  'images/homeicon.png',
+                  width: 25,
+                  height: 25,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/');
+                },
+              ),
+              Text(
+                "Information",
+              ),
+            ],
+          ),
         ),
       ),
       body: Center(
