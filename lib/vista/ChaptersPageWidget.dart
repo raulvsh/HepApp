@@ -13,11 +13,31 @@ class _ChaptersPageState extends State<ChaptersPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Module Chapters"),
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        title: Text(
+          "Module Chapters",
+          /*style: TextStyle(
+            color: Color.fromARGB(255, 255, 255, 255),
+          ),*/
+        ),
+        actions: <Widget>[
+          // action button
+          IconButton(
+            icon: Image.asset(
+              'images/homeicon.png',
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/');
+            },
+          ),
+          // action button
+        ],
       ),
-      body: new Center(
+      body: Center(
         //TODO: Hacer recuperación de datos de internet
         child: new Text("Some text"),
       ),

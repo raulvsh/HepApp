@@ -7,6 +7,11 @@ import 'package:hepapp/vista/Calculators/OkudaCalcPageWidget.dart';
 import 'package:hepapp/vista/CalculatorsPageWidget.dart';
 import 'package:hepapp/vista/CardsPageWidget.dart';
 import 'package:hepapp/vista/ChaptersPageWidget.dart';
+import 'package:hepapp/vista/Figures/ChapterFigPageWidget.dart';
+import 'package:hepapp/vista/Figures/DrawingFigPageWidget.dart';
+import 'package:hepapp/vista/Figures/InteractiveFigPageWidget.dart';
+import 'package:hepapp/vista/Figures/SchemesFigPageWidget.dart';
+import 'package:hepapp/vista/Figures/TableFigPageWidget.dart';
 import 'package:hepapp/vista/FiguresPageWidget.dart';
 import 'package:hepapp/vista/InformationPageWidget.dart';
 import 'package:hepapp/vista/PodcastsPageWidget.dart';
@@ -14,7 +19,6 @@ import 'package:hepapp/vista/PubMedPageWidget.dart';
 import 'package:hepapp/vista/ResourcesPageWidget.dart';
 
 import 'vista/HomePageWidget.dart';
-
 
 void main() => runApp(MyApp());
 
@@ -30,6 +34,10 @@ class MyApp extends StatelessWidget {
       title: title,
       theme: ThemeData(
         primaryColor: Color.fromARGB(255, 93, 188, 210),
+
+        primaryTextTheme: TextTheme(
+          title: TextStyle(color: Colors.white),
+        ),
       ),
       //home: MyHomePage(title: title), //No usar home al usar routes
       // Start the app with the "/" named route. In this case, the app starts
@@ -53,7 +61,12 @@ class MyApp extends StatelessWidget {
         '/CLIPCalc': (context) => CLIPCalcPage(),
         '/MELDCalc': (context) => MELDCalcPage(),
         '/OkudaCalc': (context) => OkudaCalcPage(),
-
+        //Rutas de los distintos apartados de Figures
+        '/TableFig': (context) => TableFigPage(),
+        '/ChapterFig': (context) => ChapterFigPage(),
+        '/DrawingFig': (context) => DrawingFigPage(),
+        '/InteractiveFig': (context) => InteractiveFigPage(),
+        '/SchemesFig': (context) => SchemesFigPage(),
 
       },
     );

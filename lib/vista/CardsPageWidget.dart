@@ -13,9 +13,14 @@ class _CardsPageState extends State<CardsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("Module cards"),
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        title: Text(
+          "Module Cards",
+        ),
       ),
       body: new Center(
         child: new Text("Some text"),

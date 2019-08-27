@@ -11,209 +11,252 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        title: new Text("Calculators"),
+        appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+          title: new Text(
+            "Calculators",
+          ),
+        ),
+        body: OrientationBuilder(
+          builder: (context, orientation) {
+            return orientation == Orientation.portrait
+                ? _buildVerticalLayout(orientation)
+                : _buildHorizontalLayout(orientation);
+          },
+        ));
+  }
+
+  _buildVerticalLayout(orientation) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
+      child: Table(
+        //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
+        //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+          children: <TableRow>[
+            //Cuatro filas de dos elementos cada una
+            TableRow(children: <Widget>[
+              _iconoAllAlgorithms(orientation),
+              _iconoChildPugh(orientation),
+            ]),
+            TableRow(children: <Widget>[
+              _iconoMELD(orientation),
+              _iconoOkuda(orientation),
+            ]),
+            TableRow(children: <Widget>[
+              _iconoCLIP(orientation),
+              FittedBox(),
+            ]),
+          ]),
+    );
+  }
+
+  _buildHorizontalLayout(orientation) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(200, 50, 200, 50),
+      child: Table(children: <TableRow>[
+        //Dos filas de cuatro elementos cada una
+        TableRow(children: <Widget>[
+          //Primera fila: Chapters, podcasts, cards, figures
+          _iconoAllAlgorithms(orientation),
+          _iconoChildPugh(orientation),
+          _iconoMELD(orientation),
+          _iconoOkuda(orientation),
+        ]),
+        TableRow(children: <Widget>[
+          //Segunda fila: Calculators, resources, pubmed, information
+          _iconoCLIP(orientation),
+          FittedBox(),
+          FittedBox(),
+          FittedBox(),
+        ]),
+      ]),
+    );
+  }
+
+  _iconoAllAlgorithms(orientation) {
+    return FittedBox(
+      //All algorithms
+      fit: BoxFit.fill,
+      child: Container(
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/calculators.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'All algorithms',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/AllCalc');
+            }),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(65, 105, 65, 70),
-        child: Table(
-            border: _isBorderEnabled ? TableBorder.all() : null,
-            //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-            children: <TableRow>[
-              TableRow(children: <Widget>[
-                //Primera fila: All algorithms y Child Pugh Score
-                FittedBox(
-                  //All algorithms
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/calc.png',
-                            ),
-                            Center(
-                              child: Align(
-                                alignment: Alignment(0, 0.7),
-                                child: Text(
-                                  'All algorithms',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 93, 188, 210),
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/AllCalc');
+    );
+  }
 
-                          /* Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AllCalcPage()));*/
-                        }),
+  _iconoChildPugh(orientation) {
+    return FittedBox(
+      //Child Pugh Score
+      fit: BoxFit.fill,
+      child: Container(
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/calculators.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'Child Pugh Score',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ),
-                FittedBox(
-                  //Child Pugh Score
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/calc.png',
-                            ),
-                            Center(
-                              child: Align(
-                                alignment: Alignment(0, 0.7),
-                                child: Text(
-                                  'Child Pugh Score',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 93, 188, 210),
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/ChildCalc');
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/ChildCalc');
+            }),
+      ),
+    );
+  }
 
-                          /* Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ChildCalcPage()));*/
-                        }),
+  _iconoMELD(orientation) {
+    return FittedBox(
+      //MELD
+      fit: BoxFit.fill,
+      child: Container(
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/calculators.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'MELD',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ),
-              ]),
-              TableRow(children: <Widget>[
-                //Segunda fila: MELD y Okuda Staging System
-                FittedBox(
-                  //MELD
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/calc.png',
-                            ),
-                            Center(
-                              child: Align(
-                                alignment: Alignment(0, 0.7),
-                                child: Text(
-                                  'MELD',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 93, 188, 210),
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/MELDCalc');
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/MELDCalc');
 
-                          /*Navigator.push(
+              /*Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MELDCalcPage()));*/
-                        }),
+            }),
+      ),
+    );
+  }
+
+  _iconoOkuda(orientation) {
+    return FittedBox(
+      //Okuda Staging System
+      fit: BoxFit.fill,
+      child: Container(
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/calculators.png',
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      'Okuda Staging System',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ),
-                FittedBox(
-                  //Okuda Staging System
-                  fit: BoxFit.fill,
-                  child: Container(
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/calc.png',
-                            ),
-                            Center(
-                              child: Align(
-                                alignment: Alignment(0, 0.7),
-                                child: Text(
-                                  'Okuda Staging System',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 93, 188, 210),
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/OkudaCalc');
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/OkudaCalc');
 
-                          /*Navigator.push(
+              /*Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => OkudaCalcPage()));*/
-                        }),
-                  ),
-                ),
-              ]),
-              TableRow(children: <Widget>[
-                //Tercera fila: CLIP Staging System
-                FittedBox(
-                  //CLIP Staging System
-                  fit: BoxFit.fill,
-                  child: Container(
-                    //alignment: Alignment(-1,0),
-                    width: 145,
-                    height: 145,
-                    child: FlatButton(
-                        padding: EdgeInsets.all(5),
-                        child: Stack(
-                          children: <Widget>[
-                            Image.asset(
-                              'images/calc.png',
-                            ),
-                            Align(
-                              alignment: Alignment(0, 0.7),
-                              child: Text(
-                                'CLIP Staging System',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 93, 188, 210),
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/CLIPCalc');
-                        }),
-                  ),
-                ),
-                FittedBox(//Caja vacía
+            }),
+      ),
+    );
+  }
 
+  _iconoCLIP(orientation) {
+    return FittedBox(
+      //CLIP Staging System
+      fit: BoxFit.fill,
+      child: Container(
+        //alignment: Alignment(-1,0),
+        width: 145,
+        height: 145,
+        child: FlatButton(
+            padding: EdgeInsets.all(5),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'images/calculators.png',
+                ),
+                Align(
+                  alignment: Alignment(0, 0.7),
+                  child: Text(
+                    'CLIP Staging System',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 93, 188, 210),
+                      fontSize: 16,
                     ),
-              ]),
-            ]),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/CLIPCalc');
+            }),
       ),
     );
   }

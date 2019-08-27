@@ -15,7 +15,12 @@ class _ResourcesPageState extends State<ResourcesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Resources"),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        title: Text(
+          "Resources",
+        ),
       ),
       body: Center(
         child: RaisedButton(

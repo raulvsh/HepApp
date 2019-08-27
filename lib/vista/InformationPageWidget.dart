@@ -15,7 +15,12 @@ class _InformationPageState extends State<InformationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Information Page"),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        title: Text(
+          "Information",
+        ),
       ),
       body: Center(
         child: RaisedButton(

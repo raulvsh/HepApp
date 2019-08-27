@@ -14,8 +14,13 @@ class _PubMedPageState extends State<PubMedPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("PubMed"),
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        title: Text(
+          "PubMed",
+        ),
       ),
       body: new Center(
         child: new Text("Some text"),

@@ -23,14 +23,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(90),
         child: AppBar(
+          automaticallyImplyLeading: false, //Elimina el botón back
           title: Container(
             height: 30,
             child: Text(
               title,
               style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontSize: 14,
-                backgroundColor: Color.fromARGB(255, 93, 188, 210),
+                fontSize: 15,
               ),
             ),
           ),
@@ -127,42 +126,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     );
   }
 
-  /*_iconoChapters(orientation) {
-
-    return FittedBox(
-      //Chapters
-      fit: BoxFit.fill,
-      child: Container(
-        width: 145,
-        height: 145,
-        child: FlatButton(
-            padding: EdgeInsets.all(5),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/chapters.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'Chapters',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/Chapters');
-            }),
-      ),
-    );
-  }*/
-
   _iconoChapters(orientation) {
     return FittedBox(
       //Chapters
@@ -196,8 +159,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             }),
       ),
     );
-    // },
-    // );
   }
 
   _iconoPodcasts(orientation) {
