@@ -8,7 +8,16 @@ class HomePageWidget extends StatefulWidget {
 
 class _HomePageWidgetState extends State<HomePageWidget> {
   bool _isBorderEnabled = false;
-
+  var TiposSecciones = {
+    "Chapters": ['Chapters', 'chapters.png', '/Chapters'],
+    "Podcasts": ['Podcasts', 'podcasts.png', '/Podcasts'],
+    "Cards": ['Cards', 'cards.png', '/Cards'],
+    "Figures": ['Figures', 'figures.png', '/Figures'],
+    "Calculators": ['Calculators', 'calculators.png', '/Calculators'],
+    "Resources": ['Resources', 'resources.png', '/Resources'],
+    "PubMed": ['PubMed', 'pubmed.png', '/PubMed'],
+    "Information": ['Information', 'information.png', '/Information'],
+  };
   @override
   Widget build(BuildContext context) {
     //bool orientationPortrait =        MediaQuery.of(context).orientation == Orientation.portrait;
@@ -81,23 +90,23 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             //Cuatro filas de dos elementos cada una
             TableRow(children: <Widget>[
               //Primera fila: Chapters y podcasts
-              _iconoChapters(orientation),
-              _iconoPodcasts(orientation),
+              _mostrarIcono('Chapters', orientation),
+              _mostrarIcono('Podcasts', orientation),
             ]),
             TableRow(children: <Widget>[
               //Segunda fila: Cards y figures
-              _iconoCards(orientation),
-              _iconoFigures(orientation),
+              _mostrarIcono('Cards', orientation),
+              _mostrarIcono('Figures', orientation),
             ]),
             TableRow(children: <Widget>[
               //Tercera fila: Calculators y resources
-              _iconoCalculators(orientation),
-              _iconoResources(orientation),
+              _mostrarIcono('Calculators', orientation),
+              _mostrarIcono('Resources', orientation),
             ]),
             TableRow(children: <Widget>[
               //Cuarta fila: PubMed e Information
-              _iconoPubMed(orientation),
-              _iconoInformation(orientation),
+              _mostrarIcono('PubMed', orientation),
+              _mostrarIcono('Information', orientation),
             ]),
           ]),
     );
@@ -110,23 +119,23 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         //Dos filas de cuatro elementos cada una
         TableRow(children: <Widget>[
           //Primera fila: Chapters, podcasts, cards, figures
-          _iconoChapters(orientation),
-          _iconoPodcasts(orientation),
-          _iconoCards(orientation),
-          _iconoFigures(orientation),
+          _mostrarIcono('Chapters', orientation),
+          _mostrarIcono('Podcasts', orientation),
+          _mostrarIcono('Cards', orientation),
+          _mostrarIcono('Figures', orientation),
         ]),
         TableRow(children: <Widget>[
           //Segunda fila: Calculators, resources, pubmed, information
-          _iconoCalculators(orientation),
-          _iconoResources(orientation),
-          _iconoPubMed(orientation),
-          _iconoInformation(orientation),
+          _mostrarIcono('Calculators', orientation),
+          _mostrarIcono('Resources', orientation),
+          _mostrarIcono('PubMed', orientation),
+          _mostrarIcono('Information', orientation),
         ]),
       ]),
     );
   }
 
-  _iconoChapters(orientation) {
+  _mostrarIcono(tipoSeccion, orientation) {
     return FittedBox(
       //Chapters
       fit: BoxFit.scaleDown,
@@ -138,13 +147,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             child: Stack(
               children: <Widget>[
                 Image.asset(
-                  'images/chapters.png',
+                  'images/' + TiposSecciones[tipoSeccion][1],
                 ),
                 Center(
                   child: Align(
                     alignment: Alignment(0, 0.7),
                     child: Text(
-                      'Chapters',
+                      TiposSecciones[tipoSeccion][0],
                       style: TextStyle(
                         color: Color.fromARGB(255, 93, 188, 210),
                         fontSize: orientation == Orientation.portrait ? 16 : 16,
@@ -155,262 +164,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ],
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/Chapters');
+              Navigator.pushNamed(context, TiposSecciones[tipoSeccion][2]);
             }),
       ),
     );
-  }
-
-  _iconoPodcasts(orientation) {
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      child: Container(
-        width: orientation == Orientation.portrait ? 110 : 100,
-        height: orientation == Orientation.portrait ? 110 : 100,
-        child: FlatButton(
-            padding: EdgeInsets.all(2),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/podcasts.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'Podcasts',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: orientation == Orientation.portrait ? 16 : 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/Podcasts');
-            }),
-      ),
-    );
-    // },
-    // );
-  }
-
-  _iconoCards(orientation) {
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      child: Container(
-        width: orientation == Orientation.portrait ? 110 : 100,
-        height: orientation == Orientation.portrait ? 110 : 100,
-        child: FlatButton(
-            padding: EdgeInsets.all(2),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/cards.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'Cards',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: orientation == Orientation.portrait ? 16 : 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/Cards');
-            }),
-      ),
-    );
-    // },
-    // );
-  }
-
-  _iconoFigures(orientation) {
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      child: Container(
-        width: orientation == Orientation.portrait ? 110 : 100,
-        height: orientation == Orientation.portrait ? 110 : 100,
-        child: FlatButton(
-            padding: EdgeInsets.all(2),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/figures.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'Figures',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: orientation == Orientation.portrait ? 16 : 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/Figures');
-            }),
-      ),
-    );
-    // },
-    // );
-  }
-
-  _iconoCalculators(orientation) {
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      child: Container(
-        width: orientation == Orientation.portrait ? 110 : 100,
-        height: orientation == Orientation.portrait ? 110 : 100,
-        child: FlatButton(
-            padding: EdgeInsets.all(2),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/calculators.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'Calculators',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: orientation == Orientation.portrait ? 16 : 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/Calculators');
-            }),
-      ),
-    );
-    // },
-    // );
-  }
-
-  _iconoResources(orientation) {
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      child: Container(
-        width: orientation == Orientation.portrait ? 110 : 100,
-        height: orientation == Orientation.portrait ? 110 : 100,
-        child: FlatButton(
-            padding: EdgeInsets.all(2),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/resources.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'Resources',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: orientation == Orientation.portrait ? 16 : 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/Resources');
-            }),
-      ),
-    );
-    // },
-    // );
-  }
-
-  _iconoPubMed(orientation) {
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      child: Container(
-        width: orientation == Orientation.portrait ? 110 : 100,
-        height: orientation == Orientation.portrait ? 110 : 100,
-        child: FlatButton(
-            padding: EdgeInsets.all(2),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/pubmed.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'PubMed',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: orientation == Orientation.portrait ? 16 : 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/PubMed');
-            }),
-      ),
-    );
-    // },
-    // );
-  }
-
-  _iconoInformation(orientation) {
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      child: Container(
-        width: orientation == Orientation.portrait ? 110 : 100,
-        height: orientation == Orientation.portrait ? 110 : 100,
-        child: FlatButton(
-            padding: EdgeInsets.all(2),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/information.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'Information',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: orientation == Orientation.portrait ? 16 : 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/Information');
-            }),
-      ),
-    );
-    // },
-    // );
   }
 
 }
