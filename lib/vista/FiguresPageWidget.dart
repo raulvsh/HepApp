@@ -6,7 +6,15 @@ class FiguresPage extends StatefulWidget {
 }
 
 class _FiguresPageState extends State<FiguresPage> {
-  bool _isBorderEnabled = false;
+  //bool _isBorderEnabled = false;
+
+  var TiposFigures = {
+    "TableOfContents": ['Table of Contents', 'figures.png', '/TableFig'],
+    "Schemes": ['Schemes', 'figures.png', '/SchemesFig'],
+    "Interactive": ['Interactive Figures', 'figures.png', '/InteractiveFig'],
+    "Chapter": ['Chapter Figures', 'figures.png', '/ChapterFig'],
+    "Drawing": ['Drawing', 'figures.png', '/DrawingFig'],
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -77,15 +85,15 @@ class _FiguresPageState extends State<FiguresPage> {
           children: <TableRow>[
             //Cuatro filas de dos elementos cada una
             TableRow(children: <Widget>[
-              _iconoTableContents(orientation),
-              _iconoSchemes(orientation),
+              _mostrarIcono('TableOfContents', orientation),
+              _mostrarIcono('Schemes', orientation),
             ]),
             TableRow(children: <Widget>[
-              _iconoInteractive(orientation),
-              _iconoChapter(orientation),
+              _mostrarIcono('Interactive', orientation),
+              _mostrarIcono('Chapter', orientation),
             ]),
             TableRow(children: <Widget>[
-              _iconoDrawing(orientation),
+              _mostrarIcono('Drawing', orientation),
               FittedBox(),
             ]),
           ]),
@@ -99,14 +107,14 @@ class _FiguresPageState extends State<FiguresPage> {
         //Dos filas de cuatro elementos cada una
         TableRow(children: <Widget>[
           //Primera fila: Chapters, podcasts, cards, figures
-          _iconoTableContents(orientation),
-          _iconoSchemes(orientation),
-          _iconoInteractive(orientation),
-          _iconoChapter(orientation),
+          _mostrarIcono('TableOfContents', orientation),
+          _mostrarIcono('Schemes', orientation),
+          _mostrarIcono('Interactive', orientation),
+          _mostrarIcono('Chapter', orientation),
         ]),
         TableRow(children: <Widget>[
           //Segunda fila: Calculators, resources, pubmed, information
-          _iconoDrawing(orientation),
+          _mostrarIcono('Drawing', orientation),
           FittedBox(),
           FittedBox(),
           FittedBox(),
@@ -115,7 +123,8 @@ class _FiguresPageState extends State<FiguresPage> {
     );
   }
 
-  _iconoTableContents(orientation) {
+
+  _mostrarIcono(tipoFigure, orientation) {
     return FittedBox(
       //Child Pugh Score
       fit: BoxFit.fill,
@@ -127,13 +136,14 @@ class _FiguresPageState extends State<FiguresPage> {
             child: Stack(
               children: <Widget>[
                 Image.asset(
-                  'images/figures.png',
+                  //Podría ser fija al ser común, pero se deja por si se quiere poner un icono distinto a cada elemento
+                  'images/' + TiposFigures[tipoFigure][1],
                 ),
                 Center(
                   child: Align(
                     alignment: Alignment(0, 0.7),
                     child: Text(
-                      'Table of Contents',
+                      TiposFigures[tipoFigure][0],
                       style: TextStyle(
                         color: Color.fromARGB(255, 93, 188, 210),
                         fontSize: 16,
@@ -144,146 +154,10 @@ class _FiguresPageState extends State<FiguresPage> {
               ],
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/TableFig');
+              Navigator.pushNamed(context, TiposFigures[tipoFigure][2]);
             }),
       ),
     );
   }
 
-  _iconoSchemes(orientation) {
-    return FittedBox(
-      fit: BoxFit.fill,
-      child: Container(
-        width: 145,
-        height: 145,
-        child: FlatButton(
-            padding: EdgeInsets.all(5),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/figures.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'Schemes',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/SchemesFig');
-            }),
-      ),
-    );
-  }
-
-  _iconoInteractive(orientation) {
-    return FittedBox(
-      fit: BoxFit.fill,
-      child: Container(
-        width: 145,
-        height: 145,
-        child: FlatButton(
-            padding: EdgeInsets.all(5),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/figures.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'Interactive Figures',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/InteractiveFig');
-            }),
-      ),
-    );
-  }
-
-  _iconoChapter(orientation) {
-    return FittedBox(
-      fit: BoxFit.fill,
-      child: Container(
-        width: 145,
-        height: 145,
-        child: FlatButton(
-            padding: EdgeInsets.all(5),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/figures.png',
-                ),
-                Align(
-                  alignment: Alignment(0, 0.7),
-                  child: Text(
-                    'Chapter Figures',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 93, 188, 210),
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/ChapterFig');
-            }),
-      ),
-    );
-  }
-
-  _iconoDrawing(orientation) {
-    return FittedBox(
-      //All algorithms
-      fit: BoxFit.fill,
-      child: Container(
-        width: 145,
-        height: 145,
-        child: FlatButton(
-            padding: EdgeInsets.all(5),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/figures.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'Drawing',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/DrawingFig');
-            }),
-      ),
-    );
-  }
 }

@@ -7,7 +7,8 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
-  bool _isBorderEnabled = false;
+  //bool _isBorderEnabled = false;
+
   var TiposSecciones = {
     "Chapters": ['Chapters', 'chapters.png', '/Chapters'],
     "Podcasts": ['Podcasts', 'podcasts.png', '/Podcasts'],
@@ -18,6 +19,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     "PubMed": ['PubMed', 'pubmed.png', '/PubMed'],
     "Information": ['Information', 'information.png', '/Information'],
   };
+
   @override
   Widget build(BuildContext context) {
     //bool orientationPortrait =        MediaQuery.of(context).orientation == Orientation.portrait;

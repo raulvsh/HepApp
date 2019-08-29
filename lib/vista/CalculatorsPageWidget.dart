@@ -6,8 +6,16 @@ class CalculatorsPage extends StatefulWidget {
 }
 
 class _CalculatorsPageState extends State<CalculatorsPage> {
-  bool _isBorderEnabled = false;
+  //bool _isBorderEnabled = false;
 
+  var TiposCalculators = {
+    "All": ['All Algorithms', 'calculators.png', '/AllCalc'],
+    "Child": ['Child Pugh Score', 'calculators.png', '/ChildCalc'],
+    "MELD": ['MELD', 'calculators.png', '/MELDCalc'],
+    "Okuda": ['Okuda Staging System', 'calculators.png', '/OkudaCalc'],
+    "CLIP": ['CLIP Staging System', 'calculators.png', '/CLIPCalc'],
+  };  
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,15 +85,18 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
           children: <TableRow>[
             //Cuatro filas de dos elementos cada una
             TableRow(children: <Widget>[
-              _iconoAllAlgorithms(orientation),
-              _iconoChildPugh(orientation),
+              _mostrarIcono("All", orientation),
+              _mostrarIcono("Child", orientation),
+
+              //_iconoAllAlgorithms(orientation),
+              //_iconoChildPugh(orientation),
             ]),
             TableRow(children: <Widget>[
-              _iconoMELD(orientation),
-              _iconoOkuda(orientation),
+              _mostrarIcono("MELD", orientation),
+              _mostrarIcono("Okuda", orientation),
             ]),
             TableRow(children: <Widget>[
-              _iconoCLIP(orientation),
+              _mostrarIcono("CLIP", orientation),
               FittedBox(),
             ]),
           ]),
@@ -99,14 +110,14 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
         //Dos filas de cuatro elementos cada una
         TableRow(children: <Widget>[
           //Primera fila: Chapters, podcasts, cards, figures
-          _iconoAllAlgorithms(orientation),
-          _iconoChildPugh(orientation),
-          _iconoMELD(orientation),
-          _iconoOkuda(orientation),
+          _mostrarIcono("All", orientation),
+          _mostrarIcono("Child", orientation),
+          _mostrarIcono("MELD", orientation),
+          _mostrarIcono("Okuda", orientation),
         ]),
         TableRow(children: <Widget>[
           //Segunda fila: Calculators, resources, pubmed, information
-          _iconoCLIP(orientation),
+          _mostrarIcono("CLIP", orientation),
           FittedBox(),
           FittedBox(),
           FittedBox(),
@@ -115,7 +126,7 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
     );
   }
 
-  _iconoAllAlgorithms(orientation) {
+  _mostrarIcono(tipoCalculator, orientation) {
     return FittedBox(
       //All algorithms
       fit: BoxFit.fill,
@@ -127,123 +138,14 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
             child: Stack(
               children: <Widget>[
                 Image.asset(
-                  'images/calculators.png',
+                  //Podría ser fija al ser común, pero se deja por si se quiere poner un icono distinto a cada algoritmo
+                  'images/' + TiposCalculators[tipoCalculator][1],
                 ),
                 Center(
                   child: Align(
                     alignment: Alignment(0, 0.7),
                     child: Text(
-                      'All algorithms',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/AllCalc');
-            }),
-      ),
-    );
-  }
-
-  _iconoChildPugh(orientation) {
-    return FittedBox(
-      //Child Pugh Score
-      fit: BoxFit.fill,
-      child: Container(
-        width: 145,
-        height: 145,
-        child: FlatButton(
-            padding: EdgeInsets.all(5),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/calculators.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'Child Pugh Score',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/ChildCalc');
-            }),
-      ),
-    );
-  }
-
-  _iconoMELD(orientation) {
-    return FittedBox(
-      //MELD
-      fit: BoxFit.fill,
-      child: Container(
-        width: 145,
-        height: 145,
-        child: FlatButton(
-            padding: EdgeInsets.all(5),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/calculators.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'MELD',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/MELDCalc');
-
-              /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MELDCalcPage()));*/
-            }),
-      ),
-    );
-  }
-
-  _iconoOkuda(orientation) {
-    return FittedBox(
-      //Okuda Staging System
-      fit: BoxFit.fill,
-      child: Container(
-        width: 145,
-        height: 145,
-        child: FlatButton(
-            padding: EdgeInsets.all(5),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/calculators.png',
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      'Okuda Staging System',
+                      TiposCalculators[tipoCalculator][0],
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color.fromARGB(255, 93, 188, 210),
@@ -255,49 +157,10 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
               ],
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/OkudaCalc');
-
-              /*Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => OkudaCalcPage()));*/
+              Navigator.pushNamed(context, TiposCalculators[tipoCalculator][2]);
             }),
       ),
     );
   }
 
-  _iconoCLIP(orientation) {
-    return FittedBox(
-      //CLIP Staging System
-      fit: BoxFit.fill,
-      child: Container(
-        //alignment: Alignment(-1,0),
-        width: 145,
-        height: 145,
-        child: FlatButton(
-            padding: EdgeInsets.all(5),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/calculators.png',
-                ),
-                Align(
-                  alignment: Alignment(0, 0.7),
-                  child: Text(
-                    'CLIP Staging System',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 93, 188, 210),
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/CLIPCalc');
-            }),
-      ),
-    );
-  }
 }
