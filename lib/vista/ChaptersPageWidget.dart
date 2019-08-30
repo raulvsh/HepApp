@@ -14,14 +14,16 @@ class _ChaptersPageState extends State<ChaptersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: _openDrawer(),
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        leading: IconButton(
+        /* leading: IconButton(
           icon: Icon(Icons.menu),
           onPressed: () {
-            Navigator.pushNamed(context, '/');
+            _openDrawer();
+            //Navigator.pushNamed(context, '/');
           },
-        ),
+        ),*/
         title: Container(
           child: Row(
             children: <Widget>[
@@ -66,6 +68,19 @@ class _ChaptersPageState extends State<ChaptersPage> {
       body: Center(
         //TODO: Hacer recuperación de datos de internet
         child: new Text("Some text"),
+      ),
+    );
+  }
+
+  _openDrawer() {
+    return Drawer(
+      child: ListView(
+        children: [
+          UserAccountsDrawerHeader(
+            accountEmail: Text('raulvsh@gmail.com'),
+            accountName: Text('Raúl Velasco'),
+          ),
+        ],
       ),
     );
   }
