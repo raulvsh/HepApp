@@ -9,7 +9,9 @@ class HomePageWidget extends StatefulWidget {
 class _HomePageWidgetState extends State<HomePageWidget> {
   //bool _isBorderEnabled = false;
 
-  var TiposSecciones = {
+  final title = 'HepApp';
+
+  var sectionTypes = {
     "Chapters": ['Chapters', 'chapters.png', '/Chapters'],
     "Podcasts": ['Podcasts', 'podcasts.png', '/Podcasts'],
     "Cards": ['Cards', 'cards.png', '/Cards'],
@@ -20,63 +22,73 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     "Information": ['Information', 'information.png', '/Information'],
   };
 
+  //String get title => null;
+
   @override
   Widget build(BuildContext context) {
     //bool orientationPortrait =        MediaQuery.of(context).orientation == Orientation.portrait;
 
-    final title = 'HepApp';
-    final width = MediaQuery
+    /*final width = MediaQuery
         .of(context)
         .size
-        .width;
+        .width;*/
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90),
-        child: AppBar(
-          automaticallyImplyLeading: false, //Elimina el botón back
-          title: Container(
-            height: 30,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 15,
-              ),
-            ),
-          ),
-          centerTitle: true,
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(70),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/header4.png',
-                  height: 70,
-                  width: width,
-                  fit: BoxFit.fitWidth,
-                ),
-                Center(
-                  child: Container(
-                    //height: 60,
-                    padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: Image.asset(
-                      'images/hepapplogo.png',
-                      width: 60,
-                      height: 60,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+      appBar: _buildHomeAppBar(),
       body: OrientationBuilder(
         builder: (context, orientation) {
           return orientation == Orientation.portrait
               ? _buildVerticalLayout(orientation)
               : _buildHorizontalLayout(orientation);
         },
+      ),
+    );
+  }
+
+  _buildHomeAppBar() {
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
+
+    return PreferredSize(
+      preferredSize: Size.fromHeight(90),
+      child: AppBar(
+        automaticallyImplyLeading: false, //Elimina el botón back
+        title: Container(
+          height: 30,
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 15,
+            ),
+          ),
+        ),
+        centerTitle: true,
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(70),
+          child: Stack(
+            children: <Widget>[
+              Image.asset(
+                'images/header4.png',
+                height: 70,
+                width: width,
+                fit: BoxFit.fitWidth,
+              ),
+              Center(
+                child: Container(
+                  //height: 60,
+                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                  child: Image.asset(
+                    'images/hepapplogo.png',
+                    width: 60,
+                    height: 60,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -145,31 +157,30 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         width: orientation == Orientation.portrait ? 110 : 100,
         height: orientation == Orientation.portrait ? 110 : 100,
         child: FlatButton(
-            padding: EdgeInsets.all(2),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'images/' + TiposSecciones[tipoSeccion][1],
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      TiposSecciones[tipoSeccion][0],
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: orientation == Orientation.portrait ? 16 : 16,
-                      ),
+          padding: EdgeInsets.all(2),
+          child: Stack(
+            children: <Widget>[
+              Image.asset(
+                'images/${sectionTypes[tipoSeccion][1]}',
+              ),
+              Center(
+                child: Align(
+                  alignment: Alignment(0, 0.7),
+                  child: Text(
+                    sectionTypes[tipoSeccion][0],
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 93, 188, 210),
+                      fontSize: orientation == Orientation.portrait ? 16 : 16,
                     ),
                   ),
                 ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, TiposSecciones[tipoSeccion][2]);
-            }),
+              ),
+            ],
+          ),
+          onPressed: () =>
+              Navigator.pushNamed(context, sectionTypes[tipoSeccion][2]),
+        ),
       ),
     );
   }
-
 }

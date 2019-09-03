@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
     final title = 'HepApp';
 
     return MaterialApp(
-      debugShowCheckedModeBanner: true, //Quitar etiqueta de debug
+      debugShowCheckedModeBanner: false,
+      //Quitar etiqueta de debug
       title: title,
       theme: ThemeData(
         primaryColor: Color.fromARGB(255, 93, 188, 210),

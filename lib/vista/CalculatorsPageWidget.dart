@@ -8,57 +8,52 @@ class CalculatorsPage extends StatefulWidget {
 class _CalculatorsPageState extends State<CalculatorsPage> {
   //bool _isBorderEnabled = false;
 
-  var TiposCalculators = {
+  var tiposCalculators = {
     "All": ['All Algorithms', 'calculators.png', '/AllCalc'],
     "Child": ['Child Pugh Score', 'calculators.png', '/ChildCalc'],
     "MELD": ['MELD', 'calculators.png', '/MELDCalc'],
     "Okuda": ['Okuda Staging System', 'calculators.png', '/OkudaCalc'],
     "CLIP": ['CLIP Staging System', 'calculators.png', '/CLIPCalc'],
-  };  
-  
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.menu),
-            onPressed: () {
-              Navigator.pushNamed(context, '/');
-            },
+            onPressed: () => Navigator.pushNamed(context, '/'),
           ),
           title: Container(
             child: Row(
               children: <Widget>[
                 FlatButton(
-                    padding: EdgeInsets.all(2),
-                    child: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'images/arrowthickleft.png',
-                          width: 25,
-                          height: 25,
+                  padding: EdgeInsets.all(2),
+                  child: Row(
+                    children: <Widget>[
+                      Image.asset(
+                        'images/arrowthickleft.png',
+                        width: 25,
+                        height: 25,
+                      ),
+                      Text(
+                        'Back',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
                         ),
-                        Text(
-                          'Back',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/');
-                    }),
+                      ),
+                    ],
+                  ),
+                  onPressed: () => Navigator.pushNamed(context, '/'),
+                ),
                 IconButton(
                   icon: Image.asset(
                     'images/homeicon.png',
                     width: 25,
                     height: 25,
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/');
-                  },
+                  onPressed: () => Navigator.pushNamed(context, '/'),
                 ),
                 Text(
                   "Calculators",
@@ -134,33 +129,32 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
         width: 145,
         height: 145,
         child: FlatButton(
-            padding: EdgeInsets.all(5),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  //Podría ser fija al ser común, pero se deja por si se quiere poner un icono distinto a cada algoritmo
-                  'images/' + TiposCalculators[tipoCalculator][1],
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      TiposCalculators[tipoCalculator][0],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 16,
-                      ),
+          padding: EdgeInsets.all(5),
+          child: Stack(
+            children: <Widget>[
+              Image.asset(
+                //Podría ser fija al ser común, pero se deja por si se quiere poner un icono distinto a cada algoritmo
+                'images/${tiposCalculators[tipoCalculator][1]}',
+              ),
+              Center(
+                child: Align(
+                  alignment: Alignment(0, 0.7),
+                  child: Text(
+                    tiposCalculators[tipoCalculator][0],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 93, 188, 210),
+                      fontSize: 16,
                     ),
                   ),
                 ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, TiposCalculators[tipoCalculator][2]);
-            }),
+              ),
+            ],
+          ),
+          onPressed: () =>
+              Navigator.pushNamed(context, tiposCalculators[tipoCalculator][2]),
+        ),
       ),
     );
   }
-
 }

@@ -8,7 +8,7 @@ class FiguresPage extends StatefulWidget {
 class _FiguresPageState extends State<FiguresPage> {
   //bool _isBorderEnabled = false;
 
-  var TiposFigures = {
+  var figureTypes = {
     "TableOfContents": ['Table of Contents', 'figures.png', '/TableFig'],
     "Schemes": ['Schemes', 'figures.png', '/SchemesFig'],
     "Interactive": ['Interactive Figures', 'figures.png', '/InteractiveFig'],
@@ -22,43 +22,38 @@ class _FiguresPageState extends State<FiguresPage> {
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.menu),
-            onPressed: () {
-              Navigator.pushNamed(context, '/');
-            },
+            onPressed: () => Navigator.pushNamed(context, '/'),
           ),
           title: Container(
             child: Row(
               children: <Widget>[
                 FlatButton(
-                    padding: EdgeInsets.all(2),
-                    child: Row(
-                      children: <Widget>[
-                        Image.asset(
-                          'images/arrowthickleft.png',
-                          width: 25,
-                          height: 25,
+                  padding: EdgeInsets.all(2),
+                  child: Row(
+                    children: <Widget>[
+                      Image.asset(
+                        'images/arrowthickleft.png',
+                        width: 25,
+                        height: 25,
+                      ),
+                      Text(
+                        'Back',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
                         ),
-                        Text(
-                          'Back',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/');
-                    }),
+                      ),
+                    ],
+                  ),
+                  onPressed: () => Navigator.pushNamed(context, '/'),
+                ),
                 IconButton(
                   icon: Image.asset(
                     'images/homeicon.png',
                     width: 25,
                     height: 25,
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/');
-                  },
+                  onPressed: () => Navigator.pushNamed(context, '/'),
                 ),
                 Text(
                   "Figures",
@@ -123,7 +118,6 @@ class _FiguresPageState extends State<FiguresPage> {
     );
   }
 
-
   _mostrarIcono(tipoFigure, orientation) {
     return FittedBox(
       //Child Pugh Score
@@ -132,32 +126,31 @@ class _FiguresPageState extends State<FiguresPage> {
         width: 145,
         height: 145,
         child: FlatButton(
-            padding: EdgeInsets.all(5),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  //Podría ser fija al ser común, pero se deja por si se quiere poner un icono distinto a cada elemento
-                  'images/' + TiposFigures[tipoFigure][1],
-                ),
-                Center(
-                  child: Align(
-                    alignment: Alignment(0, 0.7),
-                    child: Text(
-                      TiposFigures[tipoFigure][0],
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 93, 188, 210),
-                        fontSize: 16,
-                      ),
+          padding: EdgeInsets.all(5),
+          child: Stack(
+            children: <Widget>[
+              Image.asset(
+                //Podría ser fija al ser común, pero se deja por si se quiere poner un icono distinto a cada elemento
+                'images/${figureTypes[tipoFigure][1]}',
+              ),
+              Center(
+                child: Align(
+                  alignment: Alignment(0, 0.7),
+                  child: Text(
+                    figureTypes[tipoFigure][0],
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 93, 188, 210),
+                      fontSize: 16,
                     ),
                   ),
                 ),
-              ],
-            ),
-            onPressed: () {
-              Navigator.pushNamed(context, TiposFigures[tipoFigure][2]);
-            }),
+              ),
+            ],
+          ),
+          onPressed: () =>
+              Navigator.pushNamed(context, figureTypes[tipoFigure][2]),
+        ),
       ),
     );
   }
-
 }
