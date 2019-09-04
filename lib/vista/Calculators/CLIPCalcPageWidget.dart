@@ -14,6 +14,7 @@ class _CLIPCalcPageState extends State<CLIPCalcPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: new AppBar(
         leading: IconButton(
           icon: Icon(Icons.menu),

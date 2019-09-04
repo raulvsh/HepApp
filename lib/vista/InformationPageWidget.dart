@@ -16,6 +16,8 @@ class _InformationPageState extends State<InformationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
+
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.menu),

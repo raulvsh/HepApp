@@ -1,8 +1,8 @@
-/*import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+//import 'package:flutter/cupertino.dart';
+//import 'package:flutter/material.dart';
 
 
-
+/*
 class showIcon(tipoSeccion, orientation) extends StatelessWidget {
 
 
@@ -40,5 +40,36 @@ Widget build (BuildContext context){
             }),
       ),
     );
+  }
+}
+class utils {
+
+  double _minimumPadding = 1.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+    );
+  }
+
+  Widget getTextForm(String labelText, String hintText) {
+    TextStyle textStyle = Theme
+        .of(context)
+        .textTheme
+        .title;
+
+    return Padding(
+        padding: EdgeInsets.only(top: _minimumPadding, bottom: _minimumPadding),
+        child: TextField(
+          keyboardType: TextInputType.number,
+          style: textStyle,
+          decoration: InputDecoration(
+              labelText: labelText,
+              labelStyle: textStyle,
+              hintText: hintText,
+              border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
+        ));
   }
 }*/

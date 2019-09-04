@@ -34,6 +34,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         .width;*/
 
     return Scaffold(
+      resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
+
       appBar: _buildHomeAppBar(),
       body: OrientationBuilder(
         builder: (context, orientation) {

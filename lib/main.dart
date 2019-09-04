@@ -22,6 +22,10 @@ import 'vista/HomePageWidget.dart';
 
 void main() => runApp(MyApp());
 
+/*
+En esta clase se define el título de la aplicación, el tema
+y las rutas a las distintos apartados.
+ */
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
@@ -34,8 +38,8 @@ class MyApp extends StatelessWidget {
       //Quitar etiqueta de debug
       title: title,
       theme: ThemeData(
+        //brightness: Brightness.dark, //Tema oscuro
         primaryColor: Color.fromARGB(255, 93, 188, 210),
-
         primaryTextTheme: TextTheme(
           title: TextStyle(color: Colors.white),
         ),
@@ -71,12 +75,11 @@ class MyApp extends StatelessWidget {
         '/DrawingFig': (context) => DrawingFigPage(),
         '/InteractiveFig': (context) => InteractiveFigPage(),
         '/SchemesFig': (context) => SchemesFigPage(),
-
       },
     );
   }
 }
-
+/*
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -114,4 +117,4 @@ class _MyHomePageState extends State<MyHomePage> {
       body: HomePageWidget(),
     );
   }
-}
+}*/
