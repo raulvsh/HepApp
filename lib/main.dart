@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
 
-    //Se devuelve la página HomePage
+    //Se devuelve el widget de la página HomePage
     return Scaffold(
       body: HomePageWidget(),
     );

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+//import 'package:hepapp/vista/HomePageWidget.dart';
+
 
 class InformationPage extends StatefulWidget {
   @override
@@ -61,8 +63,11 @@ class _InformationPageState extends State<InformationPage> {
         child: RaisedButton(
           onPressed: () => Navigator.pushNamed(context, '/CLIPCalc'),
           child: Text('CLIP Calculator'),
+
         ),
       ),
     );
   }
+
+
 }
