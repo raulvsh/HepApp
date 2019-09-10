@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/vista/UtilsVista.dart';
+
 
 class AllCalcPage extends StatefulWidget {
   @override
@@ -6,6 +8,9 @@ class AllCalcPage extends StatefulWidget {
 }
 
 class _AllCalcPageState extends State<AllCalcPage> {
+
+  Utils u = new Utils();
+
   @override
   void initState() {
     super.initState();
@@ -15,52 +20,9 @@ class _AllCalcPageState extends State<AllCalcPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: new AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () => Navigator.pushNamed(context, '/'),
-        ),
-        title: Container(
-          child: Row(
-            children: <Widget>[
-              FlatButton(
-                padding: EdgeInsets.all(2),
-                child: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'images/arrowthickleft.png',
-                      width: 25,
-                      height: 25,
-                    ),
-                    Text(
-                      'Back',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                      ),
-                    ),
-                  ],
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/Calculators'),
-              ),
-              IconButton(
-                icon: Image.asset(
-                  'images/homeicon.png',
-                  width: 25,
-                  height: 25,
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/'),
-              ),
-              Text(
-                "Calculators - All Algorithms - Diagnostic",
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: u.showAppBar(
+          context, "Calculators - All Algorithms - Diagnostic"),
+
       body: new Center(
         child: new Text("Some text"),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/vista/UtilsVista.dart';
 
 class ChaptersPage extends StatefulWidget {
   @override
@@ -6,6 +7,8 @@ class ChaptersPage extends StatefulWidget {
 }
 
 class _ChaptersPageState extends State<ChaptersPage> {
+  Utils u = new Utils();
+
   var _currencies = ['Rupees', 'Dollars', 'Pounds', 'Others'];
   var _currentItemSelected = '';
   String nameCity = "";
@@ -22,7 +25,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
       drawer: _openDrawer(),
-      appBar: _buildChaptersAppBar(),
+      appBar: u.showAppBar(context, "Chapters"),
       body: _buildChaptersBody(),
     );
   }
@@ -40,55 +43,6 @@ class _ChaptersPageState extends State<ChaptersPage> {
     );
   }
 
-  _buildChaptersAppBar() {
-    return AppBar(
-      automaticallyImplyLeading: true,
-      /* leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {
-            _openDrawer();
-            //Navigator.pushNamed(context, '/');
-          },
-        ),*/
-      title: Container(
-        child: Row(
-          children: <Widget>[
-            FlatButton(
-              padding: EdgeInsets.all(2),
-              child: Row(
-                children: <Widget>[
-                  Image.asset(
-                    'images/arrowthickleft.png',
-                    width: 25,
-                    height: 25,
-                  ),
-                  Text(
-                    'Back',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-              onPressed: () => Navigator.pushNamed(context, '/'),
-            ),
-            IconButton(
-              icon: Image.asset(
-                'images/homeicon.png',
-                width: 25,
-                height: 25,
-              ),
-              onPressed: () => Navigator.pushNamed(context, '/'),
-            ),
-            Text(
-              "Chapters",
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   _buildChaptersBody() {
     return Container(

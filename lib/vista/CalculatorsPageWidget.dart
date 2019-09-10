@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/vista/UtilsVista.dart';
 
 class CalculatorsPage extends StatefulWidget {
   @override
@@ -6,6 +7,8 @@ class CalculatorsPage extends StatefulWidget {
 }
 
 class _CalculatorsPageState extends State<CalculatorsPage> {
+  Utils u = Utils();
+
   //bool _isBorderEnabled = false;
 
   var tiposCalculators = {
@@ -20,49 +23,7 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () => Navigator.pushNamed(context, '/'),
-          ),
-          title: Container(
-            child: Row(
-              children: <Widget>[
-                FlatButton(
-                  padding: EdgeInsets.all(2),
-                  child: Row(
-                    children: <Widget>[
-                      Image.asset(
-                        'images/arrowthickleft.png',
-                        width: 25,
-                        height: 25,
-                      ),
-                      Text(
-                        'Back',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                  onPressed: () => Navigator.pushNamed(context, '/'),
-                ),
-                IconButton(
-                  icon: Image.asset(
-                    'images/homeicon.png',
-                    width: 25,
-                    height: 25,
-                  ),
-                  onPressed: () => Navigator.pushNamed(context, '/'),
-                ),
-                Text(
-                  "Calculators",
-                ),
-              ],
-            ),
-          ),
-        ),
+        appBar: u.showAppBar(context, "Calculators"),
         body: OrientationBuilder(
           builder: (context, orientation) {
             return orientation == Orientation.portrait
@@ -106,14 +67,14 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
         //Dos filas de cuatro elementos cada una
         TableRow(children: <Widget>[
           //Primera fila: Chapters, podcasts, cards, figures
-          _mostrarIcono("All", orientation),
-          _mostrarIcono("Child", orientation),
-          _mostrarIcono("MELD", orientation),
-          _mostrarIcono("Okuda", orientation),
+          u.showCalcButton(context, "All", orientation),
+          u.showCalcButton(context, "Child", orientation),
+          u.showCalcButton(context, "MELD", orientation),
+          u.showCalcButton(context, "Okuda", orientation),
         ]),
         TableRow(children: <Widget>[
           //Segunda fila: Calculators, resources, pubmed, information
-          _mostrarIcono("CLIP", orientation),
+          u.showCalcButton(context, "CLIP", orientation),
           FittedBox(),
           FittedBox(),
           FittedBox(),

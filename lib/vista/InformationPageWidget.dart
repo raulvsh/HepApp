@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:hepapp/vista/HomePageWidget.dart';
-
+import 'package:hepapp/vista/UtilsVista.dart';
 
 class InformationPage extends StatefulWidget {
   @override
@@ -8,6 +7,10 @@ class InformationPage extends StatefulWidget {
 }
 
 class _InformationPageState extends State<InformationPage> {
+
+
+  Utils u = new Utils();
+
   @override
   void initState() {
     super.initState();
@@ -18,49 +21,7 @@ class _InformationPageState extends State<InformationPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () => Navigator.pushNamed(context, '/'),
-        ),
-        title: Container(
-          child: Row(
-            children: <Widget>[
-              FlatButton(
-                padding: EdgeInsets.all(2),
-                child: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'images/arrowthickleft.png',
-                      width: 25,
-                      height: 25,
-                    ),
-                    Text(
-                      'Back',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/'),
-              ),
-              IconButton(
-                icon: Image.asset(
-                  'images/homeicon.png',
-                  width: 25,
-                  height: 25,
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/'),
-              ),
-              Text(
-                "Information",
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: u.showAppBar(context, "Information"),
       body: Center(
         child: RaisedButton(
           onPressed: () => Navigator.pushNamed(context, '/CLIPCalc'),

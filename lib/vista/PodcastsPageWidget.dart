@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/vista/UtilsVista.dart';
 
 class PodcastsPage extends StatefulWidget {
   @override
@@ -6,6 +7,10 @@ class PodcastsPage extends StatefulWidget {
 }
 
 class _PodcastsPageState extends State<PodcastsPage> {
+  Utils u = new Utils();
+
+  String textoFuturo;
+
   @override
   void initState() {
     super.initState();
@@ -16,52 +21,18 @@ class _PodcastsPageState extends State<PodcastsPage> {
     return new Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () => Navigator.pushNamed(context, '/'),
-        ),
-        title: Container(
-          child: Row(
-            children: <Widget>[
-              FlatButton(
-                padding: EdgeInsets.all(2),
-                child: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'images/arrowthickleft.png',
-                      width: 25,
-                      height: 25,
-                    ),
-                    Text(
-                      'Back',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/'),
-              ),
-              IconButton(
-                icon: Image.asset(
-                  'images/homeicon.png',
-                  width: 25,
-                  height: 25,
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/'),
-              ),
-              Text(
-                "Podcasts",
-              ),
-            ],
-          ),
-        ),
-      ),
-      body: new Center(
-        child: new Text("Some text"),
-      ),
+      appBar: u.showAppBar(context, "Podcasts"),
+
+      body: _buildPodcastsBody(),
     );
   }
+
+  _buildPodcastsBody() {
+    return Center(
+
+      child: new Text("El contenido es as "),
+    );
+  }
+
+
 }

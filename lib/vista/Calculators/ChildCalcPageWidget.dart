@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/vista/UtilsVista.dart';
 
 class ChildCalcPage extends StatefulWidget {
   @override
@@ -6,6 +7,8 @@ class ChildCalcPage extends StatefulWidget {
 }
 
 class _ChildCalcPageState extends State<ChildCalcPage> {
+  Utils u = new Utils();
+
   @override
   void initState() {
     super.initState();
@@ -15,52 +18,7 @@ class _ChildCalcPageState extends State<ChildCalcPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: new AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () => Navigator.pushNamed(context, '/'),
-        ),
-        title: Container(
-          child: Row(
-            children: <Widget>[
-              FlatButton(
-                padding: EdgeInsets.all(2),
-                child: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'images/arrowthickleft.png',
-                      width: 25,
-                      height: 25,
-                    ),
-                    Text(
-                      'Back',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/Calculators'),
-              ),
-              IconButton(
-                icon: Image.asset(
-                  'images/homeicon.png',
-                  width: 25,
-                  height: 25,
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/'),
-              ),
-              Text(
-                "Calculators - Child Pugh Score",
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: u.showAppBar(context, "Calculators - Child Pugh Score"),
       body: new Center(
         child: new Text("Some text"),
       ),

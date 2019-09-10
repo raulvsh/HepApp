@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:hepapp/vista/UtilsVista.dart';
 
 class HomePageWidget extends StatefulWidget {
   @override
@@ -7,6 +8,8 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
+  Utils u = Utils();
+
   //bool _isBorderEnabled = false;
 
   final title = 'HepApp';
@@ -27,7 +30,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   Widget build(BuildContext context) {
     //bool orientationPortrait =        MediaQuery.of(context).orientation == Orientation.portrait;
-
     /*final width = MediaQuery
         .of(context)
         .size
@@ -106,23 +108,23 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             //Cuatro filas de dos elementos cada una
             TableRow(children: <Widget>[
               //Primera fila: Chapters y podcasts
-              _mostrarIcono('Chapters', orientation),
-              _mostrarIcono('Podcasts', orientation),
+              u.showHomeButton(context, 'Chapters', orientation),
+              u.showHomeButton(context, 'Podcasts', orientation),
             ]),
             TableRow(children: <Widget>[
               //Segunda fila: Cards y figures
-              _mostrarIcono('Cards', orientation),
-              _mostrarIcono('Figures', orientation),
+              u.showHomeButton(context, 'Cards', orientation),
+              u.showHomeButton(context, 'Figures', orientation),
             ]),
             TableRow(children: <Widget>[
               //Tercera fila: Calculators y resources
-              _mostrarIcono('Calculators', orientation),
-              _mostrarIcono('Resources', orientation),
+              u.showHomeButton(context, 'Calculators', orientation),
+              u.showHomeButton(context, 'Resources', orientation),
             ]),
             TableRow(children: <Widget>[
               //Cuarta fila: PubMed e Information
-              _mostrarIcono('PubMed', orientation),
-              _mostrarIcono('Information', orientation),
+              u.showHomeButton(context, 'PubMed', orientation),
+              u.showHomeButton(context, 'Information', orientation),
             ]),
           ]),
     );
@@ -135,54 +137,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         //Dos filas de cuatro elementos cada una
         TableRow(children: <Widget>[
           //Primera fila: Chapters, podcasts, cards, figures
-          _mostrarIcono('Chapters', orientation),
-          _mostrarIcono('Podcasts', orientation),
-          _mostrarIcono('Cards', orientation),
-          _mostrarIcono('Figures', orientation),
+          //showButton(context, 'Chapters', orientation),
+          u.showHomeButton(context, 'Chapters', orientation),
+          u.showHomeButton(context, 'Podcasts', orientation),
+          u.showHomeButton(context, 'Cards', orientation),
+          u.showHomeButton(context, 'Figures', orientation),
         ]),
         TableRow(children: <Widget>[
           //Segunda fila: Calculators, resources, pubmed, information
-          _mostrarIcono('Calculators', orientation),
-          _mostrarIcono('Resources', orientation),
-          _mostrarIcono('PubMed', orientation),
-          _mostrarIcono('Information', orientation),
+          u.showHomeButton(context, 'Calculators', orientation),
+          u.showHomeButton(context, 'Resources', orientation),
+          u.showHomeButton(context, 'PubMed', orientation),
+          u.showHomeButton(context, 'Information', orientation),
         ]),
       ]),
     );
   }
 
-  _mostrarIcono(tipoSeccion, orientation) {
-    return FittedBox(
-      //Chapters
-      fit: BoxFit.scaleDown,
-      child: Container(
-        width: orientation == Orientation.portrait ? 110 : 100,
-        height: orientation == Orientation.portrait ? 110 : 100,
-        child: FlatButton(
-          padding: EdgeInsets.all(2),
-          child: Stack(
-            children: <Widget>[
-              Image.asset(
-                'images/${sectionTypes[tipoSeccion][1]}',
-              ),
-              Center(
-                child: Align(
-                  alignment: Alignment(0, 0.7),
-                  child: Text(
-                    sectionTypes[tipoSeccion][0],
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 93, 188, 210),
-                      fontSize: orientation == Orientation.portrait ? 16 : 16,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          onPressed: () =>
-              Navigator.pushNamed(context, sectionTypes[tipoSeccion][2]),
-        ),
-      ),
-    );
-  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/vista/UtilsVista.dart';
 
 class FiguresPage extends StatefulWidget {
   @override
@@ -6,6 +7,8 @@ class FiguresPage extends StatefulWidget {
 }
 
 class _FiguresPageState extends State<FiguresPage> {
+  Utils u = new Utils();
+
   //bool _isBorderEnabled = false;
 
   var figureTypes = {
@@ -21,49 +24,8 @@ class _FiguresPageState extends State<FiguresPage> {
     return Scaffold(
         resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () => Navigator.pushNamed(context, '/'),
-          ),
-          title: Container(
-            child: Row(
-              children: <Widget>[
-                FlatButton(
-                  padding: EdgeInsets.all(2),
-                  child: Row(
-                    children: <Widget>[
-                      Image.asset(
-                        'images/arrowthickleft.png',
-                        width: 25,
-                        height: 25,
-                      ),
-                      Text(
-                        'Back',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                  onPressed: () => Navigator.pushNamed(context, '/'),
-                ),
-                IconButton(
-                  icon: Image.asset(
-                    'images/homeicon.png',
-                    width: 25,
-                    height: 25,
-                  ),
-                  onPressed: () => Navigator.pushNamed(context, '/'),
-                ),
-                Text(
-                  "Figures",
-                ),
-              ],
-            ),
-          ),
-        ),
+        appBar: u.showAppBar(context, "Figures"),
+
         body: OrientationBuilder(
           builder: (context, orientation) {
             return orientation == Orientation.portrait
@@ -82,6 +44,7 @@ class _FiguresPageState extends State<FiguresPage> {
           children: <TableRow>[
             //Cuatro filas de dos elementos cada una
             TableRow(children: <Widget>[
+
               _mostrarIcono('TableOfContents', orientation),
               _mostrarIcono('Schemes', orientation),
             ]),
@@ -120,7 +83,7 @@ class _FiguresPageState extends State<FiguresPage> {
     );
   }
 
-  _mostrarIcono(tipoFigure, orientation) {
+  _mostrarIcono(figureType, orientation) {
     return FittedBox(
       //Child Pugh Score
       fit: BoxFit.fill,
@@ -133,13 +96,13 @@ class _FiguresPageState extends State<FiguresPage> {
             children: <Widget>[
               Image.asset(
                 //Podría ser fija al ser común, pero se deja por si se quiere poner un icono distinto a cada elemento
-                'images/${figureTypes[tipoFigure][1]}',
+                'images/${figureTypes[figureType][1]}',
               ),
               Center(
                 child: Align(
                   alignment: Alignment(0, 0.7),
                   child: Text(
-                    figureTypes[tipoFigure][0],
+                    figureTypes[figureType][0],
                     style: TextStyle(
                       color: Color.fromARGB(255, 93, 188, 210),
                       fontSize: 16,
@@ -150,7 +113,7 @@ class _FiguresPageState extends State<FiguresPage> {
             ],
           ),
           onPressed: () =>
-              Navigator.pushNamed(context, figureTypes[tipoFigure][2]),
+              Navigator.pushNamed(context, figureTypes[figureType][2]),
         ),
       ),
     );
