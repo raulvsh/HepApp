@@ -43,7 +43,6 @@ class _ChaptersPageState extends State<ChaptersPage> {
     );
   }
 
-
   _buildChaptersBody() {
     return Container(
       margin: EdgeInsets.all(20.0),
@@ -78,7 +77,6 @@ class _ChaptersPageState extends State<ChaptersPage> {
       ),
     );
   }
-
 
   void _onDropDownItemSelected(String newValueSelected) {
     setState(() {

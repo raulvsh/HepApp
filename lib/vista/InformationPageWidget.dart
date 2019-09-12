@@ -156,7 +156,7 @@ class _InformationPageState extends State<InformationPage> {
     dbFuture.then((database) {
       Future<List<Note>> noteListFuture = databaseHelper.getNoteList();
       noteListFuture.then((noteList) {
-        setState(() {
+        setState(() { //Al actualizar el estado se actualiza la UI
           this.noteList = noteList;
           this.count = noteList.length;
         });

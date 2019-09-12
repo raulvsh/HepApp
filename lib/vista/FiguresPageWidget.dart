@@ -44,16 +44,23 @@ class _FiguresPageState extends State<FiguresPage> {
           children: <TableRow>[
             //Cuatro filas de dos elementos cada una
             TableRow(children: <Widget>[
+              u.showFigureButton(context, 'TableOfContents', orientation),
+              u.showFigureButton(context, 'Schemes', orientation),
 
-              _mostrarIcono('TableOfContents', orientation),
-              _mostrarIcono('Schemes', orientation),
+              //_mostrarIcono('TableOfContents', orientation),
+              //_mostrarIcono('Schemes', orientation),
             ]),
             TableRow(children: <Widget>[
-              _mostrarIcono('Interactive', orientation),
-              _mostrarIcono('Chapter', orientation),
+              u.showFigureButton(context, 'Interactive', orientation),
+              u.showFigureButton(context, 'Chapter', orientation),
+
+              //_mostrarIcono('Interactive', orientation),
+              // _mostrarIcono('Chapter', orientation),
             ]),
             TableRow(children: <Widget>[
-              _mostrarIcono('Drawing', orientation),
+              u.showFigureButton(context, 'Drawing', orientation),
+
+              //_mostrarIcono('Drawing', orientation),
               FittedBox(),
             ]),
           ]),
@@ -67,14 +74,21 @@ class _FiguresPageState extends State<FiguresPage> {
         //Dos filas de cuatro elementos cada una
         TableRow(children: <Widget>[
           //Primera fila: Chapters, podcasts, cards, figures
-          _mostrarIcono('TableOfContents', orientation),
+          u.showFigureButton(context, 'TableOfContents', orientation),
+          u.showFigureButton(context, 'Schemes', orientation),
+          u.showFigureButton(context, 'Interactive', orientation),
+          u.showFigureButton(context, 'Chapter', orientation),
+
+          /*_mostrarIcono('TableOfContents', orientation),
           _mostrarIcono('Schemes', orientation),
           _mostrarIcono('Interactive', orientation),
-          _mostrarIcono('Chapter', orientation),
+          _mostrarIcono('Chapter', orientation),*/
         ]),
         TableRow(children: <Widget>[
           //Segunda fila: Calculators, resources, pubmed, information
-          _mostrarIcono('Drawing', orientation),
+          u.showFigureButton(context, 'Drawing', orientation),
+
+          //_mostrarIcono('Drawing', orientation),
           FittedBox(),
           FittedBox(),
           FittedBox(),
@@ -83,7 +97,7 @@ class _FiguresPageState extends State<FiguresPage> {
     );
   }
 
-  _mostrarIcono(figureType, orientation) {
+/*_mostrarIcono(figureType, orientation) {
     return FittedBox(
       //Child Pugh Score
       fit: BoxFit.fill,
@@ -117,5 +131,5 @@ class _FiguresPageState extends State<FiguresPage> {
         ),
       ),
     );
-  }
+  }*/
 }

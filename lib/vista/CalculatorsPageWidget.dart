@@ -42,18 +42,18 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
           children: <TableRow>[
             //Cuatro filas de dos elementos cada una
             TableRow(children: <Widget>[
-              _mostrarIcono("All", orientation),
-              _mostrarIcono("Child", orientation),
+              u.showCalcButton(context, "All", orientation),
+              u.showCalcButton(context, "Child", orientation),
 
               //_iconoAllAlgorithms(orientation),
               //_iconoChildPugh(orientation),
             ]),
             TableRow(children: <Widget>[
-              _mostrarIcono("MELD", orientation),
-              _mostrarIcono("Okuda", orientation),
+              u.showCalcButton(context, "MELD", orientation),
+              u.showCalcButton(context, "Okuda", orientation),
             ]),
             TableRow(children: <Widget>[
-              _mostrarIcono("CLIP", orientation),
+              u.showCalcButton(context, "CLIP", orientation),
               FittedBox(),
             ]),
           ]),
@@ -83,7 +83,7 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
     );
   }
 
-  _mostrarIcono(tipoCalculator, orientation) {
+/*_mostrarIcono(tipoCalculator, orientation) {
     return FittedBox(
       //All algorithms
       fit: BoxFit.fill,
@@ -118,5 +118,5 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
         ),
       ),
     );
-  }
+  }*/
 }
