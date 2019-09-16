@@ -39,16 +39,25 @@ class Utils extends StatelessWidget {
     String title,
   ) {
     return AppBar(
+      //centerTitle: false,
       leading: IconButton(
         icon: Icon(Icons.menu),
         onPressed: () => Navigator.pushNamed(context, '/'),
       ),
       title: Container(
+        //padding: EdgeInsets.all(0),
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.red[200],
         child: Row(
+
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+
             FlatButton(
-              padding: EdgeInsets.all(2),
+              //padding: EdgeInsets.all(0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Image.asset(
                     'images/arrowthickleft.png',
@@ -91,8 +100,8 @@ class Utils extends StatelessWidget {
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: Container(
-        width: orientation == Orientation.portrait ? 110 : 100,
-        height: orientation == Orientation.portrait ? 110 : 100,
+        width: orientation == Orientation.portrait ? 110 : 110,
+        height: orientation == Orientation.portrait ? 110 : 110,
         child: FlatButton(
           padding: EdgeInsets.all(2),
           child: Stack(

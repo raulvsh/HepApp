@@ -32,7 +32,6 @@ class _CardsPageState extends State<CardsPage> {
     );
   }
 
-
   _createCardsBody() {
     return Form(
       key: _formKey,
@@ -41,10 +40,7 @@ class _CardsPageState extends State<CardsPage> {
         child: ListView(
           children: <Widget>[
             TextFormField(
-
-
               keyboardType: TextInputType.number,
-
               controller: cPrincipal,
               decoration: InputDecoration(
                 labelText: "Introduce el primer número",

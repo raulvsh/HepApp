@@ -24,7 +24,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     "PubMed": ['PubMed', 'pubmed.png', '/PubMed'],
     "Information": ['Information', 'information.png', '/Information'],
   };
-
   //String get title => null;
 
   @override
@@ -98,15 +97,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   }
 
   _buildVerticalLayout(orientation) {
-    return SingleChildScrollView(
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      color: Colors.blueAccent,
       padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
       child: Table(
+
         //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
         //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
 
           children: <TableRow>[
             //Cuatro filas de dos elementos cada una
             TableRow(children: <Widget>[
+
               //Primera fila: Chapters y podcasts
               u.showHomeButton(context, 'Chapters', orientation),
               u.showHomeButton(context, 'Podcasts', orientation),
@@ -131,8 +135,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   }
 
   _buildHorizontalLayout(orientation) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.fromLTRB(200, 50, 200, 50),
+    return Container(
+      color: Colors.red,
+      width: double.infinity,
+      height: double.infinity,
+
+      padding: EdgeInsets.fromLTRB(150, 25, 150, 25),
       child: Table(children: <TableRow>[
         //Dos filas de cuatro elementos cada una
         TableRow(children: <Widget>[

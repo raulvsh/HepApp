@@ -46,6 +46,14 @@ class MyApp extends StatelessWidget {
         primaryIconTheme: IconThemeData(
           color: Colors.white,
         ),
+          textTheme: Theme
+              .of(context)
+              .textTheme
+              .apply(
+            bodyColor: Color.fromARGB(255, 93, 188, 210),
+            //Color por defecto de all el texto
+            displayColor: Colors.red,
+          )
       ),
       //home: MyHomePage(title: title), //No usar home al usar routes
       // Start the app with the "/" named route. In this case, the app starts

@@ -34,7 +34,10 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
   }
 
   _buildVerticalLayout(orientation) {
-    return SingleChildScrollView(
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      color: Colors.greenAccent,
       padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
       child: Table(
         //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
@@ -61,7 +64,10 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
   }
 
   _buildHorizontalLayout(orientation) {
-    return SingleChildScrollView(
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      color: Colors.purple,
       padding: EdgeInsets.fromLTRB(200, 50, 200, 50),
       child: Table(children: <TableRow>[
         //Dos filas de cuatro elementos cada una
