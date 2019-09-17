@@ -39,41 +39,41 @@ class Utils extends StatelessWidget {
     String title,
   ) {
     return AppBar(
+      automaticallyImplyLeading: false,
+      titleSpacing: 0.0,
       //centerTitle: false,
       leading: IconButton(
         icon: Icon(Icons.menu),
         onPressed: () => Navigator.pushNamed(context, '/'),
       ),
       title: Container(
-        //padding: EdgeInsets.all(0),
+        margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+        padding: EdgeInsets.all(0),
         width: double.infinity,
         height: double.infinity,
-        color: Colors.red[200],
         child: Row(
-
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-
-            FlatButton(
-              //padding: EdgeInsets.all(0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Image.asset(
-                    'images/arrowthickleft.png',
-                    width: 25,
-                    height: 25,
-                  ),
-                  Text(
-                    'Back',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
+            Container(
+              child: GestureDetector(
+                child: Row(
+                  children: <Widget>[
+                    Image.asset(
+                      'images/arrowthickleft.png',
+                      width: 22,
+                      height: 22,
                     ),
-                  ),
-                ],
+                    Text(
+                      'Back',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+                onTap: () => Navigator.pop(context),
               ),
-              onPressed: () => Navigator.pop(context),
             ),
             IconButton(
               icon: Image.asset(
@@ -86,8 +86,8 @@ class Utils extends StatelessWidget {
             Text(
               title,
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
+                //color: Colors.white,
+                fontSize: 20,
               ),
             ),
           ],
@@ -136,8 +136,8 @@ class Utils extends StatelessWidget {
       //All algorithms
       fit: BoxFit.fill,
       child: Container(
-        width: 145,
-        height: 145,
+        width: 110,
+        height: 110,
         child: FlatButton(
           padding: EdgeInsets.all(5),
           child: Stack(
@@ -176,8 +176,8 @@ class Utils extends StatelessWidget {
       //Child Pugh Score
       fit: BoxFit.fill,
       child: Container(
-        width: 145,
-        height: 145,
+        width: 110,
+        height: 110,
         child: FlatButton(
           padding: EdgeInsets.all(5),
           child: Stack(

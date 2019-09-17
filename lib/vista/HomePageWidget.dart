@@ -24,6 +24,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     "PubMed": ['PubMed', 'pubmed.png', '/PubMed'],
     "Information": ['Information', 'information.png', '/Information'],
   };
+
   //String get title => null;
 
   @override
@@ -70,62 +71,68 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         centerTitle: true,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(70),
-          child: Stack(
-            children: <Widget>[
-              Image.asset(
-                'images/header4.png',
-                height: 70,
-                width: width,
-                fit: BoxFit.fitWidth,
-              ),
-              Center(
-                child: Container(
-                  //height: 60,
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Image.asset(
-                    'images/hepapplogo.png',
-                    width: 60,
-                    height: 60,
+          child: Container(
+            height: 70.0,
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: <Widget>[
+                Image.asset(
+
+                  'images/header4.png',
+                  height: 70,
+                  width: width,
+                  fit: BoxFit.fitWidth,
+                ),
+                Center(
+                  child: Container(
+                    //height: 60,
+                    padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                    child: Image.asset(
+                      'images/hepapplogo.png',
+                      width: 60,
+                      height: 60,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
+
   _buildVerticalLayout(orientation) {
     return Container(
       width: double.infinity,
       height: double.infinity,
       color: Colors.blueAccent,
-      padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
-      child: Table(
 
-        //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
-        //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+      child: Column(mainAxisAlignment: MainAxisAlignment.center,
+          //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
+          //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
 
-          children: <TableRow>[
+          children: <Row>[
+
+
             //Cuatro filas de dos elementos cada una
-            TableRow(children: <Widget>[
-
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               //Primera fila: Chapters y podcasts
               u.showHomeButton(context, 'Chapters', orientation),
               u.showHomeButton(context, 'Podcasts', orientation),
             ]),
-            TableRow(children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               //Segunda fila: Cards y figures
               u.showHomeButton(context, 'Cards', orientation),
               u.showHomeButton(context, 'Figures', orientation),
             ]),
-            TableRow(children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               //Tercera fila: Calculators y resources
               u.showHomeButton(context, 'Calculators', orientation),
               u.showHomeButton(context, 'Resources', orientation),
             ]),
-            TableRow(children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               //Cuarta fila: PubMed e Information
               u.showHomeButton(context, 'PubMed', orientation),
               u.showHomeButton(context, 'Information', orientation),
@@ -140,26 +147,28 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       width: double.infinity,
       height: double.infinity,
 
-      padding: EdgeInsets.fromLTRB(150, 25, 150, 25),
-      child: Table(children: <TableRow>[
-        //Dos filas de cuatro elementos cada una
-        TableRow(children: <Widget>[
-          //Primera fila: Chapters, podcasts, cards, figures
-          //showButton(context, 'Chapters', orientation),
-          u.showHomeButton(context, 'Chapters', orientation),
-          u.showHomeButton(context, 'Podcasts', orientation),
-          u.showHomeButton(context, 'Cards', orientation),
-          u.showHomeButton(context, 'Figures', orientation),
-        ]),
-        TableRow(children: <Widget>[
-          //Segunda fila: Calculators, resources, pubmed, information
-          u.showHomeButton(context, 'Calculators', orientation),
-          u.showHomeButton(context, 'Resources', orientation),
-          u.showHomeButton(context, 'PubMed', orientation),
-          u.showHomeButton(context, 'Information', orientation),
-        ]),
-      ]),
+      //padding: EdgeInsets.fromLTRB(150, 25, 150, 25),
+
+      child: Column(mainAxisAlignment: MainAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Row>[
+            //Dos filas de cuatro elementos cada una
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              //Primera fila: Chapters, podcasts, cards, figures
+              //showButton(context, 'Chapters', orientation),
+              u.showHomeButton(context, 'Chapters', orientation),
+              u.showHomeButton(context, 'Podcasts', orientation),
+              u.showHomeButton(context, 'Cards', orientation),
+              u.showHomeButton(context, 'Figures', orientation),
+            ]),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              //Segunda fila: Calculators, resources, pubmed, information
+              u.showHomeButton(context, 'Calculators', orientation),
+              u.showHomeButton(context, 'Resources', orientation),
+              u.showHomeButton(context, 'PubMed', orientation),
+              u.showHomeButton(context, 'Information', orientation),
+            ]),
+          ]),
     );
   }
-
 }

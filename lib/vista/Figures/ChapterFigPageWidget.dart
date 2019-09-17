@@ -17,7 +17,7 @@ class _ChapterFigPageState extends State<ChapterFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: u.showAppBar(context, "Chapter Figures"),
+      appBar: u.showAppBar(context, "Figures - Chapter Figures"),
 
       body: new Center(
         child: new Text("Some text"),

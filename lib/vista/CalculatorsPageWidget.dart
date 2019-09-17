@@ -38,26 +38,29 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
       width: double.infinity,
       height: double.infinity,
       color: Colors.greenAccent,
-      padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
-      child: Table(
-        //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
-        //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-          children: <TableRow>[
+      //padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
+      child: Column(mainAxisAlignment: MainAxisAlignment.center,
+          //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
+          //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+
+          children: <Row>[
             //Cuatro filas de dos elementos cada una
-            TableRow(children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               u.showCalcButton(context, "All", orientation),
               u.showCalcButton(context, "Child", orientation),
 
               //_iconoAllAlgorithms(orientation),
               //_iconoChildPugh(orientation),
             ]),
-            TableRow(children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               u.showCalcButton(context, "MELD", orientation),
               u.showCalcButton(context, "Okuda", orientation),
             ]),
-            TableRow(children: <Widget>[
-              u.showCalcButton(context, "CLIP", orientation),
-              FittedBox(),
+            Row(children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.only(left: 95.5),
+                  child: u.showCalcButton(context, "CLIP", orientation)),
+              //FittedBox(),
             ]),
           ]),
     );
@@ -68,61 +71,27 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
       width: double.infinity,
       height: double.infinity,
       color: Colors.purple,
-      padding: EdgeInsets.fromLTRB(200, 50, 200, 50),
-      child: Table(children: <TableRow>[
+      //padding: EdgeInsets.fromLTRB(200, 50, 200, 50),
+      child:
+      Column(mainAxisAlignment: MainAxisAlignment.center, children: <Row>[
         //Dos filas de cuatro elementos cada una
-        TableRow(children: <Widget>[
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
           //Primera fila: Chapters, podcasts, cards, figures
           u.showCalcButton(context, "All", orientation),
           u.showCalcButton(context, "Child", orientation),
           u.showCalcButton(context, "MELD", orientation),
           u.showCalcButton(context, "Okuda", orientation),
         ]),
-        TableRow(children: <Widget>[
+        Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
           //Segunda fila: Calculators, resources, pubmed, information
-          u.showCalcButton(context, "CLIP", orientation),
+          Padding(
+              padding: EdgeInsets.only(left: 167.5),
+              child: u.showCalcButton(context, "CLIP", orientation)),
+          /*FittedBox(),
           FittedBox(),
-          FittedBox(),
-          FittedBox(),
+          FittedBox(),*/
         ]),
       ]),
     );
   }
-
-/*_mostrarIcono(tipoCalculator, orientation) {
-    return FittedBox(
-      //All algorithms
-      fit: BoxFit.fill,
-      child: Container(
-        width: 145,
-        height: 145,
-        child: FlatButton(
-          padding: EdgeInsets.all(5),
-          child: Stack(
-            children: <Widget>[
-              Image.asset(
-                //Podría ser fija al ser común, pero se deja por si se quiere poner un icono distinto a cada algoritmo
-                'images/${tiposCalculators[tipoCalculator][1]}',
-              ),
-              Center(
-                child: Align(
-                  alignment: Alignment(0, 0.7),
-                  child: Text(
-                    tiposCalculators[tipoCalculator][0],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 93, 188, 210),
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          onPressed: () =>
-              Navigator.pushNamed(context, tiposCalculators[tipoCalculator][2]),
-        ),
-      ),
-    );
-  }*/
 }
