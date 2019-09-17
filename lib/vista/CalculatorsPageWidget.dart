@@ -37,32 +37,25 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Colors.greenAccent,
-      //padding: EdgeInsets.fromLTRB(85, 80, 85, 60),
-      child: Column(mainAxisAlignment: MainAxisAlignment.center,
-          //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
-          //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-
-          children: <Row>[
-            //Cuatro filas de dos elementos cada una
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              u.showCalcButton(context, "All", orientation),
-              u.showCalcButton(context, "Child", orientation),
-
-              //_iconoAllAlgorithms(orientation),
-              //_iconoChildPugh(orientation),
-            ]),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              u.showCalcButton(context, "MELD", orientation),
-              u.showCalcButton(context, "Okuda", orientation),
-            ]),
-            Row(children: <Widget>[
-              Padding(
-                  padding: EdgeInsets.only(left: 95.5),
-                  child: u.showCalcButton(context, "CLIP", orientation)),
-              //FittedBox(),
-            ]),
+      // color: Colors.greenAccent,
+      padding: EdgeInsets.fromLTRB(80, 80, 80, 80),
+      child: Center(
+        child: Table(children: <TableRow>[
+          //Cuatro filas de dos elementos cada una
+          TableRow(children: <Widget>[
+            u.showCalcButton(context, "All", orientation),
+            u.showCalcButton(context, "Child", orientation),
           ]),
+          TableRow(children: <Widget>[
+            u.showCalcButton(context, "MELD", orientation),
+            u.showCalcButton(context, "Okuda", orientation),
+          ]),
+          TableRow(children: <Widget>[
+            u.showCalcButton(context, "CLIP", orientation),
+            FittedBox(),
+          ]),
+        ]),
+      ),
     );
   }
 
@@ -70,28 +63,27 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Colors.purple,
-      //padding: EdgeInsets.fromLTRB(200, 50, 200, 50),
-      child:
-      Column(mainAxisAlignment: MainAxisAlignment.center, children: <Row>[
-        //Dos filas de cuatro elementos cada una
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          //Primera fila: Chapters, podcasts, cards, figures
-          u.showCalcButton(context, "All", orientation),
-          u.showCalcButton(context, "Child", orientation),
-          u.showCalcButton(context, "MELD", orientation),
-          u.showCalcButton(context, "Okuda", orientation),
+      // color: Colors.purple,
+      padding: EdgeInsets.fromLTRB(100, 25, 100, 25),
+      child: Center(
+        child: Table(children: <TableRow>[
+          //Dos filas de cuatro elementos cada una
+          TableRow(children: <Widget>[
+            //Primera fila: Chapters, podcasts, cards, figures
+            u.showCalcButton(context, "All", orientation),
+            u.showCalcButton(context, "Child", orientation),
+            u.showCalcButton(context, "MELD", orientation),
+            u.showCalcButton(context, "Okuda", orientation),
+          ]),
+          TableRow(children: <Widget>[
+            //Segunda fila: Calculators, resources, pubmed, information
+            u.showCalcButton(context, "CLIP", orientation),
+            FittedBox(),
+            FittedBox(),
+            FittedBox(),
+          ]),
         ]),
-        Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-          //Segunda fila: Calculators, resources, pubmed, information
-          Padding(
-              padding: EdgeInsets.only(left: 167.5),
-              child: u.showCalcButton(context, "CLIP", orientation)),
-          /*FittedBox(),
-          FittedBox(),
-          FittedBox(),*/
-        ]),
-      ]),
+      ),
     );
   }
 }

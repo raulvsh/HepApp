@@ -38,25 +38,25 @@ class _FiguresPageState extends State<FiguresPage> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Colors.lightBlueAccent,
-      child:
-      Column(mainAxisAlignment: MainAxisAlignment.center, children: <Row>[
-        //Cuatro filas de dos elementos cada una
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          u.showFigureButton(context, 'TableOfContents', orientation),
-          u.showFigureButton(context, 'Schemes', orientation),
+      // color: Colors.lightBlueAccent,
+      padding: EdgeInsets.fromLTRB(80, 80, 80, 80),
+      child: Center(
+        child: Table(children: <TableRow>[
+          //Cuatro filas de dos elementos cada una
+          TableRow(children: <Widget>[
+            u.showFigureButton(context, 'TableOfContents', orientation),
+            u.showFigureButton(context, 'Schemes', orientation),
+          ]),
+          TableRow(children: <Widget>[
+            u.showFigureButton(context, 'Interactive', orientation),
+            u.showFigureButton(context, 'Chapter', orientation),
+          ]),
+          TableRow(children: <Widget>[
+            u.showFigureButton(context, 'Drawing', orientation),
+            FittedBox(),
+          ]),
         ]),
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          u.showFigureButton(context, 'Interactive', orientation),
-          u.showFigureButton(context, 'Chapter', orientation),
-        ]),
-        Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(left: 95.5),
-            child: u.showFigureButton(context, 'Drawing', orientation),
-          ),
-        ]),
-      ]),
+      ),
     );
   }
 
@@ -64,30 +64,28 @@ class _FiguresPageState extends State<FiguresPage> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Colors.yellowAccent,
-      //padding: EdgeInsets.fromLTRB(200, 50, 200, 50),
-      child: Column(mainAxisAlignment: MainAxisAlignment.center,
-          //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
-          //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-
-          children: <Row>[
-            //Dos filas de cuatro elementos cada una
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              //Primera fila: Chapters, podcasts, cards, figures
-              u.showFigureButton(context, 'TableOfContents', orientation),
-              u.showFigureButton(context, 'Schemes', orientation),
-              u.showFigureButton(context, 'Interactive', orientation),
-              u.showFigureButton(context, 'Chapter', orientation),
-            ]),
-            Row(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
-              //Segunda fila: Calculators, resources, pubmed, information
-
-              Padding(
-                padding: EdgeInsets.only(left: 167.5),
-                child: u.showFigureButton(context, 'Drawing', orientation),
-              ),
-            ]),
+      //  color: Colors.yellowAccent,
+      padding: EdgeInsets.fromLTRB(100, 25, 100, 25),
+      child: Center(
+        child: Table(children: <TableRow>[
+          //Dos filas de cuatro elementos cada una
+          TableRow(children: <Widget>[
+            //Primera fila: Chapters, podcasts, cards, figures
+            u.showFigureButton(context, 'TableOfContents', orientation),
+            u.showFigureButton(context, 'Schemes', orientation),
+            u.showFigureButton(context, 'Interactive', orientation),
+            u.showFigureButton(context, 'Chapter', orientation),
           ]),
+          TableRow(children: <Widget>[
+            //Segunda fila: Calculators, resources, pubmed, information
+
+            u.showFigureButton(context, 'Drawing', orientation),
+            FittedBox(),
+            FittedBox(),
+            FittedBox(),
+          ]),
+        ]),
+      ),
     );
   }
 }

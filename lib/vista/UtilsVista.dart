@@ -100,8 +100,8 @@ class Utils extends StatelessWidget {
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: Container(
-        width: orientation == Orientation.portrait ? 110 : 110,
-        height: orientation == Orientation.portrait ? 110 : 110,
+        width: orientation == Orientation.portrait ? 120 : 120,
+        height: orientation == Orientation.portrait ? 120 : 120,
         child: FlatButton(
           padding: EdgeInsets.all(2),
           child: Stack(
@@ -132,40 +132,46 @@ class Utils extends StatelessWidget {
 
 //Se pasa la orientación por si se necesita posteriormente
   Widget showCalcButton(context, calculatorType, orientation) {
-    return FittedBox(
-      //All algorithms
-      fit: BoxFit.fill,
-      child: Container(
-        width: 110,
-        height: 110,
-        child: FlatButton(
-          padding: EdgeInsets.all(5),
-          child: Stack(
-            children: <Widget>[
-              Image.asset(
-                //Podría ser fija al ser común, pero se deja por si se quiere poner un icono distinto a cada algoritmo
-                'images/${calculatorTypes[calculatorType][1]}',
-              ),
-              Center(
-                child: Align(
-                  alignment: Alignment(0, 0.7),
-                  child: Text(
-                    calculatorTypes[calculatorType][0],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 93, 188, 210),
-                      fontSize: 16,
+    return
+      FittedBox(
+        fit: BoxFit.fill,
+        child: Container(
+          padding: EdgeInsets.all(1.5),
+          width: 120,
+          height: 120,
+          child: GestureDetector(
+
+            //padding: EdgeInsets.all(5),
+            child: Stack(
+              //alignment: Alignment.bottomLeft,
+              children: <Widget>[
+                Center(
+                  child: Image.asset(
+                    //Podría ser fija al ser común, pero se deja por si se quiere poner un icono distinto a cada algoritmo
+                    'images/${calculatorTypes[calculatorType][1]}',
+                  ),
+                ),
+                Center(
+                  child: Align(
+                    alignment: Alignment(0, 0.7),
+                    child: Text(
+                      calculatorTypes[calculatorType][0],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 93, 188, 210),
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
+            onTap: () =>
+                Navigator.pushNamed(
+                    context, calculatorTypes[calculatorType][2]),
           ),
-          onPressed: () =>
-              Navigator.pushNamed(context, calculatorTypes[calculatorType][2]),
         ),
-      ),
-    );
+      );
   }
 
 /*Se pasa la orientación por si se necesita posteriormente
@@ -173,34 +179,34 @@ class Utils extends StatelessWidget {
 */
   Widget showFigureButton(context, figureType, orientation) {
     return FittedBox(
-      //Child Pugh Score
       fit: BoxFit.fill,
       child: Container(
-        width: 110,
-        height: 110,
-        child: FlatButton(
-          padding: EdgeInsets.all(5),
+        padding: EdgeInsets.all(1.5),
+
+        width: 120,
+        height: 120,
+        child: GestureDetector(
           child: Stack(
             children: <Widget>[
               Image.asset(
                 //Podría ser fija al ser común, pero se deja por si se quiere poner un icono distinto a cada elemento
                 'images/${figureTypes[figureType][1]}',
               ),
-              Center(
-                child: Align(
+              Align(
                   alignment: Alignment(0, 0.7),
                   child: Text(
                     figureTypes[figureType][0],
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color.fromARGB(255, 93, 188, 210),
                       fontSize: 16,
                     ),
-                  ),
+
                 ),
               ),
             ],
           ),
-          onPressed: () =>
+          onTap: () =>
               Navigator.pushNamed(context, figureTypes[figureType][2]),
         ),
       ),

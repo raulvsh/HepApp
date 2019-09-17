@@ -107,7 +107,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      color: Colors.blueAccent,
+      //color: Colors.blueAccent,
 
       child: Column(mainAxisAlignment: MainAxisAlignment.center,
           //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
@@ -143,7 +143,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   _buildHorizontalLayout(orientation) {
     return Container(
-      color: Colors.red,
+      //color: Colors.red,
       width: double.infinity,
       height: double.infinity,
 
