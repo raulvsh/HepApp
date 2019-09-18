@@ -7,7 +7,6 @@ class CardsPage extends StatefulWidget {
 }
 
 class _CardsPageState extends State<CardsPage> {
-  Utils u = new Utils();
 
   //Variables de clase, las que se usarán para pasar el estado
 
@@ -27,7 +26,7 @@ class _CardsPageState extends State<CardsPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: u.showAppBar(context, "Cards"),
+      appBar: CustomAppBar(context, "Cards"), //u.showAppBar(context, "Cards"),
       body: _createCardsBody(),
     );
   }

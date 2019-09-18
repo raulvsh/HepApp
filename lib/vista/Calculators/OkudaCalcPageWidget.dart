@@ -8,7 +8,6 @@ class OkudaCalcPage extends StatefulWidget {
 }
 
 class _OkudaCalcPageState extends State<OkudaCalcPage> {
-  Utils u = new Utils();
 
   @override
   void initState() {
@@ -34,7 +33,8 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: u.showAppBar(context, "Calculators - Okuda"),
+      appBar: CustomAppBar(context, "Calculators - Okuda"),
+      //u.showAppBar(context, "Calculators - Okuda"),
       body: new Center(
         child: new Text("Some text"),
       ),

@@ -8,7 +8,6 @@ class AllCalcPage extends StatefulWidget {
 }
 
 class _AllCalcPageState extends State<AllCalcPage> {
-  Utils u = new Utils();
 
   @override
   void initState() {
@@ -34,8 +33,8 @@ class _AllCalcPageState extends State<AllCalcPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar:
-      u.showAppBar(context, "Calculators - All Algorithms - Diagnostic"),
+      appBar: CustomAppBar(
+          context, "Calculators - All Algorithms - Diagnostic"),
       body: new Center(
         child: new Text("Some text"),
       ),

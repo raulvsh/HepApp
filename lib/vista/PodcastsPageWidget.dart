@@ -7,7 +7,6 @@ class PodcastsPage extends StatefulWidget {
 }
 
 class _PodcastsPageState extends State<PodcastsPage> {
-  Utils u = new Utils();
 
   String textoFuturo;
 
@@ -21,7 +20,8 @@ class _PodcastsPageState extends State<PodcastsPage> {
     return new Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: u.showAppBar(context, "Podcasts"),
+      appBar: CustomAppBar(context, "Podcasts"),
+      //u.showAppBar(context, "Podcasts"),
 
       body: _buildPodcastsBody(),
     );

@@ -7,7 +7,6 @@ class InteractiveFigPage extends StatefulWidget {
 }
 
 class _InteractiveFigPageState extends State<InteractiveFigPage> {
-  Utils u = Utils();
 
   @override
   void initState() {
@@ -17,7 +16,8 @@ class _InteractiveFigPageState extends State<InteractiveFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: u.showAppBar(context, "Figures - Interactive Figures"),
+      appBar: CustomAppBar(context, "Figures - Interactive Figures"),
+      //u.showAppBar(context, "Figures - Interactive Figures"),
 
       body: new Center(
         child: new Text("Some text"),

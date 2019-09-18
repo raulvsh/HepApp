@@ -7,7 +7,6 @@ class ChaptersPage extends StatefulWidget {
 }
 
 class _ChaptersPageState extends State<ChaptersPage> {
-  Utils u = new Utils();
 
   var _currencies = ['Rupees', 'Dollars', 'Pounds', 'Others'];
   var _currentItemSelected = '';
@@ -25,7 +24,8 @@ class _ChaptersPageState extends State<ChaptersPage> {
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
       drawer: _openDrawer(),
-      appBar: u.showAppBar(context, "Chapters"),
+      appBar: CustomAppBar(context, "Chapters"),
+      //u.showAppBar(context, "Chapters"),
       body: _buildChaptersBody(),
     );
   }

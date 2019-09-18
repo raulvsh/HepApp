@@ -8,7 +8,6 @@ class CLIPCalcPage extends StatefulWidget {
 }
 
 class _CLIPCalcPageState extends State<CLIPCalcPage> {
-  Utils u = new Utils();
 
   @override
   void initState() {
@@ -34,7 +33,8 @@ class _CLIPCalcPageState extends State<CLIPCalcPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: u.showAppBar(context, "Calculators - CLIP Staging System"),
+      appBar: CustomAppBar(context, "Calculators - CLIP Staging System"),
+      //u.showAppBar(context, "Calculators - CLIP Staging System"),
       body: new Center(
         child: new Text("Some text"),
       ),

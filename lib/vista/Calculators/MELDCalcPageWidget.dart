@@ -8,7 +8,6 @@ class MELDCalcPage extends StatefulWidget {
 }
 
 class _MELDCalcPageState extends State<MELDCalcPage> {
-  Utils u = new Utils();
 
   @override
   void initState() {
@@ -34,7 +33,8 @@ class _MELDCalcPageState extends State<MELDCalcPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: u.showAppBar(context, "Calculators - MELD"),
+      appBar: CustomAppBar(context, "Calculators - MELD"),
+      //u.showAppBar(context, "Calculators - MELD"),
       body: new Center(
         child: new Text("Some text"),
       ),

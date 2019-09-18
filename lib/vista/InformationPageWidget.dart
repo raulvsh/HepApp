@@ -20,7 +20,6 @@ class _InformationPageState extends State<InformationPage> {
   List<Note> noteList;
   int count = 0;
 
-  Utils u = new Utils();
 
   @override
   void initState() {
@@ -38,7 +37,8 @@ class _InformationPageState extends State<InformationPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: u.showAppBar(context, "Information"),
+      appBar: CustomAppBar(context, "Information"),
+      //u.showAppBar(context, "Information"),
       body: getNoteListView(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

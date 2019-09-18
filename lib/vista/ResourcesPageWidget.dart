@@ -7,7 +7,6 @@ class ResourcesPage extends StatefulWidget {
 }
 
 class _ResourcesPageState extends State<ResourcesPage> {
-  Utils u = new Utils();
 
   @override
   void initState() {
@@ -19,7 +18,8 @@ class _ResourcesPageState extends State<ResourcesPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: u.showAppBar(context, "Resources"),
+      appBar: CustomAppBar(context, "Resources"),
+      //u.showAppBar(context, "Resources"),
 
       body: Center(
         child: RaisedButton(

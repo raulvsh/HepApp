@@ -8,8 +8,6 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
-  Utils u = Utils();
-
   //bool _isBorderEnabled = false;
 
   final title = 'HepApp';
@@ -77,7 +75,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               alignment: Alignment.bottomCenter,
               children: <Widget>[
                 Image.asset(
-
                   'images/header4.png',
                   height: 70,
                   width: width,
@@ -102,7 +99,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     );
   }
 
-
   _buildVerticalLayout(orientation) {
     return Container(
       width: double.infinity,
@@ -114,28 +110,27 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
 
           children: <Row>[
-
-
             //Cuatro filas de dos elementos cada una
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               //Primera fila: Chapters y podcasts
-              u.showHomeButton(context, 'Chapters', orientation),
-              u.showHomeButton(context, 'Podcasts', orientation),
+              CustomButton(context, sectionTypes["Chapters"], orientation),
+              CustomButton(context, sectionTypes["Podcasts"], orientation),
             ]),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               //Segunda fila: Cards y figures
-              u.showHomeButton(context, 'Cards', orientation),
-              u.showHomeButton(context, 'Figures', orientation),
+
+              CustomButton(context, sectionTypes["Cards"], orientation),
+              CustomButton(context, sectionTypes["Figures"], orientation),
             ]),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               //Tercera fila: Calculators y resources
-              u.showHomeButton(context, 'Calculators', orientation),
-              u.showHomeButton(context, 'Resources', orientation),
+              CustomButton(context, sectionTypes["Calculators"], orientation),
+              CustomButton(context, sectionTypes["Resources"], orientation),
             ]),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               //Cuarta fila: PubMed e Information
-              u.showHomeButton(context, 'PubMed', orientation),
-              u.showHomeButton(context, 'Information', orientation),
+              CustomButton(context, sectionTypes["PubMed"], orientation),
+              CustomButton(context, sectionTypes["Information"], orientation),
             ]),
           ]),
     );
@@ -155,18 +150,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             //Dos filas de cuatro elementos cada una
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               //Primera fila: Chapters, podcasts, cards, figures
-              //showButton(context, 'Chapters', orientation),
-              u.showHomeButton(context, 'Chapters', orientation),
-              u.showHomeButton(context, 'Podcasts', orientation),
-              u.showHomeButton(context, 'Cards', orientation),
-              u.showHomeButton(context, 'Figures', orientation),
+              CustomButton(context, sectionTypes["Chapters"], orientation),
+              CustomButton(context, sectionTypes["Podcasts"], orientation),
+              CustomButton(context, sectionTypes["Cards"], orientation),
+              CustomButton(context, sectionTypes["Figures"], orientation),
             ]),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               //Segunda fila: Calculators, resources, pubmed, information
-              u.showHomeButton(context, 'Calculators', orientation),
-              u.showHomeButton(context, 'Resources', orientation),
-              u.showHomeButton(context, 'PubMed', orientation),
-              u.showHomeButton(context, 'Information', orientation),
+              CustomButton(context, sectionTypes["Calculators"], orientation),
+              CustomButton(context, sectionTypes["Resources"], orientation),
+              CustomButton(context, sectionTypes["PubMed"], orientation),
+              CustomButton(context, sectionTypes["Information"], orientation),
             ]),
           ]),
     );

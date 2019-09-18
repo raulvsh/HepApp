@@ -7,7 +7,7 @@ class FiguresPage extends StatefulWidget {
 }
 
 class _FiguresPageState extends State<FiguresPage> {
-  Utils u = new Utils();
+  //Utils u = new Utils();
 
   //bool _isBorderEnabled = false;
 
@@ -24,7 +24,7 @@ class _FiguresPageState extends State<FiguresPage> {
     return Scaffold(
         resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-        appBar: u.showAppBar(context, "Figures"),
+        appBar: CustomAppBar(context, "Figures"),
         body: OrientationBuilder(
           builder: (context, orientation) {
             return orientation == Orientation.portrait
@@ -44,15 +44,15 @@ class _FiguresPageState extends State<FiguresPage> {
         child: Table(children: <TableRow>[
           //Cuatro filas de dos elementos cada una
           TableRow(children: <Widget>[
-            u.showFigureButton(context, 'TableOfContents', orientation),
-            u.showFigureButton(context, 'Schemes', orientation),
+            CustomButton(context, figureTypes["TableOfContents"], orientation),
+            CustomButton(context, figureTypes["Schemes"], orientation),
           ]),
           TableRow(children: <Widget>[
-            u.showFigureButton(context, 'Interactive', orientation),
-            u.showFigureButton(context, 'Chapter', orientation),
+            CustomButton(context, figureTypes["Interactive"], orientation),
+            CustomButton(context, figureTypes["Chapter"], orientation),
           ]),
           TableRow(children: <Widget>[
-            u.showFigureButton(context, 'Drawing', orientation),
+            CustomButton(context, figureTypes["Drawing"], orientation),
             FittedBox(),
           ]),
         ]),
@@ -71,15 +71,14 @@ class _FiguresPageState extends State<FiguresPage> {
           //Dos filas de cuatro elementos cada una
           TableRow(children: <Widget>[
             //Primera fila: Chapters, podcasts, cards, figures
-            u.showFigureButton(context, 'TableOfContents', orientation),
-            u.showFigureButton(context, 'Schemes', orientation),
-            u.showFigureButton(context, 'Interactive', orientation),
-            u.showFigureButton(context, 'Chapter', orientation),
+            CustomButton(context, figureTypes["TableOfContents"], orientation),
+            CustomButton(context, figureTypes["Schemes"], orientation),
+            CustomButton(context, figureTypes["Interactive"], orientation),
+            CustomButton(context, figureTypes["Chapter"], orientation),
           ]),
           TableRow(children: <Widget>[
             //Segunda fila: Calculators, resources, pubmed, information
-
-            u.showFigureButton(context, 'Drawing', orientation),
+            CustomButton(context, figureTypes["Drawing"], orientation),
             FittedBox(),
             FittedBox(),
             FittedBox(),

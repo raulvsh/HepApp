@@ -7,7 +7,6 @@ class TableFigPage extends StatefulWidget {
 }
 
 class _TableFigPageState extends State<TableFigPage> {
-  Utils u = Utils();
 
   @override
   void initState() {
@@ -17,7 +16,8 @@ class _TableFigPageState extends State<TableFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: u.showAppBar(context, "Figures - Table of Contents"),
+      appBar: CustomAppBar(context, "Figures - Table of Contents"),
+      //u.showAppBar(context, "Figures - Table of Contents"),
 
       body: new Center(
         child: new Text("Some text"),

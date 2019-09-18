@@ -7,11 +7,8 @@ class CalculatorsPage extends StatefulWidget {
 }
 
 class _CalculatorsPageState extends State<CalculatorsPage> {
-  Utils u = Utils();
 
-  //bool _isBorderEnabled = false;
-
-  var tiposCalculators = {
+  var calculatorTypes = {
     "All": ['All Algorithms', 'calculators.png', '/AllCalc'],
     "Child": ['Child Pugh Score', 'calculators.png', '/ChildCalc'],
     "MELD": ['MELD', 'calculators.png', '/MELDCalc'],
@@ -23,7 +20,8 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
-        appBar: u.showAppBar(context, "Calculators"),
+        appBar: CustomAppBar(context, "Calculators"),
+        //u.showAppBar(context, "Calculators"),
         body: OrientationBuilder(
           builder: (context, orientation) {
             return orientation == Orientation.portrait
@@ -43,15 +41,21 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
         child: Table(children: <TableRow>[
           //Cuatro filas de dos elementos cada una
           TableRow(children: <Widget>[
-            u.showCalcButton(context, "All", orientation),
-            u.showCalcButton(context, "Child", orientation),
+            CustomButton(context, calculatorTypes["All"], orientation),
+            CustomButton(context, calculatorTypes["Child"], orientation),
+
+            //u.showCalcButton(context, "All", orientation),
+            //u.showCalcButton(context, "Child", orientation),
           ]),
           TableRow(children: <Widget>[
-            u.showCalcButton(context, "MELD", orientation),
-            u.showCalcButton(context, "Okuda", orientation),
+            CustomButton(context, calculatorTypes["MELD"], orientation),
+            CustomButton(context, calculatorTypes["Okuda"], orientation),
+            /*u.showCalcButton(context, "MELD", orientation),
+            u.showCalcButton(context, "Okuda", orientation),*/
           ]),
           TableRow(children: <Widget>[
-            u.showCalcButton(context, "CLIP", orientation),
+            CustomButton(context, calculatorTypes["CLIP"], orientation),
+//            u.showCalcButton(context, "CLIP", orientation),
             FittedBox(),
           ]),
         ]),
@@ -70,14 +74,19 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
           //Dos filas de cuatro elementos cada una
           TableRow(children: <Widget>[
             //Primera fila: Chapters, podcasts, cards, figures
-            u.showCalcButton(context, "All", orientation),
+            CustomButton(context, calculatorTypes["All"], orientation),
+            CustomButton(context, calculatorTypes["Child"], orientation),
+            CustomButton(context, calculatorTypes["MELD"], orientation),
+            CustomButton(context, calculatorTypes["Okuda"], orientation),
+            /*u.showCalcButton(context, "All", orientation),
             u.showCalcButton(context, "Child", orientation),
             u.showCalcButton(context, "MELD", orientation),
-            u.showCalcButton(context, "Okuda", orientation),
+            u.showCalcButton(context, "Okuda", orientation),*/
           ]),
           TableRow(children: <Widget>[
             //Segunda fila: Calculators, resources, pubmed, information
-            u.showCalcButton(context, "CLIP", orientation),
+            CustomButton(context, calculatorTypes["CLIP"], orientation),
+            //u.showCalcButton(context, "CLIP", orientation),
             FittedBox(),
             FittedBox(),
             FittedBox(),

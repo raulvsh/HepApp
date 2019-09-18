@@ -7,7 +7,6 @@ class PubMedPage extends StatefulWidget {
 }
 
 class _PubMedPageState extends State<PubMedPage> {
-  Utils u = new Utils();
 
   @override
   void initState() {
@@ -19,7 +18,8 @@ class _PubMedPageState extends State<PubMedPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: u.showAppBar(context, "PubMed"),
+      appBar: CustomAppBar(context, "PubMed"),
+      //u.showAppBar(context, "PubMed"),
 
       body: new Center(
         child: new Text("Some text"),

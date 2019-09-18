@@ -8,7 +8,6 @@ class ChildCalcPage extends StatefulWidget {
 }
 
 class _ChildCalcPageState extends State<ChildCalcPage> {
-  Utils u = new Utils();
 
   @override
   void initState() {
@@ -34,7 +33,8 @@ class _ChildCalcPageState extends State<ChildCalcPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: u.showAppBar(context, "Calculators - Child Pugh Score"),
+      appBar: CustomAppBar(context, "Calculators - Child Pugh Score"),
+      //u.showAppBar(context, "Calculators - Child Pugh Score"),
       body: new Center(
         child: new Text("Some text"),
       ),

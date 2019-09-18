@@ -7,7 +7,6 @@ class SchemesFigPage extends StatefulWidget {
 }
 
 class _SchemesFigPageState extends State<SchemesFigPage> {
-  Utils u = Utils();
 
   @override
   void initState() {
@@ -17,7 +16,8 @@ class _SchemesFigPageState extends State<SchemesFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: u.showAppBar(context, "Figures - Schemes"),
+      appBar: CustomAppBar(context, "Figures - Schemes"),
+      //u.showAppBar(context, "Figures - Schemes"),
 
       body: new Center(
         child: new Text("Some text"),
