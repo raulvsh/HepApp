@@ -1,12 +1,92 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final BuildContext context;
+  final String title;
+
+  CustomAppBar(this.context, this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      titleSpacing: 0.0,
+      //centerTitle: false,
+      leading: IconButton(
+        icon: Icon(Icons.menu),
+        onPressed: () => Navigator.pushNamed(context, '/'),
+      ),
+      title: Container(
+        //margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+        padding: EdgeInsets.all(0),
+        width: double.infinity,
+        height: double.infinity,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Container(
+                child: GestureDetector(
+                  child: Row(
+                    children: <Widget>[
+                      Image.asset(
+                        'images/arrowthickleft.png',
+                        width: 22,
+                        height: 22,
+                      ),
+                      Text(
+                        'Back',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  onTap: () => Navigator.pop(context),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 0,
+              child: IconButton(
+                icon: Image.asset(
+                  'images/homeicon.png',
+                  width: 22,
+                  height: 22,
+                ),
+                onPressed: () => Navigator.pushNamed(context, '/'),
+              ),
+            ),
+            Expanded(
+              flex: 4,
+              child: Center(
+                child: Text(
+                  title,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    //color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+}
+
 class CustomButton extends StatelessWidget {
   final BuildContext context;
   final List<String> type;
-  final Orientation orientation;
 
-  CustomButton(this.context, this.type, this.orientation);
+  CustomButton(this.context, this.type);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +100,6 @@ class CustomButton extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               Image.asset(
-                //Podría ser fija al ser común, pero se deja por si se quiere poner un icono distinto a cada elemento
                 'images/${type[1]}',
               ),
               Align(
@@ -43,72 +122,4 @@ class CustomButton extends StatelessWidget {
   }
 }
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final BuildContext context;
-  final String title;
 
-  CustomAppBar(this.context, this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      titleSpacing: 0.0,
-      //centerTitle: false,
-      leading: IconButton(
-        icon: Icon(Icons.menu),
-        onPressed: () => Navigator.pushNamed(context, '/'),
-      ),
-      title: Container(
-        margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-        padding: EdgeInsets.all(0),
-        width: double.infinity,
-        height: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              child: GestureDetector(
-                child: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      'images/arrowthickleft.png',
-                      width: 22,
-                      height: 22,
-                    ),
-                    Text(
-                      'Back',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                onTap: () => Navigator.pop(context),
-              ),
-            ),
-            IconButton(
-              icon: Image.asset(
-                'images/homeicon.png',
-                width: 22,
-                height: 22,
-              ),
-              onPressed: () => Navigator.pushNamed(context, '/'),
-            ),
-            Text(
-              title,
-              style: TextStyle(
-                //color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
-}

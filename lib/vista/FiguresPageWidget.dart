@@ -22,19 +22,49 @@ class _FiguresPageState extends State<FiguresPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
+      resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-        appBar: CustomAppBar(context, "Figures"),
-        body: OrientationBuilder(
-          builder: (context, orientation) {
-            return orientation == Orientation.portrait
-                ? _buildVerticalLayout(orientation)
-                : _buildHorizontalLayout(orientation);
-          },
-        ));
+      appBar: CustomAppBar(context, "Figures"),
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          return _buildLayout(orientation);
+        },
+      ),
+    );
   }
 
-  _buildVerticalLayout(orientation) {
+  _buildLayout(orientation) {
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    var padding = width / 100;
+
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      //color: Colors.lightBlueAccent,
+      child: Center(
+        child: GridView.count(
+            padding: orientation == Orientation.portrait
+                ? EdgeInsets.fromLTRB(
+                20 * padding, 25 * padding, 20 * padding, 0)
+                : EdgeInsets.fromLTRB(
+                15 * padding, 4 * padding, 15 * padding, 0),
+            primary: false,
+            crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
+            children: <CustomButton>[
+              CustomButton(context, figureTypes["TableOfContents"]),
+              CustomButton(context, figureTypes["Schemes"]),
+              CustomButton(context, figureTypes["Interactive"]),
+              CustomButton(context, figureTypes["Chapter"]),
+              CustomButton(context, figureTypes["Drawing"]),
+            ]),
+      ),
+    );
+  }
+
+/*_buildVerticalLayout(orientation) {
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -58,9 +88,9 @@ class _FiguresPageState extends State<FiguresPage> {
         ]),
       ),
     );
-  }
+  }*/
 
-  _buildHorizontalLayout(orientation) {
+/*_buildHorizontalLayout(orientation) {
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -86,5 +116,5 @@ class _FiguresPageState extends State<FiguresPage> {
         ]),
       ),
     );
-  }
+  }*/
 }

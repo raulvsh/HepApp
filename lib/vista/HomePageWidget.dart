@@ -11,7 +11,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   //bool _isBorderEnabled = false;
 
   final title = 'HepApp';
-
   var sectionTypes = {
     "Chapters": ['Chapters', 'chapters.png', '/Chapters'],
     "Podcasts": ['Podcasts', 'podcasts.png', '/Podcasts'],
@@ -27,21 +26,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    //bool orientationPortrait =        MediaQuery.of(context).orientation == Orientation.portrait;
-    /*final width = MediaQuery
-        .of(context)
-        .size
-        .width;*/
 
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
       appBar: _buildHomeAppBar(),
-      body: OrientationBuilder(
+      body: //_buildLayout(orientation),
+
+      OrientationBuilder(
         builder: (context, orientation) {
-          return orientation == Orientation.portrait
-              ? _buildVerticalLayout2(orientation)
-              : _buildHorizontalLayout(orientation);
+          return _buildLayout(orientation);
         },
       ),
     );
@@ -99,14 +93,45 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     );
   }
 
-  _buildVerticalLayout(orientation) {
+  _buildLayout(orientation) {
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    var padding = width / 100;
+
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      //color: Colors.red,
+      child: GridView.count(
+          padding: orientation == Orientation.portrait
+              ? EdgeInsets.fromLTRB(20 * padding, 12 * padding, 20 * padding, 0)
+              : EdgeInsets.fromLTRB(17 * padding, 3 * padding, 17 * padding, 0),
+          primary: false,
+          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
+          children: <CustomButton>[
+            CustomButton(context, sectionTypes["Chapters"]),
+            CustomButton(context, sectionTypes["Podcasts"]),
+
+            CustomButton(context, sectionTypes["Cards"]),
+            CustomButton(context, sectionTypes["Figures"]),
+            CustomButton(context, sectionTypes["Calculators"]),
+            CustomButton(context, sectionTypes["Resources"]),
+            //Cuarta fila: PubMed e Information
+            CustomButton(context, sectionTypes["PubMed"]),
+            CustomButton(context, sectionTypes["Information"]),
+          ]),
+    );
+  }
+
+/*_buildVerticalLayout(orientation) {
 
     return Container(
       width: double.infinity,
       height: double.infinity,
 
       //color: Colors.blueAccent,
-
       child: Column(mainAxisAlignment: MainAxisAlignment.center,
           //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
           //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
@@ -136,9 +161,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             ]),
           ]),
     );
-  }
+  }*/
 
-  _buildVerticalLayout2(orientation) {
+/*_buildVerticalLayout2(orientation) {
     final width = MediaQuery
         .of(context)
         .size
@@ -173,9 +198,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ]),
       
     );
-  }
+  }*/
 
-  _buildHorizontalLayout(orientation) {
+/*_buildHorizontalLayout(orientation) {
     return Container(
       //color: Colors.red,
       width: double.infinity,
@@ -203,5 +228,5 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             ]),
           ]),
     );
-  }
+  }*/
 }

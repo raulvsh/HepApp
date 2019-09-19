@@ -7,7 +7,6 @@ class CalculatorsPage extends StatefulWidget {
 }
 
 class _CalculatorsPageState extends State<CalculatorsPage> {
-
   var calculatorTypes = {
     "All": ['All Algorithms', 'calculators.png', '/AllCalc'],
     "Child": ['Child Pugh Score', 'calculators.png', '/ChildCalc'],
@@ -19,19 +18,53 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
-        appBar: CustomAppBar(context, "Calculators"),
-        //u.showAppBar(context, "Calculators"),
-        body: OrientationBuilder(
+      resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
+      appBar: CustomAppBar(context, "Calculators"),
+      //u.showAppBar(context, "Calculators"),
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          return _buildLayout(orientation);
+        },
+      ),
+
+      /*OrientationBuilder(
           builder: (context, orientation) {
             return orientation == Orientation.portrait
                 ? _buildVerticalLayout(orientation)
                 : _buildHorizontalLayout(orientation);
           },
-        ));
+        )*/
+    );
   }
 
-  _buildVerticalLayout(orientation) {
+  _buildLayout(orientation) {
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    var padding = width / 100;
+
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      //color: Colors.greenAccent,
+      child: GridView.count(
+          padding: orientation == Orientation.portrait
+              ? EdgeInsets.fromLTRB(20 * padding, 25 * padding, 20 * padding, 0)
+              : EdgeInsets.fromLTRB(15 * padding, 4 * padding, 15 * padding, 0),
+          primary: false,
+          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
+          children: <CustomButton>[
+            CustomButton(context, calculatorTypes["All"]),
+            CustomButton(context, calculatorTypes["Child"]),
+            CustomButton(context, calculatorTypes["MELD"]),
+            CustomButton(context, calculatorTypes["Okuda"]),
+            CustomButton(context, calculatorTypes["CLIP"]),
+          ]),
+    );
+  }
+
+/* _buildVerticalLayout(orientation) {
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -61,9 +94,9 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
         ]),
       ),
     );
-  }
+  }*/
 
-  _buildHorizontalLayout(orientation) {
+/*_buildHorizontalLayout(orientation) {
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -94,5 +127,5 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
         ]),
       ),
     );
-  }
+  }*/
 }
