@@ -44,13 +44,13 @@ class _FiguresPageState extends State<FiguresPage> {
       width: double.infinity,
       height: double.infinity,
       //color: Colors.lightBlueAccent,
-      child: Center(
+      child: FractionallySizedBox(
+        widthFactor: orientation == Orientation.portrait ? 0.6 : 0.65,
+        alignment: Alignment.center,
         child: GridView.count(
             padding: orientation == Orientation.portrait
-                ? EdgeInsets.fromLTRB(
-                20 * padding, 25 * padding, 20 * padding, 0)
-                : EdgeInsets.fromLTRB(
-                15 * padding, 4 * padding, 15 * padding, 0),
+                ? EdgeInsets.only(top: 25 * padding)
+                : EdgeInsets.only(top: 4 * padding),
             primary: false,
             crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
             children: <CustomButton>[

@@ -23,52 +23,51 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         width: double.infinity,
         height: double.infinity,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Expanded(
-              flex: 1,
-              child: Container(
-                child: GestureDetector(
-                  child: Row(
-                    children: <Widget>[
-                      Image.asset(
-                        'images/arrowthickleft.png',
-                        width: 22,
-                        height: 22,
-                      ),
-                      Text(
-                        'Back',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
-                  onTap: () => Navigator.pop(context),
-                ),
-              ),
-            ),
-            Expanded(
               flex: 0,
-              child: IconButton(
-                icon: Image.asset(
-                  'images/homeicon.png',
-                  width: 22,
-                  height: 22,
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/'),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  GestureDetector(
+                    child: Row(
+                      children: <Widget>[
+                        Image.asset(
+                          'images/arrowthickleft.png',
+                          width: 22,
+                          height: 22,
+                        ),
+                        Text(
+                          'Back',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: () => Navigator.pop(context),
+                  ),
+                  IconButton(
+                    icon: Image.asset(
+                      'images/homeicon.png',
+                      width: 22,
+                      height: 22,
+                    ),
+                    onPressed: () => Navigator.pushNamed(context, '/'),
+                  ),
+                ],
               ),
             ),
             Expanded(
-              flex: 4,
-              child: Center(
-                child: Text(
-                  title,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    //color: Colors.white,
-                    fontSize: 20,
-                  ),
+              flex: 1,
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  //color: Colors.white,
+                  fontSize: 20,
                 ),
               ),
             ),
@@ -121,5 +120,3 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
-
-

@@ -104,24 +104,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       width: double.infinity,
       height: double.infinity,
       //color: Colors.red,
-      child: GridView.count(
-          padding: orientation == Orientation.portrait
-              ? EdgeInsets.fromLTRB(20 * padding, 12 * padding, 20 * padding, 0)
-              : EdgeInsets.fromLTRB(17 * padding, 3 * padding, 17 * padding, 0),
-          primary: false,
-          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-          children: <CustomButton>[
-            CustomButton(context, sectionTypes["Chapters"]),
-            CustomButton(context, sectionTypes["Podcasts"]),
+      child: FractionallySizedBox(
+        widthFactor: orientation == Orientation.portrait ? 0.6 : 0.65,
+        alignment: Alignment.center,
 
-            CustomButton(context, sectionTypes["Cards"]),
-            CustomButton(context, sectionTypes["Figures"]),
-            CustomButton(context, sectionTypes["Calculators"]),
-            CustomButton(context, sectionTypes["Resources"]),
-            //Cuarta fila: PubMed e Information
-            CustomButton(context, sectionTypes["PubMed"]),
-            CustomButton(context, sectionTypes["Information"]),
-          ]),
+        child: GridView.count(
+            padding: orientation == Orientation.portrait ? EdgeInsets.only(
+                top: 12 * padding) : EdgeInsets.only(top: 3 * padding),
+            primary: false,
+            crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
+            children: <CustomButton>[
+              CustomButton(context, sectionTypes["Chapters"]),
+              CustomButton(context, sectionTypes["Podcasts"]),
+              CustomButton(context, sectionTypes["Cards"]),
+              CustomButton(context, sectionTypes["Figures"]),
+              CustomButton(context, sectionTypes["Calculators"]),
+              CustomButton(context, sectionTypes["Resources"]),
+              CustomButton(context, sectionTypes["PubMed"]),
+              CustomButton(context, sectionTypes["Information"]),
+            ]),
+      ),
     );
   }
 
