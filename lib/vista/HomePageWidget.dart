@@ -40,7 +40,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       body: OrientationBuilder(
         builder: (context, orientation) {
           return orientation == Orientation.portrait
-              ? _buildVerticalLayout(orientation)
+              ? _buildVerticalLayout2(orientation)
               : _buildHorizontalLayout(orientation);
         },
       ),
@@ -100,9 +100,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   }
 
   _buildVerticalLayout(orientation) {
+
     return Container(
       width: double.infinity,
       height: double.infinity,
+
       //color: Colors.blueAccent,
 
       child: Column(mainAxisAlignment: MainAxisAlignment.center,
@@ -133,6 +135,43 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               CustomButton(context, sectionTypes["Information"], orientation),
             ]),
           ]),
+    );
+  }
+
+  _buildVerticalLayout2(orientation) {
+    final width = MediaQuery
+        .of(context)
+        .size
+        .width;
+
+    return  Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.red,
+
+          child:
+
+          GridView.count(
+            padding: EdgeInsets.fromLTRB(width/4,width/4,width/4,0),
+            primary: false,
+
+            crossAxisCount: orientation== Orientation.portrait ? 2 : 5,
+              //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
+              //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+
+              children: <CustomButton>[
+                  CustomButton(context, sectionTypes["Chapters"], orientation),
+                  CustomButton(context, sectionTypes["Podcasts"], orientation),
+
+                  CustomButton(context, sectionTypes["Cards"], orientation),
+                  CustomButton(context, sectionTypes["Figures"], orientation),
+                  CustomButton(context, sectionTypes["Calculators"], orientation),
+                  CustomButton(context, sectionTypes["Resources"], orientation),
+                  //Cuarta fila: PubMed e Information
+                  CustomButton(context, sectionTypes["PubMed"], orientation),
+                  CustomButton(context, sectionTypes["Information"], orientation),
+              ]),
+      
     );
   }
 

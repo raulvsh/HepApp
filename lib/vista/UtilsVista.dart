@@ -1,13 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/*class Utils extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return null;
-  }
-}*/
-
 class CustomButton extends StatelessWidget {
   final BuildContext context;
   final List<String> type;
@@ -114,7 +107,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
     );
-    return null;
   }
 
   @override
