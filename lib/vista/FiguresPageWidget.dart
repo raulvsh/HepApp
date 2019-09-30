@@ -11,6 +11,14 @@ class _FiguresPageState extends State<FiguresPage> {
 
   //bool _isBorderEnabled = false;
 
+  var figureTypesNames = [
+    "TableOfContents",
+    "Schemes",
+    "Interactive",
+    "Chapter",
+    "Drawing",
+  ];
+
   var figureTypes = {
     "TableOfContents": ['Table of Contents', 'figures.png', '/TableFig'],
     "Schemes": ['Schemes', 'figures.png', '/SchemesFig'],
@@ -39,6 +47,7 @@ class _FiguresPageState extends State<FiguresPage> {
         .size
         .width;
     var padding = width / 100;
+    List<CustomButton> widgets = [];
 
     return Container(
       width: double.infinity,
@@ -48,20 +57,30 @@ class _FiguresPageState extends State<FiguresPage> {
         widthFactor: orientation == Orientation.portrait ? 0.6 : 0.65,
         alignment: Alignment.center,
         child: GridView.count(
-            padding: orientation == Orientation.portrait
-                ? EdgeInsets.only(top: 25 * padding)
-                : EdgeInsets.only(top: 4 * padding),
-            primary: false,
-            crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-            children: <CustomButton>[
+          padding: orientation == Orientation.portrait
+              ? EdgeInsets.only(top: 25 * padding)
+              : EdgeInsets.only(top: 4 * padding),
+          primary: false,
+          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
+          children: _buildFiguresGridView(),
+          /*<CustomButton>[
               CustomButton(context, figureTypes["TableOfContents"]),
               CustomButton(context, figureTypes["Schemes"]),
               CustomButton(context, figureTypes["Interactive"]),
               CustomButton(context, figureTypes["Chapter"]),
               CustomButton(context, figureTypes["Drawing"]),
-            ]),
+            ]*/
+        ),
       ),
     );
+  }
+
+  _buildFiguresGridView() {
+    List<CustomButton> widgets = [];
+    for (int i = 0; i < 5; i++) {
+      widgets.add(CustomButton(context, figureTypes[figureTypesNames[i]]));
+    }
+    return widgets;
   }
 
 /*_buildVerticalLayout(orientation) {

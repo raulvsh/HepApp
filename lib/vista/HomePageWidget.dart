@@ -11,6 +11,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   //bool _isBorderEnabled = false;
 
   final title = 'HepApp';
+
+  var sectionTypesNames = [
+    "Chapters",
+    "Podcasts",
+    "Cards",
+    "Figures",
+    "Calculators",
+    "Resources",
+    "PubMed",
+    "Information",
+    "Information2",
+
+  ];
+
   var sectionTypes = {
     "Chapters": ['Chapters', 'chapters.png', '/Chapters'],
     "Podcasts": ['Podcasts', 'podcasts.png', '/Podcasts'],
@@ -20,13 +34,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     "Resources": ['Resources', 'resources.png', '/Resources'],
     "PubMed": ['PubMed', 'pubmed.png', '/PubMed'],
     "Information": ['Information', 'information.png', '/Information'],
-  };
+    "Information2": ['Information', 'information.png', '/Information'],
 
-  //String get title => null;
+  };
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
@@ -107,13 +120,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       child: FractionallySizedBox(
         widthFactor: orientation == Orientation.portrait ? 0.6 : 0.65,
         alignment: Alignment.center,
-
         child: GridView.count(
-            padding: orientation == Orientation.portrait ? EdgeInsets.only(
-                top: 12 * padding) : EdgeInsets.only(top: 3 * padding),
+          padding: orientation == Orientation.portrait
+              ? EdgeInsets.only(top: 12 * padding)
+              : EdgeInsets.only(top: 3 * padding),
             primary: false,
             crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-            children: <CustomButton>[
+          children: _buildHomeGridView(),
+          /*<CustomButton>[
               CustomButton(context, sectionTypes["Chapters"]),
               CustomButton(context, sectionTypes["Podcasts"]),
               CustomButton(context, sectionTypes["Cards"]),
@@ -122,12 +136,27 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               CustomButton(context, sectionTypes["Resources"]),
               CustomButton(context, sectionTypes["PubMed"]),
               CustomButton(context, sectionTypes["Information"]),
-            ]),
+            ]*/
+        ),
       ),
     );
   }
 
-/*_buildVerticalLayout(orientation) {
+
+  //Método para crear la lista de botones según una lista, en vez de colocar los 8 botones directamente
+  _buildHomeGridView() {
+    List<CustomButton> widgets = [];
+
+    for (int i = 0; i < 8; i++) {
+      widgets.add(CustomButton(context, sectionTypes[sectionTypesNames[i]]));
+    }
+
+    return widgets;
+  }
+
+/*
+Antiguo método para crear layout vertical
+_buildVerticalLayout(orientation) {
 
     return Container(
       width: double.infinity,
@@ -165,44 +194,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     );
   }*/
 
-/*_buildVerticalLayout2(orientation) {
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
-
-    return  Container(
-          width: double.infinity,
-          height: double.infinity,
-          color: Colors.red,
-
-          child:
-
-          GridView.count(
-            padding: EdgeInsets.fromLTRB(width/4,width/4,width/4,0),
-            primary: false,
-
-            crossAxisCount: orientation== Orientation.portrait ? 2 : 5,
-              //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
-              //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-
-              children: <CustomButton>[
-                  CustomButton(context, sectionTypes["Chapters"], orientation),
-                  CustomButton(context, sectionTypes["Podcasts"], orientation),
-
-                  CustomButton(context, sectionTypes["Cards"], orientation),
-                  CustomButton(context, sectionTypes["Figures"], orientation),
-                  CustomButton(context, sectionTypes["Calculators"], orientation),
-                  CustomButton(context, sectionTypes["Resources"], orientation),
-                  //Cuarta fila: PubMed e Information
-                  CustomButton(context, sectionTypes["PubMed"], orientation),
-                  CustomButton(context, sectionTypes["Information"], orientation),
-              ]),
-      
-    );
-  }*/
-
-/*_buildHorizontalLayout(orientation) {
+/*
+Antiguo método para crear layout horizontal
+_buildHorizontalLayout(orientation) {
     return Container(
       //color: Colors.red,
       width: double.infinity,
@@ -231,4 +225,5 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           ]),
     );
   }*/
+
 }
