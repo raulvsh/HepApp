@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/UtilsVista.dart';
+import 'package:hepapp/vista/VistaUtils.dart';
 
 class FiguresPage extends StatefulWidget {
   @override
@@ -7,10 +7,6 @@ class FiguresPage extends StatefulWidget {
 }
 
 class _FiguresPageState extends State<FiguresPage> {
-  //Utils u = new Utils();
-
-  //bool _isBorderEnabled = false;
-
   var figureTypesNames = [
     "TableOfContents",
     "Schemes",
@@ -47,7 +43,6 @@ class _FiguresPageState extends State<FiguresPage> {
         .size
         .width;
     var padding = width / 100;
-    List<CustomButton> widgets = [];
 
     return Container(
       width: double.infinity,
@@ -63,7 +58,8 @@ class _FiguresPageState extends State<FiguresPage> {
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
           children: _buildFiguresGridView(),
-          /*<CustomButton>[
+          /* Método antiguo de mostrar los botones
+          <CustomButton>[
               CustomButton(context, figureTypes["TableOfContents"]),
               CustomButton(context, figureTypes["Schemes"]),
               CustomButton(context, figureTypes["Interactive"]),

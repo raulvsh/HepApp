@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final BuildContext context;
@@ -89,13 +90,10 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      fit: BoxFit.fill,
-      child: Container(
+    return Container(
         padding: EdgeInsets.all(1.5),
-        width: 120,
-        height: 120,
-        child: GestureDetector(
+
+      child: GestureDetector(
           child: Stack(
             children: <Widget>[
               Image.asset(
@@ -116,7 +114,7 @@ class CustomButton extends StatelessWidget {
           ),
           onTap: () => Navigator.pushNamed(context, type[2]),
         ),
-      ),
+
     );
   }
 }

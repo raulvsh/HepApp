@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:hepapp/vista/UtilsVista.dart';
+import 'package:hepapp/vista/VistaUtils.dart';
 
-class HomePageWidget extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
-  _HomePageWidgetState createState() => _HomePageWidgetState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
-  //bool _isBorderEnabled = false;
+class _HomePageState extends State<HomePage> {
 
   final title = 'HepApp';
 
@@ -143,7 +142,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   }
 
 
-  //Método para crear la lista de botones según una lista, en vez de colocar los 8 botones directamente
+  //Método para crear la lista de botones según, en vez de colocar los 8 botones directamente
   _buildHomeGridView() {
     List<CustomButton> widgets = [];
 

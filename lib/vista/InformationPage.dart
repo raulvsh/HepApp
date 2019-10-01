@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hepapp/models/note.dart';
 import 'package:hepapp/models/subsistemaBD/database_helper.dart';
-import 'package:hepapp/vista/UtilsVista.dart';
+import 'package:hepapp/vista/VistaUtils.dart';
 import 'package:hepapp/vista/note_detail.dart';
 import 'package:sqflite/sqflite.dart';
 

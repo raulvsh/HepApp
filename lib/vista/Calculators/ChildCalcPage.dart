@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/vista/UtilsVista.dart';
+import 'package:hepapp/vista/VistaUtils.dart';
 
-class AllCalcPage extends StatefulWidget {
+class ChildCalcPage extends StatefulWidget {
   @override
-  _AllCalcPageState createState() => _AllCalcPageState();
+  _ChildCalcPageState createState() => _ChildCalcPageState();
 }
 
-class _AllCalcPageState extends State<AllCalcPage> {
+class _ChildCalcPageState extends State<ChildCalcPage> {
 
   @override
   void initState() {
@@ -33,8 +33,8 @@ class _AllCalcPageState extends State<AllCalcPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(
-          context, "Calculators - All Algorithms - Diagnostic"),
+      appBar: CustomAppBar(context, "Calculators - Child Pugh Score"),
+      //u.showAppBar(context, "Calculators - Child Pugh Score"),
       body: new Center(
         child: new Text("Some text"),
       ),

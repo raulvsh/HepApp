@@ -19,6 +19,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  splashscreen: ^1.2.0
+  flutter_native_splash: ^0.1.8+2
   sqflite: ^1.1.6+5
   path_provider: ^1.3.0
   intl: ^0.16.0
@@ -85,3 +87,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+  #Configuración flutter native splash
+flutter_native_splash:
+  image: ./images/hepapplogo.png
+  color: "fafafa"

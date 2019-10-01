@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/vista/UtilsVista.dart';
+import 'package:hepapp/vista/VistaUtils.dart';
 
-class OkudaCalcPage extends StatefulWidget {
+class AllCalcPage extends StatefulWidget {
   @override
-  _OkudaCalcPageState createState() => _OkudaCalcPageState();
+  _AllCalcPageState createState() => _AllCalcPageState();
 }
 
-class _OkudaCalcPageState extends State<OkudaCalcPage> {
+class _AllCalcPageState extends State<AllCalcPage> {
 
   @override
   void initState() {
@@ -31,10 +31,10 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(context, "Calculators - Okuda"),
-      //u.showAppBar(context, "Calculators - Okuda"),
+      appBar: CustomAppBar(
+          context, "Calculators - All Algorithms - Diagnostic"),
       body: new Center(
         child: new Text("Some text"),
       ),

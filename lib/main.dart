@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/Calculators/AllCalcPageWidget.dart';
-import 'package:hepapp/vista/Calculators/CLIPCalcPageWidget.dart';
-import 'package:hepapp/vista/Calculators/ChildCalcPageWidget.dart';
-import 'package:hepapp/vista/Calculators/MELDCalcPageWidget.dart';
-import 'package:hepapp/vista/Calculators/OkudaCalcPageWidget.dart';
-import 'package:hepapp/vista/CalculatorsPageWidget.dart';
-import 'package:hepapp/vista/CardsPageWidget.dart';
-import 'package:hepapp/vista/ChaptersPageWidget.dart';
-import 'package:hepapp/vista/Figures/ChapterFigPageWidget.dart';
-import 'package:hepapp/vista/Figures/DrawingFigPageWidget.dart';
-import 'package:hepapp/vista/Figures/InteractiveFigPageWidget.dart';
-import 'package:hepapp/vista/Figures/SchemesFigPageWidget.dart';
-import 'package:hepapp/vista/Figures/TableFigPageWidget.dart';
-import 'package:hepapp/vista/FiguresPageWidget.dart';
-import 'package:hepapp/vista/InformationPageWidget.dart';
-import 'package:hepapp/vista/PodcastsPageWidget.dart';
-import 'package:hepapp/vista/PubMedPageWidget.dart';
-import 'package:hepapp/vista/ResourcesPageWidget.dart';
+import 'package:hepapp/vista/Calculators/AllCalcPage.dart';
+import 'package:hepapp/vista/Calculators/CLIPCalcPage.dart';
+import 'package:hepapp/vista/Calculators/ChildCalcPage.dart';
+import 'package:hepapp/vista/Calculators/MELDCalcPage.dart';
+import 'package:hepapp/vista/Calculators/OkudaCalcPage.dart';
+import 'package:hepapp/vista/CalculatorsPage.dart';
+import 'package:hepapp/vista/CardsPage.dart';
+import 'package:hepapp/vista/ChaptersPage.dart';
+import 'package:hepapp/vista/Figures/ChapterFigPage.dart';
+import 'package:hepapp/vista/Figures/DrawingFigPage.dart';
+import 'package:hepapp/vista/Figures/InteractiveFigPage.dart';
+import 'package:hepapp/vista/Figures/SchemesFigPage.dart';
+import 'package:hepapp/vista/Figures/TableFigPage.dart';
+import 'package:hepapp/vista/FiguresPage.dart';
+import 'package:hepapp/vista/InformationPage.dart';
+import 'package:hepapp/vista/PodcastsPage.dart';
+import 'package:hepapp/vista/PubMedPage.dart';
+import 'package:hepapp/vista/ResourcesPage.dart';
 
-import 'vista/HomePageWidget.dart';
+import 'vista/HomePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -61,7 +61,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // Ruta base, accedemos a HomePage.
-        '/': (context) => HomePageWidget(),
+        '/': (context) => HomePage(),
+        //HomePageWidget(),
         //Rutas desde la página principal, se definen aqui para poder acceder a ellas desde cualquier punto del programa
         '/Chapters': (context) => ChaptersPage(),
         '/Podcasts': (context) => PodcastsPage(),
