@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class CalculatorsPage extends StatefulWidget {
   @override
@@ -26,7 +26,7 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
-      appBar: CustomAppBar(context, "Calculators"),
+      appBar: CustomAppBar(context, "Calculators", true),
       //u.showAppBar(context, "Calculators"),
       body: OrientationBuilder(
         builder: (context, orientation) {

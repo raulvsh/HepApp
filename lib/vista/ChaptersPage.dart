@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class ChaptersPage extends StatefulWidget {
   @override
@@ -24,7 +24,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
       drawer: _openDrawer(),
-      appBar: CustomAppBar(context, "Chapters"),
+      appBar: CustomAppBar(context, "Chapters", true),
       //u.showAppBar(context, "Chapters"),
       body: _buildChaptersBody(),
     );

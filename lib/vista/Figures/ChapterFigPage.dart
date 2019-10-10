@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class ChapterFigPage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _ChapterFigPageState extends State<ChapterFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Chapter Figures"),
+      appBar: CustomAppBar(context, "Figures - Chapter Figures", true),
       //u.showAppBar(context, "Figures - Chapter Figures"),
 
       body: new Center(

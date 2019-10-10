@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class CardsPage extends StatefulWidget {
   @override
@@ -26,7 +26,8 @@ class _CardsPageState extends State<CardsPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, "Cards"), //u.showAppBar(context, "Cards"),
+      appBar: CustomAppBar(context, "Cards", true),
+      //u.showAppBar(context, "Cards"),
       body: _createCardsBody(),
     );
   }

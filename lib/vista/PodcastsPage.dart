@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class PodcastsPage extends StatefulWidget {
   @override
@@ -20,7 +20,7 @@ class _PodcastsPageState extends State<PodcastsPage> {
     return new Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, "Podcasts"),
+      appBar: CustomAppBar(context, "Podcasts", true),
       //u.showAppBar(context, "Podcasts"),
 
       body: _buildPodcastsBody(),

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hepapp/models/note.dart';
 import 'package:hepapp/models/subsistemaBD/database_helper.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 import 'package:hepapp/vista/note_detail.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -37,7 +37,7 @@ class _InformationPageState extends State<InformationPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, "Information"),
+      appBar: CustomAppBar(context, "Information", true),
       //u.showAppBar(context, "Information"),
       body: getNoteListView(),
       floatingActionButton: FloatingActionButton(

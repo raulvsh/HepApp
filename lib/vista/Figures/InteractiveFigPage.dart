@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class InteractiveFigPage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _InteractiveFigPageState extends State<InteractiveFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Interactive Figures"),
+      appBar: CustomAppBar(context, "Figures - Interactive Figures", true),
       //u.showAppBar(context, "Figures - Interactive Figures"),
 
       body: new Center(

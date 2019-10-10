@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class MELDCalcPage extends StatefulWidget {
   @override
@@ -33,11 +33,13 @@ class _MELDCalcPageState extends State<MELDCalcPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(context, "Calculators - MELD"),
+      appBar: CustomAppBar(context, "Calculators - MELD", false),
       //u.showAppBar(context, "Calculators - MELD"),
       body: new Center(
         child: new Text("Some text"),
       ),
+      bottomSheet: CalcBottomBar(),
+
     );
   }
 }

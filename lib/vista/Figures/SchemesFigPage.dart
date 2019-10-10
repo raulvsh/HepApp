@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class SchemesFigPage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _SchemesFigPageState extends State<SchemesFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Schemes"),
+      appBar: CustomAppBar(context, "Figures - Schemes", true),
       //u.showAppBar(context, "Figures - Schemes"),
 
       body: new Center(

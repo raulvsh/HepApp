@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class TableFigPage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _TableFigPageState extends State<TableFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Table of Contents"),
+      appBar: CustomAppBar(context, "Figures - Table of Contents", true),
       //u.showAppBar(context, "Figures - Table of Contents"),
 
       body: new Center(

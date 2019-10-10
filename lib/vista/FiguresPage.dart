@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class FiguresPage extends StatefulWidget {
   @override
@@ -28,7 +28,7 @@ class _FiguresPageState extends State<FiguresPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, "Figures"),
+      appBar: CustomAppBar(context, "Figures", true),
       body: OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);

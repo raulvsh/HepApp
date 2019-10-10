@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class AllCalcPage extends StatefulWidget {
   @override
@@ -34,10 +34,12 @@ class _AllCalcPageState extends State<AllCalcPage> {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
-          context, "Calculators - All Algorithms - Diagnostic"),
+          context, "Calculators - All Algorithms - Diagnostic", false),
       body: new Center(
         child: new Text("Some text"),
       ),
+      bottomSheet: CalcBottomBar(),
+
     );
   }
 }

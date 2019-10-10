@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class PubMedPage extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _PubMedPageState extends State<PubMedPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, "PubMed"),
+      appBar: CustomAppBar(context, "PubMed", true),
       //u.showAppBar(context, "PubMed"),
 
       body: new Center(

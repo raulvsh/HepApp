@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class DrawingFigPage extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class _DrawingFigPageState extends State<DrawingFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Drawing"),
+      appBar: CustomAppBar(context, "Figures - Drawing", true),
       //u.showAppBar(context, "Figures - Drawing"),
 
       body: Signature(),

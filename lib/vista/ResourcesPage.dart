@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/VistaUtils.dart';
+import 'package:hepapp/vista/CustomWidgets.dart';
 
 class ResourcesPage extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, "Resources"),
+      appBar: CustomAppBar(context, "Resources", true),
       //u.showAppBar(context, "Resources"),
 
       body: Center(
