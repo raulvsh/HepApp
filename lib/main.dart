@@ -28,6 +28,7 @@ y las rutas a las distintos apartados.
  */
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  //TODO tema entero de la app, definiendo sus estilos
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +56,6 @@ class MyApp extends StatelessWidget {
             displayColor: Colors.red,
           )
       ),
-      //home: MyHomePage(title: title), //No usar home al usar routes
-      // Start the app with the "/" named route. In this case, the app starts
-      // on the FirstScreen widget.
       initialRoute: '/',
       routes: {
         // Ruta base, accedemos a HomePage.
@@ -88,42 +86,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-/*
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
 
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  //Reservado para variables de estado, que se vayan actualizando
-  //En principio la homepage no tiene ninguna
-
-  /*int _counter = 0;
-  final _biggerFont = const TextStyle(fontSize: 18.0);
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }*/
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-
-    //Se devuelve el widget de la página HomePage
-    return Scaffold(
-      body: HomePageWidget(),
-    );
-  }
-}*/

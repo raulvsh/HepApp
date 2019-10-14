@@ -8,7 +8,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   final title = 'HepApp';
 
   var sectionTypesNames = [
@@ -21,7 +20,6 @@ class _HomePageState extends State<HomePage> {
     "PubMed",
     "Information",
     "Information2",
-
   ];
 
   var sectionTypes = {
@@ -34,7 +32,6 @@ class _HomePageState extends State<HomePage> {
     "PubMed": ['PubMed', 'pubmed.png', '/PubMed'],
     "Information": ['Information', 'information.png', '/Information'],
     "Information2": ['Information', 'information.png', '/Information'],
-
   };
 
   @override
@@ -123,24 +120,13 @@ class _HomePageState extends State<HomePage> {
           padding: orientation == Orientation.portrait
               ? EdgeInsets.only(top: 12 * padding)
               : EdgeInsets.only(top: 3 * padding),
-            primary: false,
-            crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
+          primary: false,
+          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
           children: _buildHomeGridView(),
-          /*<CustomButton>[
-              CustomButton(context, sectionTypes["Chapters"]),
-              CustomButton(context, sectionTypes["Podcasts"]),
-              CustomButton(context, sectionTypes["Cards"]),
-              CustomButton(context, sectionTypes["Figures"]),
-              CustomButton(context, sectionTypes["Calculators"]),
-              CustomButton(context, sectionTypes["Resources"]),
-              CustomButton(context, sectionTypes["PubMed"]),
-              CustomButton(context, sectionTypes["Information"]),
-            ]*/
         ),
       ),
     );
   }
-
 
   //Método para crear la lista de botones según, en vez de colocar los 8 botones directamente
   _buildHomeGridView() {
@@ -153,76 +139,5 @@ class _HomePageState extends State<HomePage> {
     return widgets;
   }
 
-/*
-Antiguo método para crear layout vertical
-_buildVerticalLayout(orientation) {
-
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-
-      //color: Colors.blueAccent,
-      child: Column(mainAxisAlignment: MainAxisAlignment.center,
-          //border: _isBorderEnabled ? TableBorder.all() : TableBorder.all(),
-          //defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
-
-          children: <Row>[
-            //Cuatro filas de dos elementos cada una
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              //Primera fila: Chapters y podcasts
-              CustomButton(context, sectionTypes["Chapters"], orientation),
-              CustomButton(context, sectionTypes["Podcasts"], orientation),
-            ]),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              //Segunda fila: Cards y figures
-
-              CustomButton(context, sectionTypes["Cards"], orientation),
-              CustomButton(context, sectionTypes["Figures"], orientation),
-            ]),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              //Tercera fila: Calculators y resources
-              CustomButton(context, sectionTypes["Calculators"], orientation),
-              CustomButton(context, sectionTypes["Resources"], orientation),
-            ]),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              //Cuarta fila: PubMed e Information
-              CustomButton(context, sectionTypes["PubMed"], orientation),
-              CustomButton(context, sectionTypes["Information"], orientation),
-            ]),
-          ]),
-    );
-  }*/
-
-/*
-Antiguo método para crear layout horizontal
-_buildHorizontalLayout(orientation) {
-    return Container(
-      //color: Colors.red,
-      width: double.infinity,
-      height: double.infinity,
-
-      //padding: EdgeInsets.fromLTRB(150, 25, 150, 25),
-
-      child: Column(mainAxisAlignment: MainAxisAlignment.center,
-          //crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Row>[
-            //Dos filas de cuatro elementos cada una
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              //Primera fila: Chapters, podcasts, cards, figures
-              CustomButton(context, sectionTypes["Chapters"], orientation),
-              CustomButton(context, sectionTypes["Podcasts"], orientation),
-              CustomButton(context, sectionTypes["Cards"], orientation),
-              CustomButton(context, sectionTypes["Figures"], orientation),
-            ]),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              //Segunda fila: Calculators, resources, pubmed, information
-              CustomButton(context, sectionTypes["Calculators"], orientation),
-              CustomButton(context, sectionTypes["Resources"], orientation),
-              CustomButton(context, sectionTypes["PubMed"], orientation),
-              CustomButton(context, sectionTypes["Information"], orientation),
-            ]),
-          ]),
-    );
-  }*/
 
 }
