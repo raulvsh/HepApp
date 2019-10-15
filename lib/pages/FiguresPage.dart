@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/CustomWidgets.dart';
+import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/HomeButton.dart';
+
 
 class FiguresPage extends StatefulWidget {
   @override
@@ -7,7 +9,9 @@ class FiguresPage extends StatefulWidget {
 }
 
 class _FiguresPageState extends State<FiguresPage> {
-  var figureTypesNames = [
+  final numFigCategories = 5;
+
+  var figTypesNames = [
     "TableOfContents",
     "Schemes",
     "Interactive",
@@ -15,7 +19,7 @@ class _FiguresPageState extends State<FiguresPage> {
     "Drawing",
   ];
 
-  var figureTypes = {
+  var figTypes = {
     "TableOfContents": ['Table of Contents', 'figures.png', '/TableFig'],
     "Schemes": ['Schemes', 'figures.png', '/SchemesFig'],
     "Interactive": ['Interactive Figures', 'figures.png', '/InteractiveFig'],
@@ -58,23 +62,15 @@ class _FiguresPageState extends State<FiguresPage> {
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
           children: _buildFiguresGridView(),
-          /* Método antiguo de mostrar los botones
-          <CustomButton>[
-              CustomButton(context, figureTypes["TableOfContents"]),
-              CustomButton(context, figureTypes["Schemes"]),
-              CustomButton(context, figureTypes["Interactive"]),
-              CustomButton(context, figureTypes["Chapter"]),
-              CustomButton(context, figureTypes["Drawing"]),
-            ]*/
         ),
       ),
     );
   }
 
   _buildFiguresGridView() {
-    List<CustomButton> widgets = [];
-    for (int i = 0; i < 5; i++) {
-      widgets.add(CustomButton(context, figureTypes[figureTypesNames[i]]));
+    List<HomeButton> widgets = [];
+    for (int i = 0; i < numFigCategories; i++) {
+      widgets.add(HomeButton(context, figTypes[figTypesNames[i]]));
     }
     return widgets;
   }

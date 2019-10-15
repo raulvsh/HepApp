@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/CustomWidgets.dart';
+import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/HomeButton.dart';
+
 
 class CalculatorsPage extends StatefulWidget {
   @override
@@ -7,14 +9,15 @@ class CalculatorsPage extends StatefulWidget {
 }
 
 class _CalculatorsPageState extends State<CalculatorsPage> {
-  var calculatorTypesNames = [
+  final numCalcCategories = 5;
+  var calcTypesNames = [
     "All",
     "Child",
     "MELD",
     "Okuda",
     "CLIP",
   ];
-  var calculatorTypes = {
+  var calcTypes = {
     "All": ['All Algorithms', 'calculators.png', '/AllCalc'],
     "Child": ['Child Pugh Score', 'calculators.png', '/ChildCalc'],
     "MELD": ['MELD', 'calculators.png', '/MELDCalc'],
@@ -58,25 +61,17 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
           children: _buildCalcGridView(),
-
-          /*<CustomButton>[
-              CustomButton(context, calculatorTypes["All"]),
-              CustomButton(context, calculatorTypes["Child"]),
-              CustomButton(context, calculatorTypes["MELD"]),
-              CustomButton(context, calculatorTypes["Okuda"]),
-              CustomButton(context, calculatorTypes["CLIP"]),
-            ]*/
         ),
       ),
     );
   }
 
   _buildCalcGridView() {
-    List<CustomButton> widgets = [];
+    List<HomeButton> widgets = [];
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < numCalcCategories; i++) {
       widgets
-          .add(CustomButton(context, calculatorTypes[calculatorTypesNames[i]]));
+          .add(HomeButton(context, calcTypes[calcTypesNames[i]]));
     }
 
     return widgets;

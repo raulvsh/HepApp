@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hepapp/models/note.dart';
 import 'package:hepapp/models/subsistemaBD/database_helper.dart';
-import 'package:hepapp/vista/CustomWidgets.dart';
-import 'package:hepapp/vista/note_detail.dart';
+import 'package:hepapp/pages/note_detail.dart';
+import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'note_detail.dart';

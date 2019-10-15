@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:hepapp/vista/CustomWidgets.dart';
+import 'package:hepapp/widgets/HomeAppBar.dart';
+import 'package:hepapp/widgets/HomeButton.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final title = 'HepApp';
+  final numHomeCategories = 8;
 
   var sectionTypesNames = [
     "Chapters",
@@ -39,65 +41,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: _buildHomeAppBar(),
-      body: //_buildLayout(orientation),
-
-      OrientationBuilder(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(90),
+        child: HomeAppBar(context, title),
+      ),
+      body: OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
         },
-      ),
-    );
-  }
-
-  _buildHomeAppBar() {
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
-
-    return PreferredSize(
-      preferredSize: Size.fromHeight(90),
-      child: AppBar(
-        automaticallyImplyLeading: false, //Elimina el botón back
-        title: Container(
-          height: 30,
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 15,
-            ),
-          ),
-        ),
-        centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(70),
-          child: Container(
-            height: 70.0,
-            child: Stack(
-              alignment: Alignment.bottomCenter,
-              children: <Widget>[
-                Image.asset(
-                  'images/header4.png',
-                  height: 70,
-                  width: width,
-                  fit: BoxFit.fitWidth,
-                ),
-                Center(
-                  child: Container(
-                    //height: 60,
-                    padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: Image.asset(
-                      'images/hepapplogo.png',
-                      width: 60,
-                      height: 60,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -130,14 +81,12 @@ class _HomePageState extends State<HomePage> {
 
   //Método para crear la lista de botones según, en vez de colocar los 8 botones directamente
   _buildHomeGridView() {
-    List<CustomButton> widgets = [];
+    List<HomeButton> widgets = [];
 
-    for (int i = 0; i < 8; i++) {
-      widgets.add(CustomButton(context, sectionTypes[sectionTypesNames[i]]));
+    for (int i = 0; i < numHomeCategories; i++) {
+      widgets.add(HomeButton(context, sectionTypes[sectionTypesNames[i]]));
     }
 
     return widgets;
   }
-
-
 }

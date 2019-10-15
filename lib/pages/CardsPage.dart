@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/vista/CustomWidgets.dart';
+import 'package:hepapp/widgets/CustomAppBar.dart';
 
 class CardsPage extends StatefulWidget {
   @override

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/vista/CustomWidgets.dart';
+import 'package:hepapp/widgets/CalcBottomBar.dart';
+import 'package:hepapp/widgets/CustomAppBar.dart';
 
-class ChildCalcPage extends StatefulWidget {
+class MELDCalcPage extends StatefulWidget {
   @override
-  _ChildCalcPageState createState() => _ChildCalcPageState();
+  _MELDCalcPageState createState() => _MELDCalcPageState();
 }
 
-class _ChildCalcPageState extends State<ChildCalcPage> {
+class _MELDCalcPageState extends State<MELDCalcPage> {
 
   @override
   void initState() {
@@ -33,8 +34,8 @@ class _ChildCalcPageState extends State<ChildCalcPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(context, "Calculators - Child Pugh Score", false),
-      //u.showAppBar(context, "Calculators - Child Pugh Score"),
+      appBar: CustomAppBar(context, "Calculators - MELD", false),
+      //u.showAppBar(context, "Calculators - MELD"),
       body: new Center(
         child: new Text("Some text"),
       ),

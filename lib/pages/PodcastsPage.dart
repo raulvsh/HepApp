@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/pages/InformationPage.dart';
 import 'package:hepapp/providers/menu_provider.dart';
 import 'package:hepapp/utils/icono_string_util.dart';
-import 'package:hepapp/vista/CustomWidgets.dart';
-import 'package:hepapp/vista/InformationPage.dart';
+import 'package:hepapp/widgets/CustomAppBar.dart';
 
 class PodcastsPage extends StatefulWidget {
   @override
@@ -61,6 +61,8 @@ class _PodcastsPageState extends State<PodcastsPage> {
 
   List<Widget> _listaItems(List<dynamic> data, BuildContext context) {
     final List<Widget> opciones = [];
+
+
     data.forEach((opt) {
       final widgetTemp = ListTile(
         title: Text(opt['texto']),
