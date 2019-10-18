@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
+import 'CalcBottomButton.dart';
+
 class CalcBottomBar extends StatelessWidget {
-  const CalcBottomBar({
-    Key key,
-  }) : super(key: key);
+  final numreset;
+
+  CalcBottomBar(this.numreset,);
 
   //TODO hacer método reset
-  _reset() {
+  Widget reset() {
+    print('reset pulsado prueba');
     return AlertDialog(
       //title: Text("Reset Values"),
       content: Text("reseteo"),
@@ -29,47 +32,58 @@ class CalcBottomBar extends StatelessWidget {
     );
   }
 
+  /*var reseteo = AlertDialog(
+    //title: Text("Reset Values"),
+    content: Text("reseteo"),
+    elevation: 1.0,
+  );
+  var reseteo2 = AlertDialog(
+    //title: Text("Reset Values"),
+    content: Text("reseteo2"),
+    elevation: 1.0,
+  );*/
+
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
       child: Row(
+        //TODO HACER BOTÓN PERSONALIZADO bottom, y pasar texto y acción por referencia
         //mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           //BottomCalcButton("Reset Values", () => print("hola")),
-          RaisedButton(
-            splashColor: Colors.redAccent,
+          CalcBottomButton("Presioname", action: () => {reset()}),
+          SizedBox(width: 10.0,), //height: 30,),
+          Container(
+            height: 25.0,
+            margin: EdgeInsets.all(7),
 
-            //icon: Icon(Icons.menu),
-            child: Text("Reset Values"),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (BuildContext context) => _reset(),
-              );
-              //_reset());
-            },
+            child: RaisedButton(
+              //icon: Icon(Icons.menu),
+              child: Text("Previous Values", style: TextStyle(fontSize: 12),),
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) => _previous());
+              },
+            ),
           ),
-          SizedBox(width: 20.0),
-          RaisedButton(
-            //icon: Icon(Icons.menu),
-            child: Text("Previous Values"),
-            onPressed: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) => _previous());
-            },
+          SizedBox(width: 10.0),
+          Container(
+            height: 25.0,
+            margin: EdgeInsets.all(7),
+
+            child: RaisedButton(
+              //icon: Icon(Icons.menu),
+              child: Text("More Information", style: TextStyle(fontSize: 12),),
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) => _information());
+              },
+            ),
           ),
-          SizedBox(width: 20.0),
-          RaisedButton(
-            //icon: Icon(Icons.menu),
-            child: Text("More information"),
-            onPressed: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) => _information());
-            },
-          ),
+          //TODO hacer botón Next opcional como en el CustomAppBar
         ],
       ),
     );

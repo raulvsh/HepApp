@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/widgets/CalcBottomBar.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 class AllCalcPage extends StatefulWidget {
   @override
@@ -35,11 +36,14 @@ class _AllCalcPageState extends State<AllCalcPage> {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
-          context, "Calculators - All Algorithms - Diagnostic", false),
+        context, "Calculators - All Algorithms - Diagnostic",
+        selScreenshot: true, selFullSettings: true,),
+      drawer: MenuWidget(),
+
       body: new Center(
         child: new Text("Some text"),
       ),
-      bottomSheet: CalcBottomBar(),
+      bottomSheet: CalcBottomBar("reseteo"),
 
     );
   }

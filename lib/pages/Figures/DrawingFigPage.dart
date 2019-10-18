@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 
 class DrawingFigPage extends StatefulWidget {
@@ -18,9 +19,8 @@ class _DrawingFigPageState extends State<DrawingFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Drawing", true),
-      //u.showAppBar(context, "Figures - Drawing"),
-
+      appBar: CustomAppBar(context, "Figures - Drawing"),
+      drawer: MenuWidget(),
       body: Signature(),
 
     );

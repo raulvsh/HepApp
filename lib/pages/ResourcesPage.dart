@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/providers/peliculas_provider.dart';
 import 'package:hepapp/search/search_delegate.dart';
 import 'package:hepapp/widgets/card_swiper_widget.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:hepapp/widgets/movie_horizontal.dart';
 
 class ResourcesPage extends StatefulWidget {
@@ -41,7 +42,9 @@ class _ResourcesPageState extends State<ResourcesPage> {
           )
         ],
       ),
-      /*CustomAppBar(context, "Resources", true),*/
+      drawer: MenuWidget(),
+      //TODO volver a poner appbar custom
+      /*CustomAppBar(context, "Resources"),*/
 
       body: _buildResourcesbody(),
     );

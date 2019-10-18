@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:hepapp/widgets/CalcBottomBar.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 class CLIPCalcPage extends StatefulWidget {
   @override
@@ -10,6 +12,10 @@ class CLIPCalcPage extends StatefulWidget {
 }
 
 class _CLIPCalcPageState extends State<CLIPCalcPage> {
+
+  final prefs = new PreferenciasUsuario();
+
+
   final filaAFP = Row(
     children: <Widget>[
       Container(
@@ -45,7 +51,7 @@ class _CLIPCalcPageState extends State<CLIPCalcPage> {
       SizedBox(
         width: 10.0,
       ),
-      Text("Child Pugh Score"),
+      Text("Child Pugh Score", style: TextStyle(fontSize: 12),),
       SizedBox(
         width: 10.0,
       ),
@@ -220,7 +226,10 @@ class _CLIPCalcPageState extends State<CLIPCalcPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(context, "Calculators - CLIP", false),
+      appBar: CustomAppBar(context, "Calculators - CLIP", selScreenshot: false,
+        selPartialSettings: true,),
+      drawer: MenuWidget(),
+
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -240,7 +249,7 @@ class _CLIPCalcPageState extends State<CLIPCalcPage> {
           ],
         ),
       ),
-      bottomSheet: CalcBottomBar(),
+      bottomSheet: CalcBottomBar("reseteo"),
 
     )
     ;

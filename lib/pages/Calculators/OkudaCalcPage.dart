@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/widgets/CalcBottomBar.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 class OkudaCalcPage extends StatefulWidget {
   @override
@@ -150,7 +151,9 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(context, "Calculators - Okuda", false),
+      appBar: CustomAppBar(
+        context, "Calculators - Okuda", selPartialSettings: true,),
+      drawer: MenuWidget(),
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -170,7 +173,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           ],
         ),
       ),
-      bottomSheet: CalcBottomBar(),
+      bottomSheet: CalcBottomBar("reseteo2"),
     );
   }
 

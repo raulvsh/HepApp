@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 class InteractiveFigPage extends StatefulWidget {
   @override
@@ -16,9 +17,8 @@ class _InteractiveFigPageState extends State<InteractiveFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Interactive Figures", true),
-      //u.showAppBar(context, "Figures - Interactive Figures"),
-
+      appBar: CustomAppBar(context, "Figures - Interactive Figures"),
+      drawer: MenuWidget(),
       body: new Center(
         child: new Text("Some text"),
       ),

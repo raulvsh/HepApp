@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/models/note.dart';
-import 'package:hepapp/models/subsistemaBD/database_helper.dart';
+import 'package:hepapp/providers/db_provider.dart';
 import 'package:intl/intl.dart';
 
 class NoteDetail extends StatefulWidget {
@@ -18,7 +18,7 @@ class NoteDetail extends StatefulWidget {
 class NoteDetailState extends State<NoteDetail> {
   static var _priorities = ['High', 'Low'];
 
-  DatabaseHelper helper = DatabaseHelper();
+  DBProvider helper = DBProvider();
 
   final String appBarTitle;
   final Note note;

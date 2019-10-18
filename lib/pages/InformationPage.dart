@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hepapp/models/note.dart';
-import 'package:hepapp/models/subsistemaBD/database_helper.dart';
 import 'package:hepapp/pages/note_detail.dart';
+import 'package:hepapp/providers/db_provider.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'note_detail.dart';
@@ -16,7 +17,7 @@ class InformationPage extends StatefulWidget {
 
 class _InformationPageState extends State<InformationPage> {
 
-  DatabaseHelper databaseHelper = DatabaseHelper();
+  DBProvider databaseHelper = DBProvider();
   List<Note> noteList;
   int count = 0;
 
@@ -37,8 +38,8 @@ class _InformationPageState extends State<InformationPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, "Information", true),
-      //u.showAppBar(context, "Information"),
+      appBar: CustomAppBar(context, "Information"),
+      drawer: MenuWidget(),
       body: getNoteListView(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

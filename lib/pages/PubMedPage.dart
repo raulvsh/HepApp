@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 class PubMedPage extends StatefulWidget {
   @override
@@ -20,7 +21,9 @@ class _PubMedPageState extends State<PubMedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "PubMed", true),
+      appBar: CustomAppBar(context, "PubMed"),
+      drawer: MenuWidget(),
+
       body: Center(
         child: AnimatedContainer(
           // Use the properties stored in the State class.

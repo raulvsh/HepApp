@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/HomeButton.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 
 class FiguresPage extends StatefulWidget {
@@ -32,7 +33,9 @@ class _FiguresPageState extends State<FiguresPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, "Figures", true),
+      appBar: CustomAppBar(context, "Figures"),
+      drawer: MenuWidget(),
+
       body: OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);

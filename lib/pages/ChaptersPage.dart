@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-
+import 'package:hepapp/widgets/menu_widget.dart';
 
 class ChaptersPage extends StatefulWidget {
   @override
@@ -8,10 +9,12 @@ class ChaptersPage extends StatefulWidget {
 }
 
 class _ChaptersPageState extends State<ChaptersPage> {
-
   var _currencies = ['Rupees', 'Dollars', 'Pounds', 'Others'];
   var _currentItemSelected = '';
   String nameCity = "";
+
+  final prefs = PreferenciasUsuario();
+
 
   @override
   void initState() {
@@ -21,26 +24,13 @@ class _ChaptersPageState extends State<ChaptersPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      drawer: _openDrawer(),
-      appBar: CustomAppBar(context, "Chapters", true),
-      //u.showAppBar(context, "Chapters"),
+      drawer: MenuWidget(),
+      appBar: CustomAppBar(context, "Chapters"),
       body: _buildChaptersBody(),
-    );
-  }
-
-  _openDrawer() {
-    return Drawer(
-      child: ListView(
-        children: [
-          UserAccountsDrawerHeader(
-            accountEmail: Text('raulvsh@gmail.com'),
-            accountName: Text('Raúl Velasco'),
-          ),
-        ],
-      ),
     );
   }
 
@@ -49,30 +39,32 @@ class _ChaptersPageState extends State<ChaptersPage> {
       margin: EdgeInsets.all(20.0),
       child: Column(
         children: <Widget>[
-          Center(
-            child: Text(
-              "Chapters, prueba desplegable",
-              style: TextStyle(
-                fontSize: 20,
-                backgroundColor: Color.fromARGB(255, 93, 188, 210),
-                color: Colors.white,
+          Column(
+            children: <Widget>[
+              DropdownButton<String>(
+                items: _currencies.map((String dropDownStringItem) {
+                  return DropdownMenuItem<String>(
+                    value: dropDownStringItem,
+                    child: Text(dropDownStringItem),
+                  );
+                }).toList(),
+                onChanged: (String newValueSelected) {
+                  // Your code to execute, when a menu item is selected from drop down
+                  _onDropDownItemSelected(newValueSelected);
+                },
+                value: _currentItemSelected,
               ),
-            ),
+              Text('Color secundario: ${prefs.colorSecundario}'),
+              Divider(),
+              Text('Género: ${prefs.genero}'),
+              Divider(),
+              Text('Nombre usuario: ${prefs.nombreUsuario}'),
+              Divider()
+            ],
           ),
-          Center(
-            child: DropdownButton<String>(
-              items: _currencies.map((String dropDownStringItem) {
-                return DropdownMenuItem<String>(
-                  value: dropDownStringItem,
-                  child: Text(dropDownStringItem),
-                );
-              }).toList(),
-              onChanged: (String newValueSelected) {
-                // Your code to execute, when a menu item is selected from drop down
-                _onDropDownItemSelected(newValueSelected);
-              },
-              value: _currentItemSelected,
-            ),
+          RaisedButton(
+            child: Text('Preferencias'),
+            onPressed: () => Navigator.pushNamed(context, '/settings'),
           ),
         ],
       ),

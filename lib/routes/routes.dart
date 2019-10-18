@@ -19,6 +19,7 @@ import 'package:hepapp/pages/PodcastsPage.dart';
 import 'package:hepapp/pages/PubMedPage.dart';
 import 'package:hepapp/pages/ResourcesPage.dart';
 import 'package:hepapp/pages/pelicula_detalle.dart';
+import 'package:hepapp/pages/settings_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -49,5 +50,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
 
     //TODO borrar esta ruta, prueba de API
     '/detalle': (context) => PeliculaDetalle(),
+    '/settings': (context) => SettingsPage(),
   };
 }

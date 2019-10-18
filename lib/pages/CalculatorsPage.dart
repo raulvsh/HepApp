@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/HomeButton.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 
 class CalculatorsPage extends StatefulWidget {
@@ -29,8 +30,8 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
-      appBar: CustomAppBar(context, "Calculators", true),
-      //u.showAppBar(context, "Calculators"),
+      appBar: CustomAppBar(context, "Calculators"),
+      drawer: MenuWidget(),
       body: OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);

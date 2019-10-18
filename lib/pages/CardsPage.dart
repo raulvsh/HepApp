@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 class CardsPage extends StatefulWidget {
   @override
@@ -26,8 +27,8 @@ class _CardsPageState extends State<CardsPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, "Cards", true),
-      //u.showAppBar(context, "Cards"),
+      appBar: CustomAppBar(context, "Cards"),
+      drawer: MenuWidget(),
       body: _createCardsBody(),
     );
   }

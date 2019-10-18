@@ -3,6 +3,7 @@ import 'package:hepapp/pages/InformationPage.dart';
 import 'package:hepapp/providers/menu_provider.dart';
 import 'package:hepapp/utils/icono_string_util.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 class PodcastsPage extends StatefulWidget {
   @override
@@ -22,8 +23,8 @@ class _PodcastsPageState extends State<PodcastsPage> {
     return new Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, "Podcasts", true),
-      //u.showAppBar(context, "Podcasts"),
+      appBar: CustomAppBar(context, "Podcasts"),
+      drawer: MenuWidget(),
 
       body: _lista(),
 

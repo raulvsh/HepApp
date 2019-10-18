@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/widgets/CalcBottomBar.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 class MELDCalcPage extends StatefulWidget {
   @override
@@ -9,7 +10,6 @@ class MELDCalcPage extends StatefulWidget {
 }
 
 class _MELDCalcPageState extends State<MELDCalcPage> {
-
   @override
   void initState() {
     super.initState();
@@ -34,13 +34,13 @@ class _MELDCalcPageState extends State<MELDCalcPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(context, "Calculators - MELD", false),
-      //u.showAppBar(context, "Calculators - MELD"),
+      appBar: CustomAppBar(context, "Calculators - MELD", selScreenshot: true,
+        selPartialSettings: true,),
+      drawer: MenuWidget(),
       body: new Center(
         child: new Text("Some text"),
       ),
-      bottomSheet: CalcBottomBar(),
-
+      bottomSheet: CalcBottomBar("reseteo2"),
     );
   }
 }

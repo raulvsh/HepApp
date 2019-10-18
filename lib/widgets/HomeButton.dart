@@ -9,7 +9,7 @@ class HomeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(1.5),
+      margin: EdgeInsets.all(3),
       child: GestureDetector(
         child: Stack(
           children: <Widget>[
