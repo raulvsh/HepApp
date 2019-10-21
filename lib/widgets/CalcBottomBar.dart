@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'CalcBottomButton.dart';
-
 class CalcBottomBar extends StatelessWidget {
   final numreset;
 
   CalcBottomBar(this.numreset,);
 
   //TODO hacer método reset
-  Widget reset() {
+  reset() {
     print('reset pulsado prueba');
     return AlertDialog(
       //title: Text("Reset Values"),
@@ -89,3 +87,37 @@ class CalcBottomBar extends StatelessWidget {
     );
   }
 }
+
+
+class CalcBottomButton extends StatelessWidget {
+  final String text;
+  final Function action;
+
+  CalcBottomButton(this.text, {this.action});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: RaisedButton(
+          onPressed: () {
+            action();
+          },
+          textColor: Colors.yellow,
+          padding: const EdgeInsets.all(0.0),
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[
+                  Color(0xAF0D47A1),
+                  Color(0xFF1976D2),
+                  Color(0xFF42A5F5),
+                ],
+              ),
+            ),
+            padding: const EdgeInsets.all(10.0),
+            child: Text(text, style: TextStyle(fontSize: 20)),
+          )),
+    );
+  }
+}
+

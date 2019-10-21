@@ -65,12 +65,12 @@ class _HomePageState extends State<HomePage> {
       height: double.infinity,
       //color: Colors.red,
       child: FractionallySizedBox(
-        widthFactor: orientation == Orientation.portrait ? 0.6 : 0.65,
+        widthFactor: orientation == Orientation.portrait ? 0.7 : 0.7,
         alignment: Alignment.center,
         child: GridView.count(
           padding: orientation == Orientation.portrait
-              ? EdgeInsets.only(top: 12 * padding)
-              : EdgeInsets.only(top: 3 * padding),
+              ? EdgeInsets.symmetric(vertical: 3 * padding)
+              : EdgeInsets.symmetric(vertical: padding),
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
           children: _buildHomeGridView(),

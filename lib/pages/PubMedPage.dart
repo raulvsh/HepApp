@@ -1,22 +1,18 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/menu_widget.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class PubMedPage extends StatefulWidget {
+/*class PubMedPage extends StatefulWidget {
   @override
   _PubMedPageState createState() => _PubMedPageState();
 }
 
 class _PubMedPageState extends State<PubMedPage> {
 
-  // Define the various properties with default values. Update these properties
-  // when the user taps a FloatingActionButton.
-  double _width = 50;
-  double _height = 50;
-  Color _color = Colors.green;
-  BorderRadiusGeometry _borderRadius = BorderRadius.circular(8);
+
+
+  WebViewController _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -24,52 +20,57 @@ class _PubMedPageState extends State<PubMedPage> {
       appBar: CustomAppBar(context, "PubMed"),
       drawer: MenuWidget(),
 
-      body: Center(
-        child: AnimatedContainer(
-          // Use the properties stored in the State class.
-          width: _width,
-          height: _height,
-          decoration: BoxDecoration(
-            color: _color,
-            borderRadius: _borderRadius,
-          ),
-          // Define how long the animation should take.
-          duration: Duration(seconds: 1),
-          // Provide an optional curve to make the animation feel smoother.
-          curve: Curves.fastOutSlowIn,
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.play_arrow),
-        // When the user taps the button
-        onPressed: () {
-          // Use setState to rebuild the widget with new values.
-          setState(() {
-            // Create a random number generator.
-            final random = Random();
-
-            // Generate a random width and height.
-            _width = random.nextInt(300).toDouble();
-            _height = random.nextInt(300).toDouble();
-
-            // Generate a random color.
-            _color = Color.fromRGBO(
-              random.nextInt(256),
-              random.nextInt(256),
-              random.nextInt(256),
-              1,
-            );
-
-            // Generate a random border radius.
-            _borderRadius =
-                BorderRadius.circular(random.nextInt(100).toDouble());
-          });
-        },
+      body: WebView(
+        initialUrl: 'https://flutter.io',
+        javascriptMode: JavascriptMode.unrestricted,
       ),
 
     );
   }
+}*/
+
+class PubMedPage extends StatefulWidget {
+  @override
+  _PubMedPageState createState() => _PubMedPageState();
 }
 
+class _PubMedPageState extends State<PubMedPage> {
+  //Completer<WebViewController> _controller = Completer<WebViewController>();
 
+  WebViewController _controller;
+  final Set<String> _favorites = Set<String>();
 
+  @override
+  Widget build(BuildContext context) {
+    return WebviewScaffold(
+      url: "https://www.ncbi.nlm.nih.gov/pubmed/",
+      appBar: CustomAppBar(context, 'PubMed'),
+      withZoom: true,
+      withLocalStorage: true,
+      displayZoomControls: true,
+      withJavascript: true,
+    );
+  }
+/*
+  _bookmarkButton() {
+    return FutureBuilder<WebViewController>(
+      future: _controller.future,
+      builder:
+          (BuildContext context, AsyncSnapshot<WebViewController> controller) {
+        if (controller.hasData) {
+          return FloatingActionButton(
+            onPressed: () async {
+              var url = await controller.data.currentUrl();
+              _favorites.add(url);
+              Scaffold.of(context).showSnackBar(
+                SnackBar(content: Text('Saved $url for later reading.')),
+              );
+            },
+            child: Icon(Icons.favorite),
+          );
+        }
+        return Container();
+      },
+    );
+  }*/
+}

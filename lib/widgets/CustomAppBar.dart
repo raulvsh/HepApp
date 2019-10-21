@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/widgets/FullCalcSettings.dart';
+import 'package:hepapp/shared_preferences/FullCalcSettings.dart';
 
-import 'PartialCalcSettings.dart';
+import '../shared_preferences/PartialCalcSettings.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final BuildContext context;
@@ -25,7 +25,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
-    List<Widget> actions = [];
+    /* List<Widget> actions = [];
 
     if (this.widget.selScreenshot == true) {
       actions.add(IconButton(
@@ -75,7 +75,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
           },
         ),
       );
-    }
+    }*/
 
     return AppBar(
       automaticallyImplyLeading: false,
@@ -122,9 +122,21 @@ class _CustomAppBarState extends State<CustomAppBar> {
           ],
         ),
       ),
-      actions: actions,
+      actions: <Widget>[
+        (widget.selScreenshot == true)
+            ? _screenshotIcon(context)
+            : Container(),
+        (widget.selFullSettings == true)
+            ? _fullSettingsIcon(context)
+            : Container(),
+        (widget.selPartialSettings == true)
+            ? _partialSettingsIcon(context)
+            : Container(),
+
+      ],
     );
   }
+
 
   IconButton _homeIcon(BuildContext context) {
     return IconButton(
@@ -163,6 +175,51 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 
 
+  IconButton _partialSettingsIcon(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.settings),
+      onPressed: () {
+        //Añadir función captura de pantalla _screenCapture()
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return PartialCalcSettings();
+          },
+        );
+      },
+    );
+  }
+
+  IconButton _fullSettingsIcon(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.settings),
+      onPressed: () {
+        //Añadir función captura de pantalla _screenCapture()
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return FullCalcSettings();
+          },
+        );
+      },
+    );
+  }
+
+  IconButton _screenshotIcon(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.photo_camera),
+      onPressed: () {
+        //Añadir función captura de pantalla _screenCapture()
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Camera"),
+              content: Text("captura de pantalla"),
+            );
+          },
+        );
+      },
+    );
+  }
 }
-
-

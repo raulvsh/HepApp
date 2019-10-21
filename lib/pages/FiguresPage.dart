@@ -56,12 +56,12 @@ class _FiguresPageState extends State<FiguresPage> {
       height: double.infinity,
       //color: Colors.lightBlueAccent,
       child: FractionallySizedBox(
-        widthFactor: orientation == Orientation.portrait ? 0.6 : 0.65,
+        widthFactor: orientation == Orientation.portrait ? 0.7 : 0.7,
         alignment: Alignment.center,
         child: GridView.count(
           padding: orientation == Orientation.portrait
-              ? EdgeInsets.only(top: 25 * padding)
-              : EdgeInsets.only(top: 4 * padding),
+              ? EdgeInsets.symmetric(vertical: 20 * padding)
+              : EdgeInsets.symmetric(vertical: 4 * padding),
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
           children: _buildFiguresGridView(),

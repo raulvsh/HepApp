@@ -36,7 +36,7 @@ class _ChildCalcPageState extends State<ChildCalcPage> {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
-        context, "Calculators - Child Pugh Score", selScreenshot: false,
+        context, "Calculators - Child Pugh Score", selScreenshot: true,
         selPartialSettings: true,),
       drawer: MenuWidget(),
       body: new Center(

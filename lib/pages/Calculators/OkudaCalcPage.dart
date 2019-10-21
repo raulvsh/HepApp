@@ -10,122 +10,6 @@ class OkudaCalcPage extends StatefulWidget {
 }
 
 class _OkudaCalcPageState extends State<OkudaCalcPage> {
-  final filaBilirrubina = Row(
-    children: <Widget>[
-      Container(
-        color: Colors.lightBlueAccent[100],
-        width: 10.0,
-        height: 20.0,
-      ),
-      SizedBox(
-        width: 10.0,
-      ),
-      Text("Bilirrubin"),
-      SizedBox(
-        width: 10.0,
-      ),
-      //Futuro TextFormField
-      Placeholder(
-        fallbackWidth: 50.0,
-        fallbackHeight: 20.0,
-      ),
-      SizedBox(
-        width: 10.0,
-      ),
-      Text("umoL/L"),
-    ],
-  );
-  final filaAlbumina = Row(
-    children: <Widget>[
-      Container(
-        color: Colors.lightBlueAccent[100],
-        width: 10.0,
-        height: 20.0,
-      ),
-      SizedBox(
-        width: 10.0,
-      ),
-      Text("Albumin"),
-      SizedBox(
-        width: 10.0,
-      ),
-      //Futuro TextFormField
-      Placeholder(
-        fallbackWidth: 50.0,
-        fallbackHeight: 20.0,
-      ),
-      SizedBox(
-        width: 10.0,
-      ),
-      Text("g/L"),
-    ],
-  );
-  final filaAscitis = Row(
-    children: <Widget>[
-      Container(
-        color: Colors.lightBlueAccent[100],
-        //padding: EdgeInsets.all(50.0),
-        width: 10.0,
-        height: 20.0,
-      ),
-      SizedBox(
-        width: 10.0,
-      ),
-      Text(
-        "Ascites",
-      ),
-      SizedBox(
-        width: 10.0,
-      ),
-      //Futuro TextFormField
-      Placeholder(
-        fallbackWidth: 50.0,
-        fallbackHeight: 20.0,
-      ),
-      SizedBox(
-        width: 10.0,
-      ),
-      Placeholder(
-        fallbackWidth: 50.0,
-        fallbackHeight: 20.0,
-      ),
-      SizedBox(
-        width: 10.0,
-      ),
-      Placeholder(
-        fallbackWidth: 50.0,
-        fallbackHeight: 20.0,
-      ),
-    ],
-  );
-  final filaTumour = Row(
-    children: <Widget>[
-      Container(
-        color: Colors.lightBlueAccent[100],
-        width: 10.0,
-        height: 20.0,
-      ),
-      SizedBox(
-        width: 10.0,
-      ),
-      Text("Tumour Extent %"),
-      SizedBox(
-        width: 10.0,
-      ),
-      //Futuro TextFormField
-      Placeholder(
-        fallbackWidth: 50.0,
-        fallbackHeight: 20.0,
-      ),
-      SizedBox(
-        width: 10.0,
-      ),
-      Placeholder(
-        fallbackWidth: 50.0,
-        fallbackHeight: 20.0,
-      ),
-    ],
-  );
 
   @override
   void initState() {
@@ -152,7 +36,11 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
-        context, "Calculators - Okuda", selPartialSettings: true,),
+        context,
+        "Calculators - Okuda",
+        selScreenshot: true,
+        selPartialSettings: true,
+      ),
       drawer: MenuWidget(),
       body: Container(
         width: double.infinity,
@@ -183,47 +71,23 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
         SizedBox(
           height: 10.0,
         ),
-        filaBilirrubina,
+        _buildFilaBilirrubina(),
         SizedBox(
           height: 10.0,
         ),
-        filaAlbumina,
+        _buildFilaAlbumina(),
         SizedBox(
           height: 10.0,
         ),
-        filaAscitis,
+        _buildFilaAscitis(),
         SizedBox(
           height: 10.0,
         ),
-        filaTumour,
+        _buildFilaTumour(),
         SizedBox(
           height: 50.0,
         ),
-        Container(
-          width: 250,
-          child: MaterialButton(
-            //shape: CircularNotchedRectangle(),
-            shape: OutlineInputBorder(),
-
-            highlightElevation: 2,
-
-            color: Color.fromARGB(255, 93, 188, 210),
-            splashColor: Colors.redAccent,
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) =>
-                      AlertDialog(
-                        content: Text("Cálculo de Okuda realizado"),));
-            },
-            height: 40,
-            minWidth: 200,
-            child: Center(
-              child: Text("Calculate Okuda"),
-            ),
-          ),
-        ),
-
+        _buildOkudaButton(),
       ],
     );
   }
@@ -249,6 +113,162 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
                 ),
               ),
             )),
+      ],
+    );
+  }
+
+  Container _buildOkudaButton() {
+    return Container(
+      width: 250,
+      child: MaterialButton(
+        //shape: CircularNotchedRectangle(),
+        shape: OutlineInputBorder(),
+
+        highlightElevation: 2,
+
+        color: Color.fromARGB(255, 93, 188, 210),
+        splashColor: Colors.redAccent,
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) =>
+                  AlertDialog(
+                    content: Text("Cálculo de Okuda realizado"),
+                  ));
+        },
+        height: 40,
+        minWidth: 200,
+        child: Center(
+          child: Text("Calculate Okuda"),
+        ),
+      ),
+    );
+  }
+
+  Row _buildFilaBilirrubina() {
+    return Row(
+      children: <Widget>[
+        Container(
+          color: Colors.lightBlueAccent[100],
+          width: 10.0,
+          height: 20.0,
+        ),
+        SizedBox(
+          width: 10.0,
+        ),
+        Text("Bilirrubin"),
+        SizedBox(
+          width: 10.0,
+        ),
+        //Futuro TextFormField
+        Placeholder(
+          fallbackWidth: 50.0,
+          fallbackHeight: 20.0,
+        ),
+        SizedBox(
+          width: 10.0,
+        ),
+        Text("umoL/L"),
+      ],
+    );
+  }
+
+  Row _buildFilaAlbumina() {
+    return Row(
+      children: <Widget>[
+        Container(
+          color: Colors.lightBlueAccent[100],
+          width: 10.0,
+          height: 20.0,
+        ),
+        SizedBox(
+          width: 10.0,
+        ),
+        Text("Albumin"),
+        SizedBox(
+          width: 10.0,
+        ),
+        //Futuro TextFormField
+        Placeholder(
+          fallbackWidth: 50.0,
+          fallbackHeight: 20.0,
+        ),
+        SizedBox(
+          width: 10.0,
+        ),
+        Text("g/L"),
+      ],
+    );
+  }
+
+  Row _buildFilaAscitis() {
+    return Row(
+      children: <Widget>[
+        Container(
+          color: Colors.lightBlueAccent[100],
+          //padding: EdgeInsets.all(50.0),
+          width: 10.0,
+          height: 20.0,
+        ),
+        SizedBox(
+          width: 10.0,
+        ),
+        Text(
+          "Ascites",
+        ),
+        SizedBox(
+          width: 10.0,
+        ),
+        //Futuro TextFormField
+        Placeholder(
+          fallbackWidth: 50.0,
+          fallbackHeight: 20.0,
+        ),
+        SizedBox(
+          width: 10.0,
+        ),
+        Placeholder(
+          fallbackWidth: 50.0,
+          fallbackHeight: 20.0,
+        ),
+        SizedBox(
+          width: 10.0,
+        ),
+        Placeholder(
+          fallbackWidth: 50.0,
+          fallbackHeight: 20.0,
+        ),
+      ],
+    );
+  }
+
+  Row _buildFilaTumour() {
+    return Row(
+      children: <Widget>[
+        Container(
+          color: Colors.lightBlueAccent[100],
+          width: 10.0,
+          height: 20.0,
+        ),
+        SizedBox(
+          width: 10.0,
+        ),
+        Text("Tumour Extent %"),
+        SizedBox(
+          width: 10.0,
+        ),
+        //Futuro TextFormField
+        Placeholder(
+          fallbackWidth: 50.0,
+          fallbackHeight: 20.0,
+        ),
+        SizedBox(
+          width: 10.0,
+        ),
+        Placeholder(
+          fallbackWidth: 50.0,
+          fallbackHeight: 20.0,
+        ),
       ],
     );
   }
