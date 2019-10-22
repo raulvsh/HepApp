@@ -18,9 +18,32 @@ class MyApp extends StatelessWidget {
 
   final prefs = new PreferenciasUsuario();
 
+  /* TODO hacer traducciones
+
+  final _supoortedLocales = [
+    Locale('en', 'US'),
+    Locale('sk', 'SK'),
+  ];
+  final Iterable<localizationDelegates> _localizationDelegates = [
+    AppLocalizations.delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
+
+   Locale _localeResolutionCallback (locale, supportedLocales) {
+    for (var supportedLocale in supportedLocales) {
+      if (supportedLocale.languageCode == locale.languageCode &&
+          supportedLocale.countryCode == locale.countryCode) {
+        return supportedLocale;
+      }
+    }
+    return supportedLocales.first;
+  }*/
+
   @override
   Widget build(BuildContext context) {
     final title = 'HepApp';
+
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -44,9 +67,15 @@ class MyApp extends StatelessWidget {
             displayColor: Colors.red,
           )
       ),
-      initialRoute: prefs.ultimaPagina,
-      //'/',
-      routes: getApplicationRoutes(),
+      /*TODO HACER TRADUCCIONES **********
+    supportedLocales: _supoortedLocales,
+    localizationsDelegates: _localizationDelegates,
+    localeResolutionCallback: _localeResolutionCallback,*/
+      initialRoute: '/',
+      //prefs.ultimaPagina,
+      routes: getApplicationRoutes(
+      )
+      ,
     );
   }
 }
