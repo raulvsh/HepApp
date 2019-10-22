@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:left="@dimen/desplazamientoSombra" android:top="@dimen/desplazamientoSombra">
+
+        <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+            <corners android:radius="@dimen/redondeoBotonCircular" />
+            <solid android:color="@color/sombras" />
+        </shape>
+
+    </item>
+
+    <item android:drawable="@drawable/boton_circular_icono_texto" />
+
+</layer-list>

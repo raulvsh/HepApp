@@ -32,7 +32,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Stack(
             children: <Widget>[
               Image.asset(
-                'images/header4.png',
+                'assets/images/header4.png',
                 height: 70,
                 width: width,
                 fit: BoxFit.fill,
@@ -40,7 +40,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               Center(
                 child: Container(
                   child: Image.asset(
-                    'images/hepapplogo.png',
+                    'assets/images/hepapplogo.png',
                     width: 60,
                     height: 60,
                   ),

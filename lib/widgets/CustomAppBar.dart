@@ -143,7 +143,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       icon: //Icon(Icons.home),
 
       Image.asset(
-        'images/homeicon.png',
+        'assets/images/homeicon.png',
         width: 18,
         height: 18,
       ),
@@ -157,7 +157,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         children: <Widget>[
           Icon(Icons.keyboard_arrow_left),
           /*Image.asset(
-            'images/arrowthickleft.png',
+            '/assets/images/arrowthickleft.png',
             width: 22,
             height: 22,
           ),*/

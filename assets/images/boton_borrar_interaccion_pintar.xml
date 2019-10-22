@@ -3,25 +3,21 @@
 
     <item>
         <shape xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_height="wrap_content"
-            android:shape="rectangle">
+            android:layout_height="wrap_content" android:shape="rectangle">
             <!--
                 Para depurar:
                 <solid android:color="@color/black"/>
             -->
-            <solid android:color="@android:color/transparent"/>
-            <size
-                android:width="@dimen/botonInteraccionPintarNoPadding"
+            <solid android:color="@android:color/transparent" />
+            <size android:width="@dimen/botonInteraccionPintarNoPadding"
                 android:height="@dimen/botonInteraccionPintarNoPadding" />
         </shape>
     </item>
 
     <!-- Mejor utilizar un icono de dimensiones cuadradas. Adaptarlo en caso de no serlo. -->
     <!-- Para API menor que 23 se debe aplicar otra solución. -->
-    <item
-        android:drawable="@drawable/paleta_colores"
-        android:gravity="center"
-        android:height="@dimen/iconoBotonInteraccionPintar"
-        android:width="@dimen/iconoBotonInteraccionPintar" />
+    <item android:width="@dimen/iconoBotonInteraccionPintar"
+        android:height="@dimen/iconoBotonInteraccionPintar" android:drawable="@drawable/goma_borrar"
+        android:gravity="center" />
 
 </layer-list>

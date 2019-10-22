@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+//import 'package:webview_flutter/webview_flutter.dart';
 
 /*class PubMedPage extends StatefulWidget {
   @override
@@ -37,7 +37,7 @@ class PubMedPage extends StatefulWidget {
 class _PubMedPageState extends State<PubMedPage> {
   //Completer<WebViewController> _controller = Completer<WebViewController>();
 
-  WebViewController _controller;
+  //WebViewController _controller;
   final Set<String> _favorites = Set<String>();
 
   @override

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="@dimen/redondeoBotonCircular" />
+    <solid android:color="@color/colorButtons" />
+    <stroke android:width="@dimen/botonCircularBorde" android:color="@color/buttonPressed" />
+    <padding android:bottom="@dimen/botonCircularPadding" android:left="@dimen/botonCircularPadding"
+        android:right="@dimen/botonCircularPadding" android:top="@dimen/botonCircularPadding" />
+</shape>
