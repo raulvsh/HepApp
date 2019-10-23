@@ -1,3 +1,5 @@
+//TODO IMPORTAR COLORES, añadir desde ahi
+
 /*
 <resources>
 <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">

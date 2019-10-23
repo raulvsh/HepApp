@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/DrawingWidget.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
+/*ColorSwatch _selectedColor;
+ColorSwatch _mainColor = Colors.blue;*/
 
 class DrawingFigPage extends StatefulWidget {
   @override
@@ -9,8 +12,6 @@ class DrawingFigPage extends StatefulWidget {
 }
 
 class _DrawingFigPageState extends State<DrawingFigPage> {
-
-
   @override
   void initState() {
     super.initState();
@@ -21,11 +22,11 @@ class _DrawingFigPageState extends State<DrawingFigPage> {
     return Scaffold(
       appBar: CustomAppBar(context, "Figures - Drawing"),
       drawer: MenuWidget(),
-      body: Signature(),
-
+      body: DrawingWidget(),
     );
   }
 }
+/*
 
 class SignaturePainter extends CustomPainter {
   SignaturePainter(this.points);
@@ -34,7 +35,7 @@ class SignaturePainter extends CustomPainter {
 
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
-      ..color = Colors.blue
+      ..color = _mainColor //Colors.blue
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;
     for (int i = 0; i < points.length - 1; i++) {
@@ -46,31 +47,85 @@ class SignaturePainter extends CustomPainter {
   bool shouldRepaint(SignaturePainter other) => other.points != points;
 }
 
-class Signature extends StatefulWidget {
-  SignatureState createState() => SignatureState();
+class DrawingWidget extends StatefulWidget {
+  DrawingWidgetState createState() => DrawingWidgetState();
 }
 
-class SignatureState extends State<Signature> {
+class DrawingWidgetState extends State<DrawingWidget> {
   List<Offset> _points = <Offset>[];
+
 
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        GestureDetector(
-          onPanUpdate: (DragUpdateDetails details) {
-            RenderBox referenceBox = context.findRenderObject();
-            Offset localPosition =
-            referenceBox.globalToLocal(details.globalPosition);
+        Container(
+          color: Colors.blue[50],
+          child: GestureDetector(
+            onPanUpdate: (DragUpdateDetails details) {
+              RenderBox referenceBox = context.findRenderObject();
+              Offset localPosition =
+                  referenceBox.globalToLocal(details.globalPosition);
 
-            setState(() {
-              _points = List.from(_points)
-                ..add(localPosition);
-            });
-          },
-          onPanEnd: (DragEndDetails details) => _points.add(null),
+              setState(() {
+                _points = List.from(_points)..add(localPosition);
+              });
+            },
+            onPanEnd: (DragEndDetails details) => _points.add(null),
+          ),
         ),
-        CustomPaint(painter: SignaturePainter(_points))
+        CustomPaint(painter: SignaturePainter(_points)),
+        Positioned(
+          bottom: 25,
+          right: 25,
+          child: IconButton(
+            onPressed: _abrirPaleta,
+            icon: Icon(
+              Icons.palette,
+              color: Color.fromARGB(255, 93, 188, 210),
+              size: 50,
+            ),
+          ),
+        ),
       ],
     );
   }
+
+  void _openDialog(String title, Widget content) {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(6.0),
+          title: Text(title),
+          content: content,
+          actions: [
+            FlatButton(
+              child: Text('CANCEL'),
+              onPressed: Navigator.of(context).pop,
+            ),
+            FlatButton(
+              child: Text('SUBMIT'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() => _mainColor = _selectedColor);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _abrirPaleta() async {
+    _openDialog(
+      "Full Material Color picker",
+      MaterialColorPicker(
+        colors: fullMaterialColors,
+        selectedColor: _mainColor,
+        allowShades: false,
+        onMainColorChange: (color) => setState(() => _selectedColor = color),
+      ),
+    );
+  }
 }
+*/

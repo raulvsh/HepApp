@@ -14,7 +14,7 @@ class HomeButton extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Image.asset(
-              'assets/images/${type[1]}',
+              'assets/items/${type[1]}',
             ),
             Align(
               alignment: Alignment(0, 0.7),

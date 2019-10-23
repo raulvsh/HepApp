@@ -19,11 +19,11 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
     "CLIP",
   ];
   var calcTypes = {
-    "All": ['All Algorithms', 'calculators.png', '/AllCalc'],
-    "Child": ['Child Pugh Score', 'calculators.png', '/ChildCalc'],
-    "MELD": ['MELD', 'calculators.png', '/MELDCalc'],
-    "Okuda": ['Okuda Staging System', 'calculators.png', '/OkudaCalc'],
-    "CLIP": ['CLIP Staging System', 'calculators.png', '/CLIPCalc'],
+    "All": ['All Algorithms', '5_calculators.png', '/AllCalc'],
+    "Child": ['Child Pugh Score', '5_calculators.png', '/ChildCalc'],
+    "MELD": ['MELD', '5_calculators.png', '/MELDCalc'],
+    "Okuda": ['Okuda Staging System', '5_calculators.png', '/OkudaCalc'],
+    "CLIP": ['CLIP Staging System', '5_calculators.png', '/CLIPCalc'],
   };
 
   @override

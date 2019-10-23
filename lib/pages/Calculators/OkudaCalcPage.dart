@@ -10,7 +10,6 @@ class OkudaCalcPage extends StatefulWidget {
 }
 
 class _OkudaCalcPageState extends State<OkudaCalcPage> {
-
   @override
   void initState() {
     super.initState();
@@ -97,10 +96,14 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
       children: <Widget>[
         Container(
           padding: EdgeInsets.fromLTRB(70, 50, 70, 0),
-          child: Placeholder(
-            strokeWidth: 1.0,
-            fallbackHeight: 150,
-            fallbackWidth: 100,
+          child: Container(
+            color: Colors.grey,
+            height: 170,
+            width: 170,
+            child: Image.asset(
+              'assets/calculators/ic_check_circle_green_48dp.png',
+              fit: BoxFit.fill,
+            ),
           ),
         ),
         Expanded(
@@ -117,8 +120,16 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
     );
   }
 
-  Container _buildOkudaButton() {
-    return Container(
+  _buildOkudaButton() {
+    return GestureDetector(
+        child: Container(
+          color: Colors.red,
+          height: 50,
+          child: Image.asset(
+              'assets/calculators/ButtonImage_GreenRound10_low_300ppp.png'),
+        ));
+
+    /*Container(
       width: 250,
       child: MaterialButton(
         //shape: CircularNotchedRectangle(),
@@ -142,7 +153,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           child: Text("Calculate Okuda"),
         ),
       ),
-    );
+    );*/
   }
 
   Row _buildFilaBilirrubina() {
@@ -161,9 +172,23 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           width: 10.0,
         ),
         //Futuro TextFormField
-        Placeholder(
-          fallbackWidth: 50.0,
-          fallbackHeight: 20.0,
+        Container(
+          height: 20,
+          width: 40,
+          child: Stack(
+            children: <Widget>[
+              Image.asset(
+                'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+                fit: BoxFit.fill,
+              ),
+              TextFormField(
+                textAlign: TextAlign.start,
+                keyboardType: TextInputType.numberWithOptions(),
+              ),
+            ],
+          ),
+          /*fallbackWidth: 50.0,
+          fallbackHeight: 20.0,*/
         ),
         SizedBox(
           width: 10.0,
@@ -189,9 +214,13 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           width: 10.0,
         ),
         //Futuro TextFormField
-        Placeholder(
-          fallbackWidth: 50.0,
-          fallbackHeight: 20.0,
+        Container(
+          height: 20,
+          width: 40,
+          child: Image.asset(
+            'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+            fit: BoxFit.fill,
+          ),
         ),
         SizedBox(
           width: 10.0,
@@ -220,23 +249,35 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           width: 10.0,
         ),
         //Futuro TextFormField
-        Placeholder(
-          fallbackWidth: 50.0,
-          fallbackHeight: 20.0,
+        Container(
+          height: 20,
+          width: 40,
+          child: Image.asset(
+            'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+            fit: BoxFit.fill,
+          ),
         ),
         SizedBox(
           width: 10.0,
         ),
-        Placeholder(
-          fallbackWidth: 50.0,
-          fallbackHeight: 20.0,
+        Container(
+          height: 20,
+          width: 40,
+          child: Image.asset(
+            'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+            fit: BoxFit.fill,
+          ),
         ),
         SizedBox(
           width: 10.0,
         ),
-        Placeholder(
-          fallbackWidth: 50.0,
-          fallbackHeight: 20.0,
+        Container(
+          height: 20,
+          width: 40,
+          child: Image.asset(
+            'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+            fit: BoxFit.fill,
+          ),
         ),
       ],
     );
@@ -258,16 +299,24 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           width: 10.0,
         ),
         //Futuro TextFormField
-        Placeholder(
-          fallbackWidth: 50.0,
-          fallbackHeight: 20.0,
+        Container(
+          height: 20,
+          width: 40,
+          child: Image.asset(
+            'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+            fit: BoxFit.fill,
+          ),
         ),
         SizedBox(
           width: 10.0,
         ),
-        Placeholder(
-          fallbackWidth: 50.0,
-          fallbackHeight: 20.0,
+        Container(
+          height: 20,
+          width: 40,
+          child: Image.asset(
+            'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+            fit: BoxFit.fill,
+          ),
         ),
       ],
     );

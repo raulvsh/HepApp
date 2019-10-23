@@ -25,15 +25,14 @@ class _HomePageState extends State<HomePage> {
   ];
 
   var sectionTypes = {
-    "Chapters": ['Chapters', 'chapters.png', '/Chapters'],
-    "Podcasts": ['Podcasts', 'podcasts.png', '/Podcasts'],
-    "Cards": ['Cards', 'cards.png', '/Cards'],
-    "Figures": ['Figures', 'figures.png', '/Figures'],
-    "Calculators": ['Calculators', 'calculators.png', '/Calculators'],
-    "Resources": ['Resources', 'resources.png', '/Resources'],
-    "PubMed": ['PubMed', 'pubmed.png', '/PubMed'],
-    "Information": ['Information', 'information.png', '/Information'],
-    "Information2": ['Information', 'information.png', '/Information'],
+    "Chapters": ['Chapters', '1_chapters.png', '/Chapters'],
+    "Podcasts": ['Podcasts', '2_podcasts.png', '/Podcasts'],
+    "Cards": ['Cards', '3_cards.png', '/Cards'],
+    "Figures": ['Figures', '4_figures.png', '/Figures'],
+    "Calculators": ['Calculators', '5_calculators.png', '/Calculators'],
+    "Resources": ['Resources', '6_resources.png', '/Resources'],
+    "PubMed": ['PubMed', '7_pubmed.png', '/PubMed'],
+    "Information": ['Information', '8_information.png', '/Information'],
   };
 
   @override

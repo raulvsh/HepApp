@@ -12,7 +12,8 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   bool _colorSecundario;
   int _genero;
-  String _nombre = 'Pedro';
+
+  //String _nombre = 'Pedro';
 
   TextEditingController _textController;
 

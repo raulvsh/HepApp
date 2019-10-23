@@ -21,11 +21,11 @@ class _FiguresPageState extends State<FiguresPage> {
   ];
 
   var figTypes = {
-    "TableOfContents": ['Table of Contents', 'figures.png', '/TableFig'],
-    "Schemes": ['Schemes', 'figures.png', '/SchemesFig'],
-    "Interactive": ['Interactive Figures', 'figures.png', '/InteractiveFig'],
-    "Chapter": ['Chapter Figures', 'figures.png', '/ChapterFig'],
-    "Drawing": ['Drawing', 'figures.png', '/DrawingFig'],
+    "TableOfContents": ['Table of Contents', '4_figures.png', '/TableFig'],
+    "Schemes": ['Schemes', '4_figures.png', '/SchemesFig'],
+    "Interactive": ['Interactive Figures', '4_figures.png', '/InteractiveFig'],
+    "Chapter": ['Chapter Figures', '4_figures.png', '/ChapterFig'],
+    "Drawing": ['Drawing', '4_figures.png', '/DrawingFig'],
   };
 
   @override
