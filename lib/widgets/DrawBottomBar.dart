@@ -17,7 +17,7 @@ class DrawBottomBar extends StatelessWidget {
     return BottomAppBar(
       color: Color.fromARGB(255, 56, 185, 199),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           IconButton(
               icon: new Icon(
@@ -31,7 +31,6 @@ class DrawBottomBar extends StatelessWidget {
               builder: (BuildContext context, StateSetter setState) {
             return new Container(
                 height: 40,
-                //color: Colors.red,
                 child: new Slider(
                   value: _controller.thickness,
                   onChanged: (double value) => setState(() {

@@ -23,7 +23,7 @@ class _DrawingFigPageState extends State<DrawingFigPage> {
   PainterController _newController() {
     PainterController controller = new PainterController();
     controller.thickness = 5.0;
-    //controller.backgroundColor = Colors.white;
+    controller.backgroundColor = Colors.transparent;
     return controller;
   }
 
@@ -32,7 +32,14 @@ class _DrawingFigPageState extends State<DrawingFigPage> {
     return Scaffold(
       appBar: CustomAppBar(context, "Figures - Drawing"),
       drawer: MenuWidget(),
-      body: Center(child: Painter(_controller)),
+      body: Stack(
+        children: <Widget>[
+          Image.asset('assets/images/higadoprueba.png'),
+
+          Center(child: Painter(_controller)),
+
+        ],
+      ),
       bottomSheet: DrawBottomBar(controller: _controller),
     );
   }
