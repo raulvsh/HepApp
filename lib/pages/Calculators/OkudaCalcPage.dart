@@ -101,7 +101,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
             height: 170,
             width: 170,
             child: Image.asset(
-              'assets/calculators/ic_check_circle_green_48dp.png',
+              'assets/calc/ic_check_circle_green_48dp.png',
               fit: BoxFit.fill,
             ),
           ),
@@ -126,7 +126,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           color: Colors.red,
           height: 50,
           child: Image.asset(
-              'assets/calculators/ButtonImage_GreenRound10_low_300ppp.png'),
+              'assets/calc/ButtonImage_GreenRound10_low_300ppp.png'),
         ));
 
     /*Container(
@@ -178,7 +178,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           child: Stack(
             children: <Widget>[
               Image.asset(
-                'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+                'assets/calc/ButtonImage_WhiteRound10_300ppp.png',
                 fit: BoxFit.fill,
               ),
               TextFormField(
@@ -218,7 +218,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           height: 20,
           width: 40,
           child: Image.asset(
-            'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+            'assets/calc/ButtonImage_WhiteRound10_300ppp.png',
             fit: BoxFit.fill,
           ),
         ),
@@ -253,7 +253,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           height: 20,
           width: 40,
           child: Image.asset(
-            'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+            'assets/calc/ButtonImage_WhiteRound10_300ppp.png',
             fit: BoxFit.fill,
           ),
         ),
@@ -264,7 +264,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           height: 20,
           width: 40,
           child: Image.asset(
-            'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+            'assets/calc/ButtonImage_WhiteRound10_300ppp.png',
             fit: BoxFit.fill,
           ),
         ),
@@ -275,7 +275,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           height: 20,
           width: 40,
           child: Image.asset(
-            'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+            'assets/calc/ButtonImage_WhiteRound10_300ppp.png',
             fit: BoxFit.fill,
           ),
         ),
@@ -303,7 +303,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           height: 20,
           width: 40,
           child: Image.asset(
-            'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+            'assets/calc/ButtonImage_WhiteRound10_300ppp.png',
             fit: BoxFit.fill,
           ),
         ),
@@ -314,7 +314,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           height: 20,
           width: 40,
           child: Image.asset(
-            'assets/calculators/ButtonImage_WhiteRound10_300ppp.png',
+            'assets/calc/ButtonImage_WhiteRound10_300ppp.png',
             fit: BoxFit.fill,
           ),
         ),
