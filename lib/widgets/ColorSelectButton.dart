@@ -33,9 +33,9 @@ class _ColorPickerButtonState extends State<ColorSelectButton> {
         return AlertDialog(
           contentPadding: const EdgeInsets.all(6.0),
           content: Container(
-            height: 360,
+            height: 420,
             child: MaterialColorPicker(
-              colors: fullMaterialColors,
+              colors: fullMaterialColors, //materialColors para menos opciones
               selectedColor: pickerColor,
               allowShades: false,
               onMainColorChange: ((Color c) {

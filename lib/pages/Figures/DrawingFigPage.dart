@@ -23,7 +23,8 @@ class _DrawingFigPageState extends State<DrawingFigPage> {
   PainterController _newController() {
     PainterController controller = new PainterController();
     controller.thickness = 5.0;
-    controller.backgroundColor = Colors.transparent;
+    //Color transparente para que no tape la imagen
+    controller.backgroundColor = Color.fromARGB(0, 0, 0, 0);
     return controller;
   }
 
@@ -32,13 +33,15 @@ class _DrawingFigPageState extends State<DrawingFigPage> {
     return Scaffold(
       appBar: CustomAppBar(context, "Figures - Drawing"),
       drawer: MenuWidget(),
-      body: Stack(
-        children: <Widget>[
-          Image.asset('assets/images/higadoprueba.png'),
+      body: Container(
+        child: Stack(
+          children: <Widget>[
+            Image.asset('assets/images/higadoprueba.png', fit: BoxFit.cover,),
 
-          Center(child: Painter(_controller)),
+            Painter(_controller),
 
-        ],
+          ],
+        ),
       ),
       bottomSheet: DrawBottomBar(controller: _controller),
     );
