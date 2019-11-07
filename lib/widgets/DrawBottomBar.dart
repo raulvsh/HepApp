@@ -15,39 +15,66 @@ class DrawBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Color.fromARGB(255, 56, 185, 199),
+      //color: Color.fromARGB(255, 93, 188, 210),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          IconButton(
-              icon: new Icon(
-                Icons.undo,
-                color: Colors.white,
-              ),
-              tooltip: 'Undo',
-              onPressed: _controller.undo),
-          ColorSelectButton(_controller, false),
-          StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-            return new Container(
-                height: 40,
-                child: new Slider(
-                  value: _controller.thickness,
-                  onChanged: (double value) => setState(() {
-                    _controller.thickness = value;
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              IconButton(
+                  icon: new Icon(
+                    Icons.undo,
+                    color: Color.fromARGB(255, 93, 188, 210),
+                  ),
+                  tooltip: 'Undo',
+                  onPressed: _controller.undo),
+              ColorSelectButton(_controller, false),
+              StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                    return Container(
+                      height: 30,
+                      width: 110,
+                      child: Slider(
+                        value: _controller.thickness,
+                        onChanged: (double value) =>
+                            setState(() {
+                              _controller.thickness = value;
+                            }),
+                        min: 1.0,
+                        max: 20.0,
+                        activeColor: Color.fromARGB(255, 93, 188, 210),
+                      ),
+                    );
                   }),
-                  min: 1.0,
-                  max: 20.0,
-                  activeColor: Colors.white,
-                ));
-          }),
-          IconButton(
-              icon: new Icon(
-                Icons.delete,
-                color: Colors.white,
-              ),
-              tooltip: 'Clear',
-              onPressed: _controller.clear),
+              IconButton(
+                  icon: new Icon(
+                    Icons.delete,
+                    color: Color.fromARGB(255, 93, 188, 210),
+                  ),
+                  tooltip: 'Clear',
+                  onPressed: _controller.clear),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              IconButton(
+                  icon: new Icon(
+                    Icons.navigate_before,
+                    color: Color.fromARGB(255, 93, 188, 210),
+                  ),
+                  tooltip: 'Clear',
+                  onPressed: _controller.clear),
+              IconButton(
+                  icon: new Icon(
+                    Icons.navigate_next,
+                    color: Color.fromARGB(255, 93, 188, 210),
+                  ),
+                  tooltip: 'Clear',
+                  onPressed: _controller.clear),
+            ],
+          ),
         ],
       ),
     );

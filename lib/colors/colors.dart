@@ -1,5 +1,5 @@
 /*
-
+TODO PASAR LOS COLORES A LOS ESTILOS CORRESPONDIENTES
 <color name="colorPrimary">#5DBCD2</color> Color.fromARGB(255, 93, 188, 210),
 <color name="colorPrimaryDark">#428b9c</color> Color.fromARGB(255, 66, 139, 156),
 <color name="colorButtons">#5DBCD2</color> Color.fromARGB(255, 93, 188, 210),

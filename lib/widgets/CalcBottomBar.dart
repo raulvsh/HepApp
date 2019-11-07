@@ -44,6 +44,7 @@ class CalcBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      //color: Color.fromARGB(0, 0, 0, 0),
       child: Row(
         //TODO HACER BOTÓN PERSONALIZADO bottom, y pasar texto y acción por referencia
         //mainAxisSize: MainAxisSize.max,
