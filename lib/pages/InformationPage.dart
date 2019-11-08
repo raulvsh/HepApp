@@ -22,7 +22,7 @@ class _InformationPageState extends State<InformationPage> {
     return Scaffold(
       appBar: CustomAppBar(
         context,
-        'Information',
+        'information',
       ),
       body: Center(
         child: PDFViewer(

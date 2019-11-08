@@ -36,7 +36,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
         context,
-        "Calculators - Okuda",
+        'okuda_staging_system',
         selScreenshot: true,
         selPartialSettings: true,
       ),

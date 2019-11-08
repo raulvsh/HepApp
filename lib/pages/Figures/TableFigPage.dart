@@ -17,7 +17,7 @@ class _TableFigPageState extends State<TableFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Table of Contents"),
+      appBar: CustomAppBar(context, 'table_contents'),
       drawer: MenuWidget(),
       body: new Center(
         child: new Text("Some text"),

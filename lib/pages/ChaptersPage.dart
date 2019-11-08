@@ -29,7 +29,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
       drawer: MenuWidget(),
-      appBar: CustomAppBar(context, "Chapters"),
+      appBar: CustomAppBar(context, 'chapters'),
       body: _buildChaptersBody(),
     );
   }

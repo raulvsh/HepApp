@@ -27,7 +27,7 @@ class _CardsPageState extends State<CardsPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, "Cards"),
+      appBar: CustomAppBar(context, 'cards'),
       drawer: MenuWidget(),
       body: _createCardsBody(),
     );

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hepapp/routes/routes.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+
+import 'lang/app_localizations.dart';
 
 void main() async {
   //Cargo las preferencias antes de correr la app
@@ -14,31 +17,34 @@ En esta clase se define el título de la aplicación, el tema
 y las rutas a las distintos apartados.
  */
 class MyApp extends StatelessWidget {
-  //TODO tema entero de la app, definiendo sus estilos, posible archivo styles.dart
+  //TODO tema entero de la app, definiendo sus estilos, posible archivo themes.dart
 
   final prefs = new PreferenciasUsuario();
 
-  /* TODO hacer traducciones
+  /* TODO hacer traducciones */
 
   final _supoortedLocales = [
     Locale('en', 'US'),
-    Locale('sk', 'SK'),
+    Locale('es', 'ES'),
   ];
-  final Iterable<localizationDelegates> _localizationDelegates = [
-    AppLocalizations.delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
+
+  final /*Iterable<localizationDelegates>*/ _localizationDelegates = [
+    AppLocalizations.delegate, //Carga las traducciones desde el JSON
+    GlobalMaterialLocalizations.delegate, //Localización de text báxico
+    GlobalWidgetsLocalizations.delegate, //Localización de texto LTR/RTL
   ];
 
    Locale _localeResolutionCallback (locale, supportedLocales) {
+     //Compruebo si el idioma del dispositivo está soportado
     for (var supportedLocale in supportedLocales) {
       if (supportedLocale.languageCode == locale.languageCode &&
           supportedLocale.countryCode == locale.countryCode) {
         return supportedLocale;
       }
     }
+    //Si no está soportado, devuelvo el primer idioma (inglés)
     return supportedLocales.first;
-  }*/
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +73,9 @@ class MyApp extends StatelessWidget {
             displayColor: Colors.red,
           )
       ),
-      /*TODO HACER TRADUCCIONES **********
     supportedLocales: _supoortedLocales,
     localizationsDelegates: _localizationDelegates,
-    localeResolutionCallback: _localeResolutionCallback,*/
+      localeResolutionCallback: _localeResolutionCallback,
       initialRoute: '/',
       //prefs.ultimaPagina,
       routes: getApplicationRoutes(

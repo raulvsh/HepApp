@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/lang/app_localizations.dart';
 
 class HomeButton extends StatelessWidget {
   final BuildContext context;
@@ -8,6 +9,7 @@ class HomeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var aux = AppLocalizations.of(context);
     return Container(
       margin: EdgeInsets.all(4),
       child: GestureDetector(
@@ -16,10 +18,12 @@ class HomeButton extends StatelessWidget {
             Image.asset(
               'assets/items/${type[1]}',
             ),
-            Align(
+            Container(
               alignment: Alignment(0, 0.7),
+              padding: EdgeInsets.only(bottom: 0),
+              //alignment: Alignment(0, 0.7),
               child: Text(
-                type[0],
+                aux.tr('${type[0]}'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color.fromARGB(255, 93, 188, 210),

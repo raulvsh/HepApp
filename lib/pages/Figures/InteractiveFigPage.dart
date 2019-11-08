@@ -17,10 +17,10 @@ class _InteractiveFigPageState extends State<InteractiveFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Interactive Figures"),
+      appBar: CustomAppBar(context, 'interactive_figures'),
       drawer: MenuWidget(),
       body: new Center(
-        child: new Text("Some text"),
+        child: new Text("Some text interactive"),
       ),
     );
   }

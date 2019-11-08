@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/providers/peliculas_provider.dart';
 import 'package:hepapp/search/search_delegate.dart';
 import 'package:hepapp/widgets/card_swiper_widget.dart';
@@ -21,13 +22,13 @@ class _ResourcesPageState extends State<ResourcesPage> {
   @override
   Widget build(BuildContext context) {
     peliculasProvider.getPopulares();
-
+    var aux = AppLocalizations.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Películas'),
+        title: Text(aux.tr('resources')),
         backgroundColor: Colors.indigoAccent,
         actions: <Widget>[
           IconButton(

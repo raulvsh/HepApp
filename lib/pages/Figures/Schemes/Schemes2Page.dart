@@ -16,10 +16,10 @@ class _Schemes2PageState extends State<Schemes2Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Schemes2"),
+      appBar: CustomAppBar(context, 'schemes'),
       drawer: MenuWidget(),
       body: new Center(
-        child: new Text("Some text"),
+        child: new Text("Some text2"),
       ),
     );
   }

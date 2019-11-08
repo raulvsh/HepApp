@@ -17,7 +17,7 @@ class _ChapterFigPageState extends State<ChapterFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Chapter Figures"),
+      appBar: CustomAppBar(context, 'chapter_figures'),
       drawer: MenuWidget(),
       body: new Center(
         child: new Text("Some text"),

@@ -1,6 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferenciasUsuario {
+
+  //TODO añadir todos los campos de bilirrubina, creatinina... como preferencia, para poder cargar y guardar
+  //Dos mapas, uno prefs_final, otro prefs_temp Map<String, dynamic>
   //Instancia singletos, solo una instancia de Preferencias usuario
   static final PreferenciasUsuario _instancia =
       new PreferenciasUsuario._internal();

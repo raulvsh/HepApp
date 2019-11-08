@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/lang/app_localizations.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final BuildContext context;
-  final String title;
 
-  HomeAppBar(this.context, this.title);
+  //final String title;
+
+  HomeAppBar(this.context);
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-
+    var aux = AppLocalizations.of(context);
     return //PreferredSize(
         //preferredSize: Size.fromHeight(90),
         //child:
@@ -18,7 +20,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Container(
         height: 30,
         child: Text(
-          title,
+          aux.tr('app_title'), //title,
           style: TextStyle(
             fontSize: 15,
           ),

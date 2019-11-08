@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/FullCalcSettings.dart';
 
 import '../shared_preferences/PartialCalcSettings.dart';
@@ -23,8 +24,10 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
+
   @override
   Widget build(BuildContext context) {
+    var aux = AppLocalizations.of(context);
 
 
     return AppBar(
@@ -44,10 +47,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            /*IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: _handleTap,
-            ),*/
             Expanded(
               flex: 0,
               child: Row(
@@ -61,7 +60,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             Expanded(
               flex: 1,
               child: Text(
-                widget.title,
+                aux.tr('${widget.title}'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   //color: Colors.white,
@@ -102,6 +101,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 
   GestureDetector _backIcon(BuildContext context) {
+    var aux = AppLocalizations.of(context);
+
+
     return GestureDetector(
       child: Row(
         children: <Widget>[
@@ -112,7 +114,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             height: 22,
           ),*/
           Text(
-            'Back',
+            aux.tr('back'),
             style: TextStyle(
               color: Colors.white,
               fontSize: 12,

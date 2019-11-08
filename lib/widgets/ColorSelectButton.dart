@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import 'package:hepapp/lang/app_localizations.dart';
 import 'package:painter/painter.dart';
 
 class ColorSelectButton extends StatefulWidget {
@@ -15,15 +16,18 @@ class ColorSelectButton extends StatefulWidget {
 class _ColorPickerButtonState extends State<ColorSelectButton> {
   @override
   Widget build(BuildContext context) {
+    var aux = AppLocalizations.of(context);
+
     return new IconButton(
       icon: new Icon(_iconData, color: _color),
-      tooltip:
-          widget._background ? 'Change background color' : 'Change draw color',
+      tooltip: aux.tr('change_draw_color'),
       onPressed: _elegirColor,
     );
   }
 
   void _elegirColor() {
+    var aux = AppLocalizations.of(context);
+
     Color pickerColor = _color;
 
     //TODO TRADUCIR MENSAJES AlertDialog

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/lang/app_localizations.dart';
 import 'package:painter/painter.dart';
 
 import 'ColorSelectButton.dart';
@@ -14,6 +15,8 @@ class DrawBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var aux = AppLocalizations.of(context);
+
     return BottomAppBar(
       //color: Color.fromARGB(255, 93, 188, 210),
       child: Row(
@@ -27,7 +30,7 @@ class DrawBottomBar extends StatelessWidget {
                     Icons.undo,
                     color: Color.fromARGB(255, 93, 188, 210),
                   ),
-                  tooltip: 'Undo',
+                  tooltip: aux.tr('undo'),
                   onPressed: _controller.undo),
               ColorSelectButton(_controller, false),
               StatefulBuilder(
@@ -52,7 +55,7 @@ class DrawBottomBar extends StatelessWidget {
                     Icons.delete,
                     color: Color.fromARGB(255, 93, 188, 210),
                   ),
-                  tooltip: 'Clear',
+                  tooltip: aux.tr('clear_image'),
                   onPressed: _controller.clear),
             ],
           ),
@@ -64,14 +67,14 @@ class DrawBottomBar extends StatelessWidget {
                     Icons.navigate_before,
                     color: Color.fromARGB(255, 93, 188, 210),
                   ),
-                  tooltip: 'Clear',
+                  tooltip: aux.tr('previous_image'),
                   onPressed: _controller.clear),
               IconButton(
                   icon: new Icon(
                     Icons.navigate_next,
                     color: Color.fromARGB(255, 93, 188, 210),
                   ),
-                  tooltip: 'Clear',
+                  tooltip: aux.tr('next_image'),
                   onPressed: _controller.clear),
             ],
           ),

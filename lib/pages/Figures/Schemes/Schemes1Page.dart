@@ -10,7 +10,7 @@ class Schemes1Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Schemes1"),
+      appBar: CustomAppBar(context, 'schemes'),
       drawer: MenuWidget(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,

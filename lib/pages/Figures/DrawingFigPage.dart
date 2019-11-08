@@ -31,7 +31,7 @@ class _DrawingFigPageState extends State<DrawingFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, "Figures - Drawing"),
+      appBar: CustomAppBar(context, 'drawing'),
       drawer: MenuWidget(),
       body: Container(
         child: Stack(

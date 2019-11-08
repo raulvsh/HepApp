@@ -15,7 +15,7 @@ class _CLIPCalcPageState extends State<CLIPCalcPage> {
 
   final prefs = new PreferenciasUsuario();
 
-//TODO hacerlo por métodos _build, queda MÁS ordenado
+//TODO hacerlo por métodos _build, queda MÁS ordenado, en clase APARTE crearFilas o algo así, reutilizable
   final filaAFP = Row(
     children: <Widget>[
       Container(
@@ -226,7 +226,7 @@ class _CLIPCalcPageState extends State<CLIPCalcPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(context, "Calculators - CLIP", selScreenshot: true,
+      appBar: CustomAppBar(context, 'clip_staging_system', selScreenshot: true,
         selPartialSettings: true,),
       drawer: MenuWidget(),
 

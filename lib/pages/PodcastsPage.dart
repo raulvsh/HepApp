@@ -23,7 +23,7 @@ class _PodcastsPageState extends State<PodcastsPage> {
     return new Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, "Podcasts"),
+      appBar: CustomAppBar(context, 'podcasts'),
       drawer: MenuWidget(),
 
       body: _lista(),

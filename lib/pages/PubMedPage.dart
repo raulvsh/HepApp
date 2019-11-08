@@ -44,7 +44,7 @@ class _PubMedPageState extends State<PubMedPage> {
   Widget build(BuildContext context) {
     return WebviewScaffold(
       url: "https://www.ncbi.nlm.nih.gov/pubmed/",
-      appBar: CustomAppBar(context, 'PubMed'),
+      appBar: CustomAppBar(context, 'pub_med'),
       withZoom: true,
       withLocalStorage: true,
       displayZoomControls: true,

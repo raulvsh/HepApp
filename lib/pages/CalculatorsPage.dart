@@ -19,18 +19,18 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
     "CLIP",
   ];
   var calcTypes = {
-    "All": ['All Algorithms', '5_calculators.png', '/AllCalc'],
-    "Child": ['Child Pugh Score', '5_calculators.png', '/ChildCalc'],
-    "MELD": ['MELD', '5_calculators.png', '/MELDCalc'],
-    "Okuda": ['Okuda Staging System', '5_calculators.png', '/OkudaCalc'],
-    "CLIP": ['CLIP Staging System', '5_calculators.png', '/CLIPCalc'],
+    "All": ['all_algorithms', '5_calculators.png', '/AllCalc'],
+    "Child": ['child_pugh_score', '5_calculators.png', '/ChildCalc'],
+    "MELD": ['meld', '5_calculators.png', '/MELDCalc'],
+    "Okuda": ['okuda_staging_system', '5_calculators.png', '/OkudaCalc'],
+    "CLIP": ['clip_staging_system', '5_calculators.png', '/CLIPCalc'],
   };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
-      appBar: CustomAppBar(context, "Calculators"),
+      appBar: CustomAppBar(context, "calculators"),
       drawer: MenuWidget(),
       body: OrientationBuilder(
         builder: (context, orientation) {
