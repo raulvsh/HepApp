@@ -38,7 +38,7 @@ class DBProvider {
     //Obtener path desde Android o iOS para almacenar la base de datos
     Directory dir = await getApplicationDocumentsDirectory();
     String path = '${dir
-        .path}/notes.db'; //TODO probar esto dir.path + 'notes.db';
+        .path}/notes.db';
     print(path);
 
     //Abrir/Crear la base de datos en dicho path

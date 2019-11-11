@@ -24,11 +24,9 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
-
 
     return AppBar(
       automaticallyImplyLeading: false,
@@ -72,20 +70,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
         ),
       ),
       actions: <Widget>[
-        (widget.selScreenshot == true)
-            ? _screenshotIcon(context)
-            : Container(),
+        (widget.selScreenshot == true) ? _screenshotIcon(context) : Container(),
         (widget.selFullSettings == true)
             ? _fullSettingsIcon(context)
             : Container(),
         (widget.selPartialSettings == true)
             ? _partialSettingsIcon(context)
             : Container(),
-
       ],
     );
   }
-
 
   IconButton _homeIcon(BuildContext context) {
     return IconButton(
@@ -96,42 +90,38 @@ class _CustomAppBarState extends State<CustomAppBar> {
         width: 18,
         height: 18,
       ),
-      onPressed: () => Navigator.pushNamed(context, '/'),
+      onPressed: () => Navigator.pushReplacementNamed(context, '/'),
     );
   }
 
   GestureDetector _backIcon(BuildContext context) {
     var aux = AppLocalizations.of(context);
 
-
     return GestureDetector(
-      child: Row(
-        children: <Widget>[
-          Icon(Icons.keyboard_arrow_left),
-          /*Image.asset(
-            '/assets/images/arrowthickleft.png',
-            width: 22,
-            height: 22,
-          ),*/
-          Text(
-            aux.tr('back'),
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
+      child: Container(
+        height: double.infinity,
+        child: Row(
+          children: <Widget>[
+            Icon(Icons.keyboard_arrow_left),
+            Text(
+              aux.tr('back'),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       onTap: () => Navigator.pop(context),
     );
   }
 
-
   IconButton _partialSettingsIcon(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.settings),
       onPressed: () {
-        //Añadir función captura de pantalla _screenCapture()
+        //TODO Añadir función captura de pantalla _screenCapture()
         showDialog(
           context: context,
           builder: (BuildContext context) {
