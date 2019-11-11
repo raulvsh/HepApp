@@ -30,6 +30,8 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
     ]);
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,13 +40,13 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
         context,
         'okuda_staging_system',
         selScreenshot: true,
-        selPartialSettings: true,
+        selPartialSettings: false,
       ),
       drawer: MenuWidget(),
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        //color: Colors.blue,
+        color: Colors.green,
         child: Row(
           children: <Widget>[
             Expanded(
