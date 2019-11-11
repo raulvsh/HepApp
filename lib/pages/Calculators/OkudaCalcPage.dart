@@ -44,7 +44,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        //color: Colors.blue,
+        color: Colors.blue,
         child: Row(
           children: <Widget>[
             Expanded(
