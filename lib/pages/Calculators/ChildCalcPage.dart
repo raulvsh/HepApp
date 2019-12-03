@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hepapp/forms/ChildCalcForm.dart';
 import 'package:hepapp/widgets/CalcBottomBar.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
@@ -40,7 +41,7 @@ class _ChildCalcPageState extends State<ChildCalcPage> {
         selPartialSettings: true,),
       drawer: MenuWidget(),
       body: new Center(
-        child: new Text("Some text"),
+        child: ChildCalcForm(),
       ),
       bottomSheet: CalcBottomBar("reseteo2"),
 

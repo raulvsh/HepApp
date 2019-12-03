@@ -1,23 +1,24 @@
-/*
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:flutter_form_bloc_example/forms/form_fields_example_form_bloc.dart';
-import 'package:flutter_form_bloc_example/widgets/widgets.dart';
-import 'package:form_bloc/form_bloc.dart';
+import 'package:hepapp/widgets/loading_dialog.dart';
+import 'package:hepapp/widgets/notifications.dart';
 
-class FormFieldsExampleForm extends StatelessWidget {
+import 'ChildCalcForm_bloc.dart';
+
+
+class ChildCalcForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<FormFieldsExampleFormBloc>(
-      builder: (context) => FormFieldsExampleFormBloc(),
+    return BlocProvider<ChildCalcFormBloc>(
+      builder: (context) => ChildCalcFormBloc(),
       child: Builder(
         builder: (context) {
-          final formBloc = BlocProvider.of<FormFieldsExampleFormBloc>(context);
+          final formBloc = BlocProvider.of<ChildCalcFormBloc>(context);
 
           return Scaffold(
-            appBar: AppBar(title: Text('Form Fields Example')),
-            body: FormBlocListener<FormFieldsExampleFormBloc, String, String>(
+            //appBar: AppBar(title: Text('Form Fields Example')),
+            body: FormBlocListener<ChildCalcFormBloc, String, String>(
               onSubmitting: (context, state) => LoadingDialog.show(context),
               onSuccess: (context, state) {
                 LoadingDialog.hide(context);
@@ -40,9 +41,9 @@ class FormFieldsExampleForm extends StatelessWidget {
                     ),
                     errorBuilder: (context, error) {
                       switch (error) {
-                        case ValidatorsError.requiredTextFieldBloc:
+                      /*case ValidatorsError.requiredTextFieldBloc:
                           return 'You must write amazing text.';
-                          break;
+                          break;*/
                         default:
                           return 'This text is nor valid.';
                       }
@@ -101,4 +102,3 @@ class FormFieldsExampleForm extends StatelessWidget {
     );
   }
 }
-*/

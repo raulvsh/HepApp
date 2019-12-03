@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 
 class InformationPage extends StatefulWidget {
@@ -7,6 +6,34 @@ class InformationPage extends StatefulWidget {
   _InformationPageState createState() => _InformationPageState();
 }
 
+class _InformationPageState extends State<InformationPage> {
+  final String url = 'assets/pdfs/about_hepapp.pdf';
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: CustomAppBar(
+        context,
+        'information',
+      ),
+      body: Center(
+        child: Text('hola'),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+}
+/*
+ANTERIOR VERSION EN LA QUE FUNCIONABA EL PDF
 class _InformationPageState extends State<InformationPage> {
   PDFDocument document;
   final String url = 'assets/pdfs/about_hepapp.pdf';
@@ -45,3 +72,4 @@ class _InformationPageState extends State<InformationPage> {
     super.dispose();
   }
 }
+*/

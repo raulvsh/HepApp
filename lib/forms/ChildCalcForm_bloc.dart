@@ -1,7 +1,6 @@
-/*
 import 'package:form_bloc/form_bloc.dart';
 
-class FormFieldsExampleFormBloc extends FormBloc<String, String> {
+class ChildCalcFormBloc extends FormBloc<String, String> {
   final textField = TextFieldBloc();
 
   final booleanField = BooleanFieldBloc();
@@ -39,6 +38,7 @@ class FormFieldsExampleFormBloc extends FormBloc<String, String> {
     print(multiSelectField.value);
 
     await Future<void>.delayed(Duration(seconds: 2));
+
     yield currentState.toSuccess('Success');
 
     // yield `currentState.toLoaded()` because
@@ -50,4 +50,3 @@ class FormFieldsExampleFormBloc extends FormBloc<String, String> {
     yield currentState.toLoaded();
   }
 }
-*/
