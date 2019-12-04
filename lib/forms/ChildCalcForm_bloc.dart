@@ -13,7 +13,7 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     items: ['Option 1', 'Option 2'],
   );
 
-  final seleccionPrueba = SelectFieldBloc(
+  final selectAscites = SelectFieldBloc(
     items: ['None', 'Controlled', 'Refractory'],
   );
 

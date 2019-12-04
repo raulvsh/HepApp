@@ -4,8 +4,8 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/widgets/loading_dialog.dart';
 import 'package:hepapp/widgets/notifications.dart';
 
-import 'BilirrubinaButtonGroupFieldBlocBuilder.dart';
 import 'ChildCalcForm_bloc.dart';
+import 'CustomButtonGroupFieldBlocBuilder.dart';
 
 
 class ChildCalcForm extends StatelessWidget {
@@ -39,15 +39,25 @@ class ChildCalcForm extends StatelessWidget {
                 children: <Widget>[
 
 
-                  BilirrubinaButtonGroupFieldBlocBuilder(
+                  CustomButtonGroupFieldBlocBuilder(
 
-                    selectFieldBloc: formBloc.seleccionPrueba,
+                    selectFieldBloc: formBloc.selectAscites,
                     decoration: InputDecoration(
                       labelText: 'Ascites',
-                      counterText: 'hola',
-                      border: OutlineInputBorder(
+                      //TODO Hacer un row normal con el texto y luego el grupo de botones
+                      //counterText: 'Prueba counter',
+                      //fillColor: Colors.red,
+                      //filled: true,
+                      icon: Container(
+                        color: Color.fromARGB(255, 210, 242, 245),
+                        width: 10.0,
+                        height: 20.0,
+                      ),
+                      /*border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                      ), //prefixIcon: Icon(Icons.sentiment_very_dissatisfied),
+                      ),*/
+                      border: InputBorder.none,
+                      //prefixIcon: Icon(Icons.sentiment_very_dissatisfied),
                     ),
                     //itemBuilder: (context, item) => item,
 

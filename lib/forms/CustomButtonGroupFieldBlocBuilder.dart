@@ -5,8 +5,8 @@ import 'package:flutter_form_bloc/src/utils/utils.dart';
 import 'package:form_bloc/form_bloc.dart';
 
 /// A material design radio buttons.
-class BilirrubinaButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
-  const BilirrubinaButtonGroupFieldBlocBuilder({
+class CustomButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
+  const CustomButtonGroupFieldBlocBuilder({
     Key key,
     @required this.selectFieldBloc,
     @required this.itemBuilder,
@@ -103,8 +103,8 @@ class BilirrubinaButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
 
     simpleBuilder = (BuildContext context, List<double> animValues,
         Function updateState, String value) {
-      //final alpha = (animValues[0] * 255).toInt();
-      final alpha = 0 * 255.toInt();
+      final alpha = (animValues[0] * 255).toInt();
+      //final alpha = 0 * 255.toInt();
       return Container(
         padding: EdgeInsets.all(5.0),
         //margin: EdgeInsets.symmetric(horizontal: 2.0, vertical: 12.0),
@@ -148,6 +148,7 @@ class BilirrubinaButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
                   //Funciona este ontap, saca los valores correctos al print
                   onTap: () {
                     print(state.items.elementAt(index).toString());
+
                   },
                   child: Container(
                     //color: Colors.red,
@@ -155,7 +156,7 @@ class BilirrubinaButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
                       value: state.items.elementAt(index).toString(),
                       //'Second',
                       groupValue: radioValue,
-                      duration: Duration(milliseconds: 100),
+                      duration: Duration(milliseconds: 500),
                       animsBuilder: (AnimationController controller) => [
                         CurvedAnimation(
                             parent: controller, curve: Curves.easeInOut)
