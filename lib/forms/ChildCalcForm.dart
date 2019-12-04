@@ -43,6 +43,7 @@ class ChildCalcForm extends StatelessWidget {
                   CustomButtonGroupFieldBlocBuilder(
 
                     selectFieldBloc: formBloc.ascitesField,
+                    canDeselect: true,
                     decoration: InputDecoration(
                       labelText: 'Ascites',
                       //TODO Hacer un row normal con el texto y luego el grupo de botones

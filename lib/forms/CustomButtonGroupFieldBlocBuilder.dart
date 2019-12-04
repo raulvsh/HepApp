@@ -66,8 +66,8 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
       builder: (context, state) {
         final isEnabled = fieldBlocIsEnabled(
           isEnabled: this.widget.isEnabled,
-          enableOnlyWhenFormBlocCanSubmit: widget
-              .enableOnlyWhenFormBlocCanSubmit,
+          enableOnlyWhenFormBlocCanSubmit:
+          widget.enableOnlyWhenFormBlocCanSubmit,
           fieldBlocState: state,
         );
 
@@ -101,11 +101,11 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
   var radioValue = '';
 
   Widget _buildRadioButtons(SelectFieldBlocState<Value> state, bool isEnable) {
-    final onChanged = fieldBlocBuilderOnChange<Value>(
+    /* final onChanged = fieldBlocBuilderOnChange<Value>(
       isEnabled: widget.isEnabled,
       nextFocusNode: widget.nextFocusNode,
       onChanged: widget.selectFieldBloc.updateValue,
-    );
+    );*/
 
     RadioBuilder<String, double> simpleBuilder;
 
@@ -128,8 +128,11 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                 .of(context)
                 .primaryColor
                 .withAlpha(255 - alpha),
+
+
             width: 2.0,
           ),
+          borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
         ),
         child: Text(
           value,
@@ -137,12 +140,12 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
               .of(context)
               .textTheme
               .body1
-              .copyWith(fontSize: 20.0),
+              .copyWith(fontSize: 20.0, color: Colors.black),
         ),
-
       );
     };
     return ListView.builder(
+      //scrollDirection: Axis.horizontal,
       padding: EdgeInsets.symmetric(vertical: 4),
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
@@ -160,27 +163,39 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                     setState(() {
                       radioValue = state.items.elementAt(index).toString();
 
+                      /* Venían en la función onChange, quizás se necesiten
+                      widget.isEnabled,
+                      widget.nextFocusNode,*/
                       widget.selectFieldBloc.updateValue(radioValue);
-
 
                       //print(state.items.elementAt(index).toString());
                       //print(radioValue);
                     });
                   },
-                  child: Container(
-                    //color: Colors.red,
-                    child: CustomRadio<String, double>(
+                  child: Center(
+                    child: Container(
+                      /*decoration: BoxDecoration(
+                        border: new Border.all(
+                            //color: Colors.green,
+                            width: 5.0,
+                            style: BorderStyle.solid
+                        ),
+                        borderRadius: new BorderRadius.all(new Radius.circular(20.0)),                      ),*/
 
-                      value: state.items.elementAt(index).toString(),
-                      //'Second',
-                      groupValue: radioValue,
-                      duration: Duration(milliseconds: 500),
-                      animsBuilder: (AnimationController controller) =>
-                      [
-                        CurvedAnimation(
-                            parent: controller, curve: Curves.easeInOut)
-                      ],
-                      builder: simpleBuilder,
+
+                      width: 150,
+                      //color: Colors.red,
+                      child: CustomRadio<String, double>(
+                        value: state.items.elementAt(index).toString(),
+                        groupValue: radioValue,
+                        duration: Duration(milliseconds: 500),
+                        animsBuilder: (AnimationController controller) =>
+                        [
+                          CurvedAnimation(
+                              parent: controller, curve: Curves.easeInOut)
+                        ],
+                        builder: simpleBuilder,
+                      ),
                     ),
                   ),
                 ),
@@ -194,18 +209,33 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
 
                   ),*/
 
+                /* Solo si se puede deseleccionar, no aplica
+
                 if (widget.canDeselect &&
                     state.items.elementAt(index) == state.value)
                   Theme(
                     data: Theme.of(context).copyWith(
                       unselectedWidgetColor: Colors.transparent,
                     ),
-                    child: Radio<Value>(
+                    child:
+
+                    CustomRadio<String, double>(
+                      value: '',
+                      groupValue: '',
+                      duration: Duration(milliseconds: 500),
+                      animsBuilder: (AnimationController controller) => [
+                        CurvedAnimation(
+                            parent: controller, curve: Curves.easeInOut)
+                      ],
+                      builder: simpleBuilder,
+                    ),
+
+                    */ /*Radio<Value>(
                       value: null,
                       groupValue: state.value,
                       onChanged: onChanged,
-                    ),
-                  )
+                    ),*/ /*
+                  )*/
               ],
             ),
           ),
@@ -223,13 +253,13 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
     InputDecoration decoration = this.widget.decoration;
 
     return decoration.copyWith(
-      suffix: SizedBox.shrink(),
-      prefixIcon: SizedBox.shrink(),
-      prefix: SizedBox.shrink(),
-      suffixIcon: SizedBox.shrink(),
+      //suffix: SizedBox(width: 100,),//.shrink(),
+      //prefixIcon: SizedBox.shrink(),
+      //prefix: SizedBox.shrink(),
+      //suffixIcon: SizedBox.shrink(),
       enabled: isEnable,
       contentPadding: Style.getGroupFieldBlocContentPadding(
-        isVisible: false,
+        isVisible: true,
         decoration: decoration,
       ),
       errorText: Style.getErrorText(

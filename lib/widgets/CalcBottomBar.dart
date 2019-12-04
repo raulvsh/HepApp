@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'CalcBottomButton.dart';
+
 class CalcBottomBar extends StatelessWidget {
   final numreset;
 
@@ -51,15 +53,19 @@ class CalcBottomBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           //BottomCalcButton("Reset Values", () => print("hola")),
-          CalcBottomButton("Presioname", action: () => {reset()}),
-          SizedBox(width: 10.0,), //height: 30,),
+          CalcBottomButton("Reset", action: reset),
+          SizedBox(
+            width: 10.0,
+          ), //height: 30,),
           Container(
             height: 25.0,
             margin: EdgeInsets.all(7),
-
             child: RaisedButton(
               //icon: Icon(Icons.menu),
-              child: Text("Previous Values", style: TextStyle(fontSize: 12),),
+              child: Text(
+                "Previous Values",
+                style: TextStyle(fontSize: 12),
+              ),
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
@@ -71,10 +77,12 @@ class CalcBottomBar extends StatelessWidget {
           Container(
             height: 25.0,
             margin: EdgeInsets.all(7),
-
             child: RaisedButton(
               //icon: Icon(Icons.menu),
-              child: Text("More Information", style: TextStyle(fontSize: 12),),
+              child: Text(
+                "More Information",
+                style: TextStyle(fontSize: 12),
+              ),
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
@@ -85,39 +93,6 @@ class CalcBottomBar extends StatelessWidget {
           //TODO hacer botón Next opcional como en el CustomAppBar
         ],
       ),
-    );
-  }
-}
-
-
-class CalcBottomButton extends StatelessWidget {
-  final String text;
-  final Function action;
-
-  CalcBottomButton(this.text, {this.action});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: RaisedButton(
-          onPressed: () {
-            action();
-          },
-          textColor: Colors.yellow,
-          padding: const EdgeInsets.all(0.0),
-          child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[
-                  Color(0xAF0D47A1),
-                  Color(0xFF1976D2),
-                  Color(0xFF42A5F5),
-                ],
-              ),
-            ),
-            padding: const EdgeInsets.all(10.0),
-            child: Text(text, style: TextStyle(fontSize: 20)),
-          )),
     );
   }
 }

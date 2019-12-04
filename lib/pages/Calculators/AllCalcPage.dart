@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/widgets/CalcBottomBar.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
@@ -34,7 +33,7 @@ class _AllCalcPageState extends State<AllCalcPage> {
 
   @override
   Widget build(BuildContext context) {
-    var aux = AppLocalizations.of(context);
+    //var aux = AppLocalizations.of(context);
     return new Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
