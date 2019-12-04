@@ -5,8 +5,8 @@ import 'package:flutter_form_bloc/src/utils/utils.dart';
 import 'package:form_bloc/form_bloc.dart';
 
 /// A material design radio buttons.
-class CustomRadioButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
-  const CustomRadioButtonGroupFieldBlocBuilder({
+class BilirrubinaButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
+  const BilirrubinaButtonGroupFieldBlocBuilder({
     Key key,
     @required this.selectFieldBloc,
     @required this.itemBuilder,
@@ -91,6 +91,8 @@ class CustomRadioButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
   }
 
   Widget _buildRadioButtons(SelectFieldBlocState<Value> state, bool isEnable) {
+    String radioValue = '';
+
     final onChanged = fieldBlocBuilderOnChange<Value>(
       isEnabled: isEnabled,
       nextFocusNode: nextFocusNode,
@@ -101,31 +103,36 @@ class CustomRadioButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
 
     simpleBuilder = (BuildContext context, List<double> animValues,
         Function updateState, String value) {
-      final alpha = (animValues[0] * 255).toInt();
-      return GestureDetector(
-          onTap: () {
-            onChanged;
-            /*setState(() {
-              widget.radioValue = value;
-            });*/
-          },
-          child: Container(
-              padding: EdgeInsets.all(32.0),
-              margin: EdgeInsets.symmetric(horizontal: 2.0, vertical: 12.0),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Theme.of(context).primaryColor.withAlpha(alpha),
-                  border: Border.all(
-                    color:
-                        Theme.of(context).primaryColor.withAlpha(255 - alpha),
-                    width: 4.0,
-                  )),
-              child: Text(
-                value,
-                style:
-                    Theme.of(context).textTheme.body1.copyWith(fontSize: 20.0),
-              )));
+      //final alpha = (animValues[0] * 255).toInt();
+      final alpha = 0 * 255.toInt();
+      return Container(
+        padding: EdgeInsets.all(5.0),
+        //margin: EdgeInsets.symmetric(horizontal: 2.0, vertical: 12.0),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: Theme
+              .of(context)
+              .primaryColor
+              .withAlpha(alpha),
+          border: Border.all(
+            color: Theme
+                .of(context)
+                .primaryColor
+                .withAlpha(255 - alpha),
+            width: 2.0,
+          ),
+        ),
+        child: Text(
+          value,
+          style: Theme
+              .of(context)
+              .textTheme
+              .body1
+              .copyWith(fontSize: 20.0),
+        ),
+
+      );
     };
     return ListView.builder(
       padding: EdgeInsets.symmetric(vertical: 4),
@@ -137,21 +144,28 @@ class CustomRadioButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
           decoration: Style.inputDecorationWithoutBorder.copyWith(
             prefixIcon: Stack(
               children: <Widget>[
-                Container(
-                  //color: Colors.red,
-                  child: CustomRadio<String, double>(
+                GestureDetector(
+                  //Funciona este ontap, saca los valores correctos al print
+                  onTap: () {
+                    print(state.items.elementAt(index).toString());
+                  },
+                  child: Container(
+                    //color: Colors.red,
+                    child: CustomRadio<String, double>(
                       value: state.items.elementAt(index).toString(),
                       //'Second',
-                      groupValue: 'bilirrubina',
-                      //widget.radioValue,
-                      duration: Duration(milliseconds: 500),
+                      groupValue: radioValue,
+                      duration: Duration(milliseconds: 100),
                       animsBuilder: (AnimationController controller) => [
-                            CurvedAnimation(
-                                parent: controller, curve: Curves.easeInOut)
-                          ],
-                      builder: simpleBuilder),
+                        CurvedAnimation(
+                            parent: controller, curve: Curves.easeInOut)
+                      ],
+                      builder: simpleBuilder,
+                    ),
+                  ),
+                ),
 
-                  /*Radio<Value>(
+                /*Radio<Value>(
                     value: state.items.elementAt(index),
                     groupValue: state.value,
                     onChanged: onChanged,
@@ -159,7 +173,7 @@ class CustomRadioButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
                     //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
 
                   ),*/
-                ),
+
                 if (canDeselect && state.items.elementAt(index) == state.value)
                   Theme(
                     data: Theme.of(context).copyWith(
@@ -174,10 +188,10 @@ class CustomRadioButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
               ],
             ),
           ),
-          child: DefaultFieldBlocBuilderTextStyle(
+          /*child: DefaultFieldBlocBuilderTextStyle(
             isEnabled: isEnabled,
             child: Text(itemBuilder(context, state.items.elementAt(index))),
-          ),
+          ),*/
         );
       },
     );

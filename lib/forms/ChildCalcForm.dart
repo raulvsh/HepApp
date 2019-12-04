@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:form_bloc/form_bloc.dart';
-import 'package:hepapp/forms/Custom_radio_button_group_field_bloc.dart';
 import 'package:hepapp/widgets/loading_dialog.dart';
 import 'package:hepapp/widgets/notifications.dart';
 
+import 'BilirrubinaButtonGroupFieldBlocBuilder.dart';
 import 'ChildCalcForm_bloc.dart';
 
 
@@ -35,22 +34,26 @@ class ChildCalcForm extends StatelessWidget {
                     context, state.failureResponse);
               },
               child: ListView(
+
                 physics: ClampingScrollPhysics(),
                 children: <Widget>[
 
 
-                  CustomRadioButtonGroupFieldBlocBuilder(
+                  BilirrubinaButtonGroupFieldBlocBuilder(
 
                     selectFieldBloc: formBloc.seleccionPrueba,
                     decoration: InputDecoration(
-                      labelText: 'Bilirrubina',
-                      //prefixIcon: Icon(Icons.sentiment_very_dissatisfied),
+                      labelText: 'Ascites',
+                      counterText: 'hola',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ), //prefixIcon: Icon(Icons.sentiment_very_dissatisfied),
                     ),
-                    itemBuilder: (context, item) => item,
+                    //itemBuilder: (context, item) => item,
 
 
                   ),
-                  TextFieldBlocBuilder(
+                  /*TextFieldBlocBuilder(
                     textFieldBloc: formBloc.textField,
                     decoration: InputDecoration(
                       icon: Icon(Icons.add),
@@ -114,7 +117,7 @@ class ChildCalcForm extends StatelessWidget {
                       onPressed: formBloc.clear,
                       child: Center(child: Text('CLEAR')),
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             ),
