@@ -136,7 +136,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return IconButton(
       icon: Icon(Icons.settings),
       onPressed: () {
-        //Añadir función captura de pantalla _screenCapture()
+        //Añadir función fullSettings()
         showDialog(
           context: context,
           builder: (BuildContext context) {

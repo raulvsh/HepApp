@@ -5,7 +5,7 @@ import 'package:flutter_form_bloc/src/utils/utils.dart';
 import 'package:form_bloc/form_bloc.dart';
 
 /// A material design radio buttons.
-class CustomButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
+class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
   const CustomButtonGroupFieldBlocBuilder({
     Key key,
     @required this.selectFieldBloc,
@@ -53,18 +53,26 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
   final FocusNode nextFocusNode;
 
   @override
+  _CustomButtonGroupFieldBlocBuilderState<Value> createState() =>
+      _CustomButtonGroupFieldBlocBuilderState();
+}
+
+class _CustomButtonGroupFieldBlocBuilderState<Value>
+    extends State<CustomButtonGroupFieldBlocBuilder> {
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<SelectFieldBloc<Value>, SelectFieldBlocState<Value>>(
-      bloc: selectFieldBloc,
+      bloc: widget.selectFieldBloc,
       builder: (context, state) {
         final isEnabled = fieldBlocIsEnabled(
-          isEnabled: this.isEnabled,
-          enableOnlyWhenFormBlocCanSubmit: enableOnlyWhenFormBlocCanSubmit,
+          isEnabled: this.widget.isEnabled,
+          enableOnlyWhenFormBlocCanSubmit: widget
+              .enableOnlyWhenFormBlocCanSubmit,
           fieldBlocState: state,
         );
 
         return DefaultFieldBlocBuilderPadding(
-          padding: padding,
+          padding: widget.padding,
           child: Stack(
             children: <Widget>[
               InputDecorator(
@@ -78,7 +86,7 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
                 decoration: Style.inputDecorationWithoutBorder.copyWith(
                   contentPadding: Style.getGroupFieldBlocContentPadding(
                     isVisible: true,
-                    decoration: decoration,
+                    decoration: widget.decoration,
                   ),
                 ),
                 child: _buildRadioButtons(state, isEnabled),
@@ -90,13 +98,13 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
     );
   }
 
-  Widget _buildRadioButtons(SelectFieldBlocState<Value> state, bool isEnable) {
-    String radioValue = '';
+  var radioValue = '';
 
+  Widget _buildRadioButtons(SelectFieldBlocState<Value> state, bool isEnable) {
     final onChanged = fieldBlocBuilderOnChange<Value>(
-      isEnabled: isEnabled,
-      nextFocusNode: nextFocusNode,
-      onChanged: selectFieldBloc.updateValue,
+      isEnabled: widget.isEnabled,
+      nextFocusNode: widget.nextFocusNode,
+      onChanged: widget.selectFieldBloc.updateValue,
     );
 
     RadioBuilder<String, double> simpleBuilder;
@@ -147,17 +155,28 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
                 GestureDetector(
                   //Funciona este ontap, saca los valores correctos al print
                   onTap: () {
-                    print(state.items.elementAt(index).toString());
+                    //widget.selectFieldBloc.updateValue;
 
+                    setState(() {
+                      radioValue = state.items.elementAt(index).toString();
+
+                      widget.selectFieldBloc.updateValue(radioValue);
+
+
+                      //print(state.items.elementAt(index).toString());
+                      //print(radioValue);
+                    });
                   },
                   child: Container(
                     //color: Colors.red,
                     child: CustomRadio<String, double>(
+
                       value: state.items.elementAt(index).toString(),
                       //'Second',
                       groupValue: radioValue,
                       duration: Duration(milliseconds: 500),
-                      animsBuilder: (AnimationController controller) => [
+                      animsBuilder: (AnimationController controller) =>
+                      [
                         CurvedAnimation(
                             parent: controller, curve: Curves.easeInOut)
                       ],
@@ -175,7 +194,8 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
 
                   ),*/
 
-                if (canDeselect && state.items.elementAt(index) == state.value)
+                if (widget.canDeselect &&
+                    state.items.elementAt(index) == state.value)
                   Theme(
                     data: Theme.of(context).copyWith(
                       unselectedWidgetColor: Colors.transparent,
@@ -198,9 +218,9 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
     );
   }
 
-  InputDecoration _buildDecoration(
-      BuildContext context, SelectFieldBlocState<Value> state, bool isEnable) {
-    InputDecoration decoration = this.decoration;
+  InputDecoration _buildDecoration(BuildContext context,
+      SelectFieldBlocState<Value> state, bool isEnable) {
+    InputDecoration decoration = this.widget.decoration;
 
     return decoration.copyWith(
       suffix: SizedBox.shrink(),
@@ -214,7 +234,7 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatelessWidget {
       ),
       errorText: Style.getErrorText(
         context: context,
-        errorBuilder: errorBuilder,
+        errorBuilder: widget.errorBuilder,
         fieldBlocState: state,
       ),
     );

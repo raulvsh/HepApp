@@ -1,6 +1,7 @@
 import 'package:form_bloc/form_bloc.dart';
 
 class ChildCalcFormBloc extends FormBloc<String, String> {
+
   final textField = TextFieldBloc();
 
   final booleanField = BooleanFieldBloc();
@@ -13,7 +14,7 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     items: ['Option 1', 'Option 2'],
   );
 
-  final selectAscites = SelectFieldBloc(
+  final ascitesField = SelectFieldBloc(
     items: ['None', 'Controlled', 'Refractory'],
   );
 
@@ -23,6 +24,7 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
 
   @override
   List<FieldBloc> get fieldBlocs => [
+    ascitesField,
     textField,
     booleanField,
     selectField1,
@@ -35,11 +37,13 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     // Awesome logic...
 
     // Get the fields values:
+    print(ascitesField.value);
     print(textField.value);
-    print(booleanField.value);
-    print(selectField1.value);
-    print(selectField2.value);
+    print(selectField1.value); //Dropdown menu
     print(multiSelectField.value);
+    print(selectField2.value); //RadioButton
+    print(booleanField.value);
+
 
     await Future<void>.delayed(Duration(seconds: 2));
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/widgets/loading_dialog.dart';
 import 'package:hepapp/widgets/notifications.dart';
 
@@ -41,7 +42,7 @@ class ChildCalcForm extends StatelessWidget {
 
                   CustomButtonGroupFieldBlocBuilder(
 
-                    selectFieldBloc: formBloc.selectAscites,
+                    selectFieldBloc: formBloc.ascitesField,
                     decoration: InputDecoration(
                       labelText: 'Ascites',
                       //TODO Hacer un row normal con el texto y luego el grupo de botones
@@ -63,7 +64,7 @@ class ChildCalcForm extends StatelessWidget {
 
 
                   ),
-                  /*TextFieldBlocBuilder(
+                  TextFieldBlocBuilder(
                     textFieldBloc: formBloc.textField,
                     decoration: InputDecoration(
                       icon: Icon(Icons.add),
@@ -83,8 +84,7 @@ class ChildCalcForm extends StatelessWidget {
                     },
                   ),
                   DropdownFieldBlocBuilder<String>(
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 100, vertical: 50),
+                    padding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
                     selectFieldBloc: formBloc.selectField1,
                     decoration: InputDecoration(
                       labelText: 'DropdownFieldBlocBuilder',
@@ -127,7 +127,7 @@ class ChildCalcForm extends StatelessWidget {
                       onPressed: formBloc.clear,
                       child: Center(child: Text('CLEAR')),
                     ),
-                  ),*/
+                  ),
                 ],
               ),
             ),
