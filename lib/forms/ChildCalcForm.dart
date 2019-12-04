@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:form_bloc/form_bloc.dart';
+import 'package:hepapp/forms/Custom_radio_button_group_field_bloc.dart';
 import 'package:hepapp/widgets/loading_dialog.dart';
 import 'package:hepapp/widgets/notifications.dart';
 
@@ -8,6 +10,8 @@ import 'ChildCalcForm_bloc.dart';
 
 
 class ChildCalcForm extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChildCalcFormBloc>(
@@ -33,17 +37,33 @@ class ChildCalcForm extends StatelessWidget {
               child: ListView(
                 physics: ClampingScrollPhysics(),
                 children: <Widget>[
+
+
+                  CustomRadioButtonGroupFieldBlocBuilder(
+
+                    selectFieldBloc: formBloc.seleccionPrueba,
+                    decoration: InputDecoration(
+                      labelText: 'Bilirrubina',
+                      //prefixIcon: Icon(Icons.sentiment_very_dissatisfied),
+                    ),
+                    itemBuilder: (context, item) => item,
+
+
+                  ),
                   TextFieldBlocBuilder(
                     textFieldBloc: formBloc.textField,
                     decoration: InputDecoration(
-                      labelText: 'TextFieldBlocBuilder',
-                      prefixIcon: Icon(Icons.sentiment_very_satisfied),
+                      icon: Icon(Icons.add),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50.0),
+                      ), labelText: 'TextFieldBlocBuilder prueba',
+                      prefixIcon: Icon(Icons.arrow_back_ios),
                     ),
                     errorBuilder: (context, error) {
                       switch (error) {
-                      /*case ValidatorsError.requiredTextFieldBloc:
+                        case ValidatorsError.requiredTextFieldBloc:
                           return 'You must write amazing text.';
-                          break;*/
+                          break;
                         default:
                           return 'This text is nor valid.';
                       }
@@ -51,7 +71,7 @@ class ChildCalcForm extends StatelessWidget {
                   ),
                   DropdownFieldBlocBuilder<String>(
                     padding:
-                    EdgeInsets.symmetric(horizontal: 100, vertical: 250),
+                    EdgeInsets.symmetric(horizontal: 100, vertical: 50),
                     selectFieldBloc: formBloc.selectField1,
                     decoration: InputDecoration(
                       labelText: 'DropdownFieldBlocBuilder',
@@ -68,6 +88,7 @@ class ChildCalcForm extends StatelessWidget {
                     ),
                   ),
                   RadioButtonGroupFieldBlocBuilder<String>(
+
                     selectFieldBloc: formBloc.selectField2,
                     decoration: InputDecoration(
                       labelText: 'RadioButtonGroupFieldBlocBuilder',
@@ -75,6 +96,7 @@ class ChildCalcForm extends StatelessWidget {
                     ),
                     itemBuilder: (context, item) => item,
                   ),
+
                   CheckboxFieldBlocBuilder(
                     booleanFieldBloc: formBloc.booleanField,
                     body: Text('CheckboxFieldBlocBuilder'),

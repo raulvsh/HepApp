@@ -1,9 +1,15 @@
-import 'package:custom_radio/custom_radio.dart';
+/*
 import 'package:flutter/material.dart';
+import 'package:hepapp/pages/InformationPage.dart';
+import 'package:hepapp/providers/menu_provider.dart';
+import 'package:hepapp/utils/icono_string_util.dart';
+import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
+import 'package:custom_radio/custom_radio.dart';
 
-class PodcastsPage extends StatefulWidget {
+class CustomRadioButtonUtils extends StatefulWidget{
   @override
-  _PodcastsPageState createState() => _PodcastsPageState();
+  _CustomRadioButtonUtilsState createState() => _CustomRadioButtonUtilsState();
   String radioValue = 'First';
   final String title = '';
 
@@ -11,13 +17,10 @@ class PodcastsPage extends StatefulWidget {
 }
 
 
-class _PodcastsPageState extends State<PodcastsPage>
-    with SingleTickerProviderStateMixin {
+class _CustomRadioButtonUtilsState extends State<CustomRadioButtonUtils> with SingleTickerProviderStateMixin {
 
-  _PodcastsPageState() {
-    customBuilder =
-        (BuildContext context, List<dynamic> animValues, Function updateState,
-        String value) {
+  _CustomRadioButtonUtilsState() {
+    customBuilder = (BuildContext context, List<dynamic> animValues, Function updateState, String value) {
       return GestureDetector(
         onTap: () {
           setState(() {
@@ -36,12 +39,10 @@ class _PodcastsPageState extends State<PodcastsPage>
         ),
       );
     };
-    simpleBuilder =
-        (BuildContext context, List<double> animValues, Function updateState,
-        String value) {
+    simpleBuilder = (BuildContext context, List<double> animValues, Function updateState, String value) {
       final alpha = (animValues[0] * 255).toInt();
       return GestureDetector(
-          onTap: () {
+          onTap:  () {
             setState(() {
               widget.radioValue = value;
             });
@@ -52,32 +53,20 @@ class _PodcastsPageState extends State<PodcastsPage>
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Theme
-                      .of(context)
-                      .primaryColor
-                      .withAlpha(alpha),
+                  color: Theme.of(context).primaryColor.withAlpha(alpha),
                   border: Border.all(
-                    color: Theme
-                        .of(context)
-                        .primaryColor
-                        .withAlpha(255 - alpha),
+                    color: Theme.of(context).primaryColor.withAlpha(255 - alpha),
                     width: 4.0,
                   )
               ),
               child: Text(
                 value,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .body1
-                    .copyWith(fontSize: 20.0),
+                style: Theme.of(context).textTheme.body1.copyWith(fontSize: 20.0),
               )
           )
       );
     };
-    dynamicBuilder =
-        (BuildContext context, List<dynamic> animValues, Function updateState,
-        String value) {
+    dynamicBuilder = (BuildContext context, List<dynamic> animValues, Function updateState, String value) {
       return GestureDetector(
           onTap: () {
             setState(() {
@@ -98,11 +87,7 @@ class _PodcastsPageState extends State<PodcastsPage>
               ),
               child: Text(
                 value,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .body1
-                    .copyWith(
+                style: Theme.of(context).textTheme.body1.copyWith(
                     fontSize: 20.0,
                     color: animValues[2]
                 ),
@@ -141,65 +126,11 @@ class _PodcastsPageState extends State<PodcastsPage>
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: ListView(
-        children: <Widget>[
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              CustomRadio<String, double>(
-                  value: 'First',
-                  groupValue: widget.radioValue,
-                  duration: Duration(milliseconds: 500),
-                  animsBuilder: (AnimationController controller) =>
-                  [
-                    CurvedAnimation(
-                        parent: controller,
-                        curve: Curves.easeInOut
-                    )
-                  ],
-                  builder: simpleBuilder
-              ),
-              CustomRadio<String, double>(
-                  value: 'Second',
-                  groupValue: widget.radioValue,
-                  duration: Duration(milliseconds: 500),
-                  animsBuilder: (AnimationController controller) =>
-                  [
-                    CurvedAnimation(
-                        parent: controller,
-                        curve: Curves.easeInOut
-                    )
-                  ],
-                  builder: simpleBuilder
-              ),
-              CustomRadio<String, double>(
-                  value: 'Third',
-                  groupValue: widget.radioValue,
-                  duration: Duration(milliseconds: 500),
-                  animsBuilder: (AnimationController controller) =>
-                  [
-                    CurvedAnimation(
-                        parent: controller,
-                        curve: Curves.easeInOut
-                    )
-                  ],
-                  builder: simpleBuilder
-              ),
-            ],
-          ),
-
-        ],
-      ),
-    );
-  }
 
 }
 
+*/
 /*
 
 class _PodcastsPageState extends State<PodcastsPage> {
@@ -231,11 +162,23 @@ class _PodcastsPageState extends State<PodcastsPage> {
   }
 
   Widget _lista() {
-    */
+    */ /*
+*/
+/*
+
+*/ /*
+
+*/
 /*menuProvider.cargarData().then((opciones){
       print('_lista');
       print(opciones);
     });*/ /*
+*/
+/*
+*/ /*
+
+*/
+/*
 
     //print(menuProvider.opciones);
     return FutureBuilder(
@@ -249,10 +192,22 @@ class _PodcastsPageState extends State<PodcastsPage> {
       },
     );
 
-    */
+    */ /*
+*/
+/*
+
+*/ /*
+
+*/
 /*return ListView(
       children: _listaItems(),
     );*/ /*
+*/
+/*
+*/ /*
+
+*/
+/*
 
   }
 
@@ -277,4 +232,8 @@ class _PodcastsPageState extends State<PodcastsPage> {
     return opciones;
   }
 }
+*/ /*
+*/
+/*
+
 */
