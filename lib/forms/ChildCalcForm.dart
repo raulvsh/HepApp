@@ -8,10 +8,7 @@ import 'package:hepapp/widgets/notifications.dart';
 import 'ChildCalcForm_bloc.dart';
 import 'CustomButtonGroupFieldBlocBuilder.dart';
 
-
 class ChildCalcForm extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ChildCalcFormBloc>(
@@ -35,34 +32,49 @@ class ChildCalcForm extends StatelessWidget {
                     context, state.failureResponse);
               },
               child: ListView(
-
                 physics: ClampingScrollPhysics(),
                 children: <Widget>[
-
-
                   CustomButtonGroupFieldBlocBuilder(
-
                     selectFieldBloc: formBloc.ascitesField,
                     //canDeselect: true,
                     decoration: InputDecoration(
-                      labelText: 'Ascites',
+                      //labelText: 'Ascites',
                       //TODO Hacer un row normal con el texto y luego el grupo de botones
                       //counterText: 'Prueba counter',
                       //fillColor: Colors.red,
                       //filled: true,
                       //TODO ESTE ES EL CUADRADITO INICIAL
-                      icon: Container(
+                      /* icon: Container(
                         color: Color.fromARGB(255, 210, 242, 245),
                         width: 10.0,
                         height: 20.0,
                       ),
-
+*/
                       border: InputBorder.none,
-                      //prefixIcon: Icon(Icons.sentiment_very_dissatisfied),
+                      prefixIcon: Container(
+                        width: 100,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+
+                          children: <Widget>[
+                            Container(
+                              color: Color.fromARGB(255, 210, 242, 245),
+                              width: 10.0,
+                              height: 20.0,
+                            ),
+                            Container(width: 90,
+                                padding: EdgeInsets.all(5),
+                                child: Text('Ascites',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+
+                                  ),)),
+                          ],
+                        ),
+                      ),
                     ),
                     //itemBuilder: (context, item) => item,
-
-
                   ),
                   TextFieldBlocBuilder(
                     textFieldBloc: formBloc.textField,
@@ -70,7 +82,8 @@ class ChildCalcForm extends StatelessWidget {
                       icon: Icon(Icons.add),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50.0),
-                      ), labelText: 'TextFieldBlocBuilder prueba',
+                      ),
+                      labelText: 'TextFieldBlocBuilder prueba',
                       prefixIcon: Icon(Icons.arrow_back_ios),
                     ),
                     errorBuilder: (context, error) {
@@ -101,7 +114,6 @@ class ChildCalcForm extends StatelessWidget {
                     ),
                   ),
                   RadioButtonGroupFieldBlocBuilder<String>(
-
                     selectFieldBloc: formBloc.selectField2,
                     decoration: InputDecoration(
                       labelText: 'RadioButtonGroupFieldBlocBuilder',
@@ -109,7 +121,6 @@ class ChildCalcForm extends StatelessWidget {
                     ),
                     itemBuilder: (context, item) => item,
                   ),
-
                   CheckboxFieldBlocBuilder(
                     booleanFieldBloc: formBloc.booleanField,
                     body: Text('CheckboxFieldBlocBuilder'),

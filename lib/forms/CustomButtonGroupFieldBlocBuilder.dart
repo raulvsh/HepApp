@@ -59,7 +59,13 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
 
 class _CustomButtonGroupFieldBlocBuilderState<Value>
     extends State<CustomButtonGroupFieldBlocBuilder> {
-  Map<String, bool> isSelected = Map<String, bool>();
+  Map<String, bool> isSelected = {
+    'None': false,
+    'Controlled': false,
+    'Refractory': false,
+  };
+
+  //Map<String, bool>();
 
   @override
   Widget build(BuildContext context) {
@@ -78,22 +84,28 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
           child: Stack(
             children: <Widget>[
               //Decoración que le viene de fuera
-              InputDecorator(
-                decoration: _buildDecoration(context, state, isEnabled),
-                child: Opacity(
-                  opacity: 0.0,
-                  child: _buildRadioButtons(state, isEnabled),
-                ),
-              ),
-              InputDecorator(
-                decoration: Style.inputDecorationWithoutBorder.copyWith(
-                  contentPadding: Style.getGroupFieldBlocContentPadding(
-                    isVisible: true,
-                    decoration: widget.decoration,
+              Container(
+                //color: Colors.greenAccent,
+                child: InputDecorator(
+                  decoration: _buildDecoration(context, state, isEnabled),
+                  child: Opacity(
+                    opacity: 0.9,
+                    child: _buildRadioButtons(state, isEnabled),
                   ),
                 ),
-                child: _buildRadioButtons(state, isEnabled),
               ),
+/*              Container(
+                //color: Colors.blueAccent,
+                child: InputDecorator(
+                  decoration: Style.inputDecorationWithoutBorder.copyWith(
+                    contentPadding: Style.getGroupFieldBlocContentPadding(
+                      isVisible: true,
+                      decoration: widget.decoration,
+                    ),
+                  ),
+                  child: _buildRadioButtons(state, isEnabled),
+                ),
+              ),*/
             ],
           ),
         );
@@ -144,7 +156,8 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                 value,
                 style: Theme.of(context).textTheme.body1.copyWith(
                     fontSize: 12.0,
-                    color: Colors.black //isSelected['None'] ? Colors.black : Colors.red,
+                    color: Colors
+                        .black //isSelected['None'] ? Colors.black : Colors.red,
                     ),
               ),*/
             ),
@@ -161,117 +174,82 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
       itemBuilder: (context, index) {
         return InputDecorator(
           decoration: Style.inputDecorationWithoutBorder.copyWith(
+            //labelText: ,
             prefixIcon: Stack(
               children: <Widget>[
+
                 GestureDetector(
                   //Funciona este ontap, saca los valores correctos al print
                   onTap: () {
                     setState(() {
-                      isSelected.clear(); //Limpio el mapa
+                      //isSelected.clear(); //Limpio el mapa
+
+                      //Poner a false los tres de manera automática (que sirva para todos los casos)
+                      isSelected['None'] = false;
+                      isSelected['Controlled'] = false;
+                      isSelected['Refractory'] = false;
+
                       print(
-                          'Mapa recien borrado antes de actualizar $isSelected');
+                          'Mapa recien iniciado a mano antes de actualizar $isSelected');
                       radioValue = state.items
                           .elementAt(index)
                           .toString(); //radioValue es el elemento seleccionado
 
                       /* Venían en la función onChange, quizás se necesiten
-                      widget.isEnabled,
-                      widget.nextFocusNode,*/
+                        widget.isEnabled,
+                        widget.nextFocusNode,*/
                       widget.selectFieldBloc
                           .updateValue(radioValue); //Actualizo el valor
-
                       isSelected[radioValue] = true;
 
                       print('Mapa despues de actualizar $isSelected');
                     });
                   },
 
-                  child: Stack(
+                  child: Container(
+                    height: 20,
+                    width: 100,
+                    //color: Colors.red,
+                    child: Stack(
                       children: <Widget>[
-                        Container(
-                          height: 20,
-                          width: 100,
-                          color: Colors.red,
-                          child: CustomRadio<String, double>(
-                            value: state.items.elementAt(index).toString(),
-                            groupValue: radioValue,
-                            duration: Duration(milliseconds: 500),
-                            animsBuilder: (AnimationController controller) =>
-                            [
-                              CurvedAnimation(
-                                  parent: controller, curve: Curves.easeInOut)
-                            ],
-                            builder: simpleBuilder,
-                          ),
+                        CustomRadio<String, double>(
+                          value: state.items.elementAt(index).toString(),
+                          groupValue: radioValue,
+                          duration: Duration(milliseconds: 500),
+                          animsBuilder: (AnimationController controller) =>
+                          [
+                            CurvedAnimation(
+                                parent: controller, curve: Curves.easeInOut)
+                          ],
+                          builder: simpleBuilder,
                         ),
-
-                        Container(
-                          color: Colors.lightBlueAccent,
+                        DefaultFieldBlocBuilderTextStyle(
+                          isEnabled: false,
                           child: Text(
-
                             state.items.elementAt(index).toString(),
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .body1
-                                .copyWith(
-                                fontSize: 12.0,
-                                color: Colors
-                                    .black //isSelected['None'] ? Colors.black : Colors.red,
+                            style: TextStyle(
+                              color: isSelected[
+                              state.items.elementAt(index).toString()]
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 12,
                             ),
-
                           ),
                         ),
-                      ]
+                      ],
+                    ),
                   ),
                 ),
-                Container(
 
-                ),
 
-                /*Radio<Value>(
-                    value: state.items.elementAt(index),
-                    groupValue: state.value,
-                    onChanged: onChanged,
-                    activeColor: Colors.yellowAccent,
-                    //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-
-                  ),*/
-
-                /* Solo si se puede deseleccionar, no aplica
-
-                if (widget.canDeselect &&
-                    state.items.elementAt(index) == state.value)
-                  Theme(
-                    data: Theme.of(context).copyWith(
-                      unselectedWidgetColor: Colors.transparent,
-                    ),
-                    child:
-
-                    CustomRadio<String, double>(
-                      value: '',
-                      groupValue: '',
-                      duration: Duration(milliseconds: 500),
-                      animsBuilder: (AnimationController controller) => [
-                        CurvedAnimation(
-                            parent: controller, curve: Curves.easeInOut)
-                      ],
-                      builder: simpleBuilder,
-                    ),
-
-                    */ /*Radio<Value>(
-                      value: null,
-                      groupValue: state.value,
-                      onChanged: onChanged,
-                    ),*/ /*
-                  )*/
+                //),
               ],
             ),
           ),
           /*child: DefaultFieldBlocBuilderTextStyle(
-            isEnabled: isEnabled,
-            child: Text(itemBuilder(context, state.items.elementAt(index))),
-          ),*/
+              isEnabled: true,
+              child: Text(state.items.elementAt(index).toString()),
+            ),*/
         );
       },
     );
@@ -282,10 +260,10 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
     InputDecoration decoration = this.widget.decoration;
 
     return decoration.copyWith(
-      //suffix: SizedBox(width: 100,),//.shrink(),
-      //prefixIcon: SizedBox.shrink(),
-      //prefix: SizedBox.shrink(),
-      //suffixIcon: SizedBox.shrink(),
+      /*suffix: SizedBox(width: 100,),//.shrink(),
+      prefixIcon: SizedBox.shrink(),
+      prefix: SizedBox.shrink(),
+      suffixIcon: SizedBox.shrink(),*/
       enabled: isEnable,
       contentPadding: Style.getGroupFieldBlocContentPadding(
         isVisible: true,
