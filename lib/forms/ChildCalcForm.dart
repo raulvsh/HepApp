@@ -43,21 +43,20 @@ class ChildCalcForm extends StatelessWidget {
                   CustomButtonGroupFieldBlocBuilder(
 
                     selectFieldBloc: formBloc.ascitesField,
-                    canDeselect: true,
+                    //canDeselect: true,
                     decoration: InputDecoration(
                       labelText: 'Ascites',
                       //TODO Hacer un row normal con el texto y luego el grupo de botones
                       //counterText: 'Prueba counter',
                       //fillColor: Colors.red,
                       //filled: true,
+                      //TODO ESTE ES EL CUADRADITO INICIAL
                       icon: Container(
                         color: Color.fromARGB(255, 210, 242, 245),
                         width: 10.0,
                         height: 20.0,
                       ),
-                      /*border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),*/
+
                       border: InputBorder.none,
                       //prefixIcon: Icon(Icons.sentiment_very_dissatisfied),
                     ),

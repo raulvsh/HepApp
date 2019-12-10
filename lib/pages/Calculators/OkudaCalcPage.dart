@@ -46,7 +46,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Colors.blue,
+        //color: Colors.pink,
         child: Row(
           children: <Widget>[
             Expanded(
@@ -236,7 +236,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
     return Row(
       children: <Widget>[
         Container(
-          color: Colors.lightBlueAccent[100],
+          //color: Colors.lightBlueAccent[100],
           //padding: EdgeInsets.all(50.0),
           width: 10.0,
           height: 20.0,

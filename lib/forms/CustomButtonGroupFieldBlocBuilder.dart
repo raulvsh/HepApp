@@ -59,6 +59,8 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
 
 class _CustomButtonGroupFieldBlocBuilderState<Value>
     extends State<CustomButtonGroupFieldBlocBuilder> {
+  Map<String, bool> isSelected = Map<String, bool>();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SelectFieldBloc<Value>, SelectFieldBlocState<Value>>(
@@ -75,6 +77,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
           padding: widget.padding,
           child: Stack(
             children: <Widget>[
+              //Decoración que le viene de fuera
               InputDecorator(
                 decoration: _buildDecoration(context, state, isEnabled),
                 child: Opacity(
@@ -99,53 +102,58 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
   }
 
   var radioValue = '';
+  var colorBoton;
 
   Widget _buildRadioButtons(SelectFieldBlocState<Value> state, bool isEnable) {
-    /* final onChanged = fieldBlocBuilderOnChange<Value>(
-      isEnabled: widget.isEnabled,
-      nextFocusNode: widget.nextFocusNode,
-      onChanged: widget.selectFieldBloc.updateValue,
-    );*/
-
     RadioBuilder<String, double> simpleBuilder;
 
     simpleBuilder = (BuildContext context, List<double> animValues,
         Function updateState, String value) {
       final alpha = (animValues[0] * 255).toInt();
-      //final alpha = 0 * 255.toInt();
-      return Container(
-        padding: EdgeInsets.all(5.0),
-        //margin: EdgeInsets.symmetric(horizontal: 2.0, vertical: 12.0),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          color: Theme
-              .of(context)
-              .primaryColor
-              .withAlpha(alpha),
-          border: Border.all(
-            color: Theme
-                .of(context)
-                .primaryColor
-                .withAlpha(255 - alpha),
 
+      return Center(
+        child: Row(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(2.0),
+              width: 100,
 
-            width: 2.0,
-          ),
-          borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
-        ),
-        child: Text(
-          value,
-          style: Theme
-              .of(context)
-              .textTheme
-              .body1
-              .copyWith(fontSize: 20.0, color: Colors.black),
+              //margin: EdgeInsets.symmetric(horizontal: 2.0, vertical: 12.0),
+              alignment: Alignment.center,
+              //Alineación del texto dentro del botón
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: Color.fromARGB(255, 56, 183, 198).withAlpha(alpha),
+                //Color del fondo del botón
+                //Theme.of(context).primaryColor.withAlpha(alpha),
+                border: Border.all(
+                  color: Color.fromARGB(255, 45, 145, 155), //Color del borde
+
+                  /*Theme
+                      .of(context)
+                      .primaryColor
+                      .withAlpha(255 - alpha),*/
+
+                  width: 2.0,
+                ),
+                borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
+              ),
+              /*child: Text(
+                value,
+                style: Theme.of(context).textTheme.body1.copyWith(
+                    fontSize: 12.0,
+                    color: Colors.black //isSelected['None'] ? Colors.black : Colors.red,
+                    ),
+              ),*/
+            ),
+          ],
         ),
       );
     };
     return ListView.builder(
-      //scrollDirection: Axis.horizontal,
+      scrollDirection: Axis.vertical,
       padding: EdgeInsets.symmetric(vertical: 4),
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
@@ -158,46 +166,67 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                 GestureDetector(
                   //Funciona este ontap, saca los valores correctos al print
                   onTap: () {
-                    //widget.selectFieldBloc.updateValue;
-
                     setState(() {
-                      radioValue = state.items.elementAt(index).toString();
+                      isSelected.clear(); //Limpio el mapa
+                      print(
+                          'Mapa recien borrado antes de actualizar $isSelected');
+                      radioValue = state.items
+                          .elementAt(index)
+                          .toString(); //radioValue es el elemento seleccionado
 
                       /* Venían en la función onChange, quizás se necesiten
                       widget.isEnabled,
                       widget.nextFocusNode,*/
-                      widget.selectFieldBloc.updateValue(radioValue);
+                      widget.selectFieldBloc
+                          .updateValue(radioValue); //Actualizo el valor
 
-                      //print(state.items.elementAt(index).toString());
-                      //print(radioValue);
+                      isSelected[radioValue] = true;
+
+                      print('Mapa despues de actualizar $isSelected');
                     });
                   },
-                  child: Center(
-                    child: Container(
-                      /*decoration: BoxDecoration(
-                        border: new Border.all(
-                            //color: Colors.green,
-                            width: 5.0,
-                            style: BorderStyle.solid
+
+                  child: Stack(
+                      children: <Widget>[
+                        Container(
+                          height: 20,
+                          width: 100,
+                          color: Colors.red,
+                          child: CustomRadio<String, double>(
+                            value: state.items.elementAt(index).toString(),
+                            groupValue: radioValue,
+                            duration: Duration(milliseconds: 500),
+                            animsBuilder: (AnimationController controller) =>
+                            [
+                              CurvedAnimation(
+                                  parent: controller, curve: Curves.easeInOut)
+                            ],
+                            builder: simpleBuilder,
+                          ),
                         ),
-                        borderRadius: new BorderRadius.all(new Radius.circular(20.0)),                      ),*/
 
+                        Container(
+                          color: Colors.lightBlueAccent,
+                          child: Text(
 
-                      width: 150,
-                      //color: Colors.red,
-                      child: CustomRadio<String, double>(
-                        value: state.items.elementAt(index).toString(),
-                        groupValue: radioValue,
-                        duration: Duration(milliseconds: 500),
-                        animsBuilder: (AnimationController controller) =>
-                        [
-                          CurvedAnimation(
-                              parent: controller, curve: Curves.easeInOut)
-                        ],
-                        builder: simpleBuilder,
-                      ),
-                    ),
+                            state.items.elementAt(index).toString(),
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .body1
+                                .copyWith(
+                                fontSize: 12.0,
+                                color: Colors
+                                    .black //isSelected['None'] ? Colors.black : Colors.red,
+                            ),
+
+                          ),
+                        ),
+                      ]
                   ),
+                ),
+                Container(
+
                 ),
 
                 /*Radio<Value>(
