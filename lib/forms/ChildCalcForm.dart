@@ -35,7 +35,6 @@ class ChildCalcForm extends StatelessWidget {
                 physics: ClampingScrollPhysics(),
                 children: <Widget>[
                   CustomButtonGroupFieldBlocBuilder(
-                    selectFieldBloc: formBloc.ascitesField,
                     //canDeselect: true,
                     decoration: InputDecoration(
                       //labelText: 'Ascites',
@@ -73,7 +72,10 @@ class ChildCalcForm extends StatelessWidget {
                           ],
                         ),
                       ),
+
                     ),
+                    selectFieldBloc: formBloc.ascitesField,
+
                     //itemBuilder: (context, item) => item,
                   ),
                   TextFieldBlocBuilder(

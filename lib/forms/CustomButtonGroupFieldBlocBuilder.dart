@@ -59,19 +59,24 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
 
 class _CustomButtonGroupFieldBlocBuilderState<Value>
     extends State<CustomButtonGroupFieldBlocBuilder> {
+
   Map<String, bool> isSelected = {
-    'None': false,
-    'Controlled': false,
-    'Refractory': false,
+    //'None': false,
+    //'Controlled': false,
+    // 'Refractory': false,
   };
-
-  //Map<String, bool>();
-
+  bool primeraVez = true;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SelectFieldBloc<Value>, SelectFieldBlocState<Value>>(
       bloc: widget.selectFieldBloc,
       builder: (context, state) {
+        //Al iniciar el mapa en el builder no se queda en blanco la opción elegida
+        if (primeraVez) {
+          _initMap(state);
+          primeraVez = false;
+        }
+
         final isEnabled = fieldBlocIsEnabled(
           isEnabled: this.widget.isEnabled,
           enableOnlyWhenFormBlocCanSubmit:
@@ -88,24 +93,10 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                 //color: Colors.greenAccent,
                 child: InputDecorator(
                   decoration: _buildDecoration(context, state, isEnabled),
-                  child: Opacity(
-                    opacity: 0.9,
-                    child: _buildRadioButtons(state, isEnabled),
-                  ),
+                  child: _buildRadioButtons(state, isEnabled),
+
                 ),
               ),
-/*              Container(
-                //color: Colors.blueAccent,
-                child: InputDecorator(
-                  decoration: Style.inputDecorationWithoutBorder.copyWith(
-                    contentPadding: Style.getGroupFieldBlocContentPadding(
-                      isVisible: true,
-                      decoration: widget.decoration,
-                    ),
-                  ),
-                  child: _buildRadioButtons(state, isEnabled),
-                ),
-              ),*/
             ],
           ),
         );
@@ -113,8 +104,12 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
     );
   }
 
+  _initMap(SelectFieldBlocState<Value> state) {
+    for (int i = 0; i < state.items.length; i++) {
+      isSelected[state.items.elementAt(i).toString()] = false;
+    }
+  }
   var radioValue = '';
-  var colorBoton;
 
   Widget _buildRadioButtons(SelectFieldBlocState<Value> state, bool isEnable) {
     RadioBuilder<String, double> simpleBuilder;
@@ -175,22 +170,15 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
         return InputDecorator(
           decoration: Style.inputDecorationWithoutBorder.copyWith(
             //labelText: ,
-            prefixIcon: Stack(
+            prefixIcon: Column(
               children: <Widget>[
 
                 GestureDetector(
-                  //Funciona este ontap, saca los valores correctos al print
                   onTap: () {
                     setState(() {
-                      //isSelected.clear(); //Limpio el mapa
+                      _initMap(state);
 
-                      //Poner a false los tres de manera automática (que sirva para todos los casos)
-                      isSelected['None'] = false;
-                      isSelected['Controlled'] = false;
-                      isSelected['Refractory'] = false;
-
-                      print(
-                          'Mapa recien iniciado a mano antes de actualizar $isSelected');
+                      print('Mapa recien iniciado $isSelected');
                       radioValue = state.items
                           .elementAt(index)
                           .toString(); //radioValue es el elemento seleccionado
@@ -202,7 +190,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                           .updateValue(radioValue); //Actualizo el valor
                       isSelected[radioValue] = true;
 
-                      print('Mapa despues de actualizar $isSelected');
+                      print('Mapa actualizado $isSelected \n\n');
                     });
                   },
 
@@ -225,14 +213,21 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                         ),
                         DefaultFieldBlocBuilderTextStyle(
                           isEnabled: false,
-                          child: Text(
-                            state.items.elementAt(index).toString(),
-                            style: TextStyle(
-                              color: isSelected[
-                              state.items.elementAt(index).toString()]
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 12,
+                          child: Center(
+                            child: Container(
+                              child: Text(
+                                state.items.elementAt(index).toString(),
+                                style: TextStyle(
+                                  color: isSelected[state.items
+                                      .elementAt(index)
+                                      .toString()]
+                                      ? Colors.white
+                                      : Theme
+                                      .of(context)
+                                      .primaryColor,
+                                  fontSize: 12,
+                                ),
+                              ),
                             ),
                           ),
                         ),
