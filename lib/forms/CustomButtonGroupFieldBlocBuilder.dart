@@ -86,19 +86,20 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
 
         return DefaultFieldBlocBuilderPadding(
           padding: widget.padding,
-          child: Stack(
-            children: <Widget>[
+
+          //child: Stack(
+          //children: <Widget>[
               //Decoración que le viene de fuera
-              Container(
+          //Container(
                 //color: Colors.greenAccent,
                 child: InputDecorator(
                   decoration: _buildDecoration(context, state, isEnabled),
                   child: _buildRadioButtons(state, isEnabled),
 
                 ),
-              ),
-            ],
-          ),
+          //),
+          //],
+          //),
         );
       },
     );
@@ -119,55 +120,76 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
       final alpha = (animValues[0] * 255).toInt();
 
       return Center(
-        child: Row(
-          //mainAxisAlignment: MainAxisAlignment.center,
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+        child:
             Container(
-              padding: EdgeInsets.all(2.0),
+              //color: Colors.red,
               width: 100,
+              height: 20,
 
-              //margin: EdgeInsets.symmetric(horizontal: 2.0, vertical: 12.0),
               alignment: Alignment.center,
               //Alineación del texto dentro del botón
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 color: Color.fromARGB(255, 56, 183, 198).withAlpha(alpha),
                 //Color del fondo del botón
-                //Theme.of(context).primaryColor.withAlpha(alpha),
                 border: Border.all(
                   color: Color.fromARGB(255, 45, 145, 155), //Color del borde
-
-                  /*Theme
-                      .of(context)
-                      .primaryColor
-                      .withAlpha(255 - alpha),*/
-
                   width: 2.0,
                 ),
-                borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
+                borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
+
               ),
-              /*child: Text(
-                value,
-                style: Theme.of(context).textTheme.body1.copyWith(
-                    fontSize: 12.0,
-                    color: Colors
-                        .black //isSelected['None'] ? Colors.black : Colors.red,
-                    ),
-              ),*/
             ),
-          ],
-        ),
+
       );
     };
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
+    return Row(
+      //verticalDirection: VerticalDirection.up,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        //Expanded(
+        //child:
+        Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(2),
+          //color: Colors.red,
+          width: 100.0 * state.items.length,
+          height: 20.0,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: state.items.length,
+            //padding: EdgeInsets.symmetric(vertical: 4),
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
+
+            itemBuilder: (context, index) {
+              return new Text(
+                  '${state.items.elementAt(index).toString()} ${state.items
+                      .length} \t');
+            },
+          ),
+        ),
+        //),
+        //),
+        /*new IconButton(
+          icon: Icon(Icons.remove_circle),
+          onPressed: () {},
+        ),*/
+      ],
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //),
+
+
+      /*ListView.builder(
+      scrollDirection: Axis.horizontal,
       padding: EdgeInsets.symmetric(vertical: 4),
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
       itemCount: state.items.length,
       itemBuilder: (context, index) {
-        return InputDecorator(
+
+        return Text('${state.items.elementAt(index)}');*/
+      /*return InputDecorator(
           decoration: Style.inputDecorationWithoutBorder.copyWith(
             //labelText: ,
             prefixIcon: Column(
@@ -178,19 +200,19 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                     setState(() {
                       _initMap(state);
 
-                      print('Mapa recien iniciado $isSelected');
+                      //print('Mapa recien iniciado $isSelected');
                       radioValue = state.items
                           .elementAt(index)
                           .toString(); //radioValue es el elemento seleccionado
 
-                      /* Venían en la función onChange, quizás se necesiten
+                      */ /* Venían en la función onChange, quizás se necesiten
                         widget.isEnabled,
-                        widget.nextFocusNode,*/
+                        widget.nextFocusNode,*/ /*
                       widget.selectFieldBloc
                           .updateValue(radioValue); //Actualizo el valor
                       isSelected[radioValue] = true;
 
-                      print('Mapa actualizado $isSelected \n\n');
+                      //print('Mapa actualizado $isSelected \n\n');
                     });
                   },
 
@@ -241,12 +263,12 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
               ],
             ),
           ),
-          /*child: DefaultFieldBlocBuilderTextStyle(
+          */ /*child: DefaultFieldBlocBuilderTextStyle(
               isEnabled: true,
               child: Text(state.items.elementAt(index).toString()),
-            ),*/
-        );
-      },
+            ),*/ /*
+        );*/
+      //},
     );
   }
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/widgets/loading_dialog.dart';
 import 'package:hepapp/widgets/notifications.dart';
 
@@ -32,9 +31,10 @@ class ChildCalcForm extends StatelessWidget {
                     context, state.failureResponse);
               },
               child: ListView(
-                physics: ClampingScrollPhysics(),
+                //physics: ClampingScrollPhysics(),
                 children: <Widget>[
                   CustomButtonGroupFieldBlocBuilder(
+                    selectFieldBloc: formBloc.ascitesField,
                     //canDeselect: true,
                     decoration: InputDecoration(
                       //labelText: 'Ascites',
@@ -72,13 +72,10 @@ class ChildCalcForm extends StatelessWidget {
                           ],
                         ),
                       ),
-
                     ),
-                    selectFieldBloc: formBloc.ascitesField,
-
                     //itemBuilder: (context, item) => item,
                   ),
-                  TextFieldBlocBuilder(
+                  /*TextFieldBlocBuilder(
                     textFieldBloc: formBloc.textField,
                     decoration: InputDecoration(
                       icon: Icon(Icons.add),
@@ -140,7 +137,7 @@ class ChildCalcForm extends StatelessWidget {
                       onPressed: formBloc.clear,
                       child: Center(child: Text('CLEAR')),
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             ),
