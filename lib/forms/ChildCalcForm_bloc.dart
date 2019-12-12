@@ -24,10 +24,10 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     items: ['none_fem', 'grade_1_2', 'grade_3_4'],
 
   );
-
-
-  ///No usadas por mi (de momento)
   final textField = TextFieldBloc();
+
+
+  ///No usadas por mi (de momento) TODO LIMPIAR
 
   final booleanField = BooleanFieldBloc();
 

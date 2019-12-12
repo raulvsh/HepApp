@@ -8,10 +8,9 @@ import 'package:hepapp/widgets/notifications.dart';
 
 import 'ChildCalcForm_bloc.dart';
 import 'CustomButtonGroupFieldBlocBuilder.dart';
+import 'CustomTextFieldBlocBuilder.dart';
 
 class ChildCalcForm extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
@@ -43,18 +42,15 @@ class ChildCalcForm extends StatelessWidget {
                     selectFieldBloc: formBloc.encephalopatyField,
                     text: aux.tr('encephalopaty'),
                     decoration: InputDecoration(
-
                       border: InputBorder.none,
-
                     ),
                     //itemBuilder: (context, item) => item,
-                  ), CustomButtonGroupFieldBlocBuilder(
+                  ),
+                  CustomButtonGroupFieldBlocBuilder(
                     selectFieldBloc: formBloc.tumourPercentageField,
                     text: aux.tr('tumour_extent'),
                     decoration: InputDecoration(
-
                       border: InputBorder.none,
-
                     ),
                     //itemBuilder: (context, item) => item,
                   ),
@@ -62,24 +58,83 @@ class ChildCalcForm extends StatelessWidget {
                     selectFieldBloc: formBloc.ascitesField,
                     text: aux.tr('ascites'),
                     decoration: InputDecoration(
-
                       border: InputBorder.none,
-
                     ),
                     //itemBuilder: (context, item) => item,
                   ),
                   TextFieldBlocBuilder(
+
+                    cursorColor: Theme
+                        .of(context)
+                        .primaryColor,
+                    keyboardType: TextInputType.numberWithOptions(),
+                    isEnabled: true,
+                    //Controlo si está activo o no, útil para cuando elijo número de tumores
                     textFieldBloc: formBloc.textField,
+
+                    expands: false,
+
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Theme
+                          .of(context)
+                          .primaryColor,
+                    ),
                     decoration:
 
-
                     InputDecoration(
-                      contentPadding: EdgeInsets.all(2),
-                      icon: Icon(Icons.add),
-                      //fillColor: Colors.red,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                      //fillColor: Colors.yellow,
+                      //labelText: 'hola',
+                      //filled: true,
+                      //prefixText: 'prueba',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        borderSide: BorderSide(
+                          width: 1, color: Color.fromARGB(
+                            255, 45, 145, 155),), //color: Colors.red),
                       ),
+
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        borderSide: BorderSide(
+                          width: 2, color: Color.fromARGB(
+                            255, 45, 145, 155),), //color: Colors.red),
+                      ),
+                      contentPadding:
+                      EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                      icon: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Container(
+                            color: Color.fromARGB(255, 210, 242, 245),
+                            width: 10.0,
+                            height: 20.0,
+                          ),
+                          Container(
+                            //color: Colors.red,
+                            //width: 90,
+                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              child: Text(
+                                aux.tr('bilirubin'),
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                ),
+                              )),
+                        ],
+                      ),
+
+                      /*border:
+
+                          OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                        borderSide: BorderSide(
+                            width: 1.0, color: Colors.red),
+                      ),*/
+                      errorStyle: TextStyle(
+                        backgroundColor: Colors.yellow,
+                      ),
+
                       //labelText: 'TextFieldBlocBuilder prueba',
                       //prefixIcon: Icon(Icons.arrow_back_ios),
                     ),
@@ -93,6 +148,8 @@ class ChildCalcForm extends StatelessWidget {
                       }
                     },
                   ),
+
+
                   /*DropdownFieldBlocBuilder<String>(
                     padding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
                     selectFieldBloc: formBloc.selectField1,
@@ -109,16 +166,16 @@ class ChildCalcForm extends StatelessWidget {
                       labelText: 'CheckboxGroupFieldBlocBuilder',
                       prefixIcon: Icon(Icons.sentiment_very_dissatisfied),
                     ),
-                  ),
-                  RadioButtonGroupFieldBlocBuilder<String>(
+                  ),*/
+                  /*RadioButtonGroupFieldBlocBuilder<String>(
                     selectFieldBloc: formBloc.selectField2,
                     decoration: InputDecoration(
                       labelText: 'RadioButtonGroupFieldBlocBuilder',
                       prefixIcon: Icon(Icons.sentiment_very_dissatisfied),
                     ),
                     itemBuilder: (context, item) => item,
-                  ),
-                  CheckboxFieldBlocBuilder(
+                  ),*/
+                  /*CheckboxFieldBlocBuilder(
                     booleanFieldBloc: formBloc.booleanField,
                     body: Text('CheckboxFieldBlocBuilder'),
                   ),

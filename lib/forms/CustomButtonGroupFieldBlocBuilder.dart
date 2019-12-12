@@ -141,7 +141,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
               color: Color.fromARGB(255, 45, 145, 155), //Color del borde
               width: 2.0,
             ),
-            borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
+            borderRadius: new BorderRadius.all(new Radius.circular(15.0)),
           ),
           // ),
       );
