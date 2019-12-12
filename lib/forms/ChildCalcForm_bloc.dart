@@ -1,10 +1,36 @@
 import 'package:form_bloc/form_bloc.dart';
 
 class ChildCalcFormBloc extends FormBloc<String, String> {
+  /*static BuildContext context;
 
+
+  ChildCalcFormBloc(context){
+    context = context;
+  }
+
+  final aux = AppLocalizations.of(context);*/
+
+
+  ///Usadas por mi
+  final ascitesField = SelectFieldBloc(
+    items: ['none_fem', 'controlled', 'refractory'],
+  );
+
+  final tumourPercentageField = SelectFieldBloc(
+    items: ['<=50%', '>50%'],
+  );
+
+  final encephalopatyField = SelectFieldBloc(
+    items: ['none_fem', 'grade_1_2', 'grade_3_4'],
+
+  );
+
+
+  ///No usadas por mi (de momento)
   final textField = TextFieldBloc();
 
   final booleanField = BooleanFieldBloc();
+
 
   final selectField1 = SelectFieldBloc(
     items: ['Option 1', 'Option 2', 'Option 3'],
@@ -14,13 +40,11 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     items: ['Option 1', 'Option 2'],
   );
 
-  final ascitesField = SelectFieldBloc(
-    items: ['None', 'Controlled', 'Refractory'],
-  );
 
   final multiSelectField = MultiSelectFieldBloc<String>(
     items: ['Option 1', 'Option 2', 'Option 3'],
   );
+
 
   @override
   List<FieldBloc> get fieldBlocs => [
@@ -31,6 +55,8 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     selectField2,
     multiSelectField,
   ];
+
+  //static BuildContext get context => null;
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {

@@ -9,7 +9,7 @@
   "calculators": "Calculadoras",
   "resources": "Recursos",
   "pub_med": "PubMed",
-  "information": "Information",
+  "information": "Información",
 
   "back": "Atrás",
 
@@ -32,9 +32,18 @@
   "change_draw_color": "Cambiar color del pincel",
 
   "all_calc_diagnostic" : "Todos los algoritmos - Diagnóstico",
-
-
-
+  "encephalopaty": "Encefalopatía",
+  "tumour_extent": "Extensión del tumor %",
+  "ascites": "Ascitis",
+  "bilirubin": "Bilirrubina",
+  "none_masc": "Ninguno",
+  "none_fem": "Ninguna",
+  "controlled": "Controlada",
+  "Refractory": "Refractaria",
+  "<=50%": "<= 50%",
+  ">50%": "> 50%",
+  "grade_1_2": "Grado 1 - 2",
+  "grade_3_4": "Grado 3 - 4",
 
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
@@ -47,14 +56,12 @@
   "ALP": "ALP",
   "ALPupperLimit": "ALP (Límite superior de lo normal)",
   "APRIresultado": "APRI:",
-  "ascites": "Ascitis",
   "AST": "AST",
   "ASTupperLimit": "AST (Límite superior de lo normal)",
   "avisoErrorObtenerVersionRecursoRemoto": "Error al obtener la versión del recurso remoto. Reintente la operación de nuevo.",
   "barraLateralAbrir": "abrir",
   "barraLateralCerrar": "cerrar",
   "BCLCresultado": "BCLC:",
-  "bilirubin": "Bilirrubina",
   "calculate_clip": "Calcular CLIP",
   "calculate_cps": "Calcular puntuación CP",
   "calculate_meld": "Calcular MELD",
@@ -63,7 +70,6 @@
   "cirrosisResult": "Cirrosis:",
   "CLIPresultado": "Clip:",
   "contacts": "Contacto y agradecimientos",
-  "controlled": "Revisado",
   "cpscore": "Índice de  Child Pugh",
   "CPSresult": "Índice Child Pugh:",
   "cpsresult": "Índice Child Pugh:",
@@ -87,7 +93,6 @@
   "grade1_2": "Grado 1-2",
   "grade3_4": "Grado 3-4",
   "guardarAjustes": "Guardar ajustes",
-  "information": "Información",
   "inr": "INR (Ratio de normalización Internacional)",
   "mensajeErrorValidacionCamposAjustesCalculadora": "Algún campo requerido en los <![CDATA[<b><i>ajustes</i></b>]]> se encuentra vacío o tiene un formato no válido.",
   "mensajeErrorValidacionCamposFormatoCalculadora": "Alguno de los campos tiene un formato erróneo.",
@@ -99,7 +104,6 @@
   "more_information": "Más información",
   "no": "No",
   "nodes": "Nodos",
-  "none": "Ninguno",
   "notificaErrorDesarrollador": "Se ha producido un error inesperado, por favor contacta con el desarrollador.",
   "numberOfTumours": "Número de tumores",
   "numberOfTumoursResumen": "Tumores",

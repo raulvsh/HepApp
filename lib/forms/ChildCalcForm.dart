@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:form_bloc/form_bloc.dart';
+import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/widgets/loading_dialog.dart';
 import 'package:hepapp/widgets/notifications.dart';
 
@@ -8,8 +10,12 @@ import 'ChildCalcForm_bloc.dart';
 import 'CustomButtonGroupFieldBlocBuilder.dart';
 
 class ChildCalcForm extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
+    var aux = AppLocalizations.of(context);
+
     return BlocProvider<ChildCalcFormBloc>(
       builder: (context) => ChildCalcFormBloc(),
       child: Builder(
@@ -34,56 +40,48 @@ class ChildCalcForm extends StatelessWidget {
                 //physics: ClampingScrollPhysics(),
                 children: <Widget>[
                   CustomButtonGroupFieldBlocBuilder(
-                    selectFieldBloc: formBloc.ascitesField,
-                    //canDeselect: true,
+                    selectFieldBloc: formBloc.encephalopatyField,
+                    text: aux.tr('encephalopaty'),
                     decoration: InputDecoration(
-                      //labelText: 'Ascites',
-                      //TODO Hacer un row normal con el texto y luego el grupo de botones
-                      //counterText: 'Prueba counter',
-                      //fillColor: Colors.red,
-                      //filled: true,
-                      //TODO ESTE ES EL CUADRADITO INICIAL
-                      /* icon: Container(
-                        color: Color.fromARGB(255, 210, 242, 245),
-                        width: 10.0,
-                        height: 20.0,
-                      ),
-*/
+
                       border: InputBorder.none,
-                      prefixIcon: Container(
-                        width: 100,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
 
-                          children: <Widget>[
-                            Container(
-                              color: Color.fromARGB(255, 210, 242, 245),
-                              width: 10.0,
-                              height: 20.0,
-                            ),
-                            Container(width: 90,
-                                padding: EdgeInsets.all(5),
-                                child: Text('Ascites',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
+                    ),
+                    //itemBuilder: (context, item) => item,
+                  ), CustomButtonGroupFieldBlocBuilder(
+                    selectFieldBloc: formBloc.tumourPercentageField,
+                    text: aux.tr('tumour_extent'),
+                    decoration: InputDecoration(
 
-                                  ),)),
-                          ],
-                        ),
-                      ),
+                      border: InputBorder.none,
+
                     ),
                     //itemBuilder: (context, item) => item,
                   ),
-                  /*TextFieldBlocBuilder(
-                    textFieldBloc: formBloc.textField,
+                  CustomButtonGroupFieldBlocBuilder(
+                    selectFieldBloc: formBloc.ascitesField,
+                    text: aux.tr('ascites'),
                     decoration: InputDecoration(
+
+                      border: InputBorder.none,
+
+                    ),
+                    //itemBuilder: (context, item) => item,
+                  ),
+                  TextFieldBlocBuilder(
+                    textFieldBloc: formBloc.textField,
+                    decoration:
+
+
+                    InputDecoration(
+                      contentPadding: EdgeInsets.all(2),
                       icon: Icon(Icons.add),
+                      //fillColor: Colors.red,
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
-                      labelText: 'TextFieldBlocBuilder prueba',
-                      prefixIcon: Icon(Icons.arrow_back_ios),
+                      //labelText: 'TextFieldBlocBuilder prueba',
+                      //prefixIcon: Icon(Icons.arrow_back_ios),
                     ),
                     errorBuilder: (context, error) {
                       switch (error) {
@@ -95,7 +93,7 @@ class ChildCalcForm extends StatelessWidget {
                       }
                     },
                   ),
-                  DropdownFieldBlocBuilder<String>(
+                  /*DropdownFieldBlocBuilder<String>(
                     padding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
                     selectFieldBloc: formBloc.selectField1,
                     decoration: InputDecoration(

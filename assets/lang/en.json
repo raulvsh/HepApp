@@ -32,6 +32,19 @@
   "change_draw_color": "Change draw color",
 
   "all_calc_diagnostic" : "All Algorithms - Diagnostic",
+  "encephalopaty": "Encephalopaty",
+  "tumour_extent": "Tumour extent %",
+  "ascites": "Ascites",
+  "bilirubin": "Bilirubin",
+  "none_masc": "None",
+  "none_fem": "None",
+  "controlled": "Controlled",
+  "Refractory": "Refractory",
+  "<=50%": "<= 50%",
+  ">50%": "> 50%",
+  "grade_1_2": "Grade 1 - 2",
+  "grade_3_4": "Grade 3 - 4",
+
 
 
 
@@ -46,14 +59,12 @@
   "ALP": "ALP",
   "ALPupperLimit": "ALP (Upper limit of normal)",
   "APRIresultado": "APRI:",
-  "ascites": "Ascites",
   "AST": "AST",
   "ASTupperLimit": "AST (Upper limit of normal)",
   "avisoErrorObtenerVersionRecursoRemoto": "Error getting the version of the remote resource. Retry the operation again.",
   "barraLateralAbrir": "open",
   "barraLateralCerrar": "close",
   "BCLCresultado": "BCLC:",
-  "bilirubin": "Bilirubin",
   "calculate_clip": "Calculate CLIP",
   "calculate_cps": "Calculate CP Score",
   "calculate_meld": "Calculate MELD",
@@ -62,7 +73,6 @@
   "cirrosisResult": "Cirrhosis:",
   "CLIPresultado": "Clip:",
   "contacts": "Contacts and Acknowlegments",
-  "controlled": "Controlled",
   "cps": "CPS",
   "cpscore": "Child Pugh Score",
   "cpsresult": "Child Pugh Score:",
