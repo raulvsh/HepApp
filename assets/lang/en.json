@@ -36,6 +36,11 @@
   "tumour_extent": "Tumour extent %",
   "ascites": "Ascites",
   "bilirubin": "Bilirubin",
+  "inr": "INR (International Normalize Ratio)",
+  "albumin": "Albumin",
+
+
+
   "none_masc": "None",
   "none_fem": "None",
   "controlled": "Controlled",
@@ -44,8 +49,7 @@
   ">50%": "> 50%",
   "grade_1_2": "Grade 1 - 2",
   "grade_3_4": "Grade 3 - 4",
-
-
+  "calculate_cp_score": "Calculate CP Score",
 
 
 
@@ -54,7 +58,6 @@
   "AFP": "AFP",
   "ageCutoff": "Age cutoff",
   "ageCutoffResumen": "Age",
-  "albumin": "Albumin",
   "algoritmoAlbertaHCC": "Alberta HCC algorithm",
   "ALP": "ALP",
   "ALPupperLimit": "ALP (Upper limit of normal)",
@@ -66,7 +69,6 @@
   "barraLateralCerrar": "close",
   "BCLCresultado": "BCLC:",
   "calculate_clip": "Calculate CLIP",
-  "calculate_cps": "Calculate CP Score",
   "calculate_meld": "Calculate MELD",
   "calculate_Okuda": "Calculate Okuda",
   "cirrosis": "Cirrhosis",
@@ -74,7 +76,6 @@
   "CLIPresultado": "Clip:",
   "contacts": "Contacts and Acknowlegments",
   "cps": "CPS",
-  "cpscore": "Child Pugh Score",
   "cpsresult": "Child Pugh Score:",
   "CPSresult": "Child Pugh Score:",
   "creatinine": "Creatinine",
@@ -102,7 +103,6 @@
   "grade1_2": "Grade 1–2",
   "grade3_4": "Grade 3–4",
   "guardarAjustes": "Save settings",
-  "inr": "INR (International Normalize Ratio)",
   "inrResumen": "INR",
   "mayorIgual50porciento": "<![CDATA[>50%]]>",
   "meld5vresult": "5vMELD:",

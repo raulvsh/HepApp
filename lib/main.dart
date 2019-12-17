@@ -72,6 +72,7 @@ class MyApp extends StatelessWidget {
             //Color por defecto de all el texto
             displayColor: Colors.red,
           )
+
       ),
     supportedLocales: _supoortedLocales,
     localizationsDelegates: _localizationDelegates,

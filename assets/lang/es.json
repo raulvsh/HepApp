@@ -36,6 +36,10 @@
   "tumour_extent": "Extensión del tumor %",
   "ascites": "Ascitis",
   "bilirubin": "Bilirrubina",
+  "inr": "INR (Ratio de normalización Internacional)",
+  "albumin": "Albúmina",
+
+
   "none_masc": "Ninguno",
   "none_fem": "Ninguna",
   "controlled": "Controlada",
@@ -44,6 +48,9 @@
   ">50%": "> 50%",
   "grade_1_2": "Grado 1 - 2",
   "grade_3_4": "Grado 3 - 4",
+  "calculate_cp_score": "Calcular puntuación CP",
+
+
 
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
@@ -51,7 +58,6 @@
   "AFP": "AFP",
   "ageCutoff": "Límite de edad",
   "ageCutoffResumen": "Edad",
-  "albumin": "Albúmina",
   "algoritmoAlbertaHCC": "Algoritmo Alberta HCC",
   "ALP": "ALP",
   "ALPupperLimit": "ALP (Límite superior de lo normal)",
@@ -63,14 +69,12 @@
   "barraLateralCerrar": "cerrar",
   "BCLCresultado": "BCLC:",
   "calculate_clip": "Calcular CLIP",
-  "calculate_cps": "Calcular puntuación CP",
   "calculate_meld": "Calcular MELD",
   "calculate_Okuda": "Calcular Okuda",
   "cirrosis": "Cirrosis",
   "cirrosisResult": "Cirrosis:",
   "CLIPresultado": "Clip:",
   "contacts": "Contacto y agradecimientos",
-  "cpscore": "Índice de  Child Pugh",
   "CPSresult": "Índice Child Pugh:",
   "cpsresult": "Índice Child Pugh:",
   "creatinine": "Creatinina",
@@ -93,7 +97,6 @@
   "grade1_2": "Grado 1-2",
   "grade3_4": "Grado 3-4",
   "guardarAjustes": "Guardar ajustes",
-  "inr": "INR (Ratio de normalización Internacional)",
   "mensajeErrorValidacionCamposAjustesCalculadora": "Algún campo requerido en los <![CDATA[<b><i>ajustes</i></b>]]> se encuentra vacío o tiene un formato no válido.",
   "mensajeErrorValidacionCamposFormatoCalculadora": "Alguno de los campos tiene un formato erróneo.",
   "mensajeErrorValidacionCamposVaciosCalculadora": "Alguno de los campos requeridos está vacío",

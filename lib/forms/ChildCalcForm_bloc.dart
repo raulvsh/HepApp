@@ -12,22 +12,24 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
 
 
   ///Usadas por mi
-  final ascitesField = SelectFieldBloc(
-    items: ['none_fem', 'controlled', 'refractory'],
-  );
-
-  final tumourPercentageField = SelectFieldBloc(
-    items: ['<=50%', '>50%'],
-  );
-
+  final bilirubinField = TextFieldBloc();
+  final inrField = TextFieldBloc();
+  final albuminField = TextFieldBloc();
   final encephalopatyField = SelectFieldBloc(
     items: ['none_fem', 'grade_1_2', 'grade_3_4'],
 
   );
-  final textField = TextFieldBloc();
+  final ascitesField = SelectFieldBloc(
+    items: ['none_fem', 'controlled', 'refractory'],
+  );
+
+  var resultado = 'C(12)';
 
 
   ///No usadas por mi (de momento) TODO LIMPIAR
+  /* final tumourPercentageField = SelectFieldBloc(
+    items: ['<=50%', '>50%'],
+  );
 
   final booleanField = BooleanFieldBloc();
 
@@ -43,17 +45,20 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
 
   final multiSelectField = MultiSelectFieldBloc<String>(
     items: ['Option 1', 'Option 2', 'Option 3'],
-  );
+  );*/
 
 
   @override
   List<FieldBloc> get fieldBlocs => [
+    bilirubinField,
+    inrField,
+    albuminField,
+    encephalopatyField,
     ascitesField,
-    textField,
-    booleanField,
+    /* booleanField,
     selectField1,
     selectField2,
-    multiSelectField,
+    multiSelectField,*/
   ];
 
   //static BuildContext get context => null;
@@ -63,13 +68,20 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     // Awesome logic...
 
     // Get the fields values:
+    print(bilirubinField.value);
+    print(inrField.value);
+    print(albuminField.value);
+    print(encephalopatyField.value);
     print(ascitesField.value);
-    print(textField.value);
-    print(selectField1.value); //Dropdown menu
+
+    print(resultado);
+    /*print(selectField1.value); //Dropdown menu
     print(multiSelectField.value);
     print(selectField2.value); //RadioButton
-    print(booleanField.value);
+    print(booleanField.value);*/
 
+    this.resultado = obtenerResultado(resultado);
+    print(resultado);
 
     await Future<void>.delayed(Duration(seconds: 2));
 
@@ -82,5 +94,9 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     // but in this case you want the user to submit more than once.
     // See: https://pub.dev/documentation/form_bloc/latest/form_bloc/FormBloc/onSubmitting.html
     yield currentState.toLoaded();
+  }
+
+  String obtenerResultado(String resultado) {
+    return 'holiii';
   }
 }

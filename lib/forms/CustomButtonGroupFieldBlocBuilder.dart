@@ -197,7 +197,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                           widget.selectFieldBloc
                               .updateValue(radioValue); //Actualizo el valor
                           isSelected[radioValue] = true;
-                          print('Mapa actualizado $isSelected \n\n');
+                          //print('Mapa actualizado $isSelected \n\n');
                         });
                       },
                       child: Container(
@@ -242,12 +242,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                           ],
                         ),
 
-                        /*Text('${state.items.elementAt(index).toString()} \t',
-                            style: TextStyle(
-                              //color: Colors.black,
-                              fontSize: 12,
-                            )),
-                        color: Colors.red,*/
+
                       ),
                     ),
                   ],
@@ -258,104 +253,8 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
             ),
           ),
         ),
-        //),
-        /*new IconButton(
-          icon: Icon(Icons.remove_circle),
-          onPressed: () {},
-        ),*/
+
       ],
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //),
-
-      /*ListView.builder(
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.symmetric(vertical: 4),
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      itemCount: state.items.length,
-      itemBuilder: (context, index) {
-
-        return Text('${state.items.elementAt(index)}');*/
-      /*return InputDecorator(
-          decoration: Style.inputDecorationWithoutBorder.copyWith(
-            //labelText: ,
-            prefixIcon: Column(
-              children: <Widget>[
-
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _initMap(state);
-
-                      //print('Mapa recien iniciado $isSelected');
-                      radioValue = state.items
-                          .elementAt(index)
-                          .toString(); //radioValue es el elemento seleccionado
-
-                      */ /* Venían en la función onChange, quizás se necesiten
-                        widget.isEnabled,
-                        widget.nextFocusNode,*/ /*
-                      widget.selectFieldBloc
-                          .updateValue(radioValue); //Actualizo el valor
-                      isSelected[radioValue] = true;
-
-                      //print('Mapa actualizado $isSelected \n\n');
-                    });
-                  },
-
-                  child: Container(
-                    height: 20,
-                    width: 100,
-                    //color: Colors.red,
-                    child: Stack(
-                      children: <Widget>[
-                        CustomRadio<String, double>(
-                          value: state.items.elementAt(index).toString(),
-                          groupValue: radioValue,
-                          duration: Duration(milliseconds: 500),
-                          animsBuilder: (AnimationController controller) =>
-                          [
-                            CurvedAnimation(
-                                parent: controller, curve: Curves.easeInOut)
-                          ],
-                          builder: simpleBuilder,
-                        ),
-                        DefaultFieldBlocBuilderTextStyle(
-                          isEnabled: false,
-                          child: Center(
-                            child: Container(
-                              child: Text(
-                                state.items.elementAt(index).toString(),
-                                style: TextStyle(
-                                  color: isSelected[state.items
-                                      .elementAt(index)
-                                      .toString()]
-                                      ? Colors.white
-                                      : Theme
-                                      .of(context)
-                                      .primaryColor,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-
-                //),
-              ],
-            ),
-          ),
-          */ /*child: DefaultFieldBlocBuilderTextStyle(
-              isEnabled: true,
-              child: Text(state.items.elementAt(index).toString()),
-            ),*/ /*
-        );*/
-      //},
     );
   }
 
