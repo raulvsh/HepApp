@@ -164,12 +164,21 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
                     .primaryColor,
                 splashColor: Color.fromARGB(255, 56, 183, 198),
                 elevation: 3,
-                onPressed: () async {
-                  var submit = formBloc.submit();
-                  await Future<void>.delayed(Duration(seconds: 2));
+                onPressed: () /*async*/ {
+                  formBloc.submit();
+                  //await Future<void>.delayed(Duration(seconds: 2));
 
-                  resultado = formBloc.resultadoField;
-                  print('otra res $resultado');
+                  //resultado = formBloc.resultadoField;
+                  //print('otra res $resultado');
+
+                  /* _buildRightColumn(aux, resultado, formBloc,
+                      context);*/
+                  //Hay que llamar a setState para que se actualice el valor del resultado
+                  setState(() {
+
+                  });
+
+
                 },
                 child: Center(
                   child: Text(
@@ -200,8 +209,6 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
 
   _buildRightColumn(AppLocalizations aux, resultadoField, formBloc,
       BuildContext context) {
-    //var res = '0';
-    //resultado = ChildCalcFormBloc().resultado;
     return Container(
       width: MediaQuery
           .of(context)
@@ -217,7 +224,6 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
             child: CalcResultWidget(resultadoField, formBloc),
           ),
 
-          //Expanded(child: SizedBox(height: 10, width: 10, )),
           Expanded(
             child: Align(
               alignment: Alignment.bottomRight,
@@ -253,7 +259,6 @@ class CalcResultWidget extends StatefulWidget {
 }
 
 class _CalcResultWidgetState extends State<CalcResultWidget> {
-  //var resultado = '';
 
   void initState() {
     super.initState();
@@ -263,19 +268,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
 
-    return FormBlocListener<ChildCalcFormBloc, String, String>(
-      onSubmitting: (context, state) async {
-        await Future<void>.delayed(Duration(seconds: 3));
-
-        setState(() {
-          //print('success');
-          //w = widget.resultado;
-          //print("resultado local $resultado");
-          print("resultado fuera ${widget.resultado}");
-        });
-      },
-
-      child: Container(
+    return Container(
         width: 200,
         height: 120,
         //color: Colors.yellow,
@@ -299,7 +292,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
               ),
             ),
             Text(
-              widget.resultado, //"op",
+              widget.resultado,
               style: TextStyle(
                 color: Theme
                     .of(context)
@@ -309,7 +302,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
             ),
           ],
         ),
-      ),
+      //),
     );
   }
 }

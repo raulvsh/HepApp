@@ -23,7 +23,7 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     items: ['none_fem', 'controlled', 'refractory'],
   );
 
-  var resultadoField = 'inicio bloc';
+  var resultadoField = 'inicio';
 
 
 
