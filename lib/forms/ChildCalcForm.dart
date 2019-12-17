@@ -4,6 +4,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/widgets/notifications.dart';
 
+import 'CalcResultWidget.dart';
 import 'ChildCalcForm_bloc.dart';
 import 'CustomButtonGroupFieldBlocBuilder.dart';
 import 'CustomTextFieldBlocBuilder.dart';
@@ -47,8 +48,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _buildLeftColumn(aux, formBloc, context),
-                  _buildRightColumn(
-                      aux, formBloc.resultadoField, formBloc, context),
+                  _buildRightColumn(aux, formBloc.resultadoField, context),
                 ],
               ),
             ),
@@ -171,19 +171,11 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
                   //resultado = formBloc.resultadoField;
                   //print('otra res $resultado');
 
-                  /* _buildRightColumn(aux, resultado, formBloc,
-                      context);*/
-                  //Hay que llamar a setState para que se actualice el valor del resultado
-                  setState(() {
-
-                  });
-
-
+                  setState(() {});
                 },
                 child: Center(
                   child: Text(
                     aux.tr('calculate_cp_score'),
-
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -207,7 +199,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
       );
   }
 
-  _buildRightColumn(AppLocalizations aux, resultadoField, formBloc,
+  _buildRightColumn(AppLocalizations aux, resultadoField,
       BuildContext context) {
     return Container(
       width: MediaQuery
@@ -221,9 +213,8 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Center(
-            child: CalcResultWidget(resultadoField, formBloc),
+            child: CalcResultWidget('child_pugh_score', resultadoField),
           ),
-
           Expanded(
             child: Align(
               alignment: Alignment.bottomRight,
@@ -242,67 +233,6 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class CalcResultWidget extends StatefulWidget {
-  final resultado;
-  final formBloc;
-
-  CalcResultWidget(this.resultado, this.formBloc);
-
-  @override
-  _CalcResultWidgetState createState() => _CalcResultWidgetState();
-
-
-}
-
-class _CalcResultWidgetState extends State<CalcResultWidget> {
-
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var aux = AppLocalizations.of(context);
-
-    return Container(
-        width: 200,
-        height: 120,
-        //color: Colors.yellow,
-        margin: EdgeInsets.all(50),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Color.fromARGB(255, 210, 242, 245),
-            width: 2.0,
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "${aux.tr('child_pugh_score')}: ",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              widget.resultado,
-              style: TextStyle(
-                color: Theme
-                    .of(context)
-                    .primaryColor,
-                fontSize: 12,
-              ),
-            ),
-          ],
-        ),
-      //),
     );
   }
 }
