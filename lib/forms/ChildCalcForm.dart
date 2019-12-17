@@ -8,8 +8,15 @@ import 'ChildCalcForm_bloc.dart';
 import 'CustomButtonGroupFieldBlocBuilder.dart';
 import 'CustomTextFieldBlocBuilder.dart';
 
-var resultado = 'h';
-class ChildCalcForm extends StatelessWidget {
+//var resultado = 'defecto';
+class ChildCalcForm extends StatefulWidget {
+  @override
+  _ChildCalcFormState createState() => _ChildCalcFormState();
+}
+
+class _ChildCalcFormState extends State<ChildCalcForm> {
+  String resultado = '';
+
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
@@ -23,11 +30,12 @@ class ChildCalcForm extends StatelessWidget {
           return Scaffold(
             //appBar: AppBar(title: Text('Form Fields Example')),
             body: FormBlocListener<ChildCalcFormBloc, String, String>(
-              //onSubmitting: (context, state) => LoadingDialog.show(context),
-              /*onSuccess: (context, state) {
+              /*onSubmitting: (context, state) => LoadingDialog.show(context),
+              onSuccess: (context, state) {
                 LoadingDialog.hide(context);
-                */ /*Notifications.showSnackBarWithSuccess(
-                    context, state.successResponse);*/ /* //Muestra una barra verde con la palabra success
+                 Notifications.showSnackBarWithSuccess(
+                    context, state.successResponse);
+                 //Muestra una barra verde con la palabra success
               },*/
               onFailure: (context, state) {
                 //LoadingDialog.hide(context);
@@ -39,7 +47,8 @@ class ChildCalcForm extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _buildLeftColumn(aux, formBloc, context),
-                  _buildRightColumn(context, aux),
+                  _buildRightColumn(
+                      aux, formBloc.resultadoField, formBloc, context),
                 ],
               ),
             ),
@@ -155,11 +164,17 @@ class ChildCalcForm extends StatelessWidget {
                     .primaryColor,
                 splashColor: Color.fromARGB(255, 56, 183, 198),
                 elevation: 3,
-                onPressed: formBloc.submit,
+                onPressed: () async {
+                  var submit = formBloc.submit();
+                  await Future<void>.delayed(Duration(seconds: 2));
 
+                  resultado = formBloc.resultadoField;
+                  print('otra res $resultado');
+                },
                 child: Center(
                   child: Text(
                     aux.tr('calculate_cp_score'),
+
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -183,7 +198,8 @@ class ChildCalcForm extends StatelessWidget {
       );
   }
 
-  _buildRightColumn(BuildContext context, AppLocalizations aux) {
+  _buildRightColumn(AppLocalizations aux, resultadoField, formBloc,
+      BuildContext context) {
     //var res = '0';
     //resultado = ChildCalcFormBloc().resultado;
     return Container(
@@ -198,41 +214,7 @@ class ChildCalcForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Center(
-            child: Container(
-              width: 200,
-              height: 120,
-              //color: Colors.yellow,
-              margin: EdgeInsets.all(50),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Color.fromARGB(255, 210, 242, 245),
-                  width: 2.0,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "${aux.tr('child_pugh_score')}: ",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "$resultado",
-                    style: TextStyle(
-                      color: Theme
-                          .of(context)
-                          .primaryColor,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: CalcResultWidget(resultadoField, formBloc),
           ),
 
           //Expanded(child: SizedBox(height: 10, width: 10, )),
@@ -253,6 +235,80 @@ class ChildCalcForm extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CalcResultWidget extends StatefulWidget {
+  final resultado;
+  final formBloc;
+
+  CalcResultWidget(this.resultado, this.formBloc);
+
+  @override
+  _CalcResultWidgetState createState() => _CalcResultWidgetState();
+
+
+}
+
+class _CalcResultWidgetState extends State<CalcResultWidget> {
+  //var resultado = '';
+
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var aux = AppLocalizations.of(context);
+
+    return FormBlocListener<ChildCalcFormBloc, String, String>(
+      onSubmitting: (context, state) async {
+        await Future<void>.delayed(Duration(seconds: 3));
+
+        setState(() {
+          //print('success');
+          //w = widget.resultado;
+          //print("resultado local $resultado");
+          print("resultado fuera ${widget.resultado}");
+        });
+      },
+
+      child: Container(
+        width: 200,
+        height: 120,
+        //color: Colors.yellow,
+        margin: EdgeInsets.all(50),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Color.fromARGB(255, 210, 242, 245),
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "${aux.tr('child_pugh_score')}: ",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              widget.resultado, //"op",
+              style: TextStyle(
+                color: Theme
+                    .of(context)
+                    .primaryColor,
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

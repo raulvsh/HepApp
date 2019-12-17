@@ -23,7 +23,8 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     items: ['none_fem', 'controlled', 'refractory'],
   );
 
-  var resultado = 'C(12)';
+  var resultadoField = 'inicio bloc';
+
 
 
   ///No usadas por mi (de momento) TODO LIMPIAR
@@ -55,13 +56,13 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     albuminField,
     encephalopatyField,
     ascitesField,
+
     /* booleanField,
     selectField1,
     selectField2,
     multiSelectField,*/
   ];
 
-  //static BuildContext get context => null;
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
@@ -74,16 +75,16 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     print(encephalopatyField.value);
     print(ascitesField.value);
 
-    print(resultado);
+    print(resultadoField);
     /*print(selectField1.value); //Dropdown menu
     print(multiSelectField.value);
     print(selectField2.value); //RadioButton
     print(booleanField.value);*/
 
-    this.resultado = obtenerResultado(resultado);
-    print(resultado);
+    this.resultadoField = 'final'; //obtenerResultado(resultado);
+    print(resultadoField);
 
-    await Future<void>.delayed(Duration(seconds: 2));
+    await Future<void>.delayed(Duration(seconds: 1));
 
     yield currentState.toSuccess('Success');
 
@@ -97,6 +98,6 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
   }
 
   String obtenerResultado(String resultado) {
-    return 'holiii';
+    return 'resultado desde metood';
   }
 }
