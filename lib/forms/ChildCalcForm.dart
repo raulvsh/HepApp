@@ -68,10 +68,11 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
             .size
             .width * 0.65,
         //color: Colors.red,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          //physics: ClampingScrollPhysics(),
+        child: ListView(
+          shrinkWrap: true,
+          //mainAxisAlignment: MainAxisAlignment.start,
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          physics: ClampingScrollPhysics(),
           children: <Widget>[
             CustomTextFieldBlocBuilder(
                 aux: aux,
@@ -151,7 +152,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
             Container(
               width: 200,
               padding: const EdgeInsets.all(8.0),
-              margin: EdgeInsets.symmetric(horizontal: 15),
+              margin: EdgeInsets.only(right: 270, left: 20),
               child: RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -208,14 +209,29 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
           .width * 0.35,
 
       //color: Colors.blue,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
+      child: ListView(
+        //mainAxisAlignment: MainAxisAlignment.start,
+        //crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Center(
             child: CalcResultWidget('child_pugh_score', resultadoField),
           ),
-          Expanded(
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Container(
+              margin: EdgeInsets.only(top: 100),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 50),
+              //alignment: Alignment.bottomRight,
+              child: Text(
+                aux.tr('child_pugh_score'),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Color.fromARGB(255, 210, 242, 245),
+                ),
+              ),
+            ),
+          ),
+          /*Expanded(
             child: Align(
               alignment: Alignment.bottomRight,
               child: Container(
@@ -230,7 +246,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
                 ),
               ),
             ),
-          ),
+          ),*/
         ],
       ),
     );

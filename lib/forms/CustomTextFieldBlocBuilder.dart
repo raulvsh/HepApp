@@ -74,6 +74,7 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
               ),
               //TODO añadir errorText: 'Introduce un texto',
 
+              //errorText: Text(''),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.0),
                 borderSide: BorderSide(
@@ -90,7 +91,7 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
             errorBuilder: (context, error) {
               switch (error) {
                 case ValidatorsError.requiredTextFieldBloc:
-                  return 'You must write amazing text.';
+                  return aux.tr('enter_text');
                   break;
                 default:
                   return 'This text is nor valid.';
