@@ -9,7 +9,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final title = 'HepApp';
   final numHomeCategories = 8;
 
   var sectionTypesNames = [
@@ -21,7 +20,6 @@ class _HomePageState extends State<HomePage> {
     'Resources',
     'PubMed',
     'Information',
-    'Information2',
   ];
 
   var sectionTypes = {

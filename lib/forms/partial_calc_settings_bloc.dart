@@ -4,17 +4,6 @@ import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 class PartialCalcSettingsBloc extends FormBloc<String, String> {
   final prefs = new PreferenciasUsuario();
 
-  bool _international_units;
-
-  /*static BuildContext context;
-
-
-  ChildCalcFormBloc(context){
-    context = context;
-  }
-
-  final aux = AppLocalizations.of(context);*/
-
   final iuField = SelectFieldBloc(
     items: ['yes', 'no'],
   );
@@ -30,17 +19,15 @@ class PartialCalcSettingsBloc extends FormBloc<String, String> {
 
     // Get the fields values:
 
-    print('iufield value ${iuField.value}');
+    //print('iufield value ${iuField.value}');
 
-    //TODO guardar en las preferencias como booleano
-    if (iuField.value == 'yes')
+    if (iuField.value == 'yes') {
       prefs.internationalUnits = true;
+    }
     else
       prefs.internationalUnits = false;
 
-    //print(prefs.international_units.toString());
-
-    await Future<void>.delayed(Duration(seconds: 1));
+    //await Future<void>.delayed(Duration(seconds: 1));
 
     yield currentState.toSuccess('Success');
 
