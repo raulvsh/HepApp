@@ -19,6 +19,7 @@ class FullCalcSettings extends StatelessWidget {
           fallbackWidth: 20.0,
           fallbackHeight: 20.0,
         ),
+
       ],
     );
     var filaAgeCutoff = Row(

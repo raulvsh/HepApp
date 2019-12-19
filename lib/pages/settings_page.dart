@@ -16,6 +16,7 @@ class _SettingsPageState extends State<SettingsPage> {
   //String _nombre = 'Pedro';
 
   TextEditingController _textController;
+  TextEditingController _textController2;
 
   final prefs = new PreferenciasUsuario();
 
@@ -28,6 +29,7 @@ class _SettingsPageState extends State<SettingsPage> {
     _colorSecundario = prefs.colorSecundario;
 
     _textController = new TextEditingController(text: prefs.nombreUsuario);
+    _textController2 = TextEditingController(text: prefs.bilirubin.toString());
   }
 
   _setSelectedRadio(int valor) {
@@ -85,6 +87,18 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 onChanged: (value) {
                   prefs.nombreUsuario = value;
+                },
+              ),
+            ), Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: TextField(
+                controller: _textController2,
+                decoration: InputDecoration(
+                  labelText: 'bilirubin',
+                  helperText: 'Nombre de la persona usando el teléfono',
+                ),
+                onChanged: (value) {
+                  prefs.bilirubin = double.parse(value);
                 },
               ),
             )

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/forms/partial_calc_settings.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/FullCalcSettings.dart';
 
-import '../shared_preferences/PartialCalcSettings.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final BuildContext context;

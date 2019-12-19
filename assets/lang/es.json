@@ -50,7 +50,10 @@
   "grade_3_4": "Grado 3 - 4",
   "calculate_cp_score": "Calcular puntuación CP",
   "enter_text": "Introduzca texto",
-
+  "save_settings": "Guardar ajustes",
+  "international_units": "Unidades Internacionales",
+  "yes": "Sí",
+  "no": "No",
 
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
@@ -96,7 +99,6 @@
   "exitoSincronizarBaseDatos": "El contenido de la aplicación se ha sincronizado correctamente con el servidor.",
   "grade1_2": "Grado 1-2",
   "grade3_4": "Grado 3-4",
-  "guardarAjustes": "Guardar ajustes",
   "mensajeErrorValidacionCamposAjustesCalculadora": "Algún campo requerido en los <![CDATA[<b><i>ajustes</i></b>]]> se encuentra vacío o tiene un formato no válido.",
   "mensajeErrorValidacionCamposFormatoCalculadora": "Alguno de los campos tiene un formato erróneo.",
   "mensajeErrorValidacionCamposVaciosCalculadora": "Alguno de los campos requeridos está vacío",
@@ -105,7 +107,6 @@
   "modulePodcasts": "Módulo podcasts",
   "moduloSinRecursosSeccionSeleccionada": "El módulo seleccionado no tiene recursos para esa sección.",
   "more_information": "Más información",
-  "no": "No",
   "nodes": "Nodos",
   "notificaErrorDesarrollador": "Se ha producido un error inesperado, por favor contacta con el desarrollador.",
   "numberOfTumours": "Número de tumores",
@@ -127,7 +128,6 @@
   "reset": "Restablecer valores",
   "result": "Resultado",
   "resumenDeValores": "Resumen de valores",
-  "si": "Sí",
   "sincronizandoContenidoAplicacion": "Sincronizando el contenido de\nla aplicación con el servidor…",
   "sodium": "Sodio",
   "textoAnimacionAperturaConexion": "Cargando el recurso remoto, espere por favor.",

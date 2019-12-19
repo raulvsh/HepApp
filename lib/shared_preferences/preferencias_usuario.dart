@@ -2,8 +2,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferenciasUsuario {
 
-  //TODO añadir todos los campos de bilirrubina, creatinina... como preferencia, para poder cargar y guardar
-  //Dos mapas, uno prefs_final, otro prefs_temp Map<String, dynamic>
   //Instancia singletos, solo una instancia de Preferencias usuario
   static final PreferenciasUsuario _instancia =
       new PreferenciasUsuario._internal();
@@ -19,6 +17,37 @@ class PreferenciasUsuario {
   initPrefs() async {
     this._prefs = await SharedPreferences.getInstance();
   }
+
+
+  ///GETS Y SETS DE HEPAPP
+  ///
+  ///
+
+  //Get y set de las unidades internacionales
+  get internationalUnits {
+    return _prefs.getBool('internationalUnits'); // ?? false;
+  }
+
+  set internationalUnits(bool value) {
+    _prefs.setBool('internationalUnits', value);
+  }
+
+
+  /// GETS Y SETS ANTERIORES
+
+  get bilirubin {
+    return _prefs.getDouble('bilirubin');
+  }
+
+  set bilirubin(double value) {
+    _prefs.setDouble('bilirubin', value);
+    /*_prefs.setDouble('bilirubin', mapaCPS['bilirubin']);
+    _prefs.setDouble('inr', mapaCPS['bilirubin']);
+    _prefs.setDouble('albumin', mapaCPS['albumin']);
+    _prefs.setString('encephalopaty', mapaCPS['encephalopaty']);
+    _prefs.setString('ascites', mapaCPS['ascites']);*/
+  }
+
 
   // GET y SET del Genero
   get genero {

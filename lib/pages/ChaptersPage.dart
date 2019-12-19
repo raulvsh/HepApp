@@ -59,7 +59,9 @@ class _ChaptersPageState extends State<ChaptersPage> {
               Text('Género: ${prefs.genero}'),
               Divider(),
               Text('Nombre usuario: ${prefs.nombreUsuario}'),
-              Divider()
+              Divider(),
+              Text('Bilirrubina: ${prefs.bilirubin}'),
+
             ],
           ),
           RaisedButton(
