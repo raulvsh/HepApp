@@ -73,13 +73,13 @@ class _ChaptersPageState extends State<ChaptersPage> {
               : EdgeInsets.symmetric(vertical: 4 * padding),
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-          children: _buildFiguresGridView(),
+          children: _buildModulesGridView(),
         ),
       ),
     );
   }
 
-  _buildFiguresGridView() {
+  _buildModulesGridView() {
     List<HomeButton> widgets = [];
     for (int i = 0; i < numChapterModules; i++) {
       widgets.add(HomeButton(context, chapterTypes[chapterTypesNames[i]]));

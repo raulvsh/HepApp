@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-
-import '../../main.dart';
+import 'package:hepapp/widgets/CustomAppBar.dart';
 
 /*Código correspondiente para mostrar el PDF en la aplicación
 * y construcción del layout correspondiente*/
@@ -9,7 +8,9 @@ class PdfViewPage extends StatefulWidget {
 
   final String path;
 
-  const PdfViewPage({Key key, this.path}) : super(key: key);
+  final title;
+
+  const PdfViewPage({Key key, this.path, this.title}) : super(key: key);
 
   @override
   _PdfViewPageState createState() => _PdfViewPageState();
@@ -32,24 +33,8 @@ class _PdfViewPageState extends State<PdfViewPage> {
 
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Module 1-Chapter"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.home,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyApp()),
-              );
-            },
-          ),
-        ],
-        backgroundColor: Colors.orange,
-      ),
+      appBar: CustomAppBar(context, widget.title),
+
       /*Utilización de Stack por la propiedad de Overflow
       *y que llegue a mostrar el círculo de cargando encima
       * del propio PDF*/
