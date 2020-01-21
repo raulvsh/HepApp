@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/HomeButton.dart';
+import 'package:hepapp/widgets/PDFButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
 class ChaptersPage extends StatefulWidget {
@@ -27,9 +28,9 @@ class _ChaptersPageState extends State<ChaptersPage> {
     "Module1": ['module_1', '9_modules.png', '/Module1Chap'],
     "Module2": ['module_2', '9_modules.png', '/Module2Chap'],
     "Module3": ['module_3', '9_modules.png', '/Module3Chap'],
-
   };
 
+  var references = ['references', '9_modules.png', 'HepAPP_References.pdf'];
 
   @override
   void initState() {
@@ -80,10 +81,11 @@ class _ChaptersPageState extends State<ChaptersPage> {
   }
 
   _buildModulesGridView() {
-    List<HomeButton> widgets = [];
+    List<Widget> widgets = [];
     for (int i = 0; i < numChapterModules; i++) {
       widgets.add(HomeButton(context, chapterTypes[chapterTypesNames[i]]));
     }
+    widgets.add(PDFButton(context, references, 'references'));
     return widgets;
   }
 

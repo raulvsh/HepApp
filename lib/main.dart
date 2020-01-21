@@ -74,8 +74,8 @@ class MyApp extends StatelessWidget {
           )
 
       ),
-    supportedLocales: _supoortedLocales,
-    localizationsDelegates: _localizationDelegates,
+      supportedLocales: _supoortedLocales,
+      localizationsDelegates: _localizationDelegates,
       localeResolutionCallback: _localeResolutionCallback,
       initialRoute: '/',
       //prefs.ultimaPagina,

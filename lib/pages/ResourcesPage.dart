@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/providers/peliculas_provider.dart';
-import 'package:hepapp/search/search_delegate.dart';
-import 'package:hepapp/widgets/card_swiper_widget.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
-import 'package:hepapp/widgets/movie_horizontal.dart';
 
 class ResourcesPage extends StatefulWidget {
   @override
@@ -12,7 +8,7 @@ class ResourcesPage extends StatefulWidget {
 }
 
 class _ResourcesPageState extends State<ResourcesPage> {
-  final peliculasProvider = PeliculasProvider();
+  //final peliculasProvider = PeliculasProvider();
 
   @override
   void initState() {
@@ -21,7 +17,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
 
   @override
   Widget build(BuildContext context) {
-    peliculasProvider.getPopulares();
+    //peliculasProvider.getPopulares();
     var aux = AppLocalizations.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
@@ -30,7 +26,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
         centerTitle: true,
         title: Text(aux.tr('resources')),
         backgroundColor: Colors.indigoAccent,
-        actions: <Widget>[
+        /*actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
@@ -41,17 +37,17 @@ class _ResourcesPageState extends State<ResourcesPage> {
               );
             },
           )
-        ],
+        ],*/
       ),
       drawer: MenuWidget(),
       //TODO volver a poner appbar custom
       /*CustomAppBar(context, "Resources"),*/
 
-      body: _buildResourcesbody(),
+      body: Text('prueba'), //_buildResourcesbody(),
     );
   }
 
-  _buildResourcesbody() {
+/*_buildResourcesbody() {
     return Container(
       //color: Colors.blue,
         child: Column(
@@ -137,5 +133,5 @@ class _ResourcesPageState extends State<ResourcesPage> {
         ],
       ),
     );
-  }
+  }*/
 }

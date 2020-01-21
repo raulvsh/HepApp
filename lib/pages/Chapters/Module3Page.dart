@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/widgets/ChapterButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/PDFButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -84,9 +84,9 @@ class _Module3PageState extends State<Module3Page> {
   }
 
   _buildChaptersGridView() {
-    List<ChapterButton> widgets = [];
+    List<PDFButton> widgets = [];
     for (int i = 0; i < numChaptersModule1; i++) {
-      widgets.add(ChapterButton(context, chapterTypes[chapterTypesNames[i]],
+      widgets.add(PDFButton(context, chapterTypes[chapterTypesNames[i]],
           'module_3_chapter_${i + 10}'));
     }
     return widgets;

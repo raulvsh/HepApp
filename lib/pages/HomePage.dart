@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hepapp/widgets/HomeAppBar.dart';
 import 'package:hepapp/widgets/HomeButton.dart';
+import 'package:hepapp/widgets/PDFButton.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -77,13 +78,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  //Método para crear la lista de botones según, en vez de colocar los 8 botones directamente
   _buildHomeGridView() {
-    List<HomeButton> widgets = [];
+    var information = [
+      'information',
+      '8_information.png',
+      'HepAPP_Introduction.pdf'
+    ];
 
-    for (int i = 0; i < numHomeCategories; i++) {
+    List<Widget> widgets = [];
+    //Introduzco un botón menos que el número de categorías, ya que el botón de información nos dirigirá directamente al PDF
+    for (int i = 0; i < numHomeCategories - 1; i++) {
       widgets.add(HomeButton(context, sectionTypes[sectionTypesNames[i]]));
     }
+    widgets.add(PDFButton(context, information, 'information'));
 
     return widgets;
   }

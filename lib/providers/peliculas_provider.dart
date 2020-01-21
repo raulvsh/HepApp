@@ -1,3 +1,4 @@
+/*
 import 'dart:async';
 import 'dart:convert';
 
@@ -86,3 +87,4 @@ class PeliculasProvider {
     return await _procesarRespuesta(url);
   }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/models/actores_model.dart';
 import 'package:hepapp/models/pelicula_model.dart';
@@ -147,3 +148,4 @@ class PeliculaDetalle extends StatelessWidget {
     ));
   }
 }
+*/

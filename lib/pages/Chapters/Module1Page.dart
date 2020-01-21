@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/widgets/ChapterButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/PDFButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -47,10 +47,8 @@ class _Module1PageState extends State<Module1Page> {
     });*/
   }
 
-/*Construcción del Layout del menú principal*/
   @override
   Widget build(BuildContext context) {
-    var nombrePDF = "HepAPP_M1C1.pdf";
 
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
@@ -128,9 +126,9 @@ class _Module1PageState extends State<Module1Page> {
 
 
   _buildChaptersGridView() {
-    List<ChapterButton> widgets = [];
+    List<PDFButton> widgets = [];
     for (int i = 0; i < numChaptersModule1; i++) {
-      widgets.add(ChapterButton(context, chapterTypes[chapterTypesNames[i]],
+      widgets.add(PDFButton(context, chapterTypes[chapterTypesNames[i]],
           'module_1_chapter_${i + 1}'));
     }
     return widgets;
@@ -142,7 +140,7 @@ class _Module1PageState extends State<Module1Page> {
 /*Devuelve objeto de tipo Future porque es una tarea de larga duración*/
 Future<File> getFileFromAsset(String asset) async {
   try {
-    print('Asset: $asset');
+    //print('Asset: $asset');
     /*Al ser un método asíncrono es necesario poner el await*/
     /*directamente va a cargar el fichero PDF*/
     var data = await rootBundle.load(asset);
@@ -162,7 +160,6 @@ Future<File> getFileFromAsset(String asset) async {
     File assetFile = await file.writeAsBytes(bytes);
     return assetFile;
   } catch (e) {
-    print(e);
     throw Exception("Error al abrir el PDF CPS");
   }
 }

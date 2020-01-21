@@ -3,13 +3,13 @@ import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/pages/Chapters/Module1Page.dart';
 import 'package:hepapp/pages/Chapters/PDFViewPage.dart';
 
-class ChapterButton extends StatelessWidget {
+class PDFButton extends StatelessWidget {
   final BuildContext context;
   final List<String> type;
 
   final String title;
 
-  ChapterButton(this.context, this.type, this.title);
+  PDFButton(this.context, this.type, this.title);
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/models/pelicula_model.dart';
 
@@ -100,3 +101,4 @@ class MovieHorizontal extends StatelessWidget {
     }).toList();
   }
 }
+*/

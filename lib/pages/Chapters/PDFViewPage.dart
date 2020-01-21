@@ -19,18 +19,13 @@ class PdfViewPage extends StatefulWidget {
 class _PdfViewPageState extends State<PdfViewPage> {
 
 
-  int _totalPages = 0;
-  int _currentPage = 0;
+  //int _totalPages = 0;
+  //int _currentPage = 0;
   bool pdfReady = false;
   PDFViewController _pdfViewController;
 
   @override
   Widget build(BuildContext context) {
-    final String path = ModalRoute
-        .of(context)
-        .settings
-        .arguments;
-
 
     return Scaffold(
       appBar: CustomAppBar(context, widget.title),
@@ -53,7 +48,7 @@ class _PdfViewPageState extends State<PdfViewPage> {
             },
             onRender: (_pages) {
               setState(() {
-                _totalPages = _pages;
+                //_totalPages = _pages;
                 pdfReady = true;
               });
             },
@@ -75,7 +70,7 @@ class _PdfViewPageState extends State<PdfViewPage> {
         ],
       ),
       /*Botones de navegación dentro del PDF, página anterior y siguiente*/
-      floatingActionButton: Row(
+      /*floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           _currentPage > 0
@@ -99,7 +94,7 @@ class _PdfViewPageState extends State<PdfViewPage> {
           )
               : Offstage(),
         ],
-      ),
+      ),*/
     );
   }
 }

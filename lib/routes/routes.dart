@@ -21,7 +21,6 @@ import 'package:hepapp/pages/InformationPage.dart';
 import 'package:hepapp/pages/PodcastsPage.dart';
 import 'package:hepapp/pages/PubMedPage.dart';
 import 'package:hepapp/pages/ResourcesPage.dart';
-import 'package:hepapp/pages/pelicula_detalle.dart';
 import 'package:hepapp/pages/settings_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
@@ -56,7 +55,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/SchemesFig': (context) => SchemesFigPage(),
 
     //TODO borrar esta ruta, prueba de API
-    '/detalle': (context) => PeliculaDetalle(),
+    //'/detalle': (context) => PeliculaDetalle(),
     '/settings': (context) => SettingsPage(),
   };
 }

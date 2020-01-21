@@ -1,3 +1,4 @@
+/*
 class Note {
   int _id;
   String _title;
@@ -17,6 +18,8 @@ class Note {
   String get description => _description;
 
   String get date => _date;
+*/
+/**/ /*
 
   int get priority => _priority;
 
@@ -66,3 +69,4 @@ class Note {
     this._date = map['date'];
   }
 }
+*/

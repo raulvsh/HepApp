@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/models/note.dart';
 import 'package:hepapp/providers/db_provider.dart';
@@ -256,3 +257,4 @@ class NoteDetailState extends State<NoteDetail> {
     showDialog(context: context, builder: (_) => alertDialog);
   }
 }
+*/
