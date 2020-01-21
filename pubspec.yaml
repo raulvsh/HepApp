@@ -87,6 +87,8 @@ flutter:
     - assets/pdfs/
     - assets/lang/
     - data/menu_opts.json
+    - assets/HepM1C1.pdf
+
     # - images/calculators.png
     # - images/chapters.png
     # - images/podcasts.png

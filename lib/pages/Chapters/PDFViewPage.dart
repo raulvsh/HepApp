@@ -1,12 +1,12 @@
-//Código correspondiente para mostrar el PDF en la aplicación
-//* y construcción del layout correspondiente
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:hepapp/main.dart';
 
+import '../../main.dart';
+
+/*Código correspondiente para mostrar el PDF en la aplicación
+* y construcción del layout correspondiente*/
 class PdfViewPage extends StatefulWidget {
+
   final String path;
 
   const PdfViewPage({Key key, this.path}) : super(key: key);
@@ -16,6 +16,8 @@ class PdfViewPage extends StatefulWidget {
 }
 
 class _PdfViewPageState extends State<PdfViewPage> {
+
+
   int _totalPages = 0;
   int _currentPage = 0;
   bool pdfReady = false;
@@ -23,6 +25,12 @@ class _PdfViewPageState extends State<PdfViewPage> {
 
   @override
   Widget build(BuildContext context) {
+    final String path = ModalRoute
+        .of(context)
+        .settings
+        .arguments;
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Module 1-Chapter"),
@@ -42,14 +50,12 @@ class _PdfViewPageState extends State<PdfViewPage> {
         ],
         backgroundColor: Colors.orange,
       ),
-//Utilización de Stack por la propiedad de Overflow
-      // *y que llegue a mostrar el círculo de cargando encima
-      // * del propio PDF
-
+      /*Utilización de Stack por la propiedad de Overflow
+      *y que llegue a mostrar el círculo de cargando encima
+      * del propio PDF*/
       body: Stack(
         children: <Widget>[
-//Widget utilizado gracias al plugin
-
+          /*Widget utilizado gracias al plugin*/
           PDFView(
             filePath: widget.path,
             autoSpacing: true,
@@ -74,40 +80,38 @@ class _PdfViewPageState extends State<PdfViewPage> {
             },
             onPageError: (page, e) {},
           ),
-//Si el PDF no se ha cargado aún que muestre el icono de cargando
-          // si está cargado pinta un Widget inexistente
-
+          /*Si el PDF no se ha cargado aún que muestre el icono de cargando
+          * si está cargado pinta un Widget inexistente*/
           !pdfReady
               ? Center(
-                  child: CircularProgressIndicator(),
-                )
+            child: CircularProgressIndicator(),
+          )
               : Offstage()
         ],
       ),
-//Botones de navegación dentro del PDF, página anterior y siguiente
-
+      /*Botones de navegación dentro del PDF, página anterior y siguiente*/
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           _currentPage > 0
               ? FloatingActionButton.extended(
-                  backgroundColor: Colors.red,
-                  label: Text("Go to ${_currentPage - 1}"),
-                  onPressed: () {
-                    _currentPage -= 1;
-                    _pdfViewController.setPage(_currentPage);
-                  },
-                )
+            backgroundColor: Colors.red,
+            label: Text("Go to ${_currentPage - 1 + 3}"),
+            onPressed: () {
+              _currentPage -= 1;
+              _pdfViewController.setPage(_currentPage);
+            },
+          )
               : Offstage(),
           _currentPage + 1 < _totalPages
               ? FloatingActionButton.extended(
-                  backgroundColor: Colors.green,
-                  label: Text("Go to ${_currentPage + 1}"),
-                  onPressed: () {
-                    _currentPage += 1;
-                    _pdfViewController.setPage(_currentPage);
-                  },
-                )
+            backgroundColor: Colors.green,
+            label: Text("Go to ${_currentPage + 1}"),
+            onPressed: () {
+              _currentPage += 1;
+              _pdfViewController.setPage(_currentPage);
+            },
+          )
               : Offstage(),
         ],
       ),
