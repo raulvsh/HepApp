@@ -150,9 +150,9 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
 
             //children: <Widget>[
             Container(
-              width: 200,
+              width: 250,
               padding: const EdgeInsets.all(8.0),
-              margin: EdgeInsets.only(right: 270, left: 20),
+              margin: EdgeInsets.only(right: 250, left: 20),
               child: RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -219,7 +219,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
           Align(
             alignment: Alignment.bottomRight,
             child: Container(
-              margin: EdgeInsets.only(top: 100),
+              margin: EdgeInsets.only(top: 50),
               padding: EdgeInsets.fromLTRB(10, 0, 10, 50),
               //alignment: Alignment.bottomRight,
               child: Text(

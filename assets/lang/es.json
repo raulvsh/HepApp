@@ -10,6 +10,9 @@
   "resources": "Recursos",
   "pub_med": "PubMed",
   "information": "Información",
+  "module_1": "Módulo 1",
+  "module_2": "Módulo 2",
+  "module_3": "Módulo 3",
 
   "back": "Atrás",
 
@@ -48,14 +51,12 @@
   ">50%": "> 50%",
   "grade_1_2": "Grado 1 - 2",
   "grade_3_4": "Grado 3 - 4",
-  "calculate_cp_score": "Calcular puntuación CP",
+  "calculate_cp_score": "Calcular CPS",
   "enter_text": "Introduzca texto",
   "save_settings": "Guardar ajustes",
   "international_units": "Unidades Internacionales",
   "yes": "Sí",
   "no": "No",
-
-
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
 
   "AFP": "AFP",
