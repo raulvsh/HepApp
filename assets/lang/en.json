@@ -1,6 +1,5 @@
 {
   "****************************************COMENTARIO*****************************************": "CLAVES USADAS EN LA NUEVA VERSIÓN",
-
   "app_title": "HepApp",
   "chapters": "Chapters",
   "podcasts": "Podcasts",
@@ -13,43 +12,62 @@
   "module_1": "Module 1",
   "module_2": "Module 2",
   "module_3": "Module 3",
+
   "chapter_1": "Chapter 1",
   "chapter_2": "Chapter 2",
   "chapter_3": "Chapter 3",
+  "chapter_4": "Chapter 4",
+  "chapter_5": "Chapter 5",
+  "chapter_6": "Chapter 6",
+  "chapter_7": "Chapter 7",
+  "chapter_8": "Chapter 8",
+  "chapter_9": "Chapter 9",
+  "chapter_10": "Chapter 10",
+  "chapter_11": "Chapter 11",
+  "chapter_12": "Chapter 12",
+  "chapter_13": "Chapter 13",
+  "chapter_14": "Chapter 14",
+  "chapter_15": "Chapter 15",
+
   "module_1_chapter_1": "Module 1 - Chapter 1",
   "module_1_chapter_2": "Module 1 - Chapter 2",
   "module_1_chapter_3": "Module 1 - Chapter 3",
+  "module_2_chapter_4": "Module 2 - Chapter 4",
+  "module_2_chapter_5": "Module 2 - Chapter 5",
+  "module_2_chapter_6": "Module 2 - Chapter 6",
+  "module_2_chapter_7": "Module 2 - Chapter 7",
+  "module_2_chapter_8": "Module 2 - Chapter 8",
+  "module_2_chapter_9": "Module 2 - Chapter 9",
+  "module_3_chapter_10": "Module 3 - Chapter 10",
+  "module_3_chapter_11": "Module 3 - Chapter 11",
+  "module_3_chapter_12": "Module 3 - Chapter 12",
+  "module_3_chapter_13": "Module 3 - Chapter 13",
+  "module_3_chapter_14": "Module 3 - Chapter 14",
+  "module_3_chapter_15": "Module 3 - Chapter 15",
 
   "back": "Back",
-
   "table_contents": "Table of Contents",
   "schemes": "Schemes",
   "interactive_figures": "Interactive Figures",
   "chapter_figures": "Chapter Figures",
   "drawing": "Drawing",
-
   "all_algorithms": "All Algorithms",
   "child_pugh_score": "Child Pugh Score",
   "meld": "MELD",
   "okuda_staging_system": "Okuda Staging System",
   "clip_staging_system": "CLIP Staging System",
-
   "undo": "Undo",
   "clear_image": "Clear image",
   "previous_image": "Previous image",
   "next_image": "Next image",
   "change_draw_color": "Change draw color",
-
-  "all_calc_diagnostic" : "All Algorithms - Diagnostic",
+  "all_calc_diagnostic": "All Algorithms - Diagnostic",
   "encephalopaty": "Encephalopaty",
   "tumour_extent": "Tumour extent %",
   "ascites": "Ascites",
   "bilirubin": "Bilirubin",
   "inr": "INR (International Normalize Ratio)",
   "albumin": "Albumin",
-
-
-
   "none_masc": "None",
   "none_fem": "None",
   "controlled": "Controlled",
@@ -64,9 +82,7 @@
   "international_units": "International Units",
   "yes": "Yes",
   "no": "No",
-
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
-
   "AFP": "AFP",
   "ageCutoff": "Age cutoff",
   "ageCutoffResumen": "Age",

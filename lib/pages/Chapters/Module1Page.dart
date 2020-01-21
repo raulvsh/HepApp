@@ -166,35 +166,3 @@ Future<File> getFileFromAsset(String asset) async {
     throw Exception("Error al abrir el PDF CPS");
   }
 }
-
-/*Clase Boton creada para minimizar código*/
-class Boton extends StatelessWidget {
-  final Widget child;
-  final String text;
-
-  const Boton({
-    Key key,
-    @required this.child,
-    @required this.text,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            this.child,
-            SizedBox(height: 8),
-            Text(
-              this.text,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 12),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
