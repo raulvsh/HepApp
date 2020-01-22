@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/HomeButton.dart';
+import 'package:hepapp/widgets/NavigationButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
 
@@ -71,9 +71,9 @@ class _FiguresPageState extends State<FiguresPage> {
   }
 
   _buildFiguresGridView() {
-    List<HomeButton> widgets = [];
+    List<NavigationButton> widgets = [];
     for (int i = 0; i < numFigCategories; i++) {
-      widgets.add(HomeButton(context, figTypes[figTypesNames[i]]));
+      widgets.add(NavigationButton(context, figTypes[figTypesNames[i]]));
     }
     return widgets;
   }

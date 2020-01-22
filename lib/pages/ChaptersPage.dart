@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/HomeButton.dart';
+import 'package:hepapp/widgets/NavigationButton.dart';
 import 'package:hepapp/widgets/PDFButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
@@ -83,7 +83,8 @@ class _ChaptersPageState extends State<ChaptersPage> {
   _buildModulesGridView() {
     List<Widget> widgets = [];
     for (int i = 0; i < numChapterModules; i++) {
-      widgets.add(HomeButton(context, chapterTypes[chapterTypesNames[i]]));
+      widgets.add(
+          NavigationButton(context, chapterTypes[chapterTypesNames[i]]));
     }
     widgets.add(PDFButton(context, references, 'references'));
     return widgets;

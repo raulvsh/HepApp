@@ -60,6 +60,7 @@ class _Module1PageState extends State<Module1Page> {
           return _buildLayout(orientation);
         },
       ),
+      bottomSheet: _buildBottomSheet(context),
     );
 
     /*return Scaffold(
@@ -95,6 +96,22 @@ class _Module1PageState extends State<Module1Page> {
 
 
     );*/
+  }
+
+  Row _buildBottomSheet(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.arrow_forward_ios),
+          color: Color.fromARGB(255, 93, 188, 210),
+
+          onPressed: () =>
+              Navigator.pushReplacementNamed(context, '/Module2Chap'),
+        )
+
+      ],
+    );
   }
 
 

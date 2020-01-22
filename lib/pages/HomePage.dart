@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hepapp/widgets/HomeAppBar.dart';
-import 'package:hepapp/widgets/HomeButton.dart';
+import 'package:hepapp/widgets/NavigationButton.dart';
 import 'package:hepapp/widgets/PDFButton.dart';
+import 'package:hepapp/widgets/WebViewButton.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,13 +27,35 @@ class _HomePageState extends State<HomePage> {
   var sectionTypes = {
     'Chapters': ['chapters', '1_chapters.png', '/Chapters'],
     'Podcasts': ['podcasts', '2_podcasts.png', '/Podcasts'],
-    'Cards': ['cards', '3_cards.png', '/Cards'],
+    'Cards': ['cards', '3_cards.png', 'https://cards.ucalgary.ca'],
     'Figures': ['figures', '4_figures.png', '/Figures'],
     'Calculators': ['calculators', '5_calculators.png', '/Calculators'],
     'Resources': ['resources', '6_resources.png', '/Resources'],
-    'PubMed': ['pub_med', '7_pubmed.png', '/PubMed'],
-    'Information': ['information', '8_information.png', '/Information'],
+    'PubMed': [
+      'pub_med',
+      '7_pubmed.png',
+      'https://www.ncbi.nlm.nih.gov/pubmed/'
+    ],
+
+    //'PubMed': ['pub_med', '7_pubmed.png', '/PubMed'],
+    'Information': [
+      'information',
+      '8_information.png',
+      'HepAPP_Introduction.pdf'
+    ],
   };
+
+
+  /*var pubmed = [
+    //https://www.ncbi.nlm.nih.gov/pubmed/
+    'pub_med', '7_pubmed.png', 'https://www.ncbi.nlm.nih.gov/pubmed/',
+  ];
+
+  var information = [
+    'information', '8_information.png','HepAPP_Introduction.pdf',
+  ];*/
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,18 +102,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   _buildHomeGridView() {
-    var information = [
-      'information',
-      '8_information.png',
-      'HepAPP_Introduction.pdf'
-    ];
+
 
     List<Widget> widgets = [];
     //Introduzco un botón menos que el número de categorías, ya que el botón de información nos dirigirá directamente al PDF
-    for (int i = 0; i < numHomeCategories - 1; i++) {
+    /*for (int i = 0; i < numHomeCategories - 2; i++) {
       widgets.add(HomeButton(context, sectionTypes[sectionTypesNames[i]]));
-    }
-    widgets.add(PDFButton(context, information, 'information'));
+    }*/
+    widgets.add(NavigationButton(context, sectionTypes[sectionTypesNames[0]]));
+    widgets.add(NavigationButton(context, sectionTypes[sectionTypesNames[1]]));
+    widgets.add(WebViewButton(context, sectionTypes[sectionTypesNames[2]]));
+    widgets.add(NavigationButton(context, sectionTypes[sectionTypesNames[3]]));
+    widgets.add(NavigationButton(context, sectionTypes[sectionTypesNames[4]]));
+    widgets.add(NavigationButton(context, sectionTypes[sectionTypesNames[5]]));
+
+    widgets.add(WebViewButton(context, sectionTypes[sectionTypesNames[6]]));
+    widgets.add(
+        PDFButton(context, sectionTypes[sectionTypesNames[7]], 'information'));
 
     return widgets;
   }

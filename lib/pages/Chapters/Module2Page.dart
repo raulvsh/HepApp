@@ -58,9 +58,33 @@ class _Module2PageState extends State<Module2Page> {
           return _buildLayout(orientation);
         },
       ),
+      bottomSheet: _buildBottomSheet(context),
+
     );
   }
 
+  Row _buildBottomSheet(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          color: Color.fromARGB(255, 93, 188, 210),
+
+          onPressed: () =>
+              Navigator.pushReplacementNamed(context, '/Module1Chap'),
+        ),
+        IconButton(
+          icon: Icon(Icons.arrow_forward_ios),
+          color: Color.fromARGB(255, 93, 188, 210),
+
+          onPressed: () =>
+              Navigator.pushReplacementNamed(context, '/Module3Chap'),
+        )
+
+      ],
+    );
+  }
 
   _buildLayout(orientation) {
     final width = MediaQuery

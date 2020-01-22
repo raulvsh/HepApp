@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 
-class HomeButton extends StatelessWidget {
+class NavigationButton extends StatelessWidget {
   final BuildContext context;
   final List<String> type;
 
-  HomeButton(this.context, this.type);
+  NavigationButton(this.context, this.type);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class HomeButton extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 0),
               //alignment: Alignment(0, 0.7),
               child: Text(
-                aux.tr('${type[0]}'),
+                aux.tr(type[0]),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color.fromARGB(255, 93, 188, 210),

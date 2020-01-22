@@ -7,7 +7,6 @@ import 'package:hepapp/widgets/CustomAppBar.dart';
 class PdfViewPage extends StatefulWidget {
 
   final String path;
-
   final title;
 
   const PdfViewPage({Key key, this.path, this.title}) : super(key: key);

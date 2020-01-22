@@ -54,6 +54,24 @@ class _Module3PageState extends State<Module3Page> {
           return _buildLayout(orientation);
         },
       ),
+      bottomSheet: _buildBottomSheet(context),
+
+    );
+  }
+
+  Row _buildBottomSheet(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () =>
+              Navigator.pushReplacementNamed(context, '/Module2Chap'),
+          color: Color.fromARGB(255, 93, 188, 210),
+        ),
+
+
+      ],
     );
   }
 

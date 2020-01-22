@@ -19,7 +19,6 @@ import 'package:hepapp/pages/FiguresPage.dart';
 import 'package:hepapp/pages/HomePage.dart';
 import 'package:hepapp/pages/InformationPage.dart';
 import 'package:hepapp/pages/PodcastsPage.dart';
-import 'package:hepapp/pages/PubMedPage.dart';
 import 'package:hepapp/pages/ResourcesPage.dart';
 import 'package:hepapp/pages/settings_page.dart';
 
@@ -35,7 +34,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/Figures': (context) => FiguresPage(),
     '/Calculators': (context) => CalculatorsPage(),
     '/Resources': (context) => ResourcesPage(),
-    '/PubMed': (context) => PubMedPage(),
+    //'/PubMed': (context) => PubMedPage(),
     '/Information': (context) => InformationPage(),
 //Rutas de los módulos de las secciones (Chapters)
     '/Module1Chap': (context) => Module1Page(),
