@@ -18,7 +18,9 @@ import 'package:hepapp/pages/Figures/TableFigPage.dart';
 import 'package:hepapp/pages/FiguresPage.dart';
 import 'package:hepapp/pages/HomePage.dart';
 import 'package:hepapp/pages/InformationPage.dart';
-import 'package:hepapp/pages/PodcastsPage.dart';
+import 'package:hepapp/pages/Podcasts/Podcasts1Page.dart';
+import 'package:hepapp/pages/Podcasts/Podcasts2Page.dart';
+import 'package:hepapp/pages/Podcasts/Podcasts3Page.dart';
 import 'package:hepapp/pages/ResourcesPage.dart';
 import 'package:hepapp/pages/settings_page.dart';
 
@@ -29,7 +31,10 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
 //HomePageWidget(),
 //Rutas desde la página principal, se definen aqui para poder acceder a ellas desde cualquier punto del programa
     '/Chapters': (context) => ChaptersPage(),
-    '/Podcasts': (context) => PodcastsPage(),
+    '/Podcasts1': (context) => Podcasts1Page(),
+    '/Podcasts2': (context) => Podcasts2Page(),
+    '/Podcasts3': (context) => Podcasts3Page(),
+
     '/Cards': (context) => CardsPage(),
     '/Figures': (context) => FiguresPage(),
     '/Calculators': (context) => CalculatorsPage(),

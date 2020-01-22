@@ -11,14 +11,14 @@ class CalculatorsPage extends StatefulWidget {
 
 class _CalculatorsPageState extends State<CalculatorsPage> {
   final numCalcCategories = 5;
-  var calcTypesNames = [
+  var calculatorIndex = [
     "All",
     "Child",
     "MELD",
     "Okuda",
     "CLIP",
   ];
-  var calcTypes = {
+  var calculatorInfo = {
     "All": ['all_algorithms', '5_calculators.png', '/AllCalc'],
     "Child": ['child_pugh_score', '5_calculators.png', '/ChildCalc'],
     "MELD": ['meld', '5_calculators.png', '/MELDCalc'],
@@ -72,7 +72,7 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
 
     for (int i = 0; i < numCalcCategories; i++) {
       widgets
-          .add(NavigationButton(context, calcTypes[calcTypesNames[i]]));
+          .add(NavigationButton(context, calculatorInfo[calculatorIndex[i]]));
     }
 
     return widgets;

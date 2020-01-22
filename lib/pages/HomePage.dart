@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final numHomeCategories = 8;
 
-  var sectionTypesNames = [
+  var sectionsIndex = [
     'Chapters',
     'Podcasts',
     'Cards',
@@ -24,9 +24,9 @@ class _HomePageState extends State<HomePage> {
     'Information',
   ];
 
-  var sectionTypes = {
+  var sectionsInfo = {
     'Chapters': ['chapters', '1_chapters.png', '/Chapters'],
-    'Podcasts': ['podcasts', '2_podcasts.png', '/Podcasts'],
+    'Podcasts': ['podcasts', '2_podcasts.png', '/Podcasts1'],
     'Cards': ['cards', '3_cards.png', 'https://cards.ucalgary.ca'],
     'Figures': ['figures', '4_figures.png', '/Figures'],
     'Calculators': ['calculators', '5_calculators.png', '/Calculators'],
@@ -109,16 +109,16 @@ class _HomePageState extends State<HomePage> {
     /*for (int i = 0; i < numHomeCategories - 2; i++) {
       widgets.add(HomeButton(context, sectionTypes[sectionTypesNames[i]]));
     }*/
-    widgets.add(NavigationButton(context, sectionTypes[sectionTypesNames[0]]));
-    widgets.add(NavigationButton(context, sectionTypes[sectionTypesNames[1]]));
-    widgets.add(WebViewButton(context, sectionTypes[sectionTypesNames[2]]));
-    widgets.add(NavigationButton(context, sectionTypes[sectionTypesNames[3]]));
-    widgets.add(NavigationButton(context, sectionTypes[sectionTypesNames[4]]));
-    widgets.add(NavigationButton(context, sectionTypes[sectionTypesNames[5]]));
+    widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[0]]));
+    widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[1]]));
+    widgets.add(WebViewButton(context, sectionsInfo[sectionsIndex[2]]));
+    widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[3]]));
+    widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[4]]));
+    widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[5]]));
 
-    widgets.add(WebViewButton(context, sectionTypes[sectionTypesNames[6]]));
+    widgets.add(WebViewButton(context, sectionsInfo[sectionsIndex[6]]));
     widgets.add(
-        PDFButton(context, sectionTypes[sectionTypesNames[7]], 'information'));
+        PDFButton(context, sectionsInfo[sectionsIndex[7]], 'information'));
 
     return widgets;
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/WebViewButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
@@ -62,8 +61,6 @@ class _ResourcesPageState extends State<ResourcesPage> {
 
   @override
   Widget build(BuildContext context) {
-    //peliculasProvider.getPopulares();
-    var aux = AppLocalizations.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
@@ -97,8 +94,8 @@ class _ResourcesPageState extends State<ResourcesPage> {
         alignment: Alignment.center,
         child: GridView.count(
           padding: orientation == Orientation.portrait
-              ? EdgeInsets.symmetric(vertical: 20 * padding)
-              : EdgeInsets.symmetric(vertical: 4 * padding),
+              ? EdgeInsets.symmetric(vertical: 3 * padding)
+              : EdgeInsets.symmetric(vertical: padding),
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
           children: _buildChaptersGridView(),
@@ -117,91 +114,4 @@ class _ResourcesPageState extends State<ResourcesPage> {
     }
     return widgets;
   }
-/*_buildResourcesbody() {
-    return Container(
-      //color: Colors.blue,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            _swiperTarjetas(),
-            _footer(context),
-          ],
-        ));
-  }
-
-  Widget _swiperTarjetas() {
-    return FutureBuilder(
-      future: peliculasProvider.getEnCines(),
-      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-        if (snapshot.hasData) {
-          return Container(
-            //color: Colors.black,
-            //height: 300,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  //color: Colors.yellowAccent,
-                  padding: EdgeInsets.only(left: 20.0),
-                  child: Text(
-                    'Películas en Cartelera',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .title,
-                  ),
-                ),
-                CardSwiper(
-                  peliculas: snapshot.data,
-                ),
-              ],
-            ),
-          );
-        } else {
-          return Container(
-            //height: 300,
-            //color: Colors.red,
-              child: Center(child: CircularProgressIndicator()));
-        }
-      },
-    );
-  }
-
-  _footer(BuildContext context) {
-    return Container(
-      //color: Colors.pink,
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            //color: Colors.yellowAccent,
-            padding: EdgeInsets.only(left: 20.0),
-            child: Text(
-              'Películas Populares',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .title,
-            ),
-          ),
-          SizedBox(height: 5.0),
-          StreamBuilder(
-              stream: peliculasProvider.popularesStream,
-              builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-                if (snapshot.hasData) {
-                  return MovieHorizontal(
-                    peliculas: snapshot.data,
-                    siguientePagina: peliculasProvider.getPopulares,
-                  );
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
-                //snapshot.data?.forEach((p) => print(p.title));
-                //print(snapshot.data);
-                //return Container();
-              }),
-        ],
-      ),
-    );
-  }*/
 }

@@ -13,7 +13,6 @@ class WebViewPage extends StatefulWidget {
 }
 
 class _WebViewPageState extends State<WebViewPage> {
-  String urlbak = "https://www.ncbi.nlm.nih.gov/pubmed/";
 
   @override
   Widget build(BuildContext context) {

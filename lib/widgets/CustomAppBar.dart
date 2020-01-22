@@ -58,7 +58,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             Expanded(
               flex: 1,
               child: Text(
-                aux.tr('${widget.title}'),
+                aux.tr(widget.title),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   //color: Colors.white,

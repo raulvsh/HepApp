@@ -19,7 +19,7 @@ class _Module2PageState extends State<Module2Page> {
 
   final numChaptersModule2 = 6;
 
-  var chapterTypesNames = [
+  var chapterIndexMod2 = [
     "Chapter4",
     "Chapter5",
     "Chapter6",
@@ -29,7 +29,7 @@ class _Module2PageState extends State<Module2Page> {
 
   ];
 
-  var chapterTypes = {
+  var chapterInfoMod2 = {
     "Chapter4": ['chapter_4', '1_chapters.png', 'HepAPP_M2C4.pdf'],
     "Chapter5": ['chapter_5', '1_chapters.png', 'HepAPP_M2C5.pdf'],
     "Chapter6": ['chapter_6', '1_chapters.png', 'HepAPP_M2C6.pdf'],
@@ -116,7 +116,7 @@ class _Module2PageState extends State<Module2Page> {
   _buildChaptersGridView() {
     List<PDFButton> widgets = [];
     for (int i = 0; i < numChaptersModule2; i++) {
-      widgets.add(PDFButton(context, chapterTypes[chapterTypesNames[i]],
+      widgets.add(PDFButton(context, chapterInfoMod2[chapterIndexMod2[i]],
           'module_2_chapter_${i + 4}'));
     }
     return widgets;
