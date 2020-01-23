@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/pages/WebViewPage.dart';
+import 'package:hepapp/pages/Podcasts/VideoViewPage.dart';
 
-class WebViewButton extends StatelessWidget {
+class VideoButton extends StatelessWidget {
   final BuildContext context;
   final List<String> type;
 
-  WebViewButton(this.context, this.type);
+  VideoButton(this.context, this.type);
 
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
-    var assetPDFPath;
     return Container(
       margin: EdgeInsets.all(4),
       child: GestureDetector(
@@ -37,10 +36,11 @@ class WebViewButton extends StatelessWidget {
         ),
         onTap: //() => Navigator.pushNamed(context, type[2]),
             () {
+          print(type);
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => WebViewPage(
+                  builder: (context) => VideoViewPage(
                         url: type[2],
                         title: type[0],
                       )));

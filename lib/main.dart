@@ -6,6 +6,8 @@ import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'lang/app_localizations.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   //Cargo las preferencias antes de correr la app
   final prefs = new PreferenciasUsuario();
   await prefs.initPrefs();
@@ -17,11 +19,9 @@ En esta clase se define el título de la aplicación, el tema
 y las rutas a las distintos apartados.
  */
 class MyApp extends StatelessWidget {
-  //TODO tema entero de la app, definiendo sus estilos, posible archivo themes.dart
 
   final prefs = new PreferenciasUsuario();
 
-  /* TODO hacer traducciones */
 
   final _supoortedLocales = [
     Locale('en', 'US'),

@@ -10,24 +10,19 @@ class ChaptersPage extends StatefulWidget {
 }
 
 class _ChaptersPageState extends State<ChaptersPage> {
-  /*var _currencies = ['Rupees', 'Dollars', 'Pounds', 'Others'];
-  var _currentItemSelected = '';
-  String nameCity = "";
-
-  final prefs = PreferenciasUsuario();*/
 
   final numChapterModules = 3;
 
-  var chapterTypesNames = [
+  var modulesIndex = [
     "Module1",
     "Module2",
     "Module3",
   ];
 
-  var chapterTypes = {
-    "Module1": ['module_1', '9_modules.png', '/Module1Chap'],
-    "Module2": ['module_2', '9_modules.png', '/Module2Chap'],
-    "Module3": ['module_3', '9_modules.png', '/Module3Chap'],
+  var modulesInfo = {
+    "Module1": ['module_1', '9_modules.png', '/ModulePV1'],
+    "Module2": ['module_2', '9_modules.png', '/ModulePV2'],
+    "Module3": ['module_3', '9_modules.png', '/ModulePV3'],
   };
 
   var references = ['references', '9_modules.png', 'HepAPP_References.pdf'];
@@ -84,56 +79,10 @@ class _ChaptersPageState extends State<ChaptersPage> {
     List<Widget> widgets = [];
     for (int i = 0; i < numChapterModules; i++) {
       widgets.add(
-          NavigationButton(context, chapterTypes[chapterTypesNames[i]]));
+          NavigationButton(context, modulesInfo[modulesIndex[i]]));
     }
     widgets.add(PDFButton(context, references, 'references'));
     return widgets;
   }
-
-
-/*_buildChaptersBody2() {
-    return Container(
-      margin: EdgeInsets.all(20.0),
-      child: Column(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              DropdownButton<String>(
-                items: _currencies.map((String dropDownStringItem) {
-                  return DropdownMenuItem<String>(
-                    value: dropDownStringItem,
-                    child: Text(dropDownStringItem),
-                  );
-                }).toList(),
-                onChanged: (String newValueSelected) {
-                  // Your code to execute, when a menu item is selected from drop down
-                  _onDropDownItemSelected(newValueSelected);
-                },
-                value: _currentItemSelected,
-              ),
-              Text('Color secundario: ${prefs.colorSecundario}'),
-              Divider(),
-              Text('Género: ${prefs.genero}'),
-              Divider(),
-              Text('Nombre usuario: ${prefs.nombreUsuario}'),
-              Divider(),
-              Text('Bilirrubina: ${prefs.bilirubin}'),
-
-            ],
-          ),
-          RaisedButton(
-            child: Text('Preferencias'),
-            onPressed: () => Navigator.pushNamed(context, '/settings'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _onDropDownItemSelected(String newValueSelected) {
-    setState(() {
-      this._currentItemSelected = newValueSelected;
-    });
-  }*/
 
 }

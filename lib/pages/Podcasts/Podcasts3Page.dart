@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/VideoViewButton.dart';
+import 'package:hepapp/widgets/VideoButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
 //const String _documentPath = 'assets/HepM1C1.pdf';
@@ -98,8 +98,8 @@ class _Podcasts3PageState extends State<Podcasts3Page> {
         alignment: Alignment.center,
         child: GridView.count(
           padding: orientation == Orientation.portrait
-              ? EdgeInsets.symmetric(vertical: 20 * padding)
-              : EdgeInsets.symmetric(vertical: 4 * padding),
+              ? EdgeInsets.symmetric(vertical: 2 * padding)
+              : EdgeInsets.symmetric(vertical: 2 * padding),
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
           children: _buildChaptersGridView(),
@@ -111,7 +111,7 @@ class _Podcasts3PageState extends State<Podcasts3Page> {
   _buildChaptersGridView() {
     List<Widget> widgets = [];
     for (int i = 0; i < numPodcasts3; i++) {
-      widgets.add(VideoViewButton(context, podcastInfo3[podcastIndex3[i]]));
+      widgets.add(VideoButton(context, podcastInfo3[podcastIndex3[i]]));
     }
     return widgets;
   }

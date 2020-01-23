@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 
@@ -32,6 +33,7 @@ class _InformationPageState extends State<InformationPage> {
     super.dispose();
   }
 }
+*/
 /*
 ANTERIOR VERSION EN LA QUE FUNCIONABA EL PDF
 class _InformationPageState extends State<InformationPage> {
@@ -73,3 +75,4 @@ class _InformationPageState extends State<InformationPage> {
   }
 }
 */
+

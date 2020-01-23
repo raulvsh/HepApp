@@ -57,6 +57,7 @@ class _VideoViewPageState extends State<VideoViewPage> {
               aspectRatio: _controller.value.aspectRatio,
               // Usa el Widget VideoPlayer para mostrar el vídeo
               child: VideoPlayer(_controller),
+
             );
           } else {
             // Si el VideoPlayerController todavía se está inicializando, muestra un

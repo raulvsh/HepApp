@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/pages/Chapters/Module1Page.dart';
-import 'package:hepapp/pages/Chapters/PDFViewPage.dart';
+import 'package:hepapp/pages/WebViewPage.dart';
 
-class PDFButton extends StatelessWidget {
+class WebButton extends StatelessWidget {
   final BuildContext context;
   final List<String> type;
-  final String title;
 
-  PDFButton(this.context, this.type, this.title);
+  WebButton(this.context, this.type);
 
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
-    var assetPDFPath;
     return Container(
       margin: EdgeInsets.all(4),
       child: GestureDetector(
@@ -37,20 +34,15 @@ class PDFButton extends StatelessWidget {
             ),
           ],
         ),
-        onTap: () async {
-          await getFileFromAsset("assets/${type[2]}").then((f) {
-            assetPDFPath = f.path;
-            print("Asset pdf path " + assetPDFPath);
-          });
-          if (assetPDFPath != null) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PdfViewPage(
-                          path: assetPDFPath,
-                          title: title,
-                        )));
-          }
+        onTap: //() => Navigator.pushNamed(context, type[2]),
+            () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => WebViewPage(
+                        url: type[2],
+                        title: type[0],
+                      )));
         },
       ),
     );

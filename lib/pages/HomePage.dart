@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:hepapp/widgets/HomeAppBar.dart';
 import 'package:hepapp/widgets/NavigationButton.dart';
 import 'package:hepapp/widgets/PDFButton.dart';
-import 'package:hepapp/widgets/WebViewButton.dart';
+import 'package:hepapp/widgets/WebButton.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
 
   var sectionsInfo = {
     'Chapters': ['chapters', '1_chapters.png', '/Chapters'],
-    'Podcasts': ['podcasts', '2_podcasts.png', '/Podcasts1'],
+    'Podcasts': ['podcasts', '2_podcasts.png', '/PodcastsPV'],
     'Cards': ['cards', '3_cards.png', 'https://cards.ucalgary.ca'],
     'Figures': ['figures', '4_figures.png', '/Figures'],
     'Calculators': ['calculators', '5_calculators.png', '/Calculators'],
@@ -111,12 +111,12 @@ class _HomePageState extends State<HomePage> {
     }*/
     widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[0]]));
     widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[1]]));
-    widgets.add(WebViewButton(context, sectionsInfo[sectionsIndex[2]]));
+    widgets.add(WebButton(context, sectionsInfo[sectionsIndex[2]]));
     widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[3]]));
     widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[4]]));
     widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[5]]));
 
-    widgets.add(WebViewButton(context, sectionsInfo[sectionsIndex[6]]));
+    widgets.add(WebButton(context, sectionsInfo[sectionsIndex[6]]));
     widgets.add(
         PDFButton(context, sectionsInfo[sectionsIndex[7]], 'information'));
 

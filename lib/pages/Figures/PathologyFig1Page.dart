@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
-class TableFigPage extends StatefulWidget {
+class PathologyFig1Page extends StatefulWidget {
   @override
-  _TableFigPageState createState() => _TableFigPageState();
+  _PathologyFig1PageState createState() => _PathologyFig1PageState();
 }
 
-class _TableFigPageState extends State<TableFigPage> {
+class _PathologyFig1PageState extends State<PathologyFig1Page> {
 
   @override
   void initState() {
@@ -17,7 +17,7 @@ class _TableFigPageState extends State<TableFigPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, 'table_contents'),
+      appBar: CustomAppBar(context, 'pathology_1'),
       drawer: MenuWidget(),
       body: new Center(
         child: new Text("Some text"),

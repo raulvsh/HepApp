@@ -19,14 +19,15 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false, //Elimina el botón back
       title: Container(
         height: 30,
-        child: Text(
-          aux.tr('app_title'), //title,
-          style: TextStyle(
-            fontSize: 15,
+        child: Center(
+          child: Text(
+            aux.tr('app_title'), //title,
+            style: TextStyle(
+              fontSize: 15,
+            ),
           ),
         ),
       ),
-      centerTitle: true,
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(70),
         child: Container(

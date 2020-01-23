@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
@@ -58,11 +59,13 @@ class _CardsPageState extends State<CardsPage> {
                   return "Por favor introduce número";
                 }
               },
-              /*onChanged: (String userInput) {
+              */
+/*onChanged: (String userInput) {
                 setState(() {
                   this.mostrarResultado = _funcionExterna();
                 });
-              },*/
+              },*/ /*
+
             ),
             Padding(
               padding: EdgeInsets.all(5),
@@ -82,11 +85,13 @@ class _CardsPageState extends State<CardsPage> {
                   }
                 },
                 //con solo escribir, muestra lso resultados
-                /*onChanged: (String userInput) {
+                */
+/*onChanged: (String userInput) {
                   setState(() {
                     this.mostrarResultado = _funcionExterna();
                   });
-                },*/
+                },*/ /*
+
               ),
             ),
             Padding(
@@ -164,3 +169,4 @@ class _CardsPageState extends State<CardsPage> {
     mostrarResultado = "";
   }
 }
+*/

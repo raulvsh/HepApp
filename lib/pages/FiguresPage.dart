@@ -10,21 +10,24 @@ class FiguresPage extends StatefulWidget {
 }
 
 class _FiguresPageState extends State<FiguresPage> {
-  final numFigCategories = 5;
+  final numFigCategories = 6;
 
   var figuresIndex = [
     "TableOfContents",
     "Schemes",
+    "Maps",
+    "Pathology",
     "Interactive",
-    "Chapter",
     "Drawing",
   ];
 
   var figuresInfo = {
     "TableOfContents": ['table_contents', '4_figures.png', '/TableFig'],
     "Schemes": ['schemes', '4_figures.png', '/SchemesFig'],
+    "Maps": ['maps', '4_figures.png', '/MapsFig'],
+    "Pathology": ['pathology', '4_figures.png', '/PathologyFig'],
     "Interactive": ['interactive_figures', '4_figures.png', '/InteractiveFig'],
-    "Chapter": ['chapter_figures', '4_figures.png', '/ChapterFig'],
+    //"Chapter": ['chapter_figures', '4_figures.png', '/ChapterFig'],
     "Drawing": ['drawing', '4_figures.png', '/DrawingFig'],
   };
 

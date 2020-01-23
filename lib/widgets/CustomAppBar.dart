@@ -41,7 +41,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         //margin: EdgeInsets.only(left: 5.0),
         //padding: EdgeInsets.all(0),
         width: double.infinity,
-        height: double.infinity,
+        //height: double.infinity,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -83,13 +83,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   IconButton _homeIcon(BuildContext context) {
     return IconButton(
-      icon: //Icon(Icons.home),
+      icon: Icon(Icons.home),
 
-      Image.asset(
+      /*Image.asset(
         'assets/images/homeicon.png',
         width: 18,
         height: 18,
-      ),
+      ),*/
       onPressed: () => Navigator.pushReplacementNamed(context, '/'),
     );
   }
@@ -99,7 +99,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
     return GestureDetector(
       child: Container(
-        height: double.infinity,
+        //color: Colors.red,
+        height: 60,
         child: Row(
           children: <Widget>[
             Icon(Icons.keyboard_arrow_left),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/pages/Podcasts/VideoViewPage.dart';
 
-class VideoViewButton extends StatelessWidget {
+class FigureButton extends StatelessWidget {
   final BuildContext context;
   final List<String> type;
+  final Widget widget;
 
-  VideoViewButton(this.context, this.type);
+  FigureButton(this.context, this.type, this.widget);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,9 @@ class VideoViewButton extends StatelessWidget {
       child: GestureDetector(
         child: Stack(
           children: <Widget>[
-            Image.asset(
-              'assets/items/${type[1]}',
-            ),
+            Image.asset('assets/images/toc/toc1.png'
+                //'assets/images/${type[1]}',
+                ),
             Container(
               alignment: Alignment(0, 0.7),
               padding: EdgeInsets.only(bottom: 0),
@@ -36,14 +36,11 @@ class VideoViewButton extends StatelessWidget {
         ),
         onTap: //() => Navigator.pushNamed(context, type[2]),
             () {
-          print(type);
+          print(type[1]);
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => VideoViewPage(
-                        url: type[2],
-                        title: type[0],
-                      )));
+            context,
+            MaterialPageRoute(builder: (context) => widget), //TOCPageView(0)),
+          );
         },
       ),
     );

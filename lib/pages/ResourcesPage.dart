@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/WebViewButton.dart';
+import 'package:hepapp/widgets/WebButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
 class ResourcesPage extends StatefulWidget {
@@ -105,9 +105,9 @@ class _ResourcesPageState extends State<ResourcesPage> {
   }
 
   _buildChaptersGridView() {
-    List<WebViewButton> widgets = [];
+    List<WebButton> widgets = [];
     for (int i = 0; i < numResources; i++) {
-      widgets.add(WebViewButton(
+      widgets.add(WebButton(
         context,
         resourcesTypes[resourcesTypesNames[i]],
       ));
