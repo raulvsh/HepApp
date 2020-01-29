@@ -1,3 +1,4 @@
+/*
 import 'package:custom_radio/custom_radio.dart';
 import 'package:flutter/material.dart';
 
@@ -200,6 +201,7 @@ class _PodcastsPageState extends State<PodcastsPage>
 
 }
 
+*/
 /*
 
 class _PodcastsPageState extends State<PodcastsPage> {
@@ -231,11 +233,15 @@ class _PodcastsPageState extends State<PodcastsPage> {
   }
 
   Widget _lista() {
-    */
+    */ /*
+
+*/
 /*menuProvider.cargarData().then((opciones){
       print('_lista');
       print(opciones);
     });*/ /*
+ */
+/*
 
     //print(menuProvider.opciones);
     return FutureBuilder(
@@ -249,10 +255,14 @@ class _PodcastsPageState extends State<PodcastsPage> {
       },
     );
 
-    */
+    */ /*
+
+*/
 /*return ListView(
       children: _listaItems(),
     );*/ /*
+ */
+/*
 
   }
 
@@ -278,3 +288,4 @@ class _PodcastsPageState extends State<PodcastsPage> {
   }
 }
 */
+

@@ -21,7 +21,8 @@ class _PdfViewPageState extends State<PdfViewPage> {
   //int _totalPages = 0;
   //int _currentPage = 0;
   bool pdfReady = false;
-  PDFViewController _pdfViewController;
+
+  //PDFViewController _pdfViewController;
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +52,9 @@ class _PdfViewPageState extends State<PdfViewPage> {
                 pdfReady = true;
               });
             },
-            onViewCreated: (PDFViewController vc) {
+            /*onViewCreated: (PDFViewController vc) {
               _pdfViewController = vc;
-            },
+            },*/
             onPageChanged: (int page, int total) {
               setState(() {});
             },
@@ -94,6 +95,7 @@ class _PdfViewPageState extends State<PdfViewPage> {
               : Offstage(),
         ],
       ),*/
+
     );
   }
 }

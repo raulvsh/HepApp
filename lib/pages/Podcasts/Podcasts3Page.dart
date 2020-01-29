@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/VideoButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
@@ -12,7 +13,7 @@ class Podcasts3Page extends StatefulWidget {
 
 class _Podcasts3PageState extends State<Podcasts3Page> {
   final numPodcasts3 = 5;
-
+  final numPodcastsPages = 3;
   var podcastIndex3 = [
     "Podcast17",
     "Podcast18",
@@ -67,23 +68,23 @@ class _Podcasts3PageState extends State<Podcasts3Page> {
           return _buildLayout(orientation);
         },
       ),
-      bottomSheet: _buildBottomSheet(context),
-    );
+        bottomSheet: BottomNavigationSheet(2, '/PodcastsPV', numPodcastsPages));
+
   }
 
-  Row _buildBottomSheet(BuildContext context) {
+  /*Row _buildBottomSheet(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () =>
-              Navigator.pushReplacementNamed(context, '/Podcasts2'),
-          color: Color.fromARGB(255, 93, 188, 210),
+              Navigator.pushReplacementNamed(context, '/PodcastsPV2'),
+          color: Theme.of(context).primaryColor,
         ),
       ],
     );
-  }
+  }*/
 
   _buildLayout(orientation) {
     final width = MediaQuery.of(context).size.width;

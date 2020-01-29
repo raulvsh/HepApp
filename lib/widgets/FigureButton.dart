@@ -4,9 +4,9 @@ import 'package:hepapp/lang/app_localizations.dart';
 class FigureButton extends StatelessWidget {
   final BuildContext context;
   final List<String> type;
-  final Widget widget;
+  final Widget destWidget;
 
-  FigureButton(this.context, this.type, this.widget);
+  FigureButton(this.context, this.type, this.destWidget);
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +14,22 @@ class FigureButton extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(4),
       child: GestureDetector(
-        child: Stack(
+        child: Column(
           children: <Widget>[
-            Image.asset('assets/images/toc/toc1.png'
-                //'assets/images/${type[1]}',
-                ),
+            Expanded(
+
+              child: Image.asset(
+                //'assets/images/toc/TOC1.png'
+
+                'assets/images/${type[1]}',
+                height: 100,
+                fit: BoxFit.scaleDown,
+                //alignment: Alignment.topCenter,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               alignment: Alignment(0, 0.7),
               padding: EdgeInsets.only(bottom: 0),
@@ -39,7 +50,8 @@ class FigureButton extends StatelessWidget {
           print(type[1]);
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => widget), //TOCPageView(0)),
+            MaterialPageRoute(
+                builder: (context) => destWidget), //TOCPageView(0)),
           );
         },
       ),

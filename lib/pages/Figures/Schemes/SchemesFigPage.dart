@@ -1,28 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/pages/Figures/TOCPageView.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/FigureButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
-class TOCFigPage extends StatefulWidget {
+import 'SchemesPageView.dart';
+
+class SchemesFigPage extends StatefulWidget {
   @override
-  _TOCFigPageState createState() => _TOCFigPageState();
+  _SchemesFigPageState createState() => _SchemesFigPageState();
 }
 
-class _TOCFigPageState extends State<TOCFigPage> {
-  final numTableContents = 4;
+class _SchemesFigPageState extends State<SchemesFigPage> {
+  final numSchemes = 8;
 
-  var tableContentsIndex = [
-    "TOC1",
-    "TOC2",
-    "TOC3",
-    "TOC4",
+  var schemesIndex = [
+    "Scheme1",
+    "Scheme2",
+    "Scheme3",
+    "Scheme4",
+    "Scheme5",
+    "Scheme6",
+    "Scheme7",
+    "Scheme8",
   ];
-  var tableContentsInfo = {
-    "TOC1": ['toc_1', 'TOC/TOC1.png', '/TOCPV1'],
-    "TOC2": ['toc_2', 'TOC/TOC2.png', '/TOCPV2'],
-    "TOC3": ['toc_3', 'TOC/TOC3.png', '/TOCPV3'],
-    "TOC4": ['toc_4', 'TOC/TOC4.png', '/TOCPV4'],
+
+  var schemesInfo = {
+    "Scheme1": ['scheme_1', 'schemes/Scheme 1 Jaundice.png', '/SchemePV1'],
+    "Scheme2": [
+      'scheme_2',
+      'schemes/Scheme 2 AbN Liver Tests.png',
+      '/SchemePV2'
+    ],
+    "Scheme3": ['scheme_3', 'schemes/Scheme 3 Hepatomegaly.png', '/SchemePV3'],
+    "Scheme4": ['scheme_4', 'schemes/Scheme 4 Splenomegaly.png', '/SchemePV4'],
+    "Scheme5": ['scheme_5', 'schemes/Scheme 5 Liver Mass.png', '/SchemePV5'],
+    "Scheme6": ['scheme_6', 'schemes/Scheme 6 UGI Bleed.png', '/SchemePV6'],
+    "Scheme7": [
+      'scheme_7',
+      'schemes/Scheme 7 Abdominal Distention.png',
+      '/SchemePV7'
+    ],
+    "Scheme8": ['scheme_8', 'schemes/Scheme 8 Decreased LOC.png', '/SchemePV8'],
   };
 
   @override
@@ -36,7 +54,7 @@ class _TOCFigPageState extends State<TOCFigPage> {
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
       drawer: MenuWidget(),
-      appBar: CustomAppBar(context, 'table_contents'),
+      appBar: CustomAppBar(context, 'schemes'),
       body: OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
@@ -58,8 +76,8 @@ class _TOCFigPageState extends State<TOCFigPage> {
         alignment: Alignment.center,
         child: GridView.count(
           padding: orientation == Orientation.portrait
-              ? EdgeInsets.symmetric(vertical: 20 * padding)
-              : EdgeInsets.symmetric(vertical: 4 * padding),
+              ? EdgeInsets.symmetric(vertical: 10 * padding)
+              : EdgeInsets.symmetric(vertical: 3 * padding),
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
           children: _buildModulesGridView(),
@@ -70,9 +88,9 @@ class _TOCFigPageState extends State<TOCFigPage> {
 
   _buildModulesGridView() {
     List<Widget> widgets = [];
-    for (int i = 0; i < numTableContents; i++) {
+    for (int i = 0; i < numSchemes; i++) {
       widgets.add(FigureButton(
-          context, tableContentsInfo[tableContentsIndex[i]], TOCPageView(i)));
+          context, schemesInfo[schemesIndex[i]], SchemesPageView(i)));
     }
     return widgets;
   }

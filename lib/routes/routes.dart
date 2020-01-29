@@ -6,22 +6,17 @@ import 'package:hepapp/pages/Calculators/MELDCalcPage.dart';
 import 'package:hepapp/pages/Calculators/OkudaCalcPage.dart';
 import 'package:hepapp/pages/CalculatorsPage.dart';
 import 'package:hepapp/pages/Chapters/ChaptersPage.dart';
-import 'package:hepapp/pages/Chapters/Module1Page.dart';
-import 'package:hepapp/pages/Chapters/Module2Page.dart';
-import 'package:hepapp/pages/Chapters/Module3Page.dart';
 import 'package:hepapp/pages/Chapters/ModulePageView.dart';
 import 'package:hepapp/pages/Figures/DrawingFigPage.dart';
 import 'package:hepapp/pages/Figures/InteractiveFigPage.dart';
 import 'package:hepapp/pages/Figures/MapsFigPage.dart';
 import 'package:hepapp/pages/Figures/PathologyFig1Page.dart';
-import 'package:hepapp/pages/Figures/SchemesFigPage.dart';
-import 'package:hepapp/pages/Figures/TOCFigPage.dart';
-import 'package:hepapp/pages/Figures/TOCPageView.dart';
+import 'package:hepapp/pages/Figures/Schemes/SchemesFigPage.dart';
+import 'package:hepapp/pages/Figures/Schemes/SchemesPageView.dart';
+import 'package:hepapp/pages/Figures/TOC/TOCFigPage.dart';
+import 'package:hepapp/pages/Figures/TOC/TOCPageView.dart';
 import 'package:hepapp/pages/FiguresPage.dart';
 import 'package:hepapp/pages/HomePage.dart';
-import 'package:hepapp/pages/Podcasts/Podcasts1Page.dart';
-import 'package:hepapp/pages/Podcasts/Podcasts2Page.dart';
-import 'package:hepapp/pages/Podcasts/Podcasts3Page.dart';
 import 'package:hepapp/pages/Podcasts/PodcastsPageView.dart';
 import 'package:hepapp/pages/ResourcesPage.dart';
 import 'package:hepapp/pages/settings_page.dart';
@@ -33,7 +28,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
 //HomePageWidget(),
 //Rutas desde la página principal, se definen aqui para poder acceder a ellas desde cualquier punto del programa
     '/Chapters': (context) => ChaptersPage(),
-    '/PodcastsPV': (context) => PodcastsPageView(),
+    //'/PodcastsPV': (context) => PodcastsPageView(),
     //'/Cards': (context) => CardsPage(),
     '/Figures': (context) => FiguresPage(),
     '/Calculators': (context) => CalculatorsPage(),
@@ -44,13 +39,17 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/ModulePV2': (context) => ModulePageView(1),
     '/ModulePV3': (context) => ModulePageView(2),
 
-    '/Module1Chap': (context) => Module1Page(),
-    '/Module2Chap': (context) => Module2Page(),
-    '/Module3Chap': (context) => Module3Page(),
+    //'/Module1Chap': (context) => Module1Page(),
+    //'/Module2Chap': (context) => Module2Page(),
+    //'/Module3Chap': (context) => Module3Page(),
 //2 - Rutas de los podcasts
-    '/Podcasts1': (context) => Podcasts1Page(),
-    '/Podcasts2': (context) => Podcasts2Page(),
-    '/Podcasts3': (context) => Podcasts3Page(),
+    '/PodcastsPV1': (context) => PodcastsPageView(0),
+    '/PodcastsPV2': (context) => PodcastsPageView(1),
+    '/PodcastsPV3': (context) => PodcastsPageView(2),
+
+    //'/Podcasts1': (context) => Podcasts1Page(),
+    //'/Podcasts2': (context) => Podcasts2Page(),
+    //'/Podcasts3': (context) => Podcasts3Page(),
 
     //'/PubMed': (context) => PubMedPage(),
     //'/Information': (context) => InformationPage(),
@@ -62,6 +61,18 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/TOCPV4': (context) => TOCPageView(3),
 
     '/SchemesFig': (context) => SchemesFigPage(),
+    '/SchemesPV1': (context) => SchemesPageView(0),
+    '/SchemesPV2': (context) => SchemesPageView(1),
+    '/SchemesPV3': (context) => SchemesPageView(2),
+    '/SchemesPV4': (context) => SchemesPageView(3),
+    '/SchemesPV5': (context) => SchemesPageView(4),
+    '/SchemesPV6': (context) => SchemesPageView(5),
+    '/SchemesPV7': (context) => SchemesPageView(6),
+    '/SchemesPV8': (context) => SchemesPageView(7),
+
+
+    //'/SchemesFig': (context) => SchemesFigPage(),
+
     '/MapsFig': (context) => MapsFigPage(),
     '/PathologyFig': (context) => PathologyFig1Page(),
     '/InteractiveFig': (context) => InteractiveFigPage(),

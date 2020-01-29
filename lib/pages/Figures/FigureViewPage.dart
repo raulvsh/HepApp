@@ -4,8 +4,10 @@ import 'package:hepapp/widgets/CustomAppBar.dart';
 class FigureViewPage extends StatefulWidget {
   final String url;
   final title;
+  final bottomSheet;
 
-  const FigureViewPage({Key key, this.url, this.title}) : super(key: key);
+  const FigureViewPage({Key key, this.title, this.url, this.bottomSheet})
+      : super(key: key);
 
   @override
   _FigureViewPageState createState() => _FigureViewPageState();
@@ -16,12 +18,17 @@ class _FigureViewPageState extends State<FigureViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(context, widget.title),
-      body: Image.asset(
-        'assets/images/header4.png',
-        height: 70,
-        width: double.infinity,
-        fit: BoxFit.fill,
+      body: Container(
+        padding: EdgeInsets.all(15),
+        child: Image.asset(
+          'assets/images/${widget.url}',
+          width: double.infinity,
+          fit: BoxFit.contain,
+        ),
+
       ),
+      bottomSheet: widget.bottomSheet,
+
     );
   }
 }

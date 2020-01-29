@@ -84,8 +84,10 @@ flutter:
     - assets/items/
     - assets/images/
     - assets/images/toc/
+    - assets/images/schemes/
     - assets/lang/
-    - data/menu_opts.json
+    #- data/menu_opts.json
+    #- assets/images/prueba/
 
     # - images/calculators.png
     # - images/chapters.png

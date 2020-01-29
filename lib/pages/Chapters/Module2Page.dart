@@ -1,11 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/PDFButton.dart';
-import 'package:hepapp/widgets/menu_widget.dart';
-import 'package:path_provider/path_provider.dart';
 
 //const String _documentPath = 'assets/HepM1C1.pdf';
 
@@ -16,7 +12,7 @@ class Module2Page extends StatefulWidget {
 
 class _Module2PageState extends State<Module2Page> {
   String assetPDFPath = "";
-
+  final numModules = 3;
   final numChaptersModule2 = 6;
 
   var chapterIndexMod2 = [
@@ -51,40 +47,42 @@ class _Module2PageState extends State<Module2Page> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
 
-      drawer: MenuWidget(),
+        //drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'module_2'),
       body: OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
         },
       ),
-      bottomSheet: _buildBottomSheet(context),
+        bottomSheet: BottomNavigationSheet(1, '/ModulePV', numModules));
 
-    );
+
   }
 
-  Row _buildBottomSheet(BuildContext context) {
+  /*Row _buildBottomSheet(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         IconButton(
           icon: Icon(Icons.arrow_back_ios),
-          color: Color.fromARGB(255, 93, 188, 210),
+          color:            Theme.of(context).primaryColor,
 
-          onPressed: () =>
-              Navigator.pushReplacementNamed(context, '/Module1Chap'),
+
+    onPressed: () =>
+              Navigator.pushReplacementNamed(context, '/ModulePV1'),
         ),
         IconButton(
           icon: Icon(Icons.arrow_forward_ios),
-          color: Color.fromARGB(255, 93, 188, 210),
+          color:           Theme.of(context).primaryColor,
 
-          onPressed: () =>
-              Navigator.pushReplacementNamed(context, '/Module3Chap'),
+
+    onPressed: () =>
+              Navigator.pushReplacementNamed(context, '/ModulePV3'),
         )
 
       ],
     );
-  }
+  }*/
 
   _buildLayout(orientation) {
     final width = MediaQuery
@@ -126,29 +124,43 @@ class _Module2PageState extends State<Module2Page> {
 
 
 /*Devuelve objeto de tipo Future porque es una tarea de larga duración*/
+/*
 Future<File> getFileFromAsset(String asset) async {
   try {
     //print('Asset: $asset');
-    /*Al ser un método asíncrono es necesario poner el await*/
-    /*directamente va a cargar el fichero PDF*/
+    */
+/*Al ser un método asíncrono es necesario poner el await*/ /*
+
+    */
+/*directamente va a cargar el fichero PDF*/ /*
+
     var data = await rootBundle.load(asset);
-    /*Conversión del PDF a bytes, para ello llamamos al buffer*/
+    */
+/*Conversión del PDF a bytes, para ello llamamos al buffer*/ /*
+
     var bytes = data.buffer.asUint8List();
-    /*Obtención del directorio principal de las aplicaciones*/
+    */
+/*Obtención del directorio principal de las aplicaciones*/ /*
+
     var dir = await getApplicationDocumentsDirectory();
-    /*Para mostrar un PDF dentro de la app es necesario crear un fichero,
+    */
+/*Para mostrar un PDF dentro de la app es necesario crear un fichero,
       * al cuál le pasamos la ruta que acabo de obtener.
-      * Este fichero en concreto será parte de la biblioteca de Entrada y salida*/
+      * Este fichero en concreto será parte de la biblioteca de Entrada y salida*/ /*
+
     //Este es el fichero que se lee, hay que pasárselo
     //File file = File("data/user/0/es.uva.tel.hepapp/app_flutter/HepAPP_M1C1.pdf");
     //File file = File(dir.path+'/'+asset);
     File file = File("${dir.path}/HepAPP_M1C1.pdf");
     //print('Dir Path del file ' + dir.path);
-    /*Se añaden los bytes del PDF original al que acabo de crear*/
+    */
+/*Se añaden los bytes del PDF original al que acabo de crear*/ /*
+
     File assetFile = await file.writeAsBytes(bytes);
     return assetFile;
   } catch (e) {
     throw Exception("Error al abrir el PDF CPS");
   }
 }
+*/
 

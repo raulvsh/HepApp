@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
 
   var sectionsInfo = {
     'Chapters': ['chapters', '1_chapters.png', '/Chapters'],
-    'Podcasts': ['podcasts', '2_podcasts.png', '/PodcastsPV'],
+    'Podcasts': ['podcasts', '2_podcasts.png', '/PodcastsPV1'],
     'Cards': ['cards', '3_cards.png', 'https://cards.ucalgary.ca'],
     'Figures': ['figures', '4_figures.png', '/Figures'],
     'Calculators': ['calculators', '5_calculators.png', '/Calculators'],

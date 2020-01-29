@@ -6,6 +6,12 @@ import 'Podcasts2Page.dart';
 import 'Podcasts3Page.dart';
 
 class PodcastsPageView extends StatefulWidget {
+
+  final initialPage;
+
+  PodcastsPageView(this.initialPage);
+
+
   @override
   _PodcastsPageViewState createState() => _PodcastsPageViewState();
 }
@@ -16,6 +22,9 @@ class _PodcastsPageViewState extends State<PodcastsPageView> {
   @override
   void initState() {
     super.initState();
+    controller = PageController(
+      initialPage: widget.initialPage,
+    );
   }
 
   @override
