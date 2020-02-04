@@ -31,22 +31,26 @@ class _SchemesPageViewState extends State<SchemesPageView> {
 
   var schemesInfo = {
     //"Scheme1": ['scheme_1', 'schemes/Scheme 1 Jaundice.png', '/SchemePV1'],
-    "Scheme1": ['scheme_1', 'schemes/Scheme 1 Jaundice.png', '/SchemePV1'],
+    "Scheme1": ['scheme_1', 'schemes/Scheme 1 Jaundice.png', '/SchemesPV1'],
     "Scheme2": [
       'scheme_2',
       'schemes/Scheme 2 AbN Liver Tests.png',
-      '/SchemePV2'
+      '/SchemesPV2'
     ],
-    "Scheme3": ['scheme_3', 'schemes/Scheme 3 Hepatomegaly.png', '/SchemePV3'],
-    "Scheme4": ['scheme_4', 'schemes/Scheme 4 Splenomegaly.png', '/SchemePV4'],
-    "Scheme5": ['scheme_5', 'schemes/Scheme 5 Liver Mass.png', '/SchemePV5'],
-    "Scheme6": ['scheme_6', 'schemes/Scheme 6 UGI Bleed.png', '/SchemePV6'],
+    "Scheme3": ['scheme_3', 'schemes/Scheme 3 Hepatomegaly.png', '/SchemesPV3'],
+    "Scheme4": ['scheme_4', 'schemes/Scheme 4 Splenomegaly.png', '/SchemesPV4'],
+    "Scheme5": ['scheme_5', 'schemes/Scheme 5 Liver Mass.png', '/SchemesPV5'],
+    "Scheme6": ['scheme_6', 'schemes/Scheme 6 UGI Bleed.png', '/SchemesPV6'],
     "Scheme7": [
       'scheme_7',
       'schemes/Scheme 7 Abdominal Distention.png',
-      '/SchemePV7'
+      '/SchemesPV7'
     ],
-    "Scheme8": ['scheme_8', 'schemes/Scheme 8 Decreased LOC.png', '/SchemePV8'],
+    "Scheme8": [
+      'scheme_8',
+      'schemes/Scheme 8 Decreased LOC.png',
+      '/SchemesPV8'
+    ],
   };
 
   @override

@@ -85,6 +85,10 @@ flutter:
     - assets/images/
     - assets/images/toc/
     - assets/images/schemes/
+    - assets/images/maps/
+    - assets/images/pathology/
+    - assets/images/interactive/
+    - assets/images/drawing/
     - assets/lang/
     #- data/menu_opts.json
     #- assets/images/prueba/

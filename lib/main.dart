@@ -48,6 +48,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    /*SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+       statusBarColor: Color.fromARGB(255, 93, 188, 210),
+       statusBarIconBrightness: Brightness.light,
+
+     ));*/
     final title = 'HepApp';
 
 

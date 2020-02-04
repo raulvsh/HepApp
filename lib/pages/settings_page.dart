@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
@@ -106,3 +107,4 @@ class _SettingsPageState extends State<SettingsPage> {
         ));
   }
 }
+*/

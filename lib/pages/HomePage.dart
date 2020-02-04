@@ -59,6 +59,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    /*SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Color.fromARGB(255, 93, 188, 210),
+      statusBarIconBrightness: Brightness.light,
+systemNavigationBarIconBrightness:  Brightness.light,
+    ));*/
+
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 

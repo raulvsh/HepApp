@@ -3,48 +3,34 @@ import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/FigureButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
-import 'SchemesPageView.dart';
+import 'MapsPageView.dart';
 
-class SchemesFigPage extends StatefulWidget {
+class MapsFigPage extends StatefulWidget {
   @override
-  _SchemesFigPageState createState() => _SchemesFigPageState();
+  _MapsFigPageState createState() => _MapsFigPageState();
 }
 
-class _SchemesFigPageState extends State<SchemesFigPage> {
-  final numSchemes = 8;
+class _MapsFigPageState extends State<MapsFigPage> {
+  final numMaps = 7;
 
-  var schemesIndex = [
-    "Scheme1",
-    "Scheme2",
-    "Scheme3",
-    "Scheme4",
-    "Scheme5",
-    "Scheme6",
-    "Scheme7",
-    "Scheme8",
+  var mapsIndex = [
+    "Map1",
+    "Map2",
+    "Map3",
+    "Map4",
+    "Map5",
+    "Map6",
+    "Map7",
   ];
 
-  var schemesInfo = {
-    "Scheme1": ['scheme_1', 'schemes/Scheme 1 Jaundice.png', '/SchemesPV1'],
-    "Scheme2": [
-      'scheme_2',
-      'schemes/Scheme 2 AbN Liver Tests.png',
-      '/SchemesPV2'
-    ],
-    "Scheme3": ['scheme_3', 'schemes/Scheme 3 Hepatomegaly.png', '/SchemesPV3'],
-    "Scheme4": ['scheme_4', 'schemes/Scheme 4 Splenomegaly.png', '/SchemesPV4'],
-    "Scheme5": ['scheme_5', 'schemes/Scheme 5 Liver Mass.png', '/SchemesPV5'],
-    "Scheme6": ['scheme_6', 'schemes/Scheme 6 UGI Bleed.png', '/SchemesPV6'],
-    "Scheme7": [
-      'scheme_7',
-      'schemes/Scheme 7 Abdominal Distention.png',
-      '/SchemesPV7'
-    ],
-    "Scheme8": [
-      'scheme_8',
-      'schemes/Scheme 8 Decreased LOC.png',
-      '/SchemesPV8'
-    ],
+  var mapsInfo = {
+    "Map1": ['map_1', 'maps/Map01_HAV.png', '/MapsPV1'],
+    "Map2": ['map_2', 'maps/Map02_HBV.png', '/MapsPV2'],
+    "Map3": ['map_3', 'maps/Map03_HCV.png', '/MapsPV3'],
+    "Map4": ['map_4', 'maps/Map04_HDV.png', '/MapsPV4'],
+    "Map5": ['map_5', 'maps/Map05_HEV.png', '/MapsPV5'],
+    "Map6": ['map_6', 'maps/Map06_Alcohol.png', '/MapsPV6'],
+    "Map7": ['map_7', 'maps/Map07_Obesity.png', '/MapsPV7'],
   };
 
   @override
@@ -58,7 +44,7 @@ class _SchemesFigPageState extends State<SchemesFigPage> {
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
       drawer: MenuWidget(),
-      appBar: CustomAppBar(context, 'schemes'),
+      appBar: CustomAppBar(context, 'maps'),
       body: OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
@@ -80,7 +66,7 @@ class _SchemesFigPageState extends State<SchemesFigPage> {
         alignment: Alignment.center,
         child: GridView.count(
           padding: orientation == Orientation.portrait
-              ? EdgeInsets.symmetric(vertical: 6 * padding)
+              ? EdgeInsets.symmetric(vertical: 10 * padding)
               : EdgeInsets.symmetric(vertical: 3 * padding),
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
@@ -92,9 +78,9 @@ class _SchemesFigPageState extends State<SchemesFigPage> {
 
   _buildModulesGridView() {
     List<Widget> widgets = [];
-    for (int i = 0; i < numSchemes; i++) {
-      widgets.add(FigureButton(
-          context, schemesInfo[schemesIndex[i]], SchemesPageView(i)));
+    for (int i = 0; i < numMaps; i++) {
+      widgets
+          .add(FigureButton(context, mapsInfo[mapsIndex[i]], MapsPageView(i)));
     }
     return widgets;
   }

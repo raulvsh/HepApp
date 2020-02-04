@@ -94,10 +94,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
     );
   }
 
-  GestureDetector _backIcon(BuildContext context) {
+  _backIcon(BuildContext context) {
     var aux = AppLocalizations.of(context);
 
     return GestureDetector(
+      onTap: () => Navigator.pop(context),
       child: Container(
         //color: Colors.red,
         height: 60,
@@ -114,7 +115,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
           ],
         ),
       ),
-      onTap: () => Navigator.pop(context),
     );
   }
 

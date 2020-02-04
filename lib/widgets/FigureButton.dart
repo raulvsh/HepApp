@@ -17,29 +17,36 @@ class FigureButton extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Expanded(
-
+              flex: 2,
               child: Image.asset(
                 //'assets/images/toc/TOC1.png'
 
                 'assets/images/${type[1]}',
                 height: 100,
                 fit: BoxFit.scaleDown,
+
+                //fit: BoxFit.scaleDown,
                 //alignment: Alignment.topCenter,
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 5,
             ),
-            Container(
-              alignment: Alignment(0, 0.7),
-              padding: EdgeInsets.only(bottom: 0),
-              //alignment: Alignment(0, 0.7),
-              child: Text(
-                aux.tr(type[0]),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color.fromARGB(255, 93, 188, 210),
-                  fontSize: 16,
+            Expanded(
+              flex: 1,
+              child: Container(
+                //alignment: Alignment(0, 0),
+                //padding: EdgeInsets.all(1),
+                //alignment: Alignment(0, 0.7),
+                child: Text(
+                  aux.tr(type[0]),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: TextStyle(
+                    //color: Color.fromARGB(255, 93, 188, 210),
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ),
@@ -47,12 +54,14 @@ class FigureButton extends StatelessWidget {
         ),
         onTap: //() => Navigator.pushNamed(context, type[2]),
             () {
-          print(type[1]);
-          Navigator.push(
+          //print(type[1]);
+          Navigator.pushNamed(context, type[2],
+              arguments: 2); //actualizar arguments según toque
+          /*Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => destWidget), //TOCPageView(0)),
-          );
+          );*/
         },
       ),
     );

@@ -140,6 +140,8 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
       ptsAscites = 3;
     }
 
+    //TODO añadir los valores de los campos a variable DatosCPS
+
     print(ptsBilirubin);
     print(ptsINR);
     print(ptsAlbumin);

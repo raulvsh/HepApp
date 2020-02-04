@@ -9,7 +9,8 @@ import 'package:hepapp/pages/Chapters/ChaptersPage.dart';
 import 'package:hepapp/pages/Chapters/ModulePageView.dart';
 import 'package:hepapp/pages/Figures/DrawingFigPage.dart';
 import 'package:hepapp/pages/Figures/InteractiveFigPage.dart';
-import 'package:hepapp/pages/Figures/MapsFigPage.dart';
+import 'package:hepapp/pages/Figures/Maps/MapsFigPage.dart';
+import 'package:hepapp/pages/Figures/Maps/MapsPageView.dart';
 import 'package:hepapp/pages/Figures/PathologyFig1Page.dart';
 import 'package:hepapp/pages/Figures/Schemes/SchemesFigPage.dart';
 import 'package:hepapp/pages/Figures/Schemes/SchemesPageView.dart';
@@ -19,7 +20,6 @@ import 'package:hepapp/pages/FiguresPage.dart';
 import 'package:hepapp/pages/HomePage.dart';
 import 'package:hepapp/pages/Podcasts/PodcastsPageView.dart';
 import 'package:hepapp/pages/ResourcesPage.dart';
-import 'package:hepapp/pages/settings_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
@@ -70,10 +70,20 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/SchemesPV7': (context) => SchemesPageView(6),
     '/SchemesPV8': (context) => SchemesPageView(7),
 
-
-    //'/SchemesFig': (context) => SchemesFigPage(),
-
     '/MapsFig': (context) => MapsFigPage(),
+    '/MapsPV1': (context) => MapsPageView(0),
+    '/MapsPV2': (context) => MapsPageView(1),
+    '/MapsPV3': (context) => MapsPageView(2),
+    '/MapsPV4': (context) => MapsPageView(3),
+    '/MapsPV5': (context) => MapsPageView(4),
+    '/MapsPV6': (context) => MapsPageView(5),
+    '/MapsPV7': (context) => MapsPageView(6),
+
+
+
+
+
+
     '/PathologyFig': (context) => PathologyFig1Page(),
     '/InteractiveFig': (context) => InteractiveFigPage(),
     '/DrawingFig': (context) => DrawingFigPage(),
@@ -87,6 +97,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
 
     //TODO borrar esta ruta, prueba de API
     //'/detalle': (context) => PeliculaDetalle(),
-    '/settings': (context) => SettingsPage(),
+    //'/settings': (context) => SettingsPage(),
   };
 }
