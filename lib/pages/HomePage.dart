@@ -11,7 +11,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final numHomeCategories = 8;
+  static var homeSections = [
+    ['chapters', '1_chapters.png', '/Chapters'],
+    ['podcasts', '2_podcasts.png', '/PodcastsPV1'],
+    ['cards', '3_cards.png', 'https://cards.ucalgary.ca'],
+    ['figures', '4_figures.png', '/Figures'],
+    ['calculators', '5_calculators.png', '/Calculators'],
+    ['resources', '6_resources.png', '/Resources'],
+    ['pub_med', '7_pubmed.png', 'https://www.ncbi.nlm.nih.gov/pubmed/'],
+    ['information', '8_information.png', 'HepAPP_Introduction.pdf'],
+  ];
+
+
+  var numHomeSections = homeSections.length;
+
+  /*final numHomeCategories = 8;
 
   var sectionsIndex = [
     'Chapters',
@@ -25,35 +39,17 @@ class _HomePageState extends State<HomePage> {
   ];
 
   var sectionsInfo = {
-    'Chapters': ['chapters', '1_chapters.png', '/Chapters'],
-    'Podcasts': ['podcasts', '2_podcasts.png', '/PodcastsPV1'],
-    'Cards': ['cards', '3_cards.png', 'https://cards.ucalgary.ca'],
-    'Figures': ['figures', '4_figures.png', '/Figures'],
-    'Calculators': ['calculators', '5_calculators.png', '/Calculators'],
-    'Resources': ['resources', '6_resources.png', '/Resources'],
-    'PubMed': [
-      'pub_med',
-      '7_pubmed.png',
-      'https://www.ncbi.nlm.nih.gov/pubmed/'
-    ],
-
-    //'PubMed': ['pub_med', '7_pubmed.png', '/PubMed'],
-    'Information': [
-      'information',
-      '8_information.png',
-      'HepAPP_Introduction.pdf'
-    ],
+    'Chapters':   ['chapters', '1_chapters.png', '/Chapters'],
+    'Podcasts':   ['podcasts', '2_podcasts.png', '/PodcastsPV1'],
+    'Cards':      ['cards', '3_cards.png', 'https://cards.ucalgary.ca'],
+    'Figures':    ['figures', '4_figures.png', '/Figures'],
+    'Calculators':['calculators', '5_calculators.png', '/Calculators'],
+    'Resources':  ['resources', '6_resources.png', '/Resources'],
+    'PubMed':     ['pub_med', '7_pubmed.png', 'https://www.ncbi.nlm.nih.gov/pubmed/'],
+    'Information': ['information','8_information.png','HepAPP_Introduction.pdf'],
   };
+*/
 
-
-  /*var pubmed = [
-    //https://www.ncbi.nlm.nih.gov/pubmed/
-    'pub_med', '7_pubmed.png', 'https://www.ncbi.nlm.nih.gov/pubmed/',
-  ];
-
-  var information = [
-    'information', '8_information.png','HepAPP_Introduction.pdf',
-  ];*/
 
 
 
@@ -62,7 +58,7 @@ class _HomePageState extends State<HomePage> {
     /*SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Color.fromARGB(255, 93, 188, 210),
       statusBarIconBrightness: Brightness.light,
-systemNavigationBarIconBrightness:  Brightness.light,
+      systemNavigationBarIconBrightness:  Brightness.light,
     ));*/
 
     return Scaffold(
@@ -112,19 +108,20 @@ systemNavigationBarIconBrightness:  Brightness.light,
 
     List<Widget> widgets = [];
     //Introduzco un botón menos que el número de categorías, ya que el botón de información nos dirigirá directamente al PDF
+    //Guardado para cuando se combinen los botones en un mismo widget
     /*for (int i = 0; i < numHomeCategories - 2; i++) {
       widgets.add(HomeButton(context, sectionTypes[sectionTypesNames[i]]));
     }*/
-    widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[0]]));
-    widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[1]]));
-    widgets.add(WebButton(context, sectionsInfo[sectionsIndex[2]]));
-    widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[3]]));
-    widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[4]]));
-    widgets.add(NavigationButton(context, sectionsInfo[sectionsIndex[5]]));
+    widgets.add(NavigationButton(context, homeSections[0]));
+    widgets.add(NavigationButton(context, homeSections[1]));
+    widgets.add(WebButton(context, homeSections[2]));
+    widgets.add(NavigationButton(context, homeSections[3]));
+    widgets.add(NavigationButton(context, homeSections[4]));
+    widgets.add(NavigationButton(context, homeSections[5]));
 
-    widgets.add(WebButton(context, sectionsInfo[sectionsIndex[6]]));
+    widgets.add(WebButton(context, homeSections[6]));
     widgets.add(
-        PDFButton(context, sectionsInfo[sectionsIndex[7]], 'information'));
+        PDFButton(context, homeSections[7], 'information'));
 
     return widgets;
   }

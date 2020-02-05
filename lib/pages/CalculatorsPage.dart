@@ -10,7 +10,17 @@ class CalculatorsPage extends StatefulWidget {
 }
 
 class _CalculatorsPageState extends State<CalculatorsPage> {
-  final numCalcCategories = 5;
+  static var Calculators = [
+    ['all_algorithms', '5_calculators.png', '/AllCalc'],
+    ['child_pugh_score', '5_calculators.png', '/ChildCalc'],
+    ['meld', '5_calculators.png', '/MELDCalc'],
+    ['okuda_staging_system', '5_calculators.png', '/OkudaCalc'],
+    ['clip_staging_system', '5_calculators.png', '/CLIPCalc'],
+  ];
+
+  var numCalcCategories = Calculators.length;
+
+  /*final numCalcCategories = 5;
   var calculatorIndex = [
     "All",
     "Child",
@@ -19,12 +29,12 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
     "CLIP",
   ];
   var calculatorInfo = {
-    "All": ['all_algorithms', '5_calculators.png', '/AllCalc'],
+    "All":   ['all_algorithms', '5_calculators.png', '/AllCalc'],
     "Child": ['child_pugh_score', '5_calculators.png', '/ChildCalc'],
-    "MELD": ['meld', '5_calculators.png', '/MELDCalc'],
+    "MELD":  ['meld', '5_calculators.png', '/MELDCalc'],
     "Okuda": ['okuda_staging_system', '5_calculators.png', '/OkudaCalc'],
-    "CLIP": ['clip_staging_system', '5_calculators.png', '/CLIPCalc'],
-  };
+    "CLIP":  ['clip_staging_system', '5_calculators.png', '/CLIPCalc'],
+  };*/
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +82,7 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
 
     for (int i = 0; i < numCalcCategories; i++) {
       widgets
-          .add(NavigationButton(context, calculatorInfo[calculatorIndex[i]]));
+          .add(NavigationButton(context, Calculators[i]));
     }
 
     return widgets;

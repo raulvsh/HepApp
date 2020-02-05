@@ -11,9 +11,15 @@ class ChaptersPage extends StatefulWidget {
 
 class _ChaptersPageState extends State<ChaptersPage> {
 
-  final numChapterModules = 3;
+  static var Modules = [
+    ['module_1', '9_modules.png', '/ModulePV1'],
+    ['module_2', '9_modules.png', '/ModulePV2'],
+    ['module_3', '9_modules.png', '/ModulePV3'],
+  ];
 
-  var modulesIndex = [
+  var numModules = Modules.length;
+
+  /*var modulesIndex = [
     "Module1",
     "Module2",
     "Module3",
@@ -23,7 +29,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
     "Module1": ['module_1', '9_modules.png', '/ModulePV1'],
     "Module2": ['module_2', '9_modules.png', '/ModulePV2'],
     "Module3": ['module_3', '9_modules.png', '/ModulePV3'],
-  };
+  };*/
 
   var references = ['references', '9_modules.png', 'HepAPP_References.pdf'];
 
@@ -77,9 +83,9 @@ class _ChaptersPageState extends State<ChaptersPage> {
 
   _buildModulesGridView() {
     List<Widget> widgets = [];
-    for (int i = 0; i < numChapterModules; i++) {
+    for (int i = 0; i < numModules; i++) {
       widgets.add(
-          NavigationButton(context, modulesInfo[modulesIndex[i]]));
+          NavigationButton(context, Modules[i]));
     }
     widgets.add(PDFButton(context, references, 'references'));
     return widgets;

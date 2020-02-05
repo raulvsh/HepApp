@@ -16,6 +16,18 @@ class TOCPageView extends StatefulWidget {
 class _TOCPageViewState extends State<TOCPageView> {
   PageController controller;
 
+  static var tocs = [
+    ['toc_1', 'toc/TOC1.png', '/TOCPV1'],
+    ['toc_2', 'toc/TOC2.png', '/TOCPV2'],
+    ['toc_3', 'toc/TOC3.png', '/TOCPV3'],
+    ['toc_4', 'toc/TOC4.png', '/TOCPV4'],
+  ];
+
+
+  var numTOC = tocs.length;
+
+
+  /*
   var numTableContents = 4;
 
   var tableContentsIndex = [
@@ -29,7 +41,7 @@ class _TOCPageViewState extends State<TOCPageView> {
     "TOC2": ['toc_2', 'toc/TOC2.png', '/TOCPV2'],
     "TOC3": ['toc_3', 'toc/TOC3.png', '/TOCPV3'],
     "TOC4": ['toc_4', 'toc/TOC4.png', '/TOCPV4'],
-  };
+  };*/
 
   @override
   void initState() {
@@ -51,11 +63,11 @@ class _TOCPageViewState extends State<TOCPageView> {
 
   List<Widget> _buildChildren() {
     List<Widget> widgets = [];
-    for (int i = 0; i < numTableContents; i++) {
+    for (int i = 0; i < numTOC; i++) {
       widgets.add(FigureViewPage(
-          title: tableContentsInfo[tableContentsIndex[i]][0],
-          url: tableContentsInfo[tableContentsIndex[i]][1],
-          bottomSheet: BottomNavigationSheet(i, '/TOCPV', numTableContents)));
+          title: tocs[i][0],
+          url: tocs[i][1],
+          bottomSheet: BottomNavigationSheet(i, '/TOCPV', numTOC)));
     }
     return widgets;
   }

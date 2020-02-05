@@ -10,7 +10,18 @@ class FiguresPage extends StatefulWidget {
 }
 
 class _FiguresPageState extends State<FiguresPage> {
-  final numFigCategories = 6;
+  static var Figures = [
+    ['table_contents', '4_figures.png', '/TableFig'],
+    ['schemes', '4_figures.png', '/SchemesFig'],
+    ['maps', '4_figures.png', '/MapsFig'],
+    ['pathology', '4_figures.png', '/PathologyFig'],
+    ['interactive_figures', '4_figures.png', '/InteractiveFig'],
+    ['drawing', '4_figures.png', '/DrawingFig'],
+  ];
+
+  var numFigCategories = Figures.length;
+
+  /*final numFigCategories = 6;
 
   var figuresIndex = [
     "TableOfContents",
@@ -22,14 +33,13 @@ class _FiguresPageState extends State<FiguresPage> {
   ];
 
   var figuresInfo = {
-    "TableOfContents": ['table_contents', '4_figures.png', '/TableFig'],
-    "Schemes": ['schemes', '4_figures.png', '/SchemesFig'],
-    "Maps": ['maps', '4_figures.png', '/MapsFig'],
-    "Pathology": ['pathology', '4_figures.png', '/PathologyFig'],
-    "Interactive": ['interactive_figures', '4_figures.png', '/InteractiveFig'],
-    //"Chapter": ['chapter_figures', '4_figures.png', '/ChapterFig'],
-    "Drawing": ['drawing', '4_figures.png', '/DrawingFig'],
-  };
+    "TableOfContents":  ['table_contents', '4_figures.png', '/TableFig'],
+    "Schemes":          ['schemes', '4_figures.png', '/SchemesFig'],
+    "Maps":             ['maps', '4_figures.png', '/MapsFig'],
+    "Pathology":        ['pathology', '4_figures.png', '/PathologyFig'],
+    "Interactive":      ['interactive_figures', '4_figures.png', '/InteractiveFig'],
+    "Drawing":          ['drawing', '4_figures.png', '/DrawingFig'],
+  };*/
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +86,7 @@ class _FiguresPageState extends State<FiguresPage> {
   _buildFiguresGridView() {
     List<NavigationButton> widgets = [];
     for (int i = 0; i < numFigCategories; i++) {
-      widgets.add(NavigationButton(context, figuresInfo[figuresIndex[i]]));
+      widgets.add(NavigationButton(context, Figures[i]));
     }
     return widgets;
   }

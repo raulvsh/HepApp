@@ -10,9 +10,17 @@ class TOCFigPage extends StatefulWidget {
 }
 
 class _TOCFigPageState extends State<TOCFigPage> {
-  final numTableContents = 4;
+  static var tocs = [
+    ['toc_1', 'toc/TOC1.png', '/TOCPV1'],
+    ['toc_2', 'toc/TOC2.png', '/TOCPV2'],
+    ['toc_3', 'toc/TOC3.png', '/TOCPV3'],
+    ['toc_4', 'toc/TOC4.png', '/TOCPV4'],
+  ];
 
-  var tableContentsIndex = [
+
+  var numTOC = tocs.length;
+
+  /*var tableContentsIndex = [
     "TOC1",
     "TOC2",
     "TOC3",
@@ -23,7 +31,7 @@ class _TOCFigPageState extends State<TOCFigPage> {
     "TOC2": ['toc_2', 'toc/TOC2.png', '/TOCPV2'],
     "TOC3": ['toc_3', 'toc/TOC3.png', '/TOCPV3'],
     "TOC4": ['toc_4', 'toc/TOC4.png', '/TOCPV4'],
-  };
+  };*/
 
 
   @override
@@ -71,9 +79,9 @@ class _TOCFigPageState extends State<TOCFigPage> {
 
   _buildModulesGridView() {
     List<Widget> widgets = [];
-    for (int i = 0; i < numTableContents; i++) {
+    for (int i = 0; i < numTOC; i++) {
       widgets.add(FigureButton(
-          context, tableContentsInfo[tableContentsIndex[i]], TOCPageView(i)));
+          context, tocs[i], TOCPageView(i)));
     }
     return widgets;
   }

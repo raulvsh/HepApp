@@ -9,8 +9,35 @@ class ResourcesPage extends StatefulWidget {
 }
 
 class _ResourcesPageState extends State<ResourcesPage> {
-  //final peliculasProvider = PeliculasProvider();
-  final numResources = 7;
+  static var resources = [
+    ['casl', '6_resources.png', 'https://www.hepatology.ca/?page_id=941'],
+    [
+      'aasld',
+      '6_resources.png',
+      'https://www.aasld.org/publications/practice-guidelines-0'
+    ],
+    [
+      'easl',
+      '6_resources.png',
+      'https://www.easl.eu/research/our-contributions/clinical-practice-guidelines '
+    ],
+    [
+      'acg',
+      '6_resources.png',
+      'https://gi.org/clinical-guidelines/clinical-guidelines-sortable-list/ '
+    ],
+    ['aga', '6_resources.png', 'https://www.gastro.org/guidelines '],
+    [
+      'ilca',
+      '6_resources.png',
+      'https://ilca-online.org/guidelines-for-the-diagnosis-and-management-of-intrahepatic-cholangiocarcinoma/'
+    ],
+    ['lindsay', '6_resources.png', 'http://lindsay.ucalgary.ca/'],
+  ];
+
+  var numResources = resources.length;
+
+  /*final numResources = 7;
 
   var resourcesTypesNames = [
     "CASL",
@@ -52,7 +79,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
     "Lindsay": ['lindsay', '6_resources.png', 'http://lindsay.ucalgary.ca/'],
   };
 
-  var resourcesTitles = [''];
+  var resourcesTitles = [''];*/
 
   @override
   void initState() {
@@ -107,10 +134,12 @@ class _ResourcesPageState extends State<ResourcesPage> {
   _buildChaptersGridView() {
     List<WebButton> widgets = [];
     for (int i = 0; i < numResources; i++) {
-      widgets.add(WebButton(
-        context,
-        resourcesTypes[resourcesTypesNames[i]],
-      ));
+      widgets.add(
+        WebButton(
+          context,
+          resources[i],
+        ),
+      );
     }
     return widgets;
   }

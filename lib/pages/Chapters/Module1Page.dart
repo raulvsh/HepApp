@@ -13,9 +13,18 @@ class Module1Page extends StatefulWidget {
 class _Module1PageState extends State<Module1Page> {
   String assetPDFPath = "";
   final numModules = 3;
-  final numChaptersModule1 = 3;
 
-  var chapterIndexMod1 = [
+  static var ChaptersMod1 = [
+
+    ['chapter_1', '1_chapters.png', 'HepAPP_M1C1.pdf'],
+    ['chapter_2', '1_chapters.png', 'HepAPP_M1C2.pdf'],
+    ['chapter_3', '1_chapters.png', 'HepAPP_M1C3.pdf'],
+
+  ];
+
+  var numChaptersModule1 = ChaptersMod1.length;
+
+  /*var chapterIndexMod1 = [
     "Chapter1",
     "Chapter2",
     "Chapter3",
@@ -25,7 +34,7 @@ class _Module1PageState extends State<Module1Page> {
     "Chapter1": ['chapter_1', '1_chapters.png', 'HepAPP_M1C1.pdf'],
     "Chapter2": ['chapter_2', '1_chapters.png', 'HepAPP_M1C2.pdf'],
     "Chapter3": ['chapter_3', '1_chapters.png', 'HepAPP_M1C3.pdf'],
-  };
+  };*/
 
   @override
   void initState() {
@@ -103,36 +112,9 @@ class _Module1PageState extends State<Module1Page> {
   _buildChaptersGridView() {
     List<PDFButton> widgets = [];
     for (int i = 0; i < numChaptersModule1; i++) {
-      widgets.add(PDFButton(context, chapterInfoMod1[chapterIndexMod1[i]],
+      widgets.add(PDFButton(context, ChaptersMod1[i],
           'module_1_chapter_${i + 1}'));
     }
     return widgets;
   }
 }
-
-/*Devuelve objeto de tipo Future porque es una tarea de larga duración*/
-/*Future<File> getFileFromAsset(String asset) async {
-  try {
-    //print('Asset: $asset');
-    */ /*Al ser un método asíncrono es necesario poner el await*/ /*
-    */ /*directamente va a cargar el fichero PDF*/ /*
-    var data = await rootBundle.load(asset);
-    */ /*Conversión del PDF a bytes, para ello llamamos al buffer*/ /*
-    var bytes = data.buffer.asUint8List();
-    */ /*Obtención del directorio principal de las aplicaciones*/ /*
-    var dir = await getApplicationDocumentsDirectory();
-    */ /*Para mostrar un PDF dentro de la app es necesario crear un fichero,
-      * al cuál le pasamos la ruta que acabo de obtener.
-      * Este fichero en concreto será parte de la biblioteca de Entrada y salida*/ /*
-    //Este es el fichero que se lee, hay que pasárselo
-    //File file = File("data/user/0/es.uva.tel.hepapp/app_flutter/HepAPP_M1C1.pdf");
-    //File file = File(dir.path+'/'+asset);
-    File file = File("${dir.path}/HepAPP_M1C1.pdf");
-    //print('Dir Path del file ' + dir.path);
-    */ /*Se añaden los bytes del PDF original al que acabo de crear*/ /*
-    File assetFile = await file.writeAsBytes(bytes);
-    return assetFile;
-  } catch (e) {
-    throw Exception("Error al abrir el PDF CPS");
-  }
-}*/

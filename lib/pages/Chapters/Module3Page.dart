@@ -13,9 +13,20 @@ class Module3Page extends StatefulWidget {
 class _Module3PageState extends State<Module3Page> {
   String assetPDFPath = "";
   final numModules = 3;
-  final numChaptersModule3 = 6;
 
-  var chapterIndexMod3 = [
+  static var ChaptersMod3 = [
+    ['chapter_10', '1_chapters.png', 'HepAPP_M3C10.pdf'],
+    ['chapter_11', '1_chapters.png', 'HepAPP_M3C11.pdf'],
+    ['chapter_12', '1_chapters.png', 'HepAPP_M3C12.pdf'],
+    ['chapter_13', '1_chapters.png', 'HepAPP_M3C13.pdf'],
+    ['chapter_14', '1_chapters.png', 'HepAPP_M3C14.pdf'],
+    ['chapter_15', '1_chapters.png', 'HepAPP_M3C15.pdf'],
+  ];
+
+  var numChaptersModule3 = ChaptersMod3.length;
+
+
+  /* var chapterIndexMod3 = [
     "Chapter10",
     "Chapter11",
     "Chapter12",
@@ -31,7 +42,7 @@ class _Module3PageState extends State<Module3Page> {
     "Chapter13": ['chapter_13', '1_chapters.png', 'HepAPP_M3C13.pdf'],
     "Chapter14": ['chapter_14', '1_chapters.png', 'HepAPP_M3C14.pdf'],
     "Chapter15": ['chapter_15', '1_chapters.png', 'HepAPP_M3C15.pdf'],
-  };
+  };*/
 
   @override
   void initState() {
@@ -54,23 +65,6 @@ class _Module3PageState extends State<Module3Page> {
 
 
   }
-
-/*  Row _buildBottomSheet(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () =>
-              Navigator.pushReplacementNamed(context, '/ModulePV2'),
-          color:           Theme.of(context).primaryColor,
-
-    ),
-
-
-      ],
-    );
-  }*/
 
   _buildLayout(orientation) {
     final width = MediaQuery
@@ -101,42 +95,18 @@ class _Module3PageState extends State<Module3Page> {
   _buildChaptersGridView() {
     List<PDFButton> widgets = [];
     for (int i = 0; i < numChaptersModule3; i++) {
-      widgets.add(PDFButton(context, chapterInfoMod3[chapterIndexMod3[i]],
+      widgets.add(PDFButton(context, ChaptersMod3[i],
           'module_3_chapter_${i + 10}'));
     }
     return widgets;
   }
 }
 
-/*Devuelve objeto de tipo Future porque es una tarea de larga duración*/
-/*Future<File> getFileFromAsset(String asset) async {
-  try {
-    print('Asset: $asset');
-    */ /*Al ser un método asíncrono es necesario poner el await*/ /*
-    */ /*directamente va a cargar el fichero PDF*/ /*
-    var data = await rootBundle.load(asset);
-    */ /*Conversión del PDF a bytes, para ello llamamos al buffer*/ /*
-    var bytes = data.buffer.asUint8List();
-    */ /*Obtención del directorio principal de las aplicaciones*/ /*
-    var dir = await getApplicationDocumentsDirectory();
-    */ /*Para mostrar un PDF dentro de la app es necesario crear un fichero,
-      * al cuál le pasamos la ruta que acabo de obtener.
-      * Este fichero en concreto será parte de la biblioteca de Entrada y salida*/ /*
-    //Este es el fichero que se lee, hay que pasárselo
-    //File file = File("data/user/0/es.uva.tel.hepapp/app_flutter/HepAPP_M1C1.pdf");
-    //File file = File(dir.path+'/'+asset);
-    File file = File("${dir.path}/HepAPP_M1C1.pdf");
-    //print('Dir Path del file ' + dir.path);
-    */ /*Se añaden los bytes del PDF original al que acabo de crear*/ /*
-    File assetFile = await file.writeAsBytes(bytes);
-    return assetFile;
-  } catch (e) {
-    print(e);
-    throw Exception("Error al abrir el PDF CPS");
-  }
-}*/
+/*
 
-/*Clase Boton creada para minimizar código*/
+*/
+/*Clase Boton creada para minimizar código*/ /*
+
 class Boton extends StatelessWidget {
   final Widget child;
   final String text;
@@ -167,3 +137,4 @@ class Boton extends StatelessWidget {
     );
   }
 }
+*/

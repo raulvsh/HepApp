@@ -19,9 +19,7 @@ En esta clase se define el título de la aplicación, el tema
 y las rutas a las distintos apartados.
  */
 class MyApp extends StatelessWidget {
-
   final prefs = new PreferenciasUsuario();
-
 
   final _supoortedLocales = [
     Locale('en', 'US'),
@@ -34,8 +32,8 @@ class MyApp extends StatelessWidget {
     GlobalWidgetsLocalizations.delegate, //Localización de texto LTR/RTL
   ];
 
-   Locale _localeResolutionCallback (locale, supportedLocales) {
-     //Compruebo si el idioma del dispositivo está soportado
+  Locale _localeResolutionCallback(locale, supportedLocales) {
+    //Compruebo si el idioma del dispositivo está soportado
     for (var supportedLocale in supportedLocales) {
       if (supportedLocale.languageCode == locale.languageCode &&
           supportedLocale.countryCode == locale.countryCode) {
@@ -44,18 +42,16 @@ class MyApp extends StatelessWidget {
     }
     //Si no está soportado, devuelvo el primer idioma (inglés)
     return supportedLocales.first;
-   }
+  }
 
   @override
   Widget build(BuildContext context) {
-
     /*SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
        statusBarColor: Color.fromARGB(255, 93, 188, 210),
        statusBarIconBrightness: Brightness.light,
 
      ));*/
     final title = 'HepApp';
-
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -77,19 +73,13 @@ class MyApp extends StatelessWidget {
             bodyColor: Color.fromARGB(255, 93, 188, 210),
             //Color por defecto de all el texto
             displayColor: Colors.red,
-          )
-
-      ),
+          )),
       supportedLocales: _supoortedLocales,
       localizationsDelegates: _localizationDelegates,
       localeResolutionCallback: _localeResolutionCallback,
       initialRoute: '/',
       //prefs.ultimaPagina,
-      routes: getApplicationRoutes(
-      )
-
-      ,
+      routes: getApplicationRoutes(),
     );
   }
 }
-

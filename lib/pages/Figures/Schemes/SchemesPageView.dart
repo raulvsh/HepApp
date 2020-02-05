@@ -16,7 +16,21 @@ class SchemesPageView extends StatefulWidget {
 class _SchemesPageViewState extends State<SchemesPageView> {
   PageController controller;
 
-  final numSchemes = 8;
+  static var Schemes = [
+    ['scheme_1', 'schemes/Scheme 1 Jaundice.png', '/SchemesPV1'],
+    ['scheme_2', 'schemes/Scheme 2 AbN Liver Tests.png', '/SchemesPV2'],
+    ['scheme_3', 'schemes/Scheme 3 Hepatomegaly.png', '/SchemesPV3'],
+    ['scheme_4', 'schemes/Scheme 4 Splenomegaly.png', '/SchemesPV4'],
+    ['scheme_5', 'schemes/Scheme 5 Liver Mass.png', '/SchemesPV5'],
+    ['scheme_6', 'schemes/Scheme 6 UGI Bleed.png', '/SchemesPV6'],
+    ['scheme_7', 'schemes/Scheme 7 Abdominal Distention.png', '/SchemesPV7'],
+    ['scheme_8', 'schemes/Scheme 8 Decreased LOC.png', '/SchemesPV8'],
+  ];
+
+
+  var numSchemes = Schemes.length;
+
+  /*final numSchemes = 8;
 
   var schemesIndex = [
     "Scheme1",
@@ -51,7 +65,7 @@ class _SchemesPageViewState extends State<SchemesPageView> {
       'schemes/Scheme 8 Decreased LOC.png',
       '/SchemesPV8'
     ],
-  };
+  };*/
 
   @override
   void initState() {
@@ -75,8 +89,8 @@ class _SchemesPageViewState extends State<SchemesPageView> {
     List<Widget> widgets = [];
     for (int i = 0; i < numSchemes; i++) {
       widgets.add(FigureViewPage(
-          title: schemesInfo[schemesIndex[i]][0],
-          url: schemesInfo[schemesIndex[i]][1],
+          title: Schemes[i][0],
+          url: Schemes[i][1],
           //bottomSheet: _buildBottomSheet(i,'/SchemesPV')));
           bottomSheet: BottomNavigationSheet(i, '/SchemesPV', numSchemes)));
     }

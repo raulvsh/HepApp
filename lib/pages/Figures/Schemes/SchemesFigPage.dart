@@ -11,9 +11,21 @@ class SchemesFigPage extends StatefulWidget {
 }
 
 class _SchemesFigPageState extends State<SchemesFigPage> {
-  final numSchemes = 8;
+  static var Schemes = [
+    ['scheme_1', 'schemes/Scheme 1 Jaundice.png', '/SchemesPV1'],
+    ['scheme_2', 'schemes/Scheme 2 AbN Liver Tests.png', '/SchemesPV2'],
+    ['scheme_3', 'schemes/Scheme 3 Hepatomegaly.png', '/SchemesPV3'],
+    ['scheme_4', 'schemes/Scheme 4 Splenomegaly.png', '/SchemesPV4'],
+    ['scheme_5', 'schemes/Scheme 5 Liver Mass.png', '/SchemesPV5'],
+    ['scheme_6', 'schemes/Scheme 6 UGI Bleed.png', '/SchemesPV6'],
+    ['scheme_7', 'schemes/Scheme 7 Abdominal Distention.png', '/SchemesPV7'],
+    ['scheme_8', 'schemes/Scheme 8 Decreased LOC.png', '/SchemesPV8'],
+  ];
 
-  var schemesIndex = [
+
+  var numSchemes = Schemes.length;
+
+  /*var schemesIndex = [
     "Scheme1",
     "Scheme2",
     "Scheme3",
@@ -26,27 +38,15 @@ class _SchemesFigPageState extends State<SchemesFigPage> {
 
   var schemesInfo = {
     "Scheme1": ['scheme_1', 'schemes/Scheme 1 Jaundice.png', '/SchemesPV1'],
-    "Scheme2": [
-      'scheme_2',
-      'schemes/Scheme 2 AbN Liver Tests.png',
-      '/SchemesPV2'
-    ],
+    "Scheme2": ['scheme_2', 'schemes/Scheme 2 AbN Liver Tests.png', '/SchemesPV2'],
     "Scheme3": ['scheme_3', 'schemes/Scheme 3 Hepatomegaly.png', '/SchemesPV3'],
     "Scheme4": ['scheme_4', 'schemes/Scheme 4 Splenomegaly.png', '/SchemesPV4'],
     "Scheme5": ['scheme_5', 'schemes/Scheme 5 Liver Mass.png', '/SchemesPV5'],
     "Scheme6": ['scheme_6', 'schemes/Scheme 6 UGI Bleed.png', '/SchemesPV6'],
-    "Scheme7": [
-      'scheme_7',
-      'schemes/Scheme 7 Abdominal Distention.png',
-      '/SchemesPV7'
-    ],
-    "Scheme8": [
-      'scheme_8',
-      'schemes/Scheme 8 Decreased LOC.png',
-      '/SchemesPV8'
-    ],
+    "Scheme7": ['scheme_7', 'schemes/Scheme 7 Abdominal Distention.png', '/SchemesPV7'],
+    "Scheme8": ['scheme_8', 'schemes/Scheme 8 Decreased LOC.png', '/SchemesPV8'],
   };
-
+*/
   @override
   void initState() {
     super.initState();
@@ -94,7 +94,7 @@ class _SchemesFigPageState extends State<SchemesFigPage> {
     List<Widget> widgets = [];
     for (int i = 0; i < numSchemes; i++) {
       widgets.add(FigureButton(
-          context, schemesInfo[schemesIndex[i]], SchemesPageView(i)));
+          context, Schemes[i], SchemesPageView(i)));
     }
     return widgets;
   }

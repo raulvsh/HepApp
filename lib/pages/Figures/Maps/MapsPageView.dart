@@ -15,8 +15,8 @@ class MapsPageView extends StatefulWidget {
 
 class _MapsPageViewState extends State<MapsPageView> {
   PageController controller;
-  final numMaps = 7;
 
+/*
   var mapsIndex = [
     "Map1",
     "Map2",
@@ -27,16 +27,6 @@ class _MapsPageViewState extends State<MapsPageView> {
     "Map7",
   ];
 
-  //TODO MANERA BUENA DE HACERLO, QUITO UNA VARIABLE INDEX DE TODOS LADOS
-  var listMaps = [
-    ['map_1', 'maps/Map01_HAV.png', '/MapsPV1'],
-    ['map_2', 'maps/Map02_HBV.png', '/MapsPV2'],
-    ['map_3', 'maps/Map03_HCV.png', '/MapsPV3'],
-    ['map_4', 'maps/Map04_HDV.png', '/MapsPV4'],
-    ['map_5', 'maps/Map05_HEV.png', '/MapsPV5'],
-    ['map_6', 'maps/Map06_Alcohol.png', '/MapsPV6'],
-    ['map_7', 'maps/Map07_Obesity.png', '/MapsPV7'],
-  ];
   var mapsInfo = {
     "Map1": ['map_1', 'maps/Map01_HAV.png', '/MapsPV1'],
     "Map2": ['map_2', 'maps/Map02_HBV.png', '/MapsPV2'],
@@ -46,6 +36,20 @@ class _MapsPageViewState extends State<MapsPageView> {
     "Map6": ['map_6', 'maps/Map06_Alcohol.png', '/MapsPV6'],
     "Map7": ['map_7', 'maps/Map07_Obesity.png', '/MapsPV7'],
   };
+*/
+
+  static var Maps = [
+    ['map_1', 'maps/Map01_HAV.png', '/MapsPV1'],
+    ['map_2', 'maps/Map02_HBV.png', '/MapsPV2'],
+    ['map_3', 'maps/Map03_HCV.png', '/MapsPV3'],
+    ['map_4', 'maps/Map04_HDV.png', '/MapsPV4'],
+    ['map_5', 'maps/Map05_HEV.png', '/MapsPV5'],
+    ['map_6', 'maps/Map06_Alcohol.png', '/MapsPV6'],
+    ['map_7', 'maps/Map07_Obesity.png', '/MapsPV7'],
+  ];
+
+  var numMaps = Maps.length;
+
 
   @override
   void initState() {
@@ -70,8 +74,8 @@ class _MapsPageViewState extends State<MapsPageView> {
     List<Widget> widgets = [];
     for (int i = 0; i < numMaps; i++) {
       widgets.add(FigureViewPage(
-          title: listMaps[i][0],
-          url: listMaps[i][1],
+          title: Maps[i][0],
+          url: Maps[i][1],
           //bottomSheet: _buildBottomSheet(i,'/SchemesPV')));
           bottomSheet: BottomNavigationSheet(i, '/MapsPV', numMaps)));
     }
