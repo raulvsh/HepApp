@@ -4,16 +4,16 @@ import 'package:hepapp/widgets/menu_widget.dart';
 
 import '../FigureViewPage.dart';
 
-class MapsPageView extends StatefulWidget {
-  var initialPage;
+class MapsDetailPage extends StatefulWidget {
+  final initialPage;
 
-  MapsPageView(this.initialPage);
+  MapsDetailPage(this.initialPage);
 
   @override
-  _MapsPageViewState createState() => _MapsPageViewState();
+  _MapsDetailPageState createState() => _MapsDetailPageState();
 }
 
-class _MapsPageViewState extends State<MapsPageView> {
+class _MapsDetailPageState extends State<MapsDetailPage> {
   PageController controller;
 
 /*

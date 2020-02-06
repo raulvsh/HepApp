@@ -9,11 +9,11 @@ import 'package:hepapp/pages/Chapters/ChaptersPage.dart';
 import 'package:hepapp/pages/Chapters/ModulePageView.dart';
 import 'package:hepapp/pages/Figures/DrawingFigPage.dart';
 import 'package:hepapp/pages/Figures/InteractiveFigPage.dart';
-import 'package:hepapp/pages/Figures/Maps/MapsFigPage.dart';
-import 'package:hepapp/pages/Figures/Maps/MapsPageView.dart';
+import 'package:hepapp/pages/Figures/Maps/MapsDetailPage.dart';
+import 'package:hepapp/pages/Figures/Maps/MapsPage.dart';
 import 'package:hepapp/pages/Figures/PathologyFig1Page.dart';
-import 'package:hepapp/pages/Figures/Schemes/SchemesFigPage.dart';
-import 'package:hepapp/pages/Figures/Schemes/SchemesPageView.dart';
+import 'package:hepapp/pages/Figures/Schemes/SchemesDetailPage.dart';
+import 'package:hepapp/pages/Figures/Schemes/SchemesPage.dart';
 import 'package:hepapp/pages/Figures/TOC/TOCFigPage.dart';
 import 'package:hepapp/pages/Figures/TOC/TOCPageView.dart';
 import 'package:hepapp/pages/FiguresPage.dart';
@@ -60,24 +60,24 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/TOCPV3': (context) => TOCPageView(2),
     '/TOCPV4': (context) => TOCPageView(3),
 
-    '/SchemesFig': (context) => SchemesFigPage(),
-    '/SchemesPV1': (context) => SchemesPageView(0),
-    '/SchemesPV2': (context) => SchemesPageView(1),
-    '/SchemesPV3': (context) => SchemesPageView(2),
-    '/SchemesPV4': (context) => SchemesPageView(3),
-    '/SchemesPV5': (context) => SchemesPageView(4),
-    '/SchemesPV6': (context) => SchemesPageView(5),
-    '/SchemesPV7': (context) => SchemesPageView(6),
-    '/SchemesPV8': (context) => SchemesPageView(7),
+    '/SchemesFig': (context) => SchemesPage(),
+    '/SchemesPV1': (context) => SchemesDetailPage(0),
+    '/SchemesPV2': (context) => SchemesDetailPage(1),
+    '/SchemesPV3': (context) => SchemesDetailPage(2),
+    '/SchemesPV4': (context) => SchemesDetailPage(3),
+    '/SchemesPV5': (context) => SchemesDetailPage(4),
+    '/SchemesPV6': (context) => SchemesDetailPage(5),
+    '/SchemesPV7': (context) => SchemesDetailPage(6),
+    '/SchemesPV8': (context) => SchemesDetailPage(7),
 
-    '/MapsFig': (context) => MapsFigPage(),
-    '/MapsPV1': (context) => MapsPageView(0),
-    '/MapsPV2': (context) => MapsPageView(1),
-    '/MapsPV3': (context) => MapsPageView(2),
-    '/MapsPV4': (context) => MapsPageView(3),
-    '/MapsPV5': (context) => MapsPageView(4),
-    '/MapsPV6': (context) => MapsPageView(5),
-    '/MapsPV7': (context) => MapsPageView(6),
+    '/MapsFig': (context) => MapsPage(),
+    '/MapsPV1': (context) => MapsDetailPage(0),
+    '/MapsPV2': (context) => MapsDetailPage(1),
+    '/MapsPV3': (context) => MapsDetailPage(2),
+    '/MapsPV4': (context) => MapsDetailPage(3),
+    '/MapsPV5': (context) => MapsDetailPage(4),
+    '/MapsPV6': (context) => MapsDetailPage(5),
+    '/MapsPV7': (context) => MapsDetailPage(6),
 
 
 

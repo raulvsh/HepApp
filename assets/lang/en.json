@@ -91,6 +91,16 @@
   "map_5": "Map 5 - HEV",
   "map_6": "Map 6 - Alcohol",
   "map_7": "Map 7 - Obesity",
+  "pathology_1": "Normal histology",
+  "pathology_2": "Cirrhosis",
+  "pathology_3": "PBC",
+  "pathology_4": "PSC",
+  "pathology_5": "Cholestasis",
+  "pathology_6": "Granuloma",
+  "pathology_7": "Hemochromatosis",
+  "pathology_8": "A1AT def",
+  "pathology_9": "Autoimmune Hepatitis",
+
 
 
   "casl": "CASL Guidelines",
@@ -105,8 +115,8 @@
   "table_contents": "Table of Contents",
   "maps": "Maps",
   "pathology": "Pathology",
-  "pathology_1": "Pathology 1",
-  "pathology_2": "Pathology 2",
+  "pathology_section_1": "Pathology 1",
+  "pathology_section_2": "Pathology 2",
 
   "interactive_figures": "Interactive Figures",
   "chapter_figures": "Chapter Figures",

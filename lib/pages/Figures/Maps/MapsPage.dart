@@ -3,25 +3,23 @@ import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/FigureButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
-import 'MapsPageView.dart';
-
-class MapsFigPage extends StatefulWidget {
+class MapsPage extends StatefulWidget {
   @override
-  _MapsFigPageState createState() => _MapsFigPageState();
+  _MapsPageState createState() => _MapsPageState();
 }
 
-class _MapsFigPageState extends State<MapsFigPage> {
-  static var Maps = [
-    ['map_1', 'maps/Map01_HAV.png', '/MapsPV1'],
-    ['map_2', 'maps/Map02_HBV.png', '/MapsPV2'],
-    ['map_3', 'maps/Map03_HCV.png', '/MapsPV3'],
-    ['map_4', 'maps/Map04_HDV.png', '/MapsPV4'],
-    ['map_5', 'maps/Map05_HEV.png', '/MapsPV5'],
-    ['map_6', 'maps/Map06_Alcohol.png', '/MapsPV6'],
-    ['map_7', 'maps/Map07_Obesity.png', '/MapsPV7'],
+class _MapsPageState extends State<MapsPage> {
+  static var maps = [
+    ['map_1', 'maps/Map01_HAV.png', '/MapsPV'],
+    ['map_2', 'maps/Map02_HBV.png', '/MapsPV'],
+    ['map_3', 'maps/Map03_HCV.png', '/MapsPV'],
+    ['map_4', 'maps/Map04_HDV.png', '/MapsPV'],
+    ['map_5', 'maps/Map05_HEV.png', '/MapsPV'],
+    ['map_6', 'maps/Map06_Alcohol.png', '/MapsPV'],
+    ['map_7', 'maps/Map07_Obesity.png', '/MapsPV'],
   ];
 
-  var numMaps = Maps.length;
+  var numMaps = maps.length;
 
   /*final numMaps = 7;
 
@@ -92,7 +90,7 @@ class _MapsFigPageState extends State<MapsFigPage> {
     List<Widget> widgets = [];
     for (int i = 0; i < numMaps; i++) {
       widgets
-          .add(FigureButton(context, Maps[i], MapsPageView(i)));
+          .add(FigureButton(context, maps[i], i)); //, MapsPageView(i)));
     }
     return widgets;
   }

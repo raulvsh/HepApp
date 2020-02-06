@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   static var homeSections = [
     ['chapters', '1_chapters.png', '/Chapters'],
-    ['podcasts', '2_podcasts.png', '/PodcastsPV1'],
+    ['podcasts', '2_podcasts.png', '/PodcastsPV'],
     ['cards', '3_cards.png', 'https://cards.ucalgary.ca'],
     ['figures', '4_figures.png', '/Figures'],
     ['calculators', '5_calculators.png', '/Calculators'],
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
       widgets.add(HomeButton(context, sectionTypes[sectionTypesNames[i]]));
     }*/
     widgets.add(NavigationButton(context, homeSections[0]));
-    widgets.add(NavigationButton(context, homeSections[1]));
+    widgets.add(NavigationButton(context, homeSections[1], 0));
     widgets.add(WebButton(context, homeSections[2]));
     widgets.add(NavigationButton(context, homeSections[3]));
     widgets.add(NavigationButton(context, homeSections[4]));

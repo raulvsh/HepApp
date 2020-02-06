@@ -4,9 +4,11 @@ import 'package:hepapp/lang/app_localizations.dart';
 class FigureButton extends StatelessWidget {
   final BuildContext context;
   final List<String> type;
-  final Widget destWidget;
+  final int page;
 
-  FigureButton(this.context, this.type, this.destWidget);
+  //final Widget destWidget;
+
+  FigureButton(this.context, this.type, [this.page]); //, this.destWidget);
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +57,7 @@ class FigureButton extends StatelessWidget {
         onTap: //() => Navigator.pushNamed(context, type[2]),
             () {
           //print(type[1]);
-          Navigator.pushNamed(context, type[2],
-              arguments: 2); //actualizar arguments según toque
+          Navigator.pushNamed(context, type[2], arguments: page);
           /*Navigator.push(
             context,
             MaterialPageRoute(

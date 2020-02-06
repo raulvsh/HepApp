@@ -3,36 +3,25 @@ import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/FigureButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
-class TOCFigPage extends StatefulWidget {
+class SchemesPage extends StatefulWidget {
   @override
-  _TOCFigPageState createState() => _TOCFigPageState();
+  _SchemesPageState createState() => _SchemesPageState();
 }
 
-class _TOCFigPageState extends State<TOCFigPage> {
-  static var tocs = [
-    ['toc_1', 'toc/TOC1.png', '/TOCPV'],
-    ['toc_2', 'toc/TOC2.png', '/TOCPV'],
-    ['toc_3', 'toc/TOC3.png', '/TOCPV'],
-    ['toc_4', 'toc/TOC4.png', '/TOCPV'],
+class _SchemesPageState extends State<SchemesPage> {
+  static var Schemes = [
+    ['scheme_1', 'schemes/Scheme 1 Jaundice.png', '/SchemesPV'],
+    ['scheme_2', 'schemes/Scheme 2 AbN Liver Tests.png', '/SchemesPV'],
+    ['scheme_3', 'schemes/Scheme 3 Hepatomegaly.png', '/SchemesPV'],
+    ['scheme_4', 'schemes/Scheme 4 Splenomegaly.png', '/SchemesPV'],
+    ['scheme_5', 'schemes/Scheme 5 Liver Mass.png', '/SchemesPV'],
+    ['scheme_6', 'schemes/Scheme 6 UGI Bleed.png', '/SchemesPV'],
+    ['scheme_7', 'schemes/Scheme 7 Abdominal Distention.png', '/SchemesPV'],
+    ['scheme_8', 'schemes/Scheme 8 Decreased LOC.png', '/SchemesPV'],
   ];
 
 
-  var numTOC = tocs.length;
-
-
-  /*var tableContentsIndex = [
-    "TOC1",
-    "TOC2",
-    "TOC3",
-    "TOC4",
-  ];
-  var tableContentsInfo = {
-    "TOC1": ['toc_1', 'toc/TOC1.png', '/TOCPV1'],
-    "TOC2": ['toc_2', 'toc/TOC2.png', '/TOCPV2'],
-    "TOC3": ['toc_3', 'toc/TOC3.png', '/TOCPV3'],
-    "TOC4": ['toc_4', 'toc/TOC4.png', '/TOCPV4'],
-  };*/
-
+  var numSchemes = Schemes.length;
 
   @override
   void initState() {
@@ -45,7 +34,7 @@ class _TOCFigPageState extends State<TOCFigPage> {
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
       drawer: MenuWidget(),
-      appBar: CustomAppBar(context, 'table_contents'),
+      appBar: CustomAppBar(context, 'schemes'),
       body: OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
@@ -67,8 +56,8 @@ class _TOCFigPageState extends State<TOCFigPage> {
         alignment: Alignment.center,
         child: GridView.count(
           padding: orientation == Orientation.portrait
-              ? EdgeInsets.symmetric(vertical: 20 * padding)
-              : EdgeInsets.symmetric(vertical: 4 * padding),
+              ? EdgeInsets.symmetric(vertical: 6 * padding)
+              : EdgeInsets.symmetric(vertical: 3 * padding),
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
           children: _buildModulesGridView(),
@@ -79,9 +68,9 @@ class _TOCFigPageState extends State<TOCFigPage> {
 
   _buildModulesGridView() {
     List<Widget> widgets = [];
-    for (int i = 0; i < numTOC; i++) {
+    for (int i = 0; i < numSchemes; i++) {
       widgets.add(FigureButton(
-          context, tocs[i], i)); //, TOCPageView(i)));
+          context, Schemes[i], i)); //, SchemesPageView(i)));
     }
     return widgets;
   }

@@ -4,8 +4,9 @@ import 'package:hepapp/lang/app_localizations.dart';
 class NavigationButton extends StatelessWidget {
   final BuildContext context;
   final List<String> type;
+  final int page;
 
-  NavigationButton(this.context, this.type);
+  NavigationButton(this.context, this.type, [this.page]);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class NavigationButton extends StatelessWidget {
             ),
           ],
         ),
-        onTap: () => Navigator.pushNamed(context, type[2]),
+        onTap: () => Navigator.pushNamed(context, type[2], arguments: page),
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hepapp/routes/routes.dart';
+import 'package:hepapp/routes/RouteGenerator.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
 import 'lang/app_localizations.dart';
@@ -78,8 +78,10 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: _localizationDelegates,
       localeResolutionCallback: _localeResolutionCallback,
       initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
+
       //prefs.ultimaPagina,
-      routes: getApplicationRoutes(),
+      //routes: getApplicationRoutes(),
     );
   }
 }

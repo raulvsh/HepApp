@@ -13,15 +13,17 @@ class BottomNavigationSheet extends StatelessWidget {
     var backIcon = IconButton(
       icon: Icon(Icons.arrow_back_ios),
       color: Theme.of(context).primaryColor,
-      onPressed: () => Navigator.pushReplacementNamed(context, '$url$i'),
+      onPressed: () =>
+          Navigator.pushReplacementNamed(context, '$url', arguments: i - 1),
     );
 
     var nextIcon = IconButton(
       icon: Icon(Icons.arrow_forward_ios),
       color: Theme.of(context).primaryColor,
-      onPressed: () => Navigator.pushReplacementNamed(context, '$url${i + 2}'),
+      onPressed: () =>
+          Navigator.pushReplacementNamed(context, '$url', arguments: i + 1),
     );
-
+    //print('Contador i $i, url $url, endpage $endPage');
     if (i == 0) {
       widgets.add(nextIcon);
     } else if (i == endPage - 1) {

@@ -11,7 +11,7 @@ class Module2Page extends StatefulWidget {
 }
 
 class _Module2PageState extends State<Module2Page> {
-  String assetPDFPath = "";
+  //String assetPDFPath = "";
   final numModules = 3;
 
   static var ChaptersMod2 = [
@@ -25,25 +25,6 @@ class _Module2PageState extends State<Module2Page> {
 
   var numChaptersModule2 = ChaptersMod2.length;
 
-  /*var chapterIndexMod2 = [
-    "Chapter4",
-    "Chapter5",
-    "Chapter6",
-    "Chapter7",
-    "Chapter8",
-    "Chapter9",
-
-  ];
-
-  var chapterInfoMod2 = {
-    "Chapter4": ['chapter_4', '1_chapters.png', 'HepAPP_M2C4.pdf'],
-    "Chapter5": ['chapter_5', '1_chapters.png', 'HepAPP_M2C5.pdf'],
-    "Chapter6": ['chapter_6', '1_chapters.png', 'HepAPP_M2C6.pdf'],
-    "Chapter7": ['chapter_7', '1_chapters.png', 'HepAPP_M2C7.pdf'],
-    "Chapter8": ['chapter_8', '1_chapters.png', 'HepAPP_M2C8.pdf'],
-    "Chapter9": ['chapter_9', '1_chapters.png', 'HepAPP_M2C9.pdf'],
-
-  };*/
 
   @override
   void initState() {

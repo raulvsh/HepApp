@@ -11,18 +11,19 @@ class ChaptersPage extends StatefulWidget {
 
 class _ChaptersPageState extends State<ChaptersPage> {
 
-  static var Modules = [
-    ['module_1', '9_modules.png', '/ModulePV1'],
-    ['module_2', '9_modules.png', '/ModulePV2'],
-    ['module_3', '9_modules.png', '/ModulePV3'],
+  static var modules = [
+    ['module_1', '9_modules.png', '/ModulePV'],
+    ['module_2', '9_modules.png', '/ModulePV'],
+    ['module_3', '9_modules.png', '/ModulePV'],
   ];
 
-  var numModules = Modules.length;
+  var numModules = modules.length;
 
   /*var modulesIndex = [
     "Module1",
     "Module2",
     "Module3",
+
   ];
 
   var modulesInfo = {
@@ -85,7 +86,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
     List<Widget> widgets = [];
     for (int i = 0; i < numModules; i++) {
       widgets.add(
-          NavigationButton(context, Modules[i]));
+          NavigationButton(context, modules[i], i));
     }
     widgets.add(PDFButton(context, references, 'references'));
     return widgets;

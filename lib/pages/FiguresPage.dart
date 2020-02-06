@@ -10,7 +10,7 @@ class FiguresPage extends StatefulWidget {
 }
 
 class _FiguresPageState extends State<FiguresPage> {
-  static var Figures = [
+  static var figures = [
     ['table_contents', '4_figures.png', '/TableFig'],
     ['schemes', '4_figures.png', '/SchemesFig'],
     ['maps', '4_figures.png', '/MapsFig'],
@@ -19,7 +19,7 @@ class _FiguresPageState extends State<FiguresPage> {
     ['drawing', '4_figures.png', '/DrawingFig'],
   ];
 
-  var numFigCategories = Figures.length;
+  var numFigCategories = figures.length;
 
   /*final numFigCategories = 6;
 
@@ -86,7 +86,7 @@ class _FiguresPageState extends State<FiguresPage> {
   _buildFiguresGridView() {
     List<NavigationButton> widgets = [];
     for (int i = 0; i < numFigCategories; i++) {
-      widgets.add(NavigationButton(context, Figures[i]));
+      widgets.add(NavigationButton(context, figures[i]));
     }
     return widgets;
   }

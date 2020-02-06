@@ -12,12 +12,30 @@ class MenuWidget extends StatelessWidget {
             accountName: Text('Raúl Velasco'),
           ),*/
           DrawerHeader(
-            child: Container(),
+            child: Container(
+              /*height: double.infinity,
+                width: double.infinity,
+                color: Theme.of(context).primaryColor,
+                child: Center(
+                  child: Text(
+                    'HepAPP',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                    ),
+                  ),
+                ),*/
+
+            ), //color: Colors.red,),
             decoration: BoxDecoration(
               image: DecorationImage(
+
                 image: AssetImage(
-                    'assets/images/icono_subseccion_imagenes.png'),
-                fit: BoxFit.contain,
+                    'assets/images/hepapplogo.png'),
+                fit: BoxFit.scaleDown,
+
+
               ),
             ),
           ),
