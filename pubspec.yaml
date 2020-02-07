@@ -44,15 +44,15 @@ dependencies:
   flutter_bloc: ^0.21.0
   rxdart: ^0.22.2
   custom_radio: ^0.1.2
-  liquid_progress_indicator: ^0.3.2
-  image_picker: ^0.6.1+4
+  #liquid_progress_indicator: ^0.3.2 TODO PRUEBA, BORRAR
+  #image_picker: ^0.6.1+4 TODO PRUEBA, BORRAR
   video_player:
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  english_words: ^3.1.5
+  #english_words: ^3.1.5 TODO PRUEBA, BORRAR
 
 
 dev_dependencies:

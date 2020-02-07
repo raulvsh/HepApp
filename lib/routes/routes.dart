@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/pages/Calculators/AllCalcPage.dart';
 import 'package:hepapp/pages/Calculators/CLIPCalcPage.dart';
@@ -9,7 +10,7 @@ import 'package:hepapp/pages/Chapters/ChaptersPage.dart';
 import 'package:hepapp/pages/Chapters/ModulePageView.dart';
 import 'package:hepapp/pages/Figures/DrawingFigPage.dart';
 import 'package:hepapp/pages/Figures/InteractiveFigPage.dart';
-import 'package:hepapp/pages/Figures/Maps/MapsDetailPage.dart';
+import 'package:hepapp/pages/Figures/Maps/MapsPageView.dart';
 import 'package:hepapp/pages/Figures/Maps/MapsPage.dart';
 import 'package:hepapp/pages/Figures/PathologyFig1Page.dart';
 import 'package:hepapp/pages/Figures/Schemes/SchemesDetailPage.dart';
@@ -100,3 +101,4 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     //'/settings': (context) => SettingsPage(),
   };
 }
+*/

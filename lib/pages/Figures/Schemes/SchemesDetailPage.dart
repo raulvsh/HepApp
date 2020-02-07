@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
-import '../FigureViewPage.dart';
+import '../FigureDetailPage.dart';
 
 class SchemesDetailPage extends StatefulWidget {
   final initialPage;

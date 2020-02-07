@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/pages/CalculatorsPage.dart';
 import 'package:hepapp/pages/Chapters/ChaptersPage.dart';
 import 'package:hepapp/pages/Chapters/ModulePageView.dart';
-import 'package:hepapp/pages/Figures/Maps/MapsDetailPage.dart';
+import 'package:hepapp/pages/Figures/Interactive/InteractivePage.dart';
+import 'package:hepapp/pages/Figures/Interactive/InteractivePageView.dart';
 import 'package:hepapp/pages/Figures/Maps/MapsPage.dart';
+import 'package:hepapp/pages/Figures/Maps/MapsPageView.dart';
 import 'package:hepapp/pages/Figures/Pathology/PathologyDetailPage.dart';
 import 'package:hepapp/pages/Figures/Pathology/PathologyPageView.dart';
 import 'package:hepapp/pages/Figures/Schemes/SchemesDetailPage.dart';
@@ -64,6 +66,18 @@ class RouteGenerator {
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
             builder: (_) => PathologyDetailPage(initialPage));
+
+      case '/InteractiveFig':
+        return MaterialPageRoute(builder: (_) => InteractivePage());
+      case '/InteractivePV':
+        var initialPage = settings.arguments as int;
+        return MaterialPageRoute(
+            builder: (_) => InteractivePageView(initialPage));
+
+
+
+
+
 
       default:
         return MaterialPageRoute(

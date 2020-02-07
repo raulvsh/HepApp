@@ -3,24 +3,24 @@ import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/FigureButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
-class MapsPage extends StatefulWidget {
+class InteractivePage extends StatefulWidget {
   @override
-  _MapsPageState createState() => _MapsPageState();
+  _InteractivePageState createState() => _InteractivePageState();
 }
 
-class _MapsPageState extends State<MapsPage> {
-  static var maps = [
-    ['map_1', 'maps/Map01_HAV.png', '/MapsPV'],
-    ['map_2', 'maps/Map02_HBV.png', '/MapsPV'],
-    ['map_3', 'maps/Map03_HCV.png', '/MapsPV'],
-    ['map_4', 'maps/Map04_HDV.png', '/MapsPV'],
-    ['map_5', 'maps/Map05_HEV.png', '/MapsPV'],
-    ['map_6', 'maps/Map06_Alcohol.png', '/MapsPV'],
-    ['map_7', 'maps/Map07_Obesity.png', '/MapsPV'],
+class _InteractivePageState extends State<InteractivePage> {
+  static var interactive = [
+    ['interactive_1', 'interactive/M1C1S2a.png', '/InteractivePV'],
+    ['interactive_2', 'interactive/M1C1S2f.png', '/InteractivePV'],
+    ['interactive_3', 'interactive/M1C1S3a.png', '/InteractivePV'],
+    ['interactive_4', 'interactive/M1C1S5a.png', '/InteractivePV'],
+    ['interactive_5', 'interactive/M2C8S2a.png', '/InteractivePV'],
+    ['interactive_6', 'interactive/M2C9S2a.png', '/InteractivePV'],
+    ['interactive_7', 'interactive/M3C14S2b.png', '/InteractivePV'],
+    ['interactive_8', 'interactive/M3C15S1a.png', '/InteractivePV'],
   ];
 
-  var numMaps = maps.length;
-
+  var numInteractive = interactive.length;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _MapsPageState extends State<MapsPage> {
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
       drawer: MenuWidget(),
-      appBar: CustomAppBar(context, 'maps'),
+      appBar: CustomAppBar(context, 'interactive_figures'),
       body: OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
@@ -67,9 +67,9 @@ class _MapsPageState extends State<MapsPage> {
 
   _buildModulesGridView() {
     List<Widget> widgets = [];
-    for (int i = 0; i < numMaps; i++) {
+    for (int i = 0; i < numInteractive; i++) {
       widgets
-          .add(FigureButton(context, maps[i], i)); //, MapsPageView(i)));
+          .add(FigureButton(context, interactive[i], i)); //, MapsPageView(i)));
     }
     return widgets;
   }

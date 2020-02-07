@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
@@ -24,3 +25,4 @@ class _PathologyFigPageState extends State<PathologyFigPage> {
     );
   }
 }
+*/
