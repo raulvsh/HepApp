@@ -20,19 +20,16 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_form_bloc:
-  # no se usa, añade otra imagen splashscreen: ^1.2.0
-  flutter_native_splash: ^0.1.8+2
-  sqflite: ^1.1.6+5
+  #flutter_native_splash: ^0.1.8+2
+  #sqflite: ^1.1.6+5
   path_provider:
-  #intl: ^0.16.0 TODO Borrar Antigua traduccion
-  flutter_swiper: ^1.1.6 #TODO borrar ejemplo películas, borrar luego si no se usa
-  http: ^0.12.0+2
-  provider: ^3.1.0
+  #intl: ^0.16.0
+  #flutter_swiper: ^1.1.6 #
+  #http: ^0.12.0+2
+  #provider: ^3.1.0
   shared_preferences: ^0.5.3+4
   #webview_flutter: ^0.3.15+1
   flutter_webview_plugin:
-  #flutter_plugin_pdf_viewer: TODO anterior plugin funcionaba
-  #flutter_full_pdf_viewer: ^1.0.4
   flutter_pdfview:
   flutter_material_color_picker: ^1.0.3
   flutter_colorpicker:
@@ -40,19 +37,19 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   form_bloc: ^0.5.2
-  bloc: ^0.15.0
-  flutter_bloc: ^0.21.0
-  rxdart: ^0.22.2
+  #bloc: ^0.15.0
+  #flutter_bloc: ^0.21.0
+  #rxdart: ^0.22.2
   custom_radio: ^0.1.2
-  #liquid_progress_indicator: ^0.3.2 TODO PRUEBA, BORRAR
-  #image_picker: ^0.6.1+4 TODO PRUEBA, BORRAR
+  #liquid_progress_indicator: ^0.3.2
+  #image_picker: ^0.6.1+4
   video_player:
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  #english_words: ^3.1.5 TODO PRUEBA, BORRAR
+  #english_words: ^3.1.5
 
 
 dev_dependencies:
@@ -63,15 +60,14 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/hepapplogofinalversion.png"
-  adaptive_icon_background: "assets/images/hepapplogofinalversion.png"
+  image_path: "assets/images/hepapplogo.png"
+  adaptive_icon_background: "assets/images/hepapplogo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

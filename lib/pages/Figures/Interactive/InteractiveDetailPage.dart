@@ -71,12 +71,14 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
                   //Slider indicador del valor de la opacidad
                   child: Slider(
                     value: opacityValue,
-                    activeColor: Colors.orange,
+                    activeColor: Theme
+                        .of(context)
+                        .primaryColor,
                     inactiveColor: Colors.lightBlue[0],
                     min: 0.0,
                     max: 1.0,
                     divisions: 100,
-                    label: "${opacityValue.abs()}",
+                    //label: "${opacityValue.abs()}",
                     onChanged: (double value) {
                       setState(() {
                         opacityValue = value;

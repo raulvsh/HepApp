@@ -69,7 +69,7 @@ class _InteractivePageState extends State<InteractivePage> {
     List<Widget> widgets = [];
     for (int i = 0; i < numInteractive; i++) {
       widgets
-          .add(FigureButton(context, interactive[i], i)); //, MapsPageView(i)));
+          .add(FigureButton(context, interactive[i], i));
     }
     return widgets;
   }
