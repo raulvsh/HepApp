@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/pages/Chapters/PDFViewPage.dart';
+import 'package:hepapp/pages/Chapters/PDFDetailPage.dart';
 import 'package:path_provider/path_provider.dart';
 
 class PDFButton extends StatelessWidget {
@@ -23,11 +23,11 @@ class PDFButton extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Image.asset(
-              'assets/items/${type[1]}',
+              'assets/images/items/${type[1]}',
             ),
             Container(
               alignment: Alignment(0, 0.7),
-              padding: EdgeInsets.only(bottom: 0),
+              padding: EdgeInsets.symmetric(horizontal: 5),
               //alignment: Alignment(0, 0.7),
               child: Text(
                 aux.tr(type[0]),
@@ -49,7 +49,8 @@ class PDFButton extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PdfViewPage(
+                    builder: (context) =>
+                        PdfDetailPage(
                       path: assetPDFPath,
                       title: title,
                     )));

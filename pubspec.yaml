@@ -77,8 +77,9 @@ flutter:
   assets:
     - assets/
     - assets/calc/
-    - assets/items/
+    #- assets/items/
     - assets/images/
+    - assets/images/items/
     - assets/images/toc/
     - assets/images/schemes/
     - assets/images/maps/

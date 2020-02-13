@@ -119,12 +119,17 @@
   "obstruction_jaundice": "Ictericia por obstrucción",
   "normal_copper_excretion": "Excreción normal de cobre",
   "wildon_disease": "Enfermedad de Wilson",
-  "normal'": "Normal",
+  "normal": "Normal",
   "chronic_alcohol": "Alcohol crónico",
   "ascites_pathogenesis": "Patogénesis de la ascitis",
   "treatment": "Tratamiento",
   "explant": "Explante",
   "transplant": "Transplante",
+  "anterior_view_liver": "Vista anterior del hígado",
+  "posterior_view_liver": "Vista posterior del hígado",
+  "liver_stomach_pancreas_gall_bladder": "Hígado, estómago, pancreas y vesícula biliar",
+  "liver_vasculature": "Vasculatura hepática",
+  "liver_cell": "Célula hepática",
 
 
   "casl": "Pautas CASL",

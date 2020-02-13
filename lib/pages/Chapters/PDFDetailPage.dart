@@ -4,18 +4,18 @@ import 'package:hepapp/widgets/CustomAppBar.dart';
 
 /*Código correspondiente para mostrar el PDF en la aplicación
 * y construcción del layout correspondiente*/
-class PdfViewPage extends StatefulWidget {
+class PdfDetailPage extends StatefulWidget {
 
   final String path;
   final title;
 
-  const PdfViewPage({Key key, this.path, this.title}) : super(key: key);
+  const PdfDetailPage({Key key, this.path, this.title}) : super(key: key);
 
   @override
-  _PdfViewPageState createState() => _PdfViewPageState();
+  _PdfDetailPageState createState() => _PdfDetailPageState();
 }
 
-class _PdfViewPageState extends State<PdfViewPage> {
+class _PdfDetailPageState extends State<PdfDetailPage> {
 
 
   //int _totalPages = 0;

@@ -17,13 +17,13 @@ class _MapsDetailPageState extends State<MapsDetailPage> {
   PageController controller;
 
   static var maps = [
-    ['map_1', 'maps/Map01_HAV.png', '/MapsPV1'],
-    ['map_2', 'maps/Map02_HBV.png', '/MapsPV2'],
-    ['map_3', 'maps/Map03_HCV.png', '/MapsPV3'],
-    ['map_4', 'maps/Map04_HDV.png', '/MapsPV4'],
-    ['map_5', 'maps/Map05_HEV.png', '/MapsPV5'],
-    ['map_6', 'maps/Map06_Alcohol.png', '/MapsPV6'],
-    ['map_7', 'maps/Map07_Obesity.png', '/MapsPV7'],
+    ['map_1', 'maps/Map01_HAV.png', '/MapsPV'],
+    ['map_2', 'maps/Map02_HBV.png', '/MapsPV'],
+    ['map_3', 'maps/Map03_HCV.png', '/MapsPV'],
+    ['map_4', 'maps/Map04_HDV.png', '/MapsPV'],
+    ['map_5', 'maps/Map05_HEV.png', '/MapsPV'],
+    ['map_6', 'maps/Map06_Alcohol.png', '/MapsPV'],
+    ['map_7', 'maps/Map07_Obesity.png', '/MapsPV'],
   ];
 
   var numMaps = maps.length;
@@ -51,7 +51,7 @@ class _MapsDetailPageState extends State<MapsDetailPage> {
   List<Widget> _buildChildren() {
     List<Widget> widgets = [];
     for (int i = 0; i < numMaps; i++) {
-      widgets.add(FigureViewPage(
+      widgets.add(FigureDetailPage(
           title: maps[i][0],
           url: maps[i][1],
           //bottomSheet: _buildBottomSheet(i,'/SchemesPV')));

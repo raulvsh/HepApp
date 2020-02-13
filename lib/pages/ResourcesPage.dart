@@ -37,50 +37,6 @@ class _ResourcesPageState extends State<ResourcesPage> {
 
   var numResources = resources.length;
 
-  /*final numResources = 7;
-
-  var resourcesTypesNames = [
-    "CASL",
-    "AASLD",
-    "EASL",
-    "ACG",
-    "AGA",
-    "ILCA",
-    "Lindsay",
-  ];
-
-  var resourcesTypes = {
-    "CASL": [
-      'casl',
-      '6_resources.png',
-      'https://www.hepatology.ca/?page_id=941'
-    ],
-    "AASLD": [
-      'aasld',
-      '6_resources.png',
-      'https://www.aasld.org/publications/practice-guidelines-0'
-    ],
-    "EASL": [
-      'easl',
-      '6_resources.png',
-      'https://www.easl.eu/research/our-contributions/clinical-practice-guidelines '
-    ],
-    "ACG": [
-      'acg',
-      '6_resources.png',
-      'https://gi.org/clinical-guidelines/clinical-guidelines-sortable-list/ '
-    ],
-    "AGA": ['aga', '6_resources.png', 'https://www.gastro.org/guidelines '],
-    "ILCA": [
-      'ilca',
-      '6_resources.png',
-      'https://ilca-online.org/guidelines-for-the-diagnosis-and-management-of-intrahepatic-cholangiocarcinoma/'
-    ],
-    "Lindsay": ['lindsay', '6_resources.png', 'http://lindsay.ucalgary.ca/'],
-  };
-
-  var resourcesTitles = [''];*/
-
   @override
   void initState() {
     super.initState();
@@ -94,8 +50,6 @@ class _ResourcesPageState extends State<ResourcesPage> {
       appBar: CustomAppBar(context, "resources"),
 
       drawer: MenuWidget(),
-      //TODO volver a poner appbar custom
-      /*CustomAppBar(context, "Resources"),*/
 
       body: OrientationBuilder(
         builder: (context, orientation) {
@@ -125,13 +79,13 @@ class _ResourcesPageState extends State<ResourcesPage> {
               : EdgeInsets.symmetric(vertical: padding),
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-          children: _buildChaptersGridView(),
+          children: _buildResourcesGridView(),
         ),
       ),
     );
   }
 
-  _buildChaptersGridView() {
+  _buildResourcesGridView() {
     List<WebButton> widgets = [];
     for (int i = 0; i < numResources; i++) {
       widgets.add(

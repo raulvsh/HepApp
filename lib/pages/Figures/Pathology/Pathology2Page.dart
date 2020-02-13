@@ -15,8 +15,8 @@ class _Pathology2PageState extends State<Pathology2Page> {
   static var pathology2 = [
     [
       'pathology_9',
-      'pathology/Pathology01_Normal_Histology.png',
-      '/PathologyPV'
+      'pathology/Pathology09_Autoimmune_Hepatitis.png',
+      '/PathologyDetail'
     ],
   ];
 

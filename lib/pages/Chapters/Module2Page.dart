@@ -14,7 +14,7 @@ class _Module2PageState extends State<Module2Page> {
   //String assetPDFPath = "";
   final numModules = 3;
 
-  static var ChaptersMod2 = [
+  static var chaptersMod2 = [
     ['chapter_4', '1_chapters.png', 'HepAPP_M2C4.pdf'],
     ['chapter_5', '1_chapters.png', 'HepAPP_M2C5.pdf'],
     ['chapter_6', '1_chapters.png', 'HepAPP_M2C6.pdf'],
@@ -23,7 +23,7 @@ class _Module2PageState extends State<Module2Page> {
     ['chapter_9', '1_chapters.png', 'HepAPP_M2C9.pdf'],
   ];
 
-  var numChaptersModule2 = ChaptersMod2.length;
+  var numChaptersModule2 = chaptersMod2.length;
 
 
   @override
@@ -80,7 +80,7 @@ class _Module2PageState extends State<Module2Page> {
   _buildChaptersGridView() {
     List<PDFButton> widgets = [];
     for (int i = 0; i < numChaptersModule2; i++) {
-      widgets.add(PDFButton(context, ChaptersMod2[i],
+      widgets.add(PDFButton(context, chaptersMod2[i],
           'module_2_chapter_${i + 4}'));
     }
     return widgets;

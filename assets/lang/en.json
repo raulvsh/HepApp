@@ -124,6 +124,12 @@
   "treatment": "Treatment",
   "explant": "Explant",
   "transplant": "Transplant",
+  "anterior_view_liver": "Anterior view of the liver",
+  "posterior_view_liver": "Posterior view of the liver",
+  "liver_stomach_pancreas_gall_bladder": "Liver, stomach, pancreas and Gall Bladder",
+  "liver_vasculature": "Liver vasculature",
+  "liver_cell": "Liver cell",
+
 
 
   "casl": "CASL Guidelines",

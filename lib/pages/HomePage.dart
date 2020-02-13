@@ -25,30 +25,6 @@ class _HomePageState extends State<HomePage> {
 
   var numHomeSections = homeSections.length;
 
-  /*final numHomeCategories = 8;
-
-  var sectionsIndex = [
-    'Chapters',
-    'Podcasts',
-    'Cards',
-    'Figures',
-    'Calculators',
-    'Resources',
-    'PubMed',
-    'Information',
-  ];
-
-  var sectionsInfo = {
-    'Chapters':   ['chapters', '1_chapters.png', '/Chapters'],
-    'Podcasts':   ['podcasts', '2_podcasts.png', '/PodcastsPV1'],
-    'Cards':      ['cards', '3_cards.png', 'https://cards.ucalgary.ca'],
-    'Figures':    ['figures', '4_figures.png', '/Figures'],
-    'Calculators':['calculators', '5_calculators.png', '/Calculators'],
-    'Resources':  ['resources', '6_resources.png', '/Resources'],
-    'PubMed':     ['pub_med', '7_pubmed.png', 'https://www.ncbi.nlm.nih.gov/pubmed/'],
-    'Information': ['information','8_information.png','HepAPP_Introduction.pdf'],
-  };
-*/
 
 
 

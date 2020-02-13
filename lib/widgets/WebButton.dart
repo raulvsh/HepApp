@@ -17,11 +17,11 @@ class WebButton extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Image.asset(
-              'assets/items/${type[1]}',
+              'assets/images/items/${type[1]}',
             ),
             Container(
               alignment: Alignment(0, 0.7),
-              padding: EdgeInsets.only(bottom: 0),
+              padding: EdgeInsets.symmetric(horizontal: 5),
               //alignment: Alignment(0, 0.7),
               child: Text(
                 aux.tr(type[0]),

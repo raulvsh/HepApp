@@ -64,7 +64,7 @@ class _PathologyDetailPageState extends State<PathologyDetailPage> {
   List<Widget> _buildChildren() {
     List<Widget> widgets = [];
     for (int i = 0; i < numPathologies; i++) {
-      widgets.add(FigureViewPage(
+      widgets.add(FigureDetailPage(
           title: pathology[i][0],
           url: pathology[i][1],
           //bottomSheet: _buildBottomSheet(i,'/SchemesPV')));

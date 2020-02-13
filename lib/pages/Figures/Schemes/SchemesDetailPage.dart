@@ -51,7 +51,7 @@ class _SchemesDetailPageState extends State<SchemesDetailPage> {
   List<Widget> _buildChildren() {
     List<Widget> widgets = [];
     for (int i = 0; i < numSchemes; i++) {
-      widgets.add(FigureViewPage(
+      widgets.add(FigureDetailPage(
           title: Schemes[i][0],
           url: Schemes[i][1],
           //bottomSheet: _buildBottomSheet(i,'/SchemesPV')));

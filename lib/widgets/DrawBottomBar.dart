@@ -59,7 +59,9 @@ class DrawBottomBar extends StatelessWidget {
                   onPressed: _controller.clear),
             ],
           ),
-          Row(
+          //BottomNavigationSheet(0, '/DrawingPV', 8),
+
+          /*Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               IconButton(
@@ -77,7 +79,7 @@ class DrawBottomBar extends StatelessWidget {
                   tooltip: aux.tr('next_image'),
                   onPressed: _controller.clear),
             ],
-          ),
+          ),*/
         ],
       ),
     );

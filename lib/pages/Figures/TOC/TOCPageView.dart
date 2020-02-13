@@ -64,7 +64,7 @@ class _TOCPageViewState extends State<TOCPageView> {
   List<Widget> _buildChildren() {
     List<Widget> widgets = [];
     for (int i = 0; i < numTOC; i++) {
-      widgets.add(FigureViewPage(
+      widgets.add(FigureDetailPage(
           title: tocs[i][0],
           url: tocs[i][1],
           bottomSheet: BottomNavigationSheet(i, '/TOCPV', numTOC)));

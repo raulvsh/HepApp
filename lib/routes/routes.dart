@@ -79,14 +79,10 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/MapsPV5': (context) => MapsDetailPage(4),
     '/MapsPV6': (context) => MapsDetailPage(5),
     '/MapsPV7': (context) => MapsDetailPage(6),
-
-
-
-
-
-
     '/PathologyFig': (context) => PathologyFig1Page(),
     '/InteractiveFig': (context) => InteractiveFigPage(),
+
+
     '/DrawingFig': (context) => DrawingFigPage(),
 //5 - Rutas de los distintos tipos de calculadora
     '/AllCalc': (context) => AllCalcPage(),

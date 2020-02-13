@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/pages/Calculators/AllCalcPage.dart';
+import 'package:hepapp/pages/Calculators/CLIPCalcPage.dart';
+import 'package:hepapp/pages/Calculators/ChildCalcPage.dart';
+import 'package:hepapp/pages/Calculators/MELDCalcPage.dart';
+import 'package:hepapp/pages/Calculators/OkudaCalcPage.dart';
 import 'package:hepapp/pages/CalculatorsPage.dart';
 import 'package:hepapp/pages/Chapters/ChaptersPage.dart';
 import 'package:hepapp/pages/Chapters/ModulePageView.dart';
+import 'package:hepapp/pages/Figures/Drawing/DrawingPage.dart';
+import 'package:hepapp/pages/Figures/Drawing/DrawingPageView.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractivePage.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractivePageView.dart';
 import 'package:hepapp/pages/Figures/Maps/MapsPage.dart';
@@ -74,7 +81,27 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => InteractivePageView(initialPage));
 
+      case '/DrawingFig':
+        return MaterialPageRoute(builder: (_) => DrawingPage());
+      case '/DrawingPV':
+        var initialPage = settings.arguments as int;
+/*
+        return MaterialPageRoute(builder: (_) => DrawingPage());
+*/
 
+        return MaterialPageRoute(
+            builder: (_) => DrawingPageView(initialPage));
+
+      case '/AllCalc':
+        return MaterialPageRoute(builder: (_) => AllCalcPage());
+      case '/ChildCalc':
+        return MaterialPageRoute(builder: (_) => ChildCalcPage());
+      case '/CLIPCalc':
+        return MaterialPageRoute(builder: (_) => CLIPCalcPage());
+      case '/MELDCalc':
+        return MaterialPageRoute(builder: (_) => MELDCalcPage());
+      case '/OkudaCalc':
+        return MaterialPageRoute(builder: (_) => OkudaCalcPage());
 
 
 
