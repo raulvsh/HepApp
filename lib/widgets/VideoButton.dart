@@ -34,9 +34,8 @@ class VideoButton extends StatelessWidget {
             ),
           ],
         ),
-        onTap: //() => Navigator.pushNamed(context, type[2]),
-            () {
-          print(type);
+        onTap: () {
+          //print(type);
           Navigator.push(
               context,
               MaterialPageRoute(

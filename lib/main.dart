@@ -49,7 +49,6 @@ class MyApp extends StatelessWidget {
     /*SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
        statusBarColor: Color.fromARGB(255, 93, 188, 210),
        statusBarIconBrightness: Brightness.light,
-
      ));*/
     final title = 'HepApp';
 

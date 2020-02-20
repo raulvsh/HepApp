@@ -34,8 +34,7 @@ class WebButton extends StatelessWidget {
             ),
           ],
         ),
-        onTap: //() => Navigator.pushNamed(context, type[2]),
-            () {
+        onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(

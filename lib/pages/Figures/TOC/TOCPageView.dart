@@ -26,23 +26,6 @@ class _TOCPageViewState extends State<TOCPageView> {
 
   var numTOC = tocs.length;
 
-
-  /*
-  var numTableContents = 4;
-
-  var tableContentsIndex = [
-    "TOC1",
-    "TOC2",
-    "TOC3",
-    "TOC4",
-  ];
-  var tableContentsInfo = {
-    "TOC1": ['toc_1', 'toc/TOC1.png', '/TOCPV1'],
-    "TOC2": ['toc_2', 'toc/TOC2.png', '/TOCPV2'],
-    "TOC3": ['toc_3', 'toc/TOC3.png', '/TOCPV3'],
-    "TOC4": ['toc_4', 'toc/TOC4.png', '/TOCPV4'],
-  };*/
-
   @override
   void initState() {
     super.initState();
