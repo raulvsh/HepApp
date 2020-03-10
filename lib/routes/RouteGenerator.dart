@@ -7,6 +7,7 @@ import 'package:hepapp/pages/Calculators/OkudaCalcPage.dart';
 import 'package:hepapp/pages/CalculatorsPage.dart';
 import 'package:hepapp/pages/Chapters/ChaptersPage.dart';
 import 'package:hepapp/pages/Chapters/ModulePageView.dart';
+import 'package:hepapp/pages/Chapters/PDFDetailPage.dart';
 import 'package:hepapp/pages/Figures/Drawing/DrawingPage.dart';
 import 'package:hepapp/pages/Figures/Drawing/DrawingPageView.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractivePage.dart';
@@ -23,6 +24,7 @@ import 'package:hepapp/pages/FiguresPage.dart';
 import 'package:hepapp/pages/HomePage.dart';
 import 'package:hepapp/pages/Podcasts/PodcastsPageView.dart';
 import 'package:hepapp/pages/ResourcesPage.dart';
+import 'package:hepapp/pages/WebViewPage.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -43,6 +45,50 @@ class RouteGenerator {
       case '/ModulePV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(builder: (_) => ModulePageView(initialPage));
+      case '/References':
+        return MaterialPageRoute(
+            builder: (context) {
+              return PdfDetailPage(
+                path: 'assets/HepAPP_References.pdf',
+                title: 'references',
+              );
+            }
+
+          /*   (context) async {
+              await getFileFromAsset("assets/${type[2]}").then((f) {
+                assetPDFPath = f.path;
+                //print("Asset pdf path " + assetPDFPath);
+              });
+              if (assetPDFPath != null) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            PdfDetailPage(
+                              path: assetPDFPath,
+                              title: title,
+                            )));
+              }
+            },*/
+
+          /*(context) =>
+                PdfDetailPage(
+                  path: 'assets/HepAPP_References.pdf',
+                  title: 'references',
+                )*/
+
+
+        );
+      case '/Web':
+        var url = settings.arguments as List<String>;
+        print('url $url');
+        return MaterialPageRoute(
+            builder: (context) =>
+                WebViewPage(
+                  url: url[0],
+                  title: url[1],
+                )
+        );
 
       case '/TableFig':
         return MaterialPageRoute(builder: (_) => TOCFigPage());

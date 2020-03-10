@@ -11,7 +11,8 @@ class WebButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
-    return Container(
+    return Card(
+      elevation: 0,
       margin: EdgeInsets.all(4),
       child: GestureDetector(
         child: Stack(
@@ -22,13 +23,14 @@ class WebButton extends StatelessWidget {
             Container(
               alignment: Alignment(0, 0.7),
               padding: EdgeInsets.symmetric(horizontal: 5),
-              //alignment: Alignment(0, 0.7),
-              child: Text(
-                aux.tr(type[0]),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color.fromARGB(255, 93, 188, 210),
-                  fontSize: 16,
+              child: FittedBox(
+                child: Text(
+                  aux.tr(type[0]),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black, //Color.fromARGB(255, 93, 188, 210),
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ),

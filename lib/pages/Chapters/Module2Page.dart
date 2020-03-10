@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/PDFButton.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 //const String _documentPath = 'assets/HepM1C1.pdf';
 
@@ -38,7 +39,7 @@ class _Module2PageState extends State<Module2Page> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
 
-        //drawer: MenuWidget(),
+        drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'module_2'),
       body: OrientationBuilder(
         builder: (context, orientation) {

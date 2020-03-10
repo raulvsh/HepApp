@@ -13,11 +13,13 @@ class PDFButton extends StatelessWidget {
 
   PDFButton(this.context, this.type, this.title);
 
+  var assetPDFPath;
+
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
-    var assetPDFPath;
-    return Container(
+    return Card(
+      elevation: 0,
       margin: EdgeInsets.all(4),
       child: GestureDetector(
         child: Stack(
@@ -28,19 +30,21 @@ class PDFButton extends StatelessWidget {
             Container(
               alignment: Alignment(0, 0.7),
               padding: EdgeInsets.symmetric(horizontal: 5),
-              //alignment: Alignment(0, 0.7),
-              child: Text(
-                aux.tr(type[0]),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color.fromARGB(255, 93, 188, 210),
-                  fontSize: 16,
+              child: FittedBox(
+                child: Text(
+                  aux.tr(type[0]),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 93, 188, 210),
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ),
           ],
         ),
-        onTap: () async {
+        onTap: //showPDF("assets/${type[2]}"),
+            () async {
           await getFileFromAsset("assets/${type[2]}").then((f) {
             assetPDFPath = f.path;
             //print("Asset pdf path " + assetPDFPath);
@@ -59,7 +63,26 @@ class PDFButton extends StatelessWidget {
       ),
     );
   }
+
+/*showPDF(String route) async {
+    await getFileFromAsset(route).then((f) {
+      assetPDFPath = f.path;
+      //print("Asset pdf path " + assetPDFPath);
+    });
+    if (assetPDFPath != null) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  PdfDetailPage(
+                    path: assetPDFPath,
+                    title: title,
+                  )));
+    }
+  }*/
 }
+
+
 
 /*Devuelve objeto de tipo Future porque es una tarea de larga duración*/
 Future<File> getFileFromAsset(String asset) async {

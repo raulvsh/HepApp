@@ -10,18 +10,18 @@ class DrawingPage extends StatefulWidget {
 
 class _DrawingPageState extends State<DrawingPage> {
   static var draws = [
-    ['anatomy', 'drawing/Doodle Figure 1.png', '/DrawingPV'],
-    ['anterior_view_liver', 'drawing/Doodle Figure 2.png', '/DrawingPV'],
-    ['posterior_view_liver', 'drawing/Doodle Figure 3.png', '/DrawingPV'],
-    ['portal_circulation', 'drawing/Doodle Figure 4.png', '/DrawingPV'],
+    ['anatomy', 'drawing/Doodle_Figure_1.png', '/DrawingPV'],
+    ['anterior_view_liver', 'drawing/Doodle_Figure_2.png', '/DrawingPV'],
+    ['posterior_view_liver', 'drawing/Doodle_Figure_3.png', '/DrawingPV'],
+    ['portal_circulation', 'drawing/Doodle_Figure_4.png', '/DrawingPV'],
     [
       'liver_stomach_pancreas_gall_bladder',
-      'drawing/Doodle Figure 5.png',
+      'drawing/Doodle_Figure_5.png',
       '/DrawingPV'
     ],
-    ['liver_vasculature', 'drawing/Doodle Figure 6.png', '/DrawingPV'],
-    ['liver_histology', 'drawing/Doodle Figure 7.png', '/DrawingPV'],
-    ['liver_cell', 'drawing/Doodle Figure 8.png', '/DrawingPV'],
+    ['liver_vasculature', 'drawing/Doodle_Figure_6.png', '/DrawingPV'],
+    ['liver_histology', 'drawing/Doodle_Figure_7.png', '/DrawingPV'],
+    ['liver_cell', 'drawing/Doodle_Figure_8.png', '/DrawingPV'],
   ];
 
   var numDraws = draws.length;

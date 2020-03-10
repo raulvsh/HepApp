@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/PDFButton.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 //const String _documentPath = 'assets/HepM1C1.pdf';
 
@@ -25,25 +26,6 @@ class _Module3PageState extends State<Module3Page> {
 
   var numChaptersModule3 = ChaptersMod3.length;
 
-
-  /* var chapterIndexMod3 = [
-    "Chapter10",
-    "Chapter11",
-    "Chapter12",
-    "Chapter13",
-    "Chapter14",
-    "Chapter15",
-  ];
-
-  var chapterInfoMod3 = {
-    "Chapter10": ['chapter_10', '1_chapters.png', 'HepAPP_M3C10.pdf'],
-    "Chapter11": ['chapter_11', '1_chapters.png', 'HepAPP_M3C11.pdf'],
-    "Chapter12": ['chapter_12', '1_chapters.png', 'HepAPP_M3C12.pdf'],
-    "Chapter13": ['chapter_13', '1_chapters.png', 'HepAPP_M3C13.pdf'],
-    "Chapter14": ['chapter_14', '1_chapters.png', 'HepAPP_M3C14.pdf'],
-    "Chapter15": ['chapter_15', '1_chapters.png', 'HepAPP_M3C15.pdf'],
-  };*/
-
   @override
   void initState() {
     super.initState();
@@ -53,8 +35,7 @@ class _Module3PageState extends State<Module3Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
-
-        //drawer: MenuWidget(),
+        drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'module_3'),
       body: OrientationBuilder(
         builder: (context, orientation) {

@@ -10,14 +10,14 @@ class SchemesPage extends StatefulWidget {
 
 class _SchemesPageState extends State<SchemesPage> {
   static var Schemes = [
-    ['scheme_1', 'schemes/Scheme 1 Jaundice.png', '/SchemesPV'],
-    ['scheme_2', 'schemes/Scheme 2 AbN Liver Tests.png', '/SchemesPV'],
-    ['scheme_3', 'schemes/Scheme 3 Hepatomegaly.png', '/SchemesPV'],
-    ['scheme_4', 'schemes/Scheme 4 Splenomegaly.png', '/SchemesPV'],
-    ['scheme_5', 'schemes/Scheme 5 Liver Mass.png', '/SchemesPV'],
-    ['scheme_6', 'schemes/Scheme 6 UGI Bleed.png', '/SchemesPV'],
-    ['scheme_7', 'schemes/Scheme 7 Abdominal Distention.png', '/SchemesPV'],
-    ['scheme_8', 'schemes/Scheme 8 Decreased LOC.png', '/SchemesPV'],
+    ['scheme_1', 'schemes/Scheme_1_Jaundice.png', '/SchemesPV'],
+    ['scheme_2', 'schemes/Scheme_2_AbN_Liver_Tests.png', '/SchemesPV'],
+    ['scheme_3', 'schemes/Scheme_3_Hepatomegaly.png', '/SchemesPV'],
+    ['scheme_4', 'schemes/Scheme_4_Splenomegaly.png', '/SchemesPV'],
+    ['scheme_5', 'schemes/Scheme_5_Liver_Mass.png', '/SchemesPV'],
+    ['scheme_6', 'schemes/Scheme_6_UGI_Bleed.png', '/SchemesPV'],
+    ['scheme_7', 'schemes/Scheme_7_Abdominal_Distention.png', '/SchemesPV'],
+    ['scheme_8', 'schemes/Scheme_8_Decreased_LOC.png', '/SchemesPV'],
   ];
 
 

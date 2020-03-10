@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/widgets/menu_widget.dart';
 
 import 'Module1Page.dart';
 import 'Module2Page.dart';
@@ -29,7 +28,7 @@ class _ModulePageViewState extends State<ModulePageView> {
   Widget build(BuildContext context) {
     return Scaffold(
         //appBar: CustomAppBar(context, "Figures - Schemes"),
-        drawer: MenuWidget(),
+      //drawer: MenuWidget(),
         body: PageView(
           controller: controller,
           children: <Widget>[

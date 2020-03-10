@@ -17,14 +17,14 @@ class _SchemesDetailPageState extends State<SchemesDetailPage> {
   PageController controller;
 
   static var Schemes = [
-    ['scheme_1', 'schemes/Scheme 1 Jaundice.png', '/SchemesPV1'],
-    ['scheme_2', 'schemes/Scheme 2 AbN Liver Tests.png', '/SchemesPV2'],
-    ['scheme_3', 'schemes/Scheme 3 Hepatomegaly.png', '/SchemesPV3'],
-    ['scheme_4', 'schemes/Scheme 4 Splenomegaly.png', '/SchemesPV4'],
-    ['scheme_5', 'schemes/Scheme 5 Liver Mass.png', '/SchemesPV5'],
-    ['scheme_6', 'schemes/Scheme 6 UGI Bleed.png', '/SchemesPV6'],
-    ['scheme_7', 'schemes/Scheme 7 Abdominal Distention.png', '/SchemesPV7'],
-    ['scheme_8', 'schemes/Scheme 8 Decreased LOC.png', '/SchemesPV8'],
+    ['scheme_1', 'schemes/Scheme_1_Jaundice.png', '/SchemesPV1'],
+    ['scheme_2', 'schemes/Scheme_2_AbN_Liver_Tests.png', '/SchemesPV2'],
+    ['scheme_3', 'schemes/Scheme_3_Hepatomegaly.png', '/SchemesPV3'],
+    ['scheme_4', 'schemes/Scheme_4_Splenomegaly.png', '/SchemesPV4'],
+    ['scheme_5', 'schemes/Scheme_5_Liver_Mass.png', '/SchemesPV5'],
+    ['scheme_6', 'schemes/Scheme_6_UGI_Bleed.png', '/SchemesPV6'],
+    ['scheme_7', 'schemes/Scheme_7_Abdominal_Distention.png', '/SchemesPV7'],
+    ['scheme_8', 'schemes/Scheme_8_Decreased_LOC.png', '/SchemesPV8'],
   ];
 
 

@@ -86,6 +86,7 @@ flutter:
     - assets/images/pathology/
     - assets/images/interactive/
     - assets/images/drawing/
+    - assets/images/menu/
     - assets/lang/
     #- data/menu_opts.json
     #- assets/images/prueba/
