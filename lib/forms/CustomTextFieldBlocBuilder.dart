@@ -46,6 +46,7 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
             )),
         Container(
           width: 60,
+          height: 40,
           child: TextFieldBlocBuilder(
             cursorColor: Theme
                 .of(context)
@@ -66,9 +67,9 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
             ),
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(3.0),
                 borderSide: BorderSide(
-                  width: 2,
+                  width: 1,
                   color: Color.fromARGB(255, 45, 145, 155),
                 ), //color: Colors.red),
               ),
@@ -76,13 +77,13 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
 
               //errorText: Text(''),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(3.0),
                 borderSide: BorderSide(
-                  width: 2,
+                  width: 1.5,
                   color: Color.fromARGB(255, 45, 145, 155),
                 ), //color: Colors.red),
               ),
-              contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+              contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
 
               errorStyle: TextStyle(
                 backgroundColor: Colors.yellow,

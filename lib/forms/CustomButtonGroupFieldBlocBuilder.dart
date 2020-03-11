@@ -135,13 +135,17 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
           //Alineación del texto dentro del botón
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            color: Color.fromARGB(255, 56, 183, 198).withAlpha(alpha),
             //Color del fondo del botón
+            color: Theme
+                .of(context)
+                .primaryColor
+                .withAlpha(alpha),
+            //color: Color.fromARGB(255, 56, 183, 198).withAlpha(alpha),
             border: Border.all(
               color: Color.fromARGB(255, 45, 145, 155), //Color del borde
-              width: 2.0,
+              width: 1.3,
             ),
-            borderRadius: new BorderRadius.all(new Radius.circular(15.0)),
+            borderRadius: new BorderRadius.all(new Radius.circular(3.0)),
           ),
           // ),
       );

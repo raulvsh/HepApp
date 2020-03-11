@@ -35,7 +35,7 @@ class PDFButton extends StatelessWidget {
                   aux.tr(type[0]),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color.fromARGB(255, 93, 188, 210),
+                    color: Colors.black, //Color.fromARGB(255, 93, 188, 210),
                     fontSize: 16,
                   ),
                 ),

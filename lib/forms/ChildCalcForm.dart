@@ -87,6 +87,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
                 title: aux.tr('inr'),
                 uds: ''),
             CustomTextFieldBlocBuilder(
+
                 aux: aux,
                 formBloc: formBloc,
                 textFieldBloc: formBloc.albuminField,
@@ -151,27 +152,22 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
             //children: <Widget>[
             Container(
               width: 250,
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               margin: EdgeInsets.only(right: 250, left: 20),
               child: RaisedButton(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(3),
                     side: BorderSide(
                       color: Color.fromARGB(255, 45, 145, 155),
-                      width: 2,
+                      width: 1.5,
                     )),
                 color: Theme
                     .of(context)
                     .primaryColor,
                 splashColor: Color.fromARGB(255, 56, 183, 198),
                 elevation: 3,
-                onPressed: () /*async*/ {
+                onPressed: () {
                   formBloc.submit();
-                  //await Future<void>.delayed(Duration(seconds: 2));
-
-                  //resultado = formBloc.resultadoField;
-                  //print('otra res $resultado');
-
                   setState(() {});
                 },
                 child: Center(
