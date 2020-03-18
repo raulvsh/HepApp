@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 class FigureDetailPage extends StatefulWidget {
   final String url;
@@ -18,6 +19,7 @@ class _FigureDetailPageState extends State<FigureDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(context, widget.title),
+      drawer: MenuWidget(),
       body: Container(
         //padding: EdgeInsets.all(15),
         child: Card(

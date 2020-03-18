@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 class InteractiveDetailPage extends StatefulWidget {
   final String img1;
@@ -34,6 +35,7 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
 
     return Scaffold(
       appBar: CustomAppBar(context, widget.title),
+      drawer: MenuWidget(),
       body: Card(
         margin: EdgeInsets.all(15),
         child: Column(

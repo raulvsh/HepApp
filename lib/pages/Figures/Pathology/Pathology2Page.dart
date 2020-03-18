@@ -66,9 +66,10 @@ class _Pathology2PageState extends State<Pathology2Page> {
 
   _buildPathologyGridView() {
     List<Widget> widgets = [];
-    for (int i = 0; i < numPathology2; i++) {
+    for (int i = 0; i < numPathology2 + 0; i++) {
       widgets
-          .add(FigureButton(context, pathology2[i], i)); //, MapsPageView(i)));
+          .add(
+          FigureButton(context, pathology2[i], i + 8)); //, MapsPageView(i)));
     }
     return widgets;
   }

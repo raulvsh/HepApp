@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/pages/WebViewPage.dart';
+import 'package:hepapp/pages/DetailPageWidgets/WebDetailPage.dart';
 
 class WebButton extends StatelessWidget {
   final BuildContext context;
@@ -40,7 +40,8 @@ class WebButton extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => WebViewPage(
+                  builder: (context) =>
+                      WebDetailPage(
                         url: type[2],
                         title: type[0],
                       )));

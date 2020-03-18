@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
-import 'package:hepapp/widgets/menu_widget.dart';
 
-import '../FigureDetailPage.dart';
+import '../../DetailPageWidgets/FigureDetailPage.dart';
 
-class SchemesDetailPage extends StatefulWidget {
+class SchemesDetailPageView extends StatefulWidget {
   final initialPage;
 
-  SchemesDetailPage(this.initialPage);
+  SchemesDetailPageView(this.initialPage);
 
   @override
-  _SchemesDetailPageState createState() => _SchemesDetailPageState();
+  _SchemesDetailPageViewState createState() => _SchemesDetailPageViewState();
 }
 
-class _SchemesDetailPageState extends State<SchemesDetailPage> {
+class _SchemesDetailPageViewState extends State<SchemesDetailPageView> {
   PageController controller;
 
   static var schemes = [
@@ -40,7 +39,7 @@ class _SchemesDetailPageState extends State<SchemesDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: MenuWidget(),
+      //drawer: MenuWidget(),
         body: PageView(
           controller: controller,
           children: _buildChildren(),

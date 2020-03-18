@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/pages/Chapters/PDFDetailPage.dart';
+import 'package:hepapp/pages/DetailPageWidgets/PDFDetailPage.dart';
 import 'package:path_provider/path_provider.dart';
 
 class PDFButton extends StatelessWidget {

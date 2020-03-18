@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
-import 'DrawingDetailPage.dart';
+import '../../DetailPageWidgets/DrawingDetailPage.dart';
 
 class DrawingPageView extends StatefulWidget {
   final initialPage;

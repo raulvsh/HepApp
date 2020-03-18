@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractiveDetailPage.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
-import 'package:hepapp/widgets/menu_widget.dart';
 
 class InteractivePageView extends StatefulWidget {
   final initialPage;
@@ -89,7 +88,6 @@ class _InteractivePageViewState extends State<InteractivePageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: MenuWidget(),
         body: PageView(
           controller: controller,
           children: _buildChildren(),
@@ -105,7 +103,6 @@ class _InteractivePageViewState extends State<InteractivePageView> {
           img2: interactive[i][2],
           txt1: interactive[i][3],
           txt2: interactive[i][4],
-          //bottomSheet: _buildBottomSheet(i,'/SchemesPV')));
           bottomSheet:
               BottomNavigationSheet(i, '/InteractivePV', numInteractive)));
     }

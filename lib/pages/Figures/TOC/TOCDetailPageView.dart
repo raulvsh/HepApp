@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
-import 'package:hepapp/widgets/menu_widget.dart';
 
-import '../FigureDetailPage.dart';
+import '../../DetailPageWidgets/FigureDetailPage.dart';
 
-class TOCPageView extends StatefulWidget {
+class TOCDetailPageView extends StatefulWidget {
   final initialPage;
 
-  TOCPageView(this.initialPage);
+  TOCDetailPageView(this.initialPage);
 
   @override
-  _TOCPageViewState createState() => _TOCPageViewState();
+  _TOCDetailPageViewState createState() => _TOCDetailPageViewState();
 }
 
-class _TOCPageViewState extends State<TOCPageView> {
+class _TOCDetailPageViewState extends State<TOCDetailPageView> {
   PageController controller;
 
   static var tocs = [
@@ -37,7 +36,7 @@ class _TOCPageViewState extends State<TOCPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: MenuWidget(),
+      //drawer: MenuWidget(),
         body: PageView(
           controller: controller,
           children: _buildChildren(),

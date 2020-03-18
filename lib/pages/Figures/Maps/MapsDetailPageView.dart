@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
-import 'package:hepapp/widgets/menu_widget.dart';
 
-import '../FigureDetailPage.dart';
+import '../../DetailPageWidgets/FigureDetailPage.dart';
 
-class MapsDetailPage extends StatefulWidget {
+class MapsDetailPageView extends StatefulWidget {
   final initialPage;
 
-  MapsDetailPage(this.initialPage);
+  MapsDetailPageView(this.initialPage);
 
   @override
-  _MapsDetailPageState createState() => _MapsDetailPageState();
+  _MapsDetailPageViewState createState() => _MapsDetailPageViewState();
 }
 
-class _MapsDetailPageState extends State<MapsDetailPage> {
+class _MapsDetailPageViewState extends State<MapsDetailPageView> {
   PageController controller;
 
   static var maps = [
@@ -41,7 +40,6 @@ class _MapsDetailPageState extends State<MapsDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: MenuWidget(),
         body: PageView(
           controller: controller,
           children: _buildChildren(),

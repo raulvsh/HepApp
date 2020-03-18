@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 
 /*Código correspondiente para mostrar el PDF en la aplicación
 * y construcción del layout correspondiente*/
@@ -29,6 +30,7 @@ class _PdfDetailPageState extends State<PdfDetailPage> {
 
     return Scaffold(
       appBar: CustomAppBar(context, widget.title),
+      drawer: MenuWidget(),
 
       /*Utilización de Stack por la propiedad de Overflow
       *y que llegue a mostrar el círculo de cargando encima

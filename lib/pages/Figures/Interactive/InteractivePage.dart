@@ -31,9 +31,8 @@ class _InteractivePageState extends State<InteractivePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
-
-      drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'interactive_figures'),
+      drawer: MenuWidget(),
       body: OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);

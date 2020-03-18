@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/pages/Figures/Pathology/Pathology1Page.dart';
-import 'package:hepapp/widgets/menu_widget.dart';
 
 import 'Pathology2Page.dart';
 
@@ -27,7 +26,6 @@ class _PathologyPageViewState extends State<PathologyPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: MenuWidget(),
         body: PageView(
           controller: controller,
           children: <Widget>[

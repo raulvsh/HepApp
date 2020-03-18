@@ -7,24 +7,24 @@ import 'package:hepapp/pages/Calculators/OkudaCalcPage.dart';
 import 'package:hepapp/pages/CalculatorsPage.dart';
 import 'package:hepapp/pages/Chapters/ChaptersPage.dart';
 import 'package:hepapp/pages/Chapters/ModulePageView.dart';
-import 'package:hepapp/pages/Chapters/PDFDetailPage.dart';
+import 'package:hepapp/pages/DetailPageWidgets/PDFDetailPage.dart';
+import 'package:hepapp/pages/DetailPageWidgets/WebDetailPage.dart';
 import 'package:hepapp/pages/Figures/Drawing/DrawingPage.dart';
 import 'package:hepapp/pages/Figures/Drawing/DrawingPageView.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractivePage.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractivePageView.dart';
+import 'package:hepapp/pages/Figures/Maps/MapsDetailPageView.dart';
 import 'package:hepapp/pages/Figures/Maps/MapsPage.dart';
-import 'package:hepapp/pages/Figures/Maps/MapsPageView.dart';
-import 'package:hepapp/pages/Figures/Pathology/PathologyDetailPage.dart';
+import 'package:hepapp/pages/Figures/Pathology/PathologyDetailPageView.dart';
 import 'package:hepapp/pages/Figures/Pathology/PathologyPageView.dart';
-import 'package:hepapp/pages/Figures/Schemes/SchemesDetailPage.dart';
+import 'package:hepapp/pages/Figures/Schemes/SchemesDetailPageView.dart';
 import 'package:hepapp/pages/Figures/Schemes/SchemesPage.dart';
+import 'package:hepapp/pages/Figures/TOC/TOCDetailPageView.dart';
 import 'package:hepapp/pages/Figures/TOC/TOCFigPage.dart';
-import 'package:hepapp/pages/Figures/TOC/TOCPageView.dart';
 import 'package:hepapp/pages/FiguresPage.dart';
 import 'package:hepapp/pages/HomePage.dart';
 import 'package:hepapp/pages/Podcasts/PodcastsPageView.dart';
 import 'package:hepapp/pages/ResourcesPage.dart';
-import 'package:hepapp/pages/WebViewPage.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -84,7 +84,7 @@ class RouteGenerator {
         print('url $url');
         return MaterialPageRoute(
             builder: (context) =>
-                WebViewPage(
+                WebDetailPage(
                   url: url[0],
                   title: url[1],
                 )
@@ -94,20 +94,22 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => TOCFigPage());
       case '/TOCPV':
         var initialPage = settings.arguments as int;
-        return MaterialPageRoute(builder: (_) => TOCPageView(initialPage));
+        return MaterialPageRoute(
+            builder: (_) => TOCDetailPageView(initialPage));
 
       case '/SchemesFig':
         return MaterialPageRoute(builder: (_) => SchemesPage());
       case '/SchemesPV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
-            builder: (_) => SchemesDetailPage(initialPage));
+            builder: (_) => SchemesDetailPageView(initialPage));
 
       case '/MapsFig':
         return MaterialPageRoute(builder: (_) => MapsPage());
       case '/MapsPV':
         var initialPage = settings.arguments as int;
-        return MaterialPageRoute(builder: (_) => MapsDetailPage(initialPage));
+        return MaterialPageRoute(
+            builder: (_) => MapsDetailPageView(initialPage));
 
       case '/PathologyFig':
         return MaterialPageRoute(builder: (_) => PathologyPageView(0));

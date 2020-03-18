@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
-import 'package:hepapp/widgets/menu_widget.dart';
 
-import '../FigureDetailPage.dart';
+import '../../DetailPageWidgets/FigureDetailPage.dart';
 
 class PathologyDetailPage extends StatefulWidget {
   var initialPage;
@@ -54,7 +53,6 @@ class _PathologyDetailPageState extends State<PathologyDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: MenuWidget(),
         body: PageView(
           controller: controller,
           children: _buildChildren(),

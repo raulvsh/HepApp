@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/pages/Podcasts/VideoViewPage.dart';
+import 'package:hepapp/pages/DetailPageWidgets/VideoDetailPage.dart';
 
 class VideoButton extends StatelessWidget {
   final BuildContext context;
@@ -41,7 +41,8 @@ class VideoButton extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => VideoViewPage(
+                  builder: (context) =>
+                      VideoDetailPage(
                         url: type[2],
                         title: type[0],
                       )));

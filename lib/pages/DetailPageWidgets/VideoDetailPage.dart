@@ -2,19 +2,20 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoViewPage extends StatefulWidget {
+class VideoDetailPage extends StatefulWidget {
   String url;
   String title;
 
-  VideoViewPage({Key key, this.url, this.title}) : super(key: key);
+  VideoDetailPage({Key key, this.url, this.title}) : super(key: key);
 
   @override
-  _VideoViewPageState createState() => _VideoViewPageState();
+  _VideoDetailPageState createState() => _VideoDetailPageState();
 }
 
-class _VideoViewPageState extends State<VideoViewPage> {
+class _VideoDetailPageState extends State<VideoDetailPage> {
   VideoPlayerController _controller;
   Future<void> _initializeVideoPlayerFuture;
 
@@ -45,6 +46,7 @@ class _VideoViewPageState extends State<VideoViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(context, widget.title),
+      drawer: MenuWidget(),
       // Usa un FutureBuilder para visualizar un spinner de carga mientras espera a que
       // la inicialización de VideoPlayerController finalice.
       body: FutureBuilder(
