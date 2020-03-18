@@ -142,7 +142,7 @@
   "lindsay": "Atlas Lindsay",
 
   "back": "Atrás",
-  "table_contents": "Tablas de contenido",
+  "table_contents": "Tablas de Contenido",
   "maps": "Mapas",
   "pathology": "Patología",
   "pathology_section_1": "Patología 1",
@@ -187,6 +187,15 @@
   "international_units": "Unidades Internacionales",
   "yes": "Sí",
   "no": "No",
+  "jaundice": "Ictericia",
+  "abn_liver_tests": "Pruebas hepáticas anormales",
+  "hepatomegaly": "Hepatomegalia",
+  "splenomegaly": "Esplenomegalia",
+  "liver_mass": "Masa hepática",
+  "ugi_bleed": "Sangrado gastrointestinal alto",
+  "abdominal_distention": "Distensión Abdominal",
+  "decreased_loc": "Nivel de conciencia disminuido",
+
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
 
   "AFP": "AFP",

@@ -89,17 +89,7 @@ flutter:
     - assets/images/menu/
     - assets/lang/
     #- data/menu_opts.json
-    #- assets/images/prueba/
 
-    # - images/calculators.png
-    # - images/chapters.png
-    # - images/podcasts.png
-    # - images/cards.png
-    # - images/figures.png
-    # - images/calculators.png
-    # - images/resources.png
-    # - images/pubmed.png
-    # - images/information.png
     #  - images/a_dot_burr.jpeg
     #  - images/a_dot_ham.jpeg
 

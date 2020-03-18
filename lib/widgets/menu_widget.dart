@@ -1,76 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 
-/*
-
-class MenuWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var aux = AppLocalizations.of(context);
-
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          */
-/*
-
-          ListTile(
-            title: Container(
-              padding: EdgeInsets.only(top: 25),
-              child: Image.asset(
-                'assets/images/hepapplogo.png',
-                width: 100,
-                height: 100,
-              ),
-            ),
-            onTap: () => Navigator.pushReplacementNamed(context, '/'),
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.home, color: Theme.of(context).primaryColor),
-            title: Text(
-              aux.tr('home'),
-            ),
-            onTap: () => Navigator.pushReplacementNamed(context, '/'),
-          ),
-          ExpansionTile(
-            title: ListTile(
-              leading: Image.asset(
-                'assets/images/menu/1_chapters.png',
-                height: 25,
-                width: 25,
-                fit: BoxFit.scaleDown,
-              ),
-              title: Text(
-                aux.tr('chapters'),
-              ),
-              onTap: () =>
-                  Navigator.pushReplacementNamed(context, '/Chapters'),
-            ),
-            children: <Widget>[
-              ListTile(
-                leading: Image.asset(
-                  'assets/images/menu/1_chapters.png',
-                  height: 25,
-                  width: 25,
-                  fit: BoxFit.scaleDown,
-                ),
-                title: Text(
-                  aux.tr('module_1'),
-                ),
-                onTap: () =>
-                    Navigator.pushReplacementNamed(context, '/Chapters'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-*/
-
 class MenuWidget extends StatelessWidget {
   const MenuWidget({Key key}) : super(key: key);
 
@@ -139,24 +69,24 @@ const List<Item> data = <Item>[
     ['/Chapters'],
     <Item>[
       Item(
-        'assets/images/menu/9_modules.png',
+        'assets/images/menu/10_subitem.png',
         'module_1',
         ['/ModulePV', 0],
       ),
       Item(
-        'assets/images/menu/9_modules.png',
+        'assets/images/menu/10_subitem.png',
         'module_2',
         ['/ModulePV', 1],
       ),
       Item(
-        'assets/images/menu/9_modules.png',
+        'assets/images/menu/10_subitem.png',
         'module_3',
         ['/ModulePV', 2],
       ),
       //TODO hacer lo mismo que web para pdf
 
       Item(
-        'assets/images/menu/9_modules.png',
+        'assets/images/menu/10_subitem.png',
         'references',
         ['/References', 0],
       ),
@@ -181,32 +111,32 @@ const List<Item> data = <Item>[
     ['/Figures'],
     <Item>[
       Item(
-        'assets/images/menu/4_figures.png',
+        'assets/images/menu/10_subitem.png',
         'table_contents',
         ['/TableFig', 0],
       ),
       Item(
-        'assets/images/menu/4_figures.png',
+        'assets/images/menu/10_subitem.png',
         'schemes',
         ['/SchemesFig', 0],
       ),
       Item(
-        'assets/images/menu/4_figures.png',
+        'assets/images/menu/10_subitem.png',
         'maps',
         ['/MapsFig', 0],
       ),
       Item(
-        'assets/images/menu/4_figures.png',
+        'assets/images/menu/10_subitem.png',
         'pathology',
         ['/PathologyFig', 0],
       ),
       Item(
-        'assets/images/menu/4_figures.png',
+        'assets/images/menu/10_subitem.png',
         'interactive_figures',
         ['/InteractiveFig', 0],
       ),
       Item(
-        'assets/images/menu/4_figures.png',
+        'assets/images/menu/10_subitem.png',
         'drawing',
         ['/DrawingFig', 0],
       ),
@@ -218,27 +148,27 @@ const List<Item> data = <Item>[
     ['/Calculators'],
     <Item>[
       Item(
-        'assets/images/menu/5_calculators.png',
+        'assets/images/menu/10_subitem.png',
         'all_algorithms',
         ['/AllCalc', 0],
       ),
       Item(
-        'assets/images/menu/5_calculators.png',
+        'assets/images/menu/10_subitem.png',
         'child_pugh_score',
         ['/ChildCalc', 0],
       ),
       Item(
-        'assets/images/menu/5_calculators.png',
+        'assets/images/menu/10_subitem.png',
         'meld',
         ['/MELDCalc', 0],
       ),
       Item(
-        'assets/images/menu/5_calculators.png',
+        'assets/images/menu/10_subitem.png',
         'okuda_staging_system',
         ['/OkudaCalc', 0],
       ),
       Item(
-        'assets/images/menu/5_calculators.png',
+        'assets/images/menu/10_subitem.png',
         'clip_staging_system',
         ['/CLIPCalc', 0],
       ),
@@ -250,7 +180,7 @@ const List<Item> data = <Item>[
     ['/Resources'],
     <Item>[
       Item(
-        'assets/images/menu/6_resources.png',
+        'assets/images/menu/10_subitem.png',
         'casl',
         [
           '/Web',
@@ -258,7 +188,7 @@ const List<Item> data = <Item>[
         ],
       ),
       Item(
-        'assets/images/menu/6_resources.png',
+        'assets/images/menu/10_subitem.png',
         'aasld',
         [
           '/Web',
@@ -266,7 +196,7 @@ const List<Item> data = <Item>[
         ],
       ),
       Item(
-        'assets/images/menu/6_resources.png',
+        'assets/images/menu/10_subitem.png',
         'easl',
         [
           '/Web',
@@ -277,7 +207,7 @@ const List<Item> data = <Item>[
         ],
       ),
       Item(
-        'assets/images/menu/6_resources.png',
+        'assets/images/menu/10_subitem.png',
         'acg',
         [
           '/Web',
@@ -288,7 +218,7 @@ const List<Item> data = <Item>[
         ],
       ),
       Item(
-        'assets/images/menu/6_resources.png',
+        'assets/images/menu/10_subitem.png',
         'aga',
         [
           '/Web',
@@ -296,7 +226,7 @@ const List<Item> data = <Item>[
         ],
       ),
       Item(
-        'assets/images/menu/6_resources.png',
+        'assets/images/menu/10_subitem.png',
         'ilca',
         [
           '/Web',
@@ -307,7 +237,7 @@ const List<Item> data = <Item>[
         ],
       ),
       Item(
-        'assets/images/menu/5_calculators.png',
+        'assets/images/menu/10_subitem.png',
         'lindsay',
         [
           '/Web',

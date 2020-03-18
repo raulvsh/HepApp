@@ -9,19 +9,24 @@ class SchemesPage extends StatefulWidget {
 }
 
 class _SchemesPageState extends State<SchemesPage> {
-  static var Schemes = [
-    ['scheme_1', 'schemes/Scheme_1_Jaundice.png', '/SchemesPV'],
-    ['scheme_2', 'schemes/Scheme_2_AbN_Liver_Tests.png', '/SchemesPV'],
-    ['scheme_3', 'schemes/Scheme_3_Hepatomegaly.png', '/SchemesPV'],
-    ['scheme_4', 'schemes/Scheme_4_Splenomegaly.png', '/SchemesPV'],
-    ['scheme_5', 'schemes/Scheme_5_Liver_Mass.png', '/SchemesPV'],
-    ['scheme_6', 'schemes/Scheme_6_UGI_Bleed.png', '/SchemesPV'],
-    ['scheme_7', 'schemes/Scheme_7_Abdominal_Distention.png', '/SchemesPV'],
-    ['scheme_8', 'schemes/Scheme_8_Decreased_LOC.png', '/SchemesPV'],
+
+
+  static var schemes = [
+    ['jaundice', 'schemes/Scheme_1_Jaundice.png', '/SchemesPV1'],
+    ['abn_liver_tests', 'schemes/Scheme_2_AbN_Liver_Tests.png', '/SchemesPV2'],
+    ['hepatomegaly', 'schemes/Scheme_3_Hepatomegaly.png', '/SchemesPV3'],
+    ['splenomegaly', 'schemes/Scheme_4_Splenomegaly.png', '/SchemesPV4'],
+    ['liver_mass', 'schemes/Scheme_5_Liver_Mass.png', '/SchemesPV5'],
+    ['ugi_bleed', 'schemes/Scheme_6_UGI_Bleed.png', '/SchemesPV6'],
+    [
+      'abdominal_distention',
+      'schemes/Scheme_7_Abdominal_Distention.png',
+      '/SchemesPV7'
+    ],
+    ['decreased_loc', 'schemes/Scheme_8_Decreased_LOC.png', '/SchemesPV8'],
   ];
 
-
-  var numSchemes = Schemes.length;
+  var numSchemes = schemes.length;
 
   @override
   void initState() {
@@ -70,7 +75,7 @@ class _SchemesPageState extends State<SchemesPage> {
     List<Widget> widgets = [];
     for (int i = 0; i < numSchemes; i++) {
       widgets.add(FigureButton(
-          context, Schemes[i], i)); //, SchemesPageView(i)));
+          context, schemes[i], i)); //, SchemesPageView(i)));
     }
     return widgets;
   }
