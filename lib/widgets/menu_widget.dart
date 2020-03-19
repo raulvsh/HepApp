@@ -88,7 +88,7 @@ const List<Item> data = <Item>[
       Item(
         'assets/images/menu/10_subitem.png',
         'references',
-        ['/References', 0],
+        ['/PDF', ['HepAPP_References.pdf', 'references']],
       ),
     ],
   ),
@@ -258,7 +258,7 @@ const List<Item> data = <Item>[
   Item(
     'assets/images/menu/8_information.png',
     'information',
-    ['/References', 0],
+    ['/PDF', ['HepAPP_Introduction.pdf', 'information']],
   ),
 ];
 

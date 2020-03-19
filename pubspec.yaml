@@ -30,7 +30,7 @@ dependencies:
   shared_preferences: ^0.5.3+4
   #webview_flutter: ^0.3.15+1
   webview_flutter:
-  flutter_webview_plugin:
+  #flutter_webview_plugin:
   flutter_pdfview:
   flutter_material_color_picker: ^1.0.3
   flutter_colorpicker:
@@ -89,6 +89,7 @@ flutter:
     - assets/images/drawing/
     - assets/images/menu/
     - assets/lang/
+    #- assets/pdf/
     #- data/menu_opts.json
 
     #  - images/a_dot_burr.jpeg

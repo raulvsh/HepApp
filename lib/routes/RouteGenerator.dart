@@ -7,7 +7,7 @@ import 'package:hepapp/pages/Calculators/OkudaCalcPage.dart';
 import 'package:hepapp/pages/CalculatorsPage.dart';
 import 'package:hepapp/pages/Chapters/ChaptersPage.dart';
 import 'package:hepapp/pages/Chapters/ModulePageView.dart';
-import 'package:hepapp/pages/DetailPageWidgets/PDFDetailPage.dart';
+import 'package:hepapp/pages/DetailPageWidgets/PDFNew.dart';
 import 'package:hepapp/pages/DetailPageWidgets/WebDetailPage.dart';
 import 'package:hepapp/pages/Figures/Drawing/DrawingPage.dart';
 import 'package:hepapp/pages/Figures/Drawing/DrawingPageView.dart';
@@ -45,40 +45,34 @@ class RouteGenerator {
       case '/ModulePV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(builder: (_) => ModulePageView(initialPage));
-      case '/References':
+      case '/PDF':
+        var path = settings.arguments as List<String>;
+        /*print('path $path');
+        print('/assets/${path[0]}');
+        print('path 0 ${path[0]}');*/
+
         return MaterialPageRoute(
-            builder: (context) {
-              return PdfDetailPage(
-                path: 'assets/HepAPP_References.pdf',
-                title: 'references',
-              );
-            }
+          /*builder: (context) => PdfDetailPage(
+              path: 'assets/HepAPP_M1C1.pdf',
+              title: 'chapters',
+            ));*/
 
-          /*   (context) async {
-              await getFileFromAsset("assets/${type[2]}").then((f) {
-                assetPDFPath = f.path;
-                //print("Asset pdf path " + assetPDFPath);
-              });
-              if (assetPDFPath != null) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            PdfDetailPage(
-                              path: assetPDFPath,
-                              title: title,
-                            )));
-              }
-            },*/
 
-          /*(context) =>
+            builder: (context) =>
+                PDFNew(
+
+                  /*path: 'assets/HepAPP_M1C1.pdf',
+          title: 'chapters',*/
+                ));
+    /*return MaterialPageRoute(
+            builder: (context) =>
                 PdfDetailPage(
-                  path: 'assets/HepAPP_References.pdf',
-                  title: 'references',
-                )*/
+                  //path: '/assets/${path[0]}',
+                  //path: '/data/user/0/es.uva.tel.hepapp/app_flutter/HepAPP_M2C7.pdf',
+                  path: path[0],
+                  title: path[1], //'chapters',
+                ));*/
 
-
-        );
       case '/Web':
         var url = settings.arguments as List<String>;
         print('url $url');
@@ -87,8 +81,7 @@ class RouteGenerator {
                 WebDetailPage(
                   url: url[0],
                   title: url[1],
-                )
-        );
+                ));
 
       case '/TableFig':
         return MaterialPageRoute(builder: (_) => TOCFigPage());
@@ -133,12 +126,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => DrawingPage());
       case '/DrawingPV':
         var initialPage = settings.arguments as int;
-/*
-        return MaterialPageRoute(builder: (_) => DrawingPage());
-*/
-
-        return MaterialPageRoute(
-            builder: (_) => DrawingPageView(initialPage));
+        return MaterialPageRoute(builder: (_) => DrawingPageView(initialPage));
 
       case '/AllCalc':
         return MaterialPageRoute(builder: (_) => AllCalcPage());
@@ -151,9 +139,6 @@ class RouteGenerator {
       case '/OkudaCalc':
         return MaterialPageRoute(builder: (_) => OkudaCalcPage());
 
-
-
-
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
@@ -162,7 +147,11 @@ class RouteGenerator {
                 ));
     }
   }
+
+
 }
+
+
 
 /*
 

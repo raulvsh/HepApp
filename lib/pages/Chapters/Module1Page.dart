@@ -68,21 +68,6 @@ class _Module1PageState extends State<Module1Page> {
         bottomSheet: BottomNavigationSheet(0, '/ModulePV', numChaptersModule1));
   }
 
-  /*Row _buildBottomSheet(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        IconButton(
-          icon: Icon(Icons.arrow_forward_ios),
-          color: Theme.of(context).primaryColor,
-
-          onPressed: () =>
-              Navigator.pushReplacementNamed(context, '/ModulePV2'),
-        )
-
-      ],
-    );
-  }*/
 
   _buildLayout(orientation) {
     final width = MediaQuery
