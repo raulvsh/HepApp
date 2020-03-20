@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
+import 'package:hepapp/pages/DetailPageWidgets/PDFDetailPage.dart';
 
 class MenuWidget extends StatelessWidget {
   const MenuWidget({Key key}) : super(key: key);
@@ -22,14 +23,15 @@ class MenuWidget extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(top: 110),
-            child: Divider(thickness: 0.75,),
+            child: Divider(
+              thickness: 0.75,
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 119),
             child: ListView.builder(
               itemBuilder: (BuildContext context, int index) =>
                   MenuItem(data[index], context),
-
               itemCount: data.length,
             ),
           ),
@@ -66,7 +68,7 @@ const List<Item> data = <Item>[
   Item(
     'assets/images/menu/1_chapters.png',
     'chapters',
-    ['/Chapters'],
+    ['/Chapters', 0],
     <Item>[
       Item(
         'assets/images/menu/10_subitem.png',
@@ -88,7 +90,10 @@ const List<Item> data = <Item>[
       Item(
         'assets/images/menu/10_subitem.png',
         'references',
-        ['/PDF', ['HepAPP_References.pdf', 'references']],
+        [
+          '/PDF',
+          ['HepAPP_References.pdf', 'references']
+        ],
       ),
     ],
   ),
@@ -108,7 +113,7 @@ const List<Item> data = <Item>[
   Item(
     'assets/images/menu/4_figures.png',
     'figures',
-    ['/Figures'],
+    ['/Figures', 0],
     <Item>[
       Item(
         'assets/images/menu/10_subitem.png',
@@ -145,7 +150,7 @@ const List<Item> data = <Item>[
   Item(
     'assets/images/menu/5_calculators.png',
     'calculators',
-    ['/Calculators'],
+    ['/Calculators', 0],
     <Item>[
       Item(
         'assets/images/menu/10_subitem.png',
@@ -177,7 +182,7 @@ const List<Item> data = <Item>[
   Item(
     'assets/images/menu/6_resources.png',
     'resources',
-    ['/Resources'],
+    ['/Resources', 0],
     <Item>[
       Item(
         'assets/images/menu/10_subitem.png',
@@ -258,7 +263,10 @@ const List<Item> data = <Item>[
   Item(
     'assets/images/menu/8_information.png',
     'information',
-    ['/PDF', ['HepAPP_Introduction.pdf', 'information']],
+    [
+      '/PDF',
+      ['HepAPP_Introduction.pdf', 'information']
+    ],
   ),
 ];
 
@@ -277,7 +285,7 @@ class MenuItem extends StatelessWidget {
   Widget _buildTiles(Item root) {
     var aux = AppLocalizations.of(context);
 
-    if (root.children.isEmpty)
+    if (root.children.isEmpty) {
       return ListTile(
           contentPadding: EdgeInsets.only(left: 32),
           leading: Image.asset(
@@ -290,16 +298,19 @@ class MenuItem extends StatelessWidget {
             aux.tr(root.title),
           ),
           onTap: () {
-            Navigator.pushReplacementNamed(
-              context,
-              root.route[0],
-              arguments: root.route[1],
-            );
-          }
-
-      );
+            print("ruta ${root.route}");
+            if (root.route[0] == "/PDF") {
+              showPDF(root.route[1]);
+            } else {
+              Navigator.pushReplacementNamed(
+                context,
+                root.route[0],
+                arguments: root.route[1] != null ? root.route[1] : 0,
+              );
+            }
+          });
+    }
     return ExpansionTile(
-
       title: _buildIndividualTile(root),
       children: root.children.map(_buildTiles).toList(),
     );
@@ -310,21 +321,49 @@ class MenuItem extends StatelessWidget {
 
     return ListTile(
       //contentPadding: EdgeInsets.all(0),
-      leading: Image.asset(
-        root.image,
-        height: 25,
-        width: 25,
-        fit: BoxFit.scaleDown,
-      ),
-      title: Text(
-        aux.tr(root.title),
-      ),
-      onTap: () =>
-          Navigator.pushReplacementNamed(
-            context,
-            root.route[0],
-            //arguments: root.route[1] != null ? root.route[1] : 0,
-      ),
-    );
+        leading: Image.asset(
+          root.image,
+          height: 25,
+          width: 25,
+          fit: BoxFit.scaleDown,
+        ),
+        title: Text(
+          aux.tr(root.title),
+        ),
+        onTap: () {
+          print("ruta ${root.route}");
+
+          if (root.route[0] == "/PDF") {
+            showPDF(root.route[1]);
+          } else {
+            Navigator.pushReplacementNamed(
+              context,
+              root.route[0],
+              arguments: root.route[1] != null ? root.route[1] : 0,
+            );
+          }
+        });
+  }
+
+  showPDF(List<String> attributes) async {
+    print("route desde menu_widget " + attributes[0] + " " + attributes[1]);
+    var assetPDFPath;
+    //await getFileFromAsset("assets/${type[2]}").then((f) {
+    await getFileFromAsset("assets/${attributes[0]}").then((f) {
+      assetPDFPath = f.path;
+      print("Asset pdf path desde menu " + assetPDFPath);
+    });
+    if (assetPDFPath != null) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  PdfDetailPage(
+                    path:
+                    "data/user/0/es.uva.tel.hepapp/app_flutter/HepAPP_M1C1.pdf",
+                    /*path: assetPDFPath,*/
+                    title: attributes[1],
+                  )));
+    }
   }
 }

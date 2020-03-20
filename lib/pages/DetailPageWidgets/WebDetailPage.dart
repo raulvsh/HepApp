@@ -21,6 +21,8 @@ class _WebDetailPageState extends State<WebDetailPage> {
       drawer: MenuWidget(),
       body: WebView(
         initialUrl: widget.url,
+        javascriptMode: JavascriptMode.unrestricted,
+
       ),
 
       /*WebviewScaffold(
