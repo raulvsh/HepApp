@@ -1,3 +1,6 @@
+//import 'dart:js';
+
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hepapp/routes/RouteGenerator.dart';
@@ -11,7 +14,15 @@ void main() async {
   //Cargo las preferencias antes de correr la app
   final prefs = new PreferenciasUsuario();
   await prefs.initPrefs();
-  runApp(MyApp());
+  runApp(
+    DevicePreview(
+      usePreferences: false,
+      areSettingsEnabled: false,
+      //enabled: !kReleaseMode,
+      enabled: false,
+      builder: (context) => MyApp(),
+    ),
+  );
 }
 
 /*
@@ -54,7 +65,10 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
+      locale: DevicePreview
+          .of(context)
+          ?.locale,
+      builder: DevicePreview.appBuilder,
       title: title,
       theme: ThemeData(
         //brightness: Brightness.dark, //Tema oscuro

@@ -41,18 +41,15 @@ class PDFButton extends StatelessWidget {
         ),
         //onTap: () => Navigator.pushNamed(context, "/PDF"/*type[2]*/, arguments: "/assets/HepAPP_References" /*type[2]*/),
         onTap: showPDF,
-
-
       ),
     );
   }
 
   showPDF() async {
     var assetPDFPath;
-    //await getFileFromAsset("assets/${type[2]}").then((f) {
-    await getFileFromAsset("assets/${type[2]}").then((f) {
+    await getFileFromAsset("assets/pdf/${type[2]}").then((f) {
       assetPDFPath = f.path;
-      print("Asset pdf path desde button " + assetPDFPath);
+      //print("Asset pdf path desde button " + assetPDFPath);
     });
     if (assetPDFPath != null) {
       Navigator.push(
@@ -66,6 +63,3 @@ class PDFButton extends StatelessWidget {
     }
   }
 }
-
-
-

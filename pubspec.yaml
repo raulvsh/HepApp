@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
+  device_preview:
   flutter:
     sdk: flutter
   flutter_form_bloc:
@@ -89,7 +90,7 @@ flutter:
     - assets/images/drawing/
     - assets/images/menu/
     - assets/lang/
-    #- assets/pdf/
+    - assets/pdf/
     #- data/menu_opts.json
 
     #  - images/a_dot_burr.jpeg

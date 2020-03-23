@@ -331,7 +331,7 @@ class MenuItem extends StatelessWidget {
           aux.tr(root.title),
         ),
         onTap: () {
-          print("ruta ${root.route}");
+          //print("ruta ${root.route}");
 
           if (root.route[0] == "/PDF") {
             showPDF(root.route[1]);
@@ -346,12 +346,11 @@ class MenuItem extends StatelessWidget {
   }
 
   showPDF(List<String> attributes) async {
-    print("route desde menu_widget " + attributes[0] + " " + attributes[1]);
+    //print("route desde menu_widget " + attributes[0] + " " + attributes[1]);
     var assetPDFPath;
-    //await getFileFromAsset("assets/${type[2]}").then((f) {
-    await getFileFromAsset("assets/${attributes[0]}").then((f) {
+    await getFileFromAsset("assets/pdf/${attributes[0]}").then((f) {
       assetPDFPath = f.path;
-      print("Asset pdf path desde menu " + assetPDFPath);
+      //print("Asset pdf path desde menu " + assetPDFPath);
     });
     if (assetPDFPath != null) {
       Navigator.push(
@@ -359,9 +358,7 @@ class MenuItem extends StatelessWidget {
           MaterialPageRoute(
               builder: (context) =>
                   PdfDetailPage(
-                    path:
-                    "data/user/0/es.uva.tel.hepapp/app_flutter/HepAPP_M1C1.pdf",
-                    /*path: assetPDFPath,*/
+                    path: assetPDFPath,
                     title: attributes[1],
                   )));
     }

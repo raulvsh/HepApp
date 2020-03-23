@@ -27,10 +27,7 @@ import 'package:hepapp/pages/Podcasts/PodcastsPageView.dart';
 import 'package:hepapp/pages/ResourcesPage.dart';
 import 'package:path_provider/path_provider.dart';
 
-
-
 class RouteGenerator {
-
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
@@ -51,21 +48,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ModulePageView(initialPage));
       case '/PDF':
         var path = settings.arguments as List<String>;
-        /*print('path completo: $path');
-        print('assets: /assets/${path[0]}');
-        print('path 0 (ruta): ${path[0]}');
-        print('path 1 (titulo) : ${path[1]}');*/
-
         return MaterialPageRoute(
-
-
-
             builder: (context) =>
-            //PDFScreen(path: "$dir/HepAPP_M1C1.pdf"));
-
-//funciona "a pelo"        PDFScreen(path: "data/user/0/es.uva.tel.hepapp/app_flutter/HepAPP_M1C1.pdf", title: path[1],));
-            PDFScreen(path: path[0], title: path[1],));
-
+                PDFScreen(
+                  path: path[0],
+                  title: path[1],
+                ));
 
       case '/Web':
         var url = settings.arguments as List<String>;
@@ -146,11 +134,7 @@ class RouteGenerator {
     var dir = await getApplicationDocumentsDirectory();
     return dir;
   }
-
-
 }
-
-
 
 /*
 
