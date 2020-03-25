@@ -1,9 +1,15 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:hepapp/widgets/HomeAppBar.dart';
 import 'package:hepapp/widgets/NavigationButton.dart';
 import 'package:hepapp/widgets/PDFButton.dart';
 import 'package:hepapp/widgets/WebButton.dart';
+import 'package:image_picker_saver/image_picker_saver.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   /*||título | imagen | ruta | tipo ||*/
   static var homeSections = [
     ['chapters', '1_chapters.png', '/Chapters'],
@@ -25,11 +32,8 @@ class _HomePageState extends State<HomePage> {
     ['information', '8_information.png', 'HepAPP_Introduction.pdf'],
   ];
 
-
   var numHomeSections = homeSections.length;
-
-
-
+  static GlobalKey screen = new GlobalKey();
 
 
   @override
@@ -47,10 +51,17 @@ class _HomePageState extends State<HomePage> {
         preferredSize: Size.fromHeight(90),
         child: HomeAppBar(context),
       ),
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          return _buildLayout(orientation);
-        },
+      body: RepaintBoundary(
+        key: screen,
+        child: OrientationBuilder(
+          builder: (context, orientation) {
+            return _buildLayout(orientation);
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: takeScreenShot,
+        child: new Icon(Icons.add_to_home_screen),
       ),
     );
   }
@@ -65,7 +76,7 @@ class _HomePageState extends State<HomePage> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      //color: Colors.red,
+      color: Color.fromARGB(255, 250, 250, 250),
       child: FractionallySizedBox(
         widthFactor: orientation == Orientation.portrait ? 0.7 : 0.7,
         //Se puede personalizar el ancho en horizontal o vertical
@@ -83,8 +94,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   _buildHomeGridView() {
-
-
     List<Widget> widgets = [];
     //Introduzco un botón menos que el número de categorías, ya que el botón de información nos dirigirá directamente al PDF
     //Guardado para cuando se combinen los botones en un mismo widget
@@ -102,9 +111,19 @@ class _HomePageState extends State<HomePage> {
     // widgets.add(NavigationButton(context, homeSections[6], [homeSections[6][3], homeSections[6][0]]));
 
     widgets.add(WebButton(context, homeSections[6]));
-    widgets.add(
-        PDFButton(context, homeSections[7], 'information'));
+    widgets.add(PDFButton(context, homeSections[7], 'information'));
 
     return widgets;
   }
+
+  takeScreenShot() async {
+    RenderRepaintBoundary boundary = screen.currentContext.findRenderObject();
+    ui.Image image = await boundary.toImage(pixelRatio: 3);
+    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png,);
+
+    var filePath = await ImagePickerSaver.saveFile(
+        fileData: byteData.buffer.asUint8List());
+    print(filePath);
+  }
+
 }

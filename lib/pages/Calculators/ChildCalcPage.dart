@@ -1,9 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/forms/ChildCalcForm.dart';
 import 'package:hepapp/widgets/CalcBottomBar.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
+import 'package:image_picker_saver/image_picker_saver.dart';
+
+import 'Dart:ui' as ui;
 
 class ChildCalcPage extends StatefulWidget {
   @override
@@ -11,6 +17,8 @@ class ChildCalcPage extends StatefulWidget {
 }
 
 class _ChildCalcPageState extends State<ChildCalcPage> {
+  //static GlobalKey previewContainer = new GlobalKey();
+  static GlobalKey screen = new GlobalKey();
 
   @override
   void initState() {
@@ -34,17 +42,36 @@ class _ChildCalcPageState extends State<ChildCalcPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
         context, 'child_pugh_score', selScreenshot: true,
         selPartialSettings: true,),
       drawer: MenuWidget(),
-      body: new Center(
-        child: ChildCalcForm(),
+      body: RepaintBoundary(
+        key: screen,
+        child: Center(
+          child: ChildCalcForm(),
+        ),
       ),
       bottomSheet: CalcBottomBar("reseteo2"),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: takeScreenShot,
+        tooltip: 'screenshot',
+        child: new Icon(Icons.camera),
+      ),
 
     );
   }
+
+  takeScreenShot() async {
+    RenderRepaintBoundary boundary = screen.currentContext.findRenderObject();
+    ui.Image image = await boundary.toImage(pixelRatio: 3);
+    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png,);
+
+    var filePath = await ImagePickerSaver.saveFile(
+        fileData: byteData.buffer.asUint8List());
+    print(filePath);
+  }
+
 }

@@ -46,7 +46,9 @@ dependencies:
   #liquid_progress_indicator: ^0.3.2
   #image_picker: ^0.6.1+4
   video_player:
-
+  screenshot: ^0.1.1
+  permission_handler:
+  image_picker_saver:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
