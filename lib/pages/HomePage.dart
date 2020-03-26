@@ -4,12 +4,9 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/HomeAppBar.dart';
-import 'package:hepapp/widgets/NavigationButton.dart';
-import 'package:hepapp/widgets/PDFButton.dart';
-import 'package:hepapp/widgets/WebButton.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
-
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,24 +14,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   /*||título | imagen | ruta | tipo ||*/
   static var homeSections = [
-    ['chapters', '1_chapters.png', '/Chapters'],
-    ['podcasts', '2_podcasts.png', '/PodcastsPV'],
-    ['cards', '3_cards.png', 'https://cards.ucalgary.ca'],
-    //['cards', '3_cards.png', '/Web', 'https://cards.ucalgary.ca'],
+    ['chapters', '1_chapters.png', '/Chapters', 'Nav'],
+    ['podcasts', '2_podcasts.png', '/PodcastsPV', 'Nav'],
 
-    ['figures', '4_figures.png', '/Figures'],
-    ['calculators', '5_calculators.png', '/Calculators'],
-    ['resources', '6_resources.png', '/Resources'],
-    ['pub_med', '7_pubmed.png', '/Web', 'https://www.ncbi.nlm.nih.gov/pubmed/'],
-    ['information', '8_information.png', 'HepAPP_Introduction.pdf'],
+    ['cards', '3_cards.png', 'https://cards.ucalgary.ca', 'Web'],
+    ['figures', '4_figures.png', '/Figures', 'Nav'],
+    ['calculators', '5_calculators.png', '/Calculators', 'Nav'],
+    ['resources', '6_resources.png', '/Resources', 'Nav'],
+
+    //Viejo ['pub_med', '7_pubmed.png', '/Web', 'https://www.ncbi.nlm.nih.gov/pubmed/', 'Web'],
+    ['pub_med', '7_pubmed.png', 'https://www.ncbi.nlm.nih.gov/pubmed/', 'Web'],
+    ['information', '8_information.png', 'HepAPP_Introduction.pdf', 'PDF'],
   ];
 
   var numHomeSections = homeSections.length;
-  static GlobalKey screen = new GlobalKey();
-
+  static GlobalKey screen = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -100,30 +96,33 @@ class _HomePageState extends State<HomePage> {
     /*for (int i = 0; i < numHomeCategories - 2; i++) {
       widgets.add(HomeButton(context, sectionTypes[sectionTypesNames[i]]));
     }*/
-    widgets.add(NavigationButton(context, homeSections[0]));
+    for (int i = 0; i < numHomeSections; i++) {
+      widgets.add(ComboButton(context, homeSections[i], 0));
+    }
+
+    /*widgets.add(NavigationButton(context, homeSections[0]));
     widgets.add(NavigationButton(context, homeSections[1], 0));
     widgets.add(WebButton(context, homeSections[2]));
-    // widgets.add(NavigationButton(context, homeSections[2], [homeSections[2][3], homeSections[2][0]]));
 
     widgets.add(NavigationButton(context, homeSections[3]));
     widgets.add(NavigationButton(context, homeSections[4]));
     widgets.add(NavigationButton(context, homeSections[5]));
-    // widgets.add(NavigationButton(context, homeSections[6], [homeSections[6][3], homeSections[6][0]]));
 
     widgets.add(WebButton(context, homeSections[6]));
     widgets.add(PDFButton(context, homeSections[7], 'information'));
-
+*/
     return widgets;
   }
 
   takeScreenShot() async {
     RenderRepaintBoundary boundary = screen.currentContext.findRenderObject();
     ui.Image image = await boundary.toImage(pixelRatio: 3);
-    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png,);
+    ByteData byteData = await image.toByteData(
+      format: ui.ImageByteFormat.png,
+    );
 
     var filePath = await ImagePickerSaver.saveFile(
         fileData: byteData.buffer.asUint8List());
     print(filePath);
   }
-
 }

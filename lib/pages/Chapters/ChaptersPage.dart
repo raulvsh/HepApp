@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/NavigationButton.dart';
-import 'package:hepapp/widgets/PDFButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
 class ChaptersPage extends StatefulWidget {
@@ -10,12 +9,18 @@ class ChaptersPage extends StatefulWidget {
 }
 
 class _ChaptersPageState extends State<ChaptersPage> {
-
   static var modules = [
+    ['module_1', '9_modules.png', '/ModulePV', 'Nav'],
+    ['module_2', '9_modules.png', '/ModulePV', 'Nav'],
+    ['module_3', '9_modules.png', '/ModulePV', 'Nav'],
+    ['references', '9_modules.png', 'HepAPP_References.pdf', 'PDF'],
+  ];
+
+  /*static var modules = [
     ['module_1', '9_modules.png', '/ModulePV'],
     ['module_2', '9_modules.png', '/ModulePV'],
     ['module_3', '9_modules.png', '/ModulePV'],
-  ];
+  ];*/
 
   var numModules = modules.length;
 
@@ -42,7 +47,6 @@ class _ChaptersPageState extends State<ChaptersPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
@@ -85,11 +89,12 @@ class _ChaptersPageState extends State<ChaptersPage> {
   _buildModulesGridView() {
     List<Widget> widgets = [];
     for (int i = 0; i < numModules; i++) {
-      widgets.add(
-          NavigationButton(context, modules[i], i));
+      widgets.add(ComboButton(context, modules[i], i));
+
+      //NavigationButton(context, modules[i], i));
     }
-    widgets.add(PDFButton(context, references, 'references'));
+    //widgets.add(PDFButton(context, references, 'references'));
+
     return widgets;
   }
-
 }

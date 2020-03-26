@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
+import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/PDFButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
 //const String _documentPath = 'assets/HepM1C1.pdf';
@@ -15,16 +15,16 @@ class _Module3PageState extends State<Module3Page> {
   String assetPDFPath = "";
   final numModules = 3;
 
-  static var ChaptersMod3 = [
-    ['chapter_10', '1_chapters.png', 'HepAPP_M3C10.pdf'],
-    ['chapter_11', '1_chapters.png', 'HepAPP_M3C11.pdf'],
-    ['chapter_12', '1_chapters.png', 'HepAPP_M3C12.pdf'],
-    ['chapter_13', '1_chapters.png', 'HepAPP_M3C13.pdf'],
-    ['chapter_14', '1_chapters.png', 'HepAPP_M3C14.pdf'],
-    ['chapter_15', '1_chapters.png', 'HepAPP_M3C15.pdf'],
+  static var chaptersMod3 = [
+    ['chapter_10', '1_chapters.png', 'HepAPP_M3C10.pdf', 'PDF'],
+    ['chapter_11', '1_chapters.png', 'HepAPP_M3C11.pdf', 'PDF'],
+    ['chapter_12', '1_chapters.png', 'HepAPP_M3C12.pdf', 'PDF'],
+    ['chapter_13', '1_chapters.png', 'HepAPP_M3C13.pdf', 'PDF'],
+    ['chapter_14', '1_chapters.png', 'HepAPP_M3C14.pdf', 'PDF'],
+    ['chapter_15', '1_chapters.png', 'HepAPP_M3C15.pdf', 'PDF'],
   ];
 
-  var numChaptersModule3 = ChaptersMod3.length;
+  var numChaptersModule3 = chaptersMod3.length;
 
   @override
   void initState() {
@@ -74,10 +74,11 @@ class _Module3PageState extends State<Module3Page> {
   }
 
   _buildChaptersGridView() {
-    List<PDFButton> widgets = [];
+    List<Widget> widgets = [];
     for (int i = 0; i < numChaptersModule3; i++) {
-      widgets.add(PDFButton(context, ChaptersMod3[i],
-          'module_3_chapter_${i + 10}'));
+      widgets.add(ComboButton(context, chaptersMod3[i]));
+      /*widgets.add(PDFButton(context, ChaptersMod3[i],
+          'module_3_chapter_${i + 10}'));*/
     }
     return widgets;
   }

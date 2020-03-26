@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/pages/Calculators/AllCalcPage.dart';
 import 'package:hepapp/pages/Calculators/CLIPCalcPage.dart';
+import 'package:hepapp/pages/Calculators/CalculatorsPage.dart';
 import 'package:hepapp/pages/Calculators/ChildCalcPage.dart';
 import 'package:hepapp/pages/Calculators/MELDCalcPage.dart';
 import 'package:hepapp/pages/Calculators/OkudaCalcPage.dart';
-import 'package:hepapp/pages/CalculatorsPage.dart';
 import 'package:hepapp/pages/Chapters/ChaptersPage.dart';
 import 'package:hepapp/pages/Chapters/ModulePageView.dart';
-import 'package:hepapp/pages/DetailPageWidgets/PDFNew.dart';
+import 'package:hepapp/pages/DetailPageWidgets/VideoDetailPage.dart';
 import 'package:hepapp/pages/DetailPageWidgets/WebDetailPage.dart';
 import 'package:hepapp/pages/Figures/Drawing/DrawingPage.dart';
 import 'package:hepapp/pages/Figures/Drawing/DrawingPageView.dart';
+import 'package:hepapp/pages/Figures/FiguresPage.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractivePage.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractivePageView.dart';
 import 'package:hepapp/pages/Figures/Maps/MapsDetailPageView.dart';
@@ -21,11 +22,9 @@ import 'package:hepapp/pages/Figures/Schemes/SchemesDetailPageView.dart';
 import 'package:hepapp/pages/Figures/Schemes/SchemesPage.dart';
 import 'package:hepapp/pages/Figures/TOC/TOCDetailPageView.dart';
 import 'package:hepapp/pages/Figures/TOC/TOCFigPage.dart';
-import 'package:hepapp/pages/FiguresPage.dart';
 import 'package:hepapp/pages/HomePage.dart';
 import 'package:hepapp/pages/Podcasts/PodcastsPageView.dart';
 import 'package:hepapp/pages/ResourcesPage.dart';
-import 'package:path_provider/path_provider.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -46,24 +45,38 @@ class RouteGenerator {
       case '/ModulePV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(builder: (_) => ModulePageView(initialPage));
+    /* no funciona, hay que usar el método showpdf
+
       case '/PDF':
         var path = settings.arguments as List<String>;
+        print(path);
         return MaterialPageRoute(
             builder: (context) =>
                 PDFScreen(
                   path: path[0],
                   title: path[1],
-                ));
+                ));*/
 
       case '/Web':
-        var url = settings.arguments as List<String>;
-        print('url $url');
+        var arguments = settings.arguments as List<String>;
+        //print('url $arguments');
         return MaterialPageRoute(
             builder: (context) =>
                 WebDetailPage(
-                  url: url[0],
-                  title: url[1],
+                  url: arguments[0],
+                  title: arguments[1],
                 ));
+
+      case '/Video':
+        var arguments = settings.arguments as List<String>;
+        //print('arguments video desde routegenerator $arguments' );
+        return
+          MaterialPageRoute(
+            builder: (context) =>
+                VideoDetailPage(
+                  url: arguments[0],
+                  title: arguments[1],
+                ),);
 
       case '/TableFig':
         return MaterialPageRoute(builder: (_) => TOCFigPage());
@@ -130,10 +143,10 @@ class RouteGenerator {
     }
   }
 
-  obtenerDirectorio() async {
+/*obtenerDirectorio() async {
     var dir = await getApplicationDocumentsDirectory();
     return dir;
-  }
+  }*/
 }
 
 /*

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/WebButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
 class ResourcesPage extends StatefulWidget {
@@ -10,29 +10,43 @@ class ResourcesPage extends StatefulWidget {
 
 class _ResourcesPageState extends State<ResourcesPage> {
   static var resources = [
-    ['casl', '6_resources.png', 'https://www.hepatology.ca/?page_id=941'],
+    [
+      'casl',
+      '6_resources.png',
+      'https://www.hepatology.ca/?page_id=941',
+      'Web',
+    ],
     [
       'aasld',
       '6_resources.png',
-      'https://www.aasld.org/publications/practice-guidelines-0'
+      'https://www.aasld.org/publications/practice-guidelines-0',
+      'Web',
     ],
     [
       'easl',
       '6_resources.png',
-      'https://www.easl.eu/research/our-contributions/clinical-practice-guidelines '
+      'https://www.easl.eu/research/our-contributions/clinical-practice-guidelines',
+      'Web',
     ],
     [
       'acg',
       '6_resources.png',
-      'https://gi.org/clinical-guidelines/clinical-guidelines-sortable-list/ '
+      'https://gi.org/clinical-guidelines/clinical-guidelines-sortable-list/ ',
+      'Web',
     ],
-    ['aga', '6_resources.png', 'https://www.gastro.org/guidelines '],
+    [
+      'aga',
+      '6_resources.png',
+      'https://www.gastro.org/guidelines ',
+      'Web',
+    ],
     [
       'ilca',
       '6_resources.png',
-      'https://ilca-online.org/guidelines-for-the-diagnosis-and-management-of-intrahepatic-cholangiocarcinoma/'
+      'https://ilca-online.org/guidelines-for-the-diagnosis-and-management-of-intrahepatic-cholangiocarcinoma/',
+      'Web',
     ],
-    ['lindsay', '6_resources.png', 'http://lindsay.ucalgary.ca/'],
+    ['lindsay', '6_resources.png', 'http://lindsay.ucalgary.ca/', 'Web'],
   ];
 
   var numResources = resources.length;
@@ -86,14 +100,9 @@ class _ResourcesPageState extends State<ResourcesPage> {
   }
 
   _buildResourcesGridView() {
-    List<WebButton> widgets = [];
+    List<Widget> widgets = [];
     for (int i = 0; i < numResources; i++) {
-      widgets.add(
-        WebButton(
-          context,
-          resources[i],
-        ),
-      );
+      widgets.add(ComboButton(context, resources[i]));
     }
     return widgets;
   }

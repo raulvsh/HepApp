@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/NavigationButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
-
 
 class CalculatorsPage extends StatefulWidget {
   @override
@@ -10,31 +9,15 @@ class CalculatorsPage extends StatefulWidget {
 }
 
 class _CalculatorsPageState extends State<CalculatorsPage> {
-  static var Calculators = [
-    ['all_algorithms', '5_calculators.png', '/AllCalc'],
-    ['child_pugh_score', '5_calculators.png', '/ChildCalc'],
-    ['meld', '5_calculators.png', '/MELDCalc'],
-    ['okuda_staging_system', '5_calculators.png', '/OkudaCalc'],
-    ['clip_staging_system', '5_calculators.png', '/CLIPCalc'],
+  static var calculators = [
+    ['all_algorithms', '5_calculators.png', '/AllCalc', 'Nav'],
+    ['child_pugh_score', '5_calculators.png', '/ChildCalc', 'Nav'],
+    ['meld', '5_calculators.png', '/MELDCalc', 'Nav'],
+    ['okuda_staging_system', '5_calculators.png', '/OkudaCalc', 'Nav'],
+    ['clip_staging_system', '5_calculators.png', '/CLIPCalc', 'Nav'],
   ];
 
-  var numCalcCategories = Calculators.length;
-
-  /*final numCalcCategories = 5;
-  var calculatorIndex = [
-    "All",
-    "Child",
-    "MELD",
-    "Okuda",
-    "CLIP",
-  ];
-  var calculatorInfo = {
-    "All":   ['all_algorithms', '5_calculators.png', '/AllCalc'],
-    "Child": ['child_pugh_score', '5_calculators.png', '/ChildCalc'],
-    "MELD":  ['meld', '5_calculators.png', '/MELDCalc'],
-    "Okuda": ['okuda_staging_system', '5_calculators.png', '/OkudaCalc'],
-    "CLIP":  ['clip_staging_system', '5_calculators.png', '/CLIPCalc'],
-  };*/
+  var numCalcCategories = calculators.length;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +30,6 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
           return _buildLayout(orientation);
         },
       ),
-
     );
   }
 
@@ -78,11 +60,12 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
   }
 
   _buildCalcGridView() {
-    List<NavigationButton> widgets = [];
+    List<Widget> widgets = [];
 
     for (int i = 0; i < numCalcCategories; i++) {
-      widgets
-          .add(NavigationButton(context, Calculators[i]));
+      widgets.add(ComboButton(context, calculators[i]));
+
+      //widgets.add(NavigationButton(context, calculators[i]));
     }
 
     return widgets;

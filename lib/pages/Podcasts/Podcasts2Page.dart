@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
+import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/VideoButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
 //const String _documentPath = 'assets/HepM1C1.pdf';
@@ -14,52 +14,60 @@ class Podcasts2Page extends StatefulWidget {
 class _Podcasts2PageState extends State<Podcasts2Page> {
   final numPodcastsPages = 3;
 
-  static var Podcasts2 = [
+  static var podcasts2 = [
     [
       'podcast_9',
       '2_podcasts.png',
-      'https://www.dropbox.com/s/gk2iie5vbkqpwzd/HepAPP%202019%20Vodcast%2009%20Intrahepatic%20Cholestasis.mp4?dl=1'
+      'https://www.dropbox.com/s/gk2iie5vbkqpwzd/HepAPP%202019%20Vodcast%2009%20Intrahepatic%20Cholestasis.mp4?dl=1',
+      'Video',
     ],
     [
       'podcast_10',
       '2_podcasts.png',
-      'https://www.dropbox.com/s/2fug88ehgrq7j2d/HepAPP%202019%20Vodcast%2010%20ABCs%20of%20Viral%20Hepatitis.mp4?dl=1'
+      'https://www.dropbox.com/s/2fug88ehgrq7j2d/HepAPP%202019%20Vodcast%2010%20ABCs%20of%20Viral%20Hepatitis.mp4?dl=1',
+      'Video',
     ],
     [
       'podcast_11',
       '2_podcasts.png',
-      'https://www.dropbox.com/s/jiyv6xnfb4uwbtz/HepAPP%202019%20Vodcast%2011%20HBV%20and%20HCV.mp4?dl=1'
+      'https://www.dropbox.com/s/jiyv6xnfb4uwbtz/HepAPP%202019%20Vodcast%2011%20HBV%20and%20HCV.mp4?dl=1',
+      'Video',
     ],
     [
       'podcast_12',
       '2_podcasts.png',
-      'https://www.dropbox.com/s/tivjvsmfqwc1f1d/HepAPP%202019%20Vodcast%2012%20Alcohol%20and%20NAFLD.mp4?dl=1'
+      'https://www.dropbox.com/s/tivjvsmfqwc1f1d/HepAPP%202019%20Vodcast%2012%20Alcohol%20and%20NAFLD.mp4?dl=1',
+      'Video',
     ],
     [
       'podcast_13',
       '2_podcasts.png',
-      'https://www.dropbox.com/s/kt1mrs9y5ur6ece/HepAPP%202019%20Vodcast%2013%20Genetic%20Liver%20Diseases.mp4?dl=1'
+      'https://www.dropbox.com/s/kt1mrs9y5ur6ece/HepAPP%202019%20Vodcast%2013%20Genetic%20Liver%20Diseases.mp4?dl=1',
+      'Video',
     ],
     [
       'podcast_14',
       '2_podcasts.png',
-      'https://www.dropbox.com/s/2fze8q1d10nvem0/HepAPP%202019%20Vodcast%2014%20AIH%20and%20DILI.mp4?dl=1'
+      'https://www.dropbox.com/s/2fze8q1d10nvem0/HepAPP%202019%20Vodcast%2014%20AIH%20and%20DILI.mp4?dl=1',
+      'Video',
     ],
     [
       'podcast_15',
       '2_podcasts.png',
-      'https://www.dropbox.com/s/2fze8q1d10nvem0/HepAPP%202019%20Vodcast%2014%20AIH%20and%20DILI.mp4?dl=1'
+      'https://www.dropbox.com/s/2fze8q1d10nvem0/HepAPP%202019%20Vodcast%2014%20AIH%20and%20DILI.mp4?dl=1',
+      'Video',
     ],
     [
       'podcast_16',
       '2_podcasts.png',
-      'https://www.dropbox.com/s/kqlecvuk9tr16qq/HepAPP%202019%20Vodcast%2016%20Hepatosplenomegaly%20and%20Liver%20Masses.mp4?dl=1'
+      'https://www.dropbox.com/s/kqlecvuk9tr16qq/HepAPP%202019%20Vodcast%2016%20Hepatosplenomegaly%20and%20Liver%20Masses.mp4?dl=1',
+      'Video',
     ],
 
 
   ];
 
-  var numPodcasts2 = Podcasts2.length;
+  var numPodcasts2 = podcasts2.length;
 
 
   @override
@@ -109,7 +117,9 @@ class _Podcasts2PageState extends State<Podcasts2Page> {
   _buildChaptersGridView() {
     List<Widget> widgets = [];
     for (int i = 0; i < numPodcasts2; i++) {
-      widgets.add(VideoButton(context, Podcasts2[i]));
+      widgets.add(ComboButton(context, podcasts2[i]));
+
+      //widgets.add(VideoButton(context, Podcasts2[i]));
     }
     return widgets;
   }

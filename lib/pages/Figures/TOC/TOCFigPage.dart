@@ -16,9 +16,7 @@ class _TOCFigPageState extends State<TOCFigPage> {
     ['toc_4', 'toc/TOC4.png', '/TOCPV'],
   ];
 
-
   var numTOC = tocs.length;
-
 
   @override
   void initState() {
@@ -66,8 +64,7 @@ class _TOCFigPageState extends State<TOCFigPage> {
   _buildModulesGridView() {
     List<Widget> widgets = [];
     for (int i = 0; i < numTOC; i++) {
-      widgets.add(FigureButton(
-          context, tocs[i], i)); //, TOCPageView(i)));
+      widgets.add(FigureButton(context, tocs[i], i));
     }
     return widgets;
   }

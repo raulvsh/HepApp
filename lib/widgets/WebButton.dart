@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/pages/DetailPageWidgets/WebDetailPage.dart';
@@ -50,3 +51,4 @@ class WebButton extends StatelessWidget {
     );
   }
 }
+*/

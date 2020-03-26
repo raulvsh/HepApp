@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/NavigationButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
 
@@ -11,35 +11,15 @@ class FiguresPage extends StatefulWidget {
 
 class _FiguresPageState extends State<FiguresPage> {
   static var figures = [
-    ['table_contents', '4_figures.png', '/TableFig'],
-    ['schemes', '4_figures.png', '/SchemesFig'],
-    ['maps', '4_figures.png', '/MapsFig'],
-    ['pathology', '4_figures.png', '/PathologyFig'],
-    ['interactive_figures', '4_figures.png', '/InteractiveFig'],
-    ['drawing', '4_figures.png', '/DrawingFig'],
+    ['table_contents', '4_figures.png', '/TableFig', 'Nav',],
+    ['schemes', '4_figures.png', '/SchemesFig', 'Nav',],
+    ['maps', '4_figures.png', '/MapsFig', 'Nav',],
+    ['pathology', '4_figures.png', '/PathologyFig', 'Nav',],
+    ['interactive_figures', '4_figures.png', '/InteractiveFig', 'Nav',],
+    ['drawing', '4_figures.png', '/DrawingFig', 'Nav',],
   ];
 
   var numFigCategories = figures.length;
-
-  /*final numFigCategories = 6;
-
-  var figuresIndex = [
-    "TableOfContents",
-    "Schemes",
-    "Maps",
-    "Pathology",
-    "Interactive",
-    "Drawing",
-  ];
-
-  var figuresInfo = {
-    "TableOfContents":  ['table_contents', '4_figures.png', '/TableFig'],
-    "Schemes":          ['schemes', '4_figures.png', '/SchemesFig'],
-    "Maps":             ['maps', '4_figures.png', '/MapsFig'],
-    "Pathology":        ['pathology', '4_figures.png', '/PathologyFig'],
-    "Interactive":      ['interactive_figures', '4_figures.png', '/InteractiveFig'],
-    "Drawing":          ['drawing', '4_figures.png', '/DrawingFig'],
-  };*/
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +64,11 @@ class _FiguresPageState extends State<FiguresPage> {
   }
 
   _buildFiguresGridView() {
-    List<NavigationButton> widgets = [];
+    List<Widget> widgets = [];
     for (int i = 0; i < numFigCategories; i++) {
-      widgets.add(NavigationButton(context, figures[i]));
+      widgets.add(ComboButton(context, figures[i]));
+
+      //widgets.add(NavigationButton(context, figures[i]));
     }
     return widgets;
   }

@@ -85,7 +85,6 @@ const List<Item> data = <Item>[
         'module_3',
         ['/ModulePV', 2],
       ),
-      //TODO hacer lo mismo que web para pdf
 
       Item(
         'assets/images/menu/10_subitem.png',
@@ -259,7 +258,6 @@ const List<Item> data = <Item>[
       ['https://www.ncbi.nlm.nih.gov/pubmed/', 'pub_med']
     ],
   ),
-  //TODO hacer lo mismo que web para pdf
   Item(
     'assets/images/menu/8_information.png',
     'information',
@@ -287,6 +285,7 @@ class MenuItem extends StatelessWidget {
 
     if (root.children.isEmpty) {
       return ListTile(
+
           contentPadding: EdgeInsets.only(left: 32),
           leading: Image.asset(
             root.image,

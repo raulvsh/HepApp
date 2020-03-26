@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
+import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/PDFButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
 //const String _documentPath = 'assets/HepM1C1.pdf';
@@ -16,12 +16,12 @@ class _Module2PageState extends State<Module2Page> {
   final numModules = 3;
 
   static var chaptersMod2 = [
-    ['chapter_4', '1_chapters.png', 'HepAPP_M2C4.pdf'],
-    ['chapter_5', '1_chapters.png', 'HepAPP_M2C5.pdf'],
-    ['chapter_6', '1_chapters.png', 'HepAPP_M2C6.pdf'],
-    ['chapter_7', '1_chapters.png', 'HepAPP_M2C7.pdf'],
-    ['chapter_8', '1_chapters.png', 'HepAPP_M2C8.pdf'],
-    ['chapter_9', '1_chapters.png', 'HepAPP_M2C9.pdf'],
+    ['chapter_4', '1_chapters.png', 'HepAPP_M2C4.pdf', 'PDF'],
+    ['chapter_5', '1_chapters.png', 'HepAPP_M2C5.pdf', 'PDF'],
+    ['chapter_6', '1_chapters.png', 'HepAPP_M2C6.pdf', 'PDF'],
+    ['chapter_7', '1_chapters.png', 'HepAPP_M2C7.pdf', 'PDF'],
+    ['chapter_8', '1_chapters.png', 'HepAPP_M2C8.pdf', 'PDF'],
+    ['chapter_9', '1_chapters.png', 'HepAPP_M2C9.pdf', 'PDF'],
   ];
 
   var numChaptersModule2 = chaptersMod2.length;
@@ -79,10 +79,12 @@ class _Module2PageState extends State<Module2Page> {
 
 
   _buildChaptersGridView() {
-    List<PDFButton> widgets = [];
+    List<Widget> widgets = [];
     for (int i = 0; i < numChaptersModule2; i++) {
-      widgets.add(PDFButton(context, chaptersMod2[i],
-          'module_2_chapter_${i + 4}'));
+      widgets.add(ComboButton(context, chaptersMod2[i]));
+
+      /*     widgets.add(PDFButton(context, chaptersMod2[i],
+          'module_2_chapter_${i + 4}'));*/
     }
     return widgets;
   }
