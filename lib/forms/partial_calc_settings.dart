@@ -14,9 +14,12 @@ class PartialCalcSettings extends StatefulWidget {
 class _PartialCalcSettingsState extends State<PartialCalcSettings> {
   final prefs = new PreferenciasUsuario();
 
+
   @override
   void initState() {
     super.initState();
+
+
     /*prefs.internationalUnits = true;
     _international_units = prefs.internationalUnits;*/
   }
@@ -33,7 +36,7 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
 
           return AlertDialog(
               content: ConstrainedBox(
-                constraints: BoxConstraints.tight(Size.fromHeight(125)),
+                constraints: BoxConstraints.tight(Size.fromHeight(150)),
                 child: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,10 +55,10 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
                         padding: const EdgeInsets.all(8.0),
                         child: RaisedButton(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(3),
                               side: BorderSide(
                                 color: Color.fromARGB(255, 45, 145, 155),
-                                width: 2,
+                                width: 1.5,
                               )),
                           color: Theme
                               .of(context)

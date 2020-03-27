@@ -74,26 +74,49 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
           //crossAxisAlignment: CrossAxisAlignment.start,
           physics: ClampingScrollPhysics(),
           children: <Widget>[
-            CustomTextFieldBlocBuilder(
+            ListTile(
+              title: CustomTextFieldBlocBuilder(
                 aux: aux,
                 formBloc: formBloc,
                 textFieldBloc: formBloc.bilirubinField,
                 title: aux.tr('bilirubin'),
                 uds: 'umol/L'),
-            CustomTextFieldBlocBuilder(
+              //contentPadding: EdgeInsets.all(0),
+            ),
+            /*Container(
+              height: 30,
+              child: CustomTextFieldBlocBuilder(
+                  aux: aux,
+                  formBloc: formBloc,
+                  textFieldBloc: formBloc.bilirubinField,
+                  title: aux.tr('bilirubin'),
+                  uds: 'umol/L'),
+            ),*/
+            ListTile(
+              //contentPadding: EdgeInsets.all(0),
+
+              title: CustomTextFieldBlocBuilder(
                 aux: aux,
                 formBloc: formBloc,
                 textFieldBloc: formBloc.inrField,
                 title: aux.tr('inr'),
                 uds: ''),
-            CustomTextFieldBlocBuilder(
+            ),
+            ListTile(
+              //contentPadding: EdgeInsets.all(0),
 
-                aux: aux,
-                formBloc: formBloc,
-                textFieldBloc: formBloc.albuminField,
-                title: aux.tr('albumin'),
-                uds: 'g/L'),
-            CustomButtonGroupFieldBlocBuilder(
+              title: CustomTextFieldBlocBuilder(
+                  aux: aux,
+                  formBloc: formBloc,
+                  textFieldBloc: formBloc.albuminField,
+                  title: aux.tr('albumin'),
+                  uds: 'g/L'),
+            ),
+            ListTile(
+              //contentPadding: EdgeInsets.all(0),
+
+              title: CustomButtonGroupFieldBlocBuilder(
+                padding: EdgeInsets.only(left: 8),
               selectFieldBloc: formBloc.encephalopatyField,
               text: aux.tr('encephalopaty'),
               decoration: InputDecoration(
@@ -101,21 +124,21 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
               ),
               //itemBuilder: (context, item) => item,
             ),
-            /*CustomButtonGroupFieldBlocBuilder(
-                          selectFieldBloc: formBloc.tumourPercentageField,
-                          text: aux.tr('tumour_extent'),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                          //itemBuilder: (context, item) => item,
-                        ),*/
-            CustomButtonGroupFieldBlocBuilder(
+            ),
+
+            ListTile(
+              //contentPadding: EdgeInsets.all(0),
+
+              title: CustomButtonGroupFieldBlocBuilder(
+                padding: EdgeInsets.only(left: 8),
+
               selectFieldBloc: formBloc.ascitesField,
               text: aux.tr('ascites'),
               decoration: InputDecoration(
                 border: InputBorder.none,
               ),
               //itemBuilder: (context, item) => item,
+            ),
             ),
 
             /*DropdownFieldBlocBuilder<String>(
@@ -150,7 +173,8 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
             //Row(
 
             //children: <Widget>[
-            Container(
+            ListTile(
+              title: Container(
               width: 250,
               padding: EdgeInsets.all(8.0),
               margin: EdgeInsets.only(right: 250, left: 20),
@@ -179,6 +203,10 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
                   ),
                 ),
               ),
+            ),
+            ),
+            ListTile(
+              title: Container(),
             ),
             /*Container(
                 width: 200,
@@ -248,4 +276,3 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
     );
   }
 }
-

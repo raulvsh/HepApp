@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
-import 'package:hepapp/widgets/CalcBottomBar.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
@@ -249,7 +248,7 @@ class _CLIPCalcPageState extends State<CLIPCalcPage> {
           ],
         ),
       ),
-      bottomSheet: CalcBottomBar("reseteo"),
+      //bottomSheet: CalcBottomBar("reseteo"),
 
     )
     ;

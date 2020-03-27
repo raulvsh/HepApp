@@ -272,7 +272,10 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
       prefix: SizedBox.shrink(),
       suffixIcon: SizedBox.shrink(),*/
       enabled: isEnable,
-      contentPadding: Style.getGroupFieldBlocContentPadding(
+      contentPadding:
+      //EdgeInsets.all(0),
+
+      Style.getGroupFieldBlocContentPadding(
         isVisible: true,
         decoration: decoration,
       ),

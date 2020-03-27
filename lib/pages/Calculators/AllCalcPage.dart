@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/widgets/CalcBottomBar.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
@@ -44,7 +43,7 @@ class _AllCalcPageState extends State<AllCalcPage> {
       body: new Center(
         child: new Text("Some text"),
       ),
-      bottomSheet: CalcBottomBar("reseteo"),
+      //bottomSheet: CalcBottomBar("reseteo"),
 
     );
   }

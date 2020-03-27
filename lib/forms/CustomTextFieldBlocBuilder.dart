@@ -48,6 +48,7 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
           width: 60,
           height: 40,
           child: TextFieldBlocBuilder(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
             cursorColor: Theme
                 .of(context)
                 .primaryColor,
@@ -83,6 +84,7 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
                   color: Color.fromARGB(255, 45, 145, 155),
                 ), //color: Colors.red),
               ),
+
               contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
 
               errorStyle: TextStyle(

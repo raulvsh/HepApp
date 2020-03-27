@@ -14,6 +14,8 @@ class CalcBottomButton extends StatelessWidget {
       margin: EdgeInsets.all(7),
       child: RaisedButton(
         onPressed: () {
+          print("Texto dentro de boton " + action.toString());
+          //action;
           showModalBottomSheet(
               context: context, builder: (BuildContext context) => action());
 

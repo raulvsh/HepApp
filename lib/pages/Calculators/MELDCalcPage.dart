@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/widgets/CalcBottomBar.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
@@ -40,7 +39,7 @@ class _MELDCalcPageState extends State<MELDCalcPage> {
       body: new Center(
         child: new Text("Some text"),
       ),
-      bottomSheet: CalcBottomBar("reseteo2"),
+      //bottomSheet: CalcBottomBar("reseteo2"),
     );
   }
 }

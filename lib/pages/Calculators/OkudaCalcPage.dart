@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/widgets/CalcBottomBar.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
@@ -62,7 +61,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
           ],
         ),
       ),
-      bottomSheet: CalcBottomBar("reseteo2"),
+      // bottomSheet: CalcBottomBar("reseteo2"),
     );
   }
 
