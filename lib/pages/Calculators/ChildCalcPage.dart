@@ -89,6 +89,7 @@ class _ChildCalcPageState extends State<ChildCalcPage> {
     // CalcBottomBar("reseteo2");
   }
 
+
   reset() {
     print('reset pulsado prueba');
     return AlertDialog(

@@ -5,7 +5,6 @@ import 'package:hepapp/lang/app_localizations.dart';
 
 import 'ChildCalcForm_bloc.dart';
 
-
 class CustomTextFieldBlocBuilder extends StatelessWidget {
   const CustomTextFieldBlocBuilder({
     Key key,
@@ -76,7 +75,6 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
               ),
               //TODO añadir errorText: 'Introduce un texto',
 
-              //errorText: Text(''),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(3.0),
                 borderSide: BorderSide(
@@ -86,15 +84,17 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
               ),
 
               contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-
+              /*errorText: "hola",
               errorStyle: TextStyle(
                 backgroundColor: Colors.yellow,
-              ),
+              ),*/
             ),
+
             errorBuilder: (context, error) {
               switch (error) {
                 case ValidatorsError.requiredTextFieldBloc:
-                  return aux.tr('enter_text');
+                //TODO activar el flag errorflag
+                  return ""; //aux.tr('enter_text');
                   break;
                 default:
                   return 'This text is nor valid.';

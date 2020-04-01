@@ -1,15 +1,7 @@
 import 'package:form_bloc/form_bloc.dart';
+import 'package:hepapp/forms/CPSdata.dart';
 
 class ChildCalcFormBloc extends FormBloc<String, String> {
-  /*static BuildContext context;
-
-
-  ChildCalcFormBloc(context){
-    context = context;
-  }
-
-  final aux = AppLocalizations.of(context);*/
-
   ///Usadas por mi
   final bilirubinField = TextFieldBloc();
   final inrField = TextFieldBloc();
@@ -21,7 +13,7 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     items: ['none_fem', 'controlled', 'refractory'],
   );
 
-  var resultadoField = 'CPS';
+  String resultadoField = 'CPS';
 
   ///No usadas por mi (de momento) TODO LIMPIAR
   /* final tumourPercentageField = SelectFieldBloc(
@@ -64,21 +56,50 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     // Awesome logic...
 
     // Get the fields values:
-    print(bilirubinField.value);
-    print(inrField.value);
-    print(albuminField.value);
-    print(encephalopatyField.value);
-    print(ascitesField.value);
+    /*print("Campo bilirrubina: " + bilirubinField.value);
+    print("Campo inr: " + inrField.value);
+    print("Campo albumina: " + albuminField.value);
+    print("Campo encefalopatía: " + encephalopatyField.value);
+    print("Campo ascitis: " + ascitesField.value);
+    print("Campo resultado antes de operar: " + resultadoField);*/
 
-    print(resultadoField);
+    //print("*****Creo objeto datoscps");
+    var antiguo = CPSdata(
+      bilirubin: bilirubinField.valueToDouble,
+      inr: inrField.valueToDouble,
+      albumin: albuminField.valueToDouble,
+      encephalopaty: encephalopatyField.value,
+      ascites: ascitesField.value,
+      result: resultadoField,
+    );
+
+    print("*****************\nObjeto CPSData completo: "
+        "\nbilirrubina : ${antiguo.bilirubin}" +
+        "\nalbumina : ${antiguo.inr}" +
+        "\ninr : ${antiguo.albumin}" +
+        "\nencefalopatia : ${antiguo.encephalopaty}" +
+        "\nascitis : ${antiguo.ascites}" +
+        "\nresultado: ${antiguo.result}" +
+        "\n**************");
+
     /*print(selectField1.value); //Dropdown menu
     print(multiSelectField.value);
     print(selectField2.value); //RadioButton
     print(booleanField.value);*/
 
-    this.resultadoField =
-        obtenerResultado(/*fieldBlocs*/); //obtenerResultado(resultado);
-    print(resultadoField);
+    //antiguo.result = obtenerResultado(antiguo);
+
+    try {
+      antiguo.result = obtenerResultado(antiguo);
+      this.resultadoField = antiguo.result;
+      //obtenerResultado(antiguo); //obtenerResultado(resultado);
+      print("Campo resultado después de operar: " +
+          resultadoField +
+          " || " +
+          antiguo.result);
+    } catch (e) {
+      print("Excepción: $e");
+    }
 
     await Future<void>.delayed(Duration(seconds: 1));
 
@@ -93,70 +114,79 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     yield currentState.toLoaded();
   }
 
-  String obtenerResultado(/*fieldBlocs*/) {
+  String obtenerResultado(CPSdata antiguo /*fieldBlocs*/) {
     var ptsBilirubin;
     var ptsINR;
     var ptsAlbumin;
     var ptsEncephalopaty;
     var ptsAscites;
 
-    if (double.parse(bilirubinField.value) <= 34) {
+    /*if(antiguo.bilirubin<=34){
+      print("yujuuu " + antiguo.bilirubin.toString());
+    }*/
+
+    if (antiguo.bilirubin <= 34) {
       ptsBilirubin = 1;
-    } else if (double.parse(bilirubinField.value) <= 50) {
+    } else if (antiguo.bilirubin <= 50) {
       ptsBilirubin = 2;
     } else {
       ptsBilirubin = 3;
     }
 
-    if (double.parse(inrField.value) <= 1.7) {
+    if (antiguo.inr <= 1.7) {
       ptsINR = 1;
-    } else if (double.parse(inrField.value) <= 2.2) {
+    } else if (antiguo.inr <= 2.2) {
       ptsINR = 2;
     } else {
       ptsINR = 3;
     }
 
-    if (double.parse(albuminField.value) <= 28) {
+    if (antiguo.albumin <= 28) {
       ptsAlbumin = 3;
-    } else if (double.parse(albuminField.value) <= 35) {
+    } else if (antiguo.albumin <= 35) {
       ptsAlbumin = 2;
     } else {
       ptsAlbumin = 1;
     }
 
-    if (encephalopatyField.value == 'none_fem') {
+    if (antiguo.encephalopaty == 'none_fem') {
       ptsEncephalopaty = 1;
-    } else if (encephalopatyField.value == 'grade_1_2') {
+    } else if (antiguo.encephalopaty == 'grade_1_2') {
       ptsEncephalopaty = 2;
-    } else if (encephalopatyField.value == 'grade_3_4') {
+    } else if (antiguo.encephalopaty == 'grade_3_4') {
       ptsEncephalopaty = 3;
     }
 
-    if (ascitesField.value == 'none_fem') {
+    if (antiguo.ascites == 'none_fem') {
       ptsAscites = 1;
-    } else if (ascitesField.value == 'controlled') {
+    } else if (antiguo.ascites == 'controlled') {
       ptsAscites = 2;
-    } else if (ascitesField.value == 'refractory') {
+    } else if (antiguo.ascites == 'refractory') {
       ptsAscites = 3;
     }
 
     //TODO añadir los valores de los campos a variable DatosCPS
 
-    print(ptsBilirubin);
-    print(ptsINR);
-    print(ptsAlbumin);
-    print(ptsEncephalopaty);
-    print(ptsAscites);
+    print("Puntos bilirrubina: $ptsBilirubin");
+    print("Puntos inr: $ptsINR");
+    print("Puntos albúmina: $ptsAlbumin");
+    print("Puntos encefalopatía: $ptsEncephalopaty");
+    print("Puntos ascitis: $ptsAscites");
+    var resultado2;
+    int resultado =
+        ptsBilirubin + ptsINR + ptsAlbumin + ptsEncephalopaty + ptsAscites;
+    print('Resultado numérico: $resultado');
+    if (resultado == 5 || resultado == 6) {
+      resultado2 = 'A ($resultado)';
+      return resultado2;
+    } else if (resultado >= 7 && resultado <= 9) {
+      resultado2 = 'B ($resultado)';
 
-    var resultado = ptsBilirubin + ptsINR + ptsAlbumin + ptsEncephalopaty +
-        ptsAscites;
-    print('resultado $resultado');
-    if (resultado == 5 || resultado == 6)
-      return ('A ($resultado)');
-    else if (resultado >= 7 && resultado <= 9)
-      return ('B ($resultado)');
-    else
-      return ('C ($resultado)');
-
+      return resultado2;
+    } //('B ($resultado)');}
+    else {
+      resultado2 = 'C ($resultado)';
+      return resultado2; //('C ($resultado)');
+    }
   }
 }

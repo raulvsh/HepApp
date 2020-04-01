@@ -27,10 +27,13 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
       child: Builder(
         builder: (context) {
           final formBloc = BlocProvider.of<ChildCalcFormBloc>(context);
-
-          return Scaffold(
+          print("formbloc desde fuera resultado ${formBloc.resultadoField}");
+          reseteo(formBloc);
+          return //Scaffold(
             //appBar: AppBar(title: Text('Form Fields Example')),
-            body: FormBlocListener<ChildCalcFormBloc, String, String>(
+            //body:
+
+            FormBlocListener<ChildCalcFormBloc, String, String>(
               /*onSubmitting: (context, state) => LoadingDialog.show(context),
               onSuccess: (context, state) {
                 LoadingDialog.hide(context);
@@ -51,7 +54,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
                   _buildRightColumn(aux, formBloc.resultadoField, context),
                 ],
               ),
-            ),
+              //),
           );
         },
       ),
@@ -60,6 +63,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
 
   _buildLeftColumn(AppLocalizations aux, ChildCalcFormBloc formBloc,
       BuildContext context) {
+    //List<bool> _selections = List.generate(3, (_) => true);
     return //Expanded(
       //child:
       Container(
@@ -74,6 +78,21 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
           //crossAxisAlignment: CrossAxisAlignment.start,
           physics: ClampingScrollPhysics(),
           children: <Widget>[
+            /*oggleButtons(
+            children: <Widget>[
+              Text("None"),
+              Text("Grade 1-2"),
+              Text("Grade 3-4"),
+            ],
+            isSelected: _selections,
+            onPressed: (int index) {
+              setState(() {
+                _selections[index] = !_selections[index];
+              });
+            },
+            color: Colors.green,
+            selectedColor: Colors.red,
+          ),*/
             ListTile(
               title: CustomTextFieldBlocBuilder(
                 aux: aux,
@@ -100,7 +119,8 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
                 formBloc: formBloc,
                 textFieldBloc: formBloc.inrField,
                 title: aux.tr('inr'),
-                uds: ''),
+                uds: '',
+              ),
             ),
             ListTile(
               //contentPadding: EdgeInsets.all(0),
@@ -122,7 +142,9 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
               decoration: InputDecoration(
                 border: InputBorder.none,
               ),
-              //itemBuilder: (context, item) => item,
+
+
+                //itemBuilder: (context, item) => item,
             ),
             ),
 
@@ -134,8 +156,11 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
 
               selectFieldBloc: formBloc.ascitesField,
               text: aux.tr('ascites'),
+
               decoration: InputDecoration(
                 border: InputBorder.none,
+
+
               ),
               //itemBuilder: (context, item) => item,
             ),
@@ -176,8 +201,8 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
             ListTile(
               title: Container(
               width: 250,
-              padding: EdgeInsets.all(8.0),
-              margin: EdgeInsets.only(right: 250, left: 20),
+                //padding: EdgeInsets.all(8.0),
+                margin: EdgeInsets.only(right: 250, left: 25), //left: 20),
               child: RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(3),
@@ -274,5 +299,11 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
         ],
       ),
     );
+  }
+
+  void reseteo(ChildCalcFormBloc formBloc) {
+    print("************************RESET");
+    formBloc.resultadoField = "0 blibli";
+    print("formbloc desde reset + ${formBloc.resultadoField}");
   }
 }

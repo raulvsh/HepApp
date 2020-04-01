@@ -304,7 +304,7 @@ class MenuItem extends StatelessWidget {
               Navigator.pushReplacementNamed(
                 context,
                 root.route[0],
-                arguments: root.route[1] != null ? root.route[1] : 0,
+                arguments: root.route[1] ?? 0,
               );
             }
           });

@@ -37,7 +37,7 @@ class _ChaptersPageState extends State<ChaptersPage> {
     "Module3": ['module_3', '9_modules.png', '/ModulePV3'],
   };*/
 
-  var references = ['references', '9_modules.png', 'HepAPP_References.pdf'];
+  //var references = ['references', '9_modules.png', 'HepAPP_References.pdf'];
 
   @override
   void initState() {

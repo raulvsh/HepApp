@@ -54,7 +54,7 @@ class _Podcasts2PageState extends State<Podcasts2Page> {
     [
       'podcast_15',
       '2_podcasts.png',
-      'https://www.dropbox.com/s/2fze8q1d10nvem0/HepAPP%202019%20Vodcast%2014%20AIH%20and%20DILI.mp4?dl=1',
+      'https://www.dropbox.com/s/o29clr1t7m0vltf/HepAPP%202019%20Vodcast%2015%20ALF.mp4?dl=1',
       'Video',
     ],
     [
@@ -63,12 +63,9 @@ class _Podcasts2PageState extends State<Podcasts2Page> {
       'https://www.dropbox.com/s/kqlecvuk9tr16qq/HepAPP%202019%20Vodcast%2016%20Hepatosplenomegaly%20and%20Liver%20Masses.mp4?dl=1',
       'Video',
     ],
-
-
   ];
 
   var numPodcasts2 = podcasts2.length;
-
 
   @override
   void initState() {
@@ -79,16 +76,15 @@ class _Podcasts2PageState extends State<Podcasts2Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      drawer: MenuWidget(),
-      appBar: CustomAppBar(context, 'podcasts_2'),
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          return _buildLayout(orientation);
-        },
-      ),
+        resizeToAvoidBottomInset: false,
+        drawer: MenuWidget(),
+        appBar: CustomAppBar(context, 'podcasts_2'),
+        body: OrientationBuilder(
+          builder: (context, orientation) {
+            return _buildLayout(orientation);
+          },
+        ),
         bottomSheet: BottomNavigationSheet(1, '/PodcastsPV', numPodcastsPages));
-
   }
 
   _buildLayout(orientation) {

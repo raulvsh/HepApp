@@ -45,21 +45,10 @@ class RouteGenerator {
       case '/ModulePV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(builder: (_) => ModulePageView(initialPage));
-    /* no funciona, hay que usar el método showpdf
 
-      case '/PDF':
-        var path = settings.arguments as List<String>;
-        print(path);
-        return MaterialPageRoute(
-            builder: (context) =>
-                PDFScreen(
-                  path: path[0],
-                  title: path[1],
-                ));*/
 
       case '/Web':
         var arguments = settings.arguments as List<String>;
-        //print('url $arguments');
         return MaterialPageRoute(
             builder: (context) =>
                 WebDetailPage(
@@ -69,7 +58,6 @@ class RouteGenerator {
 
       case '/Video':
         var arguments = settings.arguments as List<String>;
-        //print('arguments video desde routegenerator $arguments' );
         return
           MaterialPageRoute(
             builder: (context) =>

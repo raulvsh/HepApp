@@ -90,6 +90,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
         return DefaultFieldBlocBuilderPadding(
           padding: widget.padding,
 
+
           //child: Stack(
           //children: <Widget>[
           //Decoración que le viene de fuera

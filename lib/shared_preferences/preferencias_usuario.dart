@@ -1,10 +1,11 @@
+import 'package:hepapp/forms/CPSdata.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferenciasUsuario {
 
   //Instancia singletos, solo una instancia de Preferencias usuario
   static final PreferenciasUsuario _instancia =
-      new PreferenciasUsuario._internal();
+  new PreferenciasUsuario._internal();
 
   factory PreferenciasUsuario() {
     return _instancia;
@@ -34,6 +35,15 @@ class PreferenciasUsuario {
 
 
   /// GETS Y SETS ANTERIORES
+  ///
+
+  get datosCPSantiguo {
+    return _prefs.get(datosCPSantiguo);
+  }
+
+  set datosCPSantiguo(CPSdata antiguo) {
+    _prefs.setDouble('bilirubin', antiguo.bilirubin);
+  }
 
   get bilirubin {
     return _prefs.getDouble('bilirubin');
