@@ -16,17 +16,26 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   /*||título | imagen | ruta | tipo ||*/
   static var homeSections = [
-    ['chapters', '1_chapters.png', '/Chapters', 'Nav'],
-    ['podcasts', '2_podcasts.png', '/PodcastsPV', 'Nav'],
+    ['chapters', 'items/1_chapters.png', '/Chapters', 'Nav'],
+    ['podcasts', 'items/2_podcasts.png', '/PodcastsPV', 'Nav'],
 
-    ['cards', '3_cards.png', 'https://cards.ucalgary.ca', 'Web'],
-    ['figures', '4_figures.png', '/Figures', 'Nav'],
-    ['calculators', '5_calculators.png', '/Calculators', 'Nav'],
-    ['resources', '6_resources.png', '/Resources', 'Nav'],
+    ['cards', 'items/3_cards.png', 'https://cards.ucalgary.ca', 'Web'],
+    ['figures', 'items/4_figures.png', '/Figures', 'Nav'],
+    ['calculators', 'items/5_calculators.png', '/Calculators', 'Nav'],
+    ['resources', 'items/6_resources.png', '/Resources', 'Nav'],
 
-    //Viejo ['pub_med', '7_pubmed.png', '/Web', 'https://www.ncbi.nlm.nih.gov/pubmed/', 'Web'],
-    ['pub_med', '7_pubmed.png', 'https://www.ncbi.nlm.nih.gov/pubmed/', 'Web'],
-    ['information', '8_information.png', 'HepAPP_Introduction.pdf', 'PDF'],
+    [
+      'pub_med',
+      'items/7_pubmed.png',
+      'https://www.ncbi.nlm.nih.gov/pubmed/',
+      'Web'
+    ],
+    [
+      'information',
+      'items/8_information.png',
+      'HepAPP_Introduction.pdf',
+      'PDF'
+    ],
   ];
 
   var numHomeSections = homeSections.length;

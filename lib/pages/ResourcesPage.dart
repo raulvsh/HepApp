@@ -12,41 +12,46 @@ class _ResourcesPageState extends State<ResourcesPage> {
   static var resources = [
     [
       'casl',
-      '6_resources.png',
+      'resources/casl.png',
       'https://www.hepatology.ca/?page_id=941',
       'Web',
     ],
     [
       'aasld',
-      '6_resources.png',
+      'resources/aasld.png',
       'https://www.aasld.org/publications/practice-guidelines-0',
       'Web',
     ],
     [
       'easl',
-      '6_resources.png',
+      'resources/easl.png',
       'https://www.easl.eu/research/our-contributions/clinical-practice-guidelines',
       'Web',
     ],
     [
       'acg',
-      '6_resources.png',
+      'resources/acg.png',
       'https://gi.org/clinical-guidelines/clinical-guidelines-sortable-list/ ',
       'Web',
     ],
     [
       'aga',
-      '6_resources.png',
+      'resources/aga.png',
       'https://www.gastro.org/guidelines ',
       'Web',
     ],
     [
       'ilca',
-      '6_resources.png',
+      'resources/ilca.png',
       'https://ilca-online.org/guidelines-for-the-diagnosis-and-management-of-intrahepatic-cholangiocarcinoma/',
       'Web',
     ],
-    ['lindsay', '6_resources.png', 'http://lindsay.ucalgary.ca/', 'Web'],
+    [
+      'lindsay',
+      'resources/lindsay_atlas.png',
+      'http://lindsay.ucalgary.ca/',
+      'Web'
+    ],
   ];
 
   var numResources = resources.length;

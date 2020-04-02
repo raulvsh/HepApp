@@ -19,7 +19,7 @@ class ComboButton extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Image.asset(
-              'assets/images/items/${type[1]}',
+              'assets/images/${type[1]}',
             ),
             Container(
               alignment: Alignment(0, 0.7),

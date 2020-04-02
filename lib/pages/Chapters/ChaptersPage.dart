@@ -10,34 +10,13 @@ class ChaptersPage extends StatefulWidget {
 
 class _ChaptersPageState extends State<ChaptersPage> {
   static var modules = [
-    ['module_1', '9_modules.png', '/ModulePV', 'Nav'],
-    ['module_2', '9_modules.png', '/ModulePV', 'Nav'],
-    ['module_3', '9_modules.png', '/ModulePV', 'Nav'],
-    ['references', '9_modules.png', 'HepAPP_References.pdf', 'PDF'],
+    ['module_1', 'items/9_modules.png', '/ModulePV', 'Nav'],
+    ['module_2', 'items/9_modules.png', '/ModulePV', 'Nav'],
+    ['module_3', 'items/9_modules.png', '/ModulePV', 'Nav'],
+    ['references', 'items/9_modules.png', 'HepAPP_References.pdf', 'PDF'],
   ];
-
-  /*static var modules = [
-    ['module_1', '9_modules.png', '/ModulePV'],
-    ['module_2', '9_modules.png', '/ModulePV'],
-    ['module_3', '9_modules.png', '/ModulePV'],
-  ];*/
 
   var numModules = modules.length;
-
-  /*var modulesIndex = [
-    "Module1",
-    "Module2",
-    "Module3",
-
-  ];
-
-  var modulesInfo = {
-    "Module1": ['module_1', '9_modules.png', '/ModulePV1'],
-    "Module2": ['module_2', '9_modules.png', '/ModulePV2'],
-    "Module3": ['module_3', '9_modules.png', '/ModulePV3'],
-  };*/
-
-  //var references = ['references', '9_modules.png', 'HepAPP_References.pdf'];
 
   @override
   void initState() {

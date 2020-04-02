@@ -17,9 +17,9 @@ class _Module1PageState extends State<Module1Page> {
 
   static var ChaptersMod1 = [
 
-    ['chapter_1', '1_chapters.png', 'HepAPP_M1C1.pdf', 'PDF'],
-    ['chapter_2', '1_chapters.png', 'HepAPP_M1C2.pdf', 'PDF'],
-    ['chapter_3', '1_chapters.png', 'HepAPP_M1C3.pdf', 'PDF'],
+    ['chapter_1', 'items/1_chapters.png', 'HepAPP_M1C1.pdf', 'PDF'],
+    ['chapter_2', 'items/1_chapters.png', 'HepAPP_M1C2.pdf', 'PDF'],
+    ['chapter_3', 'items/1_chapters.png', 'HepAPP_M1C3.pdf', 'PDF'],
 
   ];
 

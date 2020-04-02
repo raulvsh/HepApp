@@ -91,6 +91,9 @@ flutter:
     - assets/images/interactive/
     - assets/images/drawing/
     - assets/images/menu/
+    - assets/images/podcasts/
+    - assets/images/resources/
+
     - assets/lang/
     - assets/pdf/
     #- data/menu_opts.json

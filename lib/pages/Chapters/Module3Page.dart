@@ -16,12 +16,12 @@ class _Module3PageState extends State<Module3Page> {
   final numModules = 3;
 
   static var chaptersMod3 = [
-    ['chapter_10', '1_chapters.png', 'HepAPP_M3C10.pdf', 'PDF'],
-    ['chapter_11', '1_chapters.png', 'HepAPP_M3C11.pdf', 'PDF'],
-    ['chapter_12', '1_chapters.png', 'HepAPP_M3C12.pdf', 'PDF'],
-    ['chapter_13', '1_chapters.png', 'HepAPP_M3C13.pdf', 'PDF'],
-    ['chapter_14', '1_chapters.png', 'HepAPP_M3C14.pdf', 'PDF'],
-    ['chapter_15', '1_chapters.png', 'HepAPP_M3C15.pdf', 'PDF'],
+    ['chapter_10', 'items/1_chapters.png', 'HepAPP_M3C10.pdf', 'PDF'],
+    ['chapter_11', 'items/1_chapters.png', 'HepAPP_M3C11.pdf', 'PDF'],
+    ['chapter_12', 'items/1_chapters.png', 'HepAPP_M3C12.pdf', 'PDF'],
+    ['chapter_13', 'items/1_chapters.png', 'HepAPP_M3C13.pdf', 'PDF'],
+    ['chapter_14', 'items/1_chapters.png', 'HepAPP_M3C14.pdf', 'PDF'],
+    ['chapter_15', 'items/1_chapters.png', 'HepAPP_M3C15.pdf', 'PDF'],
   ];
 
   var numChaptersModule3 = chaptersMod3.length;

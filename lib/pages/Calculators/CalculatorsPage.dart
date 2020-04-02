@@ -10,11 +10,11 @@ class CalculatorsPage extends StatefulWidget {
 
 class _CalculatorsPageState extends State<CalculatorsPage> {
   static var calculators = [
-    ['all_algorithms', '5_calculators.png', '/AllCalc', 'Nav'],
-    ['child_pugh_score', '5_calculators.png', '/ChildCalc', 'Nav'],
-    ['meld', '5_calculators.png', '/MELDCalc', 'Nav'],
-    ['okuda_staging_system', '5_calculators.png', '/OkudaCalc', 'Nav'],
-    ['clip_staging_system', '5_calculators.png', '/CLIPCalc', 'Nav'],
+    ['all_algorithms', 'items/5_calculators.png', '/AllCalc', 'Nav'],
+    ['child_pugh_score', 'items/5_calculators.png', '/ChildCalc', 'Nav'],
+    ['meld', 'items/5_calculators.png', '/MELDCalc', 'Nav'],
+    ['okuda_staging_system', 'items/5_calculators.png', '/OkudaCalc', 'Nav'],
+    ['clip_staging_system', 'items/5_calculators.png', '/CLIPCalc', 'Nav'],
   ];
 
   var numCalcCategories = calculators.length;
