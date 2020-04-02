@@ -146,7 +146,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
               color: Color.fromARGB(255, 45, 145, 155), //Color del borde
               width: 1.3,
             ),
-            borderRadius: new BorderRadius.all(new Radius.circular(3.0)),
+            borderRadius: BorderRadius.all(new Radius.circular(3.0)),
           ),
           // ),
       );
@@ -205,6 +205,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                           //print('Mapa actualizado $isSelected \n\n');
                         });
                       },
+
                       child: Container(
                         height: 20,
                         width: 90,

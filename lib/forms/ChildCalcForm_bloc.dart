@@ -1,17 +1,20 @@
+
 import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/forms/CPSdata.dart';
 
 class ChildCalcFormBloc extends FormBloc<String, String> {
   ///Usadas por mi
-  final bilirubinField = TextFieldBloc();
-  final inrField = TextFieldBloc();
-  final albuminField = TextFieldBloc();
-  final encephalopatyField = SelectFieldBloc(
+  var bilirubinField = TextFieldBloc();
+  var inrField = TextFieldBloc();
+  var albuminField = TextFieldBloc();
+  var encephalopatyField = SelectFieldBloc(
     items: ['none_fem', 'grade_1_2', 'grade_3_4'],
   );
-  final ascitesField = SelectFieldBloc(
+  var ascitesField = SelectFieldBloc(
     items: ['none_fem', 'controlled', 'refractory'],
   );
+
+  var pruebaField = "";
 
   String resultadoField = 'CPS';
 
@@ -172,21 +175,33 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     print("Puntos albúmina: $ptsAlbumin");
     print("Puntos encefalopatía: $ptsEncephalopaty");
     print("Puntos ascitis: $ptsAscites");
-    var resultado2;
     int resultado =
         ptsBilirubin + ptsINR + ptsAlbumin + ptsEncephalopaty + ptsAscites;
     print('Resultado numérico: $resultado');
     if (resultado == 5 || resultado == 6) {
-      resultado2 = 'A ($resultado)';
-      return resultado2;
+      return 'A ($resultado)';
     } else if (resultado >= 7 && resultado <= 9) {
-      resultado2 = 'B ($resultado)';
-
-      return resultado2;
-    } //('B ($resultado)');}
-    else {
-      resultado2 = 'C ($resultado)';
-      return resultado2; //('C ($resultado)');
+      return 'B ($resultado)';
+    } else {
+      return 'C ($resultado)';
     }
+  }
+
+  reset() {
+    this.bilirubinField = TextFieldBloc();
+    this.inrField = TextFieldBloc();
+    this.albuminField = TextFieldBloc();
+    this.encephalopatyField = SelectFieldBloc(
+      items: ['none_fem', 'grade_1_2', 'grade_3_4'],
+    );
+    this.ascitesField = SelectFieldBloc(
+      items: ['none_fem', 'controlled', 'refractory'],
+      //initialValue: 'none_fem',
+      //toStringName: 'none_fem',
+    );
+  }
+
+  void setFieldBlocs() {
+    this.bilirubinField = TextFieldBloc();
   }
 }
