@@ -16,33 +16,37 @@ class _OnlySelectChipState extends State<OnlySelectChip> {
 
   // this function will build and return the choice list
   _buildChoiceList() {
+    var altura = 10.0;
     List<Widget> choices = List();
     widget.optionList.forEach((item) {
+      var isSelected = (selectedChoice == item) && (reset == 0);
+
       choices.add(Container(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
         child: SizedBox(
           height: 20,
-          //height: 20,
           //margin: EdgeInsets.all(5),
           child: ChoiceChip(
             label: Container(
+
               padding: EdgeInsets.only(bottom: 10),
               child: Text(
                 item,
                 style: TextStyle(
                   height: 0.5,
                   fontSize: 13,
-                  color: selectedChoice == item
+                  color: isSelected //(selectedChoice == item) && (reset==0)
                       ? Colors.white
                       : Theme.of(context).primaryColor,
                 ),
               ),
             ),
-            selected: (selectedChoice == item) && (reset == 0),
-            selectedColor: selectedChoice == item
+            selected: isSelected,
+            //(selectedChoice == item), //&& reset == 0,
+            selectedColor: isSelected //(selectedChoice == item) && (reset==0)
                 ? Theme.of(context).primaryColor
                 : Colors.white,
-            backgroundColor: selectedChoice == item
+            backgroundColor: isSelected //(selectedChoice == item) && (reset==0)
                 ? Theme.of(context).primaryColor
                 : Colors.white,
             avatarBorder: CircleBorder(
@@ -61,8 +65,10 @@ class _OnlySelectChipState extends State<OnlySelectChip> {
 
               //)
             ),
+
             onSelected: (selected) {
               setState(() {
+                print("reset " + reset.toString());
                 reset = 0;
                 selectedChoice = item;
 
