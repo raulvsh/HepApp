@@ -7,8 +7,9 @@ import 'package:hepapp/lang/app_localizations.dart';
 
 /// A material design radio buttons.
 class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
+  bool reset;
 
-  const CustomButtonGroupFieldBlocBuilder({
+  CustomButtonGroupFieldBlocBuilder({
     Key key,
     @required this.selectFieldBloc,
     @required this.itemBuilder,
@@ -19,7 +20,7 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
     this.decoration = const InputDecoration(),
     this.canDeselect = true,
     this.nextFocusNode,
-    this.text,
+    this.text, this.reset,
   })  : assert(selectFieldBloc != null),
         assert(enableOnlyWhenFormBlocCanSubmit != null),
         assert(isEnabled != null),
@@ -65,10 +66,17 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
 
 class _CustomButtonGroupFieldBlocBuilderState<Value>
     extends State<CustomButtonGroupFieldBlocBuilder> {
-  Map<String, bool> isSelected = {
-  };
-  bool firstRun = true;
+  Map<String, bool> isSelected = {};
 
+  bool firstRun = true;
+  String selectedChoice = "";
+
+  List<String> encephalopatyList = [
+    "None",
+    "Grade 1- 2",
+    "Grade 3-4",
+
+  ];
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SelectFieldBloc<Value>, SelectFieldBlocState<Value>>(
@@ -124,6 +132,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
     simpleBuilder = (BuildContext context, List<double> animValues,
         Function updateState, String value) {
       final alpha = (animValues[0] * 255).toInt();
+      var opacity = widget.reset == false ? alpha : 0;
 
       return /*Center(
         child:*/
@@ -137,10 +146,12 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             //Color del fondo del botón
-            color: Theme
+            color:
+
+            Theme
                 .of(context)
                 .primaryColor
-                .withAlpha(alpha),
+                .withAlpha(opacity),
             //color: Color.fromARGB(255, 56, 183, 198).withAlpha(alpha),
             border: Border.all(
               color: Color.fromARGB(255, 45, 145, 155), //Color del borde
@@ -149,7 +160,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
             borderRadius: BorderRadius.all(new Radius.circular(3.0)),
           ),
           // ),
-      );
+        );
     };
     return Row(
       //verticalDirection: VerticalDirection.up,
@@ -177,25 +188,32 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
             //color: Colors.red,
             width: 100.0 * state.items.length,
             height: 20.0,
-            child: ListView.builder(
+            child: //_buildChoiceList(),
+
+            //OnlySelectChip(encephalopatyList, ),
+
+
+            ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: state.items.length,
               //padding: EdgeInsets.symmetric(vertical: 1),
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
               itemBuilder: (context, index) {
+
                 return Row(
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
                         setState(() {
+                          widget.reset = false;
                           _initMap(state);
 
                           radioValue = state.items
                               .elementAt(index)
                               .toString(); //radioValue es el elemento seleccionado
 
-                          /* Venían en la función onChange, quizás se necesiten
+                          /*Venían en la función onChange, quizás se necesiten
                         widget.isEnabled,
                         widget.nextFocusNode,*/
 
@@ -216,7 +234,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                             CustomRadio<String, double>(
                               value: state.items.elementAt(index).toString(),
                               groupValue: radioValue,
-                              duration: Duration(milliseconds: 500),
+                              duration: Duration(milliseconds: 250),
                               animsBuilder: (AnimationController controller) =>
                               [
                                 CurvedAnimation(
@@ -234,7 +252,8 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                                     style: TextStyle(
                                       color: isSelected[state.items
                                           .elementAt(index)
-                                          .toString()]
+                                          .toString()] &&
+                                          (widget.reset == false)
                                           ? Colors.white
                                           : Theme
                                           .of(context)
@@ -287,5 +306,11 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
         fieldBlocState: state,
       ),
     );
+  }
+
+
+  resetear() {
+    widget.reset = true;
+    setState(() {});
   }
 }

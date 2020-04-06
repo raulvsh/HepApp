@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 class OnlySelectChip extends StatefulWidget {
   final List<String> optionList;
-  final String field;
 
-  OnlySelectChip(this.optionList, this.field);
+  OnlySelectChip(this.optionList);
 
   @override
   _OnlySelectChipState createState() => _OnlySelectChipState();
@@ -22,7 +21,7 @@ class _OnlySelectChipState extends State<OnlySelectChip> {
       var isSelected = (selectedChoice == item) && (reset == 0);
 
       choices.add(Container(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 5), // , vertical: 10),
         child: SizedBox(
           height: 20,
           //margin: EdgeInsets.all(5),
@@ -71,6 +70,8 @@ class _OnlySelectChipState extends State<OnlySelectChip> {
                 print("reset " + reset.toString());
                 reset = 0;
                 selectedChoice = item;
+                //widget.field = item.toString();
+                //print("despues de reset field " + widget.selectFieldBloc.toString());
 
                 //selectedChoice = "1" as String;
               });

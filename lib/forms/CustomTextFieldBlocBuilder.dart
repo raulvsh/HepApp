@@ -73,7 +73,6 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
                   color: Color.fromARGB(255, 45, 145, 155),
                 ), //color: Colors.red),
               ),
-              //TODO añadir errorText: 'Introduce un texto',
 
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(3.0),

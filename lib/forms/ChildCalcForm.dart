@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/widgets/OnlySelectChips.dart';
 import 'package:hepapp/widgets/notifications.dart';
 
 import 'CalcResultWidget.dart';
@@ -18,13 +17,14 @@ class ChildCalcForm extends StatefulWidget {
 
 class _ChildCalcFormState extends State<ChildCalcForm> {
   String resultado = '';
+  var reset = false;
 
-  List<String> encephalopatyList = [
+  /*List<String> encephalopatyList = [
     "None",
     "Grade 1- 2",
     "Grade 3-4",
 
-  ];
+  ];*/
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,8 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
       child: Builder(
         builder: (context) {
           final formBloc = BlocProvider.of<ChildCalcFormBloc>(context);
-          print("formbloc desde fuera resultado ${formBloc.resultadoField}");
+          //print("formbloc desde fuera resultado ${formBloc.resultadoField}");
+          //print("formbloc desde fuera prueba " + formBloc.pruebaField.toString());
           //reseteo(formBloc);
           return //Scaffold(
             //appBar: AppBar(title: Text('Form Fields Example')),
@@ -71,6 +72,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
 
   _buildLeftColumn(AppLocalizations aux, ChildCalcFormBloc formBloc,
       BuildContext context) {
+    //var reset = false;
     //List<bool> _selections = List.generate(3, (_) => true);
     return //Expanded(
       //child:
@@ -86,23 +88,9 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
           //crossAxisAlignment: CrossAxisAlignment.start,
           physics: ClampingScrollPhysics(),
           children: <Widget>[
-            OnlySelectChip(encephalopatyList, formBloc.pruebaField),
+            //OnlySelectChip(encephalopatyList, formBloc.pruebaField),
 
-            /*oggleButtons(
-            children: <Widget>[
-              Text("None"),
-              Text("Grade 1-2"),
-              Text("Grade 3-4"),
-            ],
-            isSelected: _selections,
-            onPressed: (int index) {
-              setState(() {
-                _selections[index] = !_selections[index];
-              });
-            },
-            color: Colors.green,
-            selectedColor: Colors.red,
-          ),*/
+
             ListTile(
               title: CustomTextFieldBlocBuilder(
                   aux: aux,
@@ -112,15 +100,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
                   uds: 'umol/L'),
               //contentPadding: EdgeInsets.all(0),
             ),
-            /*Container(
-              height: 30,
-              child: CustomTextFieldBlocBuilder(
-                  aux: aux,
-                  formBloc: formBloc,
-                  textFieldBloc: formBloc.bilirubinField,
-                  title: aux.tr('bilirubin'),
-                  uds: 'umol/L'),
-            ),*/
+
             ListTile(
               //contentPadding: EdgeInsets.all(0),
 
@@ -146,6 +126,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
               //contentPadding: EdgeInsets.all(0),
 
               title: CustomButtonGroupFieldBlocBuilder(
+                reset: reset,
                 padding: EdgeInsets.only(left: 8),
                 selectFieldBloc: formBloc.encephalopatyField,
                 text: aux.tr('encephalopaty'),
@@ -162,6 +143,8 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
               //contentPadding: EdgeInsets.all(0),
 
               title: CustomButtonGroupFieldBlocBuilder(
+                //optionList: encephalopatyList,
+                reset: reset,
                 padding: EdgeInsets.only(left: 8),
 
                 selectFieldBloc: formBloc.ascitesField,
@@ -176,38 +159,6 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
               ),
             ),
 
-            /*DropdownFieldBlocBuilder<String>(
-                          padding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
-                          selectFieldBloc: formBloc.selectField1,
-                          decoration: InputDecoration(
-                            labelText: 'DropdownFieldBlocBuilder',
-                            // prefixIcon: Icon(Icons.sentiment_very_dissatisfied),
-                          ),
-                          itemBuilder: (context, value) => value,
-                        ),
-                        CheckboxGroupFieldBlocBuilder<String>(
-                          multiSelectFieldBloc: formBloc.multiSelectField,
-                          itemBuilder: (context, item) => item,
-                          decoration: InputDecoration(
-                            labelText: 'CheckboxGroupFieldBlocBuilder',
-                            prefixIcon: Icon(Icons.sentiment_very_dissatisfied),
-                          ),
-                        ),*/
-            /*RadioButtonGroupFieldBlocBuilder<String>(
-                          selectFieldBloc: formBloc.selectField2,
-                          decoration: InputDecoration(
-                            labelText: 'RadioButtonGroupFieldBlocBuilder',
-                            prefixIcon: Icon(Icons.sentiment_very_dissatisfied),
-                          ),
-                          itemBuilder: (context, item) => item,
-                        ),*/
-            /*CheckboxFieldBlocBuilder(
-                          booleanFieldBloc: formBloc.booleanField,
-                          body: Text('CheckboxFieldBlocBuilder'),
-                        ),*/
-            //Row(
-
-            //children: <Widget>[
             ListTile(
               title: Container(
                 width: 250,
@@ -227,6 +178,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
                   elevation: 3,
                   onPressed: () {
                     formBloc.submit();
+                    reset = false;
                     setState(() {});
                   },
                   child: Center(
@@ -239,10 +191,11 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
                   ),
                 ),
               ),
+
             ),
-            ListTile(
+            /*ListTile(
               title: Container(),
-            ),
+            ),*/
             ListTile(
               title: RaisedButton(
                 onPressed: () {
@@ -325,7 +278,11 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
 
   void reseteo(ChildCalcFormBloc formBloc) {
     print("************************RESET");
-    //formBloc.reset();
+    print("valor reset dentro método $reset");
+
+    reset = true;
+    print("valor reset dentro método $reset");
+    formBloc.reset();
     /*formBloc.bilirubinField="0";
     //formBloc.inrField=0 as TextFieldBloc;
     //formBloc.albuminField=0 as TextFieldBloc;
@@ -347,7 +304,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
     formBloc.encephalopatyField.updateInitialValue('none_fem');*/
 
 
-    formBloc.pruebaField = "holiiii";
+    //formBloc.pruebaField = "holiiii";
 
 
     print(
@@ -356,8 +313,9 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
             "\n inr: " + formBloc.inrField.toString() +
             "\n albumina: " + formBloc.albuminField.toString() +
             "\n ence: " + formBloc.encephalopatyField.toString() +
-            "\n asci: " + formBloc.ascitesField.toString() +
-            "\n pruebafield: " + formBloc.pruebaField
+            "\n asci: " + formBloc.ascitesField.toString()
+      //+
+      //"\n pruebafield: " + formBloc.pruebaField.toString()
     );
     formBloc.resultadoField = "CPS";
     setState(() {

@@ -14,7 +14,9 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     items: ['none_fem', 'controlled', 'refractory'],
   );
 
-  var pruebaField = "";
+  /*var pruebaField = SelectFieldBloc(
+    items: ['none_fem', 'controlled', 'refractory'],
+  );*/
 
   String resultadoField = 'CPS';
 
@@ -47,6 +49,7 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
         albuminField,
         encephalopatyField,
         ascitesField,
+        //pruebaField,
 
         /* booleanField,
     selectField1,
@@ -73,6 +76,7 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
       albumin: albuminField.valueToDouble,
       encephalopaty: encephalopatyField.value,
       ascites: ascitesField.value,
+      //prueba: pruebaField.toString(),
       result: resultadoField,
     );
 
@@ -82,6 +86,7 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
         "\ninr : ${antiguo.albumin}" +
         "\nencefalopatia : ${antiguo.encephalopaty}" +
         "\nascitis : ${antiguo.ascites}" +
+        //"\nprueba : ${antiguo.prueba}" +
         "\nresultado: ${antiguo.result}" +
         "\n**************");
 

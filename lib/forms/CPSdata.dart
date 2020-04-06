@@ -4,6 +4,7 @@ class CPSdata {
   double albumin;
   String encephalopaty;
   String ascites;
+  String prueba;
   String result;
 
   CPSdata(
@@ -12,12 +13,14 @@ class CPSdata {
       double albumin,
       String encephalopaty,
       String ascites,
+        String prueba,
       String result}) {
     this.bilirubin = bilirubin;
     this.albumin = albumin;
     this.inr = inr;
-    this.ascites = ascites;
     this.encephalopaty = encephalopaty;
+    this.ascites = ascites;
+    this.prueba = prueba;
     this.result = result;
   }
 }

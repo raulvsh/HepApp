@@ -43,51 +43,26 @@ class ComboButton extends StatelessWidget {
   }
 
   onTap() {
-    //print(type);
-    //(type[3]);
     switch (type[3]) {
       case 'Nav':
         Navigator.pushNamed(context, type[2], arguments: initialPage);
         break;
       case 'Web':
-        /*print("entro en web");
-        print(type);*/
         Navigator.pushNamed(context, '/Web', arguments: [type[2], type[0]]);
-
-        //showWeb(type);
         break;
       case 'PDF':
-        /*print("entro en pdf");
-        print(type);*/
         showPDF(type);
         break;
       case 'Video':
-        //print("entro en video");
-        //print(type);
         Navigator.pushNamed(context, '/Video', arguments: [type[2], type[0]]);
-
-        //showVideo(type);
         break;
     }
   }
-
-  /*showWeb(List<String> type) {
-    print("url " + type[2]);
-    print("titulo " + type[0]);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => WebDetailPage(
-                  url: type[2],
-                  title: type[0],
-                )));
-  }*/
 
   showPDF(List<String> type) async {
     var assetPDFPath;
     await getFileFromAsset("assets/pdf/${type[2]}").then((f) {
       assetPDFPath = f.path;
-      //print("Asset pdf path desde button " + assetPDFPath);
     });
     if (assetPDFPath != null) {
       Navigator.push(
@@ -99,14 +74,4 @@ class ComboButton extends StatelessWidget {
                   )));
     }
   }
-
-/*showVideo(List<String> type) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => VideoDetailPage(
-                  url: type[2],
-                  title: type[0],
-                )));
-  }*/
 }

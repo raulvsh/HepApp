@@ -19,7 +19,6 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   _CustomAppBarState createState() => _CustomAppBarState();
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
 
@@ -100,7 +99,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return GestureDetector(
       onTap: () => Navigator.pop(context),
       child: Container(
-        //color: Colors.red,
+        color: Theme
+            .of(context)
+            .primaryColor,
         height: 60,
         child: Row(
           children: <Widget>[
