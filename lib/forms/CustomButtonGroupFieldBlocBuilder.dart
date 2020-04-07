@@ -20,7 +20,8 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
     this.decoration = const InputDecoration(),
     this.canDeselect = true,
     this.nextFocusNode,
-    this.text, this.reset,
+    this.text,
+    this.reset,
   })  : assert(selectFieldBloc != null),
         assert(enableOnlyWhenFormBlocCanSubmit != null),
         assert(isEnabled != null),
@@ -71,12 +72,6 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
   bool firstRun = true;
   String selectedChoice = "";
 
-  List<String> encephalopatyList = [
-    "None",
-    "Grade 1- 2",
-    "Grade 3-4",
-
-  ];
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SelectFieldBloc<Value>, SelectFieldBlocState<Value>>(
@@ -97,7 +92,6 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
 
         return DefaultFieldBlocBuilderPadding(
           padding: widget.padding,
-
 
           //child: Stack(
           //children: <Widget>[
@@ -126,8 +120,6 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
 
   Widget _buildRadioButtons(SelectFieldBlocState<Value> state, bool isEnable) {
     RadioBuilder<String, double> simpleBuilder;
-    var aux = AppLocalizations.of(context);
-
 
     simpleBuilder = (BuildContext context, List<double> animValues,
         Function updateState, String value) {
@@ -146,9 +138,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             //Color del fondo del botón
-            color:
-
-            Theme
+            color: Theme
                 .of(context)
                 .primaryColor
                 .withAlpha(opacity),
@@ -157,7 +147,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
               color: Color.fromARGB(255, 45, 145, 155), //Color del borde
               width: 1.3,
             ),
-            borderRadius: BorderRadius.all(new Radius.circular(3.0)),
+            borderRadius: BorderRadius.all(Radius.circular(3.0)),
           ),
           // ),
         );
@@ -166,32 +156,48 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
       //verticalDirection: VerticalDirection.up,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Container(
-          color: Color.fromARGB(255, 210, 242, 245),
-          width: 10.0,
-          height: 20.0,
-        ),
-        Container(
-          //width: 90,
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Text(
-              widget.text,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 12,
-              ),
-            )),
-        Expanded(
-          child: Container(
-            //alignment: Alignment.center,
-            padding: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
-            //color: Colors.red,
-            width: 100.0 * state.items.length,
-            height: 20.0,
-            child: //_buildChoiceList(),
+        _buildInitialBlueRectangle(),
+        _buildInitialText(),
+        _buildOptionsRow(state, simpleBuilder),
+      ],
+    );
+  }
+
+  Container _buildInitialBlueRectangle() {
+    return Container(
+      color: Color.fromARGB(255, 210, 242, 245),
+      width: 10.0,
+      height: 20.0,
+    );
+  }
+
+  Container _buildInitialText() {
+    return Container(
+      //width: 90,
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        child: Text(
+          widget.text,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 12,
+          ),
+        ));
+  }
+
+  Expanded _buildOptionsRow(SelectFieldBlocState state,
+      RadioBuilder<String, double> simpleBuilder) {
+    var aux = AppLocalizations.of(context);
+
+    return Expanded(
+      child: Container(
+        //alignment: Alignment.center,
+        padding: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
+        //color: Colors.red,
+        width: 100.0 * state.items.length,
+        height: 20.0,
+        child: //_buildChoiceList(),
 
             //OnlySelectChip(encephalopatyList, ),
-
 
             ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -200,7 +206,6 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
               itemBuilder: (context, index) {
-
                 return Row(
                   children: <Widget>[
                     GestureDetector(
@@ -214,8 +219,8 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                               .toString(); //radioValue es el elemento seleccionado
 
                           /*Venían en la función onChange, quizás se necesiten
-                        widget.isEnabled,
-                        widget.nextFocusNode,*/
+                      widget.isEnabled,
+                      widget.nextFocusNode,*/
 
                           widget.selectFieldBloc
                               .updateValue(radioValue); //Actualizo el valor
@@ -223,24 +228,28 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                           //print('Mapa actualizado $isSelected \n\n');
                         });
                       },
-
                       child: Container(
                         height: 20,
                         width: 90,
+                        //color: Colors.green,
                         padding: EdgeInsets.symmetric(horizontal: 4),
                         //color:Colors.red,
                         child: Stack(
                           children: <Widget>[
-                            CustomRadio<String, double>(
-                              value: state.items.elementAt(index).toString(),
-                              groupValue: radioValue,
-                              duration: Duration(milliseconds: 250),
-                              animsBuilder: (AnimationController controller) =>
-                              [
-                                CurvedAnimation(
-                                    parent: controller, curve: Curves.easeInOut)
-                              ],
-                              builder: simpleBuilder,
+                            Container(
+                              child: CustomRadio<String, double>(
+                                value: state.items.elementAt(index).toString(),
+                                groupValue: radioValue,
+                                duration: Duration(milliseconds: 150),
+                                animsBuilder: (
+                                    AnimationController controller) =>
+                                [
+                                  CurvedAnimation(
+                                      parent: controller,
+                                      curve: Curves.easeInOut)
+                                ],
+                                builder: simpleBuilder,
+                              ),
                             ),
                             DefaultFieldBlocBuilderTextStyle(
                               isEnabled: false,
@@ -266,8 +275,6 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                             ),
                           ],
                         ),
-
-
                       ),
                     ),
                   ],
@@ -276,10 +283,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                 //return Row
               },
             ),
-          ),
-        ),
-
-      ],
+      ),
     );
   }
 
@@ -307,7 +311,6 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
       ),
     );
   }
-
 
   resetear() {
     widget.reset = true;

@@ -18,6 +18,7 @@ class PodcastsPageView extends StatefulWidget {
 class _PodcastsPageViewState extends State<PodcastsPageView> {
   PageController controller = PageController();
 
+
   @override
   void initState() {
     super.initState();

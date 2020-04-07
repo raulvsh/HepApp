@@ -1,3 +1,4 @@
+/*
 import 'dart:async';
 import 'dart:io';
 
@@ -9,6 +10,7 @@ import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:path_provider/path_provider.dart';
 
+*/
 /*
 class PDFNew extends StatefulWidget {
   @override
@@ -22,11 +24,15 @@ class _PDFNewState extends State<PDFNew> {
   @override
   void initState() {
     super.initState();
-    */ /*fromAsset('assets/corrupted.pdf', 'corrupted.pdf').then((f) {
+    */ /*
+ */
+/*fromAsset('assets/corrupted.pdf', 'corrupted.pdf').then((f) {
       setState(() {
         corruptedPathPDF = f.path;
       });
     });*/ /*
+ */
+/*
     fromAsset('assets/HepAPP_M1C1.pdf', 'HepAPP_M3C12.pdf').then((f) {
       setState(() {
         pathPDF = f.path;
@@ -109,15 +115,18 @@ class _PDFNewState extends State<PDFNew> {
 
   }
 
-}*/
+}*/ /*
+
 
 class PDFScreen extends StatefulWidget {
   final String path;
   final String title;
 
+*/
 /*
   String pathPDF = "";
-*/
+*/ /*
+
 
   PDFScreen({Key key, this.path, this.title}) : super(key: key);
 
@@ -138,17 +147,21 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
     //print (widget.path);
     fromAsset('assets/${widget.path}', widget.path).then((f) {
       pathPDF = f.path;
-      /*print("f.path " + f.path);
-      print("path pdf" + pathPDF);*/
+      */
+/*print("f.path " + f.path);
+      print("path pdf" + pathPDF);*/ /*
+
 
       setState(() {
 
       });
-      /*setState(() {
+      */
+/*setState(() {
         pathPDF = f.path;
         //print("path pdf desde init ${pathPDF}");
         //print("f.path " + f.path);
-      });*/
+      });*/ /*
+
     });
     print("pathpdf desde cargarRuta $pathPDF");
     return pathPDF;
@@ -201,12 +214,14 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
       drawer: MenuWidget(),
       body: Stack(
         children: <Widget>[
-          /*Text(
+          */
+/*Text(
             pathPDF,
             style: TextStyle(
               fontSize: 8,
             ),
-          ),*/
+          ),*/ /*
+
           FutureBuilder(
               future: cargarRuta(),
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -241,7 +256,8 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
 
                   ],);
 
-                /*return PDFView(
+                */
+/*return PDFView(
                     //filePath: "/data/user/0/es.uva.tel.hepapp/app_flutter/HepAPP_M3C13.pdf",
                     //filePath: "/data/user/0/es.uva.tel.hepapp/app_flutter/HepAPP_Introduction.pdf",
                     //filePath: pathPDF,
@@ -279,14 +295,16 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
                         currentPage = page;
                       });
                     },
-                  );*/
+                  );*/ /*
+
 
 
                 //print("snapshot tiene data " + pathPDF);
 
               }),
 
-          /*FutureBuilder(
+          */
+/*FutureBuilder(
             future: cargarRuta(),
             builder: (BuildContext context, AsyncSnapshot<String> snapshot){
               if (snapshot.hasData)
@@ -327,9 +345,11 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
                   });
                 },
               );
-            },*/
+            },*/ /*
+
           //child:
-          /*PDFView(
+          */
+/*PDFView(
               //filePath: "/data/user/0/es.uva.tel.hepapp/app_flutter/HepAPP_M3C13.pdf",
               enableSwipe: true,
               swipeHorizontal: true,
@@ -374,10 +394,12 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
                   : Container()
               : Center(
                   child: Text(errorMessage),
-                )*/
+                )*/ /*
+
         ],
       ),
-      /* floatingActionButton: FutureBuilder<PDFViewController>(
+      */
+/* floatingActionButton: FutureBuilder<PDFViewController>(
         future: _controller.future,
         builder: (context, AsyncSnapshot<PDFViewController> snapshot) {
           if (snapshot.hasData) {
@@ -391,7 +413,9 @@ class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
 
           return Container();
         },
-      ),*/
+      ),*/ /*
+
     );
   }
 }
+*/

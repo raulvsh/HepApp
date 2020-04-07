@@ -12,8 +12,8 @@ import 'package:hepapp/pages/DetailPageWidgets/WebDetailPage.dart';
 import 'package:hepapp/pages/Figures/Drawing/DrawingPage.dart';
 import 'package:hepapp/pages/Figures/Drawing/DrawingPageView.dart';
 import 'package:hepapp/pages/Figures/FiguresPage.dart';
+import 'package:hepapp/pages/Figures/Interactive/InteractiveDetailPageView.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractivePage.dart';
-import 'package:hepapp/pages/Figures/Interactive/InteractivePageView.dart';
 import 'package:hepapp/pages/Figures/Maps/MapsDetailPageView.dart';
 import 'package:hepapp/pages/Figures/Maps/MapsPage.dart';
 import 'package:hepapp/pages/Figures/Pathology/PathologyDetailPageView.dart';
@@ -21,7 +21,7 @@ import 'package:hepapp/pages/Figures/Pathology/PathologyPageView.dart';
 import 'package:hepapp/pages/Figures/Schemes/SchemesDetailPageView.dart';
 import 'package:hepapp/pages/Figures/Schemes/SchemesPage.dart';
 import 'package:hepapp/pages/Figures/TOC/TOCDetailPageView.dart';
-import 'package:hepapp/pages/Figures/TOC/TOCFigPage.dart';
+import 'package:hepapp/pages/Figures/TOC/TOCPage.dart';
 import 'package:hepapp/pages/HomePage.dart';
 import 'package:hepapp/pages/Podcasts/PodcastsPageView.dart';
 import 'package:hepapp/pages/ResourcesPage.dart';
@@ -67,7 +67,7 @@ class RouteGenerator {
                 ),);
 
       case '/TableFig':
-        return MaterialPageRoute(builder: (_) => TOCFigPage());
+        return MaterialPageRoute(builder: (_) => TOCPage());
       case '/TOCPV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
@@ -103,7 +103,7 @@ class RouteGenerator {
       case '/InteractivePV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
-            builder: (_) => InteractivePageView(initialPage));
+            builder: (_) => InteractiveDetailPageView(initialPage));
 
       case '/DrawingFig':
         return MaterialPageRoute(builder: (_) => DrawingPage());

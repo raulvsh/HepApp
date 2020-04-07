@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/FigureButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
+
+import '../../CommonGridPage.dart';
 
 class InteractivePage extends StatefulWidget {
   @override
@@ -33,15 +34,18 @@ class _InteractivePageState extends State<InteractivePage> {
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
       appBar: CustomAppBar(context, 'interactive_figures'),
       drawer: MenuWidget(),
-      body: OrientationBuilder(
+      body: CommonGridPage(data: interactive, type: 'figure'),
+
+
+      /*OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
         },
-      ),
+      ),*/
     );
   }
 
-  _buildLayout(orientation) {
+/* _buildLayout(orientation) {
     final width = MediaQuery.of(context).size.width;
     var padding = width / 100;
 
@@ -71,5 +75,5 @@ class _InteractivePageState extends State<InteractivePage> {
           .add(FigureButton(context, interactive[i], i));
     }
     return widgets;
-  }
+  }*/
 }

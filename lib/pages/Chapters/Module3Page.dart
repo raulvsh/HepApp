@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
-import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
+
+import '../CommonGridPage.dart';
 
 //const String _documentPath = 'assets/HepM1C1.pdf';
 
@@ -34,20 +35,23 @@ class _Module3PageState extends State<Module3Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
+      //resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
         drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'module_3'),
-      body: OrientationBuilder(
+        body: CommonGridPage(data: chaptersMod3),
+
+
+        /*OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
         },
-      ),
+      ),*/
         bottomSheet: BottomNavigationSheet(2, '/ModulePV', numModules));
 
 
   }
 
-  _buildLayout(orientation) {
+/* _buildLayout(orientation) {
     final width = MediaQuery
         .of(context)
         .size
@@ -77,11 +81,11 @@ class _Module3PageState extends State<Module3Page> {
     List<Widget> widgets = [];
     for (int i = 0; i < numChaptersModule3; i++) {
       widgets.add(ComboButton(context, chaptersMod3[i]));
-      /*widgets.add(PDFButton(context, ChaptersMod3[i],
-          'module_3_chapter_${i + 10}'));*/
+      */ /*widgets.add(PDFButton(context, ChaptersMod3[i],
+          'module_3_chapter_${i + 10}'));*/ /*
     }
     return widgets;
-  }
+  }*/
 }
 
 /*

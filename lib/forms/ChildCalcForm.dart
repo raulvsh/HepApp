@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/lang/app_localizations.dart';
+import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:hepapp/widgets/notifications.dart';
 
 import 'CalcResultWidget.dart';
@@ -9,22 +10,13 @@ import 'ChildCalcForm_bloc.dart';
 import 'CustomButtonGroupFieldBlocBuilder.dart';
 import 'CustomTextFieldBlocBuilder.dart';
 
-//var resultado = 'defecto';
 class ChildCalcForm extends StatefulWidget {
   @override
   _ChildCalcFormState createState() => _ChildCalcFormState();
 }
 
 class _ChildCalcFormState extends State<ChildCalcForm> {
-  String resultado = '';
   var reset = false;
-
-  /*List<String> encephalopatyList = [
-    "None",
-    "Grade 1- 2",
-    "Grade 3-4",
-
-  ];*/
 
   @override
   Widget build(BuildContext context) {
@@ -35,36 +27,28 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
       child: Builder(
         builder: (context) {
           final formBloc = BlocProvider.of<ChildCalcFormBloc>(context);
-          //print("formbloc desde fuera resultado ${formBloc.resultadoField}");
-          //print("formbloc desde fuera prueba " + formBloc.pruebaField.toString());
-          //reseteo(formBloc);
-          return //Scaffold(
-            //appBar: AppBar(title: Text('Form Fields Example')),
-            //body:
-
-            FormBlocListener<ChildCalcFormBloc, String, String>(
-              /*onSubmitting: (context, state) => LoadingDialog.show(context),
+          return FormBlocListener<ChildCalcFormBloc, String, String>(
+            /*onSubmitting: (context, state) => LoadingDialog.show(context),
               onSuccess: (context, state) {
                 LoadingDialog.hide(context);
                  Notifications.showSnackBarWithSuccess(
                     context, state.successResponse);
                  //Muestra una barra verde con la palabra success
               },*/
-              onFailure: (context, state) {
-                //LoadingDialog.hide(context);
-                Notifications.showSnackBarWithError(
-                    context, state.failureResponse);
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  _buildLeftColumn(aux, formBloc, context),
-                  _buildRightColumn(aux, formBloc.resultadoField, context),
-                ],
-              ),
-              //),
-            );
+            onFailure: (context, state) {
+              //LoadingDialog.hide(context);
+              Notifications.showSnackBarWithError(
+                  context, state.failureResponse);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _buildLeftColumn(aux, formBloc, context),
+                _buildRightColumn(aux, formBloc.resultadoField, context),
+              ],
+            ),
+          );
         },
       ),
     );
@@ -72,156 +56,151 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
 
   _buildLeftColumn(AppLocalizations aux, ChildCalcFormBloc formBloc,
       BuildContext context) {
-    //var reset = false;
-    //List<bool> _selections = List.generate(3, (_) => true);
-    return //Expanded(
-      //child:
-      Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width * 0.65,
-        //color: Colors.red,
-        child: ListView(
-          shrinkWrap: true,
-          //mainAxisAlignment: MainAxisAlignment.start,
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          physics: ClampingScrollPhysics(),
-          children: <Widget>[
-            //OnlySelectChip(encephalopatyList, formBloc.pruebaField),
+    final prefs = new PreferenciasUsuario();
 
-
-            ListTile(
-              title: CustomTextFieldBlocBuilder(
-                  aux: aux,
-                  formBloc: formBloc,
-                  textFieldBloc: formBloc.bilirubinField,
-                  title: aux.tr('bilirubin'),
-                  uds: 'umol/L'),
-              //contentPadding: EdgeInsets.all(0),
-            ),
-
-            ListTile(
-              //contentPadding: EdgeInsets.all(0),
-
-              title: CustomTextFieldBlocBuilder(
-                aux: aux,
-                formBloc: formBloc,
-                textFieldBloc: formBloc.inrField,
-                title: aux.tr('inr'),
-                uds: '',
-              ),
-            ),
-            ListTile(
-              //contentPadding: EdgeInsets.all(0),
-
-              title: CustomTextFieldBlocBuilder(
-                  aux: aux,
-                  formBloc: formBloc,
-                  textFieldBloc: formBloc.albuminField,
-                  title: aux.tr('albumin'),
-                  uds: 'g/L'),
-            ),
-            ListTile(
-              //contentPadding: EdgeInsets.all(0),
-
-              title: CustomButtonGroupFieldBlocBuilder(
-                reset: reset,
-                padding: EdgeInsets.only(left: 8),
-                selectFieldBloc: formBloc.encephalopatyField,
-                text: aux.tr('encephalopaty'),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                ),
-
-
-                //itemBuilder: (context, item) => item,
-              ),
-            ),
-
-            ListTile(
-              //contentPadding: EdgeInsets.all(0),
-
-              title: CustomButtonGroupFieldBlocBuilder(
-                //optionList: encephalopatyList,
-                reset: reset,
-                padding: EdgeInsets.only(left: 8),
-
-                selectFieldBloc: formBloc.ascitesField,
-                text: aux.tr('ascites'),
-
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-
-
-                ),
-                //itemBuilder: (context, item) => item,
-              ),
-            ),
-
-            ListTile(
-              title: Container(
-                width: 250,
-                //padding: EdgeInsets.all(8.0),
-                margin: EdgeInsets.only(right: 250, left: 25), //left: 20),
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(3),
-                      side: BorderSide(
-                        color: Color.fromARGB(255, 45, 145, 155),
-                        width: 1.5,
-                      )),
-                  color: Theme
-                      .of(context)
-                      .primaryColor,
-                  splashColor: Color.fromARGB(255, 56, 183, 198),
-                  elevation: 3,
-                  onPressed: () {
-                    formBloc.submit();
-                    reset = false;
-                    setState(() {});
-                  },
-                  child: Center(
-                    child: Text(
-                      aux.tr('calculate_cp_score'),
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-
-            ),
-            /*ListTile(
+    return Container(
+      width: MediaQuery
+          .of(context)
+          .size
+          .width * 0.65,
+      //color: Colors.red,
+      child: ListView(
+        shrinkWrap: true,
+        //mainAxisAlignment: MainAxisAlignment.start,
+        //crossAxisAlignment: CrossAxisAlignment.start,
+        physics: ClampingScrollPhysics(),
+        children: <Widget>[
+          _buildBilirrubinRow(aux, formBloc),
+          _buildInrRow(aux, formBloc),
+          _buildAlbuminRow(aux, formBloc),
+          _buildEncephalopatyRow(formBloc, aux),
+          _buildAscitesRow(formBloc, aux),
+          _buildCalcButton(context, formBloc, aux),
+          /*ListTile(
               title: Container(),
             ),*/
-            ListTile(
-              title: RaisedButton(
-                onPressed: () {
-                  reseteo(formBloc);
-                },
-                child: Text("boton reset prueba"),
+          ListTile(
+            title: RaisedButton(
+              onPressed: () {
+                reseteo(formBloc);
+              },
+              child: Text("boton reset prueba"),
+            ),
+          ),
+          ListTile(
+            title: Text(prefs.internationalUnits.toString()),
+          ),
+          ListTile(
+            title: Container(),
+          ),
+        ],
+      ),
+      //),
+    );
+  }
 
+  ListTile _buildBilirrubinRow(AppLocalizations aux,
+      ChildCalcFormBloc formBloc) {
+    return ListTile(
+      title: CustomTextFieldBlocBuilder(
+          aux: aux,
+          formBloc: formBloc,
+          textFieldBloc: formBloc.bilirubinField,
+          title: aux.tr('bilirubin'),
+          uds: 'umol/L'),
+    );
+  }
+
+  ListTile _buildInrRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
+    return ListTile(
+      title: CustomTextFieldBlocBuilder(
+        aux: aux,
+        formBloc: formBloc,
+        textFieldBloc: formBloc.inrField,
+        title: aux.tr('inr'),
+        uds: '',
+      ),
+    );
+  }
+
+  ListTile _buildAlbuminRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
+    return ListTile(
+      title: CustomTextFieldBlocBuilder(
+          aux: aux,
+          formBloc: formBloc,
+          textFieldBloc: formBloc.albuminField,
+          title: aux.tr('albumin'),
+          uds: 'g/L'),
+    );
+  }
+
+  ListTile _buildEncephalopatyRow(ChildCalcFormBloc formBloc,
+      AppLocalizations aux) {
+    return ListTile(
+      title: CustomButtonGroupFieldBlocBuilder(
+        reset: reset,
+        padding: EdgeInsets.only(left: 8),
+        selectFieldBloc: formBloc.encephalopatyField,
+        text: aux.tr('encephalopaty'),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+        ),
+        itemBuilder: (context, item) => item,
+      ),
+    );
+  }
+
+  ListTile _buildAscitesRow(ChildCalcFormBloc formBloc, AppLocalizations aux) {
+    return ListTile(
+      title: CustomButtonGroupFieldBlocBuilder(
+        reset: reset,
+        padding: EdgeInsets.only(left: 8),
+        selectFieldBloc: formBloc.ascitesField,
+        text: aux.tr('ascites'),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+        ),
+        itemBuilder: (context, item) => item,
+
+      ),
+    );
+  }
+
+  ListTile _buildCalcButton(BuildContext context, ChildCalcFormBloc formBloc,
+      AppLocalizations aux) {
+    return ListTile(
+      title: Container(
+        width: 250,
+        //padding: EdgeInsets.all(8.0),
+        margin: EdgeInsets.only(right: 250, left: 25), //left: 20),
+        child: RaisedButton(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(3),
+              side: BorderSide(
+                color: Color.fromARGB(255, 45, 145, 155),
+                width: 1.5,
+              )),
+          color: Theme
+              .of(context)
+              .primaryColor,
+          splashColor: Color.fromARGB(255, 56, 183, 198),
+          elevation: 3,
+          onPressed: () {
+            formBloc.submit();
+            reset = false;
+            setState(() {});
+          },
+          child: Center(
+            child: Text(
+              aux.tr('calculate_cp_score'),
+              style: TextStyle(
+                color: Colors.white,
               ),
             ),
-            ListTile(
-              title: Container(),
-            ),
-            /*Container(
-                width: 200,
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: RaisedButton(
-                  onPressed: formBloc.clear,
-                  child: Center(child: Text('CLEAR')),
-                ),
-              ),*/
-            //],
-            //),
-          ],
+          ),
         ),
-        //),
-      );
+      ),
+    );
   }
 
   _buildRightColumn(AppLocalizations aux, resultadoField,
@@ -255,22 +234,6 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
               ),
             ),
           ),
-          /*Expanded(
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 50),
-                //alignment: Alignment.bottomRight,
-                child: Text(
-                  aux.tr('child_pugh_score'),
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Color.fromARGB(255, 210, 242, 245),
-                  ),
-                ),
-              ),
-            ),
-          ),*/
         ],
       ),
     );
@@ -303,24 +266,10 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
     formBloc.encephalopatyField.addItem("grade_3_4");
     formBloc.encephalopatyField.updateInitialValue('none_fem');*/
 
-
     //formBloc.pruebaField = "holiiii";
 
-
-    print(
-        "después del reseteo " +
-            "\n bili: " + formBloc.bilirubinField.toString() +
-            "\n inr: " + formBloc.inrField.toString() +
-            "\n albumina: " + formBloc.albuminField.toString() +
-            "\n ence: " + formBloc.encephalopatyField.toString() +
-            "\n asci: " + formBloc.ascitesField.toString()
-      //+
-      //"\n pruebafield: " + formBloc.pruebaField.toString()
-    );
     formBloc.resultadoField = "CPS";
-    setState(() {
-
-    });
-    print("formbloc desde reset: ${formBloc.resultadoField}");
+    setState(() {});
+    //print("formbloc desde reset: ${formBloc.resultadoField}");
   }
 }

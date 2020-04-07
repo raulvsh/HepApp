@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
-import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
+
+import '../CommonGridPage.dart';
 
 //const String _documentPath = 'assets/HepM1C1.pdf';
 
@@ -65,16 +66,18 @@ class _Podcasts3PageState extends State<Podcasts3Page> {
 
       drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'podcasts_3'),
-      body: OrientationBuilder(
+        body: CommonGridPage(data: podcasts3),
+
+        /*OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
         },
-      ),
+      ),*/
         bottomSheet: BottomNavigationSheet(2, '/PodcastsPV', numPodcastsPages));
 
   }
 
-  _buildLayout(orientation) {
+/*_buildLayout(orientation) {
     final width = MediaQuery.of(context).size.width;
     var padding = width / 100;
 
@@ -105,5 +108,5 @@ class _Podcasts3PageState extends State<Podcasts3Page> {
       //widgets.add(VideoButton(context, podcasts3[i]));
     }
     return widgets;
-  }
+  }*/
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/widgets/ComboButton.dart';
+import 'package:hepapp/pages/CommonGridPage.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
@@ -31,15 +31,18 @@ class _ChaptersPageState extends State<ChaptersPage> {
 
       drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'chapters'),
-      body: OrientationBuilder(
+      body: CommonGridPage(data: modules),
+
+
+      /*OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
         },
-      ),
+      ),*/
     );
   }
 
-  _buildLayout(orientation) {
+/*_buildLayout(orientation) {
     final width = MediaQuery
         .of(context)
         .size
@@ -75,5 +78,5 @@ class _ChaptersPageState extends State<ChaptersPage> {
     //widgets.add(PDFButton(context, references, 'references'));
 
     return widgets;
-  }
+  }*/
 }

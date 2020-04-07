@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
-import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
+
+import '../CommonGridPage.dart';
 
 //const String _documentPath = 'assets/HepM1C1.pdf';
 
@@ -26,32 +27,29 @@ class _Module2PageState extends State<Module2Page> {
 
   var numChaptersModule2 = chaptersMod2.length;
 
-
   @override
   void initState() {
     super.initState();
-
   }
 
 /*Construcción del Layout del menú principal*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-
+        resizeToAvoidBottomInset: false,
         drawer: MenuWidget(),
-      appBar: CustomAppBar(context, 'module_2'),
-      body: OrientationBuilder(
+        appBar: CustomAppBar(context, 'module_2'),
+        body: CommonGridPage(data: chaptersMod2),
+
+        /*OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
         },
-      ),
+      ),*/
         bottomSheet: BottomNavigationSheet(1, '/ModulePV', numModules));
-
-
   }
 
-  _buildLayout(orientation) {
+/*_buildLayout(orientation) {
     final width = MediaQuery
         .of(context)
         .size
@@ -83,12 +81,10 @@ class _Module2PageState extends State<Module2Page> {
     for (int i = 0; i < numChaptersModule2; i++) {
       widgets.add(ComboButton(context, chaptersMod2[i]));
 
-      /*     widgets.add(PDFButton(context, chaptersMod2[i],
-          'module_2_chapter_${i + 4}'));*/
+      */ /*     widgets.add(PDFButton(context, chaptersMod2[i],
+          'module_2_chapter_${i + 4}'));*/ /*
     }
     return widgets;
   }
-
+*/
 }
-
-

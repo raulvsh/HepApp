@@ -1,10 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hepapp/forms/partial_calc_settings_bloc.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
-
-import 'CustomButtonGroupFieldBlocBuilder.dart';
 
 class PartialCalcSettings extends StatefulWidget {
   @override
@@ -13,26 +12,32 @@ class PartialCalcSettings extends StatefulWidget {
 
 class _PartialCalcSettingsState extends State<PartialCalcSettings> {
   final prefs = new PreferenciasUsuario();
+  List<bool> isSelected;
 
+  var iUnits;
 
   @override
   void initState() {
+    isSelected = [true, false];
+    //prefs.internationalUnits = true;
+    print(
+        "iunits desde prefs initstate " + prefs.internationalUnits.toString());
+    iUnits = prefs.internationalUnits;
+    isSelected[0] = prefs.internationalUnits;
+    isSelected[1] = !prefs.internationalUnits;
     super.initState();
 
-
-    /*prefs.internationalUnits = true;
-    _international_units = prefs.internationalUnits;*/
+    //_international_units = prefs.internationalUnits;
   }
 
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
-
     return BlocProvider<PartialCalcSettingsBloc>(
       builder: (context) => PartialCalcSettingsBloc(),
       child: Builder(
         builder: (context) {
-          final formBloc = BlocProvider.of<PartialCalcSettingsBloc>(context);
+          //final formBloc = BlocProvider.of<PartialCalcSettingsBloc>(context);
 
           return AlertDialog(
               content: ConstrainedBox(
@@ -42,17 +47,24 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      CustomButtonGroupFieldBlocBuilder(
-                        selectFieldBloc: formBloc.iuField,
-                        text: aux.tr('international_units'),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                        //body: Text('CheckboxFieldBlocBuilder'),
+                      Row(
+                        children: <Widget>[
+                          _buildInitialBlueRectangle(),
+                          _buildInitialText(),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          _buildToggleButtons(context),
+                        ],
                       ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      //OnlySelectChip(['yes', 'no']),
                       Container(
                         width: 150,
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
+
                         child: RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(3),
@@ -65,41 +77,102 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
                               .primaryColor,
                           splashColor: Color.fromARGB(255, 56, 183, 198),
                           elevation: 3,
-                          onPressed: () async {
-                            //print('antes setstate ${prefs.internationalUnits}');
-
-                            formBloc.submit();
-
-                            setState(() {});
-                            //Muestro si están activadas las unidades internacionales, servirá para hacer los cálculos
-                            //print('despues setstate ${prefs.internationalUnits}');
-                            //Hay que esperar a que se cambie la variable
-                            await Future<void>.delayed(
-                                Duration(milliseconds: 250));
-
-                            //Solo salgo del AlertDialog si el usuario ha seleccionado un valor
-                            //print('iufield ${formBloc.iuField.value}');
-                            if (formBloc.iuField.value != null)
-                              Navigator.pop(context);
-
-                            //print('despues ${prefs.internationalUnits}');
-
-                          },
-                          child: Center(
-                            child: Text(
-                              aux.tr('save_settings'),
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
+                          child: Text(
+                            aux.tr('save_settings'),
+                            style: TextStyle(
+                              color: Colors.white,
                             ),
                           ),
+                          onPressed: () {
+                            print("iunits desde boton $iUnits");
+                            prefs.internationalUnits = iUnits;
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
+
                     ],
                   ),
-            ),
-          ));
+                ),
+              ));
         },
+      ),
+    );
+  }
+
+  Container _buildInitialBlueRectangle() {
+    return Container(
+      margin: EdgeInsets.only(right: 10),
+      color: Color.fromARGB(255, 210, 242, 245),
+      width: 10.0,
+      height: 20.0,
+    );
+  }
+
+  Container _buildInitialText() {
+    var aux = AppLocalizations.of(context);
+    return Container(
+      //width: 90,
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        child: Text(
+          aux.tr('international_units'),
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 12,
+          ),
+        ));
+  }
+
+  _buildToggleButtons(BuildContext context) {
+    var aux = AppLocalizations.of(context);
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: 200,
+        maxHeight: 20,
+      ),
+      child: ToggleButtons(
+        borderColor: Color.fromARGB(255, 45, 145, 155),
+        fillColor: Theme
+            .of(context)
+            .primaryColor,
+        borderWidth: 1.3,
+        selectedBorderColor: Color.fromARGB(255, 45, 145, 155),
+        selectedColor: Colors.white,
+        color: Theme
+            .of(context)
+            .primaryColor,
+        borderRadius: BorderRadius.all(Radius.circular(3.0)),
+        children: <Widget>[
+          Container(
+            width: 60,
+            child: Text(
+              aux.tr('yes'),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+              ), //color: Theme.of(context).primaryColor) ,
+            ),
+          ),
+          Container(
+            width: 60,
+            child: Text(
+              aux.tr('no'),
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
+
+        ],
+        onPressed: (int index) {
+          setState(() {
+            for (int i = 0; i < isSelected.length; i++) {
+              isSelected[i] = i == index;
+            }
+            iUnits = isSelected[0] == true;
+            print("iunits $iUnits");
+          });
+        },
+        isSelected: isSelected,
       ),
     );
   }

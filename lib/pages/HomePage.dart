@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/widgets/ComboButton.dart';
+import 'package:hepapp/pages/CommonGridPage.dart';
 import 'package:hepapp/widgets/HomeAppBar.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
 
@@ -58,11 +58,14 @@ class _HomePageState extends State<HomePage> {
       ),
       body: RepaintBoundary(
         key: screen,
-        child: OrientationBuilder(
+        child: CommonGridPage(data: homeSections,),
+
+
+        /*OrientationBuilder(
           builder: (context, orientation) {
             return _buildLayout(orientation);
           },
-        ),
+        ),*/
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: takeScreenShot,
@@ -71,7 +74,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _buildLayout(orientation) {
+  /*_buildLayout(orientation) {
     final width = MediaQuery
         .of(context)
         .size
@@ -102,14 +105,14 @@ class _HomePageState extends State<HomePage> {
     List<Widget> widgets = [];
     //Introduzco un botón menos que el número de categorías, ya que el botón de información nos dirigirá directamente al PDF
     //Guardado para cuando se combinen los botones en un mismo widget
-    /*for (int i = 0; i < numHomeCategories - 2; i++) {
+    */ /*for (int i = 0; i < numHomeCategories - 2; i++) {
       widgets.add(HomeButton(context, sectionTypes[sectionTypesNames[i]]));
-    }*/
+    }*/ /*
     for (int i = 0; i < numHomeSections; i++) {
       widgets.add(ComboButton(context, homeSections[i], 0));
     }
 
-    /*widgets.add(NavigationButton(context, homeSections[0]));
+    */ /*widgets.add(NavigationButton(context, homeSections[0]));
     widgets.add(NavigationButton(context, homeSections[1], 0));
     widgets.add(WebButton(context, homeSections[2]));
 
@@ -119,9 +122,9 @@ class _HomePageState extends State<HomePage> {
 
     widgets.add(WebButton(context, homeSections[6]));
     widgets.add(PDFButton(context, homeSections[7], 'information'));
-*/
+*/ /*
     return widgets;
-  }
+  }*/
 
   takeScreenShot() async {
     RenderRepaintBoundary boundary = screen.currentContext.findRenderObject();

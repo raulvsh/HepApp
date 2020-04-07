@@ -6,8 +6,8 @@ import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoDetailPage extends StatefulWidget {
-  String url;
-  String title;
+  final String url;
+  final String title;
 
   VideoDetailPage({Key key, this.url, this.title}) : super(key: key);
 
@@ -26,7 +26,6 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     // o internet.
     _controller = VideoPlayerController.network(
       widget.url,
-      //'https://www.dropbox.com/s/reqiaun8rtajsr9/HepAPP%202019%20Vodcast%2001%20Introduction.mp4?dl=1',
     );
 
     _initializeVideoPlayerFuture = _controller.initialize();

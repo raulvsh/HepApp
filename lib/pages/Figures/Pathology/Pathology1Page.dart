@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/FigureButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
+
+import '../../CommonGridPage.dart';
 
 //const String _documentPath = 'assets/HepM1C1.pdf';
 
@@ -49,16 +50,19 @@ class _Pathology1PageState extends State<Pathology1Page> {
     return Scaffold(
         drawer: MenuWidget(),
         appBar: CustomAppBar(context, 'pathology_section_1'),
-        body: OrientationBuilder(
+        body: CommonGridPage(data: pathology1, type: 'figure'),
+
+
+        /*OrientationBuilder(
           builder: (context, orientation) {
             return _buildLayout(orientation);
           },
-        ),
+        ),*/
         bottomSheet:
             BottomNavigationSheet(0, '/PathologyPV', numPathologyPages));
   }
 
-  _buildLayout(orientation) {
+/*_buildLayout(orientation) {
     final width = MediaQuery.of(context).size.width;
     var padding = width / 100;
 
@@ -88,5 +92,5 @@ class _Pathology1PageState extends State<Pathology1Page> {
           .add(FigureButton(context, pathology1[i], i)); //, MapsPageView(i)));
     }
     return widgets;
-  }
+  }*/
 }

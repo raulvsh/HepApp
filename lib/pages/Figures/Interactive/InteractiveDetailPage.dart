@@ -31,8 +31,6 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    var aux = AppLocalizations.of(context);
-
     return Scaffold(
       appBar: CustomAppBar(context, widget.title),
       drawer: MenuWidget(),
@@ -41,80 +39,87 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.all(10),
-                  width: 300,
-                  height: 300,
-
-                  child: Image.asset(
-                    'assets/images/${widget.img1}',
-                  ),
-
-                  //child: Image.asset('assets/images/interactive/M1C1S2a.png'),
-                ),
-                Container(
-                  width: 300,
-                  height: 300,
-                  margin: EdgeInsets.all(10),
-                  child: Opacity(
-                    opacity: opacityValue,
-                    child: Image.asset('assets/images/${widget.img2}'),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              //margin: EdgeInsets.only(top: 20),
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 1,
-                    child: Text(
-                      aux.tr(widget.txt1),
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    //Slider indicador del valor de la opacidad
-                    child: Slider(
-                      value: opacityValue,
-                      activeColor: Theme
-                          .of(context)
-                          .primaryColor,
-                      inactiveColor: Colors.lightBlue[0],
-                      min: 0.0,
-                      max: 1.0,
-                      divisions: 100,
-                      //label: "${opacityValue.abs()}",
-                      onChanged: (double value) {
-                        setState(() {
-                          opacityValue = value;
-                        });
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Text(
-                      aux.tr(widget.txt2),
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            _buildImgStack(),
+            _buildTxtRow(context),
           ],
         ),
       ),
       bottomSheet: widget.bottomSheet,
+    );
+  }
+
+  Stack _buildImgStack() {
+    return Stack(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.all(10),
+          width: 300,
+          height: 300,
+          child: Image.asset(
+            'assets/images/${widget.img1}',
+          ),
+        ),
+        Container(
+          width: 300,
+          height: 300,
+          margin: EdgeInsets.all(10),
+          child: Opacity(
+            opacity: opacityValue,
+            child: Image.asset('assets/images/${widget.img2}'),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Container _buildTxtRow(BuildContext context) {
+    var aux = AppLocalizations.of(context);
+
+    return Container(
+      //margin: EdgeInsets.only(top: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Text(
+              aux.tr(widget.txt1),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            //Slider indicador del valor de la opacidad
+            child: Slider(
+              value: opacityValue,
+              activeColor: Theme
+                  .of(context)
+                  .primaryColor,
+              inactiveColor: Colors.lightBlue[0],
+              min: 0.0,
+              max: 1.0,
+              divisions: 100,
+              //label: "${opacityValue.abs()}",
+              onChanged: (double value) {
+                setState(() {
+                  opacityValue = value;
+                });
+              },
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              aux.tr(widget.txt2),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

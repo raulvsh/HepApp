@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/FigureButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
-class TOCFigPage extends StatefulWidget {
+import '../../CommonGridPage.dart';
+
+class TOCPage extends StatefulWidget {
   @override
-  _TOCFigPageState createState() => _TOCFigPageState();
+  _TOCPageState createState() => _TOCPageState();
 }
 
-class _TOCFigPageState extends State<TOCFigPage> {
+class _TOCPageState extends State<TOCPage> {
   static var tocs = [
     ['toc_1', 'toc/TOC1.png', '/TOCPV'],
     ['toc_2', 'toc/TOC2.png', '/TOCPV'],
@@ -30,15 +31,17 @@ class _TOCFigPageState extends State<TOCFigPage> {
 
       drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'table_contents'),
-      body: OrientationBuilder(
+      body: CommonGridPage(data: tocs, type: 'figure'),
+
+      /*OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
         },
-      ),
+      ),*/
     );
   }
 
-  _buildLayout(orientation) {
+/*_buildLayout(orientation) {
     final width = MediaQuery.of(context).size.width;
     var padding = width / 100;
 
@@ -67,5 +70,5 @@ class _TOCFigPageState extends State<TOCFigPage> {
       widgets.add(FigureButton(context, tocs[i], i));
     }
     return widgets;
-  }
+  }*/
 }

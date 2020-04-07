@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/FigureButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
+
+import '../../CommonGridPage.dart';
 
 class Pathology2Page extends StatefulWidget {
   @override
@@ -32,16 +33,18 @@ class _Pathology2PageState extends State<Pathology2Page> {
     return Scaffold(
         drawer: MenuWidget(),
         appBar: CustomAppBar(context, 'pathology_section_2'),
-        body: OrientationBuilder(
+        body: CommonGridPage(data: pathology2, type: 'figure'),
+
+        /*OrientationBuilder(
           builder: (context, orientation) {
             return _buildLayout(orientation);
           },
-        ),
+        ),*/
         bottomSheet:
             BottomNavigationSheet(1, '/PathologyPV', numPathologyPages));
   }
 
-  _buildLayout(orientation) {
+/*_buildLayout(orientation) {
     final width = MediaQuery.of(context).size.width;
     var padding = width / 100;
 
@@ -72,5 +75,5 @@ class _Pathology2PageState extends State<Pathology2Page> {
           FigureButton(context, pathology2[i], i + 8)); //, MapsPageView(i)));
     }
     return widgets;
-  }
+  }*/
 }

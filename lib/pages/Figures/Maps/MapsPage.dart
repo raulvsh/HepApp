@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/FigureButton.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
+
+import '../../CommonGridPage.dart';
 
 class MapsPage extends StatefulWidget {
   @override
@@ -34,15 +35,18 @@ class _MapsPageState extends State<MapsPage> {
 
       drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'maps'),
-      body: OrientationBuilder(
+      body:
+      CommonGridPage(data: maps, type: 'figure'),
+
+      /* OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
         },
-      ),
+      ),*/
     );
   }
 
-  _buildLayout(orientation) {
+/* _buildLayout(orientation) {
     final width = MediaQuery.of(context).size.width;
     var padding = width / 100;
 
@@ -72,5 +76,5 @@ class _MapsPageState extends State<MapsPage> {
           .add(FigureButton(context, maps[i], i)); //, MapsPageView(i)));
     }
     return widgets;
-  }
+  }*/
 }

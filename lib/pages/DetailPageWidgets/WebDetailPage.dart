@@ -22,18 +22,7 @@ class _WebDetailPageState extends State<WebDetailPage> {
       body: WebView(
         initialUrl: widget.url,
         javascriptMode: JavascriptMode.unrestricted,
-
       ),
-
-      /*WebviewScaffold(
-        appBar: CustomAppBar(context, widget.title),
-
-        url: widget.url,
-        withZoom: true,
-        withLocalStorage: true,
-        displayZoomControls: false,
-        withJavascript: true,
-      ),*/
     );
   }
 }

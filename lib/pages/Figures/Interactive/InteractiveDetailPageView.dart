@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractiveDetailPage.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 
-class InteractivePageView extends StatefulWidget {
+class InteractiveDetailPageView extends StatefulWidget {
   final initialPage;
 
-  InteractivePageView(this.initialPage);
+  InteractiveDetailPageView(this.initialPage);
 
   @override
-  _InteractivePageViewState createState() => _InteractivePageViewState();
+  _InteractiveDetailPageViewState createState() =>
+      _InteractiveDetailPageViewState();
 }
 
-class _InteractivePageViewState extends State<InteractivePageView> {
+class _InteractiveDetailPageViewState extends State<InteractiveDetailPageView> {
   PageController controller;
 
   //título, imagen 1, imagen 2, texto 1, texto 2, ruta

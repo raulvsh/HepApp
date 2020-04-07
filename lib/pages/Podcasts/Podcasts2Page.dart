@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
-import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
+
+import '../CommonGridPage.dart';
 
 //const String _documentPath = 'assets/HepM1C1.pdf';
 
@@ -79,15 +80,18 @@ class _Podcasts2PageState extends State<Podcasts2Page> {
         resizeToAvoidBottomInset: false,
         drawer: MenuWidget(),
         appBar: CustomAppBar(context, 'podcasts_2'),
-        body: OrientationBuilder(
+        body: CommonGridPage(data: podcasts2),
+
+
+        /*OrientationBuilder(
           builder: (context, orientation) {
             return _buildLayout(orientation);
           },
-        ),
+        ),*/
         bottomSheet: BottomNavigationSheet(1, '/PodcastsPV', numPodcastsPages));
   }
 
-  _buildLayout(orientation) {
+/*_buildLayout(orientation) {
     final width = MediaQuery.of(context).size.width;
     var padding = width / 100;
 
@@ -118,5 +122,5 @@ class _Podcasts2PageState extends State<Podcasts2Page> {
       //widgets.add(VideoButton(context, Podcasts2[i]));
     }
     return widgets;
-  }
+  }*/
 }
