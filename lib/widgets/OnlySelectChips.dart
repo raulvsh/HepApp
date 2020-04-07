@@ -17,7 +17,7 @@ class _OnlySelectChipState extends State<OnlySelectChip> {
   // this function will build and return the choice list
   _buildChoiceList() {
     var aux = AppLocalizations.of(context);
-    var altura = 10.0;
+    //var altura = 10.0;
     List<Widget> choices = List();
     widget.optionList.forEach((item) {
       var isSelected = (selectedChoice == item) && (reset == 0);

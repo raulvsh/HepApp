@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:hepapp/forms/units.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:hepapp/widgets/notifications.dart';
@@ -57,6 +58,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
   _buildLeftColumn(AppLocalizations aux, ChildCalcFormBloc formBloc,
       BuildContext context) {
     final prefs = new PreferenciasUsuario();
+    var udsController = Units();
 
     return Container(
       width: MediaQuery
@@ -89,6 +91,15 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
           ),
           ListTile(
             title: Text(prefs.internationalUnits.toString()),
+          ),
+          ListTile(
+            title: Text(udsController.albuminUds[0] + " " +
+                udsController.albuminUds[1] + " " +
+                udsController.bilirubinUds[0] + " " +
+                udsController.bilirubinUds[1]),
+            subtitle: Text(
+                udsController.getConvertedAlbumin(1).toString() + "         " +
+                    udsController.getConvertedBilirrubin(2).toString()),
           ),
           ListTile(
             title: Container(),
