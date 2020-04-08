@@ -1,7 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hepapp/forms/partial_calc_settings_bloc.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
@@ -33,69 +30,59 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
-    return BlocProvider<PartialCalcSettingsBloc>(
-      builder: (context) => PartialCalcSettingsBloc(),
-      child: Builder(
-        builder: (context) {
-          //final formBloc = BlocProvider.of<PartialCalcSettingsBloc>(context);
-
-          return AlertDialog(
-              content: ConstrainedBox(
-                constraints: BoxConstraints.tight(Size.fromHeight(150)),
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          _buildInitialBlueRectangle(),
-                          _buildInitialText(),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          _buildToggleButtons(context),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 25,
-                      ),
-                      //OnlySelectChip(['yes', 'no']),
-                      Container(
-                        width: 150,
-                        padding: EdgeInsets.all(8.0),
-
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(3),
-                              side: BorderSide(
-                                color: Color.fromARGB(255, 45, 145, 155),
-                                width: 1.5,
-                              )),
-                          color: Theme
-                              .of(context)
-                              .primaryColor,
-                          splashColor: Color.fromARGB(255, 56, 183, 198),
-                          elevation: 3,
-                          child: Text(
-                            aux.tr('save_settings'),
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          onPressed: () {
-                            print("iunits desde boton $iUnits");
-                            prefs.internationalUnits = iUnits;
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-
-                    ],
+    return AlertDialog(
+      content: ConstrainedBox(
+        constraints: BoxConstraints.tight(Size.fromHeight(150)),
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  _buildInitialBlueRectangle(),
+                  _buildInitialText(),
+                  SizedBox(
+                    width: 20,
                   ),
+                  _buildToggleButtons(context),
+                ],
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              //OnlySelectChip(['yes', 'no']),
+              Container(
+                width: 150,
+                padding: EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(3),
+                      side: BorderSide(
+                        color: Color.fromARGB(255, 45, 145, 155),
+                        width: 1.5,
+                      )),
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
+                  splashColor: Color.fromARGB(255, 56, 183, 198),
+                  elevation: 3,
+                  child: Text(
+                    aux.tr('save_settings'),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    print("iunits desde boton $iUnits");
+                    prefs.internationalUnits = iUnits;
+                    Navigator.pop(context);
+                  },
                 ),
-              ));
-        },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -161,7 +148,6 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
               style: TextStyle(fontSize: 12),
             ),
           ),
-
         ],
         onPressed: (int index) {
           setState(() {

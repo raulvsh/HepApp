@@ -1,3 +1,4 @@
+/*
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ class _ChildCalcPageState extends State<ChildCalcPage> {
           child: ChildCalcForm(),
         ),
       ),
-      bottomSheet: _buildBottomSheet(),
+      //bottomSheet: _buildBottomSheet(),
       //CalcBottomBar("reseteo2"),
       floatingActionButton: new FloatingActionButton(
         onPressed: takeScreenShot,
@@ -131,3 +132,4 @@ class _ChildCalcPageState extends State<ChildCalcPage> {
 
 
 }
+*/

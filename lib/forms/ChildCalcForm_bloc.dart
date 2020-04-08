@@ -62,12 +62,13 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     // Awesome logic...
 
     // Get the fields values:
-    /*print("Campo bilirrubina: " + bilirubinField.value);
+    print("\n\n *********FIELD VALUES");
+    print("Campo bilirrubina: " + bilirubinField.value);
     print("Campo inr: " + inrField.value);
     print("Campo albumina: " + albuminField.value);
     print("Campo encefalopatía: " + encephalopatyField.value);
     print("Campo ascitis: " + ascitesField.value);
-    print("Campo resultado antes de operar: " + resultadoField);*/
+    print("Campo resultado antes de operar: " + resultadoField);
 
     //print("*****Creo objeto datoscps");
     var antiguo = CPSdata(
@@ -76,17 +77,15 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
       albumin: albuminField.valueToDouble,
       encephalopaty: encephalopatyField.value,
       ascites: ascitesField.value,
-      //prueba: pruebaField.toString(),
       result: resultadoField,
     );
 
-    print("*****************\nObjeto CPSData completo: "
+    print("\n\n*****************OBJETO CPSDATA: "
         "\nbilirrubina : ${antiguo.bilirubin}" +
         "\nalbumina : ${antiguo.inr}" +
         "\ninr : ${antiguo.albumin}" +
         "\nencefalopatia : ${antiguo.encephalopaty}" +
         "\nascitis : ${antiguo.ascites}" +
-        //"\nprueba : ${antiguo.prueba}" +
         "\nresultado: ${antiguo.result}" +
         "\n**************");
 
@@ -132,6 +131,11 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     /*if(antiguo.bilirubin<=34){
       print("yujuuu " + antiguo.bilirubin.toString());
     }*/
+    //TODO Aquí llamar a los métodos de convertir a unidades internacionales
+    /*if(prefs.internationalUnits == false){
+      antiguo.bilirubin = units.getConvertedBilirrubin(antiguo.bilirubin);
+      antiguo.albumin = units.getConvertedAlbumin(antiguo.albumin);
+    }*/
 
     if (antiguo.bilirubin <= 34) {
       ptsBilirubin = 1;
@@ -175,7 +179,7 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
 
     //TODO añadir los valores de los campos a variable DatosCPS
 
-    print("Puntos bilirrubina: $ptsBilirubin");
+    print("\n\n**********PUNTOS\nPuntos bilirrubina: $ptsBilirubin");
     print("Puntos inr: $ptsINR");
     print("Puntos albúmina: $ptsAlbumin");
     print("Puntos encefalopatía: $ptsEncephalopaty");
@@ -204,9 +208,10 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
       //initialValue: 'none_fem',
       //toStringName: 'none_fem',
     );
+    //this.
   }
 
-  void setFieldBlocs() {
+/*void setFieldBlocs() {
     this.bilirubinField = TextFieldBloc();
-  }
+  }*/
 }

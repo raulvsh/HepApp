@@ -1,6 +1,3 @@
-//import 'dart:js';
-
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hepapp/routes/RouteGenerator.dart';
@@ -15,13 +12,7 @@ void main() async {
   final prefs = new PreferenciasUsuario();
   await prefs.initPrefs();
   runApp(
-    DevicePreview(
-      usePreferences: false,
-      areSettingsEnabled: false,
-      //enabled: !kReleaseMode,
-      enabled: false,
-      builder: (context) => MyApp(),
-    ),
+    MyApp(),
   );
 }
 
@@ -65,13 +56,9 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      locale: DevicePreview
-          .of(context)
-          ?.locale,
-      builder: DevicePreview.appBuilder,
+
       title: title,
       theme: ThemeData(
-        //brightness: Brightness.dark, //Tema oscuro
           primaryColor: Color.fromARGB(255, 93, 188, 210),
           primaryTextTheme: TextTheme(
             title: TextStyle(color: Colors.white),
@@ -84,17 +71,13 @@ class MyApp extends StatelessWidget {
               .textTheme
               .apply(
             bodyColor: Color.fromARGB(255, 93, 188, 210),
-            //Color por defecto de all el texto
-            displayColor: Colors.red,
+
           )),
       supportedLocales: _supoortedLocales,
       localizationsDelegates: _localizationDelegates,
       localeResolutionCallback: _localeResolutionCallback,
       initialRoute: '/',
       onGenerateRoute: RouteGenerator.generateRoute,
-
-      //prefs.ultimaPagina,
-      //routes: getApplicationRoutes(),
     );
   }
 }

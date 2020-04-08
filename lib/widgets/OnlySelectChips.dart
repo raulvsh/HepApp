@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 
@@ -29,9 +30,11 @@ class _OnlySelectChipState extends State<OnlySelectChip> {
             maxHeight: 20,
             maxWidth: 80,
           ),
-          /*width: 60,
+          */
+/*width: 60,
 height: 20,
-          padding:  EdgeInsets.only(left: 5, right: 5, bottom: 20), // , vertical: 10),*/
+          padding:  EdgeInsets.only(left: 5, right: 5, bottom: 20), // , vertical: 10),*/ /*
+
           child: //ClipRect(
           //child:
           ChoiceChip(
@@ -97,13 +100,15 @@ height: 20,
         ),
       ));
     });
-    /*choices.add(SizedBox(
+    */
+/*choices.add(SizedBox(
       height: 20,
       child: RaisedButton(
         onPressed: resetear,
         child: Text("reset"),
       ),
-    ));*/
+    ));*/ /*
+
     return choices;
   }
 
@@ -125,3 +130,4 @@ height: 20,
     return selectedChoice;
   }
 }
+*/

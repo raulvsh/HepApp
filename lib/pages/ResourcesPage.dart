@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/widgets/ComboButton.dart';
+import 'package:hepapp/pages/CommonGridPage.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
@@ -70,14 +70,16 @@ class _ResourcesPageState extends State<ResourcesPage> {
 
       drawer: MenuWidget(),
 
-      body: OrientationBuilder(
+      body: CommonGridPage(data: resources),
+
+      /*OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
         },
-      ),
+      ),*/
     );
   }
-
+/*
   _buildLayout(orientation) {
     final width = MediaQuery
         .of(context)
@@ -110,5 +112,5 @@ class _ResourcesPageState extends State<ResourcesPage> {
       widgets.add(ComboButton(context, resources[i]));
     }
     return widgets;
-  }
+  }*/
 }

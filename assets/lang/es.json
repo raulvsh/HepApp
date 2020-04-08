@@ -195,6 +195,9 @@
   "ugi_bleed": "Sangrado gastrointestinal alto",
   "abdominal_distention": "Distensión Abdominal",
   "decreased_loc": "Nivel de conciencia disminuido",
+  "previous": "Valores anteriores",
+  "close": "Cerrar",
+
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
 
@@ -262,7 +265,6 @@
   "portalVeinInvasion": "PVI (Invasión de la vena porta)",
   "portalVeinInvasionResumen": "PVI",
   "precludeMajorSurgery": "Precluir cirugía mayor",
-  "previous": "Valores anteriores",
   "refractory": "Refractario",
   "reintentandoObtencionVersionRecursoRemoto": "Reintentando la obtención de la versión del recurso remoto…",
   "reset": "Restablecer valores",

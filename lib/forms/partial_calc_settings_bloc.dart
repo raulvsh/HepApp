@@ -1,3 +1,4 @@
+/*
 import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
@@ -40,3 +41,4 @@ class PartialCalcSettingsBloc extends FormBloc<String, String> {
     yield currentState.toLoaded();
   }
 }
+*/

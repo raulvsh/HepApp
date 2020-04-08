@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/forms/units.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
-import 'package:hepapp/widgets/notifications.dart';
+import 'package:hepapp/widgets/CustomAppBar.dart';
+import 'package:hepapp/widgets/menu_widget.dart';
+import 'package:hepapp/widgets/more_information.dart';
 
 import 'CalcResultWidget.dart';
 import 'ChildCalcForm_bloc.dart';
@@ -18,6 +21,26 @@ class ChildCalcForm extends StatefulWidget {
 
 class _ChildCalcFormState extends State<ChildCalcForm> {
   var reset = false;
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ]);
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +59,29 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
                     context, state.successResponse);
                  //Muestra una barra verde con la palabra success
               },*/
-            onFailure: (context, state) {
+            /*onFailure: (context, state) {
+
               //LoadingDialog.hide(context);
               Notifications.showSnackBarWithError(
                   context, state.failureResponse);
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _buildLeftColumn(aux, formBloc, context),
-                _buildRightColumn(aux, formBloc.resultadoField, context),
-              ],
+            },*/
+            child: Scaffold(
+              appBar: CustomAppBar(
+                context,
+                'child_pugh_score',
+                selScreenshot: true,
+                selPartialSettings: true,
+              ),
+              drawer: MenuWidget(),
+              body: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _buildLeftColumn(aux, formBloc, context),
+                  _buildRightColumn(aux, formBloc.resultadoField, context),
+                ],
+              ),
+              bottomSheet: _buildBottomSheet(formBloc),
             ),
           );
         },
@@ -81,135 +115,204 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
           /*ListTile(
               title: Container(),
             ),*/
-          ListTile(
+          /*ListTile(
             title: RaisedButton(
               onPressed: () {
                 reseteo(formBloc);
               },
               child: Text("boton reset prueba"),
             ),
-          ),
-          ListTile(
-            title: Text(prefs.internationalUnits.toString()),
-          ),
-          ListTile(
-            title: Text(udsController.albuminUds[0] + " " +
-                udsController.albuminUds[1] + " " +
-                udsController.bilirubinUds[0] + " " +
-                udsController.bilirubinUds[1]),
-            subtitle: Text(
-                udsController.getConvertedAlbumin(1).toString() + "         " +
-                    udsController.getConvertedBilirrubin(2).toString()),
-          ),
-          ListTile(
-            title: Container(),
-          ),
+          ),*/
+          /*Text(prefs.internationalUnits.toString()),
+          Text(udsController.albuminUds[0] +
+              " " +
+              udsController.albuminUds[1] +
+              " " +
+              udsController.bilirubinUds[0] +
+              " " +
+              udsController.bilirubinUds[1]),
+          Text(udsController.getConvertedAlbumin(1).toString() +
+              "         " +
+              udsController.getConvertedBilirrubin(2).toString()),*/
         ],
       ),
       //),
     );
   }
 
-  ListTile _buildBilirrubinRow(AppLocalizations aux,
-      ChildCalcFormBloc formBloc) {
-    return ListTile(
-      title: CustomTextFieldBlocBuilder(
-          aux: aux,
-          formBloc: formBloc,
-          textFieldBloc: formBloc.bilirubinField,
-          title: aux.tr('bilirubin'),
-          uds: 'umol/L'),
-    );
-  }
-
-  ListTile _buildInrRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
-    return ListTile(
-      title: CustomTextFieldBlocBuilder(
+  _buildBilirrubinRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
+    return CustomTextFieldBlocBuilder(
         aux: aux,
         formBloc: formBloc,
-        textFieldBloc: formBloc.inrField,
-        title: aux.tr('inr'),
-        uds: '',
+        textFieldBloc: formBloc.bilirubinField,
+        title: aux.tr('bilirubin'),
+        uds: 'umol/L');
+  }
+
+  _buildInrRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
+    return CustomTextFieldBlocBuilder(
+      aux: aux,
+      formBloc: formBloc,
+      textFieldBloc: formBloc.inrField,
+      title: aux.tr('inr'),
+      uds: '',
+    );
+  }
+
+  _buildAlbuminRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
+    return CustomTextFieldBlocBuilder(
+      aux: aux,
+      formBloc: formBloc,
+      textFieldBloc: formBloc.albuminField,
+      title: aux.tr('albumin'),
+      uds: 'g/L',
+    );
+  }
+
+  _buildEncephalopatyRow(ChildCalcFormBloc formBloc, AppLocalizations aux) {
+    return CustomButtonGroupFieldBlocBuilder(
+      reset: reset,
+      padding: EdgeInsets.only(left: 8),
+      selectFieldBloc: formBloc.encephalopatyField,
+      text: aux.tr('encephalopaty'),
+      decoration: InputDecoration(
+        border: InputBorder.none,
       ),
+      itemBuilder: (context, item) => item,
     );
   }
 
-  ListTile _buildAlbuminRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
-    return ListTile(
-      title: CustomTextFieldBlocBuilder(
-          aux: aux,
-          formBloc: formBloc,
-          textFieldBloc: formBloc.albuminField,
-          title: aux.tr('albumin'),
-          uds: 'g/L'),
+  _buildAscitesRow(ChildCalcFormBloc formBloc, AppLocalizations aux) {
+    return CustomButtonGroupFieldBlocBuilder(
+      reset: reset,
+      padding: EdgeInsets.only(left: 8),
+      selectFieldBloc: formBloc.ascitesField,
+      text: aux.tr('ascites'),
+      decoration: InputDecoration(
+        border: InputBorder.none,
+      ),
+      itemBuilder: (context, item) => item,
     );
   }
 
-  ListTile _buildEncephalopatyRow(ChildCalcFormBloc formBloc,
+  _buildCalcButton(BuildContext context, ChildCalcFormBloc formBloc,
       AppLocalizations aux) {
-    return ListTile(
-      title: CustomButtonGroupFieldBlocBuilder(
-        reset: reset,
-        padding: EdgeInsets.only(left: 8),
-        selectFieldBloc: formBloc.encephalopatyField,
-        text: aux.tr('encephalopaty'),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-        ),
-        itemBuilder: (context, item) => item,
-      ),
-    );
-  }
-
-  ListTile _buildAscitesRow(ChildCalcFormBloc formBloc, AppLocalizations aux) {
-    return ListTile(
-      title: CustomButtonGroupFieldBlocBuilder(
-        reset: reset,
-        padding: EdgeInsets.only(left: 8),
-        selectFieldBloc: formBloc.ascitesField,
-        text: aux.tr('ascites'),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-        ),
-        itemBuilder: (context, item) => item,
-
-      ),
-    );
-  }
-
-  ListTile _buildCalcButton(BuildContext context, ChildCalcFormBloc formBloc,
-      AppLocalizations aux) {
-    return ListTile(
-      title: Container(
-        width: 250,
-        //padding: EdgeInsets.all(8.0),
-        margin: EdgeInsets.only(right: 250, left: 25), //left: 20),
-        child: RaisedButton(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(3),
-              side: BorderSide(
-                color: Color.fromARGB(255, 45, 145, 155),
-                width: 1.5,
-              )),
-          color: Theme
-              .of(context)
-              .primaryColor,
-          splashColor: Color.fromARGB(255, 56, 183, 198),
-          elevation: 3,
-          onPressed: () {
-            formBloc.submit();
-            reset = false;
-            setState(() {});
-          },
-          child: Center(
-            child: Text(
-              aux.tr('calculate_cp_score'),
-              style: TextStyle(
-                color: Colors.white,
-              ),
+    return Container(
+      width: 250,
+      //padding: EdgeInsets.all(8.0),
+      margin: EdgeInsets.only(right: 250, left: 25), //left: 20),
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(3),
+            side: BorderSide(
+              color: Color.fromARGB(255, 45, 145, 155),
+              width: 1.5,
+            )),
+        color: Theme
+            .of(context)
+            .primaryColor,
+        splashColor: Color.fromARGB(255, 56, 183, 198),
+        elevation: 3,
+        onPressed: () {
+          formBloc.submit();
+          reset = false;
+          setState(() {});
+        },
+        child: Center(
+          child: Text(
+            aux.tr('calculate_cp_score'),
+            style: TextStyle(
+              color: Colors.white,
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  _buildBottomSheet(ChildCalcFormBloc formBloc) {
+    //ButtonActions actions = ButtonActions();
+    var aux = AppLocalizations.of(context);
+    return //CalcBottomBar("reseteo2");
+
+      BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _buildResetButton(aux, formBloc),
+            SizedBox(
+              width: 15,
+            ),
+            _buildPreviousButton(aux),
+            SizedBox(
+              width: 15,
+            ),
+            _buildMoreInfoButton(aux),
+          ],
+      ),
+    );
+
+    // CalcBottomBar("reseteo2");
+  }
+
+  Container _buildMoreInfoButton(AppLocalizations aux) {
+    return Container(
+      height: 40,
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: FlatButton(
+        child: Text(
+          aux.tr('more_information'),
+          style: TextStyle(
+            fontSize: 12,
+          ),
+        ),
+        color: Color.fromARGB(255, 210, 242, 245),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return MoreInformation(title: 'child_pugh_score',
+                path: 'assets/images/calc/M3C14S0c.png',);
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  Container _buildPreviousButton(AppLocalizations aux) {
+    return Container(
+      height: 40,
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: FlatButton(
+        child: Text(
+          aux.tr('previous_values'),
+          style: TextStyle(
+            fontSize: 12,
+          ),
+        ),
+        color: Color.fromARGB(255, 210, 242, 245),
+        onPressed: () {},
+      ),
+    );
+  }
+
+  Container _buildResetButton(AppLocalizations aux,
+      ChildCalcFormBloc formBloc) {
+    return Container(
+      height: 40,
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: FlatButton(
+        child: Text(
+          aux.tr('reset'),
+          style: TextStyle(
+            fontSize: 12,
+          ),
+        ),
+        color: Color.fromARGB(255, 210, 242, 245),
+        onPressed: () {
+          resetValues(formBloc);
+        },
       ),
     );
   }
@@ -250,14 +353,20 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
     );
   }
 
-  void reseteo(ChildCalcFormBloc formBloc) {
-    print("************************RESET");
-    print("valor reset dentro método $reset");
+  void resetValues(ChildCalcFormBloc formBloc) {
+    print("\n\n************************RESET");
+    print("valor reset antes método $reset");
 
     reset = true;
     print("valor reset dentro método $reset");
     formBloc.reset();
-    /*formBloc.bilirubinField="0";
+    print("\n\n *********FIELD VALUES AFTER RESET");
+    print("Campo bilirrubina: " + formBloc.bilirubinField.toString());
+    print("Campo inr: " + formBloc.inrField.toString());
+    print("Campo albumina: " + formBloc.albuminField.toString());
+    print("Campo encefalopatía: " + formBloc.encephalopatyField.toString());
+    print("Campo ascitis: " + formBloc.ascitesField.toString());
+    print("Campo resultado antes de operar: " + formBloc.resultadoField); /*formBloc.bilirubinField="0";
     //formBloc.inrField=0 as TextFieldBloc;
     //formBloc.albuminField=0 as TextFieldBloc;
 
@@ -283,4 +392,12 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
     setState(() {});
     //print("formbloc desde reset: ${formBloc.resultadoField}");
   }
+
+  void _showDialog() {
+    var aux = AppLocalizations.of(context);
+    // flutter defined function
+
+  }
+
 }
+

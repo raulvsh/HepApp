@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/forms/ChildCalcForm.dart';
 import 'package:hepapp/pages/Calculators/AllCalcPage.dart';
 import 'package:hepapp/pages/Calculators/CLIPCalcPage.dart';
 import 'package:hepapp/pages/Calculators/CalculatorsPage.dart';
-import 'package:hepapp/pages/Calculators/ChildCalcPage.dart';
 import 'package:hepapp/pages/Calculators/MELDCalcPage.dart';
 import 'package:hepapp/pages/Calculators/OkudaCalcPage.dart';
 import 'package:hepapp/pages/Chapters/ChaptersPage.dart';
@@ -114,7 +114,7 @@ class RouteGenerator {
       case '/AllCalc':
         return MaterialPageRoute(builder: (_) => AllCalcPage());
       case '/ChildCalc':
-        return MaterialPageRoute(builder: (_) => ChildCalcPage());
+        return MaterialPageRoute(builder: (_) => ChildCalcForm());
       case '/CLIPCalc':
         return MaterialPageRoute(builder: (_) => CLIPCalcPage());
       case '/MELDCalc':

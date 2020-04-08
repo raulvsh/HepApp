@@ -1,6 +1,8 @@
 {
   "****************************************COMENTARIO*****************************************": "CLAVES USADAS EN LA NUEVA VERSIÓN",
   "": "",
+  "previous_values": "Previous Values",
+
   "app_title": "HepApp",
   "home": "Home",
   "chapters": "Chapters",
@@ -191,6 +193,7 @@
   "ugi_bleed": "UGI Bleed",
   "abdominal_distention": "Abdominal Distention",
   "decreased_loc": "Decreased LOC",
+  "close": "Close",
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
   "AFP": "AFP",
@@ -275,7 +278,6 @@
   "portalVeinInvasion": "PVI (Portal Vein Invasion)",
   "portalVeinInvasionResumen": "PVI",
   "precludeMajorSurgery": "Preclude major surgery",
-  "previous": "Previous Values",
   "refractory": "Refractory",
   "reintentandoObtencionVersionRecursoRemoto": "Retrying obtaining the remote resource version…",
   "reset": "Reset Values",
