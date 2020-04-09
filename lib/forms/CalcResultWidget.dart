@@ -27,6 +27,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
       width: 200,
       height: 120,
       //color: Colors.yellow,
+      //padding: EdgeInsets.all(20),
       margin: EdgeInsets.all(15),
       decoration: BoxDecoration(
         border: Border.all(

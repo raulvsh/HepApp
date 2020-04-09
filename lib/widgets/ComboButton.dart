@@ -14,31 +14,46 @@ class ComboButton extends StatelessWidget {
     var aux = AppLocalizations.of(context);
     return Card(
       elevation: 0,
-      margin: EdgeInsets.all(4),
+      //margin: EdgeInsets.all(4),
       child: GestureDetector(
-        child: Stack(
-          children: <Widget>[
-            Image.asset(
-              'assets/images/${type[1]}',
-            ),
-            Container(
-              alignment: Alignment(0, 0.7),
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              child: FittedBox(
-                child: Text(
-                  aux.tr(type[0]),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black, //Color.fromARGB(255, 93, 188, 210),
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+        child: buildStack(),
+
         onTap: onTap,
       ),
+    );
+  }
+
+  Stack buildStack() {
+    var aux = AppLocalizations.of(context);
+    return Stack(
+      children: <Widget>[
+        Container(
+          //color: Colors.red,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage(
+                'assets/images/${type[1]}',
+                //fit: BoxFit.fill,
+              ),
+            ),
+          ),
+        ),
+        Container(
+          alignment: Alignment(0, 0.7),
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: FittedBox(
+            child: Text(
+              aux.tr(type[0]),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black, //Color.fromARGB(255, 93, 188, 210),
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 

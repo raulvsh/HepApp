@@ -42,7 +42,7 @@ class _CommonGridPageState extends State<CommonGridPage> {
       height: double.infinity,
       //color: Colors.lightBlueAccent,
       child: FractionallySizedBox(
-        widthFactor: orientation == Orientation.portrait ? 0.7 : 0.7,
+        widthFactor: orientation == Orientation.portrait ? 0.60 : 0.7,
         alignment: Alignment.center,
         child: GridView.count(
           padding: orientation == Orientation.portrait

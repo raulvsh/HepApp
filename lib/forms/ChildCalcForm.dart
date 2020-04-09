@@ -111,6 +111,7 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
           _buildAlbuminRow(aux, formBloc),
           _buildEncephalopatyRow(formBloc, aux),
           _buildAscitesRow(formBloc, aux),
+          //SizedBox(height: 150,),
           _buildCalcButton(context, formBloc, aux),
           /*ListTile(
               title: Container(),
@@ -271,8 +272,10 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return MoreInformation(title: 'child_pugh_score',
-                path: 'assets/images/calc/M3C14S0c.png',);
+              return MoreInformation(
+                title: 'child_pugh_score',
+                path: 'assets/images/calc/M3C14S0c.png',
+              );
             },
           );
         },
@@ -326,18 +329,20 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
           .width * 0.35,
 
       //color: Colors.blue,
-      child: ListView(
+      child: Column(
         //mainAxisAlignment: MainAxisAlignment.start,
         //crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Center(
-            child: CalcResultWidget('child_pugh_score', resultadoField),
+            child: Container(padding: EdgeInsets.all(15),
+                child: CalcResultWidget('child_pugh_score', resultadoField)),
           ),
-          Align(
-            alignment: Alignment.bottomRight,
+          Expanded(
             child: Container(
-              margin: EdgeInsets.only(top: 50),
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 50),
+              alignment: Alignment.bottomRight,
+
+              //margin: EdgeInsets.only(top: 50),
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 60),
               //alignment: Alignment.bottomRight,
               child: Text(
                 aux.tr('child_pugh_score'),
@@ -366,7 +371,8 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
     print("Campo albumina: " + formBloc.albuminField.toString());
     print("Campo encefalopatía: " + formBloc.encephalopatyField.toString());
     print("Campo ascitis: " + formBloc.ascitesField.toString());
-    print("Campo resultado antes de operar: " + formBloc.resultadoField); /*formBloc.bilirubinField="0";
+    print("Campo resultado antes de operar: " + formBloc.resultadoField);
+    /*formBloc.bilirubinField="0";
     //formBloc.inrField=0 as TextFieldBloc;
     //formBloc.albuminField=0 as TextFieldBloc;
 
@@ -396,8 +402,5 @@ class _ChildCalcFormState extends State<ChildCalcForm> {
   void _showDialog() {
     var aux = AppLocalizations.of(context);
     // flutter defined function
-
   }
-
 }
-

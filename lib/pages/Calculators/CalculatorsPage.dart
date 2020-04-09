@@ -26,7 +26,7 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
       appBar: CustomAppBar(context, "calculators"),
       drawer: MenuWidget(),
-      body: CommonGridPage(data: calculators, type: 'figure'),
+      body: CommonGridPage(data: calculators,), //type: 'figure'),
 
       /*OrientationBuilder(
         builder: (context, orientation) {
