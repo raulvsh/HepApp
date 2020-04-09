@@ -33,6 +33,7 @@ class _PodcastsPageViewState extends State<PodcastsPageView> {
         body: PageView(
           controller: controller,
           children: <Widget>[
+
             Podcasts1Page(),
             Podcasts2Page(),
             Podcasts3Page(),

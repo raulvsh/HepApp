@@ -22,9 +22,9 @@ class _SchemesPageState extends State<SchemesPage> {
     [
       'abdominal_distention',
       'schemes/Scheme_7_Abdominal_Distention.png',
-      '/SchemesPV7'
+      '/SchemesPV'
     ],
-    ['decreased_loc', 'schemes/Scheme_8_Decreased_LOC.png', '/SchemesPV8'],
+    ['decreased_loc', 'schemes/Scheme_8_Decreased_LOC.png', '/SchemesPV'],
   ];
 
   var numSchemes = schemes.length;
@@ -41,7 +41,8 @@ class _SchemesPageState extends State<SchemesPage> {
 
       drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'schemes'),
-      body: CommonGridPage(data: schemes, type: 'figure'),
+      body:
+      CommonGridPage(data: schemes, type: 'figure'),
 
       /*OrientationBuilder(
         builder: (context, orientation) {
@@ -50,8 +51,8 @@ class _SchemesPageState extends State<SchemesPage> {
       ),*/
     );
   }
-
-/*_buildLayout(orientation) {
+/*
+_buildLayout(orientation) {
     final width = MediaQuery.of(context).size.width;
     var padding = width / 100;
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
+
+import '../CommonGridPage.dart';
 
 class CalculatorsPage extends StatefulWidget {
   @override
@@ -25,15 +26,17 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
       appBar: CustomAppBar(context, "calculators"),
       drawer: MenuWidget(),
-      body: OrientationBuilder(
+      body: CommonGridPage(data: calculators, type: 'figure'),
+
+      /*OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
         },
-      ),
+      ),*/
     );
   }
 
-  _buildLayout(orientation) {
+/*_buildLayout(orientation) {
     final width = MediaQuery
         .of(context)
         .size
@@ -69,5 +72,5 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
     }
 
     return widgets;
-  }
+  }*/
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
+
+import '../CommonGridPage.dart';
 
 
 class FiguresPage extends StatefulWidget {
@@ -29,15 +30,17 @@ class _FiguresPageState extends State<FiguresPage> {
       appBar: CustomAppBar(context, 'figures'),
       drawer: MenuWidget(),
 
-      body: OrientationBuilder(
+      body: CommonGridPage(data: figures,),
+
+      /*OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);
         },
-      ),
+      ),*/
     );
   }
 
-  _buildLayout(orientation) {
+/*_buildLayout(orientation) {
     final width = MediaQuery
         .of(context)
         .size
@@ -71,6 +74,6 @@ class _FiguresPageState extends State<FiguresPage> {
       //widgets.add(NavigationButton(context, figures[i]));
     }
     return widgets;
-  }
+  }*/
 
 }

@@ -33,7 +33,7 @@ class _Pathology2PageState extends State<Pathology2Page> {
     return Scaffold(
         drawer: MenuWidget(),
         appBar: CustomAppBar(context, 'pathology_section_2'),
-        body: CommonGridPage(data: pathology2, type: 'figure'),
+        body: CommonGridPage(data: pathology2, type: 'figure', index: 8),
 
         /*OrientationBuilder(
           builder: (context, orientation) {

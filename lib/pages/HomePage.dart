@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: RepaintBoundary(
         key: screen,
-        child: CommonGridPage(data: homeSections,),
+        child: CommonGridPage(data: homeSections, index: -1,),
 
 
         /*OrientationBuilder(
@@ -105,14 +105,14 @@ class _HomePageState extends State<HomePage> {
     List<Widget> widgets = [];
     //Introduzco un botón menos que el número de categorías, ya que el botón de información nos dirigirá directamente al PDF
     //Guardado para cuando se combinen los botones en un mismo widget
-    */ /*for (int i = 0; i < numHomeCategories - 2; i++) {
+     */ /*for (int i = 0; i < numHomeCategories - 2; i++) {
       widgets.add(HomeButton(context, sectionTypes[sectionTypesNames[i]]));
     }*/ /*
     for (int i = 0; i < numHomeSections; i++) {
       widgets.add(ComboButton(context, homeSections[i], 0));
     }
 
-    */ /*widgets.add(NavigationButton(context, homeSections[0]));
+     */ /*widgets.add(NavigationButton(context, homeSections[0]));
     widgets.add(NavigationButton(context, homeSections[1], 0));
     widgets.add(WebButton(context, homeSections[2]));
 

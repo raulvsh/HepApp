@@ -5,10 +5,12 @@ import 'package:hepapp/widgets/FigureButton.dart';
 //const String _documentPath = 'assets/HepM1C1.pdf';
 
 class CommonGridPage extends StatefulWidget {
-  final List<List<String>> data;
+  final data;
   final String type;
 
-  CommonGridPage({this.data, this.type});
+  final index;
+
+  CommonGridPage({this.data, this.type, this.index = 0});
 
   @override
   _CommonGridPageState createState() => _CommonGridPageState();
@@ -20,7 +22,6 @@ class _CommonGridPageState extends State<CommonGridPage> {
   @override
   void initState() {
     dataLength = widget.data.length;
-    print(dataLength);
 
     super.initState();
   }
@@ -49,19 +50,19 @@ class _CommonGridPageState extends State<CommonGridPage> {
               : EdgeInsets.symmetric(vertical: 2 * padding),
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-          children: _buildChaptersGridView(),
+          children: _buildGridView(),
         ),
       ),
     );
   }
 
-  _buildChaptersGridView() {
+  _buildGridView() {
     List<Widget> widgets = [];
     for (int i = 0; i < dataLength; i++) {
-      if (widget.type == 'Figure') {
-        widgets.add(FigureButton(context, widget.data[i], i));
+      if (widget.type == 'figure') {
+        widgets.add(FigureButton(context, widget.data[i], i + widget.index,));
       } else {
-        widgets.add(ComboButton(context, widget.data[i], i));
+        widgets.add(ComboButton(context, widget.data[i], i + widget.index));
       }
     }
     return widgets;

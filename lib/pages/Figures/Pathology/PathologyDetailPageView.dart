@@ -34,7 +34,7 @@ class _PathologyDetailPageState extends State<PathologyDetailPage> {
     ['pathology_8', 'pathology/Pathology08_A1AT_def.png', '/PathologyPV'],
     [
       'pathology_9',
-      'pathology/Pathology01_Normal_Histology.png',
+      'pathology/Pathology09_Autoimmune_Hepatitis.png',
       '/PathologyPV'
     ],
   ];
