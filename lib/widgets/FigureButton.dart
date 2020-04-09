@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
+import 'package:sized_context/sized_context.dart';
 
 class FigureButton extends StatelessWidget {
   final BuildContext context;
@@ -65,11 +66,12 @@ class FigureButton extends StatelessWidget {
 
   Stack buildStack() {
     var aux = AppLocalizations.of(context);
+    bool isTablet = context.diagonalInches >= 7;
+
     return Stack(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 60),
-          //color: Colors.red,
+          margin: EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 55),
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.contain,
@@ -81,20 +83,19 @@ class FigureButton extends StatelessWidget {
         ),
         Container(
           alignment: Alignment(0, 0.7),
-          padding: EdgeInsets.symmetric(horizontal: 5),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: FittedBox(
             child: Text(
               aux.tr(type[0]),
-              maxLines: 2,
-              overflow: TextOverflow.visible,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black, //Color.fromARGB(255, 93, 188, 210),
-                fontSize: 13,
+                fontSize: isTablet ? 18 : 16,
               ),
             ),
           ),
         ),
+
       ],
     );
   }

@@ -122,6 +122,9 @@ class RouteGenerator {
       case '/OkudaCalc':
         return MaterialPageRoute(builder: (_) => OkudaCalcPage());
 
+    /*case '/partial': return MaterialPageRoute(builder: (_)=>        PartialCalcSettings(),
+      );*/
+
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

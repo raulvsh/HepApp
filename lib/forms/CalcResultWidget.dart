@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
+import 'package:sized_context/sized_context.dart';
 
 class CalcResultWidget extends StatefulWidget {
   final title;
@@ -22,10 +23,11 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
+    bool isTablet = context.diagonalInches >= 7;
 
     return Container(
-      width: 200,
-      height: 120,
+      width: isTablet ? 400 : 200,
+      height: isTablet ? 200 : 120,
       //color: Colors.yellow,
       //padding: EdgeInsets.all(20),
       margin: EdgeInsets.all(15),
@@ -44,7 +46,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
             '${aux.tr(widget.title)}: ',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 12,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -52,7 +54,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
             widget.resultado,
             style: TextStyle(
               color: Theme.of(context).primaryColor,
-              fontSize: 12,
+              fontSize: 16,
             ),
           ),
         ],

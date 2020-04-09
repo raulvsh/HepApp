@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/pages/DetailPageWidgets/PDFDetailPage.dart';
+import 'package:sized_context/sized_context.dart';
+
 
 class ComboButton extends StatelessWidget {
   final BuildContext context;
@@ -25,6 +27,8 @@ class ComboButton extends StatelessWidget {
 
   Stack buildStack() {
     var aux = AppLocalizations.of(context);
+    bool isTablet = context.diagonalInches >= 7;
+
     return Stack(
       children: <Widget>[
         Container(
@@ -48,7 +52,7 @@ class ComboButton extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black, //Color.fromARGB(255, 93, 188, 210),
-                fontSize: 16,
+                fontSize: isTablet ? 18 : 16,
               ),
             ),
           ),

@@ -1,8 +1,12 @@
-
 import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/forms/CPSdata.dart';
+import 'package:hepapp/forms/units.dart';
+import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
 class ChildCalcFormBloc extends FormBloc<String, String> {
+  final prefs = PreferenciasUsuario();
+  final units = Units();
+
   ///Usadas por mi
   var bilirubinField = TextFieldBloc();
   var inrField = TextFieldBloc();
@@ -13,12 +17,20 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
   var ascitesField = SelectFieldBloc(
     items: ['none_fem', 'controlled', 'refractory'],
   );
+  bool iUnits = true;
 
   /*var pruebaField = SelectFieldBloc(
     items: ['none_fem', 'controlled', 'refractory'],
   );*/
 
   String resultadoField = 'CPS';
+  var antiguo = CPSdata(
+      result: 'CPS',
+      encephalopaty: 'none_fem',
+      albumin: 0,
+      inr: 0,
+      bilirubin: 0,
+      ascites: 'none_fem');
 
   ///No usadas por mi (de momento) TODO LIMPIAR
   /* final tumourPercentageField = SelectFieldBloc(
@@ -62,16 +74,16 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     // Awesome logic...
 
     // Get the fields values:
-    print("\n\n *********FIELD VALUES");
+    /*print("\n\n *********FIELD VALUES");
     print("Campo bilirrubina: " + bilirubinField.value);
     print("Campo inr: " + inrField.value);
     print("Campo albumina: " + albuminField.value);
     print("Campo encefalopatía: " + encephalopatyField.value);
     print("Campo ascitis: " + ascitesField.value);
     print("Campo resultado antes de operar: " + resultadoField);
-
+*/
     //print("*****Creo objeto datoscps");
-    var antiguo = CPSdata(
+    antiguo = CPSdata(
       bilirubin: bilirubinField.valueToDouble,
       inr: inrField.valueToDouble,
       albumin: albuminField.valueToDouble,
@@ -80,14 +92,14 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
       result: resultadoField,
     );
 
-    print("\n\n*****************OBJETO CPSDATA: "
-        "\nbilirrubina : ${antiguo.bilirubin}" +
+    /*print("\n\n*****************OBJETO CPSDATA: "
+            "\nbilirrubina : ${antiguo.bilirubin}" +
         "\nalbumina : ${antiguo.inr}" +
         "\ninr : ${antiguo.albumin}" +
         "\nencefalopatia : ${antiguo.encephalopaty}" +
         "\nascitis : ${antiguo.ascites}" +
         "\nresultado: ${antiguo.result}" +
-        "\n**************");
+        "\n**************");*/
 
     /*print(selectField1.value); //Dropdown menu
     print(multiSelectField.value);
@@ -100,10 +112,10 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
       antiguo.result = obtenerResultado(antiguo);
       this.resultadoField = antiguo.result;
       //obtenerResultado(antiguo); //obtenerResultado(resultado);
-      print("Campo resultado después de operar: " +
+      /*print("Campo resultado después de operar: " +
           resultadoField +
           " || " +
-          antiguo.result);
+          antiguo.result);*/
     } catch (e) {
       print("Excepción: $e");
     }
@@ -136,6 +148,10 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
       antiguo.bilirubin = units.getConvertedBilirrubin(antiguo.bilirubin);
       antiguo.albumin = units.getConvertedAlbumin(antiguo.albumin);
     }*/
+    if (!prefs.internationalUnits) {
+      antiguo.bilirubin = units.getIUBilirrubin(antiguo.bilirubin);
+    }
+
 
     if (antiguo.bilirubin <= 34) {
       ptsBilirubin = 1;
@@ -179,14 +195,14 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
 
     //TODO añadir los valores de los campos a variable DatosCPS
 
-    print("\n\n**********PUNTOS\nPuntos bilirrubina: $ptsBilirubin");
+    /*print("\n\n**********PUNTOS\nPuntos bilirrubina: $ptsBilirubin");
     print("Puntos inr: $ptsINR");
     print("Puntos albúmina: $ptsAlbumin");
     print("Puntos encefalopatía: $ptsEncephalopaty");
-    print("Puntos ascitis: $ptsAscites");
+    print("Puntos ascitis: $ptsAscites");*/
     int resultado =
         ptsBilirubin + ptsINR + ptsAlbumin + ptsEncephalopaty + ptsAscites;
-    print('Resultado numérico: $resultado');
+    /*print('Resultado numérico: $resultado');*/
     if (resultado == 5 || resultado == 6) {
       return 'A ($resultado)';
     } else if (resultado >= 7 && resultado <= 9) {
@@ -208,7 +224,58 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
       //initialValue: 'none_fem',
       //toStringName: 'none_fem',
     );
+    this.resultadoField = "CPS";
+
     //this.
+  }
+
+  void previous() {
+    this.bilirubinField = TextFieldBloc(
+      initialValue: antiguo.bilirubin.toString(),
+    );
+    this.inrField = TextFieldBloc(
+      initialValue: antiguo.inr.toString(),
+    );
+    this.albuminField = TextFieldBloc(
+      initialValue: antiguo.albumin.toString(),
+    );
+    this.encephalopatyField = SelectFieldBloc(
+      items: ['none_fem', 'grade_1_2', 'grade_3_4'],
+      initialValue: antiguo.encephalopaty.toString(),
+    );
+    this.ascitesField =
+        SelectFieldBloc(
+          items: ['none_fem', 'controlled', 'refractory'],
+          initialValue: antiguo.ascites.toString(),
+
+        );
+
+
+    /*this.ascitesField = SelectFieldBloc(
+      items: ['none_fem', 'controlled', 'refractory'],
+      //initialValue: 'none_fem',
+      //toStringName: 'none_fem',
+    );*/
+    //print("encefalopatia field " + antiguo.encephalopaty);
+    /*this.encephalopatyField = SelectFieldBloc(
+      toStringName: 'none_fem',
+    );*/
+    //this.encephalopatyField = 'none_fem';
+
+    /*SelectFieldBloc(
+        items: ['none_fem', 'controlled', 'refractory'],
+
+    );*/
+    //this.ascitesField = SelectFieldBloc(initialValue: antiguo.ascites);
+    this.resultadoField = antiguo.result;
+
+    print("\n*****AFTERPREVIOUS");
+    print("bilirrubin: " + this.bilirubinField.value);
+    print("INR: " + this.inrField.value);
+    print("albumina: " + this.albuminField.value);
+    //print("encefalopatia: " + this.encephalopatyField.value);
+    //print("ascitis: " + this.ascitesField.value);
+    print("resultado: " + this.resultadoField);
   }
 
 /*void setFieldBlocs() {

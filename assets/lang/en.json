@@ -156,6 +156,8 @@
   "drawing": "Drawing",
   "all_algorithms": "All Algorithms",
   "child_pugh_score": "Child Pugh Score",
+  "child_pugh_score_calc": "Índice de Child Pugh",
+
   "meld": "MELD",
   "okuda_staging_system": "Okuda Staging System",
   "clip_staging_system": "CLIP Staging System",

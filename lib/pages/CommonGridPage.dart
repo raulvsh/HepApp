@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/FigureButton.dart';
+import 'package:sized_context/sized_context.dart';
 
-//const String _documentPath = 'assets/HepM1C1.pdf';
 
 class CommonGridPage extends StatefulWidget {
   final data;
@@ -36,6 +36,7 @@ class _CommonGridPageState extends State<CommonGridPage> {
   _buildLayout(orientation) {
     final width = MediaQuery.of(context).size.width;
     var padding = width / 100;
+    bool isTablet = context.diagonalInches >= 7;
 
     return Container(
       width: double.infinity,
@@ -47,7 +48,8 @@ class _CommonGridPageState extends State<CommonGridPage> {
         child: GridView.count(
           padding: orientation == Orientation.portrait
               ? EdgeInsets.symmetric(vertical: 6 * padding)
-              : EdgeInsets.symmetric(vertical: 2 * padding),
+              : EdgeInsets.symmetric(
+              vertical: isTablet ? 5 * padding : 2 * padding),
           primary: false,
           crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
           children: _buildGridView(),

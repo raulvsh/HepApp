@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/src/utils/utils.dart';
 import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/lang/app_localizations.dart';
+import 'package:sized_context/sized_context.dart';
 
 /// A material design radio buttons.
 class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
@@ -72,8 +73,10 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
   bool firstRun = true;
   String selectedChoice = "";
 
+
   @override
   Widget build(BuildContext context) {
+
     return BlocBuilder<SelectFieldBloc<Value>, SelectFieldBlocState<Value>>(
       bloc: widget.selectFieldBloc,
       builder: (context, state) {
@@ -172,6 +175,8 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
   }
 
   Container _buildInitialText() {
+    bool isTablet = context.diagonalInches >= 7;
+
     return Container(
       //width: 90,
         padding: EdgeInsets.symmetric(horizontal: 5),
@@ -179,7 +184,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
           widget.text,
           style: TextStyle(
             color: Colors.black,
-            fontSize: 12,
+            fontSize: isTablet ? 15 : 12,
           ),
         ));
   }
@@ -187,11 +192,13 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
   Expanded _buildOptionsRow(SelectFieldBlocState state,
       RadioBuilder<String, double> simpleBuilder) {
     var aux = AppLocalizations.of(context);
+    bool isTablet = context.diagonalInches >= 7;
+
 
     return Expanded(
       child: Container(
         //alignment: Alignment.center,
-        padding: EdgeInsets.fromLTRB(10.0, 0, 0, 0),
+        padding: EdgeInsets.only(left: 15.0,),
         //color: Colors.red,
         width: 100.0 * state.items.length,
         height: 20.0,
@@ -207,6 +214,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
               physics: ClampingScrollPhysics(),
               itemBuilder: (context, index) {
                 return Row(
+
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
@@ -229,14 +237,15 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                         });
                       },
                       child: Container(
+                        //color: Colors.black,
                         height: 20,
-                        width: 90,
+                        width: isTablet ? 110 : 90,
                         //color: Colors.green,
                         padding: EdgeInsets.symmetric(horizontal: 4),
-                        //color:Colors.red,
                         child: Stack(
                           children: <Widget>[
                             Container(
+                              //color: Colors.red,
                               child: CustomRadio<String, double>(
                                 value: state.items.elementAt(index).toString(),
                                 groupValue: radioValue,
@@ -267,7 +276,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                                           : Theme
                                           .of(context)
                                           .primaryColor,
-                                      fontSize: 12,
+                                      fontSize: isTablet ? 14 : 12,
                                     ),
                                   ),
                                 ),

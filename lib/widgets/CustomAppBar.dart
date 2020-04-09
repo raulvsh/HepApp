@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/forms/partial_calc_settings.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/FullCalcSettings.dart';
+import 'package:sized_context/sized_context.dart';
 
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -26,6 +27,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
+    bool isTablet = context.diagonalInches >= 7;
 
     return AppBar(
       automaticallyImplyLeading: false,
@@ -61,7 +63,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   //color: Colors.white,
-                  fontSize: 20,
+                  fontSize: isTablet ? 25 : 20,
                 ),
               ),
             ),
@@ -95,6 +97,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   _backIcon(BuildContext context) {
     var aux = AppLocalizations.of(context);
+    bool isTablet = context.diagonalInches >= 7;
 
     return GestureDetector(
       onTap: () => Navigator.pop(context),
@@ -110,7 +113,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               aux.tr('back'),
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 12,
+                fontSize: isTablet ? 14 : 12,
               ),
             ),
           ],
@@ -124,6 +127,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
       icon: Icon(Icons.settings),
       onPressed: () {
         //TODO Añadir función captura de pantalla _screenCapture()
+
+        /*Navigator.pushNamed(
+            context,
+            '/partial',
+              );
+*/
+
+
+
         showDialog(
           context: context,
           builder: (BuildContext context) {
