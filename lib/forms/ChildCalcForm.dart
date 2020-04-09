@@ -16,6 +16,8 @@ import 'CustomButtonGroupFieldBlocBuilder.dart';
 import 'CustomTextFieldBlocBuilder.dart';
 
 class ChildCalcForm extends StatefulWidget {
+  ChildCalcForm({Key key}) :super(key: key);
+
   @override
   ChildCalcFormState createState() => ChildCalcFormState();
 }
@@ -31,7 +33,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    prefs.internationalUnits = true;
+    //prefs.internationalUnits = true;
     super.initState();
   }
 
@@ -402,4 +404,12 @@ class ChildCalcFormState extends State<ChildCalcForm> {
     formBloc.previous();
     setState(() {});
   }
+
+  actualizarEstado() {
+    setState(() {
+
+    });
+  }
 }
+
+
