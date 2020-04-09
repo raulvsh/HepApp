@@ -30,6 +30,7 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
+
     return AlertDialog(
       content: ConstrainedBox(
         constraints: BoxConstraints.tight(Size.fromHeight(150)),
@@ -76,12 +77,12 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
                   onPressed: () {
                     print("iunits desde boton $iUnits");
                     prefs.internationalUnits = iUnits;
-                    Navigator.pop(context);
 
+
+                    Navigator.pop(context);
                     //Navigator.pushReplacementNamed(context, '/ChildCalc',);
                     //Navigator.pop(context);
-                    //PRUEBO A CAMBIAR
-                    //units.udsbili="pruebatoloca";
+
                   },
                 ),
               ),

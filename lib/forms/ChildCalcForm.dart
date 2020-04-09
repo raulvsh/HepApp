@@ -15,8 +15,10 @@ import 'ChildCalcForm_bloc.dart';
 import 'CustomButtonGroupFieldBlocBuilder.dart';
 import 'CustomTextFieldBlocBuilder.dart';
 
+final cpsFormKey = GlobalKey<ChildCalcFormState>();
+
 class ChildCalcForm extends StatefulWidget {
-  ChildCalcForm({Key key}) :super(key: key);
+  ChildCalcForm({Key key}) : super(key: key);
 
   @override
   ChildCalcFormState createState() => ChildCalcFormState();
@@ -153,13 +155,15 @@ class ChildCalcFormState extends State<ChildCalcForm> {
 
   _buildBilirrubinRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
     return CustomTextFieldBlocBuilder(
-        aux: aux,
-        formBloc: formBloc,
-        textFieldBloc: formBloc.bilirubinField,
-        title: aux.tr('bilirubin'),
-        uds: prefs.internationalUnits
-            ? units.bilirubinUds[0]
-            : units.bilirubinUds[1]);
+      //key: cpsFormKey,
+      aux: aux,
+      formBloc: formBloc,
+      textFieldBloc: formBloc.bilirubinField,
+      title: aux.tr('bilirubin'),
+      uds: prefs.internationalUnits
+          ? units.bilirubinUds[0]
+          : units.bilirubinUds[1],
+    );
   }
 
   _buildInrRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
@@ -406,10 +410,6 @@ class ChildCalcFormState extends State<ChildCalcForm> {
   }
 
   actualizarEstado() {
-    setState(() {
-
-    });
+    setState(() {});
   }
 }
-
-
