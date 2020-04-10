@@ -27,10 +27,10 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
 
     return Container(
       width: isTablet ? 400 : 200,
-      height: isTablet ? 200 : 120,
+      height: isTablet ? 170 : 120,
       //color: Colors.yellow,
-      //padding: EdgeInsets.all(20),
-      margin: EdgeInsets.all(15),
+      margin: EdgeInsets.fromLTRB(0, 30, 50, 0),
+      //margin: EdgeInsets.all(15),
       decoration: BoxDecoration(
         border: Border.all(
           color: Color.fromARGB(255, 210, 242, 245),

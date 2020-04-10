@@ -199,6 +199,8 @@
   "decreased_loc": "Decreased LOC",
   "close": "Close",
   "more_information": "More Information",
+  "on": "ON",
+  "off": "Off",
 
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
@@ -270,10 +272,8 @@
   "numberOfTumours": "Number of tumours",
   "numberOfTumoursResumen": "Tumours",
   "obteniendoVersionRecursoRemoto": "The app is getting necessary data before starting the download. Try again later.",
-  "off": "OFF",
   "ok": "OK",
   "okudaResult": "Okuda:",
-  "on": "ON",
   "platelets": "Platelets",
   "portalHipertension": "Portal hypertension (varices and/or splenomegaly)",
   "portalHipertensionResumen": "Portal hypertension",

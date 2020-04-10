@@ -226,7 +226,7 @@ class _CLIPCalcPageState extends State<CLIPCalcPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(context, 'clip_staging_system', selScreenshot: true,
-        selPartialSettings: true,),
+      ),
       drawer: MenuWidget(),
 
       body: Container(

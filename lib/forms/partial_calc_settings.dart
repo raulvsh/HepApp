@@ -1,6 +1,9 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/prefs_bloc.dart';
+
 
 class PartialCalcSettings extends StatefulWidget {
   @override
@@ -30,7 +33,6 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
   @override
   Widget build(BuildContext context) {
     var aux = AppLocalizations.of(context);
-
     return AlertDialog(
       content: ConstrainedBox(
         constraints: BoxConstraints.tight(Size.fromHeight(150)),
@@ -75,9 +77,9 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
                     ),
                   ),
                   onPressed: () {
-                    print("iunits desde boton $iUnits");
+                    //print("iunits desde boton $iUnits");
                     prefs.internationalUnits = iUnits;
-
+                    _counterBloc.increment();
 
                     Navigator.pop(context);
                     //Navigator.pushReplacementNamed(context, '/ChildCalc',);
@@ -116,7 +118,7 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
         ));
   }
 
-  _buildToggleButtons(BuildContext context) {
+  Widget _buildToggleButtons(BuildContext context) {
     var aux = AppLocalizations.of(context);
     return ConstrainedBox(
       constraints: BoxConstraints(
@@ -139,7 +141,7 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
           Container(
             width: 60,
             child: Text(
-              aux.tr('yes'),
+              aux.tr('on'),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 12,
@@ -149,7 +151,7 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
           Container(
             width: 60,
             child: Text(
-              aux.tr('no'),
+              aux.tr('off'),
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 12),
             ),
@@ -169,3 +171,4 @@ class _PartialCalcSettingsState extends State<PartialCalcSettings> {
     );
   }
 }
+*/

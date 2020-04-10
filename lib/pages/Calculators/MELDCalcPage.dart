@@ -34,7 +34,7 @@ class _MELDCalcPageState extends State<MELDCalcPage> {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(context, 'meld', selScreenshot: true,
-        selPartialSettings: true,),
+      ),
       drawer: MenuWidget(),
       body: new Center(
         child: new Text("Some text"),

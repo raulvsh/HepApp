@@ -24,13 +24,13 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
   );*/
 
   String resultadoField = 'CPS';
-  var antiguo = CPSdata(
-      result: 'CPS',
-      encephalopaty: 'none_fem',
-      albumin: 0,
-      inr: 0,
+  var data = CPSdata(
       bilirubin: 0,
-      ascites: 'none_fem');
+      inr: 0,
+      albumin: 0,
+      encephalopaty: 'none_fem',
+      ascites: 'none_fem',
+      result: 'CPS');
 
   ///No usadas por mi (de momento) TODO LIMPIAR
   /* final tumourPercentageField = SelectFieldBloc(
@@ -83,7 +83,7 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     print("Campo resultado antes de operar: " + resultadoField);
 */
     //print("*****Creo objeto datoscps");
-    antiguo = CPSdata(
+    data = CPSdata(
       bilirubin: bilirubinField.valueToDouble,
       inr: inrField.valueToDouble,
       albumin: albuminField.valueToDouble,
@@ -109,8 +109,8 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     //antiguo.result = obtenerResultado(antiguo);
 
     try {
-      antiguo.result = obtenerResultado(antiguo);
-      this.resultadoField = antiguo.result;
+      data.result = obtenerResultado(data);
+      this.resultadoField = data.result;
       //obtenerResultado(antiguo); //obtenerResultado(resultado);
       /*print("Campo resultado después de operar: " +
           resultadoField +
@@ -221,55 +221,35 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     );
     this.ascitesField = SelectFieldBloc(
       items: ['none_fem', 'controlled', 'refractory'],
-      //initialValue: 'none_fem',
-      //toStringName: 'none_fem',
     );
     this.resultadoField = "CPS";
 
-    //this.
   }
 
   void previous() {
     this.bilirubinField = TextFieldBloc(
-      initialValue: antiguo.bilirubin.toString(),
+      initialValue: data.bilirubin.toString(),
     );
     this.inrField = TextFieldBloc(
-      initialValue: antiguo.inr.toString(),
+      initialValue: data.inr.toString(),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: antiguo.albumin.toString(),
+      initialValue: data.albumin.toString(),
     );
     this.encephalopatyField = SelectFieldBloc(
       items: ['none_fem', 'grade_1_2', 'grade_3_4'],
-      initialValue: antiguo.encephalopaty.toString(),
+      initialValue: data.encephalopaty.toString(),
     );
     this.ascitesField =
         SelectFieldBloc(
           items: ['none_fem', 'controlled', 'refractory'],
-          initialValue: antiguo.ascites.toString(),
+          initialValue: data.ascites.toString(),
 
         );
 
+    this.resultadoField = data.result;
 
-    /*this.ascitesField = SelectFieldBloc(
-      items: ['none_fem', 'controlled', 'refractory'],
-      //initialValue: 'none_fem',
-      //toStringName: 'none_fem',
-    );*/
-    //print("encefalopatia field " + antiguo.encephalopaty);
-    /*this.encephalopatyField = SelectFieldBloc(
-      toStringName: 'none_fem',
-    );*/
-    //this.encephalopatyField = 'none_fem';
-
-    /*SelectFieldBloc(
-        items: ['none_fem', 'controlled', 'refractory'],
-
-    );*/
-    //this.ascitesField = SelectFieldBloc(initialValue: antiguo.ascites);
-    this.resultadoField = antiguo.result;
-
-    print("\n*****AFTERPREVIOUS");
+    print("\n*****AFTER PREVIOUS");
     print("bilirrubin: " + this.bilirubinField.value);
     print("INR: " + this.inrField.value);
     print("albumina: " + this.albuminField.value);
@@ -278,7 +258,4 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     print("resultado: " + this.resultadoField);
   }
 
-/*void setFieldBlocs() {
-    this.bilirubinField = TextFieldBloc();
-  }*/
 }

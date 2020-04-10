@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/forms/partial_calc_settings.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/FullCalcSettings.dart';
 import 'package:sized_context/sized_context.dart';
@@ -11,10 +10,9 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 
   final bool selScreenshot;
   final bool selFullSettings;
-  final bool selPartialSettings;
 
   CustomAppBar(this.context, this.title,
-      {this.selScreenshot, this.selFullSettings, this.selPartialSettings});
+      {this.selScreenshot, this.selFullSettings});
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -75,9 +73,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
         (widget.selFullSettings == true)
             ? _fullSettingsIcon(context)
             : Container(),
-        (widget.selPartialSettings == true)
+        /*(widget.selPartialSettings == true)
             ? _partialSettingsIcon(context)
-            : Container(),
+            : Container(),*/
       ],
     );
   }
@@ -122,17 +120,17 @@ class _CustomAppBarState extends State<CustomAppBar> {
     );
   }
 
-  IconButton _partialSettingsIcon(BuildContext context) {
+  /*IconButton _partialSettingsIcon(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.settings),
       onPressed: () {
         //TODO Añadir función captura de pantalla _screenCapture()
 
-        /*Navigator.pushNamed(
+        */ /*Navigator.pushNamed(
             context,
             '/partial',
               );
-*/
+*/ /*
 
 
 
@@ -144,7 +142,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         );
       },
     );
-  }
+  }*/
 
   IconButton _fullSettingsIcon(BuildContext context) {
     return IconButton(

@@ -15,8 +15,6 @@ import 'ChildCalcForm_bloc.dart';
 import 'CustomButtonGroupFieldBlocBuilder.dart';
 import 'CustomTextFieldBlocBuilder.dart';
 
-final cpsFormKey = GlobalKey<ChildCalcFormState>();
-
 class ChildCalcForm extends StatefulWidget {
   ChildCalcForm({Key key}) : super(key: key);
 
@@ -35,7 +33,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    //prefs.internationalUnits = true;
+    prefs.internationalUnits = true;
     super.initState();
   }
 
@@ -52,15 +50,10 @@ class ChildCalcFormState extends State<ChildCalcForm> {
 
   @override
   Widget build(BuildContext context) {
-    var aux = AppLocalizations.of(context);
-
     return BlocProvider<ChildCalcFormBloc>(
       builder: (context) => ChildCalcFormBloc(),
       child: Builder(
         builder: (context) {
-          /*setState(() {
-
-          });*/
           final formBloc = BlocProvider.of<ChildCalcFormBloc>(context);
           return FormBlocListener<ChildCalcFormBloc, String, String>(
             /*onSubmitting: (context, state) => LoadingDialog.show(context),
@@ -81,18 +74,18 @@ class ChildCalcFormState extends State<ChildCalcForm> {
                 context,
                 'child_pugh_score_oneline',
                 selScreenshot: true,
-                selPartialSettings: true,
               ),
               drawer: MenuWidget(),
               body: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _buildLeftColumn(aux, formBloc, context),
-                  _buildRightColumn(aux, formBloc.resultadoField, context),
+                  _buildLeftColumn(formBloc),
+                  _buildRightColumn(formBloc.resultadoField),
                 ],
               ),
-              bottomSheet: _buildBottomSheet(formBloc),
+              bottomSheet:
+              _buildBottomSheet(formBloc),
             ),
           );
         },
@@ -100,53 +93,24 @@ class ChildCalcFormState extends State<ChildCalcForm> {
     );
   }
 
-  _buildLeftColumn(AppLocalizations aux, ChildCalcFormBloc formBloc,
-      BuildContext context) {
-    final prefs = new PreferenciasUsuario();
-    var udsController = Units();
+  _buildLeftColumn(ChildCalcFormBloc formBloc) {
+    AppLocalizations aux = AppLocalizations.of(context);
+    bool isTablet = context.diagonalInches >= 7;
 
     return Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width * 0.65,
+      width: isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
       //color: Colors.red,
+      padding: EdgeInsets.only(left: 20, top: 20),
       child: ListView(
         shrinkWrap: true,
-        //mainAxisAlignment: MainAxisAlignment.start,
-        //crossAxisAlignment: CrossAxisAlignment.start,
         physics: ClampingScrollPhysics(),
         children: <Widget>[
           _buildBilirrubinRow(aux, formBloc),
           _buildInrRow(aux, formBloc),
           _buildAlbuminRow(aux, formBloc),
-          _buildEncephalopatyRow(formBloc, aux),
-          _buildAscitesRow(formBloc, aux),
-          //SizedBox(height: 150,),
-          _buildCalcButton(context, formBloc, aux),
-          /*ListTile(
-              title: Container(),
-            ),*/
-          /*ListTile(
-            title: RaisedButton(
-              onPressed: () {
-                reseteo(formBloc);
-              },
-              child: Text("boton reset prueba"),
-            ),
-          ),*/
-          Text("Unidades internacionales: " +
-              prefs.internationalUnits.toString()),
-          /*Text(udsController.albuminUds[0] +
-              " " +
-              udsController.albuminUds[1] +
-              " " +
-              udsController.bilirubinUds[0] +
-              " " +
-              udsController.bilirubinUds[1]),*/
-          Text(udsController.getIUAlbumin(1).toString() +
-              "         " +
-              udsController.getIUBilirrubin(2).toString()),
+          _buildEncephalopatyRow(aux, formBloc),
+          _buildAscitesRow(aux, formBloc),
+          _buildCalcButton(aux, formBloc),
         ],
       ),
       //),
@@ -155,9 +119,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
 
   _buildBilirrubinRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
     return CustomTextFieldBlocBuilder(
-      //key: cpsFormKey,
-      aux: aux,
-      formBloc: formBloc,
+      //formBloc: formBloc,
       textFieldBloc: formBloc.bilirubinField,
       title: aux.tr('bilirubin'),
       uds: prefs.internationalUnits
@@ -168,8 +130,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
 
   _buildInrRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
     return CustomTextFieldBlocBuilder(
-      aux: aux,
-      formBloc: formBloc,
+      //formBloc: formBloc,
       textFieldBloc: formBloc.inrField,
       title: aux.tr('inr'),
       uds: '',
@@ -178,15 +139,15 @@ class ChildCalcFormState extends State<ChildCalcForm> {
 
   _buildAlbuminRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
     return CustomTextFieldBlocBuilder(
-      aux: aux,
-      formBloc: formBloc,
+      //formBloc: formBloc,
       textFieldBloc: formBloc.albuminField,
       title: aux.tr('albumin'),
-      uds: 'g/L',
+      uds: prefs.internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
     );
   }
 
-  _buildEncephalopatyRow(ChildCalcFormBloc formBloc, AppLocalizations aux) {
+  _buildEncephalopatyRow(AppLocalizations aux,
+      ChildCalcFormBloc formBloc,) {
     return CustomButtonGroupFieldBlocBuilder(
       reset: reset,
       padding: EdgeInsets.only(left: 8),
@@ -199,7 +160,8 @@ class ChildCalcFormState extends State<ChildCalcForm> {
     );
   }
 
-  _buildAscitesRow(ChildCalcFormBloc formBloc, AppLocalizations aux) {
+  _buildAscitesRow(AppLocalizations aux,
+      ChildCalcFormBloc formBloc,) {
     return CustomButtonGroupFieldBlocBuilder(
       reset: reset,
       padding: EdgeInsets.only(left: 8),
@@ -212,13 +174,14 @@ class ChildCalcFormState extends State<ChildCalcForm> {
     );
   }
 
-  _buildCalcButton(BuildContext context, ChildCalcFormBloc formBloc,
-      AppLocalizations aux) {
+  _buildCalcButton(AppLocalizations aux,
+      ChildCalcFormBloc formBloc,) {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: 250,
       //padding: EdgeInsets.all(8.0),
-      margin: EdgeInsets.only(right: 250, left: 25), //left: 20),
+      margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
+      //left: 20),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(3),
@@ -250,24 +213,22 @@ class ChildCalcFormState extends State<ChildCalcForm> {
   }
 
   _buildBottomSheet(ChildCalcFormBloc formBloc) {
-    //ButtonActions actions = ButtonActions();
     var aux = AppLocalizations.of(context);
-    return //CalcBottomBar("reseteo2");
 
-      BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _buildResetButton(aux, formBloc),
-            SizedBox(
-              width: 15,
-            ),
-            _buildPreviousButton(aux, formBloc),
-            SizedBox(
-              width: 15,
-            ),
-            _buildMoreInfoButton(aux),
-          ],
+    return BottomAppBar(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _buildResetButton(aux, formBloc),
+          SizedBox(
+            width: 15,
+          ),
+          _buildPreviousButton(aux, formBloc),
+          SizedBox(
+            width: 15,
+          ),
+          _buildMoreInfoButton(aux),
+        ],
       ),
     );
 
@@ -345,42 +306,130 @@ class ChildCalcFormState extends State<ChildCalcForm> {
     );
   }
 
-  _buildRightColumn(AppLocalizations aux, resultadoField,
-      BuildContext context) {
+  _buildRightColumn(String resultadoField) {
+    bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
     return Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width * 0.35,
+      width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
 
       //color: Colors.blue,
       child: Column(
         //mainAxisAlignment: MainAxisAlignment.start,
         //crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Center(
-            child: Container(
-                padding: EdgeInsets.all(15),
-                child: CalcResultWidget(
-                    'child_pugh_score_oneline', resultadoField)),
-          ),
-          Expanded(
-            child: Container(
-              alignment: Alignment.bottomRight,
+          _buildIUnitsRow(aux),
+          //Center(
+          //child:
+          Container(
+            //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
+              child:
+              CalcResultWidget('child_pugh_score_oneline', resultadoField)),
+          //),
+          _buildRightBottomTitle(aux),
+        ],
+      ),
+    );
+  }
 
-              //margin: EdgeInsets.only(top: 50),
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 60),
-              //alignment: Alignment.bottomRight,
-              child: Text(
-                aux.tr('child_pugh_score'),
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Color.fromARGB(255, 210, 242, 245),
-                ),
+  Container _buildIUnitsRow(AppLocalizations aux) {
+    bool isTablet = context.diagonalInches >= 7;
+    return Container(
+        height: 60,
+        padding: EdgeInsets.only(top: 30),
+        child: Row(
+          children: <Widget>[
+            Text(
+              aux.tr("international_units"),
+              style: TextStyle(
+                fontSize: isTablet ? 15 : 12,
+                color: Colors.black,
               ),
             ),
+            SizedBox(
+              width: 20,
+            ),
+            _buildIUnitsSelect(),
+          ],
+        ));
+  }
+
+  _buildIUnitsSelect() {
+    final prefs = new PreferenciasUsuario();
+    var aux = AppLocalizations.of(context);
+
+    List<bool> isSelected = [true, false];
+
+    isSelected[0] = prefs.internationalUnits;
+    isSelected[1] = !prefs.internationalUnits;
+
+    return ToggleButtons(
+      borderColor: Color.fromARGB(255, 45, 145, 155),
+      fillColor: Theme
+          .of(context)
+          .primaryColor,
+      borderWidth: 1.3,
+      selectedBorderColor: Color.fromARGB(255, 45, 145, 155),
+      selectedColor: Colors.white,
+      color: Theme
+          .of(context)
+          .primaryColor,
+      borderRadius: BorderRadius.all(Radius.circular(3.0)),
+      children: <Widget>[
+        Container(
+          width: 60,
+          child: Text(
+            aux.tr('on'),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12,
+            ), //color: Theme.of(context).primaryColor) ,
           ),
-        ],
+        ),
+        Container(
+          width: 60,
+          child: Text(
+            aux.tr('off'),
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12),
+          ),
+        ),
+      ],
+      onPressed: (int index) {
+        setState(() {
+          for (int i = 0; i < isSelected.length; i++) {
+            isSelected[i] = i == index;
+          }
+          print("isselected 0 " + isSelected[0].toString());
+          print("isselected 1 " + isSelected[1].toString());
+
+          prefs.internationalUnits = isSelected[0];
+          //setState(() {});
+        });
+      },
+      isSelected: isSelected,
+    );
+  }
+
+  Expanded _buildRightBottomTitle(AppLocalizations aux) {
+    bool isTablet = context.diagonalInches >= 7;
+
+    return Expanded(
+      child: Container(
+        alignment: Alignment.bottomRight,
+
+        //margin: EdgeInsets.only(top: 50),
+        padding: EdgeInsets.fromLTRB(10, 0, 60, 50),
+        //alignment: Alignment.bottomRight,
+        child: Text(
+          aux.tr('child_pugh_score_oneline'),
+          style: TextStyle(
+            fontSize: isTablet ? 28 : 20,
+            color: Theme
+                .of(context)
+                .primaryColor
+                .withAlpha(150), //Color.fromARGB(255, 210, 242, 245),
+          ),
+        ),
       ),
     );
   }
@@ -395,21 +444,10 @@ class ChildCalcFormState extends State<ChildCalcForm> {
     setState(() {});
   }
 
-  /*void _showDialog() {
-    var aux = AppLocalizations.of(context);
-    // flutter defined function
-  }*/
 
   void previousValues(ChildCalcFormBloc formBloc) {
-    print("\n******PREVIOUS VALUES");
-    //formBloc.submit();
     reset = false;
-
     formBloc.previous();
-    setState(() {});
-  }
-
-  actualizarEstado() {
     setState(() {});
   }
 }

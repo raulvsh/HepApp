@@ -39,7 +39,7 @@ class _OkudaCalcPageState extends State<OkudaCalcPage> {
         context,
         'okuda_staging_system',
         selScreenshot: true,
-        selPartialSettings: false,
+
       ),
       drawer: MenuWidget(),
       body: Container(

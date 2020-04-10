@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_bloc/form_bloc.dart';
-import 'package:hepapp/lang/app_localizations.dart';
 import 'package:sized_context/sized_context.dart';
 
 import 'ChildCalcForm_bloc.dart';
@@ -9,14 +8,12 @@ import 'ChildCalcForm_bloc.dart';
 class CustomTextFieldBlocBuilder extends StatelessWidget {
   const CustomTextFieldBlocBuilder({
     Key key,
-    @required this.aux,
     @required this.formBloc,
     @required this.textFieldBloc,
     @required this.title,
     @required this.uds,
   }) : super(key: key);
 
-  final AppLocalizations aux;
   final ChildCalcFormBloc formBloc;
   final TextFieldBloc textFieldBloc;
   final title;
@@ -99,7 +96,7 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
           switch (error) {
             case ValidatorsError.requiredTextFieldBloc:
                 //TODO activar el flag errorflag
-              return ""; //aux.tr('enter_text');
+              return "";
               break;
             default:
               return 'This text is nor valid.';
@@ -115,7 +112,7 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
       //width: 90,
         padding: EdgeInsets.symmetric(horizontal: 5),
         child: Text(
-          title, //aux.tr('bilirubin'),
+          title,
           style: TextStyle(
             color: Colors.black,
             fontSize: isTablet ? 15 : 12,
