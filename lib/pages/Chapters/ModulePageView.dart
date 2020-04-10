@@ -27,8 +27,6 @@ class _ModulePageViewState extends State<ModulePageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //appBar: CustomAppBar(context, "Figures - Schemes"),
-      //drawer: MenuWidget(),
         body: PageView(
           controller: controller,
           children: <Widget>[

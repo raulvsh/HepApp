@@ -3,18 +3,16 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_bloc/form_bloc.dart';
 import 'package:sized_context/sized_context.dart';
 
-import 'ChildCalcForm_bloc.dart';
-
 class CustomTextFieldBlocBuilder extends StatelessWidget {
   const CustomTextFieldBlocBuilder({
     Key key,
-    @required this.formBloc,
+    //@required this.formBloc,
     @required this.textFieldBloc,
     @required this.title,
     @required this.uds,
   }) : super(key: key);
 
-  final ChildCalcFormBloc formBloc;
+  //final ChildCalcFormBloc formBloc;
   final TextFieldBloc textFieldBloc;
   final title;
   final uds;

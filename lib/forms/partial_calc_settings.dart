@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
-import 'package:hepapp/shared_preferences/prefs_bloc.dart';
 
 
 class PartialCalcSettings extends StatefulWidget {

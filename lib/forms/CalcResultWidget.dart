@@ -30,7 +30,6 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
       height: isTablet ? 170 : 120,
       //color: Colors.yellow,
       margin: EdgeInsets.fromLTRB(0, 30, 50, 0),
-      //margin: EdgeInsets.all(15),
       decoration: BoxDecoration(
         border: Border.all(
           color: Color.fromARGB(255, 210, 242, 245),
@@ -42,7 +41,6 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            //"${aux.tr('child_pugh_score')}: ",
             '${aux.tr(widget.title)}: ',
             style: TextStyle(
               color: Colors.black,

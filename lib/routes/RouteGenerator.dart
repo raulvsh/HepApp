@@ -46,7 +46,6 @@ class RouteGenerator {
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(builder: (_) => ModulePageView(initialPage));
 
-
       case '/Web':
         var arguments = settings.arguments as List<String>;
         return MaterialPageRoute(
@@ -58,13 +57,13 @@ class RouteGenerator {
 
       case '/Video':
         var arguments = settings.arguments as List<String>;
-        return
-          MaterialPageRoute(
-            builder: (context) =>
-                VideoDetailPage(
-                  url: arguments[0],
-                  title: arguments[1],
-                ),);
+        return MaterialPageRoute(
+          builder: (context) =>
+              VideoDetailPage(
+                url: arguments[0],
+                title: arguments[1],
+              ),
+        );
 
       case '/TableFig':
         return MaterialPageRoute(builder: (_) => TOCPage());
@@ -122,9 +121,6 @@ class RouteGenerator {
       case '/OkudaCalc':
         return MaterialPageRoute(builder: (_) => OkudaCalcPage());
 
-    /*case '/partial': return MaterialPageRoute(builder: (_)=>        PartialCalcSettings(),
-      );*/
-
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
@@ -133,21 +129,4 @@ class RouteGenerator {
                 ));
     }
   }
-
-/*obtenerDirectorio() async {
-    var dir = await getApplicationDocumentsDirectory();
-    return dir;
-  }*/
 }
-
-/*
-
-    '/PathologyFig': (context) => PathologyFig1Page(),
-    '/InteractiveFig': (context) => InteractiveFigPage(),
-    '/DrawingFig': (context) => DrawingFigPage(),
-
-    '/AllCalc': (context) => AllCalcPage(),
-    '/ChildCalc': (context) => ChildCalcPage(),
-    '/CLIPCalc': (context) => CLIPCalcPage(),
-    '/MELDCalc': (context) => MELDCalcPage(),
-    '/OkudaCalc': (context) => OkudaCalcPage(),*/

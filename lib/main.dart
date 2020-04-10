@@ -16,10 +16,6 @@ void main() async {
   );
 }
 
-/*
-En esta clase se define el título de la aplicación, el tema
-y las rutas a las distintos apartados.
- */
 class MyApp extends StatelessWidget {
   final prefs = new PreferenciasUsuario();
 

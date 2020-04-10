@@ -19,10 +19,6 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
   );
   bool iUnits = true;
 
-  /*var pruebaField = SelectFieldBloc(
-    items: ['none_fem', 'controlled', 'refractory'],
-  );*/
-
   String resultadoField = 'CPS';
   var data = CPSdata(
       bilirubin: 0,
@@ -61,8 +57,6 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
         albuminField,
         encephalopatyField,
         ascitesField,
-        //pruebaField,
-
         /* booleanField,
     selectField1,
     selectField2,
@@ -71,8 +65,6 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    // Awesome logic...
-
     // Get the fields values:
     /*print("\n\n *********FIELD VALUES");
     print("Campo bilirrubina: " + bilirubinField.value);
@@ -82,7 +74,6 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     print("Campo ascitis: " + ascitesField.value);
     print("Campo resultado antes de operar: " + resultadoField);
 */
-    //print("*****Creo objeto datoscps");
     data = CPSdata(
       bilirubin: bilirubinField.valueToDouble,
       inr: inrField.valueToDouble,
@@ -105,8 +96,6 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     print(multiSelectField.value);
     print(selectField2.value); //RadioButton
     print(booleanField.value);*/
-
-    //antiguo.result = obtenerResultado(antiguo);
 
     try {
       data.result = obtenerResultado(data);
@@ -151,7 +140,6 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     if (!prefs.internationalUnits) {
       antiguo.bilirubin = units.getIUBilirrubin(antiguo.bilirubin);
     }
-
 
     if (antiguo.bilirubin <= 34) {
       ptsBilirubin = 1;
@@ -223,7 +211,6 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
       items: ['none_fem', 'controlled', 'refractory'],
     );
     this.resultadoField = "CPS";
-
   }
 
   void previous() {
@@ -240,12 +227,10 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
       items: ['none_fem', 'grade_1_2', 'grade_3_4'],
       initialValue: data.encephalopaty.toString(),
     );
-    this.ascitesField =
-        SelectFieldBloc(
-          items: ['none_fem', 'controlled', 'refractory'],
-          initialValue: data.ascites.toString(),
-
-        );
+    this.ascitesField = SelectFieldBloc(
+      items: ['none_fem', 'controlled', 'refractory'],
+      initialValue: data.ascites.toString(),
+    );
 
     this.resultadoField = data.result;
 
@@ -257,5 +242,4 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     //print("ascitis: " + this.ascitesField.value);
     print("resultado: " + this.resultadoField);
   }
-
 }

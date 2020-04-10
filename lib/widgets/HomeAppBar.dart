@@ -12,10 +12,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     var aux = AppLocalizations.of(context);
-    return //PreferredSize(
-        //preferredSize: Size.fromHeight(90),
-        //child:
-        AppBar(
+    return AppBar(
       automaticallyImplyLeading: false, //Elimina el botón back
       title: Container(
         height: 30,
