@@ -72,7 +72,7 @@ class _Podcasts1PageState extends State<Podcasts1Page> {
     ],
   ];
 
-  var numPodcasts1 = podcasts1.length;
+  //var numPodcasts1 = podcasts1.length;
 
   @override
   void initState() {

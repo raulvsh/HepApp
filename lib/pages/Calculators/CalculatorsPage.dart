@@ -18,7 +18,7 @@ class _CalculatorsPageState extends State<CalculatorsPage> {
     ['clip_staging_system', 'items/5_calculators.png', '/CLIPCalc', 'Nav'],
   ];
 
-  var numCalcCategories = calculators.length;
+  //var numCalcCategories = calculators.length;
 
   @override
   Widget build(BuildContext context) {

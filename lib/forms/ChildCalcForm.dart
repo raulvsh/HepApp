@@ -84,8 +84,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
                   _buildRightColumn(formBloc.resultadoField),
                 ],
               ),
-              bottomSheet:
-              _buildBottomSheet(formBloc),
+              bottomSheet: _buildBottomSheet(formBloc),
             ),
           );
         },
@@ -99,6 +98,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
 
     return Container(
       width: isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
+      height: context.heightPx,
       //color: Colors.red,
       padding: EdgeInsets.only(left: 20, top: 20),
       child: ListView(
@@ -113,7 +113,6 @@ class ChildCalcFormState extends State<ChildCalcForm> {
           _buildCalcButton(aux, formBloc),
         ],
       ),
-      //),
     );
   }
 
@@ -443,7 +442,6 @@ class ChildCalcFormState extends State<ChildCalcForm> {
 
     setState(() {});
   }
-
 
   void previousValues(ChildCalcFormBloc formBloc) {
     reset = false;

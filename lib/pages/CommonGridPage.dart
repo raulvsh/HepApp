@@ -34,16 +34,19 @@ class _CommonGridPageState extends State<CommonGridPage> {
   }
 
   _buildLayout(orientation) {
-    final width = MediaQuery.of(context).size.width;
-    var padding = width / 100;
+    //final width = MediaQuery.of(context).size.width;
+    var padding = context.widthPct(0.01);
     bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
 
     return Container(
       width: double.infinity,
       height: double.infinity,
       //color: Colors.lightBlueAccent,
       child: FractionallySizedBox(
-        widthFactor: orientation == Orientation.portrait ? 0.60 : 0.7,
+        widthFactor: isLandscape ? (isTablet ? 0.7 : 0.7) : (isTablet
+            ? 0.6
+            : 0.7),
         alignment: Alignment.center,
         child: GridView.count(
           padding: orientation == Orientation.portrait

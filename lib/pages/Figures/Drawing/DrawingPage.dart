@@ -39,8 +39,7 @@ class _DrawingPageState extends State<DrawingPage> {
 
       drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'drawing'),
-      body:
-      CommonGridPage(data: draws, type: 'figure'),
+      body: CommonGridPage(data: draws, type: 'figure'),
       /*OrientationBuilder(
         builder: (context, orientation) {
           return _buildLayout(orientation);

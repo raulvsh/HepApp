@@ -21,7 +21,8 @@ class _InteractivePageState extends State<InteractivePage> {
     ['interactive_8', 'interactive/M3C15S1a.png', '/InteractivePV'],
   ];
 
-  var numInteractive = interactive.length;
+  //
+  // var numInteractive = interactive.length;
 
   @override
   void initState() {

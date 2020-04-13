@@ -22,7 +22,7 @@ class _Module1PageState extends State<Module1Page> {
     ['chapter_3', 'items/1_chapters.png', 'HepAPP_M1C3.pdf', 'PDF'],
   ];
 
-  var numChaptersModule1 = chaptersMod1.length;
+  // var numChaptersModule1 = chaptersMod1.length;
 
   @override
   void initState() {
@@ -35,8 +35,9 @@ class _Module1PageState extends State<Module1Page> {
         resizeToAvoidBottomInset: false,
         //No haría falta al no escribirse nunca
 
-        drawer: MenuWidget(),
         appBar: CustomAppBar(context, 'module_1'),
+
+        drawer: MenuWidget(),
         body: CommonGridPage(data: chaptersMod1),
         /*OrientationBuilder(
           builder: (context, orientation) {
@@ -44,7 +45,7 @@ class _Module1PageState extends State<Module1Page> {
           },
         ),*/
         //bottomSheet: _buildBottomSheet(context),
-        bottomSheet: BottomNavigationSheet(0, '/ModulePV', numChaptersModule1));
+        bottomSheet: BottomNavigationSheet(0, '/ModulePV', numModules));
   }
 
 /*_buildLayout(orientation) {

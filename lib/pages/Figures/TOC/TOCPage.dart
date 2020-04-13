@@ -17,7 +17,7 @@ class _TOCPageState extends State<TOCPage> {
     ['toc_4', 'toc/TOC4.png', '/TOCPV'],
   ];
 
-  var numTOC = tocs.length;
+  //var numTOC = tocs.length;
 
   @override
   void initState() {

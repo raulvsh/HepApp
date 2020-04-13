@@ -122,7 +122,7 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
     yield currentState.toLoaded();
   }
 
-  String obtenerResultado(CPSdata antiguo /*fieldBlocs*/) {
+  String obtenerResultado(CPSdata data /*fieldBlocs*/) {
     var ptsBilirubin;
     var ptsINR;
     var ptsAlbumin;
@@ -137,47 +137,48 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
       antiguo.bilirubin = units.getConvertedBilirrubin(antiguo.bilirubin);
       antiguo.albumin = units.getConvertedAlbumin(antiguo.albumin);
     }*/
+    //pasar a método externo
     if (!prefs.internationalUnits) {
-      antiguo.bilirubin = units.getIUBilirrubin(antiguo.bilirubin);
+      data.bilirubin = units.getIUBilirrubin(data.bilirubin);
     }
 
-    if (antiguo.bilirubin <= 34) {
+    if (data.bilirubin <= 34) {
       ptsBilirubin = 1;
-    } else if (antiguo.bilirubin <= 50) {
+    } else if (data.bilirubin <= 50) {
       ptsBilirubin = 2;
     } else {
       ptsBilirubin = 3;
     }
 
-    if (antiguo.inr <= 1.7) {
+    if (data.inr <= 1.7) {
       ptsINR = 1;
-    } else if (antiguo.inr <= 2.2) {
+    } else if (data.inr <= 2.2) {
       ptsINR = 2;
     } else {
       ptsINR = 3;
     }
 
-    if (antiguo.albumin <= 28) {
+    if (data.albumin <= 28) {
       ptsAlbumin = 3;
-    } else if (antiguo.albumin <= 35) {
+    } else if (data.albumin <= 35) {
       ptsAlbumin = 2;
     } else {
       ptsAlbumin = 1;
     }
 
-    if (antiguo.encephalopaty == 'none_fem') {
+    if (data.encephalopaty == 'none_fem') {
       ptsEncephalopaty = 1;
-    } else if (antiguo.encephalopaty == 'grade_1_2') {
+    } else if (data.encephalopaty == 'grade_1_2') {
       ptsEncephalopaty = 2;
-    } else if (antiguo.encephalopaty == 'grade_3_4') {
+    } else if (data.encephalopaty == 'grade_3_4') {
       ptsEncephalopaty = 3;
     }
 
-    if (antiguo.ascites == 'none_fem') {
+    if (data.ascites == 'none_fem') {
       ptsAscites = 1;
-    } else if (antiguo.ascites == 'controlled') {
+    } else if (data.ascites == 'controlled') {
       ptsAscites = 2;
-    } else if (antiguo.ascites == 'refractory') {
+    } else if (data.ascites == 'refractory') {
       ptsAscites = 3;
     }
 
