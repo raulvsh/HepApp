@@ -1,31 +1,38 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:hepapp/data/maps.dart';
 import 'package:hepapp/forms/units.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:hepapp/widgets/more_information.dart';
+import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
+import 'CPSForm_bloc.dart';
 import 'CalcResultWidget.dart';
-import 'ChildCalcForm_bloc.dart';
 import 'CustomButtonGroupFieldBlocBuilder.dart';
 import 'CustomTextFieldBlocBuilder.dart';
 
-class ChildCalcForm extends StatefulWidget {
-  ChildCalcForm({Key key}) : super(key: key);
+class CPSForm extends StatefulWidget with Observable {
+  CPSForm({Key key}) : super(key: key);
 
   @override
-  ChildCalcFormState createState() => ChildCalcFormState();
+  CPSFormState createState() => CPSFormState();
 }
 
-class ChildCalcFormState extends State<ChildCalcForm> {
+class CPSFormState extends State<CPSForm> with Observable {
   var reset = false;
   final prefs = PreferenciasUsuario();
   final units = Units();
+  bool _internationalUnits = true;
+  StreamSubscription streamSubscription;
+
 
   @override
   void initState() {
@@ -33,7 +40,13 @@ class ChildCalcFormState extends State<ChildCalcForm> {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    prefs.internationalUnits = true;
+    streamSubscription = prefs.iUnitsUpdates.listen(
+          (newVal) =>
+          setState(() {
+            _internationalUnits = newVal;
+          }),
+    );
+    prefs.setIUnitsPrueba(true);
     super.initState();
   }
 
@@ -50,12 +63,12 @@ class ChildCalcFormState extends State<ChildCalcForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ChildCalcFormBloc>(
-      builder: (context) => ChildCalcFormBloc(),
+    return BlocProvider<CPSFormBloc>(
+      builder: (context) => CPSFormBloc(),
       child: Builder(
         builder: (context) {
-          final formBloc = BlocProvider.of<ChildCalcFormBloc>(context);
-          return FormBlocListener<ChildCalcFormBloc, String, String>(
+          final formBloc = BlocProvider.of<CPSFormBloc>(context);
+          return FormBlocListener<CPSFormBloc, String, String>(
             /*onSubmitting: (context, state) => LoadingDialog.show(context),
               onSuccess: (context, state) {
                 LoadingDialog.hide(context);
@@ -74,6 +87,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
                 context,
                 'child_pugh_score_oneline',
                 selScreenshot: true,
+                //selPartialSettings: true,
               ),
               drawer: MenuWidget(),
               body: Row(
@@ -92,7 +106,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
     );
   }
 
-  _buildLeftColumn(ChildCalcFormBloc formBloc) {
+  _buildLeftColumn(CPSFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
 
@@ -111,23 +125,24 @@ class ChildCalcFormState extends State<ChildCalcForm> {
           _buildEncephalopatyRow(aux, formBloc),
           _buildAscitesRow(aux, formBloc),
           _buildCalcButton(aux, formBloc),
+          Text(maps.toString()),
         ],
       ),
     );
   }
 
-  _buildBilirrubinRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
+  _buildBilirrubinRow(AppLocalizations aux, CPSFormBloc formBloc) {
     return CustomTextFieldBlocBuilder(
       //formBloc: formBloc,
       textFieldBloc: formBloc.bilirubinField,
       title: aux.tr('bilirubin'),
-      uds: prefs.internationalUnits
+      uds: _internationalUnits
           ? units.bilirubinUds[0]
           : units.bilirubinUds[1],
     );
   }
 
-  _buildInrRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
+  _buildInrRow(AppLocalizations aux, CPSFormBloc formBloc) {
     return CustomTextFieldBlocBuilder(
       //formBloc: formBloc,
       textFieldBloc: formBloc.inrField,
@@ -136,17 +151,17 @@ class ChildCalcFormState extends State<ChildCalcForm> {
     );
   }
 
-  _buildAlbuminRow(AppLocalizations aux, ChildCalcFormBloc formBloc) {
+  _buildAlbuminRow(AppLocalizations aux, CPSFormBloc formBloc) {
     return CustomTextFieldBlocBuilder(
       //formBloc: formBloc,
       textFieldBloc: formBloc.albuminField,
       title: aux.tr('albumin'),
-      uds: prefs.internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
+      uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
     );
   }
 
   _buildEncephalopatyRow(AppLocalizations aux,
-      ChildCalcFormBloc formBloc,) {
+      CPSFormBloc formBloc,) {
     return CustomButtonGroupFieldBlocBuilder(
       reset: reset,
       padding: EdgeInsets.only(left: 8),
@@ -160,7 +175,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
   }
 
   _buildAscitesRow(AppLocalizations aux,
-      ChildCalcFormBloc formBloc,) {
+      CPSFormBloc formBloc,) {
     return CustomButtonGroupFieldBlocBuilder(
       reset: reset,
       padding: EdgeInsets.only(left: 8),
@@ -174,7 +189,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
   }
 
   _buildCalcButton(AppLocalizations aux,
-      ChildCalcFormBloc formBloc,) {
+      CPSFormBloc formBloc,) {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: 250,
@@ -211,7 +226,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
     );
   }
 
-  _buildBottomSheet(ChildCalcFormBloc formBloc) {
+  _buildBottomSheet(CPSFormBloc formBloc) {
     var aux = AppLocalizations.of(context);
 
     return BottomAppBar(
@@ -284,7 +299,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
   }
 
   Container _buildResetButton(AppLocalizations aux,
-      ChildCalcFormBloc formBloc) {
+      CPSFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
@@ -358,8 +373,9 @@ class ChildCalcFormState extends State<ChildCalcForm> {
 
     List<bool> isSelected = [true, false];
 
-    isSelected[0] = prefs.internationalUnits;
-    isSelected[1] = !prefs.internationalUnits;
+    isSelected[0] = prefs.getIunitsPrueba();
+    isSelected[1] = !isSelected[0];
+    //isSelected[1] = !prefs.getIunitsPrueba();
 
     return ToggleButtons(
       borderColor: Color.fromARGB(255, 45, 145, 155),
@@ -401,7 +417,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
           print("isselected 0 " + isSelected[0].toString());
           print("isselected 1 " + isSelected[1].toString());
 
-          prefs.internationalUnits = isSelected[0];
+          prefs.setIUnitsPrueba(isSelected[0]);
           //setState(() {});
         });
       },
@@ -433,7 +449,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
     );
   }
 
-  void resetValues(ChildCalcFormBloc formBloc) {
+  void resetValues(CPSFormBloc formBloc) {
     print("\n\n************************RESET");
 
     reset = true;
@@ -443,7 +459,7 @@ class ChildCalcFormState extends State<ChildCalcForm> {
     setState(() {});
   }
 
-  void previousValues(ChildCalcFormBloc formBloc) {
+  void previousValues(CPSFormBloc formBloc) {
     reset = false;
     formBloc.previous();
     setState(() {});

@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 
@@ -65,7 +66,6 @@ class _PathologyDetailPageState extends State<PathologyDetailPage> {
       widgets.add(FigureDetailPage(
           title: pathology[i][0],
           url: pathology[i][1],
-          //bottomSheet: _buildBottomSheet(i,'/SchemesPV')));
           bottomSheet:
               BottomNavigationSheet(i, '/PathologyDetail', numPathologies)));
     }
@@ -73,3 +73,4 @@ class _PathologyDetailPageState extends State<PathologyDetailPage> {
     return widgets;
   }
 }
+*/

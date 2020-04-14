@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
@@ -10,8 +11,6 @@ class SchemesPage extends StatefulWidget {
 }
 
 class _SchemesPageState extends State<SchemesPage> {
-
-
   static var schemes = [
     ['jaundice', 'schemes/Scheme_1_Jaundice.png', '/SchemesPV'],
     ['abn_liver_tests', 'schemes/Scheme_2_AbN_Liver_Tests.png', '/SchemesPV'],
@@ -27,8 +26,6 @@ class _SchemesPageState extends State<SchemesPage> {
     ['decreased_loc', 'schemes/Scheme_8_Decreased_LOC.png', '/SchemesPV'],
   ];
 
-  var numSchemes = schemes.length;
-
   @override
   void initState() {
     super.initState();
@@ -41,46 +38,8 @@ class _SchemesPageState extends State<SchemesPage> {
 
       drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'schemes'),
-      body:
-      CommonGridPage(data: schemes, type: 'figure'),
-
-      /*OrientationBuilder(
-        builder: (context, orientation) {
-          return _buildLayout(orientation);
-        },
-      ),*/
+      body: CommonGridPage(data: schemes, type: 'figure'),
     );
   }
-/*
-_buildLayout(orientation) {
-    final width = MediaQuery.of(context).size.width;
-    var padding = width / 100;
-
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      //color: Colors.lightBlueAccent,
-      child: FractionallySizedBox(
-        widthFactor: orientation == Orientation.portrait ? 0.7 : 0.7,
-        alignment: Alignment.center,
-        child: GridView.count(
-          padding: orientation == Orientation.portrait
-              ? EdgeInsets.symmetric(vertical: 6 * padding)
-              : EdgeInsets.symmetric(vertical: 3 * padding),
-          primary: false,
-          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-          children: _buildModulesGridView(),
-        ),
-      ),
-    );
-  }
-
-  _buildModulesGridView() {
-    List<Widget> widgets = [];
-    for (int i = 0; i < numSchemes; i++) {
-      widgets.add(FigureButton(
-          context, schemes[i], i)); //, SchemesPageView(i)));
-    }
-    return widgets;
-  }*/
 }
+*/

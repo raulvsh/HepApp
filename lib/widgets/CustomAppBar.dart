@@ -11,8 +11,10 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool selScreenshot;
   final bool selFullSettings;
 
+  final bool selPartialSettings;
+
   CustomAppBar(this.context, this.title,
-      {this.selScreenshot, this.selFullSettings});
+      {this.selScreenshot, this.selFullSettings, this.selPartialSettings});
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -126,11 +128,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
       onPressed: () {
         //TODO Añadir función captura de pantalla _screenCapture()
 
-        */ /*Navigator.pushNamed(
+        */ /* Navigator.pushNamed(
             context,
             '/partial',
-              );
-*/ /*
+              );*/ /*
+
 
 
 

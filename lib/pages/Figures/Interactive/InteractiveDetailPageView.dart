@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/data/interactive.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractiveDetailPage.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 
@@ -15,7 +16,7 @@ class InteractiveDetailPageView extends StatefulWidget {
 class _InteractiveDetailPageViewState extends State<InteractiveDetailPageView> {
   PageController controller;
 
-  //título, imagen 1, imagen 2, texto 1, texto 2, ruta
+  /*//título, imagen 1, imagen 2, texto 1, texto 2, ruta
   static var interactive = [
     [
       'interactive_1',
@@ -73,7 +74,9 @@ class _InteractiveDetailPageViewState extends State<InteractiveDetailPageView> {
       'explant',
       'transplant'
     ], // '/InteractivePV'],
-  ];
+  ];*/
+
+  //var numInteractive = interactive.length;
 
   var numInteractive = interactive.length;
 
@@ -101,9 +104,9 @@ class _InteractiveDetailPageViewState extends State<InteractiveDetailPageView> {
       widgets.add(InteractiveDetailPage(
           title: interactive[i][0],
           img1: interactive[i][1],
-          img2: interactive[i][2],
-          txt1: interactive[i][3],
-          txt2: interactive[i][4],
+          img2: interactive[i][3],
+          txt1: interactive[i][4],
+          txt2: interactive[i][5],
           bottomSheet:
               BottomNavigationSheet(i, '/InteractivePV', numInteractive)));
     }

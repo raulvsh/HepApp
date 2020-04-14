@@ -31,7 +31,7 @@ class FigureButton extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 55),
+          margin: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 60),
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.contain,
@@ -42,17 +42,22 @@ class FigureButton extends StatelessWidget {
           ),
         ),
         Container(
-          alignment: Alignment(0, 0.7),
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: FittedBox(
+
+          alignment: Alignment(0, 0.82),
+          padding: EdgeInsets.symmetric(horizontal: 7),
+          // child: FittedBox(
             child: Text(
+
               aux.tr(type[0]),
+              softWrap: true,
+              maxLines:
+              3,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black, //Color.fromARGB(255, 93, 188, 210),
-                fontSize: isTablet ? 18 : 16,
+                fontSize: isTablet ? 14 : 16,
               ),
-            ),
+              //),
           ),
         ),
 

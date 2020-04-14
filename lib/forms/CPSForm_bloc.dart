@@ -3,7 +3,7 @@ import 'package:hepapp/forms/CPSdata.dart';
 import 'package:hepapp/forms/units.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
-class ChildCalcFormBloc extends FormBloc<String, String> {
+class CPSFormBloc extends FormBloc<String, String> {
   final prefs = PreferenciasUsuario();
   final units = Units();
 
@@ -138,7 +138,7 @@ class ChildCalcFormBloc extends FormBloc<String, String> {
       antiguo.albumin = units.getConvertedAlbumin(antiguo.albumin);
     }*/
     //pasar a método externo
-    if (!prefs.internationalUnits) {
+    if (!prefs.getIunitsPrueba()) {
       data.bilirubin = units.getIUBilirrubin(data.bilirubin);
     }
 

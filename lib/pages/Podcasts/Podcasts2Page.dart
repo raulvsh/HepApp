@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
@@ -66,14 +67,11 @@ class _Podcasts2PageState extends State<Podcasts2Page> {
     ],
   ];
 
-  var numPodcasts2 = podcasts2.length;
-
   @override
   void initState() {
     super.initState();
   }
 
-/*Construcción del Layout del menú principal*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,46 +79,7 @@ class _Podcasts2PageState extends State<Podcasts2Page> {
         drawer: MenuWidget(),
         appBar: CustomAppBar(context, 'podcasts_2'),
         body: CommonGridPage(data: podcasts2),
-
-
-        /*OrientationBuilder(
-          builder: (context, orientation) {
-            return _buildLayout(orientation);
-          },
-        ),*/
         bottomSheet: BottomNavigationSheet(1, '/PodcastsPV', numPodcastsPages));
   }
-
-/*_buildLayout(orientation) {
-    final width = MediaQuery.of(context).size.width;
-    var padding = width / 100;
-
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      //color: Colors.lightBlueAccent,
-      child: FractionallySizedBox(
-        widthFactor: orientation == Orientation.portrait ? 0.7 : 0.7,
-        alignment: Alignment.center,
-        child: GridView.count(
-          padding: orientation == Orientation.portrait
-              ? EdgeInsets.symmetric(vertical: 2 * padding)
-              : EdgeInsets.symmetric(vertical: 2 * padding),
-          primary: false,
-          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-          children: _buildChaptersGridView(),
-        ),
-      ),
-    );
-  }
-
-  _buildChaptersGridView() {
-    List<Widget> widgets = [];
-    for (int i = 0; i < numPodcasts2; i++) {
-      widgets.add(ComboButton(context, podcasts2[i]));
-
-      //widgets.add(VideoButton(context, Podcasts2[i]));
-    }
-    return widgets;
-  }*/
 }
+*/

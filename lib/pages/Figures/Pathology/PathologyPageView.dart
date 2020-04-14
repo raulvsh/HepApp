@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/pages/Figures/Pathology/Pathology1Page.dart';
+import 'package:hepapp/data/pathology_1.dart';
+import 'package:hepapp/data/pathology_2.dart';
 
-import 'Pathology2Page.dart';
+import '../../CommonPageWithBottomNav.dart';
 
 class PathologyPageView extends StatefulWidget {
   final initialPage;
@@ -29,8 +30,22 @@ class _PathologyPageViewState extends State<PathologyPageView> {
         body: PageView(
           controller: controller,
           children: <Widget>[
-            Pathology1Page(),
-            Pathology2Page(),
+            CommonPageWithBottomNav(
+              title: 'pathology_section_1',
+              data: pathology1,
+              route: '/PathologyPV',
+              type: 'figure',
+
+            ),
+            CommonPageWithBottomNav(
+              title: 'pathology_section_2',
+              data: pathology2,
+              route: '/PathologyPV',
+
+              type: 'figure',
+            ),
+            //Pathology1Page(),
+            //Pathology2Page(),
           ],
         ));
   }

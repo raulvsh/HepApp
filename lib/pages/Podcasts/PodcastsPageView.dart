@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/pages/Podcasts/Podcasts1Page.dart';
+import 'package:hepapp/data/podcasts1.dart';
+import 'package:hepapp/data/podcasts2.dart';
+import 'package:hepapp/data/podcasts3.dart';
 
-import 'Podcasts2Page.dart';
-import 'Podcasts3Page.dart';
+import '../CommonPageWithBottomNav.dart';
 
 class PodcastsPageView extends StatefulWidget {
 
@@ -33,10 +34,25 @@ class _PodcastsPageViewState extends State<PodcastsPageView> {
         body: PageView(
           controller: controller,
           children: <Widget>[
+            CommonPageWithBottomNav(
+              title: 'podcasts_1',
+              data: podcasts1,
+              route: '/ModulePV',
+            ),
+            CommonPageWithBottomNav(
+              title: 'podcasts_2',
+              data: podcasts2,
+              route: '/ModulePV',
+            ),
+            CommonPageWithBottomNav(
+              title: 'podcasts_3',
+              data: podcasts3,
+              route: '/ModulePV',
 
-            Podcasts1Page(),
-            Podcasts2Page(),
-            Podcasts3Page(),
+            ),
+            //Podcasts1Page(),
+            //Podcasts2Page(),
+            //Podcasts3Page(),
           ],
         ));
   }

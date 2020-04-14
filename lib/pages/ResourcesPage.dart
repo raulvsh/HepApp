@@ -54,7 +54,7 @@ class _ResourcesPageState extends State<ResourcesPage> {
     ],
   ];
 
-  var numResources = resources.length;
+  //var numResources = resources.length;
 
   @override
   void initState() {
@@ -71,46 +71,6 @@ class _ResourcesPageState extends State<ResourcesPage> {
       drawer: MenuWidget(),
 
       body: CommonGridPage(data: resources),
-
-      /*OrientationBuilder(
-        builder: (context, orientation) {
-          return _buildLayout(orientation);
-        },
-      ),*/
     );
   }
-/*
-  _buildLayout(orientation) {
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
-    var padding = width / 100;
-
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      //color: Colors.lightBlueAccent,
-      child: FractionallySizedBox(
-        widthFactor: orientation == Orientation.portrait ? 0.7 : 0.7,
-        alignment: Alignment.center,
-        child: GridView.count(
-          padding: orientation == Orientation.portrait
-              ? EdgeInsets.symmetric(vertical: 3 * padding)
-              : EdgeInsets.symmetric(vertical: padding),
-          primary: false,
-          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-          children: _buildResourcesGridView(),
-        ),
-      ),
-    );
-  }
-
-  _buildResourcesGridView() {
-    List<Widget> widgets = [];
-    for (int i = 0; i < numResources; i++) {
-      widgets.add(ComboButton(context, resources[i]));
-    }
-    return widgets;
-  }*/
 }

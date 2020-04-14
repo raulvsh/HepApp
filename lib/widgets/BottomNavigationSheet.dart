@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class BottomNavigationSheet extends StatelessWidget {
   final currentPage;
-  final url;
+  final route;
   final endPage;
 
-  BottomNavigationSheet(this.currentPage, this.url, this.endPage);
+  BottomNavigationSheet(this.currentPage, this.route, this.endPage);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class BottomNavigationSheet extends StatelessWidget {
       color: Theme.of(context).primaryColor,
       onPressed: () =>
           Navigator.pushReplacementNamed(
-              context, '$url', arguments: currentPage - 1),
+              context, '$route', arguments: currentPage - 1),
     );
 
     var nextIcon = IconButton(
@@ -23,7 +23,7 @@ class BottomNavigationSheet extends StatelessWidget {
       color: Theme.of(context).primaryColor,
       onPressed: () =>
           Navigator.pushReplacementNamed(
-              context, '$url', arguments: currentPage + 1),
+              context, '$route', arguments: currentPage + 1),
     );
     //print('Contador i $i, url $url, endpage $endPage');
     if (currentPage == 0) {

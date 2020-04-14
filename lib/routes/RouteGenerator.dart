@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/forms/ChildCalcForm.dart';
+import 'package:hepapp/data/calculators.dart';
+import 'package:hepapp/data/draws.dart';
+import 'package:hepapp/data/figures.dart';
+import 'package:hepapp/data/interactive.dart';
+import 'package:hepapp/data/maps.dart';
+import 'package:hepapp/data/modules.dart';
+import 'package:hepapp/data/pathology_1.dart';
+import 'package:hepapp/data/pathology_2.dart';
+import 'package:hepapp/data/resources.dart';
+import 'package:hepapp/data/schemes.dart';
+import 'package:hepapp/data/tocs.dart';
+import 'package:hepapp/forms/CPSForm.dart';
 import 'package:hepapp/pages/Calculators/AllCalcPage.dart';
 import 'package:hepapp/pages/Calculators/CLIPCalcPage.dart';
-import 'package:hepapp/pages/Calculators/CalculatorsPage.dart';
 import 'package:hepapp/pages/Calculators/MELDCalcPage.dart';
 import 'package:hepapp/pages/Calculators/OkudaCalcPage.dart';
-import 'package:hepapp/pages/Chapters/ChaptersPage.dart';
 import 'package:hepapp/pages/Chapters/ModulePageView.dart';
+import 'package:hepapp/pages/CommonDetailPageView.dart';
+import 'package:hepapp/pages/CommonPage.dart';
 import 'package:hepapp/pages/DetailPageWidgets/VideoDetailPage.dart';
 import 'package:hepapp/pages/DetailPageWidgets/WebDetailPage.dart';
-import 'package:hepapp/pages/Figures/Drawing/DrawingPage.dart';
 import 'package:hepapp/pages/Figures/Drawing/DrawingPageView.dart';
-import 'package:hepapp/pages/Figures/FiguresPage.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractiveDetailPageView.dart';
-import 'package:hepapp/pages/Figures/Interactive/InteractivePage.dart';
-import 'package:hepapp/pages/Figures/Maps/MapsDetailPageView.dart';
-import 'package:hepapp/pages/Figures/Maps/MapsPage.dart';
-import 'package:hepapp/pages/Figures/Pathology/PathologyDetailPageView.dart';
 import 'package:hepapp/pages/Figures/Pathology/PathologyPageView.dart';
-import 'package:hepapp/pages/Figures/Schemes/SchemesDetailPageView.dart';
-import 'package:hepapp/pages/Figures/Schemes/SchemesPage.dart';
-import 'package:hepapp/pages/Figures/TOC/TOCDetailPageView.dart';
-import 'package:hepapp/pages/Figures/TOC/TOCPage.dart';
 import 'package:hepapp/pages/HomePage.dart';
 import 'package:hepapp/pages/Podcasts/PodcastsPageView.dart';
-import 'package:hepapp/pages/ResourcesPage.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -32,16 +32,28 @@ class RouteGenerator {
       case '/':
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/Chapters':
-        return MaterialPageRoute(builder: (_) => ChaptersPage());
+        return MaterialPageRoute(
+            builder: (_) => CommonPage(title: 'chapters', data: modules,));
+
+    //return MaterialPageRoute(builder: (_) => ChaptersPage());
       case '/PodcastsPV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(builder: (_) => PodcastsPageView(initialPage));
       case '/Figures':
-        return MaterialPageRoute(builder: (_) => FiguresPage());
+        return MaterialPageRoute(
+            builder: (_) => CommonPage(title: 'figures', data: figures,));
+
+    //return MaterialPageRoute(builder: (_) => FiguresPage());
       case '/Calculators':
-        return MaterialPageRoute(builder: (_) => CalculatorsPage());
+        return MaterialPageRoute(builder: (_) =>
+            CommonPage(title: 'calculators', data: calculators,));
+
+    //return MaterialPageRoute(builder: (_) => CalculatorsPage());
       case '/Resources':
-        return MaterialPageRoute(builder: (_) => ResourcesPage());
+        return MaterialPageRoute(
+            builder: (_) => CommonPage(title: 'resources', data: resources,));
+
+    // return MaterialPageRoute(builder: (_) => ResourcesPage());
       case '/ModulePV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(builder: (_) => ModulePageView(initialPage));
@@ -66,46 +78,87 @@ class RouteGenerator {
         );
 
       case '/TableFig':
-        return MaterialPageRoute(builder: (_) => TOCPage());
+        return MaterialPageRoute(builder: (_) =>
+            CommonPage(title: 'table_contents', data: tocs, type: 'figure',));
+
+    //return MaterialPageRoute(builder: (_) => TOCPage());
       case '/TOCPV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
-            builder: (_) => TOCDetailPageView(initialPage));
+            builder: (_) =>
+                CommonDetailPageView(
+                  initialPage: initialPage, data: tocs, route: '/TOCPV',));
+
+    //builder: (_) => TOCDetailPageView(initialPage));
 
       case '/SchemesFig':
-        return MaterialPageRoute(builder: (_) => SchemesPage());
+        return MaterialPageRoute(builder: (_) =>
+            CommonPage(title: 'schemes', data: schemes, type: 'figure',));
+
+    // return MaterialPageRoute(builder: (_) => SchemesPage());
       case '/SchemesPV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
-            builder: (_) => SchemesDetailPageView(initialPage));
+            builder: (_) =>
+                CommonDetailPageView(initialPage: initialPage,
+                  data: schemes,
+                  route: '/SchemesPV',));
+
+    //builder: (_) => SchemesDetailPageView(initialPage));
 
       case '/MapsFig':
-        return MaterialPageRoute(builder: (_) => MapsPage());
+        return MaterialPageRoute(builder: (_) =>
+            CommonPage(title: 'maps', data: maps, type: 'figure',));
+
+    //return MaterialPageRoute(builder: (_) => MapsPage());
       case '/MapsPV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
-            builder: (_) => MapsDetailPageView(initialPage));
+            builder: (_) =>
+                CommonDetailPageView(
+                  initialPage: initialPage, data: maps, route: '/MapsPV',));
+
+    //builder: (_) => MapsDetailPageView(initialPage));
 
       case '/PathologyFig':
+
         return MaterialPageRoute(builder: (_) => PathologyPageView(0));
       case '/PathologyPV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
-            builder: (_) => PathologyPageView(initialPage));
+            builder: (_) =>
+                CommonDetailPageView(initialPage: initialPage,
+                  data: pathology1 + pathology2,
+                  route: '/PathologyPV',));
+
+    // builder: (_) => PathologyPageView(initialPage));
       case '/PathologyDetail':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
-            builder: (_) => PathologyDetailPage(initialPage));
+            builder: (_) =>
+                CommonDetailPageView(initialPage: initialPage,
+                  data: pathology1 + pathology2,
+                  route: '/PathologyDetail',));
+
+    //builder: (_) => PathologyDetailPage(initialPage));
 
       case '/InteractiveFig':
-        return MaterialPageRoute(builder: (_) => InteractivePage());
+        return MaterialPageRoute(builder: (_) =>
+            CommonPage(title: 'interactive_figures',
+              data: interactive,
+              type: 'figure',));
+
+    //return MaterialPageRoute(builder: (_) => InteractivePage());
       case '/InteractivePV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
             builder: (_) => InteractiveDetailPageView(initialPage));
 
       case '/DrawingFig':
-        return MaterialPageRoute(builder: (_) => DrawingPage());
+        return MaterialPageRoute(builder: (_) =>
+            CommonPage(title: 'drawing', data: draws, type: 'figure',));
+
+    //return MaterialPageRoute(builder: (_) => DrawingPage());
       case '/DrawingPV':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(builder: (_) => DrawingPageView(initialPage));
@@ -113,7 +166,7 @@ class RouteGenerator {
       case '/AllCalc':
         return MaterialPageRoute(builder: (_) => AllCalcPage());
       case '/ChildCalc':
-        return MaterialPageRoute(builder: (_) => ChildCalcForm());
+        return MaterialPageRoute(builder: (_) => CPSForm());
       case '/CLIPCalc':
         return MaterialPageRoute(builder: (_) => CLIPCalcPage());
       case '/MELDCalc':

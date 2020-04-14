@@ -1,11 +1,10 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
 import '../CommonGridPage.dart';
-
-//const String _documentPath = 'assets/HepM1C1.pdf';
 
 class Podcasts3Page extends StatefulWidget {
   @override
@@ -46,12 +45,9 @@ class _Podcasts3PageState extends State<Podcasts3Page> {
       'https://www.dropbox.com/s/b8pf53zqh8w2mg3/HepAPP%202019%20Vodcast%2021%20Liver%20Transplant.mp4?dl=1',
       'Video',
     ],
-
   ];
 
-
   var numPodcasts3 = podcasts3.length;
-
 
   @override
   void initState() {
@@ -61,52 +57,10 @@ class _Podcasts3PageState extends State<Podcasts3Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      //No haría falta al no escribirse nunca
-
-      drawer: MenuWidget(),
-      appBar: CustomAppBar(context, 'podcasts_3'),
+        drawer: MenuWidget(),
+        appBar: CustomAppBar(context, 'podcasts_3'),
         body: CommonGridPage(data: podcasts3),
-
-        /*OrientationBuilder(
-        builder: (context, orientation) {
-          return _buildLayout(orientation);
-        },
-      ),*/
         bottomSheet: BottomNavigationSheet(2, '/PodcastsPV', numPodcastsPages));
-
   }
-
-/*_buildLayout(orientation) {
-    final width = MediaQuery.of(context).size.width;
-    var padding = width / 100;
-
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      //color: Colors.lightBlueAccent,
-      child: FractionallySizedBox(
-        widthFactor: orientation == Orientation.portrait ? 0.7 : 0.7,
-        alignment: Alignment.center,
-        child: GridView.count(
-          padding: orientation == Orientation.portrait
-              ? EdgeInsets.symmetric(vertical: 2 * padding)
-              : EdgeInsets.symmetric(vertical: 2 * padding),
-          primary: false,
-          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-          children: _buildChaptersGridView(),
-        ),
-      ),
-    );
-  }
-
-  _buildChaptersGridView() {
-    List<Widget> widgets = [];
-    for (int i = 0; i < numPodcasts3; i++) {
-      widgets.add(ComboButton(context, podcasts3[i]));
-
-      //widgets.add(VideoButton(context, podcasts3[i]));
-    }
-    return widgets;
-  }*/
 }
+*/

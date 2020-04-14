@@ -3,11 +3,9 @@ import 'package:hepapp/widgets/ComboButton.dart';
 import 'package:hepapp/widgets/FigureButton.dart';
 import 'package:sized_context/sized_context.dart';
 
-
 class CommonGridPage extends StatefulWidget {
   final data;
   final String type;
-
   final index;
 
   CommonGridPage({this.data, this.type, this.index = 0});
@@ -44,9 +42,8 @@ class _CommonGridPageState extends State<CommonGridPage> {
       height: double.infinity,
       //color: Colors.lightBlueAccent,
       child: FractionallySizedBox(
-        widthFactor: isLandscape ? (isTablet ? 0.7 : 0.7) : (isTablet
-            ? 0.6
-            : 0.7),
+        widthFactor:
+        isLandscape ? (isTablet ? 0.7 : 0.7) : (isTablet ? 0.6 : 0.7),
         alignment: Alignment.center,
         child: GridView.count(
           padding: orientation == Orientation.portrait
@@ -65,7 +62,11 @@ class _CommonGridPageState extends State<CommonGridPage> {
     List<Widget> widgets = [];
     for (int i = 0; i < dataLength; i++) {
       if (widget.type == 'figure') {
-        widgets.add(FigureButton(context, widget.data[i], i + widget.index,));
+        widgets.add(FigureButton(
+          context,
+          widget.data[i],
+          i + widget.index,
+        ));
       } else {
         widgets.add(ComboButton(context, widget.data[i], i + widget.index));
       }

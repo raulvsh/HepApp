@@ -1,22 +1,27 @@
-/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 
-import '../../DetailPageWidgets/FigureDetailPage.dart';
+import 'DetailPageWidgets/FigureDetailPage.dart';
 
-class SchemesDetailPageView extends StatefulWidget {
+class CommonDetailPageView extends StatefulWidget {
   final initialPage;
+  final data;
+  final route;
 
-  SchemesDetailPageView(this.initialPage);
+  CommonDetailPageView({
+    this.initialPage,
+    this.data,
+    this.route,
+  });
 
   @override
-  _SchemesDetailPageViewState createState() => _SchemesDetailPageViewState();
+  _CommonDetailPageViewState createState() => _CommonDetailPageViewState();
 }
 
-class _SchemesDetailPageViewState extends State<SchemesDetailPageView> {
+class _CommonDetailPageViewState extends State<CommonDetailPageView> {
   PageController controller;
 
-  static var schemes = [
+  /*static var schemes = [
     ['scheme_1', 'schemes/Scheme_1_Jaundice.png', '/SchemesPV'],
     ['scheme_2', 'schemes/Scheme_2_AbN_Liver_Tests.png', '/SchemesPV'],
     ['scheme_3', 'schemes/Scheme_3_Hepatomegaly.png', '/SchemesPV'],
@@ -25,13 +30,13 @@ class _SchemesDetailPageViewState extends State<SchemesDetailPageView> {
     ['scheme_6', 'schemes/Scheme_6_UGI_Bleed.png', '/SchemesPV'],
     ['scheme_7', 'schemes/Scheme_7_Abdominal_Distention.png', '/SchemesPV'],
     ['scheme_8', 'schemes/Scheme_8_Decreased_LOC.png', '/SchemesPV'],
-  ];
-
-  var numSchemes = schemes.length;
+  ];*/
+  var numPages;
 
   @override
   void initState() {
     super.initState();
+    numPages = widget.data.length;
     controller = PageController(
       initialPage: widget.initialPage,
     );
@@ -40,22 +45,20 @@ class _SchemesDetailPageViewState extends State<SchemesDetailPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //drawer: MenuWidget(),
         body: PageView(
-          controller: controller,
-          children: _buildChildren(),
-        ));
+      controller: controller,
+      children: _buildChildren(),
+    ));
   }
 
   List<Widget> _buildChildren() {
     List<Widget> widgets = [];
-    for (int i = 0; i < numSchemes; i++) {
+    for (int i = 0; i < numPages; i++) {
       widgets.add(FigureDetailPage(
-          title: schemes[i][0],
-          url: schemes[i][1],
-          bottomSheet: BottomNavigationSheet(i, '/SchemesPV', numSchemes)));
+          title: widget.data[i][0],
+          url: widget.data[i][1],
+          bottomSheet: BottomNavigationSheet(i, widget.route, numPages)));
     }
     return widgets;
   }
 }
-*/

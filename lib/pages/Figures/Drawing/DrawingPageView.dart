@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/data/draws.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
@@ -16,7 +17,7 @@ class DrawingPageView extends StatefulWidget {
 class _DrawingPageViewState extends State<DrawingPageView> {
   PageController controller;
 
-  static var draws = [
+  /*static var draws = [
     ['anatomy', 'drawing/Doodle_Figure_1.png', '/DrawingPV'],
     ['anterior_view_liver', 'drawing/Doodle_Figure_2.png', '/DrawingPV'],
     ['posterior_view_liver', 'drawing/Doodle_Figure_3.png', '/DrawingPV'],
@@ -29,7 +30,7 @@ class _DrawingPageViewState extends State<DrawingPageView> {
     ['liver_vasculature', 'drawing/Doodle_Figure_6.png', '/DrawingPV'],
     ['liver_histology', 'drawing/Doodle_Figure_7.png', '/DrawingPV'],
     ['liver_cell', 'drawing/Doodle_Figure_8.png', '/DrawingPV'],
-  ];
+  ];*/
 
   var numDraws = draws.length;
 
@@ -55,25 +56,4 @@ class _DrawingPageViewState extends State<DrawingPageView> {
     );
   }
 
-/*@override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        drawer: MenuWidget(),
-        body: PageView(
-          controller: controller,
-          children: _buildChildren(),
-        ));
-  }
-
-  List<Widget> _buildChildren() {
-    List<Widget> widgets = [];
-    for (int i = 0; i < numDraws; i++) {
-      widgets.add(DrawingDetailPage(
-          title: draws[i][0],
-          url: draws[i][1],),);
-
-    }
-
-    return widgets;
-  }*/
 }

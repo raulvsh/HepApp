@@ -1,3 +1,5 @@
+final prueba = "hola";
+
 class CPSdata {
   double bilirubin;
   double inr;
@@ -6,14 +8,13 @@ class CPSdata {
   String ascites;
   String result;
 
-  CPSdata(
-      {double bilirubin,
-      double inr,
-      double albumin,
-      String encephalopaty,
-      String ascites,
-        String prueba,
-      String result}) {
+  CPSdata({double bilirubin,
+    double inr,
+    double albumin,
+    String encephalopaty,
+    String ascites,
+    String prueba,
+    String result}) {
     this.bilirubin = bilirubin;
     this.albumin = albumin;
     this.inr = inr;

@@ -1,38 +1,53 @@
+import 'dart:async';
+
 import 'package:hepapp/forms/CPSdata.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferenciasUsuario {
+  //Instancia singleton, solo una instancia de Preferencias usuario
+  static final PreferenciasUsuario _instancia = PreferenciasUsuario._internal();
 
-  //Instancia singletos, solo una instancia de Preferencias usuario
-  static final PreferenciasUsuario _instancia =
-  new PreferenciasUsuario._internal();
-
-  factory PreferenciasUsuario() {
-    return _instancia;
-  }
+  factory PreferenciasUsuario() => _instancia;
 
   PreferenciasUsuario._internal();
 
   SharedPreferences _prefs;
 
+  bool _iUnitsPrueba;
+  StreamController _streamController2 = new StreamController<bool>();
+
+  Stream<bool> get iUnitsUpdates => _streamController2.stream;
+
   initPrefs() async {
     this._prefs = await SharedPreferences.getInstance();
   }
 
+  void switchInternationalUnits() {
+    print("iunitsprueba " + _iUnitsPrueba.toString());
+    _iUnitsPrueba = !_iUnitsPrueba;
+    print("iunitsprueba despues" + _iUnitsPrueba.toString());
+    _streamController2.add(_iUnitsPrueba);
+  }
+
+  void setIUnitsPrueba(bool value) {
+    _iUnitsPrueba = value;
+    _streamController2.add(_iUnitsPrueba);
+  }
+
+  bool getIunitsPrueba() {
+    return _iUnitsPrueba;
+  }
 
   ///GETS Y SETS DE HEPAPP
-  ///
-  ///
 
   //Get y set de las unidades internacionales
-  get internationalUnits {
+  /*get internationalUnits {
     return _prefs.getBool('internationalUnits'); // ?? false;
   }
 
   set internationalUnits(bool value) {
     _prefs.setBool('internationalUnits', value);
-  }
-
+  }*/
 
   /// GETS Y SETS ANTERIORES
   ///
@@ -57,7 +72,6 @@ class PreferenciasUsuario {
     _prefs.setString('encephalopaty', mapaCPS['encephalopaty']);
     _prefs.setString('ascites', mapaCPS['ascites']);*/
   }
-
 
   // GET y SET del Genero
   get genero {

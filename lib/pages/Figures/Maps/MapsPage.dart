@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
@@ -20,9 +21,6 @@ class _MapsPageState extends State<MapsPage> {
     ['map_7', 'maps/Map07_Obesity.png', '/MapsPV'],
   ];
 
-  var numMaps = maps.length;
-
-
   @override
   void initState() {
     super.initState();
@@ -35,46 +33,8 @@ class _MapsPageState extends State<MapsPage> {
 
       drawer: MenuWidget(),
       appBar: CustomAppBar(context, 'maps'),
-      body:
-      CommonGridPage(data: maps, type: 'figure'),
-
-      /* OrientationBuilder(
-        builder: (context, orientation) {
-          return _buildLayout(orientation);
-        },
-      ),*/
+      body: CommonGridPage(data: maps, type: 'figure'),
     );
   }
-
-/* _buildLayout(orientation) {
-    final width = MediaQuery.of(context).size.width;
-    var padding = width / 100;
-
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      //color: Colors.lightBlueAccent,
-      child: FractionallySizedBox(
-        widthFactor: orientation == Orientation.portrait ? 0.7 : 0.7,
-        alignment: Alignment.center,
-        child: GridView.count(
-          padding: orientation == Orientation.portrait
-              ? EdgeInsets.symmetric(vertical: 10 * padding)
-              : EdgeInsets.symmetric(vertical: 3 * padding),
-          primary: false,
-          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
-          children: _buildModulesGridView(),
-        ),
-      ),
-    );
-  }
-
-  _buildModulesGridView() {
-    List<Widget> widgets = [];
-    for (int i = 0; i < numMaps; i++) {
-      widgets
-          .add(FigureButton(context, maps[i], i)); //, MapsPageView(i)));
-    }
-    return widgets;
-  }*/
 }
+*/
