@@ -1,22 +1,19 @@
-/*
 import 'package:flutter/material.dart';
-import 'package:hepapp/data/module_1_chapters.dart';
-import 'package:hepapp/data/module_2_chapters.dart';
-import 'package:hepapp/data/module_3_chapters.dart';
-import 'package:hepapp/data/modules_page_view.dart';
 
-import '../CommonPageWithBottomNav.dart';
+import 'CommonPageWithBottomNav.dart';
 
-class ModulePageView extends StatefulWidget {
+class CommonPageView extends StatefulWidget {
   final initialPage;
+  final data;
+  final type;
 
-  ModulePageView(this.initialPage);
+  CommonPageView({this.initialPage, this.data, this.type});
 
   @override
-  _ModulePageViewState createState() => _ModulePageViewState();
+  _CommonPageViewState createState() => _CommonPageViewState();
 }
 
-class _ModulePageViewState extends State<ModulePageView> {
+class _CommonPageViewState extends State<CommonPageView> {
   PageController controller;
 
   @override
@@ -26,22 +23,38 @@ class _ModulePageViewState extends State<ModulePageView> {
       initialPage: widget.initialPage,
     );
   }
- var numPages = modulesPageView.length;
+
   @override
   Widget build(BuildContext context) {
-    //print(module1Chapters);
-    //print(module2Chapters);
-    //print(module3Chapters);
+    var numPages = widget.data.length;
+
+    List<Widget> widgets = [];
+    for (int i = 0; i < numPages; i++) {
+      widgets.add(
+        CommonPageWithBottomNav(
+          title: widget.data[i][0],
+          data: widget.data[i][1],
+          route: widget.data[i][2],
+          initialPage: widget.data[i][3],
+          type: widget.type,
+          numPages: numPages,
+        ),
+      );
+    }
 
     return Scaffold(
         body: PageView(
-          controller: controller,
-          children: <Widget>[
-            CommonPageWithBottomNav(
-              title: modulesPageView[0][0],//'module_1',
-              data: modulesPageView[0][1],//module1Chapters,
-              route: modulesPageView[0][2],//'/ModulePV',
-              initialPage: modulesPageView[0][3],
+      controller: controller,
+
+      children: widgets,
+
+      //<Widget>[
+
+      /*CommonPageWithBottomNav(
+              title: widget.data[0][0],//'module_1',
+              data: widget.data[0][1],//module1Chapters,
+              route: widget.data[0][2],//'/ModulePV',
+              initialPage: widget.data[0][3],
               numPages: numPages,//0,
             ),
             CommonPageWithBottomNav(
@@ -57,9 +70,8 @@ class _ModulePageViewState extends State<ModulePageView> {
               route: modulesPageView[2][2],//'/ModulePV',
               initialPage: modulesPageView[2][3],
               numPages: numPages,//0,
-            ),
-            */
-/*CommonPageWithBottomNav(
+            ),*/
+      /*CommonPageWithBottomNav(
               title: 'module_2',
               data: module2Chapters,
               route: '/ModulePV',
@@ -72,14 +84,12 @@ class _ModulePageViewState extends State<ModulePageView> {
               route: '/ModulePV',
               initialPage: 2,
 
-            ),*/ /*
+            ),*/
 
-
-            //Module1Page(),
-            //Module2Page(),
-            //Module3Page(),
-          ],
-        ));
+      //Module1Page(),
+      //Module2Page(),
+      //Module3Page(),
+      //],
+    ));
   }
 }
-*/

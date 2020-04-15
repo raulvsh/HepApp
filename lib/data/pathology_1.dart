@@ -1,18 +1,22 @@
 final pathology1 = [
   [
-    'pathology_1',
+    'normal_histology',
     'pathology/Pathology01_Normal_Histology.png',
-    '/PathologyDetail'
+    '/PathologyDetailPV'
   ],
-  ['pathology_2', 'pathology/Pathology02_Cirrhosis.png', '/PathologyDetail'],
-  ['pathology_3', 'pathology/Pathology03_PBC.png', '/PathologyDetail'],
-  ['pathology_4', 'pathology/Pathology04_PSC.png', '/PathologyDetail'],
-  ['pathology_5', 'pathology/Pathology05_Cholestasis.png', '/PathologyDetail'],
-  ['pathology_6', 'pathology/Pathology06_Granuloma.png', '/PathologyDetail'],
+  ['cirrhosis', 'pathology/Pathology02_Cirrhosis.png', '/PathologyDetailPV'],
+  ['pbc', 'pathology/Pathology03_PBC.png', '/PathologyDetailPV'],
+  ['psc', 'pathology/Pathology04_PSC.png', '/PathologyDetailPV'],
   [
-    'pathology_7',
-    'pathology/Pathology07_Hemochromatosis.png',
-    '/PathologyDetail'
+    'cholestasis',
+    'pathology/Pathology05_Cholestasis.png',
+    '/PathologyDetailPV'
   ],
-  ['pathology_8', 'pathology/Pathology08_A1AT_def.png', '/PathologyDetail'],
+  ['granuloma', 'pathology/Pathology06_Granuloma.png', '/PathologyDetailPV'],
+  [
+    'hemochromatosis',
+    'pathology/Pathology07_Hemochromatosis.png',
+    '/PathologyDetailPV'
+  ],
+  ['a1at_def', 'pathology/Pathology08_A1AT_def.png', '/PathologyDetailPV'],
 ];

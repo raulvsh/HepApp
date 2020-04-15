@@ -1,7 +1,7 @@
 final pathology2 = [
   [
-    'pathology_9',
+    'autoimmune_hepatitis',
     'pathology/Pathology09_Autoimmune_Hepatitis.png',
-    '/PathologyDetail'
+    '/PathologyDetailPV'
   ],
 ];

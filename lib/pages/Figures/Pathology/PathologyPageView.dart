@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:hepapp/data/pathology_1.dart';
 import 'package:hepapp/data/pathology_2.dart';
@@ -50,3 +51,4 @@ class _PathologyPageViewState extends State<PathologyPageView> {
         ));
   }
 }
+*/

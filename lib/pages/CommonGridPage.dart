@@ -6,9 +6,11 @@ import 'package:sized_context/sized_context.dart';
 class CommonGridPage extends StatefulWidget {
   final data;
   final String type;
-  final index;
 
-  CommonGridPage({this.data, this.type, this.index = 0});
+  //final index;
+
+  CommonGridPage({this.data, this.type, /*this.index = 0*/
+  });
 
   @override
   _CommonGridPageState createState() => _CommonGridPageState();
@@ -65,10 +67,11 @@ class _CommonGridPageState extends State<CommonGridPage> {
         widgets.add(FigureButton(
           context,
           widget.data[i],
-          i + widget.index,
+          i, // + widget.index,
         ));
       } else {
-        widgets.add(ComboButton(context, widget.data[i], i + widget.index));
+        widgets.add(
+            ComboButton(context, widget.data[i], i)); //+ widget.index));
       }
     }
     return widgets;

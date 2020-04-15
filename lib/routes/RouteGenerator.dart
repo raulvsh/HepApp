@@ -5,8 +5,11 @@ import 'package:hepapp/data/figures.dart';
 import 'package:hepapp/data/interactive.dart';
 import 'package:hepapp/data/maps.dart';
 import 'package:hepapp/data/modules.dart';
+import 'package:hepapp/data/modules_page_view.dart';
 import 'package:hepapp/data/pathology_1.dart';
 import 'package:hepapp/data/pathology_2.dart';
+import 'package:hepapp/data/pathology_page_view.dart';
+import 'package:hepapp/data/podcasts_page_view.dart';
 import 'package:hepapp/data/resources.dart';
 import 'package:hepapp/data/schemes.dart';
 import 'package:hepapp/data/tocs.dart';
@@ -15,16 +18,14 @@ import 'package:hepapp/pages/Calculators/AllCalcPage.dart';
 import 'package:hepapp/pages/Calculators/CLIPCalcPage.dart';
 import 'package:hepapp/pages/Calculators/MELDCalcPage.dart';
 import 'package:hepapp/pages/Calculators/OkudaCalcPage.dart';
-import 'package:hepapp/pages/Chapters/ModulePageView.dart';
 import 'package:hepapp/pages/CommonDetailPageView.dart';
 import 'package:hepapp/pages/CommonPage.dart';
+import 'package:hepapp/pages/CommonPageView.dart';
 import 'package:hepapp/pages/DetailPageWidgets/VideoDetailPage.dart';
 import 'package:hepapp/pages/DetailPageWidgets/WebDetailPage.dart';
 import 'package:hepapp/pages/Figures/Drawing/DrawingPageView.dart';
 import 'package:hepapp/pages/Figures/Interactive/InteractiveDetailPageView.dart';
-import 'package:hepapp/pages/Figures/Pathology/PathologyPageView.dart';
 import 'package:hepapp/pages/HomePage.dart';
-import 'package:hepapp/pages/Podcasts/PodcastsPageView.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -35,10 +36,19 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => CommonPage(title: 'chapters', data: modules,));
 
+      case '/PodcastsMain':
+        return MaterialPageRoute(builder: (_) =>
+            CommonPageView(initialPage: 0, data: podcastsPageView,));
+
     //return MaterialPageRoute(builder: (_) => ChaptersPage());
       case '/PodcastsPV':
         var initialPage = settings.arguments as int;
-        return MaterialPageRoute(builder: (_) => PodcastsPageView(initialPage));
+        print("initial page podcast desde route $initialPage");
+        //initialPage = 2;
+        return MaterialPageRoute(builder: (_) =>
+            CommonPageView(initialPage: initialPage, data: podcastsPageView,));
+
+    //return MaterialPageRoute(builder: (_) => PodcastsPageView(initialPage));
       case '/Figures':
         return MaterialPageRoute(
             builder: (_) => CommonPage(title: 'figures', data: figures,));
@@ -56,7 +66,11 @@ class RouteGenerator {
     // return MaterialPageRoute(builder: (_) => ResourcesPage());
       case '/ModulePV':
         var initialPage = settings.arguments as int;
-        return MaterialPageRoute(builder: (_) => ModulePageView(initialPage));
+        print("initial desde route $initialPage");
+        return MaterialPageRoute(builder: (_) =>
+            CommonPageView(initialPage: initialPage, data: modulesPageView,));
+
+    //return MaterialPageRoute(builder: (_) => ModulePageView(initialPage));
 
       case '/Web':
         var arguments = settings.arguments as List<String>;
@@ -120,16 +134,29 @@ class RouteGenerator {
 
     //builder: (_) => MapsDetailPageView(initialPage));
 
-      case '/PathologyFig':
+      case '/PathologyMain':
+        return MaterialPageRoute(builder: (_) =>
+            CommonPageView(
+                initialPage: 0, data: pathologyPageView, type: 'figure'));
 
-        return MaterialPageRoute(builder: (_) => PathologyPageView(0));
+    //return MaterialPageRoute(builder: (_) => PathologyPageView(0));
       case '/PathologyPV':
+      //var initialPage=0;
         var initialPage = settings.arguments as int;
+        print("initial desde route $initialPage");
+        return MaterialPageRoute(builder: (_) =>
+            CommonPageView(initialPage: initialPage,
+                data: pathologyPageView,
+                type: 'figure'));
+
+      case '/PathologyDetailPV':
+        var initialPage = settings.arguments as int;
+
         return MaterialPageRoute(
             builder: (_) =>
                 CommonDetailPageView(initialPage: initialPage,
                   data: pathology1 + pathology2,
-                  route: '/PathologyPV',));
+                  route: '/PathologyDetailPV',));
 
     // builder: (_) => PathologyPageView(initialPage));
       case '/PathologyDetail':
@@ -138,7 +165,7 @@ class RouteGenerator {
             builder: (_) =>
                 CommonDetailPageView(initialPage: initialPage,
                   data: pathology1 + pathology2,
-                  route: '/PathologyDetail',));
+                  route: '/PathologyDetailPV',));
 
     //builder: (_) => PathologyDetailPage(initialPage));
 

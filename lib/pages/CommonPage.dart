@@ -35,6 +35,7 @@ class _CommonPageState extends State<CommonPage> {
       body: CommonGridPage(
         data: widget.data,
         type: widget.type,
+
       ),
 
       /*OrientationBuilder(

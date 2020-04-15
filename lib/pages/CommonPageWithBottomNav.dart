@@ -10,12 +10,15 @@ class CommonPageWithBottomNav extends StatefulWidget {
   final type;
   final route;
   final initialPage;
+  final numPages;
 
   CommonPageWithBottomNav({
     this.title,
     this.data,
     this.type,
-    this.route, this.initialPage,
+    this.route,
+    this.initialPage,
+    this.numPages,
   });
 
   @override
@@ -24,19 +27,13 @@ class CommonPageWithBottomNav extends StatefulWidget {
 }
 
 class _CommonPageWithBottomNavState extends State<CommonPageWithBottomNav> {
-  var numPages = data.length;
-
   @override
   void initState() {
     super.initState();
-
-    //_currentItemSelected = _currencies[0];
   }
 
   @override
   Widget build(BuildContext context) {
-    print("numpages commonpage with bottom nav $numPages");
-
     return Scaffold(
       drawer: MenuWidget(),
       appBar: CustomAppBar(context, widget.title),
@@ -45,7 +42,7 @@ class _CommonPageWithBottomNavState extends State<CommonPageWithBottomNav> {
         type: widget.type,
       ),
       bottomSheet: BottomNavigationSheet(
-          widget.initialPage, widget.route, numPages),
+          widget.initialPage, widget.route, widget.numPages),
     );
   }
 }

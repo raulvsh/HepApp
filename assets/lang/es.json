@@ -1,5 +1,5 @@
 {
-        "****************************************COMENTARIO*****************************************": "CLAVES USADAS EN LA NUEVA VERSIÓN",
+  "****************************************COMENTARIO*****************************************": "CLAVES USADAS EN LA NUEVA VERSIÓN",
   "": "",
   "app_title": "HepApp",
   "home": "Home",
@@ -18,7 +18,6 @@
   "podcasts_1": "Podcasts 1",
   "podcasts_2": "Podcasts 2",
   "podcasts_3": "Podcasts 3",
-
   "podcast_1": "Podcast 1",
   "podcast_2": "Podcast 2",
   "podcast_3": "Podcast 3",
@@ -40,8 +39,6 @@
   "podcast_19": "Podcast 19",
   "podcast_20": "Podcast 20",
   "podcast_21": "Podcast 21",
-
-
   "chapter_1": "Capítulo 1",
   "chapter_2": "Capítulo 2",
   "chapter_3": "Capítulo 3",
@@ -57,7 +54,6 @@
   "chapter_13": "Capítulo 13",
   "chapter_14": "Capítulo 14",
   "chapter_15": "Capítulo 15",
-
   "module_1_chapter_1": "Módulo 1 - Capítulo 1",
   "module_1_chapter_2": "Módulo 1 - Capítulo 2",
   "module_1_chapter_3": "Módulo 1 - Capítulo 3",
@@ -93,15 +89,15 @@
   "map_5": "Mapa 5 - HEV",
   "map_6": "Mapa 6 - Alcohol",
   "map_7": "Mapa 7 - Obesidad",
-  "pathology_1": "Histología normal",
-  "pathology_2": "Cirrosis",
-  "pathology_3": "PBC",
-  "pathology_4": "PSC",
-  "pathology_5": "Colestasis",
-  "pathology_6": "Granuloma",
-  "pathology_7": "Hemocromatosis",
-  "pathology_8": "A1AT def",
-  "pathology_9": "Hepatitis Autoimmune",
+  "normal_histology": "Histología normal",
+  "cirrhosis": "Cirrosis",
+  "pbc": "PBC",
+  "psc": "PSC",
+  "cholestasis": "Colestasis",
+  "granuloma": "Granuloma",
+  "hemochromatosis": "Hemocromatosis",
+  "a1at_def": "A1AT def",
+  "autoimmune_hepatitis": "Hepatitis Autoimmune",
   "interactive_1": "Anatomía y anatomía superficial",
   "interactive_2": "Circulación portal e hipertensión portal",
   "interactive_3": "Histología hepática y acino versus lóbulo",
@@ -131,8 +127,6 @@
   "liver_stomach_pancreas_gall_bladder": "Hígado, estómago, pancreas y vesícula biliar",
   "liver_vasculature": "Vasculatura hepática",
   "liver_cell": "Célula hepática",
-
-
   "casl": "Pautas CASL",
   "aasld": "Pautas AASLD",
   "easl": "Pautas EASL",
@@ -140,40 +134,33 @@
   "aga": "Pautas AGA",
   "ilca": "Pautas ILCA",
   "lindsay": "Atlas Lindsay",
-
   "back": "Atrás",
   "table_contents": "Tablas de Contenido",
   "maps": "Mapas",
   "pathology": "Patología",
-  "pathology_section_1": "Patología 1",
-  "pathology_section_2": "Patología 2",
-
+  "pathology_1": "Patología 1",
+  "pathology_2": "Patología 2",
   "interactive_figures": "Imágenes interactivas",
   "chapter_figures": "Imágenes de \n las secciones",
   "drawing": "Dibujo",
   "all_algorithms": "Todos los algoritmos",
   "child_pugh_score": "Índice de Child Pugh",
   "child_pugh_score_oneline": "Índice de Child Pugh",
-
   "meld": "MELD",
   "okuda_staging_system": "Sistema Okuda",
   "clip_staging_system": "Sistema CLIP",
-
   "undo": "Deshacer",
   "clear_image": "Borrar imagen",
   "previous_image": "Imagen anterior",
   "next_image": "Imagen siguiente",
   "change_draw_color": "Cambiar color del pincel",
-
-  "all_calc_diagnostic" : "Todos los algoritmos - Diagnóstico",
+  "all_calc_diagnostic": "Todos los algoritmos - Diagnóstico",
   "encephalopaty": "Encefalopatía",
   "tumour_extent": "Extensión del tumor %",
   "ascites": "Ascitis",
   "bilirubin": "Bilirrubina",
   "inr": "INR (Ratio de normalización Internacional)",
   "albumin": "Albúmina",
-
-
   "none_masc": "Ninguno",
   "none_fem": "Ninguna",
   "controlled": "Controlada",
@@ -203,10 +190,7 @@
   "previous_values": "Valores anteriores",
   "on": "ON",
   "off": "Off",
-
-
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
-
   "AFP": "AFP",
   "ageCutoff": "Límite de edad",
   "ageCutoffResumen": "Edad",

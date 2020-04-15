@@ -20,7 +20,7 @@ final figures = [
   [
     'pathology',
     'items/4_figures.png',
-    '/PathologyFig',
+    '/PathologyMain', //CAMBIO  a Fig
     'Nav',
   ],
   [

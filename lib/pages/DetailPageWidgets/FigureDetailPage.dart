@@ -27,11 +27,13 @@ class _FigureDetailPageState extends State<FigureDetailPage> {
           elevation: 5,
           //padding: EdgeInsets.all(15),
           child: Container(
+            //alignment: Alignment.center,
             padding: EdgeInsets.all(3),
             child: Image.asset(
               'assets/images/${widget.url}',
               width: double.infinity,
-              fit: BoxFit.contain,
+              fit: BoxFit.fill,
+              //alignment: Alignment.centerRight,
             ),
           ),
 
