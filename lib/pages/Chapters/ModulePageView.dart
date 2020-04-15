@@ -35,16 +35,21 @@ class _ModulePageViewState extends State<ModulePageView> {
               title: 'module_1',
               data: module1Chapters,
               route: '/ModulePV',
+              initialPage: 0,
             ),
             CommonPageWithBottomNav(
               title: 'module_2',
               data: module2Chapters,
               route: '/ModulePV',
+              initialPage: 1,
+
             ),
             CommonPageWithBottomNav(
               title: 'module_3',
               data: module3Chapters,
               route: '/ModulePV',
+              initialPage: 2,
+
             ),
 
             //Module1Page(),

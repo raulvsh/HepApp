@@ -57,7 +57,8 @@ class _CommonDetailPageViewState extends State<CommonDetailPageView> {
       widgets.add(FigureDetailPage(
           title: widget.data[i][0],
           url: widget.data[i][1],
-          bottomSheet: BottomNavigationSheet(i, widget.route, numPages)));
+          bottomSheet: BottomNavigationSheet(
+              widget.initialPage, widget.route, numPages)));
     }
     return widgets;
   }

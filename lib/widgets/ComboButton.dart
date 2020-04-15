@@ -3,7 +3,6 @@ import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/pages/DetailPageWidgets/PDFDetailPage.dart';
 import 'package:sized_context/sized_context.dart';
 
-
 class ComboButton extends StatelessWidget {
   final BuildContext context;
   final List<String> type;
@@ -19,7 +18,6 @@ class ComboButton extends StatelessWidget {
       //margin: EdgeInsets.all(4),
       child: GestureDetector(
         child: buildStack(),
-
         onTap: onTap,
       ),
     );
@@ -38,22 +36,20 @@ class ComboButton extends StatelessWidget {
               fit: BoxFit.fill,
               image: AssetImage(
                 'assets/images/${type[1]}',
-                //fit: BoxFit.fill,
               ),
             ),
           ),
         ),
         Container(
-          alignment: Alignment(0, 0.7),
+          alignment: Alignment(0, 0.65),
           padding: EdgeInsets.symmetric(horizontal: 10),
-          child: FittedBox(
-            child: Text(
-              aux.tr(type[0]),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black, //Color.fromARGB(255, 93, 188, 210),
-                fontSize: isTablet ? 18 : 16,
-              ),
+          child: Text(
+            aux.tr(type[0]),
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.black, //Color.fromARGB(255, 93, 188, 210),
+              fontSize: isTablet ? 18 : 16,
             ),
           ),
         ),
