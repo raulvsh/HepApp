@@ -13,10 +13,10 @@ import 'package:hepapp/data/podcasts_page_view.dart';
 import 'package:hepapp/data/resources.dart';
 import 'package:hepapp/data/schemes.dart';
 import 'package:hepapp/data/tocs.dart';
-import 'package:hepapp/forms/CPSForm.dart';
+import 'package:hepapp/forms/cps_form.dart';
+import 'package:hepapp/forms/meld_form.dart';
 import 'package:hepapp/pages/Calculators/AllCalcPage.dart';
 import 'package:hepapp/pages/Calculators/CLIPCalcPage.dart';
-import 'package:hepapp/pages/Calculators/MELDCalcPage.dart';
 import 'package:hepapp/pages/Calculators/OkudaCalcPage.dart';
 import 'package:hepapp/pages/CommonPages/CommonPage.dart';
 import 'package:hepapp/pages/DetailPageWidgets/VideoDetailPage.dart';
@@ -234,11 +234,11 @@ class RouteGenerator {
       case '/AllCalc':
         return MaterialPageRoute(builder: (_) => AllCalcPage());
       case '/ChildCalc':
-        return MaterialPageRoute(builder: (_) => CPSForm());
+        return MaterialPageRoute(builder: (_) => CpsForm());
       case '/CLIPCalc':
         return MaterialPageRoute(builder: (_) => CLIPCalcPage());
       case '/MELDCalc':
-        return MaterialPageRoute(builder: (_) => MELDCalcPage());
+        return MaterialPageRoute(builder: (_) => MeldForm());
       case '/OkudaCalc':
         return MaterialPageRoute(builder: (_) => OkudaCalcPage());
 

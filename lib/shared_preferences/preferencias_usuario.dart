@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:hepapp/forms/CPSdata.dart';
+import 'package:hepapp/forms/cps_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferenciasUsuario {
@@ -35,7 +35,7 @@ class PreferenciasUsuario {
     _streamController2.add(_internationalUnits);
   }
 
-  bool getIunitsPrueba() {
+  bool getInternationalUnits() {
     return _internationalUnits;
   }
 
@@ -57,7 +57,7 @@ class PreferenciasUsuario {
     return _prefs.get(datosCPSantiguo);
   }
 
-  set datosCPSantiguo(CPSdata antiguo) {
+  set datosCPSantiguo(CpsData antiguo) {
     _prefs.setDouble('bilirubin', antiguo.bilirubin);
   }
 

@@ -170,6 +170,8 @@
   "grade_1_2": "Grado 1 - 2",
   "grade_3_4": "Grado 3 - 4",
   "calculate_cp_score": "Calcular CPS",
+  "calculate_meld": "Calcular MELD",
+
   "enter_text": "Introduzca texto",
   "save_settings": "Guardar ajustes",
   "international_units": "Unidades Internacionales",
@@ -205,7 +207,6 @@
   "barraLateralCerrar": "cerrar",
   "BCLCresultado": "BCLC:",
   "calculate_clip": "Calcular CLIP",
-  "calculate_meld": "Calcular MELD",
   "calculate_Okuda": "Calcular Okuda",
   "cirrosis": "Cirrosis",
   "cirrosisResult": "Cirrosis:",

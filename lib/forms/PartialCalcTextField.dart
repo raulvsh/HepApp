@@ -3,8 +3,8 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_bloc/form_bloc.dart';
 import 'package:sized_context/sized_context.dart';
 
-class CustomTextFieldBlocBuilder extends StatelessWidget {
-  const CustomTextFieldBlocBuilder({
+class PartialCalcTextField extends StatelessWidget {
+  const PartialCalcTextField({
     Key key,
     @required this.textFieldBloc,
     @required this.title,
@@ -32,7 +32,6 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: Text(
               uds, //'umol/L',
-              //TODO poner las unidades correctas según las preferencias, las unidades no se traducen
               style: TextStyle(
                 color: Colors.black,
                 fontSize: isTablet ? 15 : 12,

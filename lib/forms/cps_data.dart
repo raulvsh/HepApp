@@ -1,6 +1,6 @@
 final prueba = "hola";
 
-class CPSdata {
+class CpsData {
   double bilirubin;
   double inr;
   double albumin;
@@ -8,7 +8,7 @@ class CPSdata {
   String ascites;
   String result;
 
-  CPSdata({double bilirubin,
+  CpsData({double bilirubin,
     double inr,
     double albumin,
     String encephalopaty,

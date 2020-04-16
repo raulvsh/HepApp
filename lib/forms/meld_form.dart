@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:hepapp/forms/meld_form_bloc.dart';
 import 'package:hepapp/forms/units.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
@@ -13,25 +14,23 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import 'CPSForm_bloc.dart';
-import 'CalcResultWidget.dart';
-import 'CustomButtonGroupFieldBlocBuilder.dart';
-import 'CustomTextFieldBlocBuilder.dart';
+import 'PartialCalcGroupField.dart';
+import 'PartialCalcTextField.dart';
+import 'calc_result_widget.dart';
 
-class CPSForm extends StatefulWidget with Observable {
-  CPSForm({Key key}) : super(key: key);
+class MeldForm extends StatefulWidget with Observable {
+  MeldForm({Key key}) : super(key: key);
 
   @override
-  CPSFormState createState() => CPSFormState();
+  MeldFormState createState() => MeldFormState();
 }
 
-class CPSFormState extends State<CPSForm> with Observable {
+class MeldFormState extends State<MeldForm> with Observable {
   var reset = false;
   final prefs = PreferenciasUsuario();
   final units = Units();
   bool _internationalUnits = true;
   StreamSubscription streamSubscription;
-
 
   @override
   void initState() {
@@ -40,10 +39,9 @@ class CPSFormState extends State<CPSForm> with Observable {
       DeviceOrientation.landscapeLeft,
     ]);
     streamSubscription = prefs.iUnitsUpdates.listen(
-          (newVal) =>
-          setState(() {
-            _internationalUnits = newVal;
-          }),
+      (newVal) => setState(() {
+        _internationalUnits = newVal;
+      }),
     );
     prefs.setInternationalUnits(true);
     super.initState();
@@ -63,31 +61,17 @@ class CPSFormState extends State<CPSForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CPSFormBloc>(
-      builder: (context) => CPSFormBloc(),
+    return BlocProvider<MeldFormBloc>(
+      builder: (context) => MeldFormBloc(),
       child: Builder(
         builder: (context) {
-          final formBloc = BlocProvider.of<CPSFormBloc>(context);
-          return FormBlocListener<CPSFormBloc, String, String>(
-            /*onSubmitting: (context, state) => LoadingDialog.show(context),
-              onSuccess: (context, state) {
-                LoadingDialog.hide(context);
-                 Notifications.showSnackBarWithSuccess(
-                    context, state.successResponse);
-                 //Muestra una barra verde con la palabra success
-              },*/
-            /*onFailure: (context, state) {
-
-              //LoadingDialog.hide(context);
-              Notifications.showSnackBarWithError(
-                  context, state.failureResponse);
-            },*/
+          final formBloc = BlocProvider.of<MeldFormBloc>(context);
+          return FormBlocListener<MeldFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
                 context,
-                'child_pugh_score_oneline',
+                'meld',
                 selScreenshot: true,
-                //selPartialSettings: true,
               ),
               drawer: MenuWidget(),
               body: Row(
@@ -106,14 +90,13 @@ class CPSFormState extends State<CPSForm> with Observable {
     );
   }
 
-  _buildLeftColumn(CPSFormBloc formBloc) {
+  _buildLeftColumn(MeldFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
       width: isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
       height: context.heightPx,
-      //color: Colors.red,
       padding: EdgeInsets.only(left: 20, top: 20),
       child: ListView(
         shrinkWrap: true,
@@ -121,9 +104,11 @@ class CPSFormState extends State<CPSForm> with Observable {
         children: <Widget>[
           _buildBilirrubinRow(aux, formBloc),
           _buildInrRow(aux, formBloc),
+          _buildCreatinineRow(aux, formBloc),
           _buildAlbuminRow(aux, formBloc),
-          _buildEncephalopatyRow(aux, formBloc),
+          _buildSodiumRow(aux, formBloc),
           _buildAscitesRow(aux, formBloc),
+          _buildDialysisRow(aux, formBloc),
           _buildCalcButton(aux, formBloc),
           //Text(maps.toString()),
         ],
@@ -131,20 +116,17 @@ class CPSFormState extends State<CPSForm> with Observable {
     );
   }
 
-  _buildBilirrubinRow(AppLocalizations aux, CPSFormBloc formBloc) {
-    return CustomTextFieldBlocBuilder(
+  _buildBilirrubinRow(AppLocalizations aux, MeldFormBloc formBloc) {
+    return PartialCalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.bilirubinField,
       title: aux.tr('bilirubin'),
-      uds: _internationalUnits
-          ? units.bilirubinUds[0]
-          : units.bilirubinUds[1],
-
+      uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
     );
   }
 
-  _buildInrRow(AppLocalizations aux, CPSFormBloc formBloc) {
-    return CustomTextFieldBlocBuilder(
+  _buildInrRow(AppLocalizations aux, MeldFormBloc formBloc) {
+    return PartialCalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.inrField,
       title: aux.tr('inr'),
@@ -152,8 +134,18 @@ class CPSFormState extends State<CPSForm> with Observable {
     );
   }
 
-  _buildAlbuminRow(AppLocalizations aux, CPSFormBloc formBloc) {
-    return CustomTextFieldBlocBuilder(
+  _buildCreatinineRow(AppLocalizations aux, MeldFormBloc formBloc) {
+    return PartialCalcTextField(
+      //formBloc: formBloc,
+      textFieldBloc: formBloc.creatinineField,
+      title: aux.tr('creatinine'),
+      uds:
+          _internationalUnits ? units.creatinineUds[0] : units.creatinineUds[1],
+    );
+  }
+
+  _buildAlbuminRow(AppLocalizations aux, MeldFormBloc formBloc) {
+    return PartialCalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.albuminField,
       title: aux.tr('albumin'),
@@ -161,13 +153,21 @@ class CPSFormState extends State<CPSForm> with Observable {
     );
   }
 
-  _buildEncephalopatyRow(AppLocalizations aux,
-      CPSFormBloc formBloc,) {
-    return CustomButtonGroupFieldBlocBuilder(
+  _buildSodiumRow(AppLocalizations aux, MeldFormBloc formBloc) {
+    return PartialCalcTextField(
+      //formBloc: formBloc,
+      textFieldBloc: formBloc.sodiumField,
+      title: aux.tr('sodium'),
+      uds: _internationalUnits ? units.sodiumUds[0] : units.sodiumUds[1],
+    );
+  }
+
+  _buildDialysisRow(AppLocalizations aux, MeldFormBloc formBloc) {
+    return PartialCalcGroupField(
       reset: reset,
       padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.encephalopatyField,
-      text: aux.tr('encephalopaty'),
+      selectFieldBloc: formBloc.dialysisField,
+      text: aux.tr('dialysis'),
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
@@ -175,9 +175,11 @@ class CPSFormState extends State<CPSForm> with Observable {
     );
   }
 
-  _buildAscitesRow(AppLocalizations aux,
-      CPSFormBloc formBloc,) {
-    return CustomButtonGroupFieldBlocBuilder(
+  _buildAscitesRow(
+    AppLocalizations aux,
+    MeldFormBloc formBloc,
+  ) {
+    return PartialCalcGroupField(
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ascitesField,
@@ -185,13 +187,14 @@ class CPSFormState extends State<CPSForm> with Observable {
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
-
       itemBuilder: (context, item) => item,
     );
   }
 
-  _buildCalcButton(AppLocalizations aux,
-      CPSFormBloc formBloc,) {
+  _buildCalcButton(
+    AppLocalizations aux,
+    MeldFormBloc formBloc,
+  ) {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: 250,
@@ -205,17 +208,15 @@ class CPSFormState extends State<CPSForm> with Observable {
               color: Color.fromARGB(255, 45, 145, 155),
               width: 1.5,
             )),
-        color: Theme
-            .of(context)
-            .primaryColor,
+        color: Theme.of(context).primaryColor,
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
         onPressed: () {
-          calculateCPS(formBloc);
+          calculateMeld(formBloc);
         },
         child: Center(
           child: Text(
-            aux.tr('calculate_cp_score'),
+            aux.tr('calculate_meld'),
             style: TextStyle(
               color: Colors.white,
               fontSize: isTablet ? 15 : 12,
@@ -226,8 +227,7 @@ class CPSFormState extends State<CPSForm> with Observable {
     );
   }
 
-
-  _buildBottomSheet(CPSFormBloc formBloc) {
+  _buildBottomSheet(MeldFormBloc formBloc) {
     var aux = AppLocalizations.of(context);
 
     return BottomAppBar(
@@ -268,7 +268,7 @@ class CPSFormState extends State<CPSForm> with Observable {
             context: context,
             builder: (BuildContext context) {
               return MoreInformation(
-                title: 'child_pugh_score_oneline',
+                title: 'meld',
                 path: 'assets/images/calc/M3C14S0c.png',
               );
             },
@@ -299,8 +299,7 @@ class CPSFormState extends State<CPSForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux,
-      CPSFormBloc formBloc) {
+  Container _buildResetButton(AppLocalizations aux, MeldFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
@@ -321,7 +320,7 @@ class CPSFormState extends State<CPSForm> with Observable {
     );
   }
 
-  _buildRightColumn(CPSFormBloc formBloc) {
+  _buildRightColumn(MeldFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
@@ -335,10 +334,8 @@ class CPSFormState extends State<CPSForm> with Observable {
           //Center(
           //child:
           Container(
-            //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
-              child:
-              CalcResultWidget(
-                  'child_pugh_score_oneline', formBloc.resultadoField)),
+              //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
+              child: CalcResultWidget('meld', formBloc.resultadoField)),
           //),
           _buildRightBottomTitle(),
         ],
@@ -346,7 +343,7 @@ class CPSFormState extends State<CPSForm> with Observable {
     );
   }
 
-  Container _buildIUnitsRow(CPSFormBloc formBloc) {
+  Container _buildIUnitsRow(MeldFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
@@ -369,27 +366,23 @@ class CPSFormState extends State<CPSForm> with Observable {
         ));
   }
 
-  _buildIUnitsSelect(CPSFormBloc formBloc) {
+  _buildIUnitsSelect(MeldFormBloc formBloc) {
     final prefs = new PreferenciasUsuario();
     var aux = AppLocalizations.of(context);
 
     List<bool> isSelected = [true, false];
 
-    isSelected[0] = prefs.getIunitsPrueba();
+    isSelected[0] = prefs.getInternationalUnits();
     isSelected[1] = !isSelected[0];
     //isSelected[1] = !prefs.getIunitsPrueba();
 
     return ToggleButtons(
       borderColor: Color.fromARGB(255, 45, 145, 155),
-      fillColor: Theme
-          .of(context)
-          .primaryColor,
+      fillColor: Theme.of(context).primaryColor,
       borderWidth: 1.3,
       selectedBorderColor: Color.fromARGB(255, 45, 145, 155),
       selectedColor: Colors.white,
-      color: Theme
-          .of(context)
-          .primaryColor,
+      color: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.all(Radius.circular(3.0)),
       children: <Widget>[
         Container(
@@ -417,9 +410,9 @@ class CPSFormState extends State<CPSForm> with Observable {
             isSelected[i] = i == index;
           }
           //formBloc.showIU();
-          isSelected[0] ? formBloc.showIU() : formBloc
-              .showNotIU(); // : formBloc.convertToNoIU();
-
+          isSelected[0]
+              ? formBloc.showIU()
+              : formBloc.showNotIU(); // : formBloc.convertToNoIU();
 
           prefs.setInternationalUnits(isSelected[0]);
         });
@@ -439,11 +432,10 @@ class CPSFormState extends State<CPSForm> with Observable {
         padding: EdgeInsets.fromLTRB(10, 0, 60, 50),
         //alignment: Alignment.bottomRight,
         child: Text(
-          aux.tr('child_pugh_score_oneline'),
+          aux.tr('meld'),
           style: TextStyle(
             fontSize: isTablet ? 28 : 20,
-            color: Theme
-                .of(context)
+            color: Theme.of(context)
                 .primaryColor
                 .withAlpha(150), //Color.fromARGB(255, 210, 242, 245),
           ),
@@ -452,25 +444,23 @@ class CPSFormState extends State<CPSForm> with Observable {
     );
   }
 
-
-  void calculateCPS(CPSFormBloc formBloc) {
+  void calculateMeld(MeldFormBloc formBloc) {
     formBloc.submit();
     reset = false;
     setState(() {});
   }
 
-  void resetValues(CPSFormBloc formBloc) {
+  void resetValues(MeldFormBloc formBloc) {
     print("\n\n************************RESET");
 
     reset = true;
     //print("valor reset dentro método $reset");
     formBloc.reset();
 
-
     setState(() {});
   }
 
-  void previousValues(CPSFormBloc formBloc) {
+  void previousValues(MeldFormBloc formBloc) {
     reset = false;
     formBloc.previous();
     setState(() {});

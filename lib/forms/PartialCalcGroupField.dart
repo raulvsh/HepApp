@@ -7,12 +7,15 @@ import 'package:hepapp/lang/app_localizations.dart';
 import 'package:sized_context/sized_context.dart';
 
 /// A material design radio buttons.
-class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
+class PartialCalcGroupField<Value> extends StatefulWidget {
   bool reset;
   bool error;
+  bool previous;
+
+  final initialValue;
 
 
-  CustomButtonGroupFieldBlocBuilder({
+  PartialCalcGroupField({
     Key key,
     @required this.selectFieldBloc,
     @required this.itemBuilder,
@@ -26,6 +29,7 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
     this.text,
     this.reset,
     this.error,
+    this.previous, this.initialValue
   })  : assert(selectFieldBloc != null),
         assert(enableOnlyWhenFormBlocCanSubmit != null),
         assert(isEnabled != null),
@@ -65,18 +69,17 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
   final String text;
 
   @override
-  _CustomButtonGroupFieldBlocBuilderState<Value> createState() =>
-      _CustomButtonGroupFieldBlocBuilderState();
+  _PartialCalcGroupFieldState<Value> createState() =>
+      _PartialCalcGroupFieldState();
 }
 
-class _CustomButtonGroupFieldBlocBuilderState<Value>
-    extends State<CustomButtonGroupFieldBlocBuilder> {
+class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
   Map<String, bool> isSelected = {};
 
   bool firstRun = true;
-  String selectedChoice = "";
-  bool errorFlag = false;
 
+  //String selectedChoice = "";
+  bool errorFlag = false;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +91,11 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
           _initMap(state);
           firstRun = false;
         }
+        if (widget.previous) {
+          updateMap(state);
+        }
+        //else updateMap(state);
+        //updateMap(state);
 
         final isEnabled = fieldBlocIsEnabled(
           isEnabled: this.widget.isEnabled,
@@ -119,6 +127,31 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
   _initMap(SelectFieldBlocState<Value> state) {
     for (int i = 0; i < state.items.length; i++) {
       isSelected[state.items.elementAt(i).toString()] = false;
+      print("Init element at: " + state.items.elementAt(i).toString());
+      /*if (state.items.elementAt(i).toString() == widget.initialValue) {
+        isSelected[state.items.elementAt(i).toString()] = true;
+      }
+      else
+        isSelected[state.items.elementAt(i).toString()] = false;*/
+
+      print("Init isSelected: $isSelected");
+    }
+  }
+
+  updateMap(SelectFieldBlocState<Value> state) {
+    //_initMap(state);
+    for (int i = 0; i < state.items.length; i++) {
+      //isSelected[state.items.elementAt(i).toString()] = false;
+      print("Update element at: " + state.items.elementAt(i).toString());
+      print("Update widget initial value " + widget.initialValue.toString());
+      if (state.items.elementAt(i).toString() ==
+          widget.initialValue.toString()) {
+        isSelected[state.items.elementAt(i).toString()] = true;
+      }
+      else
+        isSelected[state.items.elementAt(i).toString()] = false;
+
+      print("Update isSelected update: $isSelected");
     }
   }
 
@@ -127,38 +160,36 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
   Widget _buildRadioButtons(SelectFieldBlocState<Value> state, bool isEnable) {
     RadioBuilder<String, double> simpleBuilder;
 
-    simpleBuilder = (BuildContext context, List<double> animValues,
+    /*simpleBuilder = (BuildContext context, List<double> animValues,
         Function updateState, String value) {
       final alpha = (animValues[0] * 255).toInt();
       var opacity = (!widget.reset && !errorFlag) ? alpha : 0;
+      //var opacity = 255;
+      return */ /*Center(
+        child:*/ /*
+          Container(
+        //color: Colors.red,
+        width: 100,
+        height: 20,
+        //Alineación del texto dentro del botón
 
-      return /*Center(
-        child:*/
-        Container(
-          //color: Colors.red,
-          width: 100,
-          height: 20,
-          //Alineación del texto dentro del botón
-
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            //Color del fondo del botón
-            color: Theme
-                .of(context)
-                .primaryColor
-                .withAlpha(opacity),
-            border: Border.all(
-              color: errorFlag
-                  ? Color.fromARGB(255, 211, 47, 47)
-                  : Color.fromARGB(255, 45, 145, 155), //Color del borde
-              width: errorFlag ? 0.9 : 1.3,
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(3.0)),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          //Color del fondo del botón
+          color: Theme.of(context).primaryColor.withAlpha(opacity),
+          border: Border.all(
+            //Color del borde
+            color: errorFlag
+                ? Color.fromARGB(255, 211, 47, 47)
+                : Color.fromARGB(255, 45, 145, 155), //Color del borde
+            width: errorFlag ? 0.9 : 1.3,
           ),
-          // ),
-        );
-    };
+          borderRadius: BorderRadius.all(Radius.circular(3.0)),
+        ),
+        // ),
+      );
+    };*/
     return Row(
       //verticalDirection: VerticalDirection.up,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -224,7 +255,9 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                       onTap: () {
                         setState(() {
                           widget.reset = false;
+                          widget.previous = false;
                           errorFlag = false;
+
                           _initMap(state);
 
                           radioValue = state.items
@@ -255,16 +288,64 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                                 value: state.items.elementAt(index).toString(),
                                 groupValue: radioValue,
                                 duration: Duration(milliseconds: 150),
-                                animsBuilder: (
-                                    AnimationController controller) =>
+                                animsBuilder:
+                                    (AnimationController controller) =>
                                 [
                                   CurvedAnimation(
                                       parent: controller,
                                       curve: Curves.easeInOut)
                                 ],
-                                builder: simpleBuilder,
-                              ),
-                            ),
+                                builder: (BuildContext context,
+                                    List<double> animValues,
+                                    Function updateState,
+                                    String value) {
+                                  final alpha = (animValues[0] * 255).toInt();
+                                  var opacity =
+                                  (!widget.reset && !errorFlag) ? alpha : 0;
+                                  //var opacity = 255;
+                                  //isSelected[state.items.elementAt(0)] = false;
+                                  //isSelected[state.items.elementAt(1)] = false;
+                                  //isSelected[state.items.elementAt(2)] = false;
+
+                                  print("dentro builder " +
+                                      isSelected.toString() + " reset " +
+                                      widget.reset.toString() + " error " +
+                                      errorFlag.toString());
+                                  return /*Center(
+        child:*/
+                                    Container(
+                                      //color: Colors.red,
+                                      width: 100,
+                                      height: 20,
+                                      //Alineación del texto dentro del botón
+
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.rectangle,
+                                        //Color del fondo del botón
+                                        color: isSelected[state.items
+                                            .elementAt(index)
+                                            .toString()] &&
+                                            (!widget.reset && !errorFlag)
+                                            ? Theme
+                                            .of(context)
+                                            .primaryColor : Colors.white,
+                                        border: Border.all(
+                                          //Color del borde
+                                          color: errorFlag
+                                              ? Color.fromARGB(255, 211, 47, 47)
+                                              : Color.fromARGB(
+                                              255, 45, 145, 155),
+                                          //Color del borde
+                                          width: errorFlag ? 0.9 : 1.3,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(3.0)),
+                                      ),
+                                      // ),
+                                    );
+                                },
+                              ),),
                             DefaultFieldBlocBuilderTextStyle(
                               isEnabled: false,
                               child: Center(

@@ -185,6 +185,8 @@
   "grade_1_2": "Grade 1 - 2",
   "grade_3_4": "Grade 3 - 4",
   "calculate_cp_score": "Calculate CP Score",
+  "calculate_meld": "Calculate MELD",
+
   "enter_text": "Enter text",
   "save_settings": "Save settings",
   "international_units": "International Units",
@@ -219,7 +221,6 @@
   "barraLateralCerrar": "close",
   "BCLCresultado": "BCLC:",
   "calculate_clip": "Calculate CLIP",
-  "calculate_meld": "Calculate MELD",
   "calculate_Okuda": "Calculate Okuda",
   "cirrosis": "Cirrhosis",
   "cirrosisResult": "Cirrhosis:",
