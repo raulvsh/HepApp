@@ -10,6 +10,8 @@ import 'package:sized_context/sized_context.dart';
 class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
   bool reset;
 
+  // bool errorFlag;
+
   CustomButtonGroupFieldBlocBuilder({
     Key key,
     @required this.selectFieldBloc,
@@ -23,6 +25,7 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
     this.nextFocusNode,
     this.text,
     this.reset,
+    //this.errorFlag,
   })  : assert(selectFieldBloc != null),
         assert(enableOnlyWhenFormBlocCanSubmit != null),
         assert(isEnabled != null),
@@ -72,11 +75,11 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
 
   bool firstRun = true;
   String selectedChoice = "";
+  bool errorFlag = false;
 
 
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder<SelectFieldBloc<Value>, SelectFieldBlocState<Value>>(
       bloc: widget.selectFieldBloc,
       builder: (context, state) {
@@ -135,9 +138,9 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
           //color: Colors.red,
           width: 100,
           height: 20,
+          //Alineación del texto dentro del botón
 
           alignment: Alignment.center,
-          //Alineación del texto dentro del botón
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             //Color del fondo del botón
@@ -145,9 +148,10 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                 .of(context)
                 .primaryColor
                 .withAlpha(opacity),
-            //color: Color.fromARGB(255, 56, 183, 198).withAlpha(alpha),
             border: Border.all(
-              color: Color.fromARGB(255, 45, 145, 155), //Color del borde
+              color: errorFlag
+                  ? Colors.red
+                  : Color.fromARGB(255, 45, 145, 155), //Color del borde
               width: 1.3,
             ),
             borderRadius: BorderRadius.all(Radius.circular(3.0)),
@@ -194,11 +198,12 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
     var aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
 
-
     return Expanded(
       child: Container(
         //alignment: Alignment.center,
-        padding: EdgeInsets.only(left: 15.0,),
+        padding: EdgeInsets.only(
+          left: 15.0,
+        ),
         //color: Colors.red,
         width: 100.0 * state.items.length,
         height: 20.0,
@@ -214,7 +219,6 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
               physics: ClampingScrollPhysics(),
               itemBuilder: (context, index) {
                 return Row(
-
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
@@ -299,7 +303,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
   InputDecoration _buildDecoration(BuildContext context,
       SelectFieldBlocState<Value> state, bool isEnable) {
     InputDecoration decoration = this.widget.decoration;
-
+    errorFlag = false;
     return decoration.copyWith(
       /*suffix: SizedBox(width: 100,),//.shrink(),
       prefixIcon: SizedBox.shrink(),
@@ -315,14 +319,26 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
       ),
       errorText: Style.getErrorText(
         context: context,
-        errorBuilder: widget.errorBuilder,
+        //errorBuilder: widget.errorBuilder,
+        errorBuilder: (context, error) {
+          print(error);
+          switch (error) {
+            case ValidatorsError.requiredSelectFieldBloc:
+              errorFlag = true;
+              return null;
+              break;
+            default:
+              return 'This text is nor valid.';
+          }
+        },
+
         fieldBlocState: state,
       ),
     );
   }
 
-  resetear() {
+/*resetear() {
     widget.reset = true;
     setState(() {});
-  }
+  }*/
 }

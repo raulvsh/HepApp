@@ -93,7 +93,6 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
         errorBuilder: (context, error) {
           switch (error) {
             case ValidatorsError.requiredTextFieldBloc:
-                //TODO activar el flag errorflag
               return "";
               break;
             default:

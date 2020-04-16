@@ -13,29 +13,30 @@ class PreferenciasUsuario {
 
   SharedPreferences _prefs;
 
-  bool _iUnitsPrueba;
-  StreamController _streamController2 = new StreamController<bool>();
+  bool _internationalUnits;
+  StreamController _streamController2 = StreamController<bool>.broadcast();
 
-  Stream<bool> get iUnitsUpdates => _streamController2.stream;
+  Stream<bool> get iUnitsUpdates =>
+      _streamController2.stream; //.asBroadcastStream();
 
   initPrefs() async {
     this._prefs = await SharedPreferences.getInstance();
   }
 
   void switchInternationalUnits() {
-    print("iunitsprueba " + _iUnitsPrueba.toString());
-    _iUnitsPrueba = !_iUnitsPrueba;
-    print("iunitsprueba despues" + _iUnitsPrueba.toString());
-    _streamController2.add(_iUnitsPrueba);
+    print("iunitsprueba " + _internationalUnits.toString());
+    _internationalUnits = !_internationalUnits;
+    print("iunitsprueba despues" + _internationalUnits.toString());
+    _streamController2.add(_internationalUnits);
   }
 
-  void setIUnitsPrueba(bool value) {
-    _iUnitsPrueba = value;
-    _streamController2.add(_iUnitsPrueba);
+  void setInternationalUnits(bool value) {
+    _internationalUnits = value;
+    _streamController2.add(_internationalUnits);
   }
 
   bool getIunitsPrueba() {
-    return _iUnitsPrueba;
+    return _internationalUnits;
   }
 
   ///GETS Y SETS DE HEPAPP

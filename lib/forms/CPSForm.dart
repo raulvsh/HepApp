@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:hepapp/data/maps.dart';
 import 'package:hepapp/forms/units.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
@@ -46,7 +45,7 @@ class CPSFormState extends State<CPSForm> with Observable {
             _internationalUnits = newVal;
           }),
     );
-    prefs.setIUnitsPrueba(true);
+    prefs.setInternationalUnits(true);
     super.initState();
   }
 
@@ -58,6 +57,7 @@ class CPSFormState extends State<CPSForm> with Observable {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    streamSubscription.cancel();
     super.dispose();
   }
 
@@ -95,7 +95,7 @@ class CPSFormState extends State<CPSForm> with Observable {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   _buildLeftColumn(formBloc),
-                  _buildRightColumn(formBloc.resultadoField),
+                  _buildRightColumn(formBloc),
                 ],
               ),
               bottomSheet: _buildBottomSheet(formBloc),
@@ -125,7 +125,7 @@ class CPSFormState extends State<CPSForm> with Observable {
           _buildEncephalopatyRow(aux, formBloc),
           _buildAscitesRow(aux, formBloc),
           _buildCalcButton(aux, formBloc),
-          Text(maps.toString()),
+          //Text(maps.toString()),
         ],
       ),
     );
@@ -184,6 +184,7 @@ class CPSFormState extends State<CPSForm> with Observable {
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
+
       itemBuilder: (context, item) => item,
     );
   }
@@ -320,9 +321,8 @@ class CPSFormState extends State<CPSForm> with Observable {
     );
   }
 
-  _buildRightColumn(String resultadoField) {
+  _buildRightColumn(CPSFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
-    AppLocalizations aux = AppLocalizations.of(context);
     return Container(
       width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
 
@@ -331,21 +331,23 @@ class CPSFormState extends State<CPSForm> with Observable {
         //mainAxisAlignment: MainAxisAlignment.start,
         //crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          _buildIUnitsRow(aux),
+          _buildIUnitsRow(formBloc),
           //Center(
           //child:
           Container(
             //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
               child:
-              CalcResultWidget('child_pugh_score_oneline', resultadoField)),
+              CalcResultWidget(
+                  'child_pugh_score_oneline', formBloc.resultadoField)),
           //),
-          _buildRightBottomTitle(aux),
+          _buildRightBottomTitle(),
         ],
       ),
     );
   }
 
-  Container _buildIUnitsRow(AppLocalizations aux) {
+  Container _buildIUnitsRow(CPSFormBloc formBloc) {
+    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
         height: 60,
@@ -362,12 +364,12 @@ class CPSFormState extends State<CPSForm> with Observable {
             SizedBox(
               width: 20,
             ),
-            _buildIUnitsSelect(),
+            _buildIUnitsSelect(formBloc),
           ],
         ));
   }
 
-  _buildIUnitsSelect() {
+  _buildIUnitsSelect(CPSFormBloc formBloc) {
     final prefs = new PreferenciasUsuario();
     var aux = AppLocalizations.of(context);
 
@@ -414,20 +416,21 @@ class CPSFormState extends State<CPSForm> with Observable {
           for (int i = 0; i < isSelected.length; i++) {
             isSelected[i] = i == index;
           }
-          print("isselected 0 " + isSelected[0].toString());
-          print("isselected 1 " + isSelected[1].toString());
+          //formBloc.showIU();
+          isSelected[0] ? formBloc.showIU() : formBloc
+              .showNotIU(); // : formBloc.convertToNoIU();
 
-          prefs.setIUnitsPrueba(isSelected[0]);
-          //setState(() {});
+
+          prefs.setInternationalUnits(isSelected[0]);
         });
       },
       isSelected: isSelected,
     );
   }
 
-  Expanded _buildRightBottomTitle(AppLocalizations aux) {
+  Expanded _buildRightBottomTitle() {
     bool isTablet = context.diagonalInches >= 7;
-
+    AppLocalizations aux = AppLocalizations.of(context);
     return Expanded(
       child: Container(
         alignment: Alignment.bottomRight,
