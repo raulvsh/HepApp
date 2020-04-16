@@ -151,9 +151,8 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
             border: Border.all(
               color: errorFlag
                   ? Color.fromARGB(255, 211, 47, 47)
-              //?Colors.red
                   : Color.fromARGB(255, 45, 145, 155), //Color del borde
-              width: 1.3,
+              width: errorFlag ? 0.9 : 1.3,
             ),
             borderRadius: BorderRadius.all(Radius.circular(3.0)),
           ),
