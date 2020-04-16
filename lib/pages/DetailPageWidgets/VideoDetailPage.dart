@@ -57,7 +57,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
             return AspectRatio(
               aspectRatio: _controller.value.aspectRatio,
               // Usa el Widget VideoPlayer para mostrar el vídeo
-              child: VideoPlayer(_controller),
+              child: VideoPlayer(_controller,),
 
             );
           } else {

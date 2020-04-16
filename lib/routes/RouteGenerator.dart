@@ -18,14 +18,14 @@ import 'package:hepapp/pages/Calculators/AllCalcPage.dart';
 import 'package:hepapp/pages/Calculators/CLIPCalcPage.dart';
 import 'package:hepapp/pages/Calculators/MELDCalcPage.dart';
 import 'package:hepapp/pages/Calculators/OkudaCalcPage.dart';
-import 'package:hepapp/pages/CommonDetailPageView.dart';
-import 'package:hepapp/pages/CommonPage.dart';
-import 'package:hepapp/pages/CommonPageView.dart';
+import 'package:hepapp/pages/CommonPages/CommonPage.dart';
 import 'package:hepapp/pages/DetailPageWidgets/VideoDetailPage.dart';
 import 'package:hepapp/pages/DetailPageWidgets/WebDetailPage.dart';
-import 'package:hepapp/pages/Figures/Drawing/DrawingPageView.dart';
-import 'package:hepapp/pages/Figures/Interactive/InteractiveDetailPageView.dart';
 import 'package:hepapp/pages/HomePage.dart';
+import 'package:hepapp/pages/PageViewWidgets/CommonDetailPageView.dart';
+import 'package:hepapp/pages/PageViewWidgets/CommonPageView.dart';
+import 'package:hepapp/pages/PageViewWidgets/DrawingPageView.dart';
+import 'package:hepapp/pages/PageViewWidgets/InteractiveDetailPageView.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

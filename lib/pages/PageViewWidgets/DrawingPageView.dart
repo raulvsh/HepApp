@@ -3,7 +3,7 @@ import 'package:hepapp/data/draws.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
-import '../../DetailPageWidgets/DrawingDetailPage.dart';
+import '../DetailPageWidgets/DrawingDetailPage.dart';
 
 class DrawingPageView extends StatefulWidget {
   final initialPage;

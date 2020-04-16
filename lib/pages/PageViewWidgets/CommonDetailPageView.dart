@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 
-import 'DetailPageWidgets/FigureDetailPage.dart';
+import '../DetailPageWidgets/FigureDetailPage.dart';
 
 class CommonDetailPageView extends StatefulWidget {
   final initialPage;

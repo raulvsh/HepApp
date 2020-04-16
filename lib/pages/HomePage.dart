@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/data/home_sections.dart';
-import 'package:hepapp/pages/CommonGridPage.dart';
+import 'package:hepapp/pages/CommonPages/CommonGridPage.dart';
 import 'package:hepapp/widgets/HomeAppBar.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
 

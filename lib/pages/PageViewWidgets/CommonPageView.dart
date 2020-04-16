@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'CommonPageWithBottomNav.dart';
+import '../CommonPages/CommonPageWithBottomNav.dart';
 
 class CommonPageView extends StatefulWidget {
   final initialPage;
