@@ -139,6 +139,7 @@ class CPSFormState extends State<CPSForm> with Observable {
       uds: _internationalUnits
           ? units.bilirubinUds[0]
           : units.bilirubinUds[1],
+
     );
   }
 
@@ -210,9 +211,7 @@ class CPSFormState extends State<CPSForm> with Observable {
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
         onPressed: () {
-          formBloc.submit();
-          reset = false;
-          setState(() {});
+          calculateCPS(formBloc);
         },
         child: Center(
           child: Text(
@@ -226,6 +225,7 @@ class CPSFormState extends State<CPSForm> with Observable {
       ),
     );
   }
+
 
   _buildBottomSheet(CPSFormBloc formBloc) {
     var aux = AppLocalizations.of(context);
@@ -452,12 +452,20 @@ class CPSFormState extends State<CPSForm> with Observable {
     );
   }
 
+
+  void calculateCPS(CPSFormBloc formBloc) {
+    formBloc.submit();
+    reset = false;
+    setState(() {});
+  }
+
   void resetValues(CPSFormBloc formBloc) {
     print("\n\n************************RESET");
 
     reset = true;
     //print("valor reset dentro método $reset");
     formBloc.reset();
+
 
     setState(() {});
   }

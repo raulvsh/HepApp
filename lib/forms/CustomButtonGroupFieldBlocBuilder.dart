@@ -9,8 +9,8 @@ import 'package:sized_context/sized_context.dart';
 /// A material design radio buttons.
 class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
   bool reset;
+  bool error;
 
-  // bool errorFlag;
 
   CustomButtonGroupFieldBlocBuilder({
     Key key,
@@ -25,7 +25,7 @@ class CustomButtonGroupFieldBlocBuilder<Value> extends StatefulWidget {
     this.nextFocusNode,
     this.text,
     this.reset,
-    //this.errorFlag,
+    this.error,
   })  : assert(selectFieldBloc != null),
         assert(enableOnlyWhenFormBlocCanSubmit != null),
         assert(isEnabled != null),
@@ -130,7 +130,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
     simpleBuilder = (BuildContext context, List<double> animValues,
         Function updateState, String value) {
       final alpha = (animValues[0] * 255).toInt();
-      var opacity = widget.reset == false ? alpha : 0;
+      var opacity = (!widget.reset && !errorFlag) ? alpha : 0;
 
       return /*Center(
         child:*/
@@ -150,7 +150,8 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                 .withAlpha(opacity),
             border: Border.all(
               color: errorFlag
-                  ? Colors.red
+                  ? Color.fromARGB(255, 211, 47, 47)
+              //?Colors.red
                   : Color.fromARGB(255, 45, 145, 155), //Color del borde
               width: 1.3,
             ),
@@ -224,6 +225,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                       onTap: () {
                         setState(() {
                           widget.reset = false;
+                          errorFlag = false;
                           _initMap(state);
 
                           radioValue = state.items
@@ -275,7 +277,7 @@ class _CustomButtonGroupFieldBlocBuilderState<Value>
                                       color: isSelected[state.items
                                           .elementAt(index)
                                           .toString()] &&
-                                          (widget.reset == false)
+                                          (!widget.reset && !errorFlag)
                                           ? Colors.white
                                           : Theme
                                           .of(context)

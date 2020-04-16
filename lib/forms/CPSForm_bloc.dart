@@ -257,6 +257,10 @@ class CPSFormBloc extends FormBloc<String, String> {
       items: ['none_fem', 'controlled', 'refractory'],
     );
     this.resultadoField = "CPS";
+
+    //showFields();
+    //showObjectCPSData();
+
   }
 
   void previous() {

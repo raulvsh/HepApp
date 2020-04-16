@@ -6,13 +6,11 @@ import 'package:sized_context/sized_context.dart';
 class CustomTextFieldBlocBuilder extends StatelessWidget {
   const CustomTextFieldBlocBuilder({
     Key key,
-    //@required this.formBloc,
     @required this.textFieldBloc,
     @required this.title,
     @required this.uds,
   }) : super(key: key);
 
-  //final ChildCalcFormBloc formBloc;
   final TextFieldBloc textFieldBloc;
   final title;
   final uds;
@@ -49,8 +47,8 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
       width: isTablet ? 80 : 60,
       height: 40,
       child: TextFieldBlocBuilder(
-        padding: EdgeInsets.symmetric(
-            vertical: 10, horizontal: isTablet ? 10 : 5),
+        padding:
+        EdgeInsets.symmetric(vertical: 10, horizontal: isTablet ? 10 : 5),
         cursorColor: Theme
             .of(context)
             .primaryColor,
@@ -72,14 +70,14 @@ class CustomTextFieldBlocBuilder extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(3.0),
             borderSide: BorderSide(
-              width: 1,
+              width: 1.3,
               color: Color.fromARGB(255, 45, 145, 155),
             ), //color: Colors.red),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(3.0),
             borderSide: BorderSide(
-              width: 1.5,
+              width: 1.3,
               color: Color.fromARGB(255, 45, 145, 155),
             ), //color: Colors.red),
           ),
