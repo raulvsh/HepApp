@@ -97,7 +97,7 @@ class _PartialCalcTextFieldState extends State<PartialCalcTextField> {
             ),*/
         ),
         onChanged: (text) {
-          print("widget text title change " + widget.title);
+          print("widget text title " + widget.title);
           if (widget.title == 'bilirubin') {
             prefs.setErrorList(0, false);
           } else if (widget.title == 'inr') {
