@@ -20,16 +20,6 @@ class CpsAlgorithm {
     var ptsEncephalopaty;
     var ptsAscites;
 
-/*if(antiguo.bilirubin<=34){
-      print("yujuuu " + antiguo.bilirubin.toString());
-    }*/
-//TODO Aquí llamar a los métodos de convertir a unidades internacionales
-/*if(prefs.internationalUnits == false){
-      antiguo.bilirubin = units.getConvertedBilirrubin(antiguo.bilirubin);
-      antiguo.albumin = units.getConvertedAlbumin(antiguo.albumin);
-    }*/
-//pasar a método externo
-//compruebo que esté en unidades interanacionales, si no, convierto
     if (!prefs.getInternationalUnits()) convertToIU();
     showObjectCPSData();
 
@@ -78,7 +68,6 @@ class CpsAlgorithm {
 
     int resultado =
         ptsBilirubin + ptsINR + ptsAlbumin + ptsEncephalopaty + ptsAscites;
-/*print('Resultado numérico: $resultado');*/
     if (resultado == 5 || resultado == 6) {
       return 'A ($resultado)';
     } else if (resultado >= 7 && resultado <= 9) {
@@ -89,10 +78,8 @@ class CpsAlgorithm {
   }
 
   void convertToIU() {
-    //if (!prefs.getIunitsPrueba()) {
     cpsData.bilirubin = units.getIUBilirrubin(cpsData.bilirubin);
     cpsData.albumin = units.getIUAlbumin(cpsData.albumin);
-    //}
   }
 
   void obtenerPuntos(

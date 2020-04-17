@@ -1,34 +1,44 @@
 import 'package:form_bloc/form_bloc.dart';
-import 'package:hepapp/forms/cps_algorithm.dart';
-import 'package:hepapp/forms/cps_data.dart';
+import 'package:hepapp/forms/meld_data.dart';
 import 'package:hepapp/forms/units.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
-class CpsFormBloc extends FormBloc<String, String> {
+class MeldFormBloc extends FormBloc<String, String> {
   final prefs = PreferenciasUsuario();
   final units = Units();
 
   ///Usadas por mi
   var bilirubinField = TextFieldBloc();
   var inrField = TextFieldBloc();
+  var creatinineField = TextFieldBloc();
+
   var albuminField = TextFieldBloc();
+  var sodiumField = TextFieldBloc();
+
   var encephalopatyField = SelectFieldBloc(
     items: ['none_fem', 'grade_1_2', 'grade_3_4'],
-    //initialValue: ['none_fem'],
   );
   var ascitesField = SelectFieldBloc(
     items: ['none_fem', 'controlled', 'refractory'],
   );
   bool iUnits = true;
+  var dialysisField = SelectFieldBloc(
+    items: ['yes', 'no'],
+  );
+  String resultadoField = 'MELD';
 
-  String resultadoField = 'CPS';
-  var data = CpsData(
+  var data = MeldData(
       bilirubin: 0,
       inr: 0,
+      creatinine: 0,
       albumin: 0,
-      encephalopaty: 'none_fem',
-      ascites: 'none_fem',
-      result: '-');
+      sodium: 0,
+      dialysis: 'no',
+      result: '-' //encephalopaty: 'none_fem',
+      //ascites: 'none_fem',
+
+      //result: 'CPS'
+      );
 
   ///No usadas por mi (de momento) TODO LIMPIAR
   /* final tumourPercentageField = SelectFieldBloc(
@@ -52,34 +62,29 @@ class CpsFormBloc extends FormBloc<String, String> {
   );*/
 
   @override
-  List<FieldBloc> get fieldBlocs =>
-      [
+  List<FieldBloc> get fieldBlocs => [
         bilirubinField,
         inrField,
+        creatinineField,
         albuminField,
-        encephalopatyField,
-        ascitesField,
-        /* booleanField,
-    selectField1,
-    selectField2,
-    multiSelectField,*/
+        sodiumField,
+        dialysisField,
       ];
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    // Get the fields values:
     showFields();
 
-    data = CpsData(
+    data = MeldData(
       bilirubin: bilirubinField.valueToDouble,
       inr: inrField.valueToDouble,
+      creatinine: creatinineField.valueToDouble,
       albumin: albuminField.valueToDouble,
-      encephalopaty: encephalopatyField.value,
-      ascites: ascitesField.value,
-      result: resultadoField,
+      sodium: sodiumField.valueToDouble,
+      dialysis: dialysisField.value,
     );
-    CpsAlgorithm cpsAlgorithm = CpsAlgorithm(data);
-    //showObjectCPSData();
+
+    showObjectMeldData();
 
     /*print(selectField1.value); //Dropdown menu
     print(multiSelectField.value);
@@ -88,8 +93,7 @@ class CpsFormBloc extends FormBloc<String, String> {
 
     try {
       //data.result = obtenerResultado(data);
-      this.resultadoField = cpsAlgorithm.obtenerResultado();
-      data.result = this.resultadoField;
+      this.resultadoField = obtenerResultado(data);
       //obtenerResultado(antiguo); //obtenerResultado(resultado);
       /*print("Campo resultado después de operar: " +
           resultadoField +
@@ -112,46 +116,49 @@ class CpsFormBloc extends FormBloc<String, String> {
     yield currentState.toLoaded();
   }
 
-  /*void showObjectCPSData() {
+  void showObjectMeldData() {
     print("\n\n*****************OBJETO CPSDATA: "
-        "\nbilirrubina : ${data.bilirubin}" +
-        "\nalbumina : ${data.inr}" +
+            "\nbilirrubina : ${data.bilirubin}" +
         "\ninr : ${data.albumin}" +
-        "\nencefalopatia : ${data.encephalopaty}" +
-        "\nascitis : ${data.ascites}" +
-        "\nresultado: ${data.result}" +
+        "\ncreatinina : ${data.creatinine}" +
+        "\nalbumina : ${data.inr}" +
+        "\nsodium : ${data.sodium}" +
+        "\ndyalisis: ${data.dialysis}" +
         "\n**************");
-  }*/
+  }
 
   void showFields() {
     print("\n\n *********FIELD VALUES");
     print("Campo bilirrubina: " + bilirubinField.value);
     print("Campo inr: " + inrField.value);
+    print("Campo creatinina: " + creatinineField.value);
     print("Campo albumina: " + albuminField.value);
-    print("Campo encefalopatía: " + encephalopatyField.value);
-    print("Campo ascitis: " + ascitesField.value);
+    print("Campo sodio: " + sodiumField.value);
+    print("Campo dialysis: " + dialysisField.value);
+
     print("Campo resultado antes de operar: " + resultadoField);
   }
 
-  /*String obtenerResultado(CpsData data */ /*fieldBlocs*/ /*) {
+  String obtenerResultado(MeldData data /*fieldBlocs*/) {
     var ptsBilirubin;
     var ptsINR;
+    var ptsCreatinine;
     var ptsAlbumin;
-    var ptsEncephalopaty;
-    var ptsAscites;
+    var ptsSodium;
+    var ptsDialysis;
 
-    */ /*if(antiguo.bilirubin<=34){
+    /*if(antiguo.bilirubin<=34){
       print("yujuuu " + antiguo.bilirubin.toString());
-    }*/ /*
+    }*/
     //TODO Aquí llamar a los métodos de convertir a unidades internacionales
-    */ /*if(prefs.internationalUnits == false){
+    /*if(prefs.internationalUnits == false){
       antiguo.bilirubin = units.getConvertedBilirrubin(antiguo.bilirubin);
       antiguo.albumin = units.getConvertedAlbumin(antiguo.albumin);
-    }*/ /*
+    }*/
     //pasar a método externo
     //compruebo que esté en unidades interanacionales, si no, convierto
-    if (!prefs.getIunitsPrueba()) convertToIU();
-    showObjectCPSData();
+    if (!prefs.getInternationalUnits()) convertToIU();
+    showObjectMeldData();
 
     if (data.bilirubin <= 34) {
       ptsBilirubin = 1;
@@ -177,7 +184,7 @@ class CpsFormBloc extends FormBloc<String, String> {
       ptsAlbumin = 1;
     }
 
-    if (data.encephalopaty == 'none_fem') {
+    /*if (data.encephalopaty == 'none_fem') {
       ptsEncephalopaty = 1;
     } else if (data.encephalopaty == 'grade_1_2') {
       ptsEncephalopaty = 2;
@@ -191,17 +198,17 @@ class CpsFormBloc extends FormBloc<String, String> {
       ptsAscites = 2;
     } else if (data.ascites == 'refractory') {
       ptsAscites = 3;
-    }
-
-    //TODO añadir los valores de los campos a variable DatosCPS
+    }*/
 
     obtenerPuntos(
-        ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites);
-
+      ptsBilirubin,
+      ptsINR,
+      ptsAlbumin,
+    ); //ptsEncephalopaty, ptsAscites);
 
     int resultado =
-        ptsBilirubin + ptsINR + ptsAlbumin + ptsEncephalopaty + ptsAscites;
-    */ /*print('Resultado numérico: $resultado');*/ /*
+        ptsBilirubin + ptsINR + ptsAlbumin; // + ptsEncephalopaty + ptsAscites;
+    /*print('Resultado numérico: $resultado');*/
     if (resultado == 5 || resultado == 6) {
       return 'A ($resultado)';
     } else if (resultado >= 7 && resultado <= 9) {
@@ -209,32 +216,37 @@ class CpsFormBloc extends FormBloc<String, String> {
     } else {
       return 'C ($resultado)';
     }
-  }*/
+  }
 
-  /*void obtenerPuntos(ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty,
-      ptsAscites) {
+  void obtenerPuntos(
+    ptsBilirubin,
+    ptsINR,
+    ptsAlbumin,
+  ) {
+    //}ptsEncephalopaty,
+    //ptsAscites) {
     print("\n\n**********PUNTOS\nPuntos bilirrubina: $ptsBilirubin");
     print("Puntos inr: $ptsINR");
     print("Puntos albúmina: $ptsAlbumin");
-    print("Puntos encefalopatía: $ptsEncephalopaty");
-    print("Puntos ascitis: $ptsAscites");
-  }*/
-/*
+    //print("Puntos encefalopatía: $ptsEncephalopaty");
+    //print("Puntos ascitis: $ptsAscites");
+  }
+
   void convertToIU() {
     //if (!prefs.getIunitsPrueba()) {
     data.bilirubin = units.getIUBilirrubin(data.bilirubin);
     data.albumin = units.getIUAlbumin(data.albumin);
     //}
-  }*/
+  }
 
   showNotIU() {
     this.bilirubinField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(data.bilirubin)
-          .toStringAsPrecision(2),
+      initialValue:
+          units.getNotIUBilirrubin(data.bilirubin).toStringAsPrecision(2),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(data.albumin).toStringAsPrecision(
-          2),
+      initialValue:
+          units.getNotIUBilirrubin(data.albumin).toStringAsPrecision(2),
     );
     //data.bilirubin = 234234;
     //data.albumin = 123478;
@@ -259,16 +271,13 @@ class CpsFormBloc extends FormBloc<String, String> {
     this.ascitesField = SelectFieldBloc(
       items: ['none_fem', 'controlled', 'refractory'],
     );
-    this.resultadoField = "-";
+    this.resultadoField = "CPS";
 
-    // this.ascitesField.clear(); //(value)
     //showFields();
     //showObjectCPSData();
-
   }
 
   void previous() {
-
     this.bilirubinField = TextFieldBloc(
       initialValue: data.bilirubin.toString(),
     );
@@ -278,47 +287,23 @@ class CpsFormBloc extends FormBloc<String, String> {
     this.albuminField = TextFieldBloc(
       initialValue: data.albumin.toString(),
     );
-    this.encephalopatyField = SelectFieldBloc(
+    /*this.encephalopatyField = SelectFieldBloc(
       items: ['none_fem', 'grade_1_2', 'grade_3_4'],
       initialValue: data.encephalopaty.toString(),
-
-      //initialValue: data.encephalopaty.toString(),
     );
     this.ascitesField = SelectFieldBloc(
       items: ['none_fem', 'controlled', 'refractory'],
       initialValue: data.ascites.toString(),
     );
+*/
     this.resultadoField = data.result;
-
-    //this.ascitesField.updateValue('none_fem');
-    //this.ascitesField.updateItems(['none_fem', 'controlled', 'refractory'],);
-    //print("ascites dentro previo " + this.ascitesField.value.toString());
-    //var radio = state.elementAt(0).toString();
-    //print("radio" + radio);
-
-    //encephalopatyField.updateValue(data.encephalopaty.toString(),);
-    /* _initMap(state);
-
-      radioValue = state.items
-          .elementAt(index)
-          .toString(); //radioValue es el elemento seleccionado
-
-      */ /*Venían en la función onChange, quizás se necesiten
-                      widget.isEnabled,
-                      widget.nextFocusNode,*/ /*
-
-      widget.selectFieldBloc
-          .updateValue(radioValue); //Actualizo el valor
-      isSelected[radioValue] = true;
-      //print('Mapa actualizado $isSelected \n\n');*/
-
 
     print("\n*****AFTER PREVIOUS");
     print("bilirrubin: " + this.bilirubinField.value);
     print("INR: " + this.inrField.value);
     print("albumina: " + this.albuminField.value);
-    print("encefalopatia: " + this.encephalopatyField.value.toString());
-    print("ascitis: " + this.ascitesField.value.toString());
+    //print("encefalopatia: " + this.encephalopatyField.value);
+    //print("ascitis: " + this.ascitesField.value);
     print("resultado: " + this.resultadoField);
   }
 }

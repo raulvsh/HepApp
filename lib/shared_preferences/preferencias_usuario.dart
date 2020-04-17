@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:hepapp/forms/cps_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferenciasUsuario {
@@ -14,10 +13,19 @@ class PreferenciasUsuario {
   SharedPreferences _prefs;
 
   bool _internationalUnits;
-  StreamController _streamController2 = StreamController<bool>.broadcast();
+  StreamController _streamController = StreamController<bool>.broadcast();
 
   Stream<bool> get iUnitsUpdates =>
-      _streamController2.stream; //.asBroadcastStream();
+      _streamController.stream;
+
+  //List<bool> errorList = [false, false, false, false, false, false, false, false];// = [];
+  bool _error;
+  StreamController _streamController2 = StreamController<bool>.broadcast();
+
+  Stream<bool> get errorUpdates =>
+      _streamController2.stream;
+
+  //List<bool> errorList = [false, false, false, false, false, false, false, false];// = [];
 
   initPrefs() async {
     this._prefs = await SharedPreferences.getInstance();
@@ -27,16 +35,25 @@ class PreferenciasUsuario {
     print("iunitsprueba " + _internationalUnits.toString());
     _internationalUnits = !_internationalUnits;
     print("iunitsprueba despues" + _internationalUnits.toString());
-    _streamController2.add(_internationalUnits);
+    _streamController.add(_internationalUnits);
   }
 
   void setInternationalUnits(bool value) {
     _internationalUnits = value;
-    _streamController2.add(_internationalUnits);
+    _streamController.add(_internationalUnits);
   }
 
   bool getInternationalUnits() {
     return _internationalUnits;
+  }
+
+  void setError(bool value) {
+    _error = value;
+    _streamController2.add(_error);
+  }
+
+  bool getError() {
+    return _error;
   }
 
   ///GETS Y SETS DE HEPAPP
@@ -53,7 +70,7 @@ class PreferenciasUsuario {
   /// GETS Y SETS ANTERIORES
   ///
 
-  get datosCPSantiguo {
+/*get datosCPSantiguo {
     return _prefs.get(datosCPSantiguo);
   }
 
@@ -67,11 +84,11 @@ class PreferenciasUsuario {
 
   set bilirubin(double value) {
     _prefs.setDouble('bilirubin', value);
-    /*_prefs.setDouble('bilirubin', mapaCPS['bilirubin']);
+    */ /*_prefs.setDouble('bilirubin', mapaCPS['bilirubin']);
     _prefs.setDouble('inr', mapaCPS['bilirubin']);
     _prefs.setDouble('albumin', mapaCPS['albumin']);
     _prefs.setString('encephalopaty', mapaCPS['encephalopaty']);
-    _prefs.setString('ascites', mapaCPS['ascites']);*/
+    _prefs.setString('ascites', mapaCPS['ascites']);*/ /*
   }
 
   // GET y SET del Genero
@@ -108,5 +125,5 @@ class PreferenciasUsuario {
 
   set ultimaPagina(String value) {
     _prefs.setString('ultimaPagina', value);
-  }
+  }*/
 }

@@ -42,6 +42,7 @@
   "podcast_19": "Podcast 19",
   "podcast_20": "Podcast 20",
   "podcast_21": "Podcast 21",
+  "accept": "Accept",
 
 
   "chapter_1": "Chapter 1",
@@ -134,9 +135,8 @@
   "liver_stomach_pancreas_gall_bladder": "Liver, stomach, pancreas and Gall Bladder",
   "liver_vasculature": "Liver vasculature",
   "liver_cell": "Liver cell",
-
-
-
+  "fill_empty_fields": "Please fill empty fields",
+  "error": "Error",
   "casl": "CASL Guidelines",
   "aasld": "AASLD Guidelines",
   "easl": "EASL Guidelines",

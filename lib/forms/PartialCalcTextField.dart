@@ -15,6 +15,7 @@ class PartialCalcTextField extends StatelessWidget {
   final title;
   final uds;
 
+
   @override
   Widget build(BuildContext context) {
     bool isTablet = context.diagonalInches >= 7;
@@ -46,6 +47,7 @@ class PartialCalcTextField extends StatelessWidget {
       width: isTablet ? 80 : 60,
       height: 40,
       child: TextFieldBlocBuilder(
+
         padding:
         EdgeInsets.symmetric(vertical: 10, horizontal: isTablet ? 10 : 5),
         cursorColor: Theme
@@ -81,6 +83,7 @@ class PartialCalcTextField extends StatelessWidget {
             ), //color: Colors.red),
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+
           /*errorText: "hola",
             errorStyle: TextStyle(
               backgroundColor: Colors.yellow,
@@ -90,8 +93,7 @@ class PartialCalcTextField extends StatelessWidget {
         errorBuilder: (context, error) {
           switch (error) {
             case ValidatorsError.requiredTextFieldBloc:
-              return "";
-              break;
+              return " ";
             default:
               return 'This text is nor valid.';
           }

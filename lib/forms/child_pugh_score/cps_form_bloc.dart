@@ -1,45 +1,38 @@
+import 'dart:async';
+
 import 'package:form_bloc/form_bloc.dart';
-import 'package:hepapp/forms/meld_algorithm.dart';
-import 'package:hepapp/forms/meld_data.dart';
+import 'package:hepapp/forms/child_pugh_score/cps_algorithm.dart';
+import 'package:hepapp/forms/child_pugh_score/cps_data.dart';
 import 'package:hepapp/forms/units.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
-class MeldFormBloc extends FormBloc<String, String> {
+class CpsFormBloc extends FormBloc<String, String> {
   final prefs = PreferenciasUsuario();
   final units = Units();
+  bool iUnits = true;
+
 
   ///Usadas por mi
   var bilirubinField = TextFieldBloc();
   var inrField = TextFieldBloc();
-  var creatinineField = TextFieldBloc();
-
   var albuminField = TextFieldBloc();
-  var sodiumField = TextFieldBloc();
-
   var encephalopatyField = SelectFieldBloc(
     items: ['none_fem', 'grade_1_2', 'grade_3_4'],
+    //initialValue: ['none_fem'],
   );
   var ascitesField = SelectFieldBloc(
     items: ['none_fem', 'controlled', 'refractory'],
   );
-  bool iUnits = true;
-  var dialysisField = SelectFieldBloc(
-    items: ['yes', 'no'],
-  );
-  String resultadoField = 'MELD';
+  var errorField = false;
 
-  var data = MeldData(
+  String resultadoField = 'CPS';
+  var data = CpsData(
       bilirubin: 0,
       inr: 0,
-      creatinine: 0,
       albumin: 0,
-      sodium: 0,
-      dialysis: 'no',
-      result: '-' //encephalopaty: 'none_fem',
-    //ascites: 'none_fem',
-
-    //result: 'CPS'
-  );
+      encephalopaty: 'none_fem',
+      ascites: 'none_fem',
+      result: '-');
 
   ///No usadas por mi (de momento) TODO LIMPIAR
   /* final tumourPercentageField = SelectFieldBloc(
@@ -63,29 +56,33 @@ class MeldFormBloc extends FormBloc<String, String> {
   );*/
 
   @override
-  List<FieldBloc> get fieldBlocs => [
-    bilirubinField,
-    inrField,
-    creatinineField,
-    albuminField,
-    sodiumField,
-    dialysisField,
-  ];
+  List<FieldBloc> get fieldBlocs =>
+      [
+        bilirubinField,
+        inrField,
+        albuminField,
+        encephalopatyField,
+        ascitesField,
+        /* booleanField,
+    selectField1,
+    selectField2,
+    multiSelectField,*/
+      ];
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
+    // Get the fields values:
     showFields();
 
-    data = MeldData(
+    data = CpsData(
       bilirubin: bilirubinField.valueToDouble,
       inr: inrField.valueToDouble,
-      creatinine: creatinineField.valueToDouble,
       albumin: albuminField.valueToDouble,
-      sodium: sodiumField.valueToDouble,
-      dialysis: dialysisField.value,
+      encephalopaty: encephalopatyField.value,
+      ascites: ascitesField.value,
+      result: resultadoField,
     );
-
-    MeldAlgorithm meldAlgorithm = MeldAlgorithm(data);
+    CpsAlgorithm cpsAlgorithm = CpsAlgorithm(data);
     //showObjectCPSData();
 
     /*print(selectField1.value); //Dropdown menu
@@ -95,7 +92,7 @@ class MeldFormBloc extends FormBloc<String, String> {
 
     try {
       //data.result = obtenerResultado(data);
-      this.resultadoField = meldAlgorithm.obtenerResultado();
+      this.resultadoField = cpsAlgorithm.obtenerResultado();
       data.result = this.resultadoField;
       //obtenerResultado(antiguo); //obtenerResultado(resultado);
       /*print("Campo resultado después de operar: " +
@@ -275,7 +272,6 @@ class MeldFormBloc extends FormBloc<String, String> {
   }
 
   void previous() {
-
     this.bilirubinField = TextFieldBloc(
       initialValue: data.bilirubin.toString(),
     );
@@ -285,7 +281,7 @@ class MeldFormBloc extends FormBloc<String, String> {
     this.albuminField = TextFieldBloc(
       initialValue: data.albumin.toString(),
     );
-    /*this.encephalopatyField = SelectFieldBloc(
+    this.encephalopatyField = SelectFieldBloc(
       items: ['none_fem', 'grade_1_2', 'grade_3_4'],
       initialValue: data.encephalopaty.toString(),
 
@@ -294,7 +290,7 @@ class MeldFormBloc extends FormBloc<String, String> {
     this.ascitesField = SelectFieldBloc(
       items: ['none_fem', 'controlled', 'refractory'],
       initialValue: data.ascites.toString(),
-    );*/
+    );
     this.resultadoField = data.result;
 
     //this.ascitesField.updateValue('none_fem');

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:hepapp/forms/meld_form_bloc.dart';
+import 'package:hepapp/forms/meld_form_bloc_bak.dart';
 import 'package:hepapp/forms/units.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
@@ -27,6 +27,8 @@ class MeldForm extends StatefulWidget with Observable {
 
 class MeldFormState extends State<MeldForm> with Observable {
   var reset = false;
+  var previous = false;
+
   final prefs = PreferenciasUsuario();
   final units = Units();
   bool _internationalUnits = true;
@@ -165,6 +167,8 @@ class MeldFormState extends State<MeldForm> with Observable {
   _buildDialysisRow(AppLocalizations aux, MeldFormBloc formBloc) {
     return PartialCalcGroupField(
       reset: reset,
+      previous: previous,
+
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.dialysisField,
       text: aux.tr('dialysis'),
@@ -181,6 +185,8 @@ class MeldFormState extends State<MeldForm> with Observable {
   ) {
     return PartialCalcGroupField(
       reset: reset,
+      previous: previous,
+
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ascitesField,
       text: aux.tr('ascites'),
@@ -445,24 +451,34 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   void calculateMeld(MeldFormBloc formBloc) {
-    formBloc.submit();
-    reset = false;
-    setState(() {});
+    //ACTUALIZAR CON LAS ÚLTIMAS MEJORAS DE CPSFORM
+    AppLocalizations aux = AppLocalizations.of(context);
+    setState(() {
+      showDialog(context: context, builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(aux.tr('error')),
+          content: Text("captura de pantalla"),
+        );
+      });
+
+      formBloc.submit();
+      reset = false;
+    });
+    
   }
 
   void resetValues(MeldFormBloc formBloc) {
-    print("\n\n************************RESET");
-
-    reset = true;
-    //print("valor reset dentro método $reset");
-    formBloc.reset();
-
-    setState(() {});
+    setState(() {
+      reset = true;
+      formBloc.reset();
+    });
   }
 
   void previousValues(MeldFormBloc formBloc) {
-    reset = false;
-    formBloc.previous();
-    setState(() {});
+    setState(() {
+      reset = false;
+      previous = true;
+      formBloc.previous();
+    });
   }
 }

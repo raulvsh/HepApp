@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,9 +14,9 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import 'PartialCalcGroupField.dart';
-import 'PartialCalcTextField.dart';
-import 'calc_result_widget.dart';
+import '../PartialCalcGroupField.dart';
+import '../PartialCalcTextField.dart';
+import '../calc_result_widget.dart';
 import 'cps_form_bloc.dart';
 
 class CpsForm extends StatefulWidget with Observable {
@@ -31,7 +32,10 @@ class CpsFormState extends State<CpsForm> with Observable {
   final prefs = PreferenciasUsuario();
   final units = Units();
   bool _internationalUnits = true;
-  StreamSubscription streamSubscription;
+  bool _error = true; // = false;
+  StreamSubscription streamSubIUnits;
+  StreamSubscription streamSubError;
+  var motivoError;
 
   @override
   void initState() {
@@ -39,13 +43,25 @@ class CpsFormState extends State<CpsForm> with Observable {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    streamSubscription = prefs.iUnitsUpdates.listen(
+    streamSubIUnits = prefs.iUnitsUpdates.listen(
           (newVal) =>
           setState(() {
             _internationalUnits = newVal;
           }),
     );
+
     prefs.setInternationalUnits(true);
+    print("iunits" + _internationalUnits.toString());
+    print("iunits " + prefs.getInternationalUnits().toString());
+    //_error = false;
+    streamSubError = prefs.errorUpdates.listen((newVal) =>
+        setState(() {
+          _error = newVal;
+        }));
+    prefs.setError(true);
+
+    print("error init " + _error.toString());
+    print("prefs error desde init " + prefs.getError().toString());
     super.initState();
   }
 
@@ -57,7 +73,8 @@ class CpsFormState extends State<CpsForm> with Observable {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    streamSubscription.cancel();
+    streamSubIUnits.cancel();
+    streamSubError.cancel();
     super.dispose();
   }
 
@@ -90,12 +107,22 @@ class CpsFormState extends State<CpsForm> with Observable {
                 //selPartialSettings: true,
               ),
               drawer: MenuWidget(),
-              body: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              body: Stack(
                 children: <Widget>[
-                  _buildLeftColumn(formBloc),
-                  _buildRightColumn(formBloc),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _buildLeftColumn(formBloc),
+                      _buildRightColumn(formBloc),
+                    ],
+                  ),
+                  FlatButton(
+                    child: Text(prefs.getError().toString()),
+                    onPressed: prefs.getError() ? showDialog2 : () {},
+                  )
+                  //prefs.getError() ? showDialog2() : Container(),
+                  //prefs.getError() ? showErrorDialog() : Container(),
                 ],
               ),
               bottomSheet: _buildBottomSheet(formBloc),
@@ -109,7 +136,6 @@ class CpsFormState extends State<CpsForm> with Observable {
   _buildLeftColumn(CpsFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
-
     return Container(
       width: isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
       height: context.heightPx,
@@ -125,7 +151,6 @@ class CpsFormState extends State<CpsForm> with Observable {
           _buildEncephalopatyRow(aux, formBloc),
           _buildAscitesRow(aux, formBloc),
           _buildCalcButton(aux, formBloc),
-          //Text(maps.toString()),
         ],
       ),
     );
@@ -160,25 +185,50 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   _buildEncephalopatyRow(AppLocalizations aux,
       CpsFormBloc formBloc,) {
-    print("initial ence " + formBloc.encephalopatyField.value.toString());
-
+    //print("error encephalopaty " + _error.toString());
     return PartialCalcGroupField(
+      //error: _error,
       initialValue: formBloc.encephalopatyField.value.toString(),
       reset: reset,
       previous: previous,
       padding: EdgeInsets.only(left: 8),
+      //formBloc: formBloc,
       selectFieldBloc: formBloc.encephalopatyField,
       text: aux.tr('encephalopaty'),
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
+
       itemBuilder: (context, item) => item,
+      /*errorBuilder: (context, error){
+        //print(error);
+        print("error desde builder enc" + _error.toString());
+        //_error = true;
+        print("error desde builder enc2" + _error.toString());
+
+        return null;//"holi";
+      },*/
+      /* (context, error) {
+
+        print(error);
+        print("pongo error a true1 " + _error.toString());
+        //_error = true;
+        prefs.setError(true);
+
+        print("pongo error a true2 " + _error.toString());
+
+        return "holi";
+
+      },*/
     );
   }
 
   _buildAscitesRow(AppLocalizations aux,
       CpsFormBloc formBloc,) {
+    //print("error ascites " + _error.toString());
+
     return PartialCalcGroupField(
+      //error: _error,
       initialValue: formBloc.ascitesField.value.toString(),
       previous: previous,
       reset: reset,
@@ -189,12 +239,21 @@ class CpsFormState extends State<CpsForm> with Observable {
         border: InputBorder.none,
       ),
       itemBuilder: (context, item) => item,
+      /*errorBuilder: (context, error){
+        //print(error);
+        print("error desde builder asc" + _error.toString());
+        //_error = true;
+        print("error desde builder asc 2" + _error.toString());
+
+        return null;//"holi";
+      },*/
     );
   }
 
   _buildCalcButton(AppLocalizations aux,
       CpsFormBloc formBloc,) {
     bool isTablet = context.diagonalInches >= 7;
+    var errordentro = prefs.getError();
     return Container(
       width: 250,
       //padding: EdgeInsets.all(8.0),
@@ -213,7 +272,12 @@ class CpsFormState extends State<CpsForm> with Observable {
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
         onPressed: () {
+          print("error desde antes de calc " + prefs.getError().toString());
+          print(errordentro);
           calculateCps(formBloc);
+          print(errordentro);
+
+          print("error desde despues de calc " + prefs.getError().toString());
         },
         child: Center(
           child: Text(
@@ -265,17 +329,21 @@ class CpsFormState extends State<CpsForm> with Observable {
         ),
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return MoreInformation(
-                title: 'child_pugh_score_oneline',
-                path: 'assets/images/calc/M3C14S0c.png',
-              );
-            },
-          );
+          showMoreInfo();
         },
       ),
+    );
+  }
+
+  Future showMoreInfo() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return MoreInformation(
+          title: 'child_pugh_score_oneline',
+          path: 'assets/images/calc/M3C14S0c.png',
+        );
+      },
     );
   }
 
@@ -452,24 +520,98 @@ class CpsFormState extends State<CpsForm> with Observable {
   }
 
   void calculateCps(CpsFormBloc formBloc) {
-    setState(() {
+    //prefs.setError(true);
+    print(prefs.getError());
+    //else{
+
       formBloc.submit();
+    if (prefs.getError()) showErrorDialog();
+
+    print("error al calcular " + _error.toString());
+
       reset = false;
-    });
+    setState(() {});
+
+
+    //}
+  }
+
+  void showDialog2() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Alert Dialog title"),
+          content: new Text("Alert Dialog body"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  showErrorDialog() {
+    AppLocalizations aux = AppLocalizations.of(context);
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              aux.tr('error'), style: TextStyle(color: Colors.black),),
+            content: Container(
+              height: context.heightPct(0.20),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                      padding: EdgeInsets.only(right: 20),
+                      child: Text(aux.tr('fill_empty_fields'),
+                        style: TextStyle(color: Colors.black),)),
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.bottomRight,
+                      child: FlatButton(
+                          padding: EdgeInsets.all(0),
+                          child: Text(
+                            aux.tr('accept'), style: TextStyle(color: Theme
+                              .of(context)
+                              .primaryColor),),
+                          onPressed: () {
+                            prefs.setError(false);
+                            Navigator.pop(context);
+                            setState(() {
+
+                            });
+                            //Navigator.pop(context);
+                          }),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   void resetValues(CpsFormBloc formBloc) {
-    setState(() {
-      reset = true;
-      formBloc.reset();
-    });
+    reset = true;
+    formBloc.reset();
+    setState(() {});
   }
 
   void previousValues(CpsFormBloc formBloc) {
-    setState(() {
-      reset = false;
-      previous = true;
-      formBloc.previous();
-    });
+    reset = false;
+    previous = true;
+    formBloc.previous();
+    setState(() {});
   }
 }
