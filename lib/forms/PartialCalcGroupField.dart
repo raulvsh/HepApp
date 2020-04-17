@@ -29,7 +29,7 @@ class PartialCalcGroupField<Value> extends StatefulWidget {
     this.decoration = const InputDecoration(),
     this.canDeselect = true,
     this.nextFocusNode,
-    this.text,
+    this.title,
     this.reset,
     this.error,
     this.previous,
@@ -71,7 +71,7 @@ class PartialCalcGroupField<Value> extends StatefulWidget {
   final FocusNode nextFocusNode;
 
   /// Le mandamos el texto que aparecerá al principio de la fila
-  final String text;
+  final String title;
 
   @override
   _PartialCalcGroupFieldState<Value> createState() =>
@@ -178,12 +178,13 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
 
   Container _buildInitialText() {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       //width: 90,
         padding: EdgeInsets.symmetric(horizontal: 5),
         child: Text(
-          widget.text,
+          aux.tr(widget.title),
           style: TextStyle(
             color: Colors.black,
             fontSize: isTablet ? 15 : 12,
@@ -223,6 +224,14 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
                       widget.reset = false;
                       widget.previous = false;
                       //prefs.setError(false);
+                      print("selectfield blo " + widget.title);
+                      //TODO metodo aparte, adaptado al Map<String,bool>
+                      if (widget.title == 'encephalopaty') {
+                        prefs.setErrorList(3, false);
+                      }
+                      else if (widget.title == 'ascites') {
+                        prefs.setErrorList(4, false);
+                      }
                       _errorFlag = false;
 
                       _initMap(state);
@@ -366,7 +375,9 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
             (context, error) {
           //widget.errorBuilder;
           //print(error);
-          prefs.setError(true);
+          //prefs.setError(true);
+          print("selectfield to string " + widget.selectFieldBloc.toString());
+          print(prefs.getErrorList());
           print("error desde error builder part group " +
               prefs.getError().toString());
           //_errorFlag = true;

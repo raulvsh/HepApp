@@ -86,7 +86,6 @@ class MeldFormBloc extends FormBloc<String, String> {
     );
 
     MeldAlgorithm meldAlgorithm = MeldAlgorithm(data);
-    //showObjectCPSData();
 
     /*print(selectField1.value); //Dropdown menu
     print(multiSelectField.value);

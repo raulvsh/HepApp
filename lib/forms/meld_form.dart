@@ -171,7 +171,7 @@ class MeldFormState extends State<MeldForm> with Observable {
 
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.dialysisField,
-      text: aux.tr('dialysis'),
+      title: aux.tr('dialysis'),
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
@@ -189,7 +189,7 @@ class MeldFormState extends State<MeldForm> with Observable {
 
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ascitesField,
-      text: aux.tr('ascites'),
+      title: aux.tr('ascites'),
       decoration: InputDecoration(
         border: InputBorder.none,
       ),

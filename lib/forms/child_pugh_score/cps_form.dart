@@ -32,10 +32,12 @@ class CpsFormState extends State<CpsForm> with Observable {
   final prefs = PreferenciasUsuario();
   final units = Units();
   bool _internationalUnits = true;
-  bool _error = true; // = false;
+  List<bool> _errorList;
   StreamSubscription streamSubIUnits;
-  StreamSubscription streamSubError;
-  var motivoError;
+  StreamSubscription streamSubErrorList;
+
+
+  String errorPrueba = "";
 
   @override
   void initState() {
@@ -51,17 +53,19 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
 
     prefs.setInternationalUnits(true);
-    print("iunits" + _internationalUnits.toString());
-    print("iunits " + prefs.getInternationalUnits().toString());
-    //_error = false;
-    streamSubError = prefs.errorUpdates.listen((newVal) =>
-        setState(() {
-          _error = newVal;
-        }));
-    prefs.setError(true);
 
-    print("error init " + _error.toString());
-    print("prefs error desde init " + prefs.getError().toString());
+    //_error = false;
+
+
+    streamSubErrorList = prefs.errorListUpdates.listen((newVal) =>
+        setState(() {
+          _errorList = newVal;
+        }));
+
+    prefs.initErrorList(5);
+
+
+    print("prefs error desde init " + prefs.getErrorList().toString());
     super.initState();
   }
 
@@ -74,7 +78,7 @@ class CpsFormState extends State<CpsForm> with Observable {
       DeviceOrientation.portraitDown,
     ]);
     streamSubIUnits.cancel();
-    streamSubError.cancel();
+    streamSubErrorList.cancel();
     super.dispose();
   }
 
@@ -117,10 +121,7 @@ class CpsFormState extends State<CpsForm> with Observable {
                       _buildRightColumn(formBloc),
                     ],
                   ),
-                  FlatButton(
-                    child: Text(prefs.getError().toString()),
-                    onPressed: prefs.getError() ? showDialog2 : () {},
-                  )
+
                   //prefs.getError() ? showDialog2() : Container(),
                   //prefs.getError() ? showErrorDialog() : Container(),
                 ],
@@ -151,6 +152,14 @@ class CpsFormState extends State<CpsForm> with Observable {
           _buildEncephalopatyRow(aux, formBloc),
           _buildAscitesRow(aux, formBloc),
           _buildCalcButton(aux, formBloc),
+          FlatButton(
+            child: Text(_errorList.toString()),
+            //onPressed: prefs.getNumErrors()==0 ? showDialog2 : () {},
+          ), FlatButton(
+            child: Text(errorPrueba),
+            //onPressed: prefs.getNumErrors()==0 ? showDialog2 : () {},
+          )
+
         ],
       ),
     );
@@ -158,9 +167,10 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   _buildBilirrubinRow(AppLocalizations aux, CpsFormBloc formBloc) {
     return PartialCalcTextField(
+
       //formBloc: formBloc,
       textFieldBloc: formBloc.bilirubinField,
-      title: aux.tr('bilirubin'),
+      title: 'bilirubin',
       uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
     );
   }
@@ -169,7 +179,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     return PartialCalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.inrField,
-      title: aux.tr('inr'),
+      title: 'inr',
       uds: '',
     );
   }
@@ -178,7 +188,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     return PartialCalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.albuminField,
-      title: aux.tr('albumin'),
+      title: 'albumin',
       uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
     );
   }
@@ -194,59 +204,31 @@ class CpsFormState extends State<CpsForm> with Observable {
       padding: EdgeInsets.only(left: 8),
       //formBloc: formBloc,
       selectFieldBloc: formBloc.encephalopatyField,
-      text: aux.tr('encephalopaty'),
+      title: 'encephalopaty',
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
 
       itemBuilder: (context, item) => item,
-      /*errorBuilder: (context, error){
-        //print(error);
-        print("error desde builder enc" + _error.toString());
-        //_error = true;
-        print("error desde builder enc2" + _error.toString());
 
-        return null;//"holi";
-      },*/
-      /* (context, error) {
-
-        print(error);
-        print("pongo error a true1 " + _error.toString());
-        //_error = true;
-        prefs.setError(true);
-
-        print("pongo error a true2 " + _error.toString());
-
-        return "holi";
-
-      },*/
     );
   }
 
   _buildAscitesRow(AppLocalizations aux,
       CpsFormBloc formBloc,) {
-    //print("error ascites " + _error.toString());
 
     return PartialCalcGroupField(
-      //error: _error,
       initialValue: formBloc.ascitesField.value.toString(),
       previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ascitesField,
-      text: aux.tr('ascites'),
+      title: 'ascites',
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
       itemBuilder: (context, item) => item,
-      /*errorBuilder: (context, error){
-        //print(error);
-        print("error desde builder asc" + _error.toString());
-        //_error = true;
-        print("error desde builder asc 2" + _error.toString());
 
-        return null;//"holi";
-      },*/
     );
   }
 
@@ -258,7 +240,6 @@ class CpsFormState extends State<CpsForm> with Observable {
       width: 250,
       //padding: EdgeInsets.all(8.0),
       margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
-      //left: 20),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(3),
@@ -272,12 +253,13 @@ class CpsFormState extends State<CpsForm> with Observable {
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
         onPressed: () {
-          print("error desde antes de calc " + prefs.getError().toString());
+          print("error desde antes de calc " + prefs.getErrorList().toString());
           print(errordentro);
           calculateCps(formBloc);
           print(errordentro);
 
-          print("error desde despues de calc " + prefs.getError().toString());
+          print(
+              "error desde despues de calc " + prefs.getErrorList().toString());
         },
         child: Center(
           child: Text(
@@ -312,7 +294,6 @@ class CpsFormState extends State<CpsForm> with Observable {
       ),
     );
 
-    // CalcBottomBar("reseteo2");
   }
 
   Container _buildMoreInfoButton(AppLocalizations aux) {
@@ -393,20 +374,15 @@ class CpsFormState extends State<CpsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
-
       //color: Colors.blue,
       child: Column(
-        //mainAxisAlignment: MainAxisAlignment.start,
-        //crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           _buildIUnitsRow(formBloc),
-          //Center(
-          //child:
+
           Container(
             //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
               child: CalcResultWidget(
                   'child_pugh_score_oneline', formBloc.resultadoField)),
-          //),
           _buildRightBottomTitle(),
         ],
       ),
@@ -444,7 +420,6 @@ class CpsFormState extends State<CpsForm> with Observable {
 
     isSelected[0] = prefs.getInternationalUnits();
     isSelected[1] = !isSelected[0];
-    //isSelected[1] = !prefs.getIunitsPrueba();
 
     return ToggleButtons(
       borderColor: Color.fromARGB(255, 45, 145, 155),
@@ -466,7 +441,7 @@ class CpsFormState extends State<CpsForm> with Observable {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 12,
-            ), //color: Theme.of(context).primaryColor) ,
+            ),
           ),
         ),
         Container(
@@ -483,7 +458,6 @@ class CpsFormState extends State<CpsForm> with Observable {
           for (int i = 0; i < isSelected.length; i++) {
             isSelected[i] = i == index;
           }
-          //formBloc.showIU();
           isSelected[0]
               ? formBloc.showIU()
               : formBloc.showNotIU(); // : formBloc.convertToNoIU();
@@ -520,44 +494,21 @@ class CpsFormState extends State<CpsForm> with Observable {
   }
 
   void calculateCps(CpsFormBloc formBloc) {
-    //prefs.setError(true);
-    print(prefs.getError());
-    //else{
+    //print("error list calc cps " + prefs.getErrorList().toString());
+    prefs.isError() ? errorPrueba = "hay al menos un error" : errorPrueba =
+    "no hay errores";
+    prefs.isError() ? showErrorDialog() : errorPrueba = "no hay errores";
 
-      formBloc.submit();
-    if (prefs.getError()) showErrorDialog();
+    formBloc.submit();
 
-    print("error al calcular " + _error.toString());
+    //print("error despues calc cps " + prefs.getErrorList().toString());
 
-      reset = false;
+    reset = false;
     setState(() {});
 
 
-    //}
   }
 
-  void showDialog2() {
-    // flutter defined function
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Alert Dialog title"),
-          content: new Text("Alert Dialog body"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   showErrorDialog() {
     AppLocalizations aux = AppLocalizations.of(context);
@@ -586,7 +537,8 @@ class CpsFormState extends State<CpsForm> with Observable {
                               .of(context)
                               .primaryColor),),
                           onPressed: () {
-                            prefs.setError(false);
+                            //prefs.setError(false);
+
                             Navigator.pop(context);
                             setState(() {
 

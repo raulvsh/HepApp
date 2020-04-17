@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_bloc/form_bloc.dart';
+import 'package:hepapp/lang/app_localizations.dart';
+import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:sized_context/sized_context.dart';
 
-class PartialCalcTextField extends StatelessWidget {
+class PartialCalcTextField extends StatefulWidget {
   const PartialCalcTextField({
     Key key,
     @required this.textFieldBloc,
@@ -15,6 +17,12 @@ class PartialCalcTextField extends StatelessWidget {
   final title;
   final uds;
 
+  @override
+  _PartialCalcTextFieldState createState() => _PartialCalcTextFieldState();
+}
+
+class _PartialCalcTextFieldState extends State<PartialCalcTextField> {
+  final prefs = PreferenciasUsuario();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +40,7 @@ class PartialCalcTextField extends StatelessWidget {
           //width: 90,
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: Text(
-              uds, //'umol/L',
+              widget.uds, //'umol/L',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: isTablet ? 15 : 12,
@@ -47,7 +55,6 @@ class PartialCalcTextField extends StatelessWidget {
       width: isTablet ? 80 : 60,
       height: 40,
       child: TextFieldBlocBuilder(
-
         padding:
         EdgeInsets.symmetric(vertical: 10, horizontal: isTablet ? 10 : 5),
         cursorColor: Theme
@@ -56,7 +63,7 @@ class PartialCalcTextField extends StatelessWidget {
         keyboardType: TextInputType.numberWithOptions(),
         isEnabled: true,
         //Controlo si está activo o no, útil para cuando elijo número de tumores
-        textFieldBloc: textFieldBloc,
+        textFieldBloc: widget.textFieldBloc,
         //formBloc.bilirubinField, anterior, borrar
 
         expands: false,
@@ -89,8 +96,26 @@ class PartialCalcTextField extends StatelessWidget {
               backgroundColor: Colors.yellow,
             ),*/
         ),
-
+        onChanged: (text) {
+          print("widget text title change " + widget.title);
+          if (widget.title == 'bilirubin') {
+            prefs.setErrorList(0, false);
+          } else if (widget.title == 'inr') {
+            prefs.setErrorList(1, false);
+          } else if (widget.title == 'albumin') {
+            prefs.setErrorList(2, false);
+          }
+        },
         errorBuilder: (context, error) {
+          print("widget text title " + widget.title);
+          if (widget.title == 'bilirubin') {
+            prefs.setErrorList(0, true);
+          } else if (widget.title == 'inr') {
+            prefs.setErrorList(1, true);
+          } else if (widget.title == 'albumin') {
+            prefs.setErrorList(2, true);
+          }
+          // prefs.incrementNumErrors();
           switch (error) {
             case ValidatorsError.requiredTextFieldBloc:
               return " ";
@@ -103,12 +128,13 @@ class PartialCalcTextField extends StatelessWidget {
   }
 
   Container _buildInitialText(bool isTablet) {
+    AppLocalizations aux = AppLocalizations.of(context);
     return Container(
       //color: Colors.red,
       //width: 90,
         padding: EdgeInsets.symmetric(horizontal: 5),
         child: Text(
-          title,
+          aux.tr(widget.title),
           style: TextStyle(
             color: Colors.black,
             fontSize: isTablet ? 15 : 12,

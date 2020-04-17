@@ -25,6 +25,19 @@ class PreferenciasUsuario {
   Stream<bool> get errorUpdates =>
       _streamController2.stream;
 
+  List<bool> _errorList = [];
+  StreamController _streamController4 = StreamController<
+      List<bool>>.broadcast();
+
+  Stream<List<bool>> get errorListUpdates =>
+      _streamController4.stream;
+
+  /*int _numErrors=0;
+  StreamController _streamController3 = StreamController<int>.broadcast();
+
+  Stream<int> get numErrorUpdates =>
+  _streamController3.stream;*/
+
   //List<bool> errorList = [false, false, false, false, false, false, false, false];// = [];
 
   initPrefs() async {
@@ -56,6 +69,49 @@ class PreferenciasUsuario {
     return _error;
   }
 
+  void setErrorList(int index, bool value) {
+    _errorList[index] = value;
+    _streamController4.add(_errorList);
+  }
+
+  List<bool> getErrorList() {
+    return _errorList;
+  }
+
+  void initErrorList(int length) {
+    _errorList = [];
+    for (int i = 0; i < length; i++) {
+      _errorList.add(true);
+    }
+  }
+
+  bool isError() {
+    for (int i = 0; i < _errorList.length; i++) {
+      if (_errorList[i] == true) {
+        return true;
+      }
+    }
+    return false;
+  }
+/* void incrementNumErrors(){
+    _numErrors++;
+    _streamController3.add(_numErrors);
+  }
+
+  void decrementNumErrors(){
+    _numErrors--;
+    _streamController3.add(_numErrors);
+  }
+
+  int getNumErrors() {
+    return _numErrors;
+  }
+
+  void setNumErrors(int i) {
+    _numErrors = i;
+    _streamController3.add(_numErrors);
+
+  }*/
   ///GETS Y SETS DE HEPAPP
 
   //Get y set de las unidades internacionales

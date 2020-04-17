@@ -40,20 +40,7 @@ class CpsFormBloc extends FormBloc<String, String> {
   );
 
   final booleanField = BooleanFieldBloc();
-
-
-  final selectField1 = SelectFieldBloc(
-    items: ['Option 1', 'Option 2', 'Option 3'],
-  );
-
-  final selectField2 = SelectFieldBloc(
-    items: ['Option 1', 'Option 2'],
-  );
-
-
-  final multiSelectField = MultiSelectFieldBloc<String>(
-    items: ['Option 1', 'Option 2', 'Option 3'],
-  );*/
+*/
 
   @override
   List<FieldBloc> get fieldBlocs =>
