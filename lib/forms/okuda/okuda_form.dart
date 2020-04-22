@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:hepapp/forms/meld_form_bloc_bak.dart';
-import 'package:hepapp/forms/units.dart';
+import 'package:hepapp/data/units.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
@@ -14,25 +14,35 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import 'PartialCalcGroupField.dart';
-import 'PartialCalcTextField.dart';
-import 'calc_result_widget.dart';
+import '../PartialCalcGroupField.dart';
+import '../PartialCalcTextField.dart';
+import '../calc_result_widget.dart';
+import 'okuda_form_bloc.dart';
 
-class MeldForm extends StatefulWidget with Observable {
-  MeldForm({Key key}) : super(key: key);
+class OkudaForm extends StatefulWidget with Observable {
+  OkudaForm({Key key}) : super(key: key);
 
   @override
-  MeldFormState createState() => MeldFormState();
+  OkudaFormState createState() => OkudaFormState();
 }
 
-class MeldFormState extends State<MeldForm> with Observable {
+class OkudaFormState extends State<OkudaForm> with Observable {
   var reset = false;
   var previous = false;
-
   final prefs = PreferenciasUsuario();
   final units = Units();
   bool _internationalUnits = true;
-  StreamSubscription streamSubscription;
+
+  //List<bool> _errorList;
+  Map<String, bool> _errorMap;
+
+  StreamSubscription streamSubIUnits;
+
+  //StreamSubscription streamSubErrorList;
+  StreamSubscription streamSubErrorMap;
+
+
+  String errorPrueba = "";
 
   @override
   void initState() {
@@ -40,12 +50,26 @@ class MeldFormState extends State<MeldForm> with Observable {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    streamSubscription = prefs.iUnitsUpdates.listen(
-      (newVal) => setState(() {
-        _internationalUnits = newVal;
-      }),
+    streamSubIUnits = prefs.iUnitsUpdates.listen(
+          (newVal) =>
+          setState(() {
+            _internationalUnits = newVal;
+          }),
     );
     prefs.setInternationalUnits(true);
+
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
+        setState(() {
+          _errorMap = newVal;
+        }));
+    prefs.initErrorMap(
+        ['bilirubin', 'inr', 'creatinine', 'albumin', 'sodium', 'dialysis']);
+
+
+
+
+
+
     super.initState();
   }
 
@@ -57,31 +81,55 @@ class MeldFormState extends State<MeldForm> with Observable {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    streamSubscription.cancel();
+    streamSubIUnits.cancel();
+    //streamSubErrorList.cancel();
+    streamSubErrorMap.cancel();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MeldFormBloc>(
-      builder: (context) => MeldFormBloc(),
+    return BlocProvider<OkudaFormBloc>(
+      builder: (context) => OkudaFormBloc(),
       child: Builder(
         builder: (context) {
-          final formBloc = BlocProvider.of<MeldFormBloc>(context);
-          return FormBlocListener<MeldFormBloc, String, String>(
+          final formBloc = BlocProvider.of<OkudaFormBloc>(context);
+          return FormBlocListener<OkudaFormBloc, String, String>(
+            /*onSubmitting: (context, state) => LoadingDialog.show(context),
+              onSuccess: (context, state) {
+                LoadingDialog.hide(context);
+                 Notifications.showSnackBarWithSuccess(
+                    context, state.successResponse);
+                 //Muestra una barra verde con la palabra success
+              },*/
+            /*onFailure: (context, state) {
+
+              //LoadingDialog.hide(context);
+              Notifications.showSnackBarWithError(
+                  context, state.failureResponse);
+            },*/
             child: Scaffold(
               appBar: CustomAppBar(
                 context,
                 'meld',
                 selScreenshot: true,
+                //selPartialSettings: true,
               ),
               drawer: MenuWidget(),
-              body: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              body: Stack(
                 children: <Widget>[
-                  _buildLeftColumn(formBloc),
-                  _buildRightColumn(formBloc),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _buildLeftColumn(formBloc),
+                      _buildRightColumn(formBloc),
+                    ],
+                  ),
+
+                  //prefs.getError() ? showDialog2() : Container(),
+                  //prefs.getError() ? showErrorDialog() : Container(),
                 ],
               ),
               bottomSheet: _buildBottomSheet(formBloc),
@@ -92,13 +140,13 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildLeftColumn(MeldFormBloc formBloc) {
+  _buildLeftColumn(OkudaFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
-
     return Container(
       width: isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
       height: context.heightPx,
+      //color: Colors.red,
       padding: EdgeInsets.only(left: 20, top: 20),
       child: ListView(
         shrinkWrap: true,
@@ -109,69 +157,80 @@ class MeldFormState extends State<MeldForm> with Observable {
           _buildCreatinineRow(aux, formBloc),
           _buildAlbuminRow(aux, formBloc),
           _buildSodiumRow(aux, formBloc),
-          _buildAscitesRow(aux, formBloc),
           _buildDialysisRow(aux, formBloc),
           _buildCalcButton(aux, formBloc),
-          //Text(maps.toString()),
+          Text(prefs.getErrorMap().toString()),
+          //.entries.toList().toString(), style: TextStyle(fontSize: 16, color: Colors.black),),
+          Text(prefs
+              .getErrorMap()
+              .values
+              .toString()),
+          //Text(prefs.getErrorMap().values.contains(true).toString()),
+          Text(prefs.isMapError().toString()),
+          Text(errorPrueba),
+
         ],
       ),
     );
   }
 
-  _buildBilirrubinRow(AppLocalizations aux, MeldFormBloc formBloc) {
+  _buildBilirrubinRow(AppLocalizations aux, OkudaFormBloc formBloc) {
     return PartialCalcTextField(
+
       //formBloc: formBloc,
       textFieldBloc: formBloc.bilirubinField,
-      title: aux.tr('bilirubin'),
+      title: 'bilirubin',
       uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
     );
   }
 
-  _buildInrRow(AppLocalizations aux, MeldFormBloc formBloc) {
+  _buildInrRow(AppLocalizations aux, OkudaFormBloc formBloc) {
     return PartialCalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.inrField,
-      title: aux.tr('inr'),
+      title: 'inr',
       uds: '',
     );
   }
 
-  _buildCreatinineRow(AppLocalizations aux, MeldFormBloc formBloc) {
+
+  _buildCreatinineRow(AppLocalizations aux, OkudaFormBloc formBloc) {
     return PartialCalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.creatinineField,
-      title: aux.tr('creatinine'),
+      title: 'creatinine',
       uds:
-          _internationalUnits ? units.creatinineUds[0] : units.creatinineUds[1],
+      _internationalUnits ? units.creatinineUds[0] : units.creatinineUds[1],
     );
   }
 
-  _buildAlbuminRow(AppLocalizations aux, MeldFormBloc formBloc) {
+  _buildAlbuminRow(AppLocalizations aux, OkudaFormBloc formBloc) {
     return PartialCalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.albuminField,
-      title: aux.tr('albumin'),
+      title: 'albumin',
       uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
     );
   }
 
-  _buildSodiumRow(AppLocalizations aux, MeldFormBloc formBloc) {
+
+  _buildSodiumRow(AppLocalizations aux, OkudaFormBloc formBloc) {
     return PartialCalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.sodiumField,
-      title: aux.tr('sodium'),
+      title: 'sodium',
       uds: _internationalUnits ? units.sodiumUds[0] : units.sodiumUds[1],
     );
   }
 
-  _buildDialysisRow(AppLocalizations aux, MeldFormBloc formBloc) {
+  _buildDialysisRow(AppLocalizations aux, OkudaFormBloc formBloc) {
     return PartialCalcGroupField(
       reset: reset,
       previous: previous,
-
+      initialValue: formBloc.dialysisField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.dialysisField,
-      title: aux.tr('dialysis'),
+      title: 'dialysis',
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
@@ -179,34 +238,15 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildAscitesRow(
-    AppLocalizations aux,
-    MeldFormBloc formBloc,
-  ) {
-    return PartialCalcGroupField(
-      reset: reset,
-      previous: previous,
 
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.ascitesField,
-      title: aux.tr('ascites'),
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
-    );
-  }
-
-  _buildCalcButton(
-    AppLocalizations aux,
-    MeldFormBloc formBloc,
-  ) {
+  _buildCalcButton(AppLocalizations aux,
+      OkudaFormBloc formBloc,) {
     bool isTablet = context.diagonalInches >= 7;
+    //var errordentro = prefs.getError();
     return Container(
       width: 250,
       //padding: EdgeInsets.all(8.0),
       margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
-      //left: 20),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(3),
@@ -214,7 +254,9 @@ class MeldFormState extends State<MeldForm> with Observable {
               color: Color.fromARGB(255, 45, 145, 155),
               width: 1.5,
             )),
-        color: Theme.of(context).primaryColor,
+        color: Theme
+            .of(context)
+            .primaryColor,
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
         onPressed: () {
@@ -222,7 +264,7 @@ class MeldFormState extends State<MeldForm> with Observable {
         },
         child: Center(
           child: Text(
-            aux.tr('calculate_meld'),
+            aux.tr('calculate_cp_score'),
             style: TextStyle(
               color: Colors.white,
               fontSize: isTablet ? 15 : 12,
@@ -233,7 +275,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildBottomSheet(MeldFormBloc formBloc) {
+  _buildBottomSheet(OkudaFormBloc formBloc) {
     var aux = AppLocalizations.of(context);
 
     return BottomAppBar(
@@ -253,7 +295,6 @@ class MeldFormState extends State<MeldForm> with Observable {
       ),
     );
 
-    // CalcBottomBar("reseteo2");
   }
 
   Container _buildMoreInfoButton(AppLocalizations aux) {
@@ -270,17 +311,21 @@ class MeldFormState extends State<MeldForm> with Observable {
         ),
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return MoreInformation(
-                title: 'meld',
-                path: 'assets/images/calc/M3C14S0c.png',
-              );
-            },
-          );
+          showMoreInfo();
         },
       ),
+    );
+  }
+
+  Future showMoreInfo() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return MoreInformation(
+          title: 'meld',
+          path: 'assets/images/calc/M3C14S0d.png',
+        );
+      },
     );
   }
 
@@ -305,7 +350,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, MeldFormBloc formBloc) {
+  Container _buildResetButton(AppLocalizations aux, OkudaFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
@@ -326,30 +371,26 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildRightColumn(MeldFormBloc formBloc) {
+  _buildRightColumn(OkudaFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
-
       //color: Colors.blue,
       child: Column(
-        //mainAxisAlignment: MainAxisAlignment.start,
-        //crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           _buildIUnitsRow(formBloc),
-          //Center(
-          //child:
+
           Container(
-              //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
-              child: CalcResultWidget('meld', formBloc.resultadoField)),
-          //),
+            //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
+              child: CalcResultWidget(
+                  'meld', formBloc.resultadoField)),
           _buildRightBottomTitle(),
         ],
       ),
     );
   }
 
-  Container _buildIUnitsRow(MeldFormBloc formBloc) {
+  Container _buildIUnitsRow(OkudaFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
@@ -372,7 +413,7 @@ class MeldFormState extends State<MeldForm> with Observable {
         ));
   }
 
-  _buildIUnitsSelect(MeldFormBloc formBloc) {
+  _buildIUnitsSelect(OkudaFormBloc formBloc) {
     final prefs = new PreferenciasUsuario();
     var aux = AppLocalizations.of(context);
 
@@ -380,15 +421,18 @@ class MeldFormState extends State<MeldForm> with Observable {
 
     isSelected[0] = prefs.getInternationalUnits();
     isSelected[1] = !isSelected[0];
-    //isSelected[1] = !prefs.getIunitsPrueba();
 
     return ToggleButtons(
       borderColor: Color.fromARGB(255, 45, 145, 155),
-      fillColor: Theme.of(context).primaryColor,
+      fillColor: Theme
+          .of(context)
+          .primaryColor,
       borderWidth: 1.3,
       selectedBorderColor: Color.fromARGB(255, 45, 145, 155),
       selectedColor: Colors.white,
-      color: Theme.of(context).primaryColor,
+      color: Theme
+          .of(context)
+          .primaryColor,
       borderRadius: BorderRadius.all(Radius.circular(3.0)),
       children: <Widget>[
         Container(
@@ -398,7 +442,7 @@ class MeldFormState extends State<MeldForm> with Observable {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 12,
-            ), //color: Theme.of(context).primaryColor) ,
+            ),
           ),
         ),
         Container(
@@ -415,7 +459,6 @@ class MeldFormState extends State<MeldForm> with Observable {
           for (int i = 0; i < isSelected.length; i++) {
             isSelected[i] = i == index;
           }
-          //formBloc.showIU();
           isSelected[0]
               ? formBloc.showIU()
               : formBloc.showNotIU(); // : formBloc.convertToNoIU();
@@ -441,7 +484,8 @@ class MeldFormState extends State<MeldForm> with Observable {
           aux.tr('meld'),
           style: TextStyle(
             fontSize: isTablet ? 28 : 20,
-            color: Theme.of(context)
+            color: Theme
+                .of(context)
                 .primaryColor
                 .withAlpha(150), //Color.fromARGB(255, 210, 242, 245),
           ),
@@ -450,35 +494,77 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  void calculateMeld(MeldFormBloc formBloc) {
-    //ACTUALIZAR CON LAS ÚLTIMAS MEJORAS DE CPSFORM
+  void calculateMeld(OkudaFormBloc formBloc) {
+    prefs.isMapError() ? errorPrueba = "hay al menos un error" : errorPrueba =
+    "no hay errores";
+
+    //prefs.isError()
+    prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
+
+    formBloc.submit();
+
+
+    reset = false;
+    setState(() {});
+
+
+  }
+
+
+  showErrorDialog() {
     AppLocalizations aux = AppLocalizations.of(context);
-    setState(() {
-      showDialog(context: context, builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(aux.tr('error')),
-          content: Text("captura de pantalla"),
-        );
-      });
 
-      formBloc.submit();
-      reset = false;
-    });
-    
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              aux.tr('error'), style: TextStyle(color: Colors.black),),
+            content: Container(
+              height: context.heightPct(0.20),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                      padding: EdgeInsets.only(right: 20),
+                      child: Text(aux.tr('fill_empty_fields'),
+                        style: TextStyle(color: Colors.black),)),
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.bottomRight,
+                      child: FlatButton(
+                          padding: EdgeInsets.all(0),
+                          child: Text(
+                            aux.tr('accept'), style: TextStyle(color: Theme
+                              .of(context)
+                              .primaryColor),),
+                          onPressed: () {
+                            //prefs.setError(false);
+
+                            Navigator.pop(context);
+                            setState(() {
+
+                            });
+                            //Navigator.pop(context);
+                          }),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 
-  void resetValues(MeldFormBloc formBloc) {
-    setState(() {
-      reset = true;
-      formBloc.reset();
-    });
+  void resetValues(OkudaFormBloc formBloc) {
+    reset = true;
+    formBloc.reset();
+    setState(() {});
   }
 
-  void previousValues(MeldFormBloc formBloc) {
-    setState(() {
-      reset = false;
-      previous = true;
-      formBloc.previous();
-    });
+  void previousValues(OkudaFormBloc formBloc) {
+    reset = false;
+    previous = true;
+    formBloc.previous();
+    setState(() {});
   }
 }

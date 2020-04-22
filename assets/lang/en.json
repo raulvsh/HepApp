@@ -172,6 +172,7 @@
   "tumour_extent": "Tumour extent %",
   "ascites": "Ascites",
   "bilirubin": "Bilirubin",
+  "creatinine": "Creatinine",
   "encephalopathy": "Encephalopathy",
 
   "inr": "INR (International Normalize Ratio)",
@@ -229,7 +230,6 @@
   "cps": "CPS",
   "cpsresult": "Child Pugh Score:",
   "CPSresult": "Child Pugh Score:",
-  "creatinine": "Creatinine",
   "criterioMilan": "Milan criteria",
   "criterioUCFS": "UCFS",
   "criterioUpToSeven": "Up To Seven",

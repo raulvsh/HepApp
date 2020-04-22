@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:form_bloc/form_bloc.dart';
+import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/child_pugh_score/cps_algorithm.dart';
 import 'package:hepapp/forms/child_pugh_score/cps_data.dart';
-import 'package:hepapp/forms/units.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
 class CpsFormBloc extends FormBloc<String, String> {
@@ -106,8 +106,8 @@ class CpsFormBloc extends FormBloc<String, String> {
   /*void showObjectCPSData() {
     print("\n\n*****************OBJETO CPSDATA: "
         "\nbilirrubina : ${data.bilirubin}" +
-        "\nalbumina : ${data.inr}" +
-        "\ninr : ${data.albumin}" +
+        "\nalbumina : ${data.albumin}" +
+        "\ninr : ${data.inr}" +
         "\nencefalopatia : ${data.encephalopaty}" +
         "\nascitis : ${data.ascites}" +
         "\nresultado: ${data.result}" +
@@ -252,7 +252,6 @@ class CpsFormBloc extends FormBloc<String, String> {
     );
     this.resultadoField = "-";
 
-    // this.ascitesField.clear(); //(value)
     //showFields();
     //showObjectCPSData();
 

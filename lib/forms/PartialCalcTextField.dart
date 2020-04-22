@@ -97,28 +97,37 @@ class _PartialCalcTextFieldState extends State<PartialCalcTextField> {
             ),*/
         ),
         onChanged: (text) {
-          print("widget text title " + widget.title);
+          //print("widget text title " + widget.title);
           if (widget.title == 'bilirubin') {
-            prefs.setErrorList(0, false);
+            prefs.getErrorMap().update('bilirubin', (v) => false);
           } else if (widget.title == 'inr') {
-            prefs.setErrorList(1, false);
+            prefs.getErrorMap().update('inr', (v) => false);
           } else if (widget.title == 'albumin') {
-            prefs.setErrorList(2, false);
+            prefs.getErrorMap().update('albumin', (v) => false);
+          } else if (widget.title == 'creatinine') {
+            prefs.getErrorMap().update('creatinine', (v) => false);
+          } else if (widget.title == 'sodium') {
+            prefs.getErrorMap().update('sodium', (v) => false);
           }
         },
         errorBuilder: (context, error) {
-          print("widget text title " + widget.title);
+          //print("widget text title " + widget.title);
           if (widget.title == 'bilirubin') {
-            prefs.setErrorList(0, true);
+            prefs.getErrorMap().update('bilirubin', (v) => true);
           } else if (widget.title == 'inr') {
-            prefs.setErrorList(1, true);
+            prefs.getErrorMap().update('inr', (v) => true);
           } else if (widget.title == 'albumin') {
-            prefs.setErrorList(2, true);
+            prefs.getErrorMap().update('albumin', (v) => true);
+          } else if (widget.title == 'sodium') {
+            prefs.getErrorMap().update('sodium', (v) => true);
+          } else if (widget.title == 'creatinine') {
+            prefs.getErrorMap().update('creatinine', (v) => true);
           }
+          print(prefs.getErrorMap());
           // prefs.incrementNumErrors();
           switch (error) {
             case ValidatorsError.requiredTextFieldBloc:
-              return " ";
+              return "";
             default:
               return 'This text is nor valid.';
           }

@@ -1,5 +1,3 @@
-final prueba = "hola";
-
 class CpsData {
   double bilirubin;
   double inr;

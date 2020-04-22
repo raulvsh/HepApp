@@ -1,5 +1,3 @@
-final prueba = "hola";
-
 class MeldData {
   double bilirubin;
   double inr;

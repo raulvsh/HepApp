@@ -164,6 +164,8 @@
   "none_masc": "Ninguno",
   "none_fem": "Ninguna",
   "controlled": "Controlada",
+  "creatinine": "Creatinina",
+
   "Refractory": "Refractaria",
   "<=50%": "<= 50%",
   ">50%": "> 50%",
@@ -218,7 +220,6 @@
   "contacts": "Contacto y agradecimientos",
   "CPSresult": "Índice Child Pugh:",
   "cpsresult": "Índice Child Pugh:",
-  "creatinine": "Creatinina",
   "criterioMilan": "Criterio Milan",
   "criterioUpToSeven": "Up to Seven",
   "cuestionesClinicas": "Cuestiones clínicas",

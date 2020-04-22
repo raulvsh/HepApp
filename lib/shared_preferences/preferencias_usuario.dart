@@ -14,23 +14,22 @@ class PreferenciasUsuario {
 
   bool _internationalUnits;
   StreamController _streamController = StreamController<bool>.broadcast();
-
   Stream<bool> get iUnitsUpdates =>
       _streamController.stream;
 
-  //List<bool> errorList = [false, false, false, false, false, false, false, false];// = [];
-  bool _error;
-  StreamController _streamController2 = StreamController<bool>.broadcast();
-
-  Stream<bool> get errorUpdates =>
-      _streamController2.stream;
 
   List<bool> _errorList = [];
   StreamController _streamController4 = StreamController<
       List<bool>>.broadcast();
-
   Stream<List<bool>> get errorListUpdates =>
       _streamController4.stream;
+
+  Map<String, bool> _errorMap = {};
+  StreamController _streamController3 = StreamController<
+      Map<String, bool>>.broadcast();
+
+  Stream<Map<String, bool>> get errorMapUpdates =>
+      _streamController3.stream;
 
   /*int _numErrors=0;
   StreamController _streamController3 = StreamController<int>.broadcast();
@@ -60,16 +59,16 @@ class PreferenciasUsuario {
     return _internationalUnits;
   }
 
-  void setError(bool value) {
+  /*void setError(bool value) {
     _error = value;
     _streamController2.add(_error);
   }
 
   bool getError() {
     return _error;
-  }
+  }*/
 
-  void setErrorList(int index, bool value) {
+  /* void setErrorList(int index, bool value) {
     _errorList[index] = value;
     _streamController4.add(_errorList);
   }
@@ -92,7 +91,44 @@ class PreferenciasUsuario {
       }
     }
     return false;
+  }*/
+
+  /* void setErrorMap(String index, bool value) {
+    print("error map antes de set $_errorMap");
+    _errorMap[index] = value;
+    //getErrorMap().update(index, (v)=>value);
+
+    _streamController4.add(_errorMap);
+
+
+    print("error map despues de set $_errorMap");
+  }*/
+
+  Map<String, bool> getErrorMap() {
+    _streamController3.add(_errorMap);
+
+    return _errorMap;
   }
+
+  void initErrorMap(List<String> lista) {
+    print("lista a errormap $lista");
+    var length = lista.length;
+    print("longitud $length");
+    _errorMap = {};
+    print("error map antes $_errorMap");
+    for (int i = 0; i < length; i++) {
+      // _errorMap.addEntries(lista);
+      _errorMap.putIfAbsent(lista[i].toString(), () => true);
+      // _errorMap.
+    }
+    print("error map despues $_errorMap");
+    print(_errorMap.toString());
+  }
+
+  bool isMapError() {
+    return getErrorMap().values.contains(true);
+  }
+
 /* void incrementNumErrors(){
     _numErrors++;
     _streamController3.add(_numErrors);
@@ -182,4 +218,10 @@ class PreferenciasUsuario {
   set ultimaPagina(String value) {
     _prefs.setString('ultimaPagina', value);
   }*/
+
+  void dispose() {
+    _streamController.close();
+    _streamController3.close();
+    _streamController4.close();
+  }
 }

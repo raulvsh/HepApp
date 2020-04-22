@@ -1,12 +1,12 @@
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
-import 'cps_data.dart';
+import 'okuda_data.dart';
 
-class CpsAlgorithm {
-  final CpsData cpsData;
+class OkudaAlgorithm {
+  final OkudaData meldData;
 
-  CpsAlgorithm(this.cpsData);
+  OkudaAlgorithm(this.meldData);
 
   final units = Units();
 
@@ -20,46 +20,56 @@ class CpsAlgorithm {
     var ptsEncephalopaty;
     var ptsAscites;
 
-    if (!prefs.getInternationalUnits()) convertToIU();
+/*if(antiguo.bilirubin<=34){
+      print("yujuuu " + antiguo.bilirubin.toString());
+    }*/
+//TODO Aquí llamar a los métodos de convertir a unidades internacionales
+/*if(prefs.internationalUnits == false){
+      antiguo.bilirubin = units.getConvertedBilirrubin(antiguo.bilirubin);
+      antiguo.albumin = units.getConvertedAlbumin(antiguo.albumin);
+    }*/
+//pasar a método externo
+//compruebo que esté en unidades interanacionales, si no, convierto
+    /*if (!prefs.getInternationalUnits()) convertToIU();
     showObjectCPSData();
 
-    if (cpsData.bilirubin <= 34) {
+    if (meldData.bilirubin <= 34) {
       ptsBilirubin = 1;
-    } else if (cpsData.bilirubin <= 50) {
+    } else if (meldData.bilirubin <= 50) {
       ptsBilirubin = 2;
     } else {
       ptsBilirubin = 3;
     }
 
-    if (cpsData.inr <= 1.7) {
+    if (meldData.inr <= 1.7) {
       ptsINR = 1;
-    } else if (cpsData.inr <= 2.2) {
+    } else if (meldData.inr <= 2.2) {
       ptsINR = 2;
     } else {
       ptsINR = 3;
     }
 
-    if (cpsData.albumin <= 28) {
+    if (meldData.albumin <= 28) {
       ptsAlbumin = 3;
-    } else if (cpsData.albumin <= 35) {
+    } else if (meldData.albumin <= 35) {
       ptsAlbumin = 2;
     } else {
       ptsAlbumin = 1;
     }
 
-    if (cpsData.encephalopaty == 'none_fem') {
+    if (meldData.encephalopaty == 'none_fem') {
       ptsEncephalopaty = 1;
-    } else if (cpsData.encephalopaty == 'grade_1_2') {
+    } else if (meldData.encephalopaty == 'grade_1_2') {
       ptsEncephalopaty = 2;
-    } else if (cpsData.encephalopaty == 'grade_3_4') {
+    } else if (meldData.encephalopaty == 'grade_3_4') {
       ptsEncephalopaty = 3;
     }
 
-    if (cpsData.ascites == 'none_fem') {
+    if (meldData.ascites == 'none_fem') {
       ptsAscites = 1;
-    } else if (cpsData.ascites == 'controlled') {
+    } else if (meldData.ascites == 'controlled') {
       ptsAscites = 2;
-    } else if (cpsData.ascites == 'refractory') {
+    } else if (meldData.ascites == 'refractory') {
       ptsAscites = 3;
     }
 
@@ -68,18 +78,21 @@ class CpsAlgorithm {
 
     int resultado =
         ptsBilirubin + ptsINR + ptsAlbumin + ptsEncephalopaty + ptsAscites;
+*/ /*print('Resultado numérico: $resultado');*/ /*
     if (resultado == 5 || resultado == 6) {
       return 'A ($resultado)';
     } else if (resultado >= 7 && resultado <= 9) {
       return 'B ($resultado)';
     } else {
       return 'C ($resultado)';
-    }
+    }*/
   }
 
   void convertToIU() {
-    cpsData.bilirubin = units.getIUBilirrubin(cpsData.bilirubin);
-    cpsData.albumin = units.getIUAlbumin(cpsData.albumin);
+    //if (!prefs.getIunitsPrueba()) {
+    meldData.bilirubin = units.getIUBilirrubin(meldData.bilirubin);
+    meldData.albumin = units.getIUAlbumin(meldData.albumin);
+    //}
   }
 
   void obtenerPuntos(
@@ -93,12 +106,12 @@ class CpsAlgorithm {
 
   void showObjectCPSData() {
     print("\n\n*****************OBJETO CPSDATA: "
-            "\nbilirrubina : ${cpsData.bilirubin}" +
-        "\nalbumina : ${cpsData.inr}" +
-        "\ninr : ${cpsData.albumin}" +
-        "\nencefalopatia : ${cpsData.encephalopaty}" +
-        "\nascitis : ${cpsData.ascites}" +
-        "\nresultado: ${cpsData.result}" +
+            "\nbilirrubina : ${meldData.bilirubin}" +
+        "\nalbumina : ${meldData.inr}" +
+        "\ninr : ${meldData.albumin}" +
+        //"\nencefalopatia : ${meldData.encephalopaty}" +
+        //"\nascitis : ${meldData.ascites}" +
+        "\nresultado: ${meldData.result}" +
         "\n**************");
   }
 }

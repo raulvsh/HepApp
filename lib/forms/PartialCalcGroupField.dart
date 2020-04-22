@@ -87,17 +87,18 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
 
   @override
   void initState() {
-    streamSubError = prefs.errorUpdates.listen((newVal) =>
+    //prueba a quitar stream de errores, creo que funcionará igual
+    /*streamSubError = prefs.errorUpdates.listen((newVal) =>
         setState(() {
           _errorFlag = newVal;
-        }));
+        }));*/
     //prefs.setError(true);
     super.initState();
   }
 
   @override
   dispose() {
-    streamSubError.cancel();
+    //streamSubError.cancel();
     super.dispose();
   }
 
@@ -126,12 +127,10 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
 
         return DefaultFieldBlocBuilderPadding(
           padding: widget.padding,
-
           child: InputDecorator(
             decoration: _buildDecoration(context, state, isEnabled),
             child: _buildRadioButtons(state, isEnabled),
           ),
-
         );
       },
     );
@@ -206,10 +205,7 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
         //color: Colors.red,
         width: 100.0 * state.items.length,
         height: 20.0,
-        child:
-
-
-        ListView.builder(
+        child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: state.items.length,
           //padding: EdgeInsets.symmetric(vertical: 1),
@@ -227,20 +223,20 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
                       print("selectfield blo " + widget.title);
                       //TODO metodo aparte, adaptado al Map<String,bool>
                       if (widget.title == 'encephalopaty') {
-                        prefs.setErrorList(3, false);
-                      }
-                      else if (widget.title == 'ascites') {
-                        prefs.setErrorList(4, false);
+                        prefs
+                            .getErrorMap()
+                            .update('encephalopaty', (v) => false);
+                      } else if (widget.title == 'ascites') {
+                        prefs.getErrorMap().update('ascites', (v) => false);
+                      } else if (widget.title == 'dialysis') {
+                        prefs.getErrorMap().update('dialysis', (v) => false);
                       }
                       _errorFlag = false;
 
                       _initMap(state);
 
                       //Elemento seleccionado
-                      radioValue = state.items
-                          .elementAt(index)
-                          .toString();
-
+                      radioValue = state.items.elementAt(index).toString();
 
                       widget.selectFieldBloc
                           .updateValue(radioValue); //Actualizo el valor
@@ -273,7 +269,6 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
                               final alpha = (animValues[0] * 255).toInt();
                               var opacity =
                               (!widget.reset && !_errorFlag) ? alpha : 0;
-
 
                               /* print("dentro builder " +
                                   isSelected.toString() +
@@ -366,7 +361,6 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
         isVisible: true,
         decoration: decoration,
       ),
-
       errorText: Style.getErrorText(
         context: context,
         //errorBuilder: widget.errorBuilder,
@@ -376,16 +370,15 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
           //widget.errorBuilder;
           //print(error);
           //prefs.setError(true);
-          print("selectfield to string " + widget.selectFieldBloc.toString());
-          print(prefs.getErrorList());
-          print("error desde error builder part group " +
-              prefs.getError().toString());
+          print("selectfield to string: " + widget.selectFieldBloc.toString());
+          /* print("error desde error builder part group " +
+              prefs.getError().toString());*/
           //_errorFlag = true;
           switch (error) {
             case ValidatorsError.requiredSelectFieldBloc:
             //prefs.setError(true);
               _errorFlag = true;
-              return null; //"dentro";
+              return null; //null; //"dentro";
               break;
             default:
               return 'This text is nor valid.';
