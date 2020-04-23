@@ -17,22 +17,23 @@ import 'package:sized_context/sized_context.dart';
 import '../PartialCalcGroupField.dart';
 import '../PartialCalcTextField.dart';
 import '../calc_result_widget.dart';
-import 'okuda_form_bloc.dart';
+import 'clip_form_bloc.dart';
 
-class OkudaForm extends StatefulWidget with Observable {
-  OkudaForm({Key key}) : super(key: key);
+class ClipForm extends StatefulWidget with Observable {
+  ClipForm({Key key}) : super(key: key);
 
   @override
-  OkudaFormState createState() => OkudaFormState();
+  ClipFormState createState() => ClipFormState();
 }
 
-class OkudaFormState extends State<OkudaForm> with Observable {
+class ClipFormState extends State<ClipForm> with Observable {
   var reset = false;
   var previous = false;
   final prefs = PreferenciasUsuario();
   final units = Units();
   bool _internationalUnits = true;
 
+  //List<bool> _errorList;
   Map<String, bool> _errorMap;
 
   StreamSubscription streamSubIUnits;
@@ -49,19 +50,22 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       DeviceOrientation.landscapeLeft,
     ]);
     streamSubIUnits = prefs.iUnitsUpdates.listen(
-          (newVal) =>
-          setState(() {
-            _internationalUnits = newVal;
-          }),
+      (newVal) => setState(() {
+        _internationalUnits = newVal;
+      }),
     );
     prefs.setInternationalUnits(true);
 
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
-        setState(() {
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
           _errorMap = newVal;
         }));
-    prefs.initErrorMap(
-        ['bilirubin', 'albumin', 'ascites', 'tumour_extent']);
+    prefs.initErrorMap([
+      'afp',
+      'child_pugh_score',
+      'tumour_number',
+      'tumour_extent',
+      'pvt_complete',
+    ]);
 
     super.initState();
   }
@@ -75,6 +79,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       DeviceOrientation.portraitDown,
     ]);
     streamSubIUnits.cancel();
+    //streamSubErrorList.cancel();
     streamSubErrorMap.cancel();
 
     super.dispose();
@@ -82,17 +87,16 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<OkudaFormBloc>(
-      builder: (context) => OkudaFormBloc(),
+    return BlocProvider<ClipFormBloc>(
+      builder: (context) => ClipFormBloc(),
       child: Builder(
         builder: (context) {
-          final formBloc = BlocProvider.of<OkudaFormBloc>(context);
-          return FormBlocListener<OkudaFormBloc, String, String>(
-
+          final formBloc = BlocProvider.of<ClipFormBloc>(context);
+          return FormBlocListener<ClipFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
                 context,
-                'calculators_okuda',
+                'calculators_clip',
                 selScreenshot: true,
                 //selPartialSettings: true,
               ),
@@ -117,11 +121,11 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  _buildLeftColumn(OkudaFormBloc formBloc) {
+  _buildLeftColumn(ClipFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
-      width: isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
+      width: isTablet ? context.widthPct(0.68) : context.widthPct(0.71),
       height: context.heightPx,
       //color: Colors.red,
       padding: EdgeInsets.only(left: 20, top: 20),
@@ -129,17 +133,16 @@ class OkudaFormState extends State<OkudaForm> with Observable {
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         children: <Widget>[
-          _buildBilirrubinRow(aux, formBloc),
-          _buildAlbuminRow(aux, formBloc),
-          _buildAscitesRow(aux, formBloc),
+          _buildAFPRow(aux, formBloc),
+          _buildCPSRow(aux, formBloc),
+          _buildTumourNumberRow(aux, formBloc),
           _buildTumourExtentRow(aux, formBloc),
+
+          _buildPVTRow(aux, formBloc),
           _buildCalcButton(aux, formBloc),
           Text(prefs.getErrorMap().toString()),
           //.entries.toList().toString(), style: TextStyle(fontSize: 16, color: Colors.black),),
-          Text(prefs
-              .getErrorMap()
-              .values
-              .toString()),
+          Text(prefs.getErrorMap().values.toString()),
           //Text(prefs.getErrorMap().values.contains(true).toString()),
           Text(prefs.isMapError().toString()),
           Text(errorPrueba),
@@ -148,45 +151,45 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-
-  _buildBilirrubinRow(AppLocalizations aux, OkudaFormBloc formBloc) {
+  _buildAFPRow(AppLocalizations aux, ClipFormBloc formBloc) {
     return PartialCalcTextField(
-
-      //formBloc: formBloc,
-      textFieldBloc: formBloc.bilirubinField,
-      title: 'bilirubin',
-      uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
+      textFieldBloc: formBloc.afpField,
+      title: 'afp',
+      uds: 'ug/L',
     );
   }
 
-  _buildAlbuminRow(AppLocalizations aux, OkudaFormBloc formBloc) {
-    return PartialCalcTextField(
-      //formBloc: formBloc,
-      textFieldBloc: formBloc.albuminField,
-      title: 'albumin',
-      uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
-    );
-  }
-
-
-  _buildAscitesRow(AppLocalizations aux,
-      OkudaFormBloc formBloc,) {
+  _buildCPSRow(AppLocalizations aux, ClipFormBloc formBloc) {
     return PartialCalcGroupField(
-      initialValue: formBloc.ascitesField.value.toString(),
-      previous: previous,
       reset: reset,
+      previous: previous,
+      initialValue: formBloc.cpsField.value.toString(),
       padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.ascitesField,
-      title: 'ascites',
+      selectFieldBloc: formBloc.cpsField,
+      title: 'child_pugh_score',
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
       itemBuilder: (context, item) => item,
-
     );
   }
 
-  _buildTumourExtentRow(AppLocalizations aux, OkudaFormBloc formBloc) {
+  _buildTumourNumberRow(AppLocalizations aux, ClipFormBloc formBloc) {
+    return PartialCalcGroupField(
+      reset: reset,
+      previous: previous,
+      initialValue: formBloc.tumourNumberField.value.toString(),
+      padding: EdgeInsets.only(left: 8),
+      selectFieldBloc: formBloc.tumourNumberField,
+      title: 'tumour_number',
+      decoration: InputDecoration(
+        border: InputBorder.none,
+      ),
+      itemBuilder: (context, item) => item,
+    );
+  }
+
+  _buildTumourExtentRow(AppLocalizations aux, ClipFormBloc formBloc) {
     return PartialCalcGroupField(
       reset: reset,
       previous: previous,
@@ -201,9 +204,25 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
+  _buildPVTRow(AppLocalizations aux, ClipFormBloc formBloc) {
+    return PartialCalcGroupField(
+      reset: reset,
+      previous: previous,
+      initialValue: formBloc.pvtField.value.toString(),
+      padding: EdgeInsets.only(left: 8),
+      selectFieldBloc: formBloc.pvtField,
+      title: 'pvt_complete',
+      decoration: InputDecoration(
+        border: InputBorder.none,
+      ),
+      itemBuilder: (context, item) => item,
+    );
+  }
 
-  _buildCalcButton(AppLocalizations aux,
-      OkudaFormBloc formBloc,) {
+  _buildCalcButton(
+    AppLocalizations aux,
+    ClipFormBloc formBloc,
+  ) {
     bool isTablet = context.diagonalInches >= 7;
     //var errordentro = prefs.getError();
     return Container(
@@ -217,17 +236,15 @@ class OkudaFormState extends State<OkudaForm> with Observable {
               color: Color.fromARGB(255, 45, 145, 155),
               width: 1.5,
             )),
-        color: Theme
-            .of(context)
-            .primaryColor,
+        color: Theme.of(context).primaryColor,
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
         onPressed: () {
-          calculateMeld(formBloc);
+          calculateClip(formBloc);
         },
         child: Center(
           child: Text(
-            aux.tr('calculate_okuda'),
+            aux.tr('calculate_clip'),
             style: TextStyle(
               color: Colors.white,
               fontSize: isTablet ? 15 : 12,
@@ -238,7 +255,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  _buildBottomSheet(OkudaFormBloc formBloc) {
+  _buildBottomSheet(ClipFormBloc formBloc) {
     var aux = AppLocalizations.of(context);
 
     return BottomAppBar(
@@ -284,7 +301,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       context: context,
       builder: (BuildContext context) {
         return MoreInformation(
-          title: 'okuda',
+          title: 'clip',
           path: 'assets/images/calc/M3C14S0d.png',
         );
       },
@@ -312,7 +329,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, OkudaFormBloc formBloc) {
+  Container _buildResetButton(AppLocalizations aux, ClipFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
@@ -333,102 +350,23 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  _buildRightColumn(OkudaFormBloc formBloc) {
+  _buildRightColumn(ClipFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
-    List<List<String>> resultList = [['okuda', formBloc.result],];
+    List<List<String>> resultList = [
+      ['clip', formBloc.result],
+    ];
 
     return Container(
-      width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
-      //color: Colors.blue,
+      width: isTablet ? context.widthPct(0.32) : context.widthPct(0.29),
       child: Column(
         children: <Widget>[
-          // _buildIUnitsRow(formBloc),
           Container(
             //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
-            child: CalcResultWidget(resultList),),
+            child: CalcResultWidget(resultList),
+          ),
           _buildRightBottomTitle(),
         ],
       ),
-    );
-  }
-
-  Container _buildIUnitsRow(OkudaFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
-    return Container(
-        height: 60,
-        padding: EdgeInsets.only(top: 30),
-        child: Row(
-          children: <Widget>[
-            Text(
-              aux.tr("international_units"),
-              style: TextStyle(
-                fontSize: isTablet ? 15 : 12,
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            _buildIUnitsSelect(formBloc),
-          ],
-        ));
-  }
-
-  _buildIUnitsSelect(OkudaFormBloc formBloc) {
-    final prefs = new PreferenciasUsuario();
-    var aux = AppLocalizations.of(context);
-
-    List<bool> isSelected = [true, false];
-
-    isSelected[0] = prefs.getInternationalUnits();
-    isSelected[1] = !isSelected[0];
-
-    return ToggleButtons(
-      borderColor: Color.fromARGB(255, 45, 145, 155),
-      fillColor: Theme
-          .of(context)
-          .primaryColor,
-      borderWidth: 1.3,
-      selectedBorderColor: Color.fromARGB(255, 45, 145, 155),
-      selectedColor: Colors.white,
-      color: Theme
-          .of(context)
-          .primaryColor,
-      borderRadius: BorderRadius.all(Radius.circular(3.0)),
-      children: <Widget>[
-        Container(
-          width: 60,
-          child: Text(
-            aux.tr('on'),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Container(
-          width: 60,
-          child: Text(
-            aux.tr('off'),
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-      ],
-      onPressed: (int index) {
-        setState(() {
-          for (int i = 0; i < isSelected.length; i++) {
-            isSelected[i] = i == index;
-          }
-          isSelected[0]
-              ? formBloc.showIU()
-              : formBloc.showNotIU(); // : formBloc.convertToNoIU();
-
-          prefs.setInternationalUnits(isSelected[0]);
-        });
-      },
-      isSelected: isSelected,
     );
   }
 
@@ -443,11 +381,10 @@ class OkudaFormState extends State<OkudaForm> with Observable {
         padding: EdgeInsets.fromLTRB(10, 0, 60, 50),
         //alignment: Alignment.bottomRight,
         child: Text(
-          aux.tr('okuda'),
+          aux.tr('clip'),
           style: TextStyle(
             fontSize: isTablet ? 28 : 20,
-            color: Theme
-                .of(context)
+            color: Theme.of(context)
                 .primaryColor
                 .withAlpha(150), //Color.fromARGB(255, 210, 242, 245),
           ),
@@ -456,7 +393,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  void calculateMeld(OkudaFormBloc formBloc) {
+  void calculateClip(ClipFormBloc formBloc) {
     prefs.isMapError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";
@@ -499,9 +436,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
                           child: Text(
                             aux.tr('accept'),
                             style: TextStyle(
-                                color: Theme
-                                    .of(context)
-                                    .primaryColor),
+                                color: Theme.of(context).primaryColor),
                           ),
                           onPressed: () {
                             //prefs.setError(false);
@@ -519,13 +454,13 @@ class OkudaFormState extends State<OkudaForm> with Observable {
         });
   }
 
-  void resetValues(OkudaFormBloc formBloc) {
+  void resetValues(ClipFormBloc formBloc) {
     reset = true;
     formBloc.reset();
     setState(() {});
   }
 
-  void previousValues(OkudaFormBloc formBloc) {
+  void previousValues(ClipFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();

@@ -23,9 +23,10 @@ class CpsFormBloc extends FormBloc<String, String> {
   var ascitesField = SelectFieldBloc(
     items: ['none_fem', 'controlled', 'refractory'],
   );
-  var errorField = false;
 
-  String resultadoField = 'CPS';
+  //var errorField = false;
+
+  String resultadoField = '-';
   var data = CpsData(
       bilirubin: 0,
       inr: 0,

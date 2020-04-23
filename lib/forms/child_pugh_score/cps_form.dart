@@ -385,6 +385,9 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   _buildRightColumn(CpsFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    List<List<String>> resultList = [
+      ['child_pugh_score_oneline', formBloc.resultadoField]
+    ];
     return Container(
       width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
       //color: Colors.blue,
@@ -394,8 +397,9 @@ class CpsFormState extends State<CpsForm> with Observable {
 
           Container(
             //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
-              child: CalcResultWidget(
-                  'child_pugh_score_oneline', formBloc.resultadoField)),
+            child: CalcResultWidget(resultList),),
+
+          // 'child_pugh_score_oneline', formBloc.resultadoField)),
           _buildRightBottomTitle(),
         ],
       ),

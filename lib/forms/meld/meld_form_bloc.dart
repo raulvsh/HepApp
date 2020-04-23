@@ -21,7 +21,10 @@ class MeldFormBloc extends FormBloc<String, String> {
   );
 
 
-  String resultadoField = 'MELD';
+  String meldResult = '-';
+  String meldNaResult = '-';
+  String meld5vResult = '-';
+
 
   var data = MeldData(
       bilirubin: 0,
@@ -30,7 +33,9 @@ class MeldFormBloc extends FormBloc<String, String> {
       albumin: 0,
       sodium: 0,
       dialysis: 'no',
-      result: '-'
+    meldResult: '-',
+    meldNaResult: '-',
+    meld5vResult: '-',
   );
 
 
@@ -60,8 +65,11 @@ class MeldFormBloc extends FormBloc<String, String> {
     MeldAlgorithm meldAlgorithm = MeldAlgorithm(data);
 
     try {
-      this.resultadoField = meldAlgorithm.obtenerResultado();
-      data.result = this.resultadoField;
+      this.meldResult = meldAlgorithm.obtenerResultado();
+      //TODO hacer algoritmo en 3 partes, meld normal, con eso + sodio, obtener Na, con dialisis, obtener 5v
+      data.meldResult = this.meldResult;
+      data.meldResult = this.meldResult;
+      data.meldResult = this.meldResult;
     } catch (e) {
       print("Excepción: $e");
     }
@@ -87,7 +95,10 @@ class MeldFormBloc extends FormBloc<String, String> {
         "\nalbumina : ${data.albumin}" +
         "\nsodio : ${data.sodium}" +
         "\ndialisis : ${data.dialysis}" +
-        "\nresultado: ${data.result}" +
+        "\nresultado: ${data.meldResult}" +
+        "\nresultado Na: ${data.meldNaResult}" +
+        "\nresultado 5v: ${data.meld5vResult}" +
+
         "\n**************");
   }
 
@@ -102,7 +113,8 @@ class MeldFormBloc extends FormBloc<String, String> {
     print("Campo sodio: " + sodiumField.value);
     print("Campo dialisis: " + dialysisField.value);
 
-    print("Campo resultado antes de operar: " + resultadoField);
+    print("Campo resultado antes de operar: " + meldResult + " na " +
+        meldNaResult + " 5v " + meld5vResult);
   }
 
 
@@ -154,7 +166,9 @@ class MeldFormBloc extends FormBloc<String, String> {
       items: ['yes', 'no'],
     );
 
-    this.resultadoField = "-";
+    this.meldResult = "-";
+    this.meldNaResult = "-";
+    this.meld5vResult = "-";
 
   }
 
@@ -179,7 +193,10 @@ class MeldFormBloc extends FormBloc<String, String> {
       items: ['yes', 'no',],
       initialValue: data.dialysis.toString(),
     );
-    this.resultadoField = data.result;
+    this.meldResult = data.meldResult;
+    this.meldNaResult = data.meldNaResult;
+    this.meld5vResult = data.meld5vResult;
+
 
     //this.ascitesField.updateValue('none_fem');
     //this.ascitesField.updateItems(['none_fem', 'controlled', 'refractory'],);
@@ -212,6 +229,9 @@ class MeldFormBloc extends FormBloc<String, String> {
     print("albumina: " + this.sodiumField.value);
     print("albumina: " + this.dialysisField.value);
 
-    print("resultado: " + this.resultadoField);
+    print("resultado: " + this.meldResult);
+    print("resultado Na: " + this.meldNaResult);
+    print("resultado 5v: " + this.meld5vResult);
+
   }
 }

@@ -28,8 +28,7 @@ class MoreInformation extends StatelessWidget {
           )),
       content: Image.asset(path),
       actions: <Widget>[
-        // usually buttons at the bottom of the dialog
-        new FlatButton(
+        FlatButton(
           child: Text(
             aux.tr("close"),
             style: TextStyle(

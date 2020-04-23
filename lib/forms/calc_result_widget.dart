@@ -3,12 +3,9 @@ import 'package:hepapp/lang/app_localizations.dart';
 import 'package:sized_context/sized_context.dart';
 
 class CalcResultWidget extends StatefulWidget {
-  final title;
-  final resultado;
+  final resultList;
 
-  CalcResultWidget(
-    this.title,
-    this.resultado,
+  CalcResultWidget(this.resultList,
   );
 
   @override
@@ -22,13 +19,11 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
       width: isTablet ? 400 : 200,
       height: isTablet ? 170 : 120,
-      //color: Colors.yellow,
       margin: EdgeInsets.fromLTRB(0, 30, 50, 0),
       decoration: BoxDecoration(
         border: Border.all(
@@ -37,27 +32,56 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
         ),
         borderRadius: BorderRadius.all(Radius.circular(5.0)),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            '${aux.tr(widget.title)}: ',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            widget.resultado,
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontSize: 16,
-            ),
-          ),
-        ],
+        children:
+        buildPrueba(),
+
       ),
       //),
     );
+  }
+
+  buildPrueba() {
+    AppLocalizations aux = AppLocalizations.of(context);
+    List<Row> rowList = [];
+    for (int i = 0; i < widget.resultList.length; i++) {
+      rowList.add(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              '${aux.tr(widget.resultList[i][0])}: ',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              widget.resultList[i][1],
+              style: TextStyle(
+                color: Theme
+                    .of(context)
+                    .primaryColor,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      );
+      if (widget.resultList.length > 1) {
+        rowList.add(Row(
+          children: <Widget>[
+            SizedBox(
+              height: 10,
+            )
+          ],
+        ));
+      }
+    }
+    return rowList;
   }
 }

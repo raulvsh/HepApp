@@ -108,6 +108,8 @@ class _PartialCalcTextFieldState extends State<PartialCalcTextField> {
             prefs.getErrorMap().update('creatinine', (v) => false);
           } else if (widget.title == 'sodium') {
             prefs.getErrorMap().update('sodium', (v) => false);
+          } else if (widget.title == 'afp') {
+            prefs.getErrorMap().update('afp', (v) => false);
           }
         },
         errorBuilder: (context, error) {
@@ -122,9 +124,10 @@ class _PartialCalcTextFieldState extends State<PartialCalcTextField> {
             prefs.getErrorMap().update('sodium', (v) => true);
           } else if (widget.title == 'creatinine') {
             prefs.getErrorMap().update('creatinine', (v) => true);
+          } else if (widget.title == 'afp') {
+            prefs.getErrorMap().update('afp', (v) => true);
           }
           print(prefs.getErrorMap());
-          // prefs.incrementNumErrors();
           switch (error) {
             case ValidatorsError.requiredTextFieldBloc:
               return "";

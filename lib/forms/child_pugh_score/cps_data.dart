@@ -11,7 +11,6 @@ class CpsData {
     double albumin,
     String encephalopaty,
     String ascites,
-    String prueba,
     String result}) {
     this.bilirubin = bilirubin;
     this.albumin = albumin;

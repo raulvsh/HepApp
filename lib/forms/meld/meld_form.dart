@@ -248,7 +248,7 @@ class MeldFormState extends State<MeldForm> with Observable {
         },
         child: Center(
           child: Text(
-            aux.tr('calculate_cp_score'),
+            aux.tr('calculate_meld'),
             style: TextStyle(
               color: Colors.white,
               fontSize: isTablet ? 15 : 12,
@@ -356,6 +356,9 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildRightColumn(MeldFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    List<List<String>> resultList = [['meld', formBloc.meldResult],
+      ['meld_na', formBloc.meldNaResult], ['5v_meld', formBloc.meld5vResult]];
+
     return Container(
       width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
       //color: Colors.blue,
@@ -364,7 +367,7 @@ class MeldFormState extends State<MeldForm> with Observable {
           _buildIUnitsRow(formBloc),
           Container(
               //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
-              child: CalcResultWidget('meld', formBloc.resultadoField)),
+            child: CalcResultWidget(resultList),),
           _buildRightBottomTitle(),
         ],
       ),

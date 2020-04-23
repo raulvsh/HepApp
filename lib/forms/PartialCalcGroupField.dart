@@ -230,6 +230,18 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
                         prefs.getErrorMap().update('ascites', (v) => false);
                       } else if (widget.title == 'dialysis') {
                         prefs.getErrorMap().update('dialysis', (v) => false);
+                      } else if (widget.title == 'child_pugh_score') {
+                        prefs.getErrorMap().update(
+                            'child_pugh_score', (v) => false);
+                      } else if (widget.title == 'tumour_number') {
+                        prefs.getErrorMap().update(
+                            'tumour_number', (v) => false);
+                      } else if (widget.title == 'tumour_extent') {
+                        prefs.getErrorMap().update(
+                            'tumour_extent', (v) => false);
+                      } else if (widget.title == 'pvt_complete') {
+                        prefs.getErrorMap().update(
+                            'pvt_complete', (v) => false);
                       }
                       _errorFlag = false;
 
@@ -246,7 +258,7 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
                   child: Container(
                     //color: Colors.black,
                     height: 20,
-                    width: isTablet ? 110 : 90,
+                    width: _calculateWidth(state), //isTablet ? 110 : 90,
                     //color: Colors.green,
                     padding: EdgeInsets.symmetric(horizontal: 4),
                     child: Stack(
@@ -341,6 +353,15 @@ class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
         ),
       ),
     );
+  }
+
+  double _calculateWidth(state) {
+    bool isTablet = context.diagonalInches >= 7;
+    bool moreThanTree = state.items.length > 3.0;
+    if (moreThanTree) {
+      return 60;
+    }
+    return isTablet ? 110 : 90;
   }
 
   InputDecoration _buildDecoration(BuildContext context,

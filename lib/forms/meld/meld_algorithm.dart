@@ -111,7 +111,10 @@ class MeldAlgorithm {
         "\ninr : ${meldData.albumin}" +
         //"\nencefalopatia : ${meldData.encephalopaty}" +
         //"\nascitis : ${meldData.ascites}" +
-        "\nresultado: ${meldData.result}" +
+        "\nresultado: ${meldData.meldResult}" +
+        "\nresultado Na: ${meldData.meldNaResult}" +
+        "\nresultado 5v: ${meldData.meld5vResult}" +
+
         "\n**************");
   }
 }

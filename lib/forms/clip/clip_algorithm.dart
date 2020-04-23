@@ -1,12 +1,12 @@
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
-import 'okuda_data.dart';
+import 'clip_data.dart';
 
-class OkudaAlgorithm {
-  final OkudaData okudaData;
+class ClipAlgorithm {
+  final ClipData clipData;
 
-  OkudaAlgorithm(this.okudaData);
+  ClipAlgorithm(this.clipData);
 
   final units = Units();
 
@@ -106,13 +106,12 @@ class OkudaAlgorithm {
 
   void showObjectCPSData() {
     print("\n\n*****************OBJETO clipDATA: "
-        "\nbilirrubina : ${okudaData.bilirubin}" +
-        "\nalbumina : ${okudaData.albumin}" +
-        "\nascites : ${okudaData.ascites}" +
-        "\n extension: ${okudaData.tumourExtent}" +
-        "\nresultado : ${okudaData.result}" +
-
-
+            "\nbilirrubina : ${clipData.afp}" +
+        "\nalbumina : ${clipData.cps}" +
+        "\ninr : ${clipData.tumourNumber}" +
+        "\nresultado: ${clipData.tumourExtent}" +
+        "\nresultado Na: ${clipData.pvt}" +
+        "\nresultado : ${clipData.result}" +
         "\n**************");
   }
 }

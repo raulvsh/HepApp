@@ -14,10 +14,10 @@ import 'package:hepapp/data/resources.dart';
 import 'package:hepapp/data/schemes.dart';
 import 'package:hepapp/data/tocs.dart';
 import 'package:hepapp/forms/child_pugh_score/cps_form.dart';
+import 'package:hepapp/forms/clip/clip_form.dart';
 import 'package:hepapp/forms/meld/meld_form.dart';
 import 'package:hepapp/forms/okuda/okuda_form.dart';
 import 'package:hepapp/pages/Calculators/AllCalcPage.dart';
-import 'package:hepapp/pages/Calculators/CLIPCalcPage.dart';
 import 'package:hepapp/pages/CommonPages/CommonPage.dart';
 import 'package:hepapp/pages/DetailPageWidgets/VideoDetailPage.dart';
 import 'package:hepapp/pages/DetailPageWidgets/WebDetailPage.dart';
@@ -236,7 +236,7 @@ class RouteGenerator {
       case '/ChildCalc':
         return MaterialPageRoute(builder: (_) => CpsForm());
       case '/CLIPCalc':
-        return MaterialPageRoute(builder: (_) => CLIPCalcPage());
+        return MaterialPageRoute(builder: (_) => ClipForm());
       case '/MELDCalc':
         return MaterialPageRoute(builder: (_) => MeldForm());
       case '/OkudaCalc':
