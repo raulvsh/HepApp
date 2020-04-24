@@ -17,6 +17,7 @@ import 'package:sized_context/sized_context.dart';
 import '../PartialCalcGroupField.dart';
 import '../PartialCalcTextField.dart';
 import '../calc_result_widget.dart';
+import '../right_bottom_title.dart';
 import 'clip_form_bloc.dart';
 
 class ClipForm extends StatefulWidget with Observable {
@@ -361,37 +362,18 @@ class ClipFormState extends State<ClipForm> with Observable {
       child: Column(
         children: <Widget>[
           Container(
-            //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
-            child: CalcResultWidget(resultList),
+            padding: EdgeInsets.fromLTRB(0, 30, 30, 0),
+            child: CalcResultWidget(
+              resultList: resultList, alignment: MainAxisAlignment.center,),
           ),
-          _buildRightBottomTitle(),
+          RightBottomTitle(
+            title: 'clip', padding: EdgeInsets.fromLTRB(10, 0, 30, 50),),
+
         ],
       ),
     );
   }
 
-  Expanded _buildRightBottomTitle() {
-    bool isTablet = context.diagonalInches >= 7;
-    AppLocalizations aux = AppLocalizations.of(context);
-    return Expanded(
-      child: Container(
-        alignment: Alignment.bottomRight,
-
-        //margin: EdgeInsets.only(top: 50),
-        padding: EdgeInsets.fromLTRB(10, 0, 60, 50),
-        //alignment: Alignment.bottomRight,
-        child: Text(
-          aux.tr('clip'),
-          style: TextStyle(
-            fontSize: isTablet ? 28 : 20,
-            color: Theme.of(context)
-                .primaryColor
-                .withAlpha(150), //Color.fromARGB(255, 210, 242, 245),
-          ),
-        ),
-      ),
-    );
-  }
 
   void calculateClip(ClipFormBloc formBloc) {
     prefs.isMapError()

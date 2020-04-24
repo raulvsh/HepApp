@@ -16,33 +16,32 @@ import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
 import '../PartialCalcGroupField.dart';
-import '../PartialCalcTextField.dart';
-import '../calc_result_widget.dart';
-import 'meld_form_bloc.dart';
+import 'all_form_bloc.dart';
 
-class MeldForm extends StatefulWidget with Observable {
-  MeldForm({Key key}) : super(key: key);
+class AllSummaryForm extends StatefulWidget with Observable {
+  AllSummaryForm({Key key, this.formBloc}) : super(key: key);
+  final formBloc;
 
   @override
-  MeldFormState createState() => MeldFormState();
+  AllSummaryFormState createState() => AllSummaryFormState();
 }
 
-class MeldFormState extends State<MeldForm> with Observable {
+class AllSummaryFormState extends State<AllSummaryForm> with Observable {
   var reset = false;
   var previous = false;
   final prefs = PreferenciasUsuario();
   final units = Units();
-  bool _internationalUnits = true;
 
-  //List<bool> _errorList;
-  Map<String, bool> _errorMap;
+  //bool _internationalUnits = true;
 
-  StreamSubscription streamSubIUnits;
+  //Map<String, bool> _errorMap;
+
+  //StreamSubscription streamSubIUnits;
 
   //StreamSubscription streamSubErrorList;
-  StreamSubscription streamSubErrorMap;
+  //StreamSubscription streamSubErrorMap;
 
-  String errorPrueba = "";
+  //String errorPrueba = "";
 
   @override
   void initState() {
@@ -50,18 +49,20 @@ class MeldFormState extends State<MeldForm> with Observable {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    streamSubIUnits = prefs.iUnitsUpdates.listen(
-      (newVal) => setState(() {
-        _internationalUnits = newVal;
-      }),
+    /*streamSubIUnits = prefs.iUnitsUpdates.listen(
+          (newVal) =>
+          setState(() {
+            _internationalUnits = newVal;
+          }),
     );
     prefs.setInternationalUnits(true);
 
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
+        setState(() {
           _errorMap = newVal;
         }));
     prefs.initErrorMap(
-        ['bilirubin', 'inr', 'creatinine', 'albumin', 'sodium', 'dialysis']);
+        ['bilirubin', 'albumin', 'ascites', 'tumour_extent']);*/
 
     super.initState();
   }
@@ -74,55 +75,40 @@ class MeldFormState extends State<MeldForm> with Observable {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    streamSubIUnits.cancel();
-    //streamSubErrorList.cancel();
-    streamSubErrorMap.cancel();
+    //streamSubIUnits.cancel();
+    //streamSubErrorMap.cancel();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MeldFormBloc>(
-      builder: (context) => MeldFormBloc(),
+    return BlocProvider<AllFormBloc>(
+      builder: (context) => AllFormBloc(),
       child: Builder(
         builder: (context) {
-          final formBloc = BlocProvider.of<MeldFormBloc>(context);
-          return FormBlocListener<MeldFormBloc, String, String>(
-            /*onSubmitting: (context, state) => LoadingDialog.show(context),
-              onSuccess: (context, state) {
-                LoadingDialog.hide(context);
-                 Notifications.showSnackBarWithSuccess(
-                    context, state.successResponse);
-                 //Muestra una barra verde con la palabra success
-              },*/
-            /*onFailure: (context, state) {
+          //final formBloc = widget.formBloc;//BlocProvider.of<AllFormBloc>(context);
+          final formBloc = BlocProvider.of<AllFormBloc>(context);
 
-              //LoadingDialog.hide(context);
-              Notifications.showSnackBarWithError(
-                  context, state.failureResponse);
-            },*/
+          return FormBlocListener<AllFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
                 context,
-                'meld',
+                'calculators_all_algorithms_summary',
                 selScreenshot: true,
                 //selPartialSettings: true,
               ),
               drawer: MenuWidget(),
               body: Stack(
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Stack(
+                    //mainAxisAlignment: MainAxisAlignment.start,
+                    //crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       _buildLeftColumn(formBloc),
                       _buildRightColumn(formBloc),
                     ],
                   ),
-
-                  //prefs.getError() ? showDialog2() : Container(),
-                  //prefs.getError() ? showErrorDialog() : Container(),
                 ],
               ),
               bottomSheet: _buildBottomSheet(formBloc),
@@ -133,11 +119,12 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildLeftColumn(MeldFormBloc formBloc) {
+  _buildLeftColumn(AllFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
-      width: isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
+      width: context.widthPx,
+      //isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
       height: context.heightPx,
       //color: Colors.red,
       padding: EdgeInsets.only(left: 20, top: 20),
@@ -145,78 +132,133 @@ class MeldFormState extends State<MeldForm> with Observable {
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         children: <Widget>[
-          _buildBilirrubinRow(aux, formBloc),
-          _buildInrRow(aux, formBloc),
-          _buildCreatinineRow(aux, formBloc),
-          _buildAlbuminRow(aux, formBloc),
-          _buildSodiumRow(aux, formBloc),
-          _buildDialysisRow(aux, formBloc),
-          _buildCalcButton(aux, formBloc),
-          Text(prefs.getErrorMap().toString()),
-          //.entries.toList().toString(), style: TextStyle(fontSize: 16, color: Colors.black),),
-          Text(prefs.getErrorMap().values.toString()),
-          //Text(prefs.getErrorMap().values.contains(true).toString()),
-          Text(prefs.isMapError().toString()),
-          Text(errorPrueba),
+          _buildTumourNumberRow(aux, formBloc),
+          _buildTumourSizeRow(aux, formBloc),
+          _buildTumourExtentRow(aux, formBloc),
+          //_buildCalcButton(aux, formBloc),
+          _buildPviRow(aux, formBloc),
+          _buildNodesRow(aux, formBloc),
+          _buildMetastasisRow(aux, formBloc),
+          _buildPortalHypertensionRow(aux, formBloc),
+          _buildPvtRow(aux, formBloc),
         ],
       ),
     );
   }
 
-  _buildBilirrubinRow(AppLocalizations aux, MeldFormBloc formBloc) {
-    return PartialCalcTextField(
-      //formBloc: formBloc,
-      textFieldBloc: formBloc.bilirubinField,
-      title: 'bilirubin',
-      uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
-    );
-  }
-
-  _buildInrRow(AppLocalizations aux, MeldFormBloc formBloc) {
-    return PartialCalcTextField(
-      //formBloc: formBloc,
-      textFieldBloc: formBloc.inrField,
-      title: 'inr',
-      uds: '',
-    );
-  }
-
-  _buildCreatinineRow(AppLocalizations aux, MeldFormBloc formBloc) {
-    return PartialCalcTextField(
-      //formBloc: formBloc,
-      textFieldBloc: formBloc.creatinineField,
-      title: 'creatinine',
-      uds:
-          _internationalUnits ? units.creatinineUds[0] : units.creatinineUds[1],
-    );
-  }
-
-  _buildAlbuminRow(AppLocalizations aux, MeldFormBloc formBloc) {
-    return PartialCalcTextField(
-      //formBloc: formBloc,
-      textFieldBloc: formBloc.albuminField,
-      title: 'albumin',
-      uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
-    );
-  }
-
-  _buildSodiumRow(AppLocalizations aux, MeldFormBloc formBloc) {
-    return PartialCalcTextField(
-      //formBloc: formBloc,
-      textFieldBloc: formBloc.sodiumField,
-      title: 'sodium',
-      uds: _internationalUnits ? units.sodiumUds[0] : units.sodiumUds[1],
-    );
-  }
-
-  _buildDialysisRow(AppLocalizations aux, MeldFormBloc formBloc) {
+  _buildTumourNumberRow(AppLocalizations aux, AllFormBloc formBloc) {
     return PartialCalcGroupField(
       reset: reset,
       previous: previous,
-      initialValue: formBloc.dialysisField.value.toString(),
+      initialValue: formBloc.tumourNumberField.value.toString(),
       padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.dialysisField,
-      title: 'dialysis',
+      selectFieldBloc: formBloc.tumourNumberField,
+      title: 'tumour_number',
+      decoration: InputDecoration(
+        border: InputBorder.none,
+      ),
+      itemBuilder: (context, item) => item,
+    );
+  }
+
+  _buildTumourSizeRow(AppLocalizations aux, AllFormBloc formBloc) {
+    return PartialCalcGroupField(
+      reset: reset,
+      previous: previous,
+      initialValue: formBloc.tumourSizeField.value.toString(),
+      padding: EdgeInsets.only(left: 8),
+      selectFieldBloc: formBloc.tumourSizeField,
+      title: 'tumour_size',
+      decoration: InputDecoration(
+        border: InputBorder.none,
+      ),
+      itemBuilder: (context, item) => item,
+    );
+  }
+
+  _buildTumourExtentRow(AppLocalizations aux, AllFormBloc formBloc) {
+    return PartialCalcGroupField(
+      reset: reset,
+      previous: previous,
+      initialValue: formBloc.tumourExtentField.value.toString(),
+      padding: EdgeInsets.only(left: 8),
+      selectFieldBloc: formBloc.tumourExtentField,
+      title: 'tumour_extent',
+      decoration: InputDecoration(
+        border: InputBorder.none,
+      ),
+      itemBuilder: (context, item) => item,
+    );
+  }
+
+  _buildPviRow(AppLocalizations aux, AllFormBloc formBloc) {
+    return PartialCalcGroupField(
+      reset: reset,
+      previous: previous,
+      initialValue: formBloc.pviField.value.toString(),
+      padding: EdgeInsets.only(left: 8),
+      selectFieldBloc: formBloc.pviField,
+      title: 'pvi_portal_vein_invasion',
+      decoration: InputDecoration(
+        border: InputBorder.none,
+      ),
+      itemBuilder: (context, item) => item,
+    );
+  }
+
+  _buildNodesRow(AppLocalizations aux, AllFormBloc formBloc) {
+    return PartialCalcGroupField(
+      reset: reset,
+      previous: previous,
+      initialValue: formBloc.nodesField.value.toString(),
+      padding: EdgeInsets.only(left: 8),
+      selectFieldBloc: formBloc.nodesField,
+      title: 'nodes',
+      decoration: InputDecoration(
+        border: InputBorder.none,
+      ),
+      itemBuilder: (context, item) => item,
+    );
+  }
+
+  _buildMetastasisRow(AppLocalizations aux, AllFormBloc formBloc) {
+    return PartialCalcGroupField(
+      reset: reset,
+      previous: previous,
+      initialValue: formBloc.metastasisField.value.toString(),
+      padding: EdgeInsets.only(left: 8),
+      selectFieldBloc: formBloc.metastasisField,
+      title: 'metastasis',
+      decoration: InputDecoration(
+        border: InputBorder.none,
+      ),
+      itemBuilder: (context, item) => item,
+    );
+  }
+
+  _buildPortalHypertensionRow(AppLocalizations aux, AllFormBloc formBloc) {
+    return PartialCalcGroupField(
+      reset: reset,
+      previous: previous,
+      initialValue: formBloc.portalHypertensionField.value.toString(),
+      padding: EdgeInsets.only(left: 8),
+      selectFieldBloc: formBloc.portalHypertensionField,
+      title: 'portal_hypertension_complete',
+      decoration: InputDecoration(
+        border: InputBorder.none,
+      ),
+      itemBuilder: (context, item) => item,
+    );
+  }
+
+  _buildPvtRow(AppLocalizations aux, AllFormBloc formBloc) {
+    return PartialCalcGroupField(
+      reset: reset,
+      previous: previous,
+      initialValue: formBloc.pvtField.value.toString(),
+      padding: EdgeInsets.only(left: 8),
+      selectFieldBloc: formBloc.pvtField,
+      title: 'pvt_complete',
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
@@ -226,14 +268,14 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildCalcButton(
     AppLocalizations aux,
-    MeldFormBloc formBloc,
+    AllFormBloc formBloc,
   ) {
     bool isTablet = context.diagonalInches >= 7;
     //var errordentro = prefs.getError();
     return Container(
-      width: 250,
+      //width: 250,
       //padding: EdgeInsets.all(8.0),
-      margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
+      //margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(3),
@@ -245,11 +287,11 @@ class MeldFormState extends State<MeldForm> with Observable {
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
         onPressed: () {
-          calculateMeld(formBloc);
+          submitDiagnostic(formBloc);
         },
         child: Center(
           child: Text(
-            aux.tr('calculate_meld'),
+            aux.tr('calculate_okuda'),
             style: TextStyle(
               color: Colors.white,
               fontSize: isTablet ? 15 : 12,
@@ -260,22 +302,32 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildBottomSheet(MeldFormBloc formBloc) {
+  _buildBottomSheet(AllFormBloc formBloc) {
     var aux = AppLocalizations.of(context);
 
     return BottomAppBar(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: <Widget>[
-          _buildResetButton(aux, formBloc),
-          SizedBox(
-            width: 15,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _buildResetButton(aux, formBloc),
+              SizedBox(
+                width: 15,
+              ),
+              _buildPreviousButton(aux, formBloc),
+              SizedBox(
+                width: 15,
+              ),
+              _buildMoreInfoButton(aux),
+            ],
           ),
-          _buildPreviousButton(aux, formBloc),
-          SizedBox(
-            width: 15,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              //_buildNextButton(aux, formBloc),
+            ],
           ),
-          _buildMoreInfoButton(aux),
         ],
       ),
     );
@@ -306,7 +358,7 @@ class MeldFormState extends State<MeldForm> with Observable {
       context: context,
       builder: (BuildContext context) {
         return MoreInformation(
-          title: 'meld',
+          title: 'okuda',
           path: 'assets/images/calc/M3C14S0d.png',
         );
       },
@@ -334,7 +386,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, MeldFormBloc formBloc) {
+  Container _buildResetButton(AppLocalizations aux, AllFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
@@ -355,33 +407,28 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildRightColumn(MeldFormBloc formBloc) {
+  _buildRightColumn(AllFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     List<List<String>> resultList = [
-      ['meld', formBloc.meldResult],
-      ['meld_na', formBloc.meldNaResult],
-      ['5v_meld', formBloc.meld5vResult]
+      ['okuda', formBloc.results.toString()],
     ];
 
-    return Container(
-      width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
-      //color: Colors.blue,
-      child: Column(
-        children: <Widget>[
-          _buildIUnitsRow(formBloc),
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 30, 45, 0),
-            child: CalcResultWidget(
-              resultList: resultList, alignment: MainAxisAlignment.center,),
-          ),
-          RightBottomTitle(
-            title: 'meld', padding: EdgeInsets.fromLTRB(10, 0, 45, 50),),
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        // _buildIUnitsRow(formBloc),
+        /*Container(
+            alignment: Alignment.topRight,
+            //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
+            child: CalcResultWidget(resultList),),*/
+        RightBottomTitle(
+          title: 'summary_values',
+          padding: EdgeInsets.fromLTRB(10, 0, 15, 50),
+        )
+      ],
     );
   }
 
-  Container _buildIUnitsRow(MeldFormBloc formBloc) {
+  Container _buildIUnitsRow(AllFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
@@ -404,7 +451,7 @@ class MeldFormState extends State<MeldForm> with Observable {
         ));
   }
 
-  _buildIUnitsSelect(MeldFormBloc formBloc) {
+  _buildIUnitsSelect(AllFormBloc formBloc) {
     final prefs = new PreferenciasUsuario();
     var aux = AppLocalizations.of(context);
 
@@ -457,13 +504,13 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  void calculateMeld(MeldFormBloc formBloc) {
-    prefs.isMapError()
+  void submitDiagnostic(AllFormBloc formBloc) {
+    /*prefs.isMapError()
         ? errorPrueba = "hay al menos un error"
-        : errorPrueba = "no hay errores";
+        : errorPrueba = "no hay errores";*/
 
     //prefs.isError()
-    prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
+    // prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
 
     formBloc.submit();
 
@@ -518,16 +565,38 @@ class MeldFormState extends State<MeldForm> with Observable {
         });
   }
 
-  void resetValues(MeldFormBloc formBloc) {
+  void resetValues(AllFormBloc formBloc) {
     reset = true;
     formBloc.reset();
     setState(() {});
   }
 
-  void previousValues(MeldFormBloc formBloc) {
+  void previousValues(AllFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
     setState(() {});
+  }
+
+  _buildNextButton(AppLocalizations aux, AllFormBloc formBloc) {
+    bool isTablet = context.diagonalInches >= 7;
+
+    return Container(
+      height: 40,
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: FlatButton(
+        child: Text(
+          aux.tr('next'),
+          style: TextStyle(
+            fontSize: isTablet ? 14 : 12,
+          ),
+        ),
+        color: Color.fromARGB(255, 210, 242, 245),
+        onPressed: () {
+          submitDiagnostic(formBloc);
+          //Navigator.pushNamed(context, '/AllResults', arguments: formBloc);
+        },
+      ),
+    );
   }
 }

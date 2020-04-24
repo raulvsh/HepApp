@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/pages/DetailPageWidgets/PDFDetailPage.dart';
+import 'package:hepapp/pages/DetailPages/PDFDetailPage.dart';
 import 'package:sized_context/sized_context.dart';
 
 class ComboButton extends StatelessWidget {

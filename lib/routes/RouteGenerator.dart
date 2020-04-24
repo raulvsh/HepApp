@@ -13,19 +13,23 @@ import 'package:hepapp/data/podcasts_page_view.dart';
 import 'package:hepapp/data/resources.dart';
 import 'package:hepapp/data/schemes.dart';
 import 'package:hepapp/data/tocs.dart';
+import 'package:hepapp/forms/all_algorithms/all_clinical_form.dart';
+import 'package:hepapp/forms/all_algorithms/all_diagnostic_form.dart';
+import 'package:hepapp/forms/all_algorithms/all_laboratory_form.dart';
+import 'package:hepapp/forms/all_algorithms/all_results_form.dart';
+import 'package:hepapp/forms/all_algorithms/all_summary_form.dart';
 import 'package:hepapp/forms/child_pugh_score/cps_form.dart';
 import 'package:hepapp/forms/clip/clip_form.dart';
 import 'package:hepapp/forms/meld/meld_form.dart';
 import 'package:hepapp/forms/okuda/okuda_form.dart';
-import 'package:hepapp/pages/Calculators/AllCalcPage.dart';
 import 'package:hepapp/pages/CommonPages/CommonPage.dart';
-import 'package:hepapp/pages/DetailPageWidgets/VideoDetailPage.dart';
-import 'package:hepapp/pages/DetailPageWidgets/WebDetailPage.dart';
+import 'package:hepapp/pages/DetailPages/VideoDetailPage.dart';
+import 'package:hepapp/pages/DetailPages/WebDetailPage.dart';
 import 'package:hepapp/pages/HomePage.dart';
-import 'package:hepapp/pages/PageViewWidgets/CommonDetailPageView.dart';
-import 'package:hepapp/pages/PageViewWidgets/CommonPageView.dart';
-import 'package:hepapp/pages/PageViewWidgets/DrawingPageView.dart';
-import 'package:hepapp/pages/PageViewWidgets/InteractiveDetailPageView.dart';
+import 'package:hepapp/pages/PageViews/CommonDetailPageView.dart';
+import 'package:hepapp/pages/PageViews/CommonPageView.dart';
+import 'package:hepapp/pages/PageViews/DrawingPageView.dart';
+import 'package:hepapp/pages/PageViews/InteractiveDetailPageView.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -231,8 +235,19 @@ class RouteGenerator {
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(builder: (_) => DrawingPageView(initialPage));
 
-      case '/AllCalc':
-        return MaterialPageRoute(builder: (_) => AllCalcPage());
+      case '/AllDiagnosticCalc':
+        return MaterialPageRoute(builder: (_) => AllDiagnosticForm());
+      case '/AllLaboratoryCalc':
+        var formBloc = settings.arguments;
+        return MaterialPageRoute(
+            builder: (_) => AllLaboratoryForm(formBloc: formBloc,));
+      case '/AllClinicalCalc':
+        return MaterialPageRoute(builder: (_) => AllClinicalForm());
+      case '/AllResultsCalc':
+        return MaterialPageRoute(builder: (_) => AllResultsForm());
+      case '/AllSummaryCalc':
+        return MaterialPageRoute(builder: (_) => AllSummaryForm());
+
       case '/ChildCalc':
         return MaterialPageRoute(builder: (_) => CpsForm());
       case '/CLIPCalc':

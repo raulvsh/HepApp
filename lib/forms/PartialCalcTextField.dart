@@ -97,7 +97,6 @@ class _PartialCalcTextFieldState extends State<PartialCalcTextField> {
             ),*/
         ),
         onChanged: (text) {
-          //print("widget text title " + widget.title);
           if (widget.title == 'bilirubin') {
             prefs.getErrorMap().update('bilirubin', (v) => false);
           } else if (widget.title == 'inr') {
@@ -113,7 +112,6 @@ class _PartialCalcTextFieldState extends State<PartialCalcTextField> {
           }
         },
         errorBuilder: (context, error) {
-          //print("widget text title " + widget.title);
           if (widget.title == 'bilirubin') {
             prefs.getErrorMap().update('bilirubin', (v) => true);
           } else if (widget.title == 'inr') {

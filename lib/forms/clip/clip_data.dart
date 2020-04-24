@@ -7,18 +7,11 @@ class ClipData {
   String result;
 
   ClipData({
-    double afp,
-    String cps,
-    String tumourNumber,
-    String tumourExtent,
-    String pvt,
-    String result,
-  }) {
-    this.afp = afp;
-    this.cps = cps;
-    this.tumourNumber = tumourNumber;
-    this.tumourExtent = tumourExtent;
-    this.pvt = pvt;
-    this.result = result;
-  }
+    this.afp,
+    this.cps,
+    this.tumourNumber,
+    this.tumourExtent,
+    this.pvt,
+    this.result,
+  });
 }

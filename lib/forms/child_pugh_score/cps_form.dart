@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
+import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
@@ -396,11 +397,13 @@ class CpsFormState extends State<CpsForm> with Observable {
           _buildIUnitsRow(formBloc),
 
           Container(
-            //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
-            child: CalcResultWidget(resultList),),
+            padding: EdgeInsets.fromLTRB(0, 30, 50, 0),
+            child: CalcResultWidget(
+              resultList: resultList, alignment: MainAxisAlignment.center,),),
 
           // 'child_pugh_score_oneline', formBloc.resultadoField)),
-          _buildRightBottomTitle(),
+          RightBottomTitle(title: 'child_pugh_score_oneline',
+            padding: EdgeInsets.fromLTRB(10, 0, 45, 50),),
         ],
       ),
     );
@@ -486,29 +489,6 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  Expanded _buildRightBottomTitle() {
-    bool isTablet = context.diagonalInches >= 7;
-    AppLocalizations aux = AppLocalizations.of(context);
-    return Expanded(
-      child: Container(
-        alignment: Alignment.bottomRight,
-
-        //margin: EdgeInsets.only(top: 50),
-        padding: EdgeInsets.fromLTRB(10, 0, 60, 50),
-        //alignment: Alignment.bottomRight,
-        child: Text(
-          aux.tr('child_pugh_score_oneline'),
-          style: TextStyle(
-            fontSize: isTablet ? 28 : 20,
-            color: Theme
-                .of(context)
-                .primaryColor
-                .withAlpha(150), //Color.fromARGB(255, 210, 242, 245),
-          ),
-        ),
-      ),
-    );
-  }
 
   void calculateCps(CpsFormBloc formBloc) {
     //prefs.isError() ?

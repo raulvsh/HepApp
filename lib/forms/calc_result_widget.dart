@@ -4,8 +4,9 @@ import 'package:sized_context/sized_context.dart';
 
 class CalcResultWidget extends StatefulWidget {
   final resultList;
+  final alignment;
 
-  CalcResultWidget(this.resultList,
+  CalcResultWidget({this.resultList, this.alignment,}
   );
 
   @override
@@ -23,8 +24,9 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
 
     return Container(
       width: isTablet ? 400 : 200,
-      height: isTablet ? 170 : 120,
-      margin: EdgeInsets.fromLTRB(0, 30, 50, 0),
+      height: isTablet ? 200 : 140,
+      //margin: EdgeInsets.fromLTRB(0, 30, 50, 0),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
         border: Border.all(
           color: Color.fromARGB(255, 210, 242, 245),
@@ -36,20 +38,20 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children:
-        buildPrueba(),
+        buildResultList(widget.alignment),
 
       ),
       //),
     );
   }
 
-  buildPrueba() {
+  buildResultList(alignment) {
     AppLocalizations aux = AppLocalizations.of(context);
     List<Row> rowList = [];
     for (int i = 0; i < widget.resultList.length; i++) {
       rowList.add(
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: alignment, //MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
