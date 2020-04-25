@@ -262,7 +262,18 @@
   "tnm": "TNM",
   "cupi": "Cupi",
   "bclc": "BCLC",
-
+  "tumours": "Tumours",
+  "#1": "#1",
+  "#2": "#2",
+  "#3": "#3",
+  "#4": "#4",
+  "#5": "#5",
+  "#6": "#6",
+  "pvi": "PVI",
+  "pvt": "PVT",
+  "preclude_major_surgery": "Preclude major surgery",
+  "age": "Age",
+  "inr_summary": "INR",
 
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",

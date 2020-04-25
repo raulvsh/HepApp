@@ -254,6 +254,19 @@
   "staging_algorithms": "Algoritmos de estadificación",
   "alberta_hcc_algorithm": "Algoritmo Alberta HCC",
   "recommended_treatment": "Tratamiento recomendado:",
+  "tumours": "Tumores",
+  "#1": "#1",
+  "#2": "#2",
+  "#3": "#3",
+  "#4": "#4",
+  "#5": "#5",
+  "#6": "#6",
+  "pvi": "PVI",
+  "pvt": "PVT",
+  "preclude_major_surgery": "Excluir cirugía mayor",
+  "age": "Edad",
+  "inr_summary": "INR",
+
 
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",

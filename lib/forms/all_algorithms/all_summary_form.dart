@@ -1,21 +1,16 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
-import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../PartialCalcGroupField.dart';
 import 'all_form_bloc.dart';
 
 class AllSummaryForm extends StatefulWidget with Observable {
@@ -99,19 +94,7 @@ class AllSummaryFormState extends State<AllSummaryForm> with Observable {
                 //selPartialSettings: true,
               ),
               drawer: MenuWidget(),
-              body: Stack(
-                children: <Widget>[
-                  Stack(
-                    //mainAxisAlignment: MainAxisAlignment.start,
-                    //crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      _buildLeftColumn(formBloc),
-                      _buildRightColumn(formBloc),
-                    ],
-                  ),
-                ],
-              ),
-              bottomSheet: _buildBottomSheet(formBloc),
+              body: _buildBody(),
             ),
           );
         },
@@ -119,484 +102,233 @@ class AllSummaryFormState extends State<AllSummaryForm> with Observable {
     );
   }
 
-  _buildLeftColumn(AllFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
-    return Container(
-      width: context.widthPx,
-      //isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
-      height: context.heightPx,
-      //color: Colors.red,
-      padding: EdgeInsets.only(left: 20, top: 20),
-      child: ListView(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
-        children: <Widget>[
-          _buildTumourNumberRow(aux, formBloc),
-          _buildTumourSizeRow(aux, formBloc),
-          _buildTumourExtentRow(aux, formBloc),
-          //_buildCalcButton(aux, formBloc),
-          _buildPviRow(aux, formBloc),
-          _buildNodesRow(aux, formBloc),
-          _buildMetastasisRow(aux, formBloc),
-          _buildPortalHypertensionRow(aux, formBloc),
-          _buildPvtRow(aux, formBloc),
-        ],
-      ),
-    );
-  }
-
-  _buildTumourNumberRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
-      reset: reset,
-      previous: previous,
-      initialValue: formBloc.tumourNumberField.value.toString(),
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.tumourNumberField,
-      title: 'tumour_number',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
-    );
-  }
-
-  _buildTumourSizeRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
-      reset: reset,
-      previous: previous,
-      initialValue: formBloc.tumourSizeField.value.toString(),
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.tumourSizeField,
-      title: 'tumour_size',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
-    );
-  }
-
-  _buildTumourExtentRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
-      reset: reset,
-      previous: previous,
-      initialValue: formBloc.tumourExtentField.value.toString(),
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.tumourExtentField,
-      title: 'tumour_extent',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
-    );
-  }
-
-  _buildPviRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
-      reset: reset,
-      previous: previous,
-      initialValue: formBloc.pviField.value.toString(),
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.pviField,
-      title: 'pvi_portal_vein_invasion',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
-    );
-  }
-
-  _buildNodesRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
-      reset: reset,
-      previous: previous,
-      initialValue: formBloc.nodesField.value.toString(),
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.nodesField,
-      title: 'nodes',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
-    );
-  }
-
-  _buildMetastasisRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
-      reset: reset,
-      previous: previous,
-      initialValue: formBloc.metastasisField.value.toString(),
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.metastasisField,
-      title: 'metastasis',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
-    );
-  }
-
-  _buildPortalHypertensionRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
-      reset: reset,
-      previous: previous,
-      initialValue: formBloc.portalHypertensionField.value.toString(),
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.portalHypertensionField,
-      title: 'portal_hypertension_complete',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
-    );
-  }
-
-  _buildPvtRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
-      reset: reset,
-      previous: previous,
-      initialValue: formBloc.pvtField.value.toString(),
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.pvtField,
-      title: 'pvt_complete',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
-    );
-  }
-
-  _buildCalcButton(
-    AppLocalizations aux,
-    AllFormBloc formBloc,
-  ) {
-    bool isTablet = context.diagonalInches >= 7;
-    //var errordentro = prefs.getError();
-    return Container(
-      //width: 250,
-      //padding: EdgeInsets.all(8.0),
-      //margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
-            side: BorderSide(
-              color: Color.fromARGB(255, 45, 145, 155),
-              width: 1.5,
-            )),
-        color: Theme.of(context).primaryColor,
-        splashColor: Color.fromARGB(255, 56, 183, 198),
-        elevation: 3,
-        onPressed: () {
-          submitDiagnostic(formBloc);
-        },
-        child: Center(
-          child: Text(
-            aux.tr('calculate_okuda'),
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: isTablet ? 15 : 12,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildBottomSheet(AllFormBloc formBloc) {
-    var aux = AppLocalizations.of(context);
-
-    return BottomAppBar(
-      child: Stack(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _buildResetButton(aux, formBloc),
-              SizedBox(
-                width: 15,
-              ),
-              _buildPreviousButton(aux, formBloc),
-              SizedBox(
-                width: 15,
-              ),
-              _buildMoreInfoButton(aux),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              //_buildNextButton(aux, formBloc),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container _buildMoreInfoButton(AppLocalizations aux) {
-    bool isTablet = context.diagonalInches >= 7;
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('more_information'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          showMoreInfo();
-        },
-      ),
-    );
-  }
-
-  Future showMoreInfo() {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return MoreInformation(
-          title: 'okuda',
-          path: 'assets/images/calc/M3C14S0d.png',
-        );
-      },
-    );
-  }
-
-  Container _buildPreviousButton(AppLocalizations aux, formBloc) {
-    bool isTablet = context.diagonalInches >= 7;
-
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('previous_values'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          previousValues(formBloc);
-        },
-      ),
-    );
-  }
-
-  Container _buildResetButton(AppLocalizations aux, AllFormBloc formBloc) {
-    bool isTablet = context.diagonalInches >= 7;
-
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('reset'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          resetValues(formBloc);
-        },
-      ),
-    );
-  }
-
-  _buildRightColumn(AllFormBloc formBloc) {
-    bool isTablet = context.diagonalInches >= 7;
-    List<List<String>> resultList = [
-      ['okuda', formBloc.results.toString()],
-    ];
-
-    return Column(
+  _buildBody() {
+    return Stack(
       children: <Widget>[
-        // _buildIUnitsRow(formBloc),
-        /*Container(
-            alignment: Alignment.topRight,
-            //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
-            child: CalcResultWidget(resultList),),*/
-        RightBottomTitle(
-          title: 'summary_values',
-          padding: EdgeInsets.fromLTRB(10, 0, 15, 50),
-        )
+        Row(
+          children: <Widget>[
+            _buildDiagnosticColumn(),
+            _buildLabColumn(),
+            _buildClinicalColumn()
+          ],
+        ),
       ],
     );
   }
 
-  Container _buildIUnitsRow(AllFormBloc formBloc) {
+  Container _buildDiagnosticColumn() {
+    Map<String, dynamic> diagnosticMap1 = {
+      'tumours': '0',
+      '#1': '-',
+      '#2': '-',
+      '#3': '-',
+      '#4': '-',
+      '#5': '-',
+      '#6': '-',
+      'tumour_extent': '<=50%',
+    };
+    Map<String, dynamic> diagnosticMap2 = {
+      'pvi': '0',
+      'nodes': '-',
+      'metastasis': '-',
+      'portal_hypertension': '-',
+      'pvt': '-',
+    };
+
+    return Container(
+      width: context.widthPct(0.42),
+      //color: Colors.grey,
+      padding: EdgeInsets.only(left: 20, top: 10, bottom: 5),
+      //horizontal: 5, vertical: 10),
+      child: Column(
+        //mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _buildSummaryTitle('diagnostic_imaging'),
+          _buildSeparator(0.38),
+          Row(
+            //mainAxisSize: MainAxisSize.min,
+            //mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: context.widthPct(0.20),
+
+                padding: EdgeInsets.only(top: 5),
+                //color: Colors.orange,
+                child: Column(
+                  //mainAxisSize: MainAxisSize.min,
+                  children: _buildSummaryColumn(diagnosticMap1),
+                ),
+              ),
+              Container(
+                width: context.widthPct(0.18),
+                padding: EdgeInsets.only(top: 5),
+
+                //color: Colors.yellow,
+                child: Column(
+                  //mainAxisSize: MainAxisSize.min,
+                  children: _buildSummaryColumn(diagnosticMap2),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _buildLabColumn() {
+    Map<String, dynamic> diagnosticMap3 = {
+      'international_units': 'yes',
+      'bilirubin': '-',
+      'inr_summary': '-',
+      'creatinine': '-',
+      'dialysis': '-',
+      'albumin': '-',
+      'sodium': '-',
+      'platelets': '-',
+      'afp': '-',
+    };
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+      width: context.widthPct(0.29),
+      child: Column(
+        children: <Widget>[
+          _buildSummaryTitle('laboratory_values'),
+          _buildSeparator(0.27),
+          Container(
+            padding: EdgeInsets.only(top: 5),
+
+            child: Column(
+              children: _buildSummaryColumn(diagnosticMap3),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _buildClinicalColumn() {
+    Map<String, dynamic> diagnosticMap4 = {
+      'cirrhosis': 'yes',
+      'encephalopaty': '-',
+      'ascites': '-',
+      'varices': '-',
+      'ecog': '-',
+      'preclude_major_surgery': '-',
+      'age': '-',
+    };
+    var anchura = 0.27;
+
+    return Container(
+      //color:Colors.pink,
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+
+      width: context.widthPct(0.29),
+      child: Column(
+        children: <Widget>[
+          _buildSummaryTitle('clinical_questions'),
+          _buildSeparator(0.27),
+          Container(
+            padding: EdgeInsets.only(top: 5),
+
+            child: Column(
+              children: _buildSummaryColumn(diagnosticMap4),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Row _buildSeparator(double anchura) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          width: context.widthPct(anchura),
+          height: 3,
+          color: Theme
+              .of(context)
+              .primaryColor,
+        ),
+      ],
+    );
+  }
+
+  _buildSummaryTitle(String title) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
+
     return Container(
-        height: 60,
-        padding: EdgeInsets.only(top: 30),
-        child: Row(
-          children: <Widget>[
-            Text(
-              aux.tr("international_units"),
-              style: TextStyle(
-                fontSize: isTablet ? 15 : 12,
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            _buildIUnitsSelect(formBloc),
-          ],
+      padding: EdgeInsets.all(5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            aux.tr(title),
+            style: TextStyle(fontSize: isTablet ? 14 : 12, color: Colors.black),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _buildSummaryColumn(Map<String, dynamic> summaryMap) {
+    List<Widget> widgets = [];
+    summaryMap.forEach((key, value) {
+      widgets.add(Row(
+        children: <Widget>[
+          _buildInitialBlueRectangle(),
+          _buildSummaryText(key),
+          _buildSummaryContent(value.toString()),
+        ],
+      ));
+    });
+    return widgets;
+    /*Row(
+      children: <Widget>[
+        _buildInitialBlueRectangle(),
+        _buildSummaryText("hola"),
+        _buildSummaryContent("contenido"),
+      ],
+    );*/
+  }
+
+  Container _buildInitialBlueRectangle() {
+    return Container(
+      color: Color.fromARGB(255, 210, 242, 245),
+      width: 10.0,
+      height: 20.0,
+    );
+  }
+
+  _buildSummaryText(String summaryText) {
+    AppLocalizations aux = AppLocalizations.of(context);
+    var isTablet = context.diagonalInches >= 7;
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+        child: Text(
+          aux.tr(summaryText) + ': ',
+          style: TextStyle(
+            fontSize: isTablet ? 12 : 10,
+            color: Colors.black,
+          ),
         ));
   }
 
-  _buildIUnitsSelect(AllFormBloc formBloc) {
-    final prefs = new PreferenciasUsuario();
-    var aux = AppLocalizations.of(context);
-
-    List<bool> isSelected = [true, false];
-
-    isSelected[0] = prefs.getInternationalUnits();
-    isSelected[1] = !isSelected[0];
-
-    return ToggleButtons(
-      borderColor: Color.fromARGB(255, 45, 145, 155),
-      fillColor: Theme.of(context).primaryColor,
-      borderWidth: 1.3,
-      selectedBorderColor: Color.fromARGB(255, 45, 145, 155),
-      selectedColor: Colors.white,
-      color: Theme.of(context).primaryColor,
-      borderRadius: BorderRadius.all(Radius.circular(3.0)),
-      children: <Widget>[
-        Container(
-          width: 60,
-          child: Text(
-            aux.tr('on'),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Container(
-          width: 60,
-          child: Text(
-            aux.tr('off'),
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-      ],
-      onPressed: (int index) {
-        setState(() {
-          for (int i = 0; i < isSelected.length; i++) {
-            isSelected[i] = i == index;
-          }
-          isSelected[0]
-              ? formBloc.showIU()
-              : formBloc.showNotIU(); // : formBloc.convertToNoIU();
-
-          prefs.setInternationalUnits(isSelected[0]);
-        });
-      },
-      isSelected: isSelected,
-    );
-  }
-
-  void submitDiagnostic(AllFormBloc formBloc) {
-    /*prefs.isMapError()
-        ? errorPrueba = "hay al menos un error"
-        : errorPrueba = "no hay errores";*/
-
-    //prefs.isError()
-    // prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
-
-    formBloc.submit();
-
-    reset = false;
-    setState(() {});
-  }
-
-  showErrorDialog() {
+  _buildSummaryContent(String summaryContent) {
     AppLocalizations aux = AppLocalizations.of(context);
-
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              aux.tr('error'),
-              style: TextStyle(color: Colors.black),
-            ),
-            content: Container(
-              height: context.heightPct(0.20),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                      padding: EdgeInsets.only(right: 20),
-                      child: Text(
-                        aux.tr('fill_empty_fields'),
-                        style: TextStyle(color: Colors.black),
-                      )),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.bottomRight,
-                      child: FlatButton(
-                          padding: EdgeInsets.all(0),
-                          child: Text(
-                            aux.tr('accept'),
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor),
-                          ),
-                          onPressed: () {
-                            //prefs.setError(false);
-
-                            Navigator.pop(context);
-                            setState(() {});
-                            //Navigator.pop(context);
-                          }),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        });
-  }
-
-  void resetValues(AllFormBloc formBloc) {
-    reset = true;
-    formBloc.reset();
-    setState(() {});
-  }
-
-  void previousValues(AllFormBloc formBloc) {
-    reset = false;
-    previous = true;
-    formBloc.previous();
-    setState(() {});
-  }
-
-  _buildNextButton(AppLocalizations aux, AllFormBloc formBloc) {
-    bool isTablet = context.diagonalInches >= 7;
+    var isTablet = context.diagonalInches >= 7;
 
     return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
+        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
         child: Text(
-          aux.tr('next'),
+          summaryContent,
           style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
+            fontSize: isTablet ? 12 : 10,
           ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          submitDiagnostic(formBloc);
-          //Navigator.pushNamed(context, '/AllResults', arguments: formBloc);
-        },
-      ),
-    );
+        ));
   }
 }
