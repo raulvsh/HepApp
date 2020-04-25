@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
+import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
@@ -84,7 +85,6 @@ class AllSummaryFormState extends State<AllSummaryForm> with Observable {
         builder: (context) {
           //final formBloc = widget.formBloc;//BlocProvider.of<AllFormBloc>(context);
           final formBloc = BlocProvider.of<AllFormBloc>(context);
-
           return FormBlocListener<AllFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
@@ -103,6 +103,7 @@ class AllSummaryFormState extends State<AllSummaryForm> with Observable {
   }
 
   _buildBody() {
+
     return Stack(
       children: <Widget>[
         Row(
@@ -110,6 +111,15 @@ class AllSummaryFormState extends State<AllSummaryForm> with Observable {
             _buildDiagnosticColumn(),
             _buildLabColumn(),
             _buildClinicalColumn()
+          ],
+        ),
+        Column(
+          children: <Widget>[
+            RightBottomTitle(
+
+              title: 'value_summary',
+              padding: EdgeInsets.fromLTRB(10, 0, 15, 30),
+            ),
           ],
         ),
       ],
@@ -156,21 +166,19 @@ class AllSummaryFormState extends State<AllSummaryForm> with Observable {
 
                 padding: EdgeInsets.only(top: 5),
                 //color: Colors.orange,
-                child: Column(
-                  //mainAxisSize: MainAxisSize.min,
-                  children: _buildSummaryColumn(diagnosticMap1),
-                ),
+                child: _buildSummaryColumn(diagnosticMap1),
+                //Column(
+                //mainAxisSize: MainAxisSize.min,
+                //children:
+                //),
               ),
               Container(
                 width: context.widthPct(0.18),
                 padding: EdgeInsets.only(top: 5),
 
                 //color: Colors.yellow,
-                child: Column(
-                  //mainAxisSize: MainAxisSize.min,
-                  children: _buildSummaryColumn(diagnosticMap2),
-                ),
-              )
+                child: _buildSummaryColumn(diagnosticMap2),
+              ),
             ],
           ),
         ],
@@ -199,10 +207,7 @@ class AllSummaryFormState extends State<AllSummaryForm> with Observable {
           _buildSeparator(0.27),
           Container(
             padding: EdgeInsets.only(top: 5),
-
-            child: Column(
-              children: _buildSummaryColumn(diagnosticMap3),
-            ),
+            child: _buildSummaryColumn(diagnosticMap3),
           ),
         ],
       ),
@@ -232,10 +237,7 @@ class AllSummaryFormState extends State<AllSummaryForm> with Observable {
           _buildSeparator(0.27),
           Container(
             padding: EdgeInsets.only(top: 5),
-
-            child: Column(
-              children: _buildSummaryColumn(diagnosticMap4),
-            ),
+            child: _buildSummaryColumn(diagnosticMap4),
           ),
         ],
       ),
@@ -286,7 +288,8 @@ class AllSummaryFormState extends State<AllSummaryForm> with Observable {
         ],
       ));
     });
-    return widgets;
+
+    return Column(children: widgets);
     /*Row(
       children: <Widget>[
         _buildInitialBlueRectangle(),
