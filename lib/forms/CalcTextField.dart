@@ -5,9 +5,9 @@ import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:sized_context/sized_context.dart';
 
-class PartialCalcTextField extends StatefulWidget {
+class CalcTextField extends StatefulWidget {
 
-  const PartialCalcTextField({
+  const CalcTextField({
     Key key,
     @required this.textFieldBloc,
     @required this.title,
@@ -22,10 +22,10 @@ class PartialCalcTextField extends StatefulWidget {
 
 
   @override
-  _PartialCalcTextFieldState createState() => _PartialCalcTextFieldState();
+  _CalcTextFieldState createState() => _CalcTextFieldState();
 }
 
-class _PartialCalcTextFieldState extends State<PartialCalcTextField> {
+class _CalcTextFieldState extends State<CalcTextField> {
   final prefs = PreferenciasUsuario();
 
   @override

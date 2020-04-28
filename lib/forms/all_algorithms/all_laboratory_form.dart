@@ -155,7 +155,7 @@ class AllLaboratoryFormState extends State<AllLaboratoryForm> with Observable {
   }
 
   _buildBilirrubinRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
@@ -164,7 +164,7 @@ class AllLaboratoryFormState extends State<AllLaboratoryForm> with Observable {
   }
 
   _buildInrRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.inrField,
       title: 'inr',
@@ -173,7 +173,7 @@ class AllLaboratoryFormState extends State<AllLaboratoryForm> with Observable {
   }
 
   _buildCreatinineRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.creatinineField,
       title: 'creatinine',
@@ -183,7 +183,7 @@ class AllLaboratoryFormState extends State<AllLaboratoryForm> with Observable {
   }
 
   _buildAlbuminRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.albuminField,
       title: 'albumin',
@@ -192,7 +192,7 @@ class AllLaboratoryFormState extends State<AllLaboratoryForm> with Observable {
   }
 
   _buildSodiumRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.sodiumField,
       title: 'sodium',
@@ -201,7 +201,7 @@ class AllLaboratoryFormState extends State<AllLaboratoryForm> with Observable {
   }
 
   _buildPlateletsRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.plateletsField,
       title: 'platelets',
@@ -211,7 +211,7 @@ class AllLaboratoryFormState extends State<AllLaboratoryForm> with Observable {
   }
 
   _buildAFPRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.afpField,
       title: 'afp',
       uds: 'ug/L',
@@ -219,7 +219,7 @@ class AllLaboratoryFormState extends State<AllLaboratoryForm> with Observable {
   }
 
   _buildASTRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.astField,
       title: 'ast',
       uds: 'ug/L',
@@ -227,7 +227,7 @@ class AllLaboratoryFormState extends State<AllLaboratoryForm> with Observable {
   }
 
   _buildASTUpperLimitRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.astUpperLimitField,
       title: 'ast_upper_limit',
       uds: 'ug/L',
@@ -235,7 +235,7 @@ class AllLaboratoryFormState extends State<AllLaboratoryForm> with Observable {
   }
 
   _buildALPRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.alpField,
       title: 'alp',
       uds: 'ug/L',
@@ -243,7 +243,7 @@ class AllLaboratoryFormState extends State<AllLaboratoryForm> with Observable {
   }
 
   _buildALPUpperLimitRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.alpUpperLimitField,
       title: 'alp_upper_limit',
       uds: 'ug/L',
@@ -251,7 +251,7 @@ class AllLaboratoryFormState extends State<AllLaboratoryForm> with Observable {
   }
 
   _buildDialysisRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.dialysisField.value.toString(),

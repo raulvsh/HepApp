@@ -146,7 +146,7 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   _buildBilirrubinRow(AppLocalizations aux, MeldFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
       uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
@@ -154,7 +154,7 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   _buildInrRow(AppLocalizations aux, MeldFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.inrField,
       title: 'inr',
       uds: '',
@@ -162,7 +162,7 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   _buildCreatinineRow(AppLocalizations aux, MeldFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.creatinineField,
       title: 'creatinine',
       uds:
@@ -171,7 +171,7 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   _buildAlbuminRow(AppLocalizations aux, MeldFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.albuminField,
       title: 'albumin',
       uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
@@ -179,7 +179,7 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   _buildSodiumRow(AppLocalizations aux, MeldFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.sodiumField,
       title: 'sodium',
       uds: _internationalUnits ? units.sodiumUds[0] : units.sodiumUds[1],
@@ -187,7 +187,7 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   _buildDialysisRow(AppLocalizations aux, MeldFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.dialysisField.value.toString(),

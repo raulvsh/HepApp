@@ -154,7 +154,7 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   _buildAFPRow(AppLocalizations aux, ClipFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.afpField,
       title: 'afp',
       uds: 'ug/L',
@@ -162,7 +162,7 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   _buildCPSRow(AppLocalizations aux, ClipFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.cpsField.value.toString(),
@@ -177,7 +177,7 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   _buildTumourNumberRow(AppLocalizations aux, ClipFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.tumourNumberField.value.toString(),
@@ -192,7 +192,7 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   _buildTumourExtentRow(AppLocalizations aux, ClipFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.tumourExtentField.value.toString(),
@@ -207,7 +207,7 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   _buildPVTRow(AppLocalizations aux, ClipFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.pvtField.value.toString(),

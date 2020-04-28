@@ -151,7 +151,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
   }
 
   _buildTumourNumberRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.tumourNumberField.value.toString(),
@@ -166,7 +166,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
   }
 
   _buildTumourSizeRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.tumourSizeField.value.toString(),
@@ -181,7 +181,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
   }
 
   _buildTumourExtentRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.tumourExtentField.value.toString(),
@@ -196,7 +196,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
   }
 
   _buildPviRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.pviField.value.toString(),
@@ -211,7 +211,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
   }
 
   _buildNodesRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.nodesField.value.toString(),
@@ -226,7 +226,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
   }
 
   _buildMetastasisRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.metastasisField.value.toString(),
@@ -241,7 +241,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
   }
 
   _buildPortalHypertensionRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.portalHypertensionField.value.toString(),
@@ -256,7 +256,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
   }
 
   _buildPvtRow(AppLocalizations aux, AllFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.pvtField.value.toString(),

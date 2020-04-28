@@ -10,7 +10,7 @@ import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:sized_context/sized_context.dart';
 
 /// A material design radio buttons.
-class PartialCalcGroupField<Value> extends StatefulWidget {
+class CalcGroupField<Value> extends StatefulWidget {
   bool reset;
   bool error;
   bool previous;
@@ -20,7 +20,7 @@ class PartialCalcGroupField<Value> extends StatefulWidget {
   final errorControl;
 
 
-  PartialCalcGroupField({
+  CalcGroupField({
     Key key,
     @required this.selectFieldBloc,
     @required this.itemBuilder,
@@ -77,11 +77,11 @@ class PartialCalcGroupField<Value> extends StatefulWidget {
   final String title;
 
   @override
-  _PartialCalcGroupFieldState<Value> createState() =>
-      _PartialCalcGroupFieldState();
+  _CalcGroupFieldState<Value> createState() =>
+      _CalcGroupFieldState();
 }
 
-class _PartialCalcGroupFieldState<Value> extends State<PartialCalcGroupField> {
+class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
   Map<String, bool> isSelected = {};
   final prefs = PreferenciasUsuario();
   bool firstRun = true;

@@ -149,7 +149,7 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
     AllFormBloc formBloc,
   ) {
     //print("error encephalopaty " + _error.toString());
-    return PartialCalcGroupField(
+    return CalcGroupField(
       //error: _error,
       initialValue: formBloc.cirrhosisField.value.toString(),
       reset: reset,
@@ -169,7 +169,7 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
     AppLocalizations aux,
     AllFormBloc formBloc,
   ) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       //error: _error,
       initialValue: formBloc.encephalopatyField.value.toString(),
       reset: reset,
@@ -190,7 +190,7 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
     AppLocalizations aux,
     AllFormBloc formBloc,
   ) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       initialValue: formBloc.ascitesField.value.toString(),
       previous: previous,
       reset: reset,
@@ -208,7 +208,7 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
     AppLocalizations aux,
     AllFormBloc formBloc,
   ) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       initialValue: formBloc.varicesField.value.toString(),
       previous: previous,
       reset: reset,
@@ -226,7 +226,7 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
     AppLocalizations aux,
     AllFormBloc formBloc,
   ) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       initialValue: formBloc.ecogField.value.toString(),
       previous: previous,
       reset: reset,

@@ -179,7 +179,7 @@ class CpsFormState extends State<CpsForm> with Observable {
   }
 
   _buildBilirrubinRow(AppLocalizations aux, CpsFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
@@ -188,7 +188,7 @@ class CpsFormState extends State<CpsForm> with Observable {
   }
 
   _buildInrRow(AppLocalizations aux, CpsFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.inrField,
       title: 'inr',
@@ -197,7 +197,7 @@ class CpsFormState extends State<CpsForm> with Observable {
   }
 
   _buildAlbuminRow(AppLocalizations aux, CpsFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       //formBloc: formBloc,
       textFieldBloc: formBloc.albuminField,
       title: 'albumin',
@@ -208,7 +208,7 @@ class CpsFormState extends State<CpsForm> with Observable {
   _buildEncephalopatyRow(AppLocalizations aux,
       CpsFormBloc formBloc,) {
     //print("error encephalopaty " + _error.toString());
-    return PartialCalcGroupField(
+    return CalcGroupField(
       //error: _error,
       initialValue: formBloc.encephalopatyField.value.toString(),
       reset: reset,
@@ -227,7 +227,7 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   _buildAscitesRow(AppLocalizations aux,
       CpsFormBloc formBloc,) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       initialValue: formBloc.ascitesField.value.toString(),
       previous: previous,
       reset: reset,

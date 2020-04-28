@@ -147,7 +147,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   }
 
   _buildBilirrubinRow(AppLocalizations aux, OkudaFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
       uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
@@ -155,7 +155,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   }
 
   _buildAlbuminRow(AppLocalizations aux, OkudaFormBloc formBloc) {
-    return PartialCalcTextField(
+    return CalcTextField(
       textFieldBloc: formBloc.albuminField,
       title: 'albumin',
       uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
@@ -164,7 +164,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   _buildAscitesRow(AppLocalizations aux,
       OkudaFormBloc formBloc,) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       initialValue: formBloc.ascitesField.value.toString(),
       previous: previous,
       reset: reset,
@@ -179,7 +179,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   }
 
   _buildTumourExtentRow(AppLocalizations aux, OkudaFormBloc formBloc) {
-    return PartialCalcGroupField(
+    return CalcGroupField(
       reset: reset,
       previous: previous,
       initialValue: formBloc.tumourExtentField.value.toString(),
