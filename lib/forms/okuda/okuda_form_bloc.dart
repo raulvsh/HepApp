@@ -15,27 +15,19 @@ class OkudaFormBloc extends FormBloc<String, String> {
   var albuminField = TextFieldBloc();
   var ascitesField = SelectFieldBloc(
     items: ['none_fem', 'controlled', 'refractory'],
-
   );
   var tumourExtentField = SelectFieldBloc(
     items: ['<=50%', '>50%'],
   );
-
-
   String result = '-';
 
-
-
   var data = OkudaData(
-
-      bilirubin: 0,
-      albumin: 0,
+    bilirubin: 0,
+    albumin: 0,
     ascites: 'none_fem',
     tumourExtent: '<=50%',
     result: '-',
-
   );
-
 
   @override
   List<FieldBloc> get fieldBlocs => [
@@ -61,7 +53,6 @@ class OkudaFormBloc extends FormBloc<String, String> {
     try {
       this.result = okudaAlgorithm.obtenerResultado();
       data.result = this.result;
-
     } catch (e) {
       print("Excepción: $e");
     }
@@ -79,68 +70,23 @@ class OkudaFormBloc extends FormBloc<String, String> {
     yield currentState.toLoaded();
   }
 
-  void showObjectMeldData() {
-    print("\n\n*****************OBJETO OkudaDATA: "
-        "\nbili: ${data.bilirubin}" +
-        "\nalbu: ${data.albumin}" +
-        "\nascites : ${data.ascites}" +
-        "\nextension : ${data.tumourExtent}" +
-        "\nresultado: ${data.result}" +
-
-        "\n**************");
+  void showIU() {
+    this.bilirubinField = TextFieldBloc(
+      initialValue: data.bilirubin.toStringAsPrecision(4),
+    );
+    this.albuminField = TextFieldBloc(
+      initialValue: data.albumin.toStringAsPrecision(4),
+    );
   }
-
-  void showFields() {
-    print("\n\n *********FIELD VALUES");
-    print("Campo bili: " + bilirubinField.value);
-    print("Campo albu: " + albuminField.value);
-    print("Campo ascites: " + ascitesField.value);
-
-    print("Campo extension: " + tumourExtentField.value);
-
-
-    print("Campo resultado antes : " + result);
-  }
-
 
   showNotIU() {
-    //TODO mirar las unidades del afp, unico que cambia
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(data.bilirubin)
-          .toStringAsPrecision(2),
-    );
-    this.creatinineField = TextFieldBloc(
-      initialValue: units.getNotIUCreatinin(data.creatinine)
-          .toStringAsPrecision(
-          2),
+    this.bilirubinField = TextFieldBloc(
+      initialValue:
+      units.getNotIUBilirrubin(data.bilirubin).toStringAsPrecision(4),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(data.albumin).toStringAsPrecision(
-          2),
+      initialValue: units.getNotIUAlbumin(data.albumin).toStringAsPrecision(4),
     );
-    this.sodiumField = TextFieldBloc(
-      initialValue: units.getNotIUSodium(data.sodium).toStringAsPrecision(
-          2),
-    );*/
-
-  }
-
-  void showIU() {
-
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toStringAsPrecision(2),
-    );
-    this.creatinineField = TextFieldBloc(
-      initialValue: data.creatinine.toStringAsPrecision(2),
-    );
-
-    this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toStringAsPrecision(2),
-    );
-    this.sodiumField = TextFieldBloc(
-      initialValue: data.sodium.toStringAsPrecision(2),
-    );
-*/
   }
 
   reset() {
@@ -152,11 +98,8 @@ class OkudaFormBloc extends FormBloc<String, String> {
     this.tumourExtentField = SelectFieldBloc(
       items: ['<=50%', '>50%'],
     );
-
-
     this.result = "-";
   }
-
 
   void previous() {
     this.bilirubinField = TextFieldBloc(
@@ -169,47 +112,32 @@ class OkudaFormBloc extends FormBloc<String, String> {
       items: ['none_fem', 'controlled', 'refractory'],
       initialValue: data.ascites.toString(),
     );
-
     this.tumourExtentField = SelectFieldBloc(
       items: ['<=50%', '>50%'],
       initialValue: data.tumourExtent.toString(),
     );
-
-
     this.result = data.result;
 
-
-
-    //this.ascitesField.updateValue('none_fem');
-    //this.ascitesField.updateItems(['none_fem', 'controlled', 'refractory'],);
-    //print("ascites dentro previo " + this.ascitesField.value.toString());
-    //var radio = state.elementAt(0).toString();
-    //print("radio" + radio);
-
-    //encephalopatyField.updateValue(data.encephalopaty.toString(),);
-    /* _initMap(state);
-
-      radioValue = state.items
-          .elementAt(index)
-          .toString(); //radioValue es el elemento seleccionado
-
-      */ /*Venían en la función onChange, quizás se necesiten
-                      widget.isEnabled,
-                      widget.nextFocusNode,*/ /*
-
-      widget.selectFieldBloc
-          .updateValue(radioValue); //Actualizo el valor
-      isSelected[radioValue] = true;
-      //print('Mapa actualizado $isSelected \n\n');*/
-
-
     print("\n*****AFTER PREVIOUS");
-    print("bili: " + this.bilirubinField.value);
-    print("albu: " + this.albuminField.value);
-    print("ascites: " + this.ascitesField.value);
-    print("extent: " + this.tumourExtentField.value);
+    showFields();
+  }
 
-    print("resultado: " + this.result);
+  void showObjectOkudaData() {
+    print("\n\n*****************OBJETO OkudaDATA: "
+        "\nbili: ${data.bilirubin}" +
+        "\nalbu: ${data.albumin}" +
+        "\nascites : ${data.ascites}" +
+        "\nextension : ${data.tumourExtent}" +
+        "\nresultado: ${data.result}" +
+        "\n**************");
+  }
 
+  void showFields() {
+    print("\n\n *********FIELD VALUES");
+    print("Campo bili: " + bilirubinField.value);
+    print("Campo albu: " + albuminField.value);
+    print("Campo ascites: " + ascitesField.value);
+    print("Campo extension: " + tumourExtentField.value);
+    print("Campo resultado antes : " + result);
   }
 }

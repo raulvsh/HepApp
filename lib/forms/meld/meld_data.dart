@@ -5,7 +5,7 @@ class MeldData {
   double albumin;
   double sodium;
   String dialysis;
-  List<String> results;
+  Map<String, String> results;
 
   //borrar estos 3, ya tengo los resultados en la List<String> results
   String meldResult;

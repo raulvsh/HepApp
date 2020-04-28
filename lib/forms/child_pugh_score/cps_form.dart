@@ -18,6 +18,7 @@ import 'package:sized_context/sized_context.dart';
 import '../PartialCalcGroupField.dart';
 import '../PartialCalcTextField.dart';
 import '../calc_result_widget.dart';
+import '../international_units_select.dart';
 import 'cps_form_bloc.dart';
 
 class CpsForm extends StatefulWidget with Observable {
@@ -33,7 +34,8 @@ class CpsFormState extends State<CpsForm> with Observable {
   final prefs = PreferenciasUsuario();
   final units = Units();
   bool _internationalUnits = true;
-  List<bool> _errorList;
+
+  //List<bool> _errorList;
   Map<String, bool> _errorMap;
   StreamSubscription streamSubIUnits;
 
@@ -73,10 +75,6 @@ class CpsFormState extends State<CpsForm> with Observable {
         }));
     prefs.initErrorMap(
         ['bilirubin', 'inr', 'albumin', 'encephalopaty', 'ascites']);
-
-
-    //prefs.setErrorMap('bilirubin', false);
-    //print("error map " + prefs.getErrorMap().toString());
 
     super.initState();
   }
@@ -271,7 +269,7 @@ class CpsFormState extends State<CpsForm> with Observable {
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
         onPressed: () {
-          print(_errorList);
+          //print(_errorList);
           calculateCps(formBloc);
 
         },
@@ -394,8 +392,8 @@ class CpsFormState extends State<CpsForm> with Observable {
       //color: Colors.blue,
       child: Column(
         children: <Widget>[
-          _buildIUnitsRow(formBloc),
-
+          //_buildIUnitsRow(formBloc),
+          InternationalUnitsSelect(formBloc: formBloc,),
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 50, 0),
             child: CalcResultWidget(
@@ -409,85 +407,11 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  Container _buildIUnitsRow(CpsFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
-    return Container(
-        height: 60,
-        padding: EdgeInsets.only(top: 30),
-        child: Row(
-          children: <Widget>[
-            Text(
-              aux.tr("international_units"),
-              style: TextStyle(
-                fontSize: isTablet ? 15 : 12,
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            _buildIUnitsSelect(formBloc),
-          ],
-        ));
-  }
+  /*_buildIUnitsRow(CpsFormBloc formBloc) {
+    return InternationalUnitsSelect(formBloc: formBloc,);
+  }*/
 
-  _buildIUnitsSelect(CpsFormBloc formBloc) {
-    final prefs = new PreferenciasUsuario();
-    var aux = AppLocalizations.of(context);
 
-    List<bool> isSelected = [true, false];
-
-    isSelected[0] = prefs.getInternationalUnits();
-    isSelected[1] = !isSelected[0];
-
-    return ToggleButtons(
-      borderColor: Color.fromARGB(255, 45, 145, 155),
-      fillColor: Theme
-          .of(context)
-          .primaryColor,
-      borderWidth: 1.3,
-      selectedBorderColor: Color.fromARGB(255, 45, 145, 155),
-      selectedColor: Colors.white,
-      color: Theme
-          .of(context)
-          .primaryColor,
-      borderRadius: BorderRadius.all(Radius.circular(3.0)),
-      children: <Widget>[
-        Container(
-          width: 60,
-          child: Text(
-            aux.tr('on'),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Container(
-          width: 60,
-          child: Text(
-            aux.tr('off'),
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-      ],
-      onPressed: (int index) {
-        setState(() {
-          for (int i = 0; i < isSelected.length; i++) {
-            isSelected[i] = i == index;
-          }
-          isSelected[0]
-              ? formBloc.showIU()
-              : formBloc.showNotIU(); // : formBloc.convertToNoIU();
-
-          prefs.setInternationalUnits(isSelected[0]);
-        });
-      },
-      isSelected: isSelected,
-    );
-  }
 
 
   void calculateCps(CpsFormBloc formBloc) {

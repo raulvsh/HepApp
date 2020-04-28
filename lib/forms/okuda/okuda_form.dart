@@ -18,6 +18,7 @@ import 'package:sized_context/sized_context.dart';
 import '../PartialCalcGroupField.dart';
 import '../PartialCalcTextField.dart';
 import '../calc_result_widget.dart';
+import '../international_units_select.dart';
 import 'okuda_form_bloc.dart';
 
 class OkudaForm extends StatefulWidget with Observable {
@@ -144,6 +145,11 @@ class OkudaFormState extends State<OkudaForm> with Observable {
           //Text(prefs.getErrorMap().values.contains(true).toString()),
           Text(prefs.isMapError().toString()),
           Text(errorPrueba),
+          //Text("bilirubin: " + formBloc.bilirubinField.value),
+          //Text("albumin: " + formBloc.albuminField.value),
+          //Text("ascites: " + formBloc.ascitesField.value),
+          //Text("extension: " + formBloc.tumourExtentField.value),
+          //Text("result: " + formBloc.result.toString()),
         ],
       ),
     );
@@ -206,7 +212,6 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   _buildCalcButton(AppLocalizations aux,
       OkudaFormBloc formBloc,) {
     bool isTablet = context.diagonalInches >= 7;
-    //var errordentro = prefs.getError();
     return Container(
       width: 250,
       //padding: EdgeInsets.all(8.0),
@@ -224,7 +229,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
         onPressed: () {
-          calculateMeld(formBloc);
+          calculateOkuda(formBloc);
         },
         child: Center(
           child: Text(
@@ -344,6 +349,8 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       child: Column(
         children: <Widget>[
           // _buildIUnitsRow(formBloc),
+          InternationalUnitsSelect(formBloc: formBloc,),
+
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 45, 0),
             child: CalcResultWidget(
@@ -355,7 +362,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  void calculateMeld(OkudaFormBloc formBloc) {
+  void calculateOkuda(OkudaFormBloc formBloc) {
     prefs.isMapError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";

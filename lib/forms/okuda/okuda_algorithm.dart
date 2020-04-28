@@ -10,102 +10,80 @@ class OkudaAlgorithm {
 
   final units = Units();
 
-  String obtenerResultado(/*CpsData data*/ /*fieldBlocs*/) {
+  String obtenerResultado() {
     final prefs = PreferenciasUsuario();
     final units = Units();
 
     var ptsBilirubin;
-    var ptsINR;
     var ptsAlbumin;
-    var ptsEncephalopaty;
     var ptsAscites;
+    var ptsTumourExtent;
 
-/*if(antiguo.bilirubin<=34){
-      print("yujuuu " + antiguo.bilirubin.toString());
-    }*/
-//TODO Aquí llamar a los métodos de convertir a unidades internacionales
-/*if(prefs.internationalUnits == false){
-      antiguo.bilirubin = units.getConvertedBilirrubin(antiguo.bilirubin);
-      antiguo.albumin = units.getConvertedAlbumin(antiguo.albumin);
-    }*/
-//pasar a método externo
-//compruebo que esté en unidades interanacionales, si no, convierto
-    /*if (!prefs.getInternationalUnits()) convertToIU();
-    showObjectCPSData();
 
-    if (meldData.bilirubin <= 34) {
+    if (!prefs.getInternationalUnits()) convertToIU();
+    showObjectOkudaData();
+
+    if (okudaData.bilirubin < 51) {
+      ptsBilirubin = 0;
+    } else {
       ptsBilirubin = 1;
-    } else if (meldData.bilirubin <= 50) {
-      ptsBilirubin = 2;
-    } else {
-      ptsBilirubin = 3;
     }
 
-    if (meldData.inr <= 1.7) {
-      ptsINR = 1;
-    } else if (meldData.inr <= 2.2) {
-      ptsINR = 2;
-    } else {
-      ptsINR = 3;
-    }
-
-    if (meldData.albumin <= 28) {
-      ptsAlbumin = 3;
-    } else if (meldData.albumin <= 35) {
-      ptsAlbumin = 2;
-    } else {
+    if (okudaData.albumin < 30) {
       ptsAlbumin = 1;
+    } else {
+      ptsAlbumin = 0;
     }
 
-    if (meldData.encephalopaty == 'none_fem') {
-      ptsEncephalopaty = 1;
-    } else if (meldData.encephalopaty == 'grade_1_2') {
-      ptsEncephalopaty = 2;
-    } else if (meldData.encephalopaty == 'grade_3_4') {
-      ptsEncephalopaty = 3;
-    }
 
-    if (meldData.ascites == 'none_fem') {
+    if (okudaData.ascites == 'none_fem') {
+      ptsAscites = 0;
+    } else if (okudaData.ascites == 'controlled') {
       ptsAscites = 1;
-    } else if (meldData.ascites == 'controlled') {
-      ptsAscites = 2;
-    } else if (meldData.ascites == 'refractory') {
-      ptsAscites = 3;
+    } else if (okudaData.ascites == 'refractory') {
+      ptsAscites = 1;
     }
 
-    obtenerPuntos(
-        ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites);
+    if (okudaData.tumourExtent == '<=50%') {
+      ptsTumourExtent = 0;
+    } else {
+      ptsTumourExtent = 1;
+    }
+
+    showPts(
+        ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent);
 
     int resultado =
-        ptsBilirubin + ptsINR + ptsAlbumin + ptsEncephalopaty + ptsAscites;
-*/ /*print('Resultado numérico: $resultado');*/ /*
-    if (resultado == 5 || resultado == 6) {
-      return 'A ($resultado)';
-    } else if (resultado >= 7 && resultado <= 9) {
-      return 'B ($resultado)';
+        ptsBilirubin + ptsAlbumin + ptsAscites + ptsTumourExtent;
+
+    if (resultado == 0) {
+      return 'I ($resultado)';
+    } else if (resultado == 1 || resultado == 2) {
+      return 'II ($resultado)';
     } else {
-      return 'C ($resultado)';
-    }*/
+      return 'III ($resultado)';
+    }
+
+
+    //return 'prueba';
   }
 
   void convertToIU() {
-    //if (!prefs.getIunitsPrueba()) {
-    //clipData.bilirubin = units.getIUBilirrubin(clipData.bilirubin);
-    //clipData.albumin = units.getIUAlbumin(clipData.albumin);
-    //}
+    okudaData.bilirubin = units.getIUBilirrubin(okudaData.bilirubin);
+    okudaData.albumin = units.getIUAlbumin(okudaData.albumin);
+
   }
 
-  void obtenerPuntos(
-      ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites) {
+  void showPts(ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent) {
     print("\n\n**********PUNTOS\nPuntos bilirrubina: $ptsBilirubin");
-    print("Puntos inr: $ptsINR");
     print("Puntos albúmina: $ptsAlbumin");
-    print("Puntos encefalopatía: $ptsEncephalopaty");
     print("Puntos ascitis: $ptsAscites");
+    print("Puntos extension: $ptsTumourExtent");
+
   }
 
-  void showObjectCPSData() {
-    print("\n\n*****************OBJETO clipDATA: "
+  void showObjectOkudaData() {
+    print("\n\n*****************OBJETO OkudaDATA: "
         "\nbilirrubina : ${okudaData.bilirubin}" +
         "\nalbumina : ${okudaData.albumin}" +
         "\nascites : ${okudaData.ascites}" +

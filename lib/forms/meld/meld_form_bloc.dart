@@ -20,7 +20,7 @@ class MeldFormBloc extends FormBloc<String, String> {
     items: ['yes', 'no'],
   );
 
-
+  List<String> results = ['-', '-', '-'];
   String meldResult = '-';
   String meldNaResult = '-';
   String meld5vResult = '-';
@@ -33,6 +33,11 @@ class MeldFormBloc extends FormBloc<String, String> {
       albumin: 0,
       sodium: 0,
       dialysis: 'no',
+    results: {
+      'meld': '-',
+      'meld_na': '-',
+      'meld_5v': '-',
+    },
     meldResult: '-',
     meldNaResult: '-',
     meld5vResult: '-',
@@ -65,7 +70,11 @@ class MeldFormBloc extends FormBloc<String, String> {
     MeldAlgorithm meldAlgorithm = MeldAlgorithm(data);
 
     try {
-      this.meldResult = meldAlgorithm.obtenerResultado();
+      this.results = meldAlgorithm.obtenerResultado();
+      this.results[0] = 'a';
+      this.results[1] = 'ab';
+      this.results[2] = 'ac';
+
       //TODO hacer algoritmo en 3 partes, meld normal, con eso + sodio, obtener Na, con dialisis, obtener 5v
       data.meldResult = this.meldResult;
       data.meldResult = this.meldResult;
@@ -107,51 +116,48 @@ class MeldFormBloc extends FormBloc<String, String> {
     print("Campo bilirrubina: " + bilirubinField.value);
     print("Campo inr: " + inrField.value);
     print("Campo creatinina: " + creatinineField.value);
-
     print("Campo albumina: " + albuminField.value);
-
     print("Campo sodio: " + sodiumField.value);
     print("Campo dialisis: " + dialysisField.value);
-
-    print("Campo resultado antes de operar: " + meldResult + " na " +
-        meldNaResult + " 5v " + meld5vResult);
+    print("Campo resultado antes de operar: " + meldResult + " na: " +
+        meldNaResult + " 5v: " + meld5vResult);
   }
 
 
   showNotIU() {
     this.bilirubinField = TextFieldBloc(
       initialValue: units.getNotIUBilirrubin(data.bilirubin)
-          .toStringAsPrecision(2),
+          .toStringAsPrecision(4),
     );
     this.creatinineField = TextFieldBloc(
       initialValue: units.getNotIUCreatinin(data.creatinine)
           .toStringAsPrecision(
-          2),
+          4),
     );
     this.albuminField = TextFieldBloc(
       initialValue: units.getNotIUBilirrubin(data.albumin).toStringAsPrecision(
-          2),
+          4),
     );
     this.sodiumField = TextFieldBloc(
       initialValue: units.getNotIUSodium(data.sodium).toStringAsPrecision(
-          2),
+          4),
     );
 
   }
 
   void showIU() {
     this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toStringAsPrecision(2),
+      initialValue: data.bilirubin.toStringAsPrecision(4),
     );
     this.creatinineField = TextFieldBloc(
-      initialValue: data.creatinine.toStringAsPrecision(2),
+      initialValue: data.creatinine.toStringAsPrecision(4),
     );
 
     this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toStringAsPrecision(2),
+      initialValue: data.albumin.toStringAsPrecision(4),
     );
     this.sodiumField = TextFieldBloc(
-      initialValue: data.sodium.toStringAsPrecision(2),
+      initialValue: data.sodium.toStringAsPrecision(4),
     );
 
   }

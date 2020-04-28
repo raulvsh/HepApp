@@ -63,7 +63,7 @@ class CpsAlgorithm {
       ptsAscites = 3;
     }
 
-    obtenerPuntos(
+    showPts(
         ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites);
 
     int resultado =
@@ -82,7 +82,7 @@ class CpsAlgorithm {
     cpsData.albumin = units.getIUAlbumin(cpsData.albumin);
   }
 
-  void obtenerPuntos(
+  void showPts(
       ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites) {
     print("\n\n**********PUNTOS\nPuntos bilirrubina: $ptsBilirubin");
     print("Puntos inr: $ptsINR");
