@@ -20,7 +20,12 @@ class MeldFormBloc extends FormBloc<String, String> {
     items: ['yes', 'no'],
   );
 
-  List<String> results = ['-', '-', '-'];
+  Map<String, String> results = {
+    'meld': '-',
+    'meld_na': '-',
+    '5v_meld': '-',
+
+  };
   String meldResult = '-';
   String meldNaResult = '-';
   String meld5vResult = '-';
@@ -36,11 +41,11 @@ class MeldFormBloc extends FormBloc<String, String> {
     results: {
       'meld': '-',
       'meld_na': '-',
-      'meld_5v': '-',
+      '5v_meld': '-',
     },
-    meldResult: '-',
+    /*meldResult: '-',
     meldNaResult: '-',
-    meld5vResult: '-',
+    meld5vResult: '-',*/
   );
 
 
@@ -71,14 +76,14 @@ class MeldFormBloc extends FormBloc<String, String> {
 
     try {
       this.results = meldAlgorithm.obtenerResultado();
-      this.results[0] = 'a';
-      this.results[1] = 'ab';
-      this.results[2] = 'ac';
+      data.results = this.results;
+
+      //print("resultados ${this.results}" );
 
       //TODO hacer algoritmo en 3 partes, meld normal, con eso + sodio, obtener Na, con dialisis, obtener 5v
-      data.meldResult = this.meldResult;
-      data.meldResult = this.meldResult;
-      data.meldResult = this.meldResult;
+      //data.meldResult = this.meldResult;
+      //data.meldResult = this.meldResult;
+      //data.meldResult = this.meldResult;
     } catch (e) {
       print("Excepción: $e");
     }
@@ -104,9 +109,9 @@ class MeldFormBloc extends FormBloc<String, String> {
         "\nalbumina : ${data.albumin}" +
         "\nsodio : ${data.sodium}" +
         "\ndialisis : ${data.dialysis}" +
-        "\nresultado: ${data.meldResult}" +
-        "\nresultado Na: ${data.meldNaResult}" +
-        "\nresultado 5v: ${data.meld5vResult}" +
+        "\nresultados: ${data.results.toString()}" +
+        //"\nresultado Na: ${data.meldNaResult}" +
+        //"\nresultado 5v: ${data.meld5vResult}" +
 
         "\n**************");
   }
@@ -119,45 +124,61 @@ class MeldFormBloc extends FormBloc<String, String> {
     print("Campo albumina: " + albuminField.value);
     print("Campo sodio: " + sodiumField.value);
     print("Campo dialisis: " + dialysisField.value);
-    print("Campo resultado antes de operar: " + meldResult + " na: " +
-        meldNaResult + " 5v: " + meld5vResult);
+    print("Campo resultado antes de operar: " + results.toString());
   }
 
 
   showNotIU() {
     this.bilirubinField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(data.bilirubin)
-          .toStringAsPrecision(4),
+      initialValue: data.bilirubin.toStringAsPrecision(4),
+
+      //initialValue: units.getNotIUBilirrubin(data.bilirubin)
+      // .toStringAsPrecision(4),
     );
     this.creatinineField = TextFieldBloc(
-      initialValue: units.getNotIUCreatinin(data.creatinine)
-          .toStringAsPrecision(
-          4),
+      initialValue: data.creatinine.toStringAsPrecision(4),
+
+      // initialValue: units.getNotIUCreatinin(data.creatinine)
+      //   .toStringAsPrecision(
+      //   4),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(data.albumin).toStringAsPrecision(
-          4),
+      initialValue: data.albumin.toStringAsPrecision(4),
+
+      //initialValue: units.getNotIUBilirrubin(data.albumin).toStringAsPrecision(
+      //  4),
     );
     this.sodiumField = TextFieldBloc(
-      initialValue: units.getNotIUSodium(data.sodium).toStringAsPrecision(
-          4),
+      initialValue: data.sodium.toStringAsPrecision(4),
+
+      // initialValue: units.getNotIUSodium(data.sodium).toStringAsPrecision(
+      //   4),
     );
 
   }
 
-  void showIU() {
+  showIU() {
     this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toStringAsPrecision(4),
+      initialValue: units.getIUBilirrubin(data.bilirubin)
+          .toStringAsPrecision(4),
+      //initialValue: data.bilirubin.toStringAsPrecision(4),
     );
     this.creatinineField = TextFieldBloc(
-      initialValue: data.creatinine.toStringAsPrecision(4),
+      initialValue: units.getIUCreatinin(data.creatinine)
+          .toStringAsPrecision(
+          4),
+      // initialValue: data.creatinine.toStringAsPrecision(4),
     );
 
     this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toStringAsPrecision(4),
+      initialValue: units.getIUAlbumin(data.albumin).toStringAsPrecision(
+          4),
+      // initialValue: data.albumin.toStringAsPrecision(4),
     );
     this.sodiumField = TextFieldBloc(
-      initialValue: data.sodium.toStringAsPrecision(4),
+      initialValue: units.getIUSodium(data.albumin).toStringAsPrecision(
+          4),
+      //initialValue: data.sodium.toStringAsPrecision(4),
     );
 
   }
@@ -171,10 +192,15 @@ class MeldFormBloc extends FormBloc<String, String> {
     this.dialysisField = SelectFieldBloc(
       items: ['yes', 'no'],
     );
+    this.results = {
+      'meld': '-',
+      'meld_na': '-',
+      '5v_meld': '-',
+    };
 
-    this.meldResult = "-";
+    /*this.meldResult = "-";
     this.meldNaResult = "-";
-    this.meld5vResult = "-";
+    this.meld5vResult = "-";*/
 
   }
 
@@ -199,9 +225,11 @@ class MeldFormBloc extends FormBloc<String, String> {
       items: ['yes', 'no',],
       initialValue: data.dialysis.toString(),
     );
-    this.meldResult = data.meldResult;
-    this.meldNaResult = data.meldNaResult;
-    this.meld5vResult = data.meld5vResult;
+    //this.results=
+    this.results = data.results;
+    //this.meldResult = data.meldResult;
+    //this.meldNaResult = data.meldNaResult;
+    //this.meld5vResult = data.meld5vResult;
 
 
     //this.ascitesField.updateValue('none_fem');
@@ -232,12 +260,13 @@ class MeldFormBloc extends FormBloc<String, String> {
     print("INR: " + this.inrField.value);
     print("encefalopatia: " + this.creatinineField.value);
     print("albumina: " + this.albuminField.value);
-    print("albumina: " + this.sodiumField.value);
-    print("albumina: " + this.dialysisField.value);
+    print("sodio: " + this.sodiumField.value);
+    print("dialisis: " + this.dialysisField.value);
+    print(data.results.toString());
 
-    print("resultado: " + this.meldResult);
-    print("resultado Na: " + this.meldNaResult);
-    print("resultado 5v: " + this.meld5vResult);
+    //print("resultado: " + this.meldResult);
+    //print("resultado Na: " + this.meldNaResult);
+    //print("resultado 5v: " + this.meld5vResult);
 
   }
 }

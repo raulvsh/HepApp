@@ -341,7 +341,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   _buildRightColumn(OkudaFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
-    List<List<String>> resultList = [['okuda', formBloc.result],];
+    Map<String, String> resultMap = {'okuda': formBloc.result};
 
     return Container(
       width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
@@ -354,7 +354,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 45, 0),
             child: CalcResultWidget(
-              resultList: resultList, alignment: MainAxisAlignment.center,),),
+              resultList: resultMap, alignment: MainAxisAlignment.center,),),
           RightBottomTitle(
             title: 'okuda', padding: EdgeInsets.fromLTRB(10, 0, 30, 50),),
         ],

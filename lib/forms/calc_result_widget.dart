@@ -3,11 +3,13 @@ import 'package:hepapp/lang/app_localizations.dart';
 import 'package:sized_context/sized_context.dart';
 
 class CalcResultWidget extends StatefulWidget {
-  final resultList;
+  final resultMap;
   final alignment;
 
-  CalcResultWidget({this.resultList, this.alignment,}
-  );
+  CalcResultWidget({
+    this.resultMap,
+    this.alignment,
+  });
 
   @override
   _CalcResultWidgetState createState() => _CalcResultWidgetState();
@@ -37,9 +39,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
-        children:
-        buildResultList(widget.alignment),
-
+        children: buildResultList(widget.alignment),
       ),
       //),
     );
@@ -48,42 +48,51 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
   buildResultList(alignment) {
     AppLocalizations aux = AppLocalizations.of(context);
     List<Row> rowList = [];
-    for (int i = 0; i < widget.resultList.length; i++) {
-      rowList.add(
-        Row(
-          mainAxisAlignment: alignment, //MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              '${aux.tr(widget.resultList[i][0])}: ',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+
+    // Map mapa = {};
+    //widget.resultList.for
+    widget.resultMap.forEach(
+          (key, value) {
+        // print("key : $key , value: $value");
+        //for (int i = 0; i < widget.resultList.length; i++) {
+        rowList.add(
+          Row(
+            mainAxisAlignment: alignment, //MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                aux.tr(key) + ": ",
+                //'${aux.tr(widget.resultList[i][0])}: ',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            Text(
-              widget.resultList[i][1],
-              style: TextStyle(
-                color: Theme
-                    .of(context)
-                    .primaryColor,
-                fontSize: 16,
+              Text(
+                value,
+                // widget.resultList[i][1],
+                style: TextStyle(
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
+                  fontSize: 16,
+                ),
               ),
-            ),
-          ],
-        ),
-      );
-      if (widget.resultList.length > 1) {
-        rowList.add(Row(
-          children: <Widget>[
-            SizedBox(
-              height: 10,
-            )
-          ],
-        ));
-      }
-    }
+            ],
+          ),
+        );
+        if (widget.resultMap.length > 1) {
+          rowList.add(Row(
+            children: <Widget>[
+              SizedBox(
+                height: 10,
+              )
+            ],
+          ));
+        }
+      },
+    );
     return rowList;
   }
 }

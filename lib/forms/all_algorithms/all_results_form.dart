@@ -103,41 +103,8 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Container(
-                        height: context.heightPct(0.55),
-                        //color: Colors.green,
-                        child: Row(
-                          //mainAxisAlignment: MainAxisAlignment.start,
-                          //crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            _buildLeftColumn(formBloc),
-                            _buildRightColumn(formBloc),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        //color: Colors.red,
-                        height: context.heightPct(0.20),
-
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            _buildRecommendedTreatments(),
-                            SizedBox(
-                              width: 70,
-                            ),
-                            _buildMoreInfoButton(),
-                            SizedBox(
-                              width: 55,
-                            ),
-                            _buildAlbertaButton(),
-                            RightBottomTitle(
-                              title: 'result',
-                              padding: EdgeInsets.fromLTRB(10, 0, 15, 0),
-                            ),
-                          ],
-                        ),
-                      )
+                      _buildResultsRow(context, formBloc),
+                      _buildTreatmentsRow(context)
                     ],
                   ),
                 ],
@@ -150,17 +117,58 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
     );
   }
 
+  Container _buildTreatmentsRow(BuildContext context) {
+    return Container(
+      //color: Colors.red,
+      height: context.heightPct(0.20),
+
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          _buildRecommendedTreatments(),
+          SizedBox(
+            width: 70,
+          ),
+          _buildMoreInfoButton(),
+          SizedBox(
+            width: 55,
+          ),
+          _buildAlbertaButton(),
+          RightBottomTitle(
+            title: 'result',
+            padding: EdgeInsets.fromLTRB(10, 0, 15, 0),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _buildResultsRow(BuildContext context, AllFormBloc formBloc) {
+    return Container(
+      height: context.heightPct(0.55),
+      //color: Colors.green,
+      child: Row(
+        //mainAxisAlignment: MainAxisAlignment.start,
+        //crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _buildLeftColumn(formBloc),
+          _buildRightColumn(formBloc),
+        ],
+      ),
+    );
+  }
+
   _buildLeftColumn(AllFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
-    List<List<String>> resultList = [
-      ['cirrhosis', '-'],
-      ['apri', '-'],
-      ['child_pugh_score_oneline', '-'],
-      ['meld', '-'],
-      ['meld_na', '-'],
-      ['5v_meld', '-'],
-    ];
+    Map<String, String> resultMap = {
+      'cirrhosis': '-',
+      'apri': '-',
+      'child_pugh_score_oneline': '-',
+      'meld': '-',
+      'meld_na': '-',
+      '5v_meld': '-',
+    };
 
     return Container(
       width: context.widthPct(0.5),
@@ -179,7 +187,7 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
                     color: Colors.black, fontSize: isTablet ? 16 : 14),
               ))),
           CalcResultWidget(
-            resultList: resultList,
+            resultList: resultMap,
             alignment: MainAxisAlignment.start,
           ),
         ],
@@ -308,14 +316,14 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
   _buildRightColumn(AllFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
-    List<List<String>> resultList = [
-      ['okuda', '-'],
-      ['clip', '-'],
-      ['getch', '-'],
-      ['tnm', '-'],
-      ['cupi', '-'],
-      ['bclc', '-'],
-    ];
+    Map<String, String> resultMap = {
+      'okuda': '-',
+      'clip': '-',
+      'getch': '-',
+      'tnm': '-',
+      'cupi': '-',
+      'bclc': '-',
+    };
 
     return Container(
       width: context.widthPct(0.5),
@@ -334,7 +342,7 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
                     color: Colors.black, fontSize: isTablet ? 16 : 14),
               ))),
           CalcResultWidget(
-            resultList: resultList,
+            resultList: resultMap,
             alignment: MainAxisAlignment.start,
           ),
         ],

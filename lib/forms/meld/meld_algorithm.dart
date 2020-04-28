@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
@@ -10,47 +12,40 @@ class MeldAlgorithm {
 
   final units = Units();
 
-  List<String> obtenerResultado() {
+  Map<String, String> obtenerResultado() {
     final prefs = PreferenciasUsuario();
     final units = Units();
-
+    Map<String, String> results = {
+      'meld': '-',
+      'meld_na': '-',
+      '5v_meld': '-',
+    };
     var ptsBilirubin;
     var ptsAlbumin;
     var ptsAscites;
     var ptsTumourExtent;
-    print("iunits" + prefs.getInternationalUnits().toString());
-    if (!prefs.getInternationalUnits()) convertToIU();
+    //print("iunits" + prefs.getInternationalUnits().toString());
+    if (prefs.getInternationalUnits()) convertToNotIU();
     showObjectMeldData();
 
-    if (meldData.bilirubin < 51) {
-      ptsBilirubin = 0;
-    } else {
-      ptsBilirubin = 1;
-    }
+    _adaptarVariablesMeld();
+    showObjectMeldData();
 
-    if (meldData.albumin < 30) {
-      ptsAlbumin = 1;
-    } else {
-      ptsAlbumin = 0;
-    }
+    //double meldResult = _calculateMeld();
+    results['meld'] = _calculateMeld().toStringAsPrecision(4);
+    //double meldNaResult;
+    meldData.sodium != null
+        ? results['meld_na'] =
+        _calculateMeldNa(results['meld']).toStringAsPrecision(4)
+        : '-';
 
-    /*if (meldData.ascites == 'none_fem') {
-      ptsAscites = 0;
-    } else if (meldData.ascites == 'controlled') {
-      ptsAscites = 1;
-    } else if (meldData.ascites == 'refractory') {
-      ptsAscites = 1;
-    }
+    meldData.albumin != null
+        ? results['5v_meld'] =
+        _calculate5vMeld(results['meld_na']).toStringAsPrecision(4)
+        : '-';
+    //showPts(ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent);
 
-    if(meldData.tumourExtent == '<=50%'){
-      ptsTumourExtent = 0;
-    } else{
-      ptsTumourExtent = 1;
-    }*/
-
-    showPts(ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent);
-
-    int resultado = ptsBilirubin + ptsAlbumin + ptsAscites + ptsTumourExtent;
+    //int resultado = ptsBilirubin + ptsAlbumin + ptsAscites + ptsTumourExtent;
 
     /*if (resultado == 0) {
       return 'I ($resultado)';
@@ -59,16 +54,70 @@ class MeldAlgorithm {
     } else {
       return 'III ($resultado)';
     }*/
-    return ['a', 'b', 'c'];
+    print(results);
+    return results;
+    /*{
+      'meld' : meldResult.toStringAsPrecision(4),
+      'meld_na' : meldNaResult.toStringAsPrecision(4),
+      '5v_meld' : 'c',
+
+    };*/
 
     //return 'prueba';
   }
 
-  void convertToIU() {
-    meldData.bilirubin = units.getIUBilirrubin(meldData.bilirubin);
-    meldData.creatinine = units.getIUCreatinin(meldData.creatinine);
-    meldData.albumin = units.getIUAlbumin(meldData.albumin);
-    meldData.sodium = units.getIUSodium(meldData.sodium);
+  void convertToNotIU() {
+    meldData.bilirubin = units.getNotIUBilirrubin(meldData.bilirubin);
+    meldData.creatinine = units.getNotIUCreatinin(meldData.creatinine);
+    meldData.albumin = units.getNotIUAlbumin(meldData.albumin);
+    meldData.sodium = units.getNotIUSodium(meldData.sodium);
+  }
+
+  void _adaptarVariablesMeld() {
+    if (meldData.bilirubin < 1) {
+      meldData.bilirubin = 1;
+    }
+    if (meldData.creatinine < 1) {
+      meldData.creatinine = 1;
+    }
+    if (meldData.creatinine > 4) {
+      meldData.creatinine = 4;
+    }
+
+    if (meldData.sodium < 125) {
+      meldData.sodium = 125;
+    } else if (meldData.sodium > 140) {
+      meldData.sodium = 140;
+    }
+
+    if (meldData.albumin < 1) {
+      meldData.albumin = 1;
+    } else if (meldData.albumin > 4) {
+      meldData.albumin = 4;
+    }
+  }
+
+  double _calculateMeld() =>
+      11.2 * log(meldData.inr) +
+          3.78 * log(meldData.bilirubin) +
+          9.57 * log(meldData.creatinine) +
+          6.43;
+
+  double _calculateMeldNa(String meldResult) {
+    double meld = double.parse(meldResult);
+
+    return meld -
+        meldData.sodium -
+        (0.025 * meld * (140 - meldData.sodium)) +
+        140;
+  }
+
+  double _calculate5vMeld(String meldNaResult) {
+    double meldNa = double.parse(meldNaResult);
+
+    return meldNa +
+        (5.275 * (4 - meldData.albumin)) -
+        (0.136 * meldNa * (4 - meldData.albumin));
   }
 
   void showPts(ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent) {
@@ -80,12 +129,13 @@ class MeldAlgorithm {
 
   void showObjectMeldData() {
     print("\n\n*****************OBJETO MeldDATA: "
-            "\nbilirrubina : ${meldData.bilirubin}" +
+        "\nbilirrubina : ${meldData.bilirubin}" +
         "\ninr : ${meldData.inr}" +
         "\ncreatinina : ${meldData.creatinine}" +
         "\nalbumina : ${meldData.albumin}" +
         "\nsodio : ${meldData.sodium}" +
         "\ndialisis : ${meldData.dialysis}" +
-        "\n**************");
+        "\nresults: ${meldData.results.toString()}"
+            "\n**************");
   }
 }

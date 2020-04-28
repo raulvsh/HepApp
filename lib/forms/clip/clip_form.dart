@@ -353,9 +353,9 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   _buildRightColumn(ClipFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
-    List<List<String>> resultList = [
-      ['clip', formBloc.result],
-    ];
+    Map<String, String> resultMap = {
+      'clip': formBloc.result,
+    };
 
     return Container(
       width: isTablet ? context.widthPct(0.32) : context.widthPct(0.29),
@@ -364,7 +364,7 @@ class ClipFormState extends State<ClipForm> with Observable {
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 30, 0),
             child: CalcResultWidget(
-              resultList: resultList, alignment: MainAxisAlignment.center,),
+              resultList: resultMap, alignment: MainAxisAlignment.center,),
           ),
           RightBottomTitle(
             title: 'clip', padding: EdgeInsets.fromLTRB(10, 0, 30, 50),),

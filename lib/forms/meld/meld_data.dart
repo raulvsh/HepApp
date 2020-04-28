@@ -5,12 +5,12 @@ class MeldData {
   double albumin;
   double sodium;
   String dialysis;
-  Map<String, String> results;
+  Map<String, String> results = {};
 
   //borrar estos 3, ya tengo los resultados en la List<String> results
-  String meldResult;
+  /*String meldResult;
   String meldNaResult;
-  String meld5vResult;
+  String meld5vResult;*/
 
   MeldData({this.bilirubin,
     this.inr,
@@ -20,7 +20,8 @@ class MeldData {
     this.dialysis,
     this.results,
     //borrar estos 3, ya tengo los resultados en la List<String> results
-    this.meldResult,
+    /*this.meldResult,
     this.meldNaResult,
-    this.meld5vResult});
+    this.meld5vResult*/
+  });
 }

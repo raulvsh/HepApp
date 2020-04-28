@@ -105,7 +105,7 @@ class MeldFormState extends State<MeldForm> with Observable {
             child: Scaffold(
               appBar: CustomAppBar(
                 context,
-                'meld',
+                'calculators_meld',
                 selScreenshot: true,
                 //selPartialSettings: true,
               ),
@@ -357,11 +357,11 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildRightColumn(MeldFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
-    List<List<String>> resultList = [
-      ['meld', formBloc.meldResult],
-      ['meld_na', formBloc.meldNaResult],
-      ['5v_meld', formBloc.meld5vResult]
-    ];
+    Map<String, String> resultList = {
+      'meld': formBloc.results['meld'],
+      'meld_na': formBloc.results['meld_na'],
+      '5v_meld': formBloc.results['5v_meld'],
+    };
 
     return Container(
       width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
