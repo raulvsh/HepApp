@@ -89,8 +89,6 @@ class OkudaAlgorithm {
         "\nascites : ${okudaData.ascites}" +
         "\n extension: ${okudaData.tumourExtent}" +
         "\nresultado : ${okudaData.result}" +
-
-
         "\n**************");
   }
 }

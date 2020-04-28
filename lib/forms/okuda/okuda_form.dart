@@ -15,8 +15,8 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../PartialCalcGroupField.dart';
-import '../PartialCalcTextField.dart';
+import '../CalcGroupField.dart';
+import '../CalcTextField.dart';
 import '../calc_result_widget.dart';
 import '../international_units_select.dart';
 import 'okuda_form_bloc.dart';
@@ -62,8 +62,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
         setState(() {
           _errorMap = newVal;
         }));
-    prefs.initErrorMap(
-        ['bilirubin', 'albumin', 'ascites', 'tumour_extent']);
+    prefs.initErrorMap(['bilirubin', 'albumin', 'ascites', 'tumour_extent']);
 
     super.initState();
   }
@@ -90,7 +89,6 @@ class OkudaFormState extends State<OkudaForm> with Observable {
         builder: (context) {
           final formBloc = BlocProvider.of<OkudaFormBloc>(context);
           return FormBlocListener<OkudaFormBloc, String, String>(
-
             child: Scaffold(
               appBar: CustomAppBar(
                 context,
@@ -137,29 +135,19 @@ class OkudaFormState extends State<OkudaForm> with Observable {
           _buildTumourExtentRow(aux, formBloc),
           _buildCalcButton(aux, formBloc),
           Text(prefs.getErrorMap().toString()),
-          //.entries.toList().toString(), style: TextStyle(fontSize: 16, color: Colors.black),),
           Text(prefs
               .getErrorMap()
               .values
               .toString()),
-          //Text(prefs.getErrorMap().values.contains(true).toString()),
           Text(prefs.isMapError().toString()),
           Text(errorPrueba),
-          //Text("bilirubin: " + formBloc.bilirubinField.value),
-          //Text("albumin: " + formBloc.albuminField.value),
-          //Text("ascites: " + formBloc.ascitesField.value),
-          //Text("extension: " + formBloc.tumourExtentField.value),
-          //Text("result: " + formBloc.result.toString()),
         ],
       ),
     );
   }
 
-
   _buildBilirrubinRow(AppLocalizations aux, OkudaFormBloc formBloc) {
     return PartialCalcTextField(
-
-      //formBloc: formBloc,
       textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
       uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
@@ -168,13 +156,11 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   _buildAlbuminRow(AppLocalizations aux, OkudaFormBloc formBloc) {
     return PartialCalcTextField(
-      //formBloc: formBloc,
       textFieldBloc: formBloc.albuminField,
       title: 'albumin',
       uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
     );
   }
-
 
   _buildAscitesRow(AppLocalizations aux,
       OkudaFormBloc formBloc,) {
@@ -189,7 +175,6 @@ class OkudaFormState extends State<OkudaForm> with Observable {
         border: InputBorder.none,
       ),
       itemBuilder: (context, item) => item,
-
     );
   }
 
@@ -207,7 +192,6 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       itemBuilder: (context, item) => item,
     );
   }
-
 
   _buildCalcButton(AppLocalizations aux,
       OkudaFormBloc formBloc,) {
@@ -348,15 +332,20 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       //color: Colors.blue,
       child: Column(
         children: <Widget>[
-          // _buildIUnitsRow(formBloc),
-          InternationalUnitsSelect(formBloc: formBloc,),
-
+          InternationalUnitsSelect(
+            formBloc: formBloc,
+          ),
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 45, 0),
             child: CalcResultWidget(
-              resultMap: resultMap, alignment: MainAxisAlignment.center,),),
+              resultMap: resultMap,
+              alignment: MainAxisAlignment.center,
+            ),
+          ),
           RightBottomTitle(
-            title: 'okuda', padding: EdgeInsets.fromLTRB(10, 0, 30, 50),),
+            title: 'okuda',
+            padding: EdgeInsets.fromLTRB(10, 0, 30, 50),
+          ),
         ],
       ),
     );
@@ -409,13 +398,8 @@ class OkudaFormState extends State<OkudaForm> with Observable {
                                     .of(context)
                                     .primaryColor),
                           ),
-                          onPressed: () {
-                            //prefs.setError(false);
-
-                            Navigator.pop(context);
-                            setState(() {});
-                            //Navigator.pop(context);
-                          }),
+                        onPressed: () => Navigator.pop(context),
+                      ),
                     ),
                   )
                 ],

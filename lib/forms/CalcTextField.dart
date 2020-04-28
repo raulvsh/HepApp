@@ -6,16 +6,20 @@ import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:sized_context/sized_context.dart';
 
 class PartialCalcTextField extends StatefulWidget {
+
   const PartialCalcTextField({
     Key key,
     @required this.textFieldBloc,
     @required this.title,
     @required this.uds,
+    @required this.errorControl,
   }) : super(key: key);
 
   final TextFieldBloc textFieldBloc;
   final title;
   final uds;
+  final errorControl;
+
 
   @override
   _PartialCalcTextFieldState createState() => _PartialCalcTextFieldState();

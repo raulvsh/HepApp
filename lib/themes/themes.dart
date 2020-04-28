@@ -1,4 +1,3 @@
-//TODO IMPORTAR COLORES, añadir desde ahi
 
 /*
 <resources>

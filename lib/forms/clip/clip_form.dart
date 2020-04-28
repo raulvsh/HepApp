@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
+import 'package:hepapp/forms/international_units_select.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
@@ -14,8 +15,8 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../PartialCalcGroupField.dart';
-import '../PartialCalcTextField.dart';
+import '../CalcGroupField.dart';
+import '../CalcTextField.dart';
 import '../calc_result_widget.dart';
 import '../right_bottom_title.dart';
 import 'clip_form_bloc.dart';
@@ -362,18 +363,26 @@ class ClipFormState extends State<ClipForm> with Observable {
       child: Column(
         children: <Widget>[
           Container(
+              padding: EdgeInsets.only(right: 30),
+              child: FittedBox(
+                  child: InternationalUnitsSelect(
+                    formBloc: formBloc,
+                  ))),
+          Container(
             padding: EdgeInsets.fromLTRB(0, 30, 30, 0),
             child: CalcResultWidget(
-              resultMap: resultMap, alignment: MainAxisAlignment.center,),
+              resultMap: resultMap,
+              alignment: MainAxisAlignment.center,
+            ),
           ),
           RightBottomTitle(
-            title: 'clip', padding: EdgeInsets.fromLTRB(10, 0, 30, 50),),
-
+            title: 'clip',
+            padding: EdgeInsets.fromLTRB(10, 0, 30, 50),
+          ),
         ],
       ),
     );
   }
-
 
   void calculateClip(ClipFormBloc formBloc) {
     prefs.isMapError()
@@ -420,13 +429,8 @@ class ClipFormState extends State<ClipForm> with Observable {
                             style: TextStyle(
                                 color: Theme.of(context).primaryColor),
                           ),
-                          onPressed: () {
-                            //prefs.setError(false);
-
-                            Navigator.pop(context);
-                            setState(() {});
-                            //Navigator.pop(context);
-                          }),
+                        onPressed: () => Navigator.pop(context),
+                      ),
                     ),
                   )
                 ],

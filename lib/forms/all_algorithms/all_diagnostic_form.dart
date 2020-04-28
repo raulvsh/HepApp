@@ -14,7 +14,7 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../PartialCalcGroupField.dart';
+import '../CalcGroupField.dart';
 import '../right_bottom_title.dart';
 import 'all_form_bloc.dart';
 

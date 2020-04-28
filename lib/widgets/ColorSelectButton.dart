@@ -30,7 +30,6 @@ class _ColorPickerButtonState extends State<ColorSelectButton> {
 
     Color pickerColor = _color;
 
-    //TODO TRADUCIR MENSAJES AlertDialog
     showDialog(
       context: context,
       builder: (_) {
@@ -49,11 +48,11 @@ class _ColorPickerButtonState extends State<ColorSelectButton> {
           ),
           actions: [
             FlatButton(
-              child: Text('CANCELAR'),
+              child: Text(aux.tr('cancel')),
               onPressed: Navigator.of(context).pop,
             ),
             FlatButton(
-              child: Text('ACEPTAR'),
+              child: Text(aux.tr('accept')),
               onPressed: () {
                 Navigator.of(context).pop();
                 setState(() => _color = pickerColor);

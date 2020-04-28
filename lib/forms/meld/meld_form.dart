@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
+import 'package:hepapp/forms/international_units_select.dart';
 import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
@@ -15,8 +16,8 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../PartialCalcGroupField.dart';
-import '../PartialCalcTextField.dart';
+import '../CalcGroupField.dart';
+import '../CalcTextField.dart';
 import '../calc_result_widget.dart';
 import 'meld_form_bloc.dart';
 
@@ -89,25 +90,11 @@ class MeldFormState extends State<MeldForm> with Observable {
         builder: (context) {
           final formBloc = BlocProvider.of<MeldFormBloc>(context);
           return FormBlocListener<MeldFormBloc, String, String>(
-            /*onSubmitting: (context, state) => LoadingDialog.show(context),
-              onSuccess: (context, state) {
-                LoadingDialog.hide(context);
-                 Notifications.showSnackBarWithSuccess(
-                    context, state.successResponse);
-                 //Muestra una barra verde con la palabra success
-              },*/
-            /*onFailure: (context, state) {
-
-              //LoadingDialog.hide(context);
-              Notifications.showSnackBarWithError(
-                  context, state.failureResponse);
-            },*/
             child: Scaffold(
               appBar: CustomAppBar(
                 context,
                 'calculators_meld',
                 selScreenshot: true,
-                //selPartialSettings: true,
               ),
               drawer: MenuWidget(),
               body: Stack(
@@ -120,9 +107,6 @@ class MeldFormState extends State<MeldForm> with Observable {
                       _buildRightColumn(formBloc),
                     ],
                   ),
-
-                  //prefs.getError() ? showDialog2() : Container(),
-                  //prefs.getError() ? showErrorDialog() : Container(),
                 ],
               ),
               bottomSheet: _buildBottomSheet(formBloc),
@@ -153,9 +137,7 @@ class MeldFormState extends State<MeldForm> with Observable {
           _buildDialysisRow(aux, formBloc),
           _buildCalcButton(aux, formBloc),
           Text(prefs.getErrorMap().toString()),
-          //.entries.toList().toString(), style: TextStyle(fontSize: 16, color: Colors.black),),
           Text(prefs.getErrorMap().values.toString()),
-          //Text(prefs.getErrorMap().values.contains(true).toString()),
           Text(prefs.isMapError().toString()),
           Text(errorPrueba),
         ],
@@ -165,7 +147,6 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildBilirrubinRow(AppLocalizations aux, MeldFormBloc formBloc) {
     return PartialCalcTextField(
-      //formBloc: formBloc,
       textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
       uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
@@ -174,7 +155,6 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildInrRow(AppLocalizations aux, MeldFormBloc formBloc) {
     return PartialCalcTextField(
-      //formBloc: formBloc,
       textFieldBloc: formBloc.inrField,
       title: 'inr',
       uds: '',
@@ -183,7 +163,6 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildCreatinineRow(AppLocalizations aux, MeldFormBloc formBloc) {
     return PartialCalcTextField(
-      //formBloc: formBloc,
       textFieldBloc: formBloc.creatinineField,
       title: 'creatinine',
       uds:
@@ -193,7 +172,6 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildAlbuminRow(AppLocalizations aux, MeldFormBloc formBloc) {
     return PartialCalcTextField(
-      //formBloc: formBloc,
       textFieldBloc: formBloc.albuminField,
       title: 'albumin',
       uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
@@ -202,7 +180,6 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildSodiumRow(AppLocalizations aux, MeldFormBloc formBloc) {
     return PartialCalcTextField(
-      //formBloc: formBloc,
       textFieldBloc: formBloc.sodiumField,
       title: 'sodium',
       uds: _internationalUnits ? units.sodiumUds[0] : units.sodiumUds[1],
@@ -229,7 +206,6 @@ class MeldFormState extends State<MeldForm> with Observable {
     MeldFormBloc formBloc,
   ) {
     bool isTablet = context.diagonalInches >= 7;
-    //var errordentro = prefs.getError();
     return Container(
       width: 250,
       //padding: EdgeInsets.all(8.0),
@@ -368,92 +344,22 @@ class MeldFormState extends State<MeldForm> with Observable {
       //color: Colors.blue,
       child: Column(
         children: <Widget>[
-          _buildIUnitsRow(formBloc),
+          InternationalUnitsSelect(
+            formBloc: formBloc,
+          ),
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 45, 0),
             child: CalcResultWidget(
-              resultMap: resultList, alignment: MainAxisAlignment.center,),
+              resultMap: resultList,
+              alignment: MainAxisAlignment.center,
+            ),
           ),
           RightBottomTitle(
-            title: 'meld', padding: EdgeInsets.fromLTRB(10, 0, 45, 50),),
+            title: 'meld',
+            padding: EdgeInsets.fromLTRB(10, 0, 45, 50),
+          ),
         ],
       ),
-    );
-  }
-
-  Container _buildIUnitsRow(MeldFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
-    return Container(
-        height: 60,
-        padding: EdgeInsets.only(top: 30),
-        child: Row(
-          children: <Widget>[
-            Text(
-              aux.tr("international_units"),
-              style: TextStyle(
-                fontSize: isTablet ? 15 : 12,
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            _buildIUnitsSelect(formBloc),
-          ],
-        ));
-  }
-
-  _buildIUnitsSelect(MeldFormBloc formBloc) {
-    final prefs = new PreferenciasUsuario();
-    var aux = AppLocalizations.of(context);
-
-    List<bool> isSelected = [true, false];
-
-    isSelected[0] = prefs.getInternationalUnits();
-    isSelected[1] = !isSelected[0];
-
-    return ToggleButtons(
-      borderColor: Color.fromARGB(255, 45, 145, 155),
-      fillColor: Theme.of(context).primaryColor,
-      borderWidth: 1.3,
-      selectedBorderColor: Color.fromARGB(255, 45, 145, 155),
-      selectedColor: Colors.white,
-      color: Theme.of(context).primaryColor,
-      borderRadius: BorderRadius.all(Radius.circular(3.0)),
-      children: <Widget>[
-        Container(
-          width: 60,
-          child: Text(
-            aux.tr('on'),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12,
-            ),
-          ),
-        ),
-        Container(
-          width: 60,
-          child: Text(
-            aux.tr('off'),
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12),
-          ),
-        ),
-      ],
-      onPressed: (int index) {
-        setState(() {
-          for (int i = 0; i < isSelected.length; i++) {
-            isSelected[i] = i == index;
-          }
-          isSelected[0]
-              ? formBloc.showIU()
-              : formBloc.showNotIU(); // : formBloc.convertToNoIU();
-
-          prefs.setInternationalUnits(isSelected[0]);
-        });
-      },
-      isSelected: isSelected,
     );
   }
 
@@ -496,19 +402,16 @@ class MeldFormState extends State<MeldForm> with Observable {
                     child: Container(
                       alignment: Alignment.bottomRight,
                       child: FlatButton(
-                          padding: EdgeInsets.all(0),
-                          child: Text(
-                            aux.tr('accept'),
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor),
-                          ),
-                          onPressed: () {
-                            //prefs.setError(false);
-
-                            Navigator.pop(context);
-                            setState(() {});
-                            //Navigator.pop(context);
-                          }),
+                        padding: EdgeInsets.all(0),
+                        child: Text(
+                          aux.tr('accept'),
+                          style:
+                          TextStyle(color: Theme
+                              .of(context)
+                              .primaryColor),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
                     ),
                   )
                 ],

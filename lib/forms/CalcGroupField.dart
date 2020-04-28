@@ -17,11 +17,14 @@ class PartialCalcGroupField<Value> extends StatefulWidget {
 
   final initialValue;
   final formBloc;
+  final errorControl;
+
 
   PartialCalcGroupField({
     Key key,
     @required this.selectFieldBloc,
     @required this.itemBuilder,
+    @required this.errorControl,
     this.enableOnlyWhenFormBlocCanSubmit = false,
     this.isEnabled = true,
     this.errorBuilder,

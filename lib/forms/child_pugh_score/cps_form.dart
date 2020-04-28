@@ -15,8 +15,8 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../PartialCalcGroupField.dart';
-import '../PartialCalcTextField.dart';
+import '../CalcGroupField.dart';
+import '../CalcTextField.dart';
 import '../calc_result_widget.dart';
 import '../international_units_select.dart';
 import 'cps_form_bloc.dart';
@@ -42,7 +42,6 @@ class CpsFormState extends State<CpsForm> with Observable {
   //StreamSubscription streamSubErrorList;
   StreamSubscription streamSubErrorMap;
 
-
   String errorPrueba = "";
 
   @override
@@ -61,7 +60,6 @@ class CpsFormState extends State<CpsForm> with Observable {
     prefs.setInternationalUnits(true);
 
     //_error = false;
-
 
     /*streamSubErrorList = prefs.errorListUpdates.listen((newVal) =>
         setState(() {
@@ -175,8 +173,6 @@ class CpsFormState extends State<CpsForm> with Observable {
           //Text(prefs.getErrorMap().values.contains(true).toString()),
           Text(prefs.isMapError().toString()),
           Text(errorPrueba),
-
-
         ],
       ),
     );
@@ -184,7 +180,6 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   _buildBilirrubinRow(AppLocalizations aux, CpsFormBloc formBloc) {
     return PartialCalcTextField(
-
       //formBloc: formBloc,
       textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
@@ -227,13 +222,11 @@ class CpsFormState extends State<CpsForm> with Observable {
       ),
 
       itemBuilder: (context, item) => item,
-
     );
   }
 
   _buildAscitesRow(AppLocalizations aux,
       CpsFormBloc formBloc,) {
-
     return PartialCalcGroupField(
       initialValue: formBloc.ascitesField.value.toString(),
       previous: previous,
@@ -245,7 +238,6 @@ class CpsFormState extends State<CpsForm> with Observable {
         border: InputBorder.none,
       ),
       itemBuilder: (context, item) => item,
-
     );
   }
 
@@ -271,7 +263,6 @@ class CpsFormState extends State<CpsForm> with Observable {
         onPressed: () {
           //print(_errorList);
           calculateCps(formBloc);
-
         },
         child: Center(
           child: Text(
@@ -305,7 +296,6 @@ class CpsFormState extends State<CpsForm> with Observable {
         ],
       ),
     );
-
   }
 
   Container _buildMoreInfoButton(AppLocalizations aux) {
@@ -392,45 +382,41 @@ class CpsFormState extends State<CpsForm> with Observable {
       //color: Colors.blue,
       child: Column(
         children: <Widget>[
-          //_buildIUnitsRow(formBloc),
-          InternationalUnitsSelect(formBloc: formBloc,),
+          InternationalUnitsSelect(
+            formBloc: formBloc,
+          ),
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 50, 0),
             child: CalcResultWidget(
-              resultMap: resultMap, alignment: MainAxisAlignment.center,),),
+              resultMap: resultMap,
+              alignment: MainAxisAlignment.center,
+            ),
+          ),
 
           // 'child_pugh_score_oneline', formBloc.resultadoField)),
-          RightBottomTitle(title: 'child_pugh_score_oneline',
-            padding: EdgeInsets.fromLTRB(10, 0, 45, 50),),
+          RightBottomTitle(
+            title: 'child_pugh_score_oneline',
+            padding: EdgeInsets.fromLTRB(10, 0, 45, 50),
+          ),
         ],
       ),
     );
   }
 
-  /*_buildIUnitsRow(CpsFormBloc formBloc) {
-    return InternationalUnitsSelect(formBloc: formBloc,);
-  }*/
-
-
-
-
   void calculateCps(CpsFormBloc formBloc) {
     //prefs.isError() ?
-    prefs.isMapError() ? errorPrueba = "hay al menos un error" : errorPrueba =
-    "no hay errores";
+    prefs.isMapError()
+        ? errorPrueba = "hay al menos un error"
+        : errorPrueba = "no hay errores";
 
     //prefs.isError()
     prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
 
     formBloc.submit();
 
-
     reset = false;
     setState(() {});
-
-
   }
-
 
   showErrorDialog() {
     AppLocalizations aux = AppLocalizations.of(context);
@@ -440,33 +426,33 @@ class CpsFormState extends State<CpsForm> with Observable {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(
-              aux.tr('error'), style: TextStyle(color: Colors.black),),
+              aux.tr('error'),
+              style: TextStyle(color: Colors.black),
+            ),
             content: Container(
               height: context.heightPct(0.20),
               child: Column(
                 children: <Widget>[
                   Container(
                       padding: EdgeInsets.only(right: 20),
-                      child: Text(aux.tr('fill_empty_fields'),
-                        style: TextStyle(color: Colors.black),)),
+                      child: Text(
+                        aux.tr('fill_empty_fields'),
+                        style: TextStyle(color: Colors.black),
+                      )),
                   Expanded(
                     child: Container(
                       alignment: Alignment.bottomRight,
                       child: FlatButton(
-                          padding: EdgeInsets.all(0),
-                          child: Text(
-                            aux.tr('accept'), style: TextStyle(color: Theme
+                        padding: EdgeInsets.all(0),
+                        child: Text(
+                          aux.tr('accept'),
+                          style:
+                          TextStyle(color: Theme
                               .of(context)
-                              .primaryColor),),
-                          onPressed: () {
-                            //prefs.setError(false);
-
-                            Navigator.pop(context);
-                            setState(() {
-
-                            });
-                            //Navigator.pop(context);
-                          }),
+                              .primaryColor),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
                     ),
                   )
                 ],

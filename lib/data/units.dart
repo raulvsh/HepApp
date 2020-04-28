@@ -1,5 +1,3 @@
-//TODO poner factores correctos
-
 const bilirrubinFactor = 17.104;
 const albuminFactor = 10;
 const creatininFactor = 88.4017;
