@@ -354,7 +354,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 45, 0),
             child: CalcResultWidget(
-              resultList: resultMap, alignment: MainAxisAlignment.center,),),
+              resultMap: resultMap, alignment: MainAxisAlignment.center,),),
           RightBottomTitle(
             title: 'okuda', padding: EdgeInsets.fromLTRB(10, 0, 30, 50),),
         ],

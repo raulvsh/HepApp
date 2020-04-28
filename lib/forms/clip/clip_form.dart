@@ -364,7 +364,7 @@ class ClipFormState extends State<ClipForm> with Observable {
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 30, 0),
             child: CalcResultWidget(
-              resultList: resultMap, alignment: MainAxisAlignment.center,),
+              resultMap: resultMap, alignment: MainAxisAlignment.center,),
           ),
           RightBottomTitle(
             title: 'clip', padding: EdgeInsets.fromLTRB(10, 0, 30, 50),),

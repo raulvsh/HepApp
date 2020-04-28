@@ -187,7 +187,7 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
                     color: Colors.black, fontSize: isTablet ? 16 : 14),
               ))),
           CalcResultWidget(
-            resultList: resultMap,
+            resultMap: resultMap,
             alignment: MainAxisAlignment.start,
           ),
         ],
@@ -342,7 +342,7 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
                     color: Colors.black, fontSize: isTablet ? 16 : 14),
               ))),
           CalcResultWidget(
-            resultList: resultMap,
+            resultMap: resultMap,
             alignment: MainAxisAlignment.start,
           ),
         ],

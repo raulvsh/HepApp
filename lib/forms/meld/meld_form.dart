@@ -372,7 +372,7 @@ class MeldFormState extends State<MeldForm> with Observable {
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 45, 0),
             child: CalcResultWidget(
-              resultList: resultList, alignment: MainAxisAlignment.center,),
+              resultMap: resultList, alignment: MainAxisAlignment.center,),
           ),
           RightBottomTitle(
             title: 'meld', padding: EdgeInsets.fromLTRB(10, 0, 45, 50),),
