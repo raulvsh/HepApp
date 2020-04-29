@@ -4,13 +4,20 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
+import 'package:hepapp/forms/complete/clinical_form.dart';
+import 'package:hepapp/forms/complete/diagnostic_form.dart';
+import 'package:hepapp/forms/complete/laboratory_form.dart';
+import 'package:hepapp/forms/complete/results_form.dart';
+import 'package:hepapp/forms/complete/summary_form.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:observable/observable.dart';
 
 import 'complete_form_bloc.dart';
 
 class CompleteForm extends StatefulWidget with Observable {
-  CompleteForm({Key key}) : super(key: key);
+  final initialPage;
+
+  CompleteForm({Key key, this.initialPage}) : super(key: key);
 
   @override
   CompleteFormState createState() => CompleteFormState();
@@ -21,6 +28,7 @@ class CompleteFormState extends State<CompleteForm> with Observable {
   var previous = false;
   final prefs = PreferenciasUsuario();
   final units = Units();
+  PageController controller;
 
   @override
   void initState() {
@@ -28,7 +36,9 @@ class CompleteFormState extends State<CompleteForm> with Observable {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-
+    controller = PageController(
+      initialPage: widget.initialPage,
+    );
     super.initState();
   }
 
@@ -53,12 +63,13 @@ class CompleteFormState extends State<CompleteForm> with Observable {
           final formBloc = BlocProvider.of<CompleteFormBloc>(context);
           return FormBlocListener<CompleteFormBloc, String, String>(
             child: PageView(
+              controller: controller,
               children: <Widget>[
-                Scaffold(body: Text("1")),
-                Scaffold(body: Text("2")),
-                Scaffold(body: Text("3")),
-                Scaffold(body: Text("4")),
-                Scaffold(body: Text("5")),
+                DiagnosticForm(formBloc: formBloc,),
+                LaboratoryForm(formBloc: formBloc,),
+                ClinicalForm(formBloc: formBloc,),
+                ResultsForm(formBloc: formBloc,),
+                SummaryForm(formBloc: formBloc,),
               ],
             ),
           );

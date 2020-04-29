@@ -19,8 +19,9 @@ import 'package:sized_context/sized_context.dart';
 import 'complete_form_bloc.dart';
 
 class ResultsForm extends StatefulWidget with Observable {
-  ResultsForm({Key key, this.formBloc}) : super(key: key);
   final formBloc;
+
+  ResultsForm({Key key, this.formBloc}) : super(key: key);
 
   @override
   ResultsFormState createState() => ResultsFormState();
@@ -218,7 +219,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              _buildNextButton(aux, formBloc),
+              _buildSummaryButton(aux, formBloc),
             ],
           ),
         ],
@@ -493,7 +494,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     setState(() {});
   }
 
-  _buildNextButton(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildSummaryButton(AppLocalizations aux, CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
@@ -501,7 +502,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
       child: FlatButton(
         child: Text(
-          aux.tr('next'),
+          aux.tr('summary'),
           style: TextStyle(
             fontSize: isTablet ? 14 : 12,
           ),
@@ -509,7 +510,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
           //submitDiagnostic(formBloc);
-          Navigator.pushNamed(context, '/AllSummaryCalc', arguments: formBloc);
+          Navigator.pushNamed(context, '/CompletePage', arguments: 4);
         },
       ),
     );

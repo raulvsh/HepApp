@@ -10,8 +10,8 @@ class CalcTextField extends StatefulWidget {
     Key key,
     @required this.textFieldBloc,
     @required this.title,
-    @required this.uds,
-    @required this.errorControl,
+    this.uds = '',
+    this.errorControl = false,
   }) : super(key: key);
 
   final TextFieldBloc textFieldBloc;
@@ -38,11 +38,9 @@ class _CalcTextFieldState extends State<CalcTextField> {
         _buildInitialText(isTablet),
         _buildTextField(isTablet, context),
         Container(
-          //color: Colors.red,
-          //width: 90,
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: Text(
-              widget.uds, //'umol/L',
+              widget.uds,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: isTablet ? 15 : 12,
@@ -54,7 +52,7 @@ class _CalcTextFieldState extends State<CalcTextField> {
 
   Container _buildTextField(bool isTablet, BuildContext context) {
     return Container(
-      width: isTablet ? 80 : 60,
+      width: isTablet ? 90 : 60,
       height: 40,
       child: TextFieldBlocBuilder(
         padding:
@@ -92,11 +90,11 @@ class _CalcTextFieldState extends State<CalcTextField> {
             ), //color: Colors.red),
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-
-
         ),
         onChanged: (text) => _markErrorFalse(),
-        errorBuilder: (context, error) {
+
+        errorBuilder: widget.errorControl
+            ? (context, error) {
           _markErrorTrue();
           switch (error) {
             case ValidatorsError.requiredTextFieldBloc:
@@ -104,35 +102,18 @@ class _CalcTextFieldState extends State<CalcTextField> {
             default:
               return 'This text is nor valid.';
           }
-        },
+        }
+            : (context, error) => null,
       ),
     );
   }
 
   void _markErrorTrue() {
-    print("error true " + prefs.getErrorMap().toString());
     prefs.getErrorMap().forEach((key, value) {
       if (widget.title == key) {
         prefs.getErrorMap().update(key, (v) => true);
       }
-      //print("$key + $value");
     });
-
-    print("map actualizado " + prefs.getErrorMap().toString());
-
-    /* if (widget.title == 'bilirubin') {
-      prefs.getErrorMap().update('bilirubin', (v) => true);
-    } else if (widget.title == 'inr') {
-      prefs.getErrorMap().update('inr', (v) => true);
-    } else if (widget.title == 'albumin') {
-      prefs.getErrorMap().update('albumin', (v) => true);
-    } else if (widget.title == 'sodium') {
-      prefs.getErrorMap().update('sodium', (v) => true);
-    } else if (widget.title == 'creatinine') {
-      prefs.getErrorMap().update('creatinine', (v) => true);
-    } else if (widget.title == 'afp') {
-      prefs.getErrorMap().update('afp', (v) => true);
-    }*/
   }
 
   void _markErrorFalse() {
@@ -141,22 +122,7 @@ class _CalcTextFieldState extends State<CalcTextField> {
       if (widget.title == key) {
         prefs.getErrorMap().update(key, (v) => false);
       }
-      //print("$key + $value");
     });
-
-    /* if (widget.title == 'bilirubin') {
-      prefs.getErrorMap().update('bilirubin', (v) => false);
-    } else if (widget.title == 'inr') {
-      prefs.getErrorMap().update('inr', (v) => false);
-    } else if (widget.title == 'albumin') {
-      prefs.getErrorMap().update('albumin', (v) => false);
-    } else if (widget.title == 'creatinine') {
-      prefs.getErrorMap().update('creatinine', (v) => false);
-    } else if (widget.title == 'sodium') {
-      prefs.getErrorMap().update('sodium', (v) => false);
-    } else if (widget.title == 'afp') {
-      prefs.getErrorMap().update('afp', (v) => false);
-    }*/
   }
 
   Container _buildInitialText(bool isTablet) {

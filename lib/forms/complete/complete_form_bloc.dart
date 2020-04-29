@@ -21,17 +21,16 @@ class CompleteFormBloc extends FormBloc<String, String> {
       '6+',
     ],
   );
-  var tumourSizeField = SelectFieldBloc(
-    items: [
-      '0',
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6+',
-    ],
-  );
+  var tumourSizeField = [
+    TextFieldBloc(),
+    TextFieldBloc(),
+    TextFieldBloc(),
+    TextFieldBloc(),
+    TextFieldBloc(),
+    TextFieldBloc(),
+    TextFieldBloc(),
+  ];
+
   var tumourExtentField = SelectFieldBloc(
     items: ['<=50%', '>50%'],
   );
@@ -59,10 +58,20 @@ class CompleteFormBloc extends FormBloc<String, String> {
   var sodiumField = TextFieldBloc();
   var plateletsField = TextFieldBloc();
   var afpField = TextFieldBloc();
-  var astField = TextFieldBloc();
-  var astUpperLimitField = TextFieldBloc();
-  var alpField = TextFieldBloc();
-  var alpUpperLimitField = TextFieldBloc();
+  var astField = [
+    TextFieldBloc(),
+    TextFieldBloc(),
+  ];
+
+  //var astField = TextFieldBloc();
+  //var astUpperLimitField = TextFieldBloc();
+  var alpField = [
+    TextFieldBloc(),
+    TextFieldBloc(),
+  ];
+
+  //var alpField = TextFieldBloc();
+  //var alpUpperLimitField = TextFieldBloc();
   var dialysisField = SelectFieldBloc(
     items: ['yes', 'no'],
   );
@@ -105,7 +114,8 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    showFields();
+    _printFormBloc();
+    //showFields();
 
     data = CompleteData(
       bilirubin: bilirubinField.valueToDouble,
@@ -156,6 +166,66 @@ class CompleteFormBloc extends FormBloc<String, String> {
     print("Campo extension: " + tumourExtentField.value);
 
     print("Campo resultado antes : " + results.toString());
+  }
+
+  void _printFormBloc() {
+    print("/*************************FORMBLOC\n"
+        //diagnostic
+        +
+        "\nnumero: " +
+        tumourNumberField.toString() +
+        "\ntamaño: " +
+        tumourSizeField.toString() +
+        "\nextension: " +
+        tumourExtentField.toString() +
+        "\npvi: " +
+        pviField.toString() +
+        "\nnodes: " +
+        nodesField.toString() +
+        "\nmetastasis: " +
+        metastasisField.toString() +
+        "\nportal hipertension: " +
+        portalHypertensionField.toString() +
+        "\npvt: " +
+        pvtField.toString()
+        //laboratory
+        +
+        "\nbilirrubina: " +
+        bilirubinField.toString() +
+        "\ninr: " +
+        inrField.toString() +
+        "\ncreatinina: " +
+        creatinineField.toString() +
+        "\nalbumina: " +
+        albuminField.toString() +
+        "\nsodio: " +
+        sodiumField.toString() +
+        "\nplaquetas: " +
+        plateletsField.toString() +
+        "\nafp: " +
+        afpField.toString() +
+        "\nast: " +
+        astField[0].toString() +
+        "\nast upper limit: " +
+        astField[1].toString() +
+        "\nalp: " +
+        alpField[0].toString() +
+        "\nalp upper limit: " +
+        alpField[1].toString() +
+        "\ndialisis: " +
+        dialysisField.toString()
+        //clinical
+        +
+        "\ncirrosis: " +
+        cirrhosisField.toString() +
+        "\nencefalopatía: " +
+        encephalopatyField.toString() +
+        "\nascitis: " +
+        ascitesField.toString() +
+        "\nvarices: " +
+        varicesField.toString() +
+        "\necog: " +
+        ecogField.toString());
   }
 
   showNotIU() {
@@ -228,34 +298,8 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
     this.results = data.results;
 
-    //this.ascitesField.updateValue('none_fem');
-    //this.ascitesField.updateItems(['none_fem', 'controlled', 'refractory'],);
-    //print("ascites dentro previo " + this.ascitesField.value.toString());
-    //var radio = state.elementAt(0).toString();
-    //print("radio" + radio);
-
-    //encephalopatyField.updateValue(data.encephalopaty.toString(),);
-    /* _initMap(state);
-
-      radioValue = state.items
-          .elementAt(index)
-          .toString(); //radioValue es el elemento seleccionado
-
-      */ /*Venían en la función onChange, quizás se necesiten
-                      widget.isEnabled,
-                      widget.nextFocusNode,*/ /*
-
-      widget.selectFieldBloc
-          .updateValue(radioValue); //Actualizo el valor
-      isSelected[radioValue] = true;
-      //print('Mapa actualizado $isSelected \n\n');*/
-
     print("\n*****AFTER PREVIOUS");
-    print("bili: " + this.bilirubinField.value);
-    print("albu: " + this.albuminField.value);
-    // print("ascites: " + this.ascitesField.value);
-    print("extent: " + this.tumourExtentField.value);
-
-    print("resultado: " + this.results.toString());
+    _printFormBloc();
+    //showFields();
   }
 }

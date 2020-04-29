@@ -2,10 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
+import 'package:hepapp/forms/calc_multiple_text_field.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
@@ -14,12 +12,14 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../CalcGroupField.dart';
+import '../calc_group_field.dart';
 import '../right_bottom_title.dart';
 import 'complete_form_bloc.dart';
 
 class DiagnosticForm extends StatefulWidget with Observable {
-  DiagnosticForm({Key key}) : super(key: key);
+  final CompleteFormBloc formBloc;
+
+  DiagnosticForm({Key key, this.formBloc}) : super(key: key);
 
   @override
   DiagnosticFormState createState() => DiagnosticFormState();
@@ -31,95 +31,29 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   final prefs = PreferenciasUsuario();
   final units = Units();
 
-  //bool _internationalUnits = true;
-
-  // Map<String, bool> _errorMap;
-
-  //StreamSubscription streamSubIUnits;
-
-  //StreamSubscription streamSubErrorList;
-  //StreamSubscription streamSubErrorMap;
-
-  //String errorPrueba = "";
-
-  @override
-  void initState() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
-    /*streamSubIUnits = prefs.iUnitsUpdates.listen(
-          (newVal) =>
-          setState(() {
-            _internationalUnits = newVal;
-          }),
-    );
-    prefs.setInternationalUnits(true);*/
-
-    /*streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
-          _errorMap = newVal;
-        }));
-    prefs.initErrorMap([
-      'tumour_number',
-      'tumour_size',
-      'tumour_extent',
-      'pvi',
-      'nodes',
-      'metastasis',
-      'portal_hypertension',
-      'pvt_complete'
-    ]);*/
-
-    super.initState();
-  }
-
-  @override
-  dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    //streamSubIUnits.cancel();
-    //streamSubErrorMap.cancel();
-
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CompleteFormBloc>(
-      builder: (context) => CompleteFormBloc(),
-      child: Builder(
-        builder: (context) {
-          final formBloc = BlocProvider.of<CompleteFormBloc>(context);
-          return FormBlocListener<CompleteFormBloc, String, String>(
-            child: Scaffold(
-              appBar: CustomAppBar(
-                context,
-                'calculators_all_algorithms_diagnostic',
-                selScreenshot: true,
-                //selPartialSettings: true,
-              ),
-              drawer: MenuWidget(),
-              body: Stack(
-                children: <Widget>[
-                  Stack(
-                    //mainAxisAlignment: MainAxisAlignment.start,
-                    //crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      _buildLeftColumn(formBloc),
-                      _buildRightColumn(formBloc),
-                    ],
-                  ),
-                ],
-              ),
-              bottomSheet: _buildBottomSheet(formBloc),
-            ),
-          );
-        },
+    return Scaffold(
+      appBar: CustomAppBar(
+        context,
+        'calculators_all_algorithms_diagnostic',
+        selScreenshot: true,
+        selFullSettings: true,
       ),
+      drawer: MenuWidget(),
+      body: Stack(
+        children: <Widget>[
+          Stack(
+            //mainAxisAlignment: MainAxisAlignment.start,
+            //crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _buildLeftColumn(widget.formBloc),
+              _buildRightBottomTitle(),
+            ],
+          ),
+        ],
+      ),
+      bottomSheet: _buildBottomSheet(widget.formBloc),
     );
   }
 
@@ -166,17 +100,16 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   }
 
   _buildTumourSizeRow(AppLocalizations aux, CompleteFormBloc formBloc) {
-    return CalcGroupField(
-      reset: reset,
-      previous: previous,
-      initialValue: formBloc.tumourSizeField.value.toString(),
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.tumourSizeField,
-      title: 'tumour_size',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
+    return CalcMultipleTextField(
+
+      numActivos: 4,
+      //formBloc.tumourNumberField.value,
+      titleList: ['tumour_size'],
+      textFieldBlocList: formBloc.tumourSizeField,
+      length: 7,
+      hintList: ['#0', '#1', '#2', '#3', '#4', '#5', '#6',],
+      //udsList: [''],
+      showUds: false,
     );
   }
 
@@ -411,30 +344,16 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  _buildRightColumn(CompleteFormBloc formBloc) {
+  _buildRightBottomTitle() {
     bool isTablet = context.diagonalInches >= 7;
-    List<List<String>> resultList = [
-      ['okuda', formBloc.results.toString()],
-    ];
 
-    return //Container(
-        //width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
-        //color: Colors.blue,
-        // child:
-        Column(
+    return Column(
       children: <Widget>[
-        // _buildIUnitsRow(formBloc),
-        /*Container(
-            alignment: Alignment.topRight,
-            //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
-            child: CalcResultWidget(resultList),),*/
         RightBottomTitle(
           title: 'diagnostic_imaging',
           padding: EdgeInsets.fromLTRB(10, 0, 15, 50),
         ),
-        //_buildRightBottomTitle(),
       ],
-      //),
     );
   }
 
@@ -514,7 +433,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
 
   _buildNextButton(AppLocalizations aux, CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
-
     return Container(
       height: 40,
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
@@ -527,9 +445,12 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         ),
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
-          submitDiagnostic(formBloc);
-          Navigator.pushNamed(context, '/AllLaboratoryCalc',
-              arguments: formBloc);
+          //_printFormBloc();
+
+          //submitDiagnostic(formBloc);
+          // _printFormBloc();
+
+          Navigator.pushNamed(context, '/CompletePage', arguments: 1);
         },
       ),
     );

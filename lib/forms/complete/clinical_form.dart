@@ -15,12 +15,13 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../CalcGroupField.dart';
+import '../calc_group_field.dart';
 import 'complete_form_bloc.dart';
 
 class ClinicalForm extends StatefulWidget with Observable {
-  ClinicalForm({Key key, this.formBloc}) : super(key: key);
   final formBloc;
+
+  ClinicalForm({Key key, this.formBloc}) : super(key: key);
 
   @override
   ClinicalFormState createState() => ClinicalFormState();
@@ -148,9 +149,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     AppLocalizations aux,
       CompleteFormBloc formBloc,
   ) {
-    //print("error encephalopaty " + _error.toString());
     return CalcGroupField(
-      //error: _error,
       initialValue: formBloc.cirrhosisField.value.toString(),
       reset: reset,
       previous: previous,
@@ -170,12 +169,10 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
       CompleteFormBloc formBloc,
   ) {
     return CalcGroupField(
-      //error: _error,
       initialValue: formBloc.encephalopatyField.value.toString(),
       reset: reset,
       previous: previous,
       padding: EdgeInsets.only(left: 8),
-      //formBloc: formBloc,
       selectFieldBloc: formBloc.encephalopatyField,
       title: 'encephalopaty',
       decoration: InputDecoration(
@@ -491,8 +488,9 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
         ),
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
+          //Aqui hay que hacer el submit de todos los anteriores
 //          submitDiagnostic(formBloc);
-          Navigator.pushNamed(context, '/AllResultsCalc', arguments: formBloc);
+          Navigator.pushNamed(context, '/CompletePage', arguments: 3);
         },
       ),
     );

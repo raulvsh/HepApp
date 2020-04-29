@@ -15,8 +15,9 @@ import 'package:sized_context/sized_context.dart';
 import 'complete_form_bloc.dart';
 
 class SummaryForm extends StatefulWidget with Observable {
-  SummaryForm({Key key, this.formBloc}) : super(key: key);
   final formBloc;
+
+  SummaryForm({Key key, this.formBloc}) : super(key: key);
 
   @override
   SummaryFormState createState() => SummaryFormState();
@@ -103,12 +104,10 @@ class SummaryFormState extends State<SummaryForm> with Observable {
   }
 
   _buildBody() {
-
     return Stack(
       children: <Widget>[
         Row(
           children: <Widget>[
-
             _buildDiagnosticColumn(),
             _buildLabColumn(),
             _buildClinicalColumn()
@@ -117,7 +116,6 @@ class SummaryFormState extends State<SummaryForm> with Observable {
         Column(
           children: <Widget>[
             RightBottomTitle(
-
               title: 'value_summary',
               padding: EdgeInsets.fromLTRB(10, 0, 15, 30),
             ),
@@ -129,7 +127,6 @@ class SummaryFormState extends State<SummaryForm> with Observable {
 
   Container _buildDiagnosticColumn() {
     Map<String, dynamic> diagnosticMap1 = {
-
       'tumours': '0',
       '#1': '-',
       '#2': '-',

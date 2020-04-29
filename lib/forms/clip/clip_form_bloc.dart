@@ -232,12 +232,13 @@ class ClipFormBloc extends FormBloc<String, String> {
       //print('Mapa actualizado $isSelected \n\n');*/
 
     print("\n*****AFTER PREVIOUS");
-    print("afp: " + this.afpField.value);
+    showFields();
+    /*print("afp: " + this.afpField.value);
     print("cps: " + this.cpsField.value);
     print("number: " + this.tumourNumberField.value);
     print("exte: " + this.tumourExtentField.value);
     print("pvt: " + this.pvtField.value);
 
-    print("resultado: " + this.result);
+    print("resultado: " + this.result);*/
   }
 }

@@ -31,7 +31,6 @@ class CpsFormBloc extends FormBloc<String, String> {
       ascites: 'none_fem',
       result: '-');
 
-
   @override
   List<FieldBloc> get fieldBlocs =>
       [
@@ -40,7 +39,6 @@ class CpsFormBloc extends FormBloc<String, String> {
         albuminField,
         encephalopatyField,
         ascitesField,
-
       ];
 
   @override
@@ -57,8 +55,6 @@ class CpsFormBloc extends FormBloc<String, String> {
     );
     CpsAlgorithm cpsAlgorithm = CpsAlgorithm(data);
     showObjectCPSData();
-
-
 
     try {
       this.resultadoField = cpsAlgorithm.obtenerResultado();
@@ -84,6 +80,9 @@ class CpsFormBloc extends FormBloc<String, String> {
     this.bilirubinField = TextFieldBloc(
       initialValue: data.bilirubin.toStringAsPrecision(4),
     );
+    this.inrField = TextFieldBloc(
+      initialValue: data.inr.toStringAsPrecision(4),
+    );
     this.albuminField = TextFieldBloc(
       initialValue: data.albumin.toStringAsPrecision(4),
     );
@@ -91,15 +90,16 @@ class CpsFormBloc extends FormBloc<String, String> {
 
   showNotIU() {
     this.bilirubinField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(data.bilirubin)
-          .toStringAsPrecision(4),
+      initialValue:
+      units.getNotIUBilirrubin(data.bilirubin).toStringAsPrecision(4),
+    );
+    this.inrField = TextFieldBloc(
+      initialValue: data.inr.toStringAsPrecision(4),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: units.getNotIUAlbumin(data.albumin).toStringAsPrecision(
-          4),
+      initialValue: units.getNotIUAlbumin(data.albumin).toStringAsPrecision(4),
     );
   }
-
 
   reset() {
     this.bilirubinField = TextFieldBloc();
@@ -115,7 +115,6 @@ class CpsFormBloc extends FormBloc<String, String> {
 
     //showFields();
     //showObjectCPSData();
-
   }
 
   void previous() {
@@ -137,7 +136,6 @@ class CpsFormBloc extends FormBloc<String, String> {
       initialValue: data.ascites.toString(),
     );
     this.resultadoField = data.result;
-
 
     print("\n*****AFTER PREVIOUS");
     showFields();

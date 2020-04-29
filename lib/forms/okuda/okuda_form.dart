@@ -15,9 +15,9 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../CalcGroupField.dart';
-import '../CalcTextField.dart';
+import '../calc_group_field.dart';
 import '../calc_result_widget.dart';
+import '../calc_text_field.dart';
 import '../international_units_select.dart';
 import 'okuda_form_bloc.dart';
 
@@ -148,6 +148,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   _buildBilirrubinRow(AppLocalizations aux, OkudaFormBloc formBloc) {
     return CalcTextField(
+      errorControl: true,
       textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
       uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
@@ -156,6 +157,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   _buildAlbuminRow(AppLocalizations aux, OkudaFormBloc formBloc) {
     return CalcTextField(
+      errorControl: true,
       textFieldBloc: formBloc.albuminField,
       title: 'albumin',
       uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
@@ -165,6 +167,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   _buildAscitesRow(AppLocalizations aux,
       OkudaFormBloc formBloc,) {
     return CalcGroupField(
+      errorControl: true,
       initialValue: formBloc.ascitesField.value.toString(),
       previous: previous,
       reset: reset,
@@ -180,6 +183,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   _buildTumourExtentRow(AppLocalizations aux, OkudaFormBloc formBloc) {
     return CalcGroupField(
+      errorControl: true,
       reset: reset,
       previous: previous,
       initialValue: formBloc.tumourExtentField.value.toString(),
@@ -362,7 +366,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     formBloc.submit();
 
     reset = false;
-    setState(() {});
+    //setState(() {});
   }
 
   showErrorDialog() {
@@ -412,13 +416,13 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   void resetValues(OkudaFormBloc formBloc) {
     reset = true;
     formBloc.reset();
-    setState(() {});
+    //setState(() {});
   }
 
   void previousValues(OkudaFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
-    setState(() {});
+    //setState(() {});
   }
 }

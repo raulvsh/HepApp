@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
           primaryTextTheme: TextTheme(
             title: TextStyle(color: Colors.white),
           ),
+          scaffoldBackgroundColor: Color.fromARGB(255, 250, 250, 250),
           primaryIconTheme: IconThemeData(
             color: Colors.white,
           ),

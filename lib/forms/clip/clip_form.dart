@@ -15,9 +15,9 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../CalcGroupField.dart';
-import '../CalcTextField.dart';
+import '../calc_group_field.dart';
 import '../calc_result_widget.dart';
+import '../calc_text_field.dart';
 import '../right_bottom_title.dart';
 import 'clip_form_bloc.dart';
 
@@ -155,6 +155,7 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   _buildAFPRow(AppLocalizations aux, ClipFormBloc formBloc) {
     return CalcTextField(
+      errorControl: true,
       textFieldBloc: formBloc.afpField,
       title: 'afp',
       uds: 'ug/L',
@@ -163,6 +164,7 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   _buildCPSRow(AppLocalizations aux, ClipFormBloc formBloc) {
     return CalcGroupField(
+      errorControl: true,
       reset: reset,
       previous: previous,
       initialValue: formBloc.cpsField.value.toString(),
@@ -178,6 +180,7 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   _buildTumourNumberRow(AppLocalizations aux, ClipFormBloc formBloc) {
     return CalcGroupField(
+      errorControl: true,
       reset: reset,
       previous: previous,
       initialValue: formBloc.tumourNumberField.value.toString(),
@@ -193,6 +196,7 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   _buildTumourExtentRow(AppLocalizations aux, ClipFormBloc formBloc) {
     return CalcGroupField(
+      errorControl: true,
       reset: reset,
       previous: previous,
       initialValue: formBloc.tumourExtentField.value.toString(),
@@ -208,6 +212,7 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   _buildPVTRow(AppLocalizations aux, ClipFormBloc formBloc) {
     return CalcGroupField(
+      errorControl: true,
       reset: reset,
       previous: previous,
       initialValue: formBloc.pvtField.value.toString(),
@@ -388,14 +393,12 @@ class ClipFormState extends State<ClipForm> with Observable {
     prefs.isMapError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";
-
-    //prefs.isError()
     prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
 
     formBloc.submit();
 
     reset = false;
-    setState(() {});
+    // setState(() {});
   }
 
   showErrorDialog() {
@@ -443,13 +446,13 @@ class ClipFormState extends State<ClipForm> with Observable {
   void resetValues(ClipFormBloc formBloc) {
     reset = true;
     formBloc.reset();
-    setState(() {});
+    //setState(() {});
   }
 
   void previousValues(ClipFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
-    setState(() {});
+    //setState(() {});
   }
 }

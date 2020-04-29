@@ -15,9 +15,9 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../CalcGroupField.dart';
-import '../CalcTextField.dart';
+import '../calc_group_field.dart';
 import '../calc_result_widget.dart';
+import '../calc_text_field.dart';
 import '../international_units_select.dart';
 import 'cps_form_bloc.dart';
 
@@ -180,8 +180,7 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   _buildBilirrubinRow(AppLocalizations aux, CpsFormBloc formBloc) {
     return CalcTextField(
-      //formBloc: formBloc,
-      textFieldBloc: formBloc.bilirubinField,
+      errorControl: true, textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
       uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
     );
@@ -189,17 +188,15 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   _buildInrRow(AppLocalizations aux, CpsFormBloc formBloc) {
     return CalcTextField(
-      //formBloc: formBloc,
-      textFieldBloc: formBloc.inrField,
+      errorControl: true, textFieldBloc: formBloc.inrField,
       title: 'inr',
-      uds: '',
+      //uds: '',
     );
   }
 
   _buildAlbuminRow(AppLocalizations aux, CpsFormBloc formBloc) {
     return CalcTextField(
-      //formBloc: formBloc,
-      textFieldBloc: formBloc.albuminField,
+      errorControl: true, textFieldBloc: formBloc.albuminField,
       title: 'albumin',
       uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
     );
@@ -207,9 +204,8 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   _buildEncephalopatyRow(AppLocalizations aux,
       CpsFormBloc formBloc,) {
-    //print("error encephalopaty " + _error.toString());
     return CalcGroupField(
-      //error: _error,
+      errorControl: true,
       initialValue: formBloc.encephalopatyField.value.toString(),
       reset: reset,
       previous: previous,
@@ -228,6 +224,7 @@ class CpsFormState extends State<CpsForm> with Observable {
   _buildAscitesRow(AppLocalizations aux,
       CpsFormBloc formBloc,) {
     return CalcGroupField(
+      errorControl: true,
       initialValue: formBloc.ascitesField.value.toString(),
       previous: previous,
       reset: reset,
@@ -412,7 +409,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     formBloc.submit();
 
     reset = false;
-    setState(() {});
+    //setState(() {});
   }
 
   showErrorDialog() {
@@ -462,13 +459,13 @@ class CpsFormState extends State<CpsForm> with Observable {
   void resetValues(CpsFormBloc formBloc) {
     reset = true;
     formBloc.reset();
-    setState(() {});
+    // setState(() {});
   }
 
   void previousValues(CpsFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
-    setState(() {});
+    //setState(() {});
   }
 }

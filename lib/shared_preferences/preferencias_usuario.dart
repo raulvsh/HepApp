@@ -111,18 +111,18 @@ class PreferenciasUsuario {
   }
 
   void initErrorMap(List<String> lista) {
-    print("lista a errormap $lista");
+    //print("lista a errormap $lista");
     var length = lista.length;
-    print("longitud $length");
+    //print("longitud $length");
     _errorMap = {};
-    print("error map antes $_errorMap");
+    //print("error map antes $_errorMap");
     for (int i = 0; i < length; i++) {
       // _errorMap.addEntries(lista);
       _errorMap.putIfAbsent(lista[i].toString(), () => true);
       // _errorMap.
     }
-    print("error map despues $_errorMap");
-    print(_errorMap.toString());
+    //print("error map despues $_errorMap");
+    //print(_errorMap.toString());
   }
 
   bool isMapError() {

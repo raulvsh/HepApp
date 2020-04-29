@@ -23,7 +23,7 @@ class CalcGroupField<Value> extends StatefulWidget {
     Key key,
     @required this.selectFieldBloc,
     @required this.itemBuilder,
-    @required this.errorControl,
+    this.errorControl = false,
     this.enableOnlyWhenFormBlocCanSubmit = false,
     this.isEnabled = true,
     this.errorBuilder,
@@ -88,18 +88,11 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
 
   @override
   void initState() {
-    //prueba a quitar stream de errores, creo que funcionará igual
-    /*streamSubError = prefs.errorUpdates.listen((newVal) =>
-        setState(() {
-          _errorFlag = newVal;
-        }));*/
-    //prefs.setError(true);
     super.initState();
   }
 
   @override
   dispose() {
-    //streamSubError.cancel();
     super.dispose();
   }
 
@@ -108,7 +101,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
     return BlocBuilder<SelectFieldBloc<Value>, SelectFieldBlocState<Value>>(
       bloc: widget.selectFieldBloc,
       builder: (context, state) {
-        //Solo se inicia el mapa en el primer arranque de la app
         if (firstRun) {
           _initMap(state);
           firstRun = false;
@@ -116,8 +108,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
         if (widget.previous) {
           updateMap(state);
         }
-        //else updateMap(state);
-        //updateMap(state);
 
         final isEnabled = fieldBlocIsEnabled(
           isEnabled: this.widget.isEnabled,
@@ -363,7 +353,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
     bool isTablet = context.diagonalInches >= 7;
     bool moreThanTree = state.items.length > 3.0;
     if (moreThanTree) {
-      return 60;
+      return isTablet ? 60 : 50;
     }
     return isTablet ? 110 : 90;
   }
@@ -402,7 +392,9 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
           switch (error) {
             case ValidatorsError.requiredSelectFieldBloc:
             //prefs.setError(true);
-              _errorFlag = true;
+              if (widget.errorControl) {
+                _errorFlag = true;
+              }
               return null; //null; //"dentro";
               break;
             default:

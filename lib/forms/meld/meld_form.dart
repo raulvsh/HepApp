@@ -16,9 +16,9 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../CalcGroupField.dart';
-import '../CalcTextField.dart';
+import '../calc_group_field.dart';
 import '../calc_result_widget.dart';
+import '../calc_text_field.dart';
 import 'meld_form_bloc.dart';
 
 class MeldForm extends StatefulWidget with Observable {
@@ -147,6 +147,7 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildBilirrubinRow(AppLocalizations aux, MeldFormBloc formBloc) {
     return CalcTextField(
+      errorControl: true,
       textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
       uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
@@ -155,23 +156,26 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildInrRow(AppLocalizations aux, MeldFormBloc formBloc) {
     return CalcTextField(
+      errorControl: true,
       textFieldBloc: formBloc.inrField,
       title: 'inr',
-      uds: '',
+      //uds: '',
     );
   }
 
   _buildCreatinineRow(AppLocalizations aux, MeldFormBloc formBloc) {
     return CalcTextField(
+      errorControl: true,
       textFieldBloc: formBloc.creatinineField,
       title: 'creatinine',
       uds:
-          _internationalUnits ? units.creatinineUds[0] : units.creatinineUds[1],
+      _internationalUnits ? units.creatinineUds[0] : units.creatinineUds[1],
     );
   }
 
   _buildAlbuminRow(AppLocalizations aux, MeldFormBloc formBloc) {
     return CalcTextField(
+      errorControl: true,
       textFieldBloc: formBloc.albuminField,
       title: 'albumin',
       uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
@@ -180,6 +184,7 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildSodiumRow(AppLocalizations aux, MeldFormBloc formBloc) {
     return CalcTextField(
+      errorControl: true,
       textFieldBloc: formBloc.sodiumField,
       title: 'sodium',
       uds: _internationalUnits ? units.sodiumUds[0] : units.sodiumUds[1],
@@ -188,6 +193,7 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildDialysisRow(AppLocalizations aux, MeldFormBloc formBloc) {
     return CalcGroupField(
+      errorControl: true,
       reset: reset,
       previous: previous,
       initialValue: formBloc.dialysisField.value.toString(),
@@ -374,7 +380,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     formBloc.submit();
 
     reset = false;
-    setState(() {});
+    // setState(() {});
   }
 
   showErrorDialog() {
@@ -424,13 +430,13 @@ class MeldFormState extends State<MeldForm> with Observable {
   void resetValues(MeldFormBloc formBloc) {
     reset = true;
     formBloc.reset();
-    setState(() {});
+    //setState(() {});
   }
 
   void previousValues(MeldFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
-    setState(() {});
+    // setState(() {});
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
+import 'package:hepapp/forms/calc_multiple_text_field.dart';
 import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
@@ -15,13 +16,14 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../CalcGroupField.dart';
-import '../CalcTextField.dart';
+import '../calc_group_field.dart';
+import '../calc_text_field.dart';
 import 'complete_form_bloc.dart';
 
 class LaboratoryForm extends StatefulWidget with Observable {
-  LaboratoryForm({Key key, this.formBloc}) : super(key: key);
   final formBloc;
+
+  LaboratoryForm({Key key, this.formBloc}) : super(key: key);
 
   @override
   LaboratoryFormState createState() => LaboratoryFormState();
@@ -95,6 +97,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
                 context,
                 'calculators_all_algorithms_laboratory',
                 selScreenshot: true,
+                selFullSettings: true,
                 //selPartialSettings: true,
               ),
               drawer: MenuWidget(),
@@ -139,9 +142,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
           _buildPlateletsRow(aux, formBloc),
           _buildAFPRow(aux, formBloc),
           _buildASTRow(aux, formBloc),
-          _buildASTUpperLimitRow(aux, formBloc),
+          //_buildASTUpperLimitRow(aux, formBloc),
           _buildALPRow(aux, formBloc),
-          _buildALPUpperLimitRow(aux, formBloc),
+          // _buildALPUpperLimitRow(aux, formBloc),
 
           _buildDialysisRow(aux, formBloc),
           Container(
@@ -156,7 +159,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
   _buildBilirrubinRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcTextField(
-      //formBloc: formBloc,
       textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
       uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
@@ -165,7 +167,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
   _buildInrRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcTextField(
-      //formBloc: formBloc,
       textFieldBloc: formBloc.inrField,
       title: 'inr',
       uds: '',
@@ -174,7 +175,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
   _buildCreatinineRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcTextField(
-      //formBloc: formBloc,
       textFieldBloc: formBloc.creatinineField,
       title: 'creatinine',
       uds:
@@ -184,7 +184,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
   _buildAlbuminRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcTextField(
-      //formBloc: formBloc,
       textFieldBloc: formBloc.albuminField,
       title: 'albumin',
       uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
@@ -193,7 +192,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
   _buildSodiumRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcTextField(
-      //formBloc: formBloc,
       textFieldBloc: formBloc.sodiumField,
       title: 'sodium',
       uds: _internationalUnits ? units.sodiumUds[0] : units.sodiumUds[1],
@@ -202,7 +200,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
   _buildPlateletsRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcTextField(
-      //formBloc: formBloc,
       textFieldBloc: formBloc.plateletsField,
       title: 'platelets',
       uds:
@@ -219,36 +216,45 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   }
 
   _buildASTRow(AppLocalizations aux, CompleteFormBloc formBloc) {
-    return CalcTextField(
-      textFieldBloc: formBloc.astField,
-      title: 'ast',
-      uds: 'ug/L',
+    return CalcMultipleTextField(
+      multiTitle: true,
+      textFieldBlocList: formBloc.astField,
+      titleList: ['ast', 'ast_upper_limit'],
+      //titleList: ['ast','ast_upper_limit'],
+      udsList: ['ug/L', 'ug/L'],
+      length: 2,
+      numActivos: 2,
+      //uds: 'ug/L',
     );
   }
 
-  _buildASTUpperLimitRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  /*_buildASTUpperLimitRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcTextField(
       textFieldBloc: formBloc.astUpperLimitField,
       title: 'ast_upper_limit',
       uds: 'ug/L',
     );
-  }
+  }*/
 
   _buildALPRow(AppLocalizations aux, CompleteFormBloc formBloc) {
-    return CalcTextField(
-      textFieldBloc: formBloc.alpField,
-      title: 'alp',
-      uds: 'ug/L',
+    return CalcMultipleTextField(
+      multiTitle: true,
+
+      textFieldBlocList: formBloc.alpField,
+      titleList: ['alp', 'alp_upper_limit'],
+      length: 2,
+      numActivos: 2,
+      udsList: ['ug/L', 'ug/L'],
     );
   }
 
-  _buildALPUpperLimitRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  /*_buildALPUpperLimitRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcTextField(
       textFieldBloc: formBloc.alpUpperLimitField,
       title: 'alp_upper_limit',
       uds: 'ug/L',
     );
-  }
+  }*/
 
   _buildDialysisRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcGroupField(
@@ -617,7 +623,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
           //submitDiagnostic(formBloc);
-          Navigator.pushNamed(context, '/AllClinicalCalc', arguments: formBloc);
+          Navigator.pushNamed(context, '/CompletePage', arguments: 2);
         },
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/shared_preferences/FullCalcSettings.dart';
+import 'package:hepapp/shared_preferences/full_calc_settings.dart';
 import 'package:sized_context/sized_context.dart';
 
 

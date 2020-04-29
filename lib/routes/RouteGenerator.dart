@@ -15,12 +15,7 @@ import 'package:hepapp/data/schemes.dart';
 import 'package:hepapp/data/tocs.dart';
 import 'package:hepapp/forms/child_pugh_score/cps_form.dart';
 import 'package:hepapp/forms/clip/clip_form.dart';
-import 'package:hepapp/forms/complete/clinical_form.dart';
 import 'package:hepapp/forms/complete/complete_form.dart';
-import 'package:hepapp/forms/complete/diagnostic_form.dart';
-import 'package:hepapp/forms/complete/laboratory_form.dart';
-import 'package:hepapp/forms/complete/results_form.dart';
-import 'package:hepapp/forms/complete/summary_form.dart';
 import 'package:hepapp/forms/meld/meld_form.dart';
 import 'package:hepapp/forms/okuda/okuda_form.dart';
 import 'package:hepapp/pages/CommonPages/CommonPage.dart';
@@ -239,8 +234,14 @@ class RouteGenerator {
       case '/CompleteCalc':
         var initialPage = settings.arguments as int;
 
-        return MaterialPageRoute(builder: (_) => CompleteForm());
-      case '/CompleteDiagnosticCalc':
+        return MaterialPageRoute(builder: (_) => CompleteForm(initialPage: 0));
+
+      case '/CompletePage':
+        var initialPage = settings.arguments as int;
+        return MaterialPageRoute(
+            builder: (_) => CompleteForm(initialPage: initialPage));
+
+    /*case '/CompleteDiagnosticCalc':
         return MaterialPageRoute(builder: (_) => DiagnosticForm());
       case '/CompleteLaboratoryCalc':
         var formBloc = settings.arguments;
@@ -251,7 +252,7 @@ class RouteGenerator {
       case '/CompleteResultsCalc':
         return MaterialPageRoute(builder: (_) => ResultsForm());
       case '/CompleteSummaryCalc':
-        return MaterialPageRoute(builder: (_) => SummaryForm());
+        return MaterialPageRoute(builder: (_) => SummaryForm());*/
 
       case '/ChildCalc':
         return MaterialPageRoute(builder: (_) => CpsForm());

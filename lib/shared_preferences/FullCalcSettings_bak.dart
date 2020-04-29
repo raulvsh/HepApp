@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FullCalcSettings extends StatelessWidget {
-  const FullCalcSettings({
+class FullCalcSettingsBak extends StatelessWidget {
+  const FullCalcSettingsBak({
     Key key,
   }) : super(key: key);
 
