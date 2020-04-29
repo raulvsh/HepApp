@@ -16,16 +16,16 @@ import 'package:sized_context/sized_context.dart';
 
 import '../CalcGroupField.dart';
 import '../right_bottom_title.dart';
-import 'all_form_bloc.dart';
+import 'complete_form_bloc.dart';
 
-class AllDiagnosticForm extends StatefulWidget with Observable {
-  AllDiagnosticForm({Key key}) : super(key: key);
+class DiagnosticForm extends StatefulWidget with Observable {
+  DiagnosticForm({Key key}) : super(key: key);
 
   @override
-  AllDiagnosticFormState createState() => AllDiagnosticFormState();
+  DiagnosticFormState createState() => DiagnosticFormState();
 }
 
-class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
+class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   var reset = false;
   var previous = false;
   final prefs = PreferenciasUsuario();
@@ -89,12 +89,12 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AllFormBloc>(
-      builder: (context) => AllFormBloc(),
+    return BlocProvider<CompleteFormBloc>(
+      builder: (context) => CompleteFormBloc(),
       child: Builder(
         builder: (context) {
-          final formBloc = BlocProvider.of<AllFormBloc>(context);
-          return FormBlocListener<AllFormBloc, String, String>(
+          final formBloc = BlocProvider.of<CompleteFormBloc>(context);
+          return FormBlocListener<CompleteFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
                 context,
@@ -123,7 +123,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  _buildLeftColumn(AllFormBloc formBloc) {
+  _buildLeftColumn(CompleteFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
@@ -150,7 +150,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  _buildTumourNumberRow(AppLocalizations aux, AllFormBloc formBloc) {
+  _buildTumourNumberRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -165,7 +165,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  _buildTumourSizeRow(AppLocalizations aux, AllFormBloc formBloc) {
+  _buildTumourSizeRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -180,7 +180,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  _buildTumourExtentRow(AppLocalizations aux, AllFormBloc formBloc) {
+  _buildTumourExtentRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -195,7 +195,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  _buildPviRow(AppLocalizations aux, AllFormBloc formBloc) {
+  _buildPviRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -210,7 +210,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  _buildNodesRow(AppLocalizations aux, AllFormBloc formBloc) {
+  _buildNodesRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -225,7 +225,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  _buildMetastasisRow(AppLocalizations aux, AllFormBloc formBloc) {
+  _buildMetastasisRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -240,7 +240,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  _buildPortalHypertensionRow(AppLocalizations aux, AllFormBloc formBloc) {
+  _buildPortalHypertensionRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -255,7 +255,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  _buildPvtRow(AppLocalizations aux, AllFormBloc formBloc) {
+  _buildPvtRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -306,7 +306,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }*/
 
-  _buildBottomSheet(AllFormBloc formBloc) {
+  _buildBottomSheet(CompleteFormBloc formBloc) {
     var aux = AppLocalizations.of(context);
 
     return BottomAppBar(
@@ -390,7 +390,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, AllFormBloc formBloc) {
+  Container _buildResetButton(AppLocalizations aux, CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
@@ -411,7 +411,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  _buildRightColumn(AllFormBloc formBloc) {
+  _buildRightColumn(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     List<List<String>> resultList = [
       ['okuda', formBloc.results.toString()],
@@ -438,7 +438,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  void submitDiagnostic(AllFormBloc formBloc) {
+  void submitDiagnostic(CompleteFormBloc formBloc) {
     /*prefs.isMapError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";*/
@@ -499,20 +499,20 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
         });
   }
 
-  void resetValues(AllFormBloc formBloc) {
+  void resetValues(CompleteFormBloc formBloc) {
     reset = true;
     formBloc.reset();
     setState(() {});
   }
 
-  void previousValues(AllFormBloc formBloc) {
+  void previousValues(CompleteFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
     setState(() {});
   }
 
-  _buildNextButton(AppLocalizations aux, AllFormBloc formBloc) {
+  _buildNextButton(AppLocalizations aux, CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(

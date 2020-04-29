@@ -1,12 +1,12 @@
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
-import 'all_data.dart';
+import 'complete_data.dart';
 
-class AllAlgorithm {
-  final AllData allData;
+class CompleteAlgorithm {
+  final CompleteData allData;
 
-  AllAlgorithm(this.allData);
+  CompleteAlgorithm(this.allData);
 
   final units = Units();
 

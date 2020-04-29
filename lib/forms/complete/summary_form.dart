@@ -12,17 +12,17 @@ import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import 'all_form_bloc.dart';
+import 'complete_form_bloc.dart';
 
-class AllSummaryForm extends StatefulWidget with Observable {
-  AllSummaryForm({Key key, this.formBloc}) : super(key: key);
+class SummaryForm extends StatefulWidget with Observable {
+  SummaryForm({Key key, this.formBloc}) : super(key: key);
   final formBloc;
 
   @override
-  AllSummaryFormState createState() => AllSummaryFormState();
+  SummaryFormState createState() => SummaryFormState();
 }
 
-class AllSummaryFormState extends State<AllSummaryForm> with Observable {
+class SummaryFormState extends State<SummaryForm> with Observable {
   var reset = false;
   var previous = false;
   final prefs = PreferenciasUsuario();
@@ -79,13 +79,13 @@ class AllSummaryFormState extends State<AllSummaryForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AllFormBloc>(
-      builder: (context) => AllFormBloc(),
+    return BlocProvider<CompleteFormBloc>(
+      builder: (context) => CompleteFormBloc(),
       child: Builder(
         builder: (context) {
           //final formBloc = widget.formBloc;//BlocProvider.of<AllFormBloc>(context);
-          final formBloc = BlocProvider.of<AllFormBloc>(context);
-          return FormBlocListener<AllFormBloc, String, String>(
+          final formBloc = BlocProvider.of<CompleteFormBloc>(context);
+          return FormBlocListener<CompleteFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
                 context,

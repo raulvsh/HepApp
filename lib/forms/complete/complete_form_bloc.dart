@@ -2,10 +2,10 @@ import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 
-import 'all_algorithm.dart';
-import 'all_data.dart';
+import 'complete_algorithm.dart';
+import 'complete_data.dart';
 
-class AllFormBloc extends FormBloc<String, String> {
+class CompleteFormBloc extends FormBloc<String, String> {
   final prefs = PreferenciasUsuario();
   final units = Units();
 
@@ -87,7 +87,7 @@ class AllFormBloc extends FormBloc<String, String> {
 
   List<String> results = ['-'];
 
-  var data = AllData(
+  var data = CompleteData(
     bilirubin: 0,
     albumin: 0,
     ascites: 'none_fem',
@@ -107,14 +107,14 @@ class AllFormBloc extends FormBloc<String, String> {
   Stream<FormBlocState<String, String>> onSubmitting() async* {
     showFields();
 
-    data = AllData(
+    data = CompleteData(
       bilirubin: bilirubinField.valueToDouble,
       albumin: albuminField.valueToDouble,
       //ascites: ascitesField.value,
       tumourExtent: tumourExtentField.value,
     );
 
-    AllAlgorithm okudaAlgorithm = AllAlgorithm(data);
+    CompleteAlgorithm okudaAlgorithm = CompleteAlgorithm(data);
 
     try {
       //this.result = okudaAlgorithm.obtenerResultado();

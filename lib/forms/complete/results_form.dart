@@ -16,17 +16,17 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import 'all_form_bloc.dart';
+import 'complete_form_bloc.dart';
 
-class AllResultsForm extends StatefulWidget with Observable {
-  AllResultsForm({Key key, this.formBloc}) : super(key: key);
+class ResultsForm extends StatefulWidget with Observable {
+  ResultsForm({Key key, this.formBloc}) : super(key: key);
   final formBloc;
 
   @override
-  AllResultsFormState createState() => AllResultsFormState();
+  ResultsFormState createState() => ResultsFormState();
 }
 
-class AllResultsFormState extends State<AllResultsForm> with Observable {
+class ResultsFormState extends State<ResultsForm> with Observable {
   var reset = false;
   var previous = false;
   final prefs = PreferenciasUsuario();
@@ -83,14 +83,14 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AllFormBloc>(
-      builder: (context) => AllFormBloc(),
+    return BlocProvider<CompleteFormBloc>(
+      builder: (context) => CompleteFormBloc(),
       child: Builder(
         builder: (context) {
           //final formBloc = widget.formBloc;//BlocProvider.of<AllFormBloc>(context);
-          final formBloc = BlocProvider.of<AllFormBloc>(context);
+          final formBloc = BlocProvider.of<CompleteFormBloc>(context);
 
-          return FormBlocListener<AllFormBloc, String, String>(
+          return FormBlocListener<CompleteFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
                 context,
@@ -143,7 +143,7 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
     );
   }
 
-  Container _buildResultsRow(BuildContext context, AllFormBloc formBloc) {
+  Container _buildResultsRow(BuildContext context, CompleteFormBloc formBloc) {
     return Container(
       height: context.heightPct(0.55),
       //color: Colors.green,
@@ -158,7 +158,7 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
     );
   }
 
-  _buildLeftColumn(AllFormBloc formBloc) {
+  _buildLeftColumn(CompleteFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     Map<String, String> resultMap = {
@@ -195,7 +195,7 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
     );
   }
 
-  _buildBottomSheet(AllFormBloc formBloc) {
+  _buildBottomSheet(CompleteFormBloc formBloc) {
     var aux = AppLocalizations.of(context);
 
     return BottomAppBar(
@@ -292,7 +292,7 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, AllFormBloc formBloc) {
+  Container _buildResetButton(AppLocalizations aux, CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
@@ -313,7 +313,7 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
     );
   }
 
-  _buildRightColumn(AllFormBloc formBloc) {
+  _buildRightColumn(CompleteFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     Map<String, String> resultMap = {
@@ -419,7 +419,7 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
     );
   }
 
-  void submitDiagnostic(AllFormBloc formBloc) {
+  void submitDiagnostic(CompleteFormBloc formBloc) {
     /*prefs.isMapError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";*/
@@ -480,20 +480,20 @@ class AllResultsFormState extends State<AllResultsForm> with Observable {
         });
   }
 
-  void resetValues(AllFormBloc formBloc) {
+  void resetValues(CompleteFormBloc formBloc) {
     reset = true;
     formBloc.reset();
     setState(() {});
   }
 
-  void previousValues(AllFormBloc formBloc) {
+  void previousValues(CompleteFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
     setState(() {});
   }
 
-  _buildNextButton(AppLocalizations aux, AllFormBloc formBloc) {
+  _buildNextButton(AppLocalizations aux, CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(

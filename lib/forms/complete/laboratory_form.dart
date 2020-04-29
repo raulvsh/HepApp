@@ -16,30 +16,31 @@ import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
 import '../CalcGroupField.dart';
-import 'all_form_bloc.dart';
+import '../CalcTextField.dart';
+import 'complete_form_bloc.dart';
 
-class AllClinicalForm extends StatefulWidget with Observable {
-  AllClinicalForm({Key key, this.formBloc}) : super(key: key);
+class LaboratoryForm extends StatefulWidget with Observable {
+  LaboratoryForm({Key key, this.formBloc}) : super(key: key);
   final formBloc;
 
   @override
-  AllClinicalFormState createState() => AllClinicalFormState();
+  LaboratoryFormState createState() => LaboratoryFormState();
 }
 
-class AllClinicalFormState extends State<AllClinicalForm> with Observable {
+class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   var reset = false;
   var previous = false;
   final prefs = PreferenciasUsuario();
   final units = Units();
 
-  //bool _internationalUnits = true;
+  bool _internationalUnits = true;
 
-  //Map<String, bool> _errorMap;
+  Map<String, bool> _errorMap;
 
-  //StreamSubscription streamSubIUnits;
+  StreamSubscription streamSubIUnits;
 
   //StreamSubscription streamSubErrorList;
-  //StreamSubscription streamSubErrorMap;
+  StreamSubscription streamSubErrorMap;
 
   //String errorPrueba = "";
 
@@ -49,21 +50,20 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    /*streamSubIUnits = prefs.iUnitsUpdates.listen(
-          (newVal) =>
-          setState(() {
-            _internationalUnits = newVal;
-          }),
+    streamSubIUnits = prefs.iUnitsUpdates.listen(
+      (newVal) => setState(() {
+        _internationalUnits = newVal;
+      }),
     );
     prefs.setInternationalUnits(true);
 
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
-        setState(() {
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
           _errorMap = newVal;
         }));
-    prefs.initErrorMap(
-        ['bilirubin', 'albumin', 'ascites', 'tumour_extent']);*/
-
+    //prefs.initErrorMap(['bilirubin','albumin']);
+    /*prefs.initErrorMap(
+        ['bilirubin', 'inr', 'creatinine', 'albumin', 'sodium', 'platelets', 'afp', 'ast', 'ast_upper_limit', 'alp', 'alp_upper_limit']);
+    */
     super.initState();
   }
 
@@ -83,18 +83,17 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AllFormBloc>(
-      builder: (context) => AllFormBloc(),
+    return BlocProvider<CompleteFormBloc>(
+      builder: (context) => CompleteFormBloc(),
       child: Builder(
         builder: (context) {
-          //final formBloc = widget.formBloc;//BlocProvider.of<AllFormBloc>(context);
-          final formBloc = BlocProvider.of<AllFormBloc>(context);
-
-          return FormBlocListener<AllFormBloc, String, String>(
+          final formBloc =
+              widget.formBloc; //BlocProvider.of<AllFormBloc>(context);
+          return FormBlocListener<CompleteFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
                 context,
-                'calculators_all_algorithms_clinical',
+                'calculators_all_algorithms_laboratory',
                 selScreenshot: true,
                 //selPartialSettings: true,
               ),
@@ -119,7 +118,7 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
     );
   }
 
-  _buildLeftColumn(AllFormBloc formBloc) {
+  _buildLeftColumn(CompleteFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
@@ -132,11 +131,22 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         children: <Widget>[
-          _buildCirrhosisRow(aux, formBloc),
-          _buildEncephalopatyRow(aux, formBloc),
-          _buildAscitesRow(aux, formBloc),
-          _buildVaricesRow(aux, formBloc),
-          _buildEcogRow(aux, formBloc),
+          _buildBilirrubinRow(aux, formBloc),
+          _buildInrRow(aux, formBloc),
+          _buildCreatinineRow(aux, formBloc),
+          _buildAlbuminRow(aux, formBloc),
+          _buildSodiumRow(aux, formBloc),
+          _buildPlateletsRow(aux, formBloc),
+          _buildAFPRow(aux, formBloc),
+          _buildASTRow(aux, formBloc),
+          _buildASTUpperLimitRow(aux, formBloc),
+          _buildALPRow(aux, formBloc),
+          _buildALPUpperLimitRow(aux, formBloc),
+
+          _buildDialysisRow(aux, formBloc),
+          Container(
+            height: 50,
+          ),
 
           //_buildCalcButton(aux, formBloc),
         ],
@@ -144,95 +154,110 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
     );
   }
 
-  _buildCirrhosisRow(
-    AppLocalizations aux,
-    AllFormBloc formBloc,
-  ) {
-    //print("error encephalopaty " + _error.toString());
-    return CalcGroupField(
-      //error: _error,
-      initialValue: formBloc.cirrhosisField.value.toString(),
-      reset: reset,
-      previous: previous,
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.cirrhosisField,
-      title: 'cirrhosis',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-
-      itemBuilder: (context, item) => item,
-    );
-  }
-
-  _buildEncephalopatyRow(
-    AppLocalizations aux,
-    AllFormBloc formBloc,
-  ) {
-    return CalcGroupField(
-      //error: _error,
-      initialValue: formBloc.encephalopatyField.value.toString(),
-      reset: reset,
-      previous: previous,
-      padding: EdgeInsets.only(left: 8),
+  _buildBilirrubinRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+    return CalcTextField(
       //formBloc: formBloc,
-      selectFieldBloc: formBloc.encephalopatyField,
-      title: 'encephalopaty',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-
-      itemBuilder: (context, item) => item,
+      textFieldBloc: formBloc.bilirubinField,
+      title: 'bilirubin',
+      uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
     );
   }
 
-  _buildAscitesRow(
-    AppLocalizations aux,
-    AllFormBloc formBloc,
-  ) {
-    return CalcGroupField(
-      initialValue: formBloc.ascitesField.value.toString(),
-      previous: previous,
-      reset: reset,
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.ascitesField,
-      title: 'ascites',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
+  _buildInrRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+    return CalcTextField(
+      //formBloc: formBloc,
+      textFieldBloc: formBloc.inrField,
+      title: 'inr',
+      uds: '',
     );
   }
 
-  _buildVaricesRow(
-    AppLocalizations aux,
-    AllFormBloc formBloc,
-  ) {
-    return CalcGroupField(
-      initialValue: formBloc.varicesField.value.toString(),
-      previous: previous,
-      reset: reset,
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.varicesField,
-      title: 'varices',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
+  _buildCreatinineRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+    return CalcTextField(
+      //formBloc: formBloc,
+      textFieldBloc: formBloc.creatinineField,
+      title: 'creatinine',
+      uds:
+          _internationalUnits ? units.creatinineUds[0] : units.creatinineUds[1],
     );
   }
 
-  _buildEcogRow(
-    AppLocalizations aux,
-    AllFormBloc formBloc,
-  ) {
+  _buildAlbuminRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+    return CalcTextField(
+      //formBloc: formBloc,
+      textFieldBloc: formBloc.albuminField,
+      title: 'albumin',
+      uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
+    );
+  }
+
+  _buildSodiumRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+    return CalcTextField(
+      //formBloc: formBloc,
+      textFieldBloc: formBloc.sodiumField,
+      title: 'sodium',
+      uds: _internationalUnits ? units.sodiumUds[0] : units.sodiumUds[1],
+    );
+  }
+
+  _buildPlateletsRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+    return CalcTextField(
+      //formBloc: formBloc,
+      textFieldBloc: formBloc.plateletsField,
+      title: 'platelets',
+      uds:
+          'x10E3/uL', //_internationalUnits ? units.sodiumUds[0] : units.sodiumUds[1],
+    );
+  }
+
+  _buildAFPRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+    return CalcTextField(
+      textFieldBloc: formBloc.afpField,
+      title: 'afp',
+      uds: 'ug/L',
+    );
+  }
+
+  _buildASTRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+    return CalcTextField(
+      textFieldBloc: formBloc.astField,
+      title: 'ast',
+      uds: 'ug/L',
+    );
+  }
+
+  _buildASTUpperLimitRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+    return CalcTextField(
+      textFieldBloc: formBloc.astUpperLimitField,
+      title: 'ast_upper_limit',
+      uds: 'ug/L',
+    );
+  }
+
+  _buildALPRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+    return CalcTextField(
+      textFieldBloc: formBloc.alpField,
+      title: 'alp',
+      uds: 'ug/L',
+    );
+  }
+
+  _buildALPUpperLimitRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+    return CalcTextField(
+      textFieldBloc: formBloc.alpUpperLimitField,
+      title: 'alp_upper_limit',
+      uds: 'ug/L',
+    );
+  }
+
+  _buildDialysisRow(AppLocalizations aux, CompleteFormBloc formBloc) {
     return CalcGroupField(
-      initialValue: formBloc.ecogField.value.toString(),
-      previous: previous,
       reset: reset,
+      previous: previous,
+      initialValue: formBloc.dialysisField.value.toString(),
       padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.ecogField,
-      title: 'ecog',
+      selectFieldBloc: formBloc.dialysisField,
+      title: 'dialysis',
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
@@ -242,7 +267,7 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
 
   _buildCalcButton(
     AppLocalizations aux,
-    AllFormBloc formBloc,
+      CompleteFormBloc formBloc,
   ) {
     bool isTablet = context.diagonalInches >= 7;
     //var errordentro = prefs.getError();
@@ -276,7 +301,7 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
     );
   }
 
-  _buildBottomSheet(AllFormBloc formBloc) {
+  _buildBottomSheet(CompleteFormBloc formBloc) {
     var aux = AppLocalizations.of(context);
 
     return BottomAppBar(
@@ -360,7 +385,7 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, AllFormBloc formBloc) {
+  Container _buildResetButton(AppLocalizations aux, CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
@@ -381,7 +406,7 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
     );
   }
 
-  _buildRightColumn(AllFormBloc formBloc) {
+  _buildRightColumn(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     List<List<String>> resultList = [
       ['okuda', formBloc.results.toString()],
@@ -395,14 +420,114 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
             //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
             child: CalcResultWidget(resultList),),*/
         RightBottomTitle(
-          title: 'clinical_questions',
+          title: 'laboratory_values',
           padding: EdgeInsets.fromLTRB(10, 0, 15, 50),
         ),
       ],
     );
   }
 
-  void submitDiagnostic(AllFormBloc formBloc) {
+  Container _buildIUnitsRow(CompleteFormBloc formBloc) {
+    AppLocalizations aux = AppLocalizations.of(context);
+    bool isTablet = context.diagonalInches >= 7;
+    return Container(
+        height: 60,
+        padding: EdgeInsets.only(top: 30),
+        child: Row(
+          children: <Widget>[
+            Text(
+              aux.tr("international_units"),
+              style: TextStyle(
+                fontSize: isTablet ? 15 : 12,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            _buildIUnitsSelect(formBloc),
+          ],
+        ));
+  }
+
+  _buildIUnitsSelect(CompleteFormBloc formBloc) {
+    final prefs = new PreferenciasUsuario();
+    var aux = AppLocalizations.of(context);
+
+    List<bool> isSelected = [true, false];
+
+    isSelected[0] = prefs.getInternationalUnits();
+    isSelected[1] = !isSelected[0];
+
+    return ToggleButtons(
+      borderColor: Color.fromARGB(255, 45, 145, 155),
+      fillColor: Theme.of(context).primaryColor,
+      borderWidth: 1.3,
+      selectedBorderColor: Color.fromARGB(255, 45, 145, 155),
+      selectedColor: Colors.white,
+      color: Theme.of(context).primaryColor,
+      borderRadius: BorderRadius.all(Radius.circular(3.0)),
+      children: <Widget>[
+        Container(
+          width: 60,
+          child: Text(
+            aux.tr('on'),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12,
+            ),
+          ),
+        ),
+        Container(
+          width: 60,
+          child: Text(
+            aux.tr('off'),
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12),
+          ),
+        ),
+      ],
+      onPressed: (int index) {
+        setState(() {
+          for (int i = 0; i < isSelected.length; i++) {
+            isSelected[i] = i == index;
+          }
+          isSelected[0]
+              ? formBloc.showIU()
+              : formBloc.showNotIU(); // : formBloc.convertToNoIU();
+
+          prefs.setInternationalUnits(isSelected[0]);
+        });
+      },
+      isSelected: isSelected,
+    );
+  }
+
+  _buildRightBottomTitle() {
+    bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
+    return Expanded(
+      child: Container(
+        //color: Colors.red,
+        alignment: Alignment.bottomRight,
+
+        //margin: EdgeInsets.only(top: 50),
+        padding: EdgeInsets.fromLTRB(10, 0, 60, 50),
+        //alignment: Alignment.bottomRight,
+        child: Text(
+          aux.tr('laboratory_values'),
+          style: TextStyle(
+            fontSize: isTablet ? 28 : 20,
+            color: Theme.of(context)
+                .primaryColor
+                .withAlpha(150), //Color.fromARGB(255, 210, 242, 245),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void submitDiagnostic(CompleteFormBloc formBloc) {
     /*prefs.isMapError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";*/
@@ -463,20 +588,20 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
         });
   }
 
-  void resetValues(AllFormBloc formBloc) {
+  void resetValues(CompleteFormBloc formBloc) {
     reset = true;
     formBloc.reset();
     setState(() {});
   }
 
-  void previousValues(AllFormBloc formBloc) {
+  void previousValues(CompleteFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
     setState(() {});
   }
 
-  _buildNextButton(AppLocalizations aux, AllFormBloc formBloc) {
+  _buildNextButton(AppLocalizations aux, CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
@@ -491,8 +616,8 @@ class AllClinicalFormState extends State<AllClinicalForm> with Observable {
         ),
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
-//          submitDiagnostic(formBloc);
-          Navigator.pushNamed(context, '/AllResultsCalc', arguments: formBloc);
+          //submitDiagnostic(formBloc);
+          Navigator.pushNamed(context, '/AllClinicalCalc', arguments: formBloc);
         },
       ),
     );

@@ -1,4 +1,4 @@
-class AllData {
+class CompleteData {
   //Diagnostic
   String tumourNumber;
   double tumourSize;
@@ -33,7 +33,7 @@ class AllData {
   //Results
   List<String> results;
 
-  AllData(
+  CompleteData(
       {
       //Diagnostic
       this.tumourNumber,

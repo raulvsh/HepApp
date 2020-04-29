@@ -13,13 +13,13 @@ import 'package:hepapp/data/podcasts_page_view.dart';
 import 'package:hepapp/data/resources.dart';
 import 'package:hepapp/data/schemes.dart';
 import 'package:hepapp/data/tocs.dart';
-import 'package:hepapp/forms/all_algorithms/all_clinical_form.dart';
-import 'package:hepapp/forms/all_algorithms/all_diagnostic_form.dart';
-import 'package:hepapp/forms/all_algorithms/all_laboratory_form.dart';
-import 'package:hepapp/forms/all_algorithms/all_results_form.dart';
-import 'package:hepapp/forms/all_algorithms/all_summary_form.dart';
 import 'package:hepapp/forms/child_pugh_score/cps_form.dart';
 import 'package:hepapp/forms/clip/clip_form.dart';
+import 'package:hepapp/forms/complete/clinical_form.dart';
+import 'package:hepapp/forms/complete/diagnostic_form.dart';
+import 'package:hepapp/forms/complete/laboratory_form.dart';
+import 'package:hepapp/forms/complete/results_form.dart';
+import 'package:hepapp/forms/complete/summary_form.dart';
 import 'package:hepapp/forms/meld/meld_form.dart';
 import 'package:hepapp/forms/okuda/okuda_form.dart';
 import 'package:hepapp/pages/CommonPages/CommonPage.dart';
@@ -236,17 +236,17 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => DrawingPageView(initialPage));
 
       case '/AllDiagnosticCalc':
-        return MaterialPageRoute(builder: (_) => AllDiagnosticForm());
+        return MaterialPageRoute(builder: (_) => DiagnosticForm());
       case '/AllLaboratoryCalc':
         var formBloc = settings.arguments;
         return MaterialPageRoute(
-            builder: (_) => AllLaboratoryForm(formBloc: formBloc,));
+            builder: (_) => LaboratoryForm(formBloc: formBloc,));
       case '/AllClinicalCalc':
-        return MaterialPageRoute(builder: (_) => AllClinicalForm());
+        return MaterialPageRoute(builder: (_) => ClinicalForm());
       case '/AllResultsCalc':
-        return MaterialPageRoute(builder: (_) => AllResultsForm());
+        return MaterialPageRoute(builder: (_) => ResultsForm());
       case '/AllSummaryCalc':
-        return MaterialPageRoute(builder: (_) => AllSummaryForm());
+        return MaterialPageRoute(builder: (_) => SummaryForm());
 
       case '/ChildCalc':
         return MaterialPageRoute(builder: (_) => CpsForm());
