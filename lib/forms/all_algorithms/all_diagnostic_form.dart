@@ -33,12 +33,12 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
 
   //bool _internationalUnits = true;
 
-  Map<String, bool> _errorMap;
+  // Map<String, bool> _errorMap;
 
   //StreamSubscription streamSubIUnits;
 
   //StreamSubscription streamSubErrorList;
-  StreamSubscription streamSubErrorMap;
+  //StreamSubscription streamSubErrorMap;
 
   //String errorPrueba = "";
 
@@ -56,7 +56,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
     prefs.setInternationalUnits(true);*/
 
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
+    /*streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
           _errorMap = newVal;
         }));
     prefs.initErrorMap([
@@ -68,7 +68,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
       'metastasis',
       'portal_hypertension',
       'pvt_complete'
-    ]);
+    ]);*/
 
     super.initState();
   }
@@ -270,7 +270,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
     );
   }
 
-  _buildCalcButton(
+  /*_buildCalcButton(
     AppLocalizations aux,
     AllFormBloc formBloc,
   ) {
@@ -304,7 +304,7 @@ class AllDiagnosticFormState extends State<AllDiagnosticForm> with Observable {
         ),
       ),
     );
-  }
+  }*/
 
   _buildBottomSheet(AllFormBloc formBloc) {
     var aux = AppLocalizations.of(context);

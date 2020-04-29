@@ -261,7 +261,6 @@ class CpsFormState extends State<CpsForm> with Observable {
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
         onPressed: () {
-          //print(_errorList);
           calculateCps(formBloc);
         },
         child: Center(
@@ -404,12 +403,10 @@ class CpsFormState extends State<CpsForm> with Observable {
   }
 
   void calculateCps(CpsFormBloc formBloc) {
-    //prefs.isError() ?
     prefs.isMapError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";
 
-    //prefs.isError()
     prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
 
     formBloc.submit();

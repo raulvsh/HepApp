@@ -108,6 +108,7 @@ class AllSummaryFormState extends State<AllSummaryForm> with Observable {
       children: <Widget>[
         Row(
           children: <Widget>[
+
             _buildDiagnosticColumn(),
             _buildLabColumn(),
             _buildClinicalColumn()
@@ -128,6 +129,7 @@ class AllSummaryFormState extends State<AllSummaryForm> with Observable {
 
   Container _buildDiagnosticColumn() {
     Map<String, dynamic> diagnosticMap1 = {
+
       'tumours': '0',
       '#1': '-',
       '#2': '-',

@@ -6,7 +6,6 @@ import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
 import 'package:sized_context/sized_context.dart';
 
 class CalcTextField extends StatefulWidget {
-
   const CalcTextField({
     Key key,
     @required this.textFieldBloc,
@@ -19,7 +18,6 @@ class CalcTextField extends StatefulWidget {
   final title;
   final uds;
   final errorControl;
-
 
   @override
   _CalcTextFieldState createState() => _CalcTextFieldState();
@@ -95,41 +93,11 @@ class _CalcTextFieldState extends State<CalcTextField> {
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
 
-          /*errorText: "hola",
-            errorStyle: TextStyle(
-              backgroundColor: Colors.yellow,
-            ),*/
+
         ),
-        onChanged: (text) {
-          if (widget.title == 'bilirubin') {
-            prefs.getErrorMap().update('bilirubin', (v) => false);
-          } else if (widget.title == 'inr') {
-            prefs.getErrorMap().update('inr', (v) => false);
-          } else if (widget.title == 'albumin') {
-            prefs.getErrorMap().update('albumin', (v) => false);
-          } else if (widget.title == 'creatinine') {
-            prefs.getErrorMap().update('creatinine', (v) => false);
-          } else if (widget.title == 'sodium') {
-            prefs.getErrorMap().update('sodium', (v) => false);
-          } else if (widget.title == 'afp') {
-            prefs.getErrorMap().update('afp', (v) => false);
-          }
-        },
+        onChanged: (text) => _markErrorFalse(),
         errorBuilder: (context, error) {
-          if (widget.title == 'bilirubin') {
-            prefs.getErrorMap().update('bilirubin', (v) => true);
-          } else if (widget.title == 'inr') {
-            prefs.getErrorMap().update('inr', (v) => true);
-          } else if (widget.title == 'albumin') {
-            prefs.getErrorMap().update('albumin', (v) => true);
-          } else if (widget.title == 'sodium') {
-            prefs.getErrorMap().update('sodium', (v) => true);
-          } else if (widget.title == 'creatinine') {
-            prefs.getErrorMap().update('creatinine', (v) => true);
-          } else if (widget.title == 'afp') {
-            prefs.getErrorMap().update('afp', (v) => true);
-          }
-          print(prefs.getErrorMap());
+          _markErrorTrue();
           switch (error) {
             case ValidatorsError.requiredTextFieldBloc:
               return "";
@@ -139,6 +107,56 @@ class _CalcTextFieldState extends State<CalcTextField> {
         },
       ),
     );
+  }
+
+  void _markErrorTrue() {
+    print("error true " + prefs.getErrorMap().toString());
+    prefs.getErrorMap().forEach((key, value) {
+      if (widget.title == key) {
+        prefs.getErrorMap().update(key, (v) => true);
+      }
+      //print("$key + $value");
+    });
+
+    print("map actualizado " + prefs.getErrorMap().toString());
+
+    /* if (widget.title == 'bilirubin') {
+      prefs.getErrorMap().update('bilirubin', (v) => true);
+    } else if (widget.title == 'inr') {
+      prefs.getErrorMap().update('inr', (v) => true);
+    } else if (widget.title == 'albumin') {
+      prefs.getErrorMap().update('albumin', (v) => true);
+    } else if (widget.title == 'sodium') {
+      prefs.getErrorMap().update('sodium', (v) => true);
+    } else if (widget.title == 'creatinine') {
+      prefs.getErrorMap().update('creatinine', (v) => true);
+    } else if (widget.title == 'afp') {
+      prefs.getErrorMap().update('afp', (v) => true);
+    }*/
+  }
+
+  void _markErrorFalse() {
+    print("holi text " + prefs.getErrorMap().toString());
+    prefs.getErrorMap().forEach((key, value) {
+      if (widget.title == key) {
+        prefs.getErrorMap().update(key, (v) => false);
+      }
+      //print("$key + $value");
+    });
+
+    /* if (widget.title == 'bilirubin') {
+      prefs.getErrorMap().update('bilirubin', (v) => false);
+    } else if (widget.title == 'inr') {
+      prefs.getErrorMap().update('inr', (v) => false);
+    } else if (widget.title == 'albumin') {
+      prefs.getErrorMap().update('albumin', (v) => false);
+    } else if (widget.title == 'creatinine') {
+      prefs.getErrorMap().update('creatinine', (v) => false);
+    } else if (widget.title == 'sodium') {
+      prefs.getErrorMap().update('sodium', (v) => false);
+    } else if (widget.title == 'afp') {
+      prefs.getErrorMap().update('afp', (v) => false);
+    }*/
   }
 
   Container _buildInitialText(bool isTablet) {

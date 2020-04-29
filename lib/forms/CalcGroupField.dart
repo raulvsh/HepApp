@@ -19,7 +19,6 @@ class CalcGroupField<Value> extends StatefulWidget {
   final formBloc;
   final errorControl;
 
-
   CalcGroupField({
     Key key,
     @required this.selectFieldBloc,
@@ -77,8 +76,7 @@ class CalcGroupField<Value> extends StatefulWidget {
   final String title;
 
   @override
-  _CalcGroupFieldState<Value> createState() =>
-      _CalcGroupFieldState();
+  _CalcGroupFieldState<Value> createState() => _CalcGroupFieldState();
 }
 
 class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
@@ -224,28 +222,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                       widget.previous = false;
                       //prefs.setError(false);
                       print("selectfield blo " + widget.title);
-                      //TODO metodo aparte, adaptado al Map<String,bool>
-                      if (widget.title == 'encephalopaty') {
-                        prefs
-                            .getErrorMap()
-                            .update('encephalopaty', (v) => false);
-                      } else if (widget.title == 'ascites') {
-                        prefs.getErrorMap().update('ascites', (v) => false);
-                      } else if (widget.title == 'dialysis') {
-                        prefs.getErrorMap().update('dialysis', (v) => false);
-                      } else if (widget.title == 'child_pugh_score') {
-                        prefs.getErrorMap().update(
-                            'child_pugh_score', (v) => false);
-                      } else if (widget.title == 'tumour_number') {
-                        prefs.getErrorMap().update(
-                            'tumour_number', (v) => false);
-                      } else if (widget.title == 'tumour_extent') {
-                        prefs.getErrorMap().update(
-                            'tumour_extent', (v) => false);
-                      } else if (widget.title == 'pvt_complete') {
-                        prefs.getErrorMap().update(
-                            'pvt_complete', (v) => false);
-                      }
+                      _markErrorFalse();
                       _errorFlag = false;
 
                       _initMap(state);
@@ -356,6 +333,30 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
         ),
       ),
     );
+  }
+
+  void _markErrorFalse() {
+    prefs.getErrorMap().forEach((key, value) {
+      if (widget.title == key) {
+        prefs.getErrorMap().update(key, (v) => false);
+      }
+    });
+
+    /*if (widget.title == 'encephalopaty') {
+      prefs.getErrorMap().update('encephalopaty', (v) => false);
+    } else if (widget.title == 'ascites') {
+      prefs.getErrorMap().update('ascites', (v) => false);
+    } else if (widget.title == 'dialysis') {
+      prefs.getErrorMap().update('dialysis', (v) => false);
+    } else if (widget.title == 'child_pugh_score') {
+      prefs.getErrorMap().update('child_pugh_score', (v) => false);
+    } else if (widget.title == 'tumour_number') {
+      prefs.getErrorMap().update('tumour_number', (v) => false);
+    } else if (widget.title == 'tumour_extent') {
+      prefs.getErrorMap().update('tumour_extent', (v) => false);
+    } else if (widget.title == 'pvt_complete') {
+      prefs.getErrorMap().update('pvt_complete', (v) => false);
+    }*/
   }
 
   double _calculateWidth(state) {
