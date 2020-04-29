@@ -149,7 +149,7 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
                 color: Color.fromARGB(255, 45, 145, 155),
               ), //color: Colors.red),
             ),
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 6),
+            contentPadding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
           ),
           onChanged: (text) => _markErrorFalse(),
           errorBuilder: widget.errorControl

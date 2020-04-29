@@ -494,7 +494,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
         ),
       ],
       onPressed: (int index) {
-        setState(() {
+        //setState(() {
           for (int i = 0; i < isSelected.length; i++) {
             isSelected[i] = i == index;
           }
@@ -503,7 +503,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
               : formBloc.showNotIU(); // : formBloc.convertToNoIU();
 
           prefs.setInternationalUnits(isSelected[0]);
-        });
+        // });
       },
       isSelected: isSelected,
     );
@@ -544,7 +544,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     formBloc.submit();
 
     reset = false;
-    setState(() {});
+    //setState(() {});
   }
 
   showErrorDialog() {
@@ -582,7 +582,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
                             //prefs.setError(false);
 
                             Navigator.pop(context);
-                            setState(() {});
+                            // setState(() {});
                             //Navigator.pop(context);
                           }),
                     ),
@@ -597,14 +597,14 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   void resetValues(CompleteFormBloc formBloc) {
     reset = true;
     formBloc.reset();
-    setState(() {});
+    //setState(() {});
   }
 
   void previousValues(CompleteFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
-    setState(() {});
+    // setState(() {});
   }
 
   _buildNextButton(AppLocalizations aux, CompleteFormBloc formBloc) {
