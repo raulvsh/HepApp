@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:sized_context/sized_context.dart';
 
 class CalcMultipleTextField extends StatefulWidget {
@@ -34,7 +34,7 @@ class CalcMultipleTextField extends StatefulWidget {
 }
 
 class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
-  final prefs = PreferenciasUsuario();
+  final prefs = UserSettings();
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 
 class FullCalcSettings extends StatefulWidget {
   @override
@@ -8,7 +8,7 @@ class FullCalcSettings extends StatefulWidget {
 }
 
 class _FullCalcSettingsState extends State<FullCalcSettings> {
-  final prefs = new PreferenciasUsuario();
+  final prefs = new UserSettings();
   List<bool> isSelected = [true, false];
 
   initState() {

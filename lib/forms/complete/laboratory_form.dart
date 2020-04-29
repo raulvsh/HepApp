@@ -9,7 +9,7 @@ import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/calc_multiple_text_field.dart';
 import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:hepapp/widgets/more_information.dart';
@@ -32,7 +32,7 @@ class LaboratoryForm extends StatefulWidget with Observable {
 class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   var reset = false;
   var previous = false;
-  final prefs = PreferenciasUsuario();
+  final prefs = UserSettings();
   final units = Units();
 
   bool _internationalUnits = true;
@@ -457,7 +457,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   }
 
   _buildIUnitsSelect(CompleteFormBloc formBloc) {
-    final prefs = new PreferenciasUsuario();
+    final prefs = new UserSettings();
     var aux = AppLocalizations.of(context);
 
     List<bool> isSelected = [true, false];

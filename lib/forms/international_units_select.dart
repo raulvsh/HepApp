@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:sized_context/sized_context.dart';
 
 class InternationalUnitsSelect extends StatefulWidget {
@@ -16,7 +16,7 @@ class InternationalUnitsSelect extends StatefulWidget {
 }
 
 class _InternationalUnitsSelectState extends State<InternationalUnitsSelect> {
-  final prefs = new PreferenciasUsuario();
+  final prefs = new UserSettings();
 
   List<bool> isSelected = [true, false];
 
@@ -83,15 +83,14 @@ class _InternationalUnitsSelectState extends State<InternationalUnitsSelect> {
   }
 
   void _switchInternationalUnits(int index) {
-    setState(() {
-      for (int i = 0; i < isSelected.length; i++) {
-        isSelected[i] = i == index;
-      }
-      isSelected[0] ? widget.formBloc.showIU() : widget.formBloc.showNotIU();
+    for (int i = 0; i < isSelected.length; i++) {
+      isSelected[i] = i == index;
+    }
+    isSelected[0] ? widget.formBloc.showIU() : widget.formBloc.showNotIU();
 
-      prefs.setInternationalUnits(isSelected[0]);
-      print("unidades internacionales: " +
-          prefs.getInternationalUnits().toString());
-    });
+    prefs.setInternationalUnits(isSelected[0]);
+    print("unidades internacionales: " +
+        prefs.getInternationalUnits().toString());
+//    setState(() {});
   }
 }

@@ -9,7 +9,7 @@ import 'package:hepapp/forms/complete/diagnostic_form.dart';
 import 'package:hepapp/forms/complete/laboratory_form.dart';
 import 'package:hepapp/forms/complete/results_form.dart';
 import 'package:hepapp/forms/complete/summary_form.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:observable/observable.dart';
 
 import 'complete_form_bloc.dart';
@@ -26,7 +26,7 @@ class CompleteForm extends StatefulWidget with Observable {
 class CompleteFormState extends State<CompleteForm> with Observable {
   var reset = false;
   var previous = false;
-  final prefs = PreferenciasUsuario();
+  final prefs = UserSettings();
   final units = Units();
   PageController controller;
 

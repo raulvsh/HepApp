@@ -9,7 +9,7 @@ import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/international_units_select.dart';
 import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:hepapp/widgets/more_information.dart';
@@ -31,7 +31,7 @@ class MeldForm extends StatefulWidget with Observable {
 class MeldFormState extends State<MeldForm> with Observable {
   var reset = false;
   var previous = false;
-  final prefs = PreferenciasUsuario();
+  final prefs = UserSettings();
   final units = Units();
   bool _internationalUnits = true;
 

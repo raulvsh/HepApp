@@ -1,12 +1,10 @@
-import 'dart:async';
-
 import 'package:custom_radio/custom_radio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/src/utils/utils.dart';
 import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:sized_context/sized_context.dart';
 
 /// A material design radio buttons.
@@ -81,10 +79,9 @@ class CalcGroupField<Value> extends StatefulWidget {
 
 class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
   Map<String, bool> isSelected = {};
-  final prefs = PreferenciasUsuario();
+  final prefs = UserSettings();
   bool firstRun = true;
   bool _errorFlag = false;
-  StreamSubscription streamSubError;
 
   @override
   void initState() {
@@ -211,7 +208,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                       widget.reset = false;
                       widget.previous = false;
                       //prefs.setError(false);
-                      print("selectfield blo " + widget.title);
+                      //print("selectfield blo " + widget.title);
                       _markErrorFalse();
                       _errorFlag = false;
 
@@ -223,6 +220,15 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                       widget.selectFieldBloc
                           .updateValue(radioValue); //Actualizo el valor
                       isSelected[radioValue] = true;
+                      if (widget.title == 'tumour_number') {
+                        if (radioValue == '6+') {
+                          prefs.setTumourNumber(6);
+                        } else {
+                          prefs.setTumourNumber(int.parse(radioValue));
+                        }
+
+                        print("numero de tumores ${prefs.getTumourNumber()}");
+                      }
                     });
                   },
                   child: Container(

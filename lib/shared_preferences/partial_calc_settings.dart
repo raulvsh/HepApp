@@ -1,7 +1,7 @@
 /*
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 
 class PartialCalcSettings extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 
 import 'meld_data.dart';
 
@@ -13,7 +13,7 @@ class MeldAlgorithm {
   final units = Units();
 
   Map<String, String> obtenerResultado() {
-    final prefs = PreferenciasUsuario();
+    final prefs = UserSettings();
     final units = Units();
     Map<String, String> results = {
       'meld': '-',

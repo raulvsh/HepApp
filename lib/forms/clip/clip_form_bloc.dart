@@ -1,12 +1,12 @@
 import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 
 import 'clip_algorithm.dart';
 import 'clip_data.dart';
 
 class ClipFormBloc extends FormBloc<String, String> {
-  final prefs = PreferenciasUsuario();
+  final prefs = UserSettings();
   final units = Units();
 
   ///Usadas por mi

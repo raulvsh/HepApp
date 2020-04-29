@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hepapp/routes/RouteGenerator.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 
 import 'lang/app_localizations.dart';
 
@@ -9,7 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //Cargo las preferencias antes de correr la app
-  final prefs = new PreferenciasUsuario();
+  final prefs = new UserSettings();
   await prefs.initPrefs();
   runApp(
     MyApp(),
@@ -17,7 +17,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final prefs = new PreferenciasUsuario();
+  final prefs = new UserSettings();
 
   final _supoortedLocales = [
     Locale('en', 'US'),

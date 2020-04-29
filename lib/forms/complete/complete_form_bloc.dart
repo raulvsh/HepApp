@@ -1,12 +1,12 @@
 import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 
 import 'complete_algorithm.dart';
 import 'complete_data.dart';
 
 class CompleteFormBloc extends FormBloc<String, String> {
-  final prefs = PreferenciasUsuario();
+  final prefs = UserSettings();
   final units = Units();
 
   //Diagnostic

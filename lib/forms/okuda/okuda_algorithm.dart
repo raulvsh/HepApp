@@ -1,5 +1,5 @@
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 
 import 'okuda_data.dart';
 
@@ -11,7 +11,7 @@ class OkudaAlgorithm {
   final units = Units();
 
   String obtenerResultado() {
-    final prefs = PreferenciasUsuario();
+    final prefs = UserSettings();
     final units = Units();
 
     var ptsBilirubin;

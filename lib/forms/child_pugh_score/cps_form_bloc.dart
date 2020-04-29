@@ -4,10 +4,10 @@ import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/child_pugh_score/cps_algorithm.dart';
 import 'package:hepapp/forms/child_pugh_score/cps_data.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 
 class CpsFormBloc extends FormBloc<String, String> {
-  final prefs = PreferenciasUsuario();
+  final prefs = UserSettings();
   final units = Units();
 
   //bool iUnits = true;

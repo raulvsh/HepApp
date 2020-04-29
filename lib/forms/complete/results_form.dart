@@ -9,7 +9,7 @@ import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/calc_result_widget.dart';
 import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:hepapp/widgets/more_information.dart';
@@ -30,7 +30,7 @@ class ResultsForm extends StatefulWidget with Observable {
 class ResultsFormState extends State<ResultsForm> with Observable {
   var reset = false;
   var previous = false;
-  final prefs = PreferenciasUsuario();
+  final prefs = UserSettings();
   final units = Units();
 
   //bool _internationalUnits = true;
@@ -265,6 +265,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       context: context,
       builder: (BuildContext context) {
         return MoreInformation(
+          //TODO cambiar titulo y path
           title: 'okuda',
           path: 'assets/images/calc/M3C14S0d.png',
         );
@@ -484,14 +485,14 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   void resetValues(CompleteFormBloc formBloc) {
     reset = true;
     formBloc.reset();
-    setState(() {});
+    //setState(() {});
   }
 
   void previousValues(CompleteFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
-    setState(() {});
+    //setState(() {});
   }
 
   _buildSummaryButton(AppLocalizations aux, CompleteFormBloc formBloc) {
@@ -502,7 +503,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
       child: FlatButton(
         child: Text(
-          aux.tr('summary'),
+          aux.tr('value_summary'),
           style: TextStyle(
             fontSize: isTablet ? 14 : 12,
           ),

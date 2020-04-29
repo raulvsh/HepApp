@@ -1,12 +1,12 @@
 import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 
 import 'okuda_algorithm.dart';
 import 'okuda_data.dart';
 
 class OkudaFormBloc extends FormBloc<String, String> {
-  final prefs = PreferenciasUsuario();
+  final prefs = UserSettings();
   final units = Units();
 
   ///Usadas por mi

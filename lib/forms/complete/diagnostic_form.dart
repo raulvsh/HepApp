@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/calc_multiple_text_field.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:hepapp/widgets/more_information.dart';
@@ -28,8 +28,30 @@ class DiagnosticForm extends StatefulWidget with Observable {
 class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   var reset = false;
   var previous = false;
-  final prefs = PreferenciasUsuario();
+  final prefs = UserSettings();
   final units = Units();
+
+  int _tumourNumber;
+  StreamSubscription streamTumourNumber;
+
+  @override
+  void initState() {
+    streamTumourNumber = prefs.tumourNumUpdates.listen(
+          (newVal) =>
+          setState(() {
+            _tumourNumber = newVal;
+          }),
+    );
+
+    prefs.setTumourNumber(0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    streamTumourNumber.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,14 +122,24 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   }
 
   _buildTumourSizeRow(AppLocalizations aux, CompleteFormBloc formBloc) {
-    return CalcMultipleTextField(
+    //_tumourNumber = int.parse(formBloc.tumourNumberField.value);
+    print("tumour number ${prefs.getTumourNumber()}");
 
-      numActivos: 4,
+    return CalcMultipleTextField(
+      numActivos: _tumourNumber - 1,
+      //prefs.getTumourNumber(),
       //formBloc.tumourNumberField.value,
       titleList: ['tumour_size'],
       textFieldBlocList: formBloc.tumourSizeField,
-      length: 7,
-      hintList: ['#0', '#1', '#2', '#3', '#4', '#5', '#6',],
+      length: 6,
+      hintList: [
+        '#1',
+        '#2',
+        '#3',
+        '#4',
+        '#5',
+        '#6+',
+      ],
       //udsList: [''],
       showUds: false,
     );
@@ -446,10 +478,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
           //_printFormBloc();
-
           //submitDiagnostic(formBloc);
           // _printFormBloc();
-
           Navigator.pushNamed(context, '/CompletePage', arguments: 1);
         },
       ),

@@ -8,7 +8,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/shared_preferences/preferencias_usuario.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:hepapp/widgets/more_information.dart';
@@ -31,7 +31,7 @@ class CpsForm extends StatefulWidget with Observable {
 class CpsFormState extends State<CpsForm> with Observable {
   var reset = false;
   var previous = false;
-  final prefs = PreferenciasUsuario();
+  final prefs = UserSettings();
   final units = Units();
   bool _internationalUnits = true;
 
@@ -59,14 +59,6 @@ class CpsFormState extends State<CpsForm> with Observable {
 
     prefs.setInternationalUnits(true);
 
-    //_error = false;
-
-    /*streamSubErrorList = prefs.errorListUpdates.listen((newVal) =>
-        setState(() {
-          _errorList = newVal;
-        }));
-    prefs.initErrorList(5);*/
-
     streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
         setState(() {
           _errorMap = newVal;
@@ -87,8 +79,6 @@ class CpsFormState extends State<CpsForm> with Observable {
     ]);
     streamSubIUnits.cancel();
     streamSubErrorMap.cancel();
-
-    //streamSubErrorList.cancel();
 
     super.dispose();
   }
@@ -132,9 +122,6 @@ class CpsFormState extends State<CpsForm> with Observable {
                       _buildRightColumn(formBloc),
                     ],
                   ),
-
-                  //prefs.getError() ? showDialog2() : Container(),
-                  //prefs.getError() ? showErrorDialog() : Container(),
                 ],
               ),
               bottomSheet: _buildBottomSheet(formBloc),
@@ -163,14 +150,11 @@ class CpsFormState extends State<CpsForm> with Observable {
           _buildEncephalopatyRow(aux, formBloc),
           _buildAscitesRow(aux, formBloc),
           _buildCalcButton(aux, formBloc),
-          //Text(_errorMap.toString()),
           Text(prefs.getErrorMap().toString()),
-          //.entries.toList().toString(), style: TextStyle(fontSize: 16, color: Colors.black),),
           Text(prefs
               .getErrorMap()
               .values
               .toString()),
-          //Text(prefs.getErrorMap().values.contains(true).toString()),
           Text(prefs.isMapError().toString()),
           Text(errorPrueba),
         ],
@@ -180,7 +164,8 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   _buildBilirrubinRow(AppLocalizations aux, CpsFormBloc formBloc) {
     return CalcTextField(
-      errorControl: true, textFieldBloc: formBloc.bilirubinField,
+      errorControl: true,
+      textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
       uds: _internationalUnits ? units.bilirubinUds[0] : units.bilirubinUds[1],
     );
@@ -188,15 +173,16 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   _buildInrRow(AppLocalizations aux, CpsFormBloc formBloc) {
     return CalcTextField(
-      errorControl: true, textFieldBloc: formBloc.inrField,
+      errorControl: true,
+      textFieldBloc: formBloc.inrField,
       title: 'inr',
-      //uds: '',
     );
   }
 
   _buildAlbuminRow(AppLocalizations aux, CpsFormBloc formBloc) {
     return CalcTextField(
-      errorControl: true, textFieldBloc: formBloc.albuminField,
+      errorControl: true,
+      textFieldBloc: formBloc.albuminField,
       title: 'albumin',
       uds: _internationalUnits ? units.albuminUds[0] : units.albuminUds[1],
     );
@@ -210,13 +196,11 @@ class CpsFormState extends State<CpsForm> with Observable {
       reset: reset,
       previous: previous,
       padding: EdgeInsets.only(left: 8),
-      //formBloc: formBloc,
       selectFieldBloc: formBloc.encephalopatyField,
       title: 'encephalopaty',
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
-
       itemBuilder: (context, item) => item,
     );
   }
@@ -243,7 +227,6 @@ class CpsFormState extends State<CpsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: 250,
-      //padding: EdgeInsets.all(8.0),
       margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
@@ -375,7 +358,6 @@ class CpsFormState extends State<CpsForm> with Observable {
     };
     return Container(
       width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
-      //color: Colors.blue,
       child: Column(
         children: <Widget>[
           InternationalUnitsSelect(
