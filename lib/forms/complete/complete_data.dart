@@ -1,7 +1,7 @@
 class CompleteData {
   //Diagnostic
   String tumourNumber;
-  double tumourSize;
+  List<double> tumourSize;
   String tumourExtent;
   String pvi;
   String nodes;
@@ -17,10 +17,12 @@ class CompleteData {
   double sodium;
   double platelets;
   double afp;
-  double ast;
-  double astUpperLimit;
-  double alp;
-  double alpUpperLimit;
+  List<double> ast;
+
+  //double astUpperLimit;
+  List<double> alp;
+
+  //double alpUpperLimit;
   String dialysis;
 
   //Clinical
@@ -31,7 +33,7 @@ class CompleteData {
   String ecog;
 
   //Results
-  List<String> results;
+  Map<String, String> results = {};
 
   CompleteData(
       {
@@ -53,9 +55,9 @@ class CompleteData {
       this.platelets,
       this.afp,
       this.ast,
-      this.astUpperLimit,
+        //this.astUpperLimit,
       this.alp,
-      this.alpUpperLimit,
+        //this.alpUpperLimit,
       this.dialysis,
       //Clinical
       this.cirrhosis,

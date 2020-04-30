@@ -2,9 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
@@ -21,7 +18,9 @@ import 'complete_form_bloc.dart';
 class ClinicalForm extends StatefulWidget with Observable {
   final formBloc;
 
-  ClinicalForm({Key key, this.formBloc}) : super(key: key);
+  final PageController controller;
+
+  ClinicalForm({Key key, this.formBloc, this.controller}) : super(key: key);
 
   @override
   ClinicalFormState createState() => ClinicalFormState();
@@ -33,90 +32,29 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   final prefs = UserSettings();
   final units = Units();
 
-  //bool _internationalUnits = true;
-
-  //Map<String, bool> _errorMap;
-
-  //StreamSubscription streamSubIUnits;
-
-  //StreamSubscription streamSubErrorList;
-  //StreamSubscription streamSubErrorMap;
-
-  //String errorPrueba = "";
-
-  @override
-  void initState() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
-    /*streamSubIUnits = prefs.iUnitsUpdates.listen(
-          (newVal) =>
-          setState(() {
-            _internationalUnits = newVal;
-          }),
-    );
-    prefs.setInternationalUnits(true);
-
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
-        setState(() {
-          _errorMap = newVal;
-        }));
-    prefs.initErrorMap(
-        ['bilirubin', 'albumin', 'ascites', 'tumour_extent']);*/
-
-    super.initState();
-  }
-
-  @override
-  dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    //streamSubIUnits.cancel();
-    //streamSubErrorMap.cancel();
-
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CompleteFormBloc>(
-      builder: (context) => CompleteFormBloc(),
-      child: Builder(
-        builder: (context) {
-          //final formBloc = widget.formBloc;//BlocProvider.of<AllFormBloc>(context);
-          final formBloc = BlocProvider.of<CompleteFormBloc>(context);
-
-          return FormBlocListener<CompleteFormBloc, String, String>(
-            child: Scaffold(
-              appBar: CustomAppBar(
-                context,
-                'calculators_all_algorithms_clinical',
-                selScreenshot: true,
-                //selPartialSettings: true,
-              ),
-              drawer: MenuWidget(),
-              body: Stack(
-                children: <Widget>[
-                  Stack(
-                    //mainAxisAlignment: MainAxisAlignment.start,
-                    //crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      _buildLeftColumn(formBloc),
-                      _buildRightColumn(formBloc),
-                    ],
-                  ),
-                ],
-              ),
-              bottomSheet: _buildBottomSheet(formBloc),
-            ),
-          );
-        },
+    return Scaffold(
+      appBar: CustomAppBar(
+        context,
+        'calculators_all_algorithms_clinical',
+        selScreenshot: true,
+        selFullSettings: true,
+        controller: widget.controller,
+        calcBack: true,
       ),
+      drawer: MenuWidget(),
+      body: Stack(
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              _buildLeftColumn(widget.formBloc),
+              _buildRightBottomTitle(widget.formBloc),
+            ],
+          ),
+        ],
+      ),
+      bottomSheet: _buildBottomSheet(widget.formBloc),
     );
   }
 
@@ -125,7 +63,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: context.widthPx,
-      //isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
       height: context.heightPx,
       //color: Colors.red,
       padding: EdgeInsets.only(left: 20, top: 20),
@@ -138,8 +75,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
           _buildAscitesRow(aux, formBloc),
           _buildVaricesRow(aux, formBloc),
           _buildEcogRow(aux, formBloc),
-
-          //_buildCalcButton(aux, formBloc),
         ],
       ),
     );
@@ -159,7 +94,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
-
       itemBuilder: (context, item) => item,
     );
   }
@@ -178,7 +112,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
-
       itemBuilder: (context, item) => item,
     );
   }
@@ -237,42 +170,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  _buildCalcButton(
-    AppLocalizations aux,
-      CompleteFormBloc formBloc,
-  ) {
-    bool isTablet = context.diagonalInches >= 7;
-    //var errordentro = prefs.getError();
-    return Container(
-      //width: 250,
-      //padding: EdgeInsets.all(8.0),
-      //margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
-            side: BorderSide(
-              color: Color.fromARGB(255, 45, 145, 155),
-              width: 1.5,
-            )),
-        color: Theme.of(context).primaryColor,
-        splashColor: Color.fromARGB(255, 56, 183, 198),
-        elevation: 3,
-        onPressed: () {
-          submitDiagnostic(formBloc);
-        },
-        child: Center(
-          child: Text(
-            aux.tr('calculate_okuda'),
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: isTablet ? 15 : 12,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   _buildBottomSheet(CompleteFormBloc formBloc) {
     var aux = AppLocalizations.of(context);
 
@@ -300,6 +197,48 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Container _buildResetButton(AppLocalizations aux, CompleteFormBloc formBloc) {
+    bool isTablet = context.diagonalInches >= 7;
+
+    return Container(
+      height: 40,
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: FlatButton(
+        child: Text(
+          aux.tr('reset'),
+          style: TextStyle(
+            fontSize: isTablet ? 14 : 12,
+          ),
+        ),
+        color: Color.fromARGB(255, 210, 242, 245),
+        onPressed: () {
+          resetValues(formBloc);
+        },
+      ),
+    );
+  }
+
+  Container _buildPreviousButton(AppLocalizations aux, formBloc) {
+    bool isTablet = context.diagonalInches >= 7;
+
+    return Container(
+      height: 40,
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: FlatButton(
+        child: Text(
+          aux.tr('previous_values'),
+          style: TextStyle(
+            fontSize: isTablet ? 14 : 12,
+          ),
+        ),
+        color: Color.fromARGB(255, 210, 242, 245),
+        onPressed: () {
+          previousValues(formBloc);
+        },
       ),
     );
   }
@@ -336,128 +275,15 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  Container _buildPreviousButton(AppLocalizations aux, formBloc) {
-    bool isTablet = context.diagonalInches >= 7;
-
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('previous_values'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          previousValues(formBloc);
-        },
-      ),
-    );
-  }
-
-  Container _buildResetButton(AppLocalizations aux, CompleteFormBloc formBloc) {
-    bool isTablet = context.diagonalInches >= 7;
-
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('reset'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          resetValues(formBloc);
-        },
-      ),
-    );
-  }
-
-  _buildRightColumn(CompleteFormBloc formBloc) {
-    bool isTablet = context.diagonalInches >= 7;
-    List<List<String>> resultList = [
-      ['okuda', formBloc.results.toString()],
-    ];
-
+  _buildRightBottomTitle(CompleteFormBloc formBloc) {
     return Column(
       children: <Widget>[
-        // _buildIUnitsRow(formBloc),
-        /*Container(
-            alignment: Alignment.topRight,
-            //padding: EdgeInsets.fromLTRB(0, 30, 40, 0),
-            child: CalcResultWidget(resultList),),*/
         RightBottomTitle(
           title: 'clinical_questions',
           padding: EdgeInsets.fromLTRB(10, 0, 15, 50),
         ),
       ],
     );
-  }
-
-  void submitDiagnostic(CompleteFormBloc formBloc) {
-    /*prefs.isMapError()
-        ? errorPrueba = "hay al menos un error"
-        : errorPrueba = "no hay errores";*/
-
-    //prefs.isError()
-    // prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
-
-    formBloc.submit();
-
-    reset = false;
-    setState(() {});
-  }
-
-  showErrorDialog() {
-    AppLocalizations aux = AppLocalizations.of(context);
-
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              aux.tr('error'),
-              style: TextStyle(color: Colors.black),
-            ),
-            content: Container(
-              height: context.heightPct(0.20),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                      padding: EdgeInsets.only(right: 20),
-                      child: Text(
-                        aux.tr('fill_empty_fields'),
-                        style: TextStyle(color: Colors.black),
-                      )),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.bottomRight,
-                      child: FlatButton(
-                          padding: EdgeInsets.all(0),
-                          child: Text(
-                            aux.tr('accept'),
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor),
-                          ),
-                          onPressed: () {
-                            //prefs.setError(false);
-
-                            Navigator.pop(context);
-                            setState(() {});
-                            //Navigator.pop(context);
-                          }),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        });
   }
 
   void resetValues(CompleteFormBloc formBloc) {
@@ -488,11 +314,21 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
         ),
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
-          //Aqui hay que hacer el submit de todos los anteriores
-//          submitDiagnostic(formBloc);
-          Navigator.pushNamed(context, '/CompletePage', arguments: 3);
+          formBloc.submit();
+          //printClinical(formBloc);
+          widget.controller.nextPage(
+              duration: Duration(seconds: 1), curve: Curves.easeInOut);
         },
       ),
     );
+  }
+
+  void printClinical(CompleteFormBloc formBloc) {
+    print("\n***CLINICAL***");
+    print("Campo cirrosis: " + formBloc.cirrhosisField.value);
+    print("Campo encefalopatia: " + formBloc.encephalopatyField.value);
+    print("Campo ascites: " + formBloc.ascitesField.value);
+    print("Campo varices: " + formBloc.varicesField.value);
+    print("Campo ecog: " + formBloc.ecogField.value);
   }
 }

@@ -48,7 +48,10 @@ class ComboButton extends StatelessWidget {
             maxLines: 2,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.black, //Color.fromARGB(255, 93, 188, 210),
+              color: Theme
+                  .of(context)
+                  .primaryColor,
+              //Colors.black, //Color.fromARGB(255, 93, 188, 210),
               fontSize: isTablet ? 18 : 16,
             ),
           ),
@@ -81,12 +84,15 @@ class ComboButton extends StatelessWidget {
     });
     if (assetPDFPath != null) {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => PdfDetailPage(
-                    path: assetPDFPath,
-                    title: type[0],
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              PdfDetailPage(
+                path: assetPDFPath,
+                title: type[0],
+              ),
+        ),
+      );
     }
   }
 }

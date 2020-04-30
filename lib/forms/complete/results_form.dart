@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/calc_result_widget.dart';
 import 'package:hepapp/forms/right_bottom_title.dart';
@@ -21,7 +19,9 @@ import 'complete_form_bloc.dart';
 class ResultsForm extends StatefulWidget with Observable {
   final formBloc;
 
-  ResultsForm({Key key, this.formBloc}) : super(key: key);
+  final PageController controller;
+
+  ResultsForm({Key key, this.formBloc, this.controller}) : super(key: key);
 
   @override
   ResultsFormState createState() => ResultsFormState();
@@ -33,87 +33,54 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   final prefs = UserSettings();
   final units = Units();
 
-  //bool _internationalUnits = true;
-
-  //Map<String, bool> _errorMap;
-
-  //StreamSubscription streamSubIUnits;
-
-  //StreamSubscription streamSubErrorList;
-  //StreamSubscription streamSubErrorMap;
-
-  //String errorPrueba = "";
-
   @override
   void initState() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-    /*streamSubIUnits = prefs.iUnitsUpdates.listen(
-          (newVal) =>
-          setState(() {
-            _internationalUnits = newVal;
-          }),
-    );
-    prefs.setInternationalUnits(true);
-
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
-        setState(() {
-          _errorMap = newVal;
-        }));
-    prefs.initErrorMap(
-        ['bilirubin', 'albumin', 'ascites', 'tumour_extent']);*/
 
     super.initState();
   }
 
   @override
-  dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    //streamSubIUnits.cancel();
-    //streamSubErrorMap.cancel();
+  Widget build(BuildContext context) {
+    //printFormBloc(widget.formBloc);
+    return Scaffold(
+      appBar: CustomAppBar(
+        context,
+        'calculators_all_algorithms_results',
+        selScreenshot: true,
+        controller: widget.controller,
+        calcBack: true,
 
-    super.dispose();
+      ),
+      drawer: MenuWidget(),
+      body: Stack(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              _buildResultsRow(widget.formBloc),
+              _buildTreatmentsRow(context)
+            ],
+          ),
+        ],
+      ),
+      bottomSheet: _buildBottomSheet(widget.formBloc),
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider<CompleteFormBloc>(
-      builder: (context) => CompleteFormBloc(),
-      child: Builder(
-        builder: (context) {
-          //final formBloc = widget.formBloc;//BlocProvider.of<AllFormBloc>(context);
-          final formBloc = BlocProvider.of<CompleteFormBloc>(context);
-
-          return FormBlocListener<CompleteFormBloc, String, String>(
-            child: Scaffold(
-              appBar: CustomAppBar(
-                context,
-                'calculators_all_algorithms_results',
-                selScreenshot: true,
-                //selPartialSettings: true,
-              ),
-              drawer: MenuWidget(),
-              body: Stack(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      _buildResultsRow(context, formBloc),
-                      _buildTreatmentsRow(context)
-                    ],
-                  ),
-                ],
-              ),
-              bottomSheet: _buildBottomSheet(formBloc),
-            ),
-          );
-        },
+  Container _buildResultsRow(CompleteFormBloc formBloc) {
+    return Container(
+      height: context.heightPct(0.55),
+      //color: Colors.green,
+      child: Row(
+        //mainAxisAlignment: MainAxisAlignment.start,
+        //crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _buildLeftColumn(formBloc),
+          _buildRightColumn(formBloc),
+        ],
       ),
     );
   }
@@ -144,26 +111,12 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     );
   }
 
-  Container _buildResultsRow(BuildContext context, CompleteFormBloc formBloc) {
-    return Container(
-      height: context.heightPct(0.55),
-      //color: Colors.green,
-      child: Row(
-        //mainAxisAlignment: MainAxisAlignment.start,
-        //crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _buildLeftColumn(formBloc),
-          _buildRightColumn(formBloc),
-        ],
-      ),
-    );
-  }
-
   _buildLeftColumn(CompleteFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     Map<String, String> resultMap = {
-      'cirrhosis': '-',
+      'cirrhosis': formBloc.cirrhosisField.value != null ? aux.tr(
+          formBloc.cirrhosisField.value) : '-',
       'apri': '-',
       'child_pugh_score_oneline': '-',
       'meld': '-',
@@ -178,6 +131,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       child: Column(
         children: <Widget>[
           Container(
+
               width: isTablet ? 400 : 200,
               height: isTablet ? 30 : 20,
               color: Color.fromARGB(255, 210, 242, 245),
@@ -510,8 +464,11 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         ),
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
-          //submitDiagnostic(formBloc);
-          Navigator.pushNamed(context, '/CompletePage', arguments: 4);
+          submitDiagnostic(formBloc);
+          widget.controller.nextPage(
+              duration: Duration(seconds: 1), curve: Curves.easeInOut);
+
+          // Navigator.pushNamed(context, '/CompletePage', arguments: 4);
         },
       ),
     );
@@ -550,3 +507,5 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     );
   }
 }
+
+

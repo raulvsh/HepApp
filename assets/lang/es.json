@@ -226,7 +226,7 @@
   "6+": "6+",
   "calculators_all_algorithms_diagnostic": "Calculadoras - Todos los algoritmos - Diagnóstico",
   "calculators_all_algorithms_laboratory": "Calculadoras - Todos los algoritmos - Laboratorio",
-  "calculators_all_algorithms_clinical": "Calculadoras - Todos los algoritmos - Clínica",
+  "calculators_all_algorithms_clinical": "Calculadoras - Todos los algoritmos - Clínico",
   "calculators_all_algorithms_results": "Calculadoras - Todos los algoritmos - Resultados",
   "calculators_all_algorithms_summary": "Calculadoras - Todos los algoritmos - Resumen",
   "calculators_all_algorithms_alberta": "Calculadoras - Todos los algoritmos - Alverta",
@@ -268,8 +268,6 @@
   "age": "Edad",
   "inr_summary": "INR",
   "value_summary": "Resumen de valores",
-
-
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
   "AFP": "AFP",
   "ageCutoff": "Límite de edad",

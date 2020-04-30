@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/calc_multiple_text_field.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
@@ -19,7 +18,9 @@ import 'complete_form_bloc.dart';
 class DiagnosticForm extends StatefulWidget with Observable {
   final CompleteFormBloc formBloc;
 
-  DiagnosticForm({Key key, this.formBloc}) : super(key: key);
+  final PageController controller;
+
+  DiagnosticForm({Key key, this.formBloc, this.controller}) : super(key: key);
 
   @override
   DiagnosticFormState createState() => DiagnosticFormState();
@@ -29,7 +30,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   var reset = false;
   var previous = false;
   final prefs = UserSettings();
-  final units = Units();
 
   int _tumourNumber;
   StreamSubscription streamTumourNumber;
@@ -66,8 +66,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
       body: Stack(
         children: <Widget>[
           Stack(
-            //mainAxisAlignment: MainAxisAlignment.start,
-            //crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildLeftColumn(widget.formBloc),
               _buildRightBottomTitle(),
@@ -84,9 +82,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: context.widthPx,
-      //isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
       height: context.heightPx,
-      //color: Colors.red,
       padding: EdgeInsets.only(left: 20, top: 20),
       child: ListView(
         shrinkWrap: true,
@@ -95,7 +91,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
           _buildTumourNumberRow(aux, formBloc),
           _buildTumourSizeRow(aux, formBloc),
           _buildTumourExtentRow(aux, formBloc),
-          //_buildCalcButton(aux, formBloc),
           _buildPviRow(aux, formBloc),
           _buildNodesRow(aux, formBloc),
           _buildMetastasisRow(aux, formBloc),
@@ -122,24 +117,12 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   }
 
   _buildTumourSizeRow(AppLocalizations aux, CompleteFormBloc formBloc) {
-    //_tumourNumber = int.parse(formBloc.tumourNumberField.value);
-    print("tumour number ${prefs.getTumourNumber()}");
-
     return CalcMultipleTextField(
-      numActivos: _tumourNumber - 1,
-      //prefs.getTumourNumber(),
-      //formBloc.tumourNumberField.value,
+      numActivos: _tumourNumber != null ? _tumourNumber - 1 : 0,
       titleList: ['tumour_size'],
       textFieldBlocList: formBloc.tumourSizeField,
       length: 6,
-      hintList: [
-        '#1',
-        '#2',
-        '#3',
-        '#4',
-        '#5',
-        '#6+',
-      ],
+      hintList: ['#1', '#2', '#3', '#4', '#5', '#6+'],
       //udsList: [''],
       showUds: false,
     );
@@ -234,42 +217,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
       itemBuilder: (context, item) => item,
     );
   }
-
-  /*_buildCalcButton(
-    AppLocalizations aux,
-    AllFormBloc formBloc,
-  ) {
-    bool isTablet = context.diagonalInches >= 7;
-    //var errordentro = prefs.getError();
-    return Container(
-      //width: 250,
-      //padding: EdgeInsets.all(8.0),
-      //margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
-            side: BorderSide(
-              color: Color.fromARGB(255, 45, 145, 155),
-              width: 1.5,
-            )),
-        color: Theme.of(context).primaryColor,
-        splashColor: Color.fromARGB(255, 56, 183, 198),
-        elevation: 3,
-        onPressed: () {
-          submitDiagnostic(formBloc);
-        },
-        child: Center(
-          child: Text(
-            aux.tr('calculate_okuda'),
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: isTablet ? 15 : 12,
-            ),
-          ),
-        ),
-      ),
-    );
-  }*/
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
     var aux = AppLocalizations.of(context);
@@ -377,8 +324,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   }
 
   _buildRightBottomTitle() {
-    bool isTablet = context.diagonalInches >= 7;
-
     return Column(
       children: <Widget>[
         RightBottomTitle(
@@ -387,67 +332,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         ),
       ],
     );
-  }
-
-  void submitDiagnostic(CompleteFormBloc formBloc) {
-    /*prefs.isMapError()
-        ? errorPrueba = "hay al menos un error"
-        : errorPrueba = "no hay errores";*/
-
-    //prefs.isError()
-    // prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
-
-    formBloc.submit();
-
-    reset = false;
-    setState(() {});
-  }
-
-  showErrorDialog() {
-    AppLocalizations aux = AppLocalizations.of(context);
-
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              aux.tr('error'),
-              style: TextStyle(color: Colors.black),
-            ),
-            content: Container(
-              height: context.heightPct(0.20),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                      padding: EdgeInsets.only(right: 20),
-                      child: Text(
-                        aux.tr('fill_empty_fields'),
-                        style: TextStyle(color: Colors.black),
-                      )),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.bottomRight,
-                      child: FlatButton(
-                          padding: EdgeInsets.all(0),
-                          child: Text(
-                            aux.tr('accept'),
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor),
-                          ),
-                          onPressed: () {
-                            //prefs.setError(false);
-
-                            Navigator.pop(context);
-                            setState(() {});
-                            //Navigator.pop(context);
-                          }),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        });
   }
 
   void resetValues(CompleteFormBloc formBloc) {
@@ -477,12 +361,35 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         ),
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
-          //_printFormBloc();
-          //submitDiagnostic(formBloc);
-          // _printFormBloc();
-          Navigator.pushNamed(context, '/CompletePage', arguments: 1);
+          //printdiagnostic(formBloc);
+          widget.controller.nextPage(
+              duration: Duration(seconds: 1), curve: Curves.easeInOut);
         },
       ),
     );
+  }
+
+  void printdiagnostic(CompleteFormBloc formBloc) {
+    print("\n***DIAGNOSTIC***");
+    print("Campo numero: " + formBloc.tumourNumberField.value);
+    print("Campo tamaño: " +
+        formBloc.tumourSizeField[0].value +
+        " " +
+        formBloc.tumourSizeField[1].value +
+        " " +
+        formBloc.tumourSizeField[2].value +
+        " " +
+        formBloc.tumourSizeField[3].value +
+        " " +
+        formBloc.tumourSizeField[4].value +
+        " " +
+        formBloc.tumourSizeField[5].value);
+    print("Campo extension: " + formBloc.tumourExtentField.value);
+    print("Campo pvi: " + formBloc.pviField.value);
+    print("Campo nodos: " + formBloc.nodesField.value);
+    print("Campo metastasis: " + formBloc.metastasisField.value);
+    print(
+        "Campo portal hipertension: " + formBloc.portalHypertensionField.value);
+    print("Campo pvt: " + formBloc.pvtField.value);
   }
 }

@@ -65,11 +65,11 @@ class CompleteFormState extends State<CompleteForm> with Observable {
             child: PageView(
               controller: controller,
               children: <Widget>[
-                DiagnosticForm(formBloc: formBloc,),
-                LaboratoryForm(formBloc: formBloc,),
-                ClinicalForm(formBloc: formBloc,),
-                ResultsForm(formBloc: formBloc,),
-                SummaryForm(formBloc: formBloc,),
+                DiagnosticForm(formBloc: formBloc, controller: controller),
+                LaboratoryForm(formBloc: formBloc, controller: controller),
+                ClinicalForm(formBloc: formBloc, controller: controller),
+                ResultsForm(formBloc: formBloc, controller: controller),
+                SummaryForm(formBloc: formBloc, controller: controller),
               ],
             ),
           );

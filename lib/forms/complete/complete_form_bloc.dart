@@ -11,18 +11,9 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   //Diagnostic
   var tumourNumberField = SelectFieldBloc(
-    items: [
-      '0',
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6+',
-    ],
+    items: ['0', '1', '2', '3', '4', '5', '6+'],
   );
   var tumourSizeField = [
-    TextFieldBloc(),
     TextFieldBloc(),
     TextFieldBloc(),
     TextFieldBloc(),
@@ -94,39 +85,121 @@ class CompleteFormBloc extends FormBloc<String, String> {
     items: ['0', '1', '2', '3', '4'],
   );
 
-  List<String> results = ['-'];
+  Map<String, String> results = initResultMap();
 
   var data = CompleteData(
-    bilirubin: 0,
-    albumin: 0,
-    ascites: 'none_fem',
+    tumourNumber: '0',
+    tumourSize: [0, 0, 0, 0, 0, 0],
     tumourExtent: '<=50%',
-    results: ['-'],
+    pvi: 'no',
+    nodes: 'no',
+    metastasis: 'no',
+    portalHypertension: 'no',
+    pvt: 'no',
+    bilirubin: 0,
+    inr: 0,
+    creatinine: 0,
+    albumin: 0,
+    sodium: 0,
+    platelets: 0,
+    afp: 0,
+    ast: [0, 0],
+    alp: [0, 0],
+    dialysis: 'no',
+    cirrhosis: 'no',
+    encephalopaty: 'none_fem',
+    ascites: 'none_fem',
+    varices: 'no',
+    ecog: '0',
+    results: initResultMap(),
   );
 
   @override
   List<FieldBloc> get fieldBlocs => [
+    tumourNumberField,
+    tumourSizeField[0],
+    tumourSizeField[1],
+    tumourSizeField[2],
+    tumourSizeField[3],
+    tumourSizeField[4],
+    tumourSizeField[5],
+    tumourExtentField,
+    pviField,
+    nodesField,
+    metastasisField,
+    portalHypertensionField,
+    pvtField,
         bilirubinField,
+    inrField,
+    creatinineField,
         albuminField,
-        //ascitesField,
-        tumourExtentField,
+    sodiumField,
+    plateletsField,
+    afpField,
+    astField[0],
+    astField[1],
+    alpField[0],
+    alpField[1],
+    dialysisField,
+    cirrhosisField,
+    encephalopatyField,
+    ascitesField,
+    varicesField,
+    ecogField,
       ];
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    _printFormBloc();
-    //showFields();
+    showFields();
 
     data = CompleteData(
-      bilirubin: bilirubinField.valueToDouble,
-      albumin: albuminField.valueToDouble,
-      //ascites: ascitesField.value,
+      tumourNumber: tumourNumberField.value,
+      tumourSize: [
+        tumourSizeField[0].valueToDouble,
+        tumourSizeField[1].valueToDouble,
+        tumourSizeField[2].valueToDouble,
+        tumourSizeField[3].valueToDouble,
+        tumourSizeField[4].valueToDouble,
+        tumourSizeField[5].valueToDouble,
+      ],
       tumourExtent: tumourExtentField.value,
+      pvi: pviField.value,
+      nodes: nodesField.value,
+      metastasis: metastasisField.value,
+      portalHypertension: portalHypertensionField.value,
+      pvt: pvtField.value,
+      bilirubin: bilirubinField.valueToDouble,
+      inr: inrField.valueToDouble,
+      creatinine: creatinineField.valueToDouble,
+      albumin: albuminField.valueToDouble,
+      sodium: sodiumField.valueToDouble,
+      platelets: 0,
+      afp: afpField.valueToDouble,
+      ast: [
+        astField[0].valueToDouble,
+        astField[1].valueToDouble,
+      ],
+      alp: [
+        alpField[0].valueToDouble,
+        alpField[1].valueToDouble,
+      ],
+      dialysis: dialysisField.value,
+      cirrhosis: cirrhosisField.value,
+      encephalopaty: encephalopatyField.value,
+      ascites: ascitesField.value,
+      varices: varicesField.value,
+      ecog: ecogField.value,
     );
 
-    CompleteAlgorithm okudaAlgorithm = CompleteAlgorithm(data);
+    CompleteAlgorithm completeAlgorithm = CompleteAlgorithm(data);
 
     try {
+      /*Comprobacion
+      * Si todos los campos de okuda están
+      * crear objeto data okuda
+      * this.results['okuda']=obtenerResultado(dataOkuda)
+      * así con todos
+       */
       //this.result = okudaAlgorithm.obtenerResultado();
       //data.result = this.result;
 
@@ -147,7 +220,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
     yield currentState.toLoaded();
   }
 
-  void showObjectMeldData() {
+  void showObjectCompleteData() {
     print("\n\n*****************OBJETO OkudaDATA: "
             "\nbili: ${data.bilirubin}" +
         "\nalbu: ${data.albumin}" +
@@ -158,78 +231,37 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   void showFields() {
-    print("\n\n *********FIELD VALUES");
-    print("Campo bili: " + bilirubinField.value);
-    print("Campo albu: " + albuminField.value);
-    // print("Campo ascites: " + ascitesField.value);
-
+    print("\n\n *********FIELD VALUES COMPLETE");
+    print("Campo numero: " + tumourNumberField.value);
+    print("Campo tamaño: " + tumourSizeField.toString());
     print("Campo extension: " + tumourExtentField.value);
+    print("Campo pvi: " + pviField.value);
+    print("Campo nodos: " + nodesField.value);
+    print("Campo metastasis: " + metastasisField.value);
+    print("Campo portal hipertension: " + portalHypertensionField.value);
+    print("Campo pvt: " + pvtField.value);
 
-    print("Campo resultado antes : " + results.toString());
-  }
+    print("Campo bilirrubina: " + bilirubinField.value);
+    print("Campo inr: " + inrField.value);
+    print("Campo creatinina: " + creatinineField.value);
+    print("Campo albumina: " + albuminField.value);
+    print("Campo sodio: " + sodiumField.value);
+    print("Campo plaquetas: " + plateletsField.value);
+    print("Campo afp: " + afpField.value);
+    print("Campo ast: " + astField.toString());
+    print("Campo alp: " + alpField.toString());
+    print("Campo dialisis: " + dialysisField.value);
 
-  void _printFormBloc() {
-    print("/*************************FORMBLOC\n"
-        //diagnostic
-        +
-        "\nnumero: " +
-        tumourNumberField.toString() +
-        "\ntamaño: " +
-        tumourSizeField.toString() +
-        "\nextension: " +
-        tumourExtentField.toString() +
-        "\npvi: " +
-        pviField.toString() +
-        "\nnodes: " +
-        nodesField.toString() +
-        "\nmetastasis: " +
-        metastasisField.toString() +
-        "\nportal hipertension: " +
-        portalHypertensionField.toString() +
-        "\npvt: " +
-        pvtField.toString()
-        //laboratory
-        +
-        "\nbilirrubina: " +
-        bilirubinField.toString() +
-        "\ninr: " +
-        inrField.toString() +
-        "\ncreatinina: " +
-        creatinineField.toString() +
-        "\nalbumina: " +
-        albuminField.toString() +
-        "\nsodio: " +
-        sodiumField.toString() +
-        "\nplaquetas: " +
-        plateletsField.toString() +
-        "\nafp: " +
-        afpField.toString() +
-        "\nast: " +
-        astField[0].toString() +
-        "\nast upper limit: " +
-        astField[1].toString() +
-        "\nalp: " +
-        alpField[0].toString() +
-        "\nalp upper limit: " +
-        alpField[1].toString() +
-        "\ndialisis: " +
-        dialysisField.toString()
-        //clinical
-        +
-        "\ncirrosis: " +
-        cirrhosisField.toString() +
-        "\nencefalopatía: " +
-        encephalopatyField.toString() +
-        "\nascitis: " +
-        ascitesField.toString() +
-        "\nvarices: " +
-        varicesField.toString() +
-        "\necog: " +
-        ecogField.toString());
+    print("Campo cirrosis: " + cirrhosisField.value);
+    print("Campo encefalopatia: " + encephalopatyField.value);
+    print("Campo ascites: " + ascitesField.value);
+    print("Campo varices: " + varicesField.value);
+    print("Campo ecog: " + ecogField.value);
+
+    print("Campo resultado antes de operar: " + results.toString());
   }
 
   showNotIU() {
-    //TODO mirar las unidades del afp, unico que cambia
     /*this.bilirubinField = TextFieldBloc(
       initialValue: units.getNotIUBilirrubin(data.bilirubin)
           .toStringAsPrecision(2),
@@ -276,7 +308,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
       items: ['<=50%', '>50%'],
     );
 
-    this.results = ["-"];
+    this.results = initResultMap();
   }
 
   void previous() {
@@ -296,10 +328,26 @@ class CompleteFormBloc extends FormBloc<String, String> {
       initialValue: data.tumourExtent.toString(),
     );
 
-    this.results = data.results;
+    //this.results = data.results;
 
     print("\n*****AFTER PREVIOUS");
-    _printFormBloc();
+    showFields();
     //showFields();
+  }
+
+  static initResultMap() {
+    return {
+      'apri': '-',
+      'child_pugh_score_oneline': '-',
+      'meld': '-',
+      'meld_na': '-',
+      '5v_meld': '-',
+      'okuda': '-',
+      'clip': '-',
+      'getch': '-',
+      'tnm': '-',
+      'cupi': '-',
+      'bclc': '-',
+    };
   }
 }

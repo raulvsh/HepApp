@@ -62,9 +62,7 @@ class _CalcTextFieldState extends State<CalcTextField> {
             .primaryColor,
         keyboardType: TextInputType.numberWithOptions(),
         isEnabled: true,
-        //Controlo si está activo o no, útil para cuando elijo número de tumores
         textFieldBloc: widget.textFieldBloc,
-        //formBloc.bilirubinField, anterior, borrar
 
         expands: false,
 
@@ -117,7 +115,6 @@ class _CalcTextFieldState extends State<CalcTextField> {
   }
 
   void _markErrorFalse() {
-    print("holi text " + prefs.getErrorMap().toString());
     prefs.getErrorMap().forEach((key, value) {
       if (widget.title == key) {
         prefs.getErrorMap().update(key, (v) => false);

@@ -374,11 +374,8 @@ class MeldFormState extends State<MeldForm> with Observable {
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";
 
-    //prefs.isError()
     prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
-
     formBloc.submit();
-
     reset = false;
     // setState(() {});
   }

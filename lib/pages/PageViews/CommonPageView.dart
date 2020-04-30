@@ -43,53 +43,10 @@ class _CommonPageViewState extends State<CommonPageView> {
     }
 
     return Scaffold(
-        body: PageView(
-      controller: controller,
-
-      children: widgets,
-
-      //<Widget>[
-
-      /*CommonPageWithBottomNav(
-              title: widget.data[0][0],//'module_1',
-              data: widget.data[0][1],//module1Chapters,
-              route: widget.data[0][2],//'/ModulePV',
-              initialPage: widget.data[0][3],
-              numPages: numPages,//0,
-            ),
-            CommonPageWithBottomNav(
-              title: modulesPageView[1][0],//'module_1',
-              data: modulesPageView[1][1],//module1Chapters,
-              route: modulesPageView[1][2],//'/ModulePV',
-              initialPage: modulesPageView[1][3],
-              numPages: numPages,//0,
-            ),
-            CommonPageWithBottomNav(
-              title: modulesPageView[2][0],//'module_1',
-              data: modulesPageView[2][1],//module1Chapters,
-              route: modulesPageView[2][2],//'/ModulePV',
-              initialPage: modulesPageView[2][3],
-              numPages: numPages,//0,
-            ),*/
-      /*CommonPageWithBottomNav(
-              title: 'module_2',
-              data: module2Chapters,
-              route: '/ModulePV',
-              initialPage: 1,
-
-            ),
-            CommonPageWithBottomNav(
-              title: 'module_3',
-              data: module3Chapters,
-              route: '/ModulePV',
-              initialPage: 2,
-
-            ),*/
-
-      //Module1Page(),
-      //Module2Page(),
-      //Module3Page(),
-      //],
-    ));
+      body: PageView(
+        controller: controller,
+        children: widgets,
+      ),
+    );
   }
 }

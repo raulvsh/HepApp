@@ -55,7 +55,8 @@ class MyApp extends StatelessWidget {
 
       title: title,
       theme: ThemeData(
-          primaryColor: Color.fromARGB(255, 93, 188, 210),
+          primaryColor: Color.fromARGB(255, 73, 195, 207),
+          //93, 188, 210),
           primaryTextTheme: TextTheme(
             title: TextStyle(color: Colors.white),
           ),

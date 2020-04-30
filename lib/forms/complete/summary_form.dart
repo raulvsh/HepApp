@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
@@ -15,9 +14,11 @@ import 'package:sized_context/sized_context.dart';
 import 'complete_form_bloc.dart';
 
 class SummaryForm extends StatefulWidget with Observable {
-  final formBloc;
+  final CompleteFormBloc formBloc;
 
-  SummaryForm({Key key, this.formBloc}) : super(key: key);
+  final PageController controller;
+
+  SummaryForm({Key key, this.formBloc, this.controller}) : super(key: key);
 
   @override
   SummaryFormState createState() => SummaryFormState();
@@ -28,55 +29,6 @@ class SummaryFormState extends State<SummaryForm> with Observable {
   var previous = false;
   final prefs = UserSettings();
   final units = Units();
-
-  //bool _internationalUnits = true;
-
-  //Map<String, bool> _errorMap;
-
-  //StreamSubscription streamSubIUnits;
-
-  //StreamSubscription streamSubErrorList;
-  //StreamSubscription streamSubErrorMap;
-
-  //String errorPrueba = "";
-
-  @override
-  void initState() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
-    /*streamSubIUnits = prefs.iUnitsUpdates.listen(
-          (newVal) =>
-          setState(() {
-            _internationalUnits = newVal;
-          }),
-    );
-    prefs.setInternationalUnits(true);
-
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
-        setState(() {
-          _errorMap = newVal;
-        }));
-    prefs.initErrorMap(
-        ['bilirubin', 'albumin', 'ascites', 'tumour_extent']);*/
-
-    super.initState();
-  }
-
-  @override
-  dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    //streamSubIUnits.cancel();
-    //streamSubErrorMap.cancel();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +44,8 @@ class SummaryFormState extends State<SummaryForm> with Observable {
                 context,
                 'calculators_all_algorithms_summary',
                 selScreenshot: true,
-                //selPartialSettings: true,
+                controller: widget.controller,
+                calcBack: true,
               ),
               drawer: MenuWidget(),
               body: _buildBody(),
@@ -126,56 +79,49 @@ class SummaryFormState extends State<SummaryForm> with Observable {
   }
 
   Container _buildDiagnosticColumn() {
+    AppLocalizations aux = AppLocalizations.of(context);
+    var tumourSize = widget.formBloc.tumourSizeField;
+    print("build diagnostic ${tumourSize.length}");
+    for (int i = 0; i < tumourSize.length; i++)
+      print(tumourSize[i].value);
     Map<String, dynamic> diagnosticMap1 = {
-      'tumours': '0',
-      '#1': '-',
-      '#2': '-',
-      '#3': '-',
-      '#4': '-',
-      '#5': '-',
-      '#6': '-',
-      'tumour_extent': '<=50%',
+      'tumours': widget.formBloc.tumourNumberField.value,
+      '#1': tumourSize[0].value != '' ? tumourSize[0].value : '-',
+      '#2': tumourSize[1].value != '' ? tumourSize[1].value : '-',
+      '#3': tumourSize[2].value != '' ? tumourSize[2].value : '-',
+      '#4': tumourSize[3].value != '' ? tumourSize[3].value : '-',
+      '#5': tumourSize[4].value != '' ? tumourSize[4].value : '-',
+      '#6': tumourSize[5].value != '' ? tumourSize[5].value : '-',
+      'tumour_extent': widget.formBloc.tumourExtentField.value,
     };
     Map<String, dynamic> diagnosticMap2 = {
-      'pvi': '0',
-      'nodes': '-',
-      'metastasis': '-',
-      'portal_hypertension': '-',
-      'pvt': '-',
+      'pvi': aux.tr(widget.formBloc.pviField.value),
+      'nodes': aux.tr(widget.formBloc.nodesField.value),
+      'metastasis': aux.tr(widget.formBloc.metastasisField.value),
+      'portal_hypertension':
+      aux.tr(widget.formBloc.portalHypertensionField.value),
+      'pvt': aux.tr(widget.formBloc.pvtField.value),
     };
 
     return Container(
       width: context.widthPct(0.42),
-      //color: Colors.grey,
       padding: EdgeInsets.only(left: 20, top: 10, bottom: 5),
-      //horizontal: 5, vertical: 10),
       child: Column(
-        //mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildSummaryTitle('diagnostic_imaging'),
           _buildSeparator(0.38),
           Row(
-            //mainAxisSize: MainAxisSize.min,
-            //mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
                 width: context.widthPct(0.20),
-
                 padding: EdgeInsets.only(top: 5),
-                //color: Colors.orange,
                 child: _buildSummaryColumn(diagnosticMap1),
-                //Column(
-                //mainAxisSize: MainAxisSize.min,
-                //children:
-                //),
               ),
               Container(
                 width: context.widthPct(0.18),
                 padding: EdgeInsets.only(top: 5),
-
-                //color: Colors.yellow,
                 child: _buildSummaryColumn(diagnosticMap2),
               ),
             ],
@@ -186,16 +132,20 @@ class SummaryFormState extends State<SummaryForm> with Observable {
   }
 
   Container _buildLabColumn() {
+    AppLocalizations aux = AppLocalizations.of(context);
     Map<String, dynamic> diagnosticMap3 = {
-      'international_units': 'yes',
-      'bilirubin': '-',
-      'inr_summary': '-',
-      'creatinine': '-',
-      'dialysis': '-',
-      'albumin': '-',
-      'sodium': '-',
-      'platelets': '-',
-      'afp': '-',
+      'international_units':
+      prefs.getInternationalUnits() ? aux.tr('yes') : aux.tr('no'),
+      'bilirubin': widget.formBloc.bilirubinField.value,
+      'inr_summary': widget.formBloc.inrField.value,
+      'creatinine': widget.formBloc.creatinineField.value,
+      'dialysis': widget.formBloc.dialysisField.value == 'yes'
+          ? aux.tr('yes')
+          : aux.tr('no'),
+      'albumin': widget.formBloc.albuminField.value,
+      'sodium': widget.formBloc.sodiumField.value,
+      'platelets': widget.formBloc.plateletsField.value,
+      'afp': widget.formBloc.afpField.value,
     };
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
@@ -214,14 +164,15 @@ class SummaryFormState extends State<SummaryForm> with Observable {
   }
 
   Container _buildClinicalColumn() {
+    AppLocalizations aux = AppLocalizations.of(context);
     Map<String, dynamic> diagnosticMap4 = {
-      'cirrhosis': 'yes',
-      'encephalopaty': '-',
-      'ascites': '-',
-      'varices': '-',
-      'ecog': '-',
-      'preclude_major_surgery': '-',
-      'age': '-',
+      'cirrhosis': aux.tr(widget.formBloc.cirrhosisField.value),
+      'encephalopaty': aux.tr(widget.formBloc.encephalopatyField.value),
+      'ascites': aux.tr(widget.formBloc.ascitesField.value),
+      'varices': aux.tr(widget.formBloc.varicesField.value),
+      'ecog': widget.formBloc.ecogField.value,
+      //'preclude_major_surgery': prefs.getPrecludeSurgery() ? aux.tr('yes') : aux.tr('no'),
+      //'age': widget.formBloc.
     };
     var anchura = 0.27;
 

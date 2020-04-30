@@ -38,15 +38,11 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
 
   @override
   Widget build(BuildContext context) {
-    bool isTablet = context.diagonalInches >= 7;
-
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         SizedBox(width: 8),
         _buildInitialBlueRectangle(),
-        //_buildInitialText(isTablet),
-
         Row(
           children: _buildTextFields(context),
         ),
@@ -55,9 +51,7 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
   }
 
   _buildTextFields(BuildContext context) {
-    AppLocalizations aux = AppLocalizations.of(context);
     List<Widget> list = [];
-    print("num activos " + widget.numActivos.toString());
     for (int i = 0; i < widget.length; i++) {
       if (widget.multiTitle || i == 0) {
         _addTitle(list, i);
@@ -177,29 +171,12 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
   }
 
   void _markErrorFalse() {
-    print("holi text " + prefs.getErrorMap().toString());
     prefs.getErrorMap().forEach((key, value) {
       if (widget.titleList == key) {
         prefs.getErrorMap().update(key, (v) => false);
       }
     });
   }
-
-  /*Container _buildInitialText(bool isTablet) {
-
-    AppLocalizations aux = AppLocalizations.of(context);
-    return Container(
-        //color: Colors.red,
-        //width: 90,
-        padding: EdgeInsets.symmetric(horizontal: 5),
-        child: Text(
-          aux.tr(widget.titleList),
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: isTablet ? 15 : 12,
-          ),
-        ));
-  }*/
 
   Container _buildInitialBlueRectangle() {
     return Container(

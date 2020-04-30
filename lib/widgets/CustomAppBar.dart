@@ -3,18 +3,19 @@ import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/full_calc_settings.dart';
 import 'package:sized_context/sized_context.dart';
 
-
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final BuildContext context;
   final String title;
-
   final bool selScreenshot;
   final bool selFullSettings;
-
-  final bool selPartialSettings;
+  final bool calcBack;
+  final PageController controller;
 
   CustomAppBar(this.context, this.title,
-      {this.selScreenshot, this.selFullSettings, this.selPartialSettings});
+      {this.selScreenshot,
+        this.selFullSettings,
+        this.calcBack = false,
+        this.controller});
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -100,7 +101,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
     bool isTablet = context.diagonalInches >= 7;
 
     return GestureDetector(
-      onTap: () => Navigator.pop(context),
+      onTap: () =>
+      widget.calcBack
+          ? widget.controller.previousPage(
+          duration: Duration(seconds: 1), curve: Curves.easeInOut)
+          : Navigator.pop(context),
       child: Container(
         color: Theme
             .of(context)
@@ -122,35 +127,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
     );
   }
 
-  /*IconButton _partialSettingsIcon(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.settings),
-      onPressed: () {
-        //TODO Añadir función captura de pantalla _screenCapture()
-
-        */ /* Navigator.pushNamed(
-            context,
-            '/partial',
-              );*/ /*
-
-
-
-
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return PartialCalcSettings();
-          },
-        );
-      },
-    );
-  }*/
 
   IconButton _fullSettingsIcon(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.settings),
       onPressed: () {
-        //Añadir función fullSettings()
         showDialog(
           context: context,
           builder: (BuildContext context) {

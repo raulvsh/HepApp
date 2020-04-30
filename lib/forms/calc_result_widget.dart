@@ -60,13 +60,16 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
             mainAxisAlignment: alignment, //MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(
-                aux.tr(key) + ": ",
-                //'${aux.tr(widget.resultList[i][0])}: ',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+              Container(
+                padding: EdgeInsets.only(right: 8),
+                child: Text(
+                  aux.tr(key) + ": ",
+                  //'${aux.tr(widget.resultList[i][0])}: ',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Text(

@@ -20,14 +20,11 @@ class MeldFormBloc extends FormBloc<String, String> {
     items: ['yes', 'no'],
   );
 
-  Map<String, String> results = {
-    'meld': '-',
-    'meld_na': '-',
-    '5v_meld': '-',
-  };
-  String meldResult = '-';
-  String meldNaResult = '-';
-  String meld5vResult = '-';
+  Map<String, String> results = initResultMap();
+
+  //String meldResult = '-';
+  //String meldNaResult = '-';
+  //String meld5vResult = '-';
 
   var data = MeldData(
     bilirubin: 0,
@@ -36,14 +33,7 @@ class MeldFormBloc extends FormBloc<String, String> {
     albumin: 0,
     sodium: 0,
     dialysis: 'no',
-    results: {
-      'meld': '-',
-      'meld_na': '-',
-      '5v_meld': '-',
-    },
-    /*meldResult: '-',
-    meldNaResult: '-',
-    meld5vResult: '-',*/
+    results: initResultMap(),
   );
 
   @override
@@ -91,17 +81,6 @@ class MeldFormBloc extends FormBloc<String, String> {
     yield currentState.toLoaded();
   }
 
-  void showObjectMeldData() {
-    print("\n\n*****************OBJETO MELDDATA: "
-        "\nbilirrubina : ${data.bilirubin}" +
-        "\ninr : ${data.inr}" +
-        "\ncreatinina : ${data.creatinine}" +
-        "\nalbumina : ${data.albumin}" +
-        "\nsodio : ${data.sodium}" +
-        "\ndialisis : ${data.dialysis}" +
-        "\nresultados: ${data.results.toString()}" +
-        "\n**************");
-  }
 
   void showFields() {
     print("\n\n *********FIELD VALUES");
@@ -156,11 +135,7 @@ class MeldFormBloc extends FormBloc<String, String> {
     this.dialysisField = SelectFieldBloc(
       items: ['yes', 'no'],
     );
-    this.results = {
-      'meld': '-',
-      'meld_na': '-',
-      '5v_meld': '-',
-    };
+    this.results = initResultMap();
   }
 
   void previous() {
@@ -190,5 +165,13 @@ class MeldFormBloc extends FormBloc<String, String> {
 
     print("\n*****AFTER PREVIOUS");
     showFields();
+  }
+
+  static initResultMap() {
+    return {
+      'meld': '-',
+      'meld_na': '-',
+      '5v_meld': '-',
+    };
   }
 }
