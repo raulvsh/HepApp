@@ -28,12 +28,13 @@ class _CommonGridPageState extends State<CommonGridPage> {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(builder: (context, orientation) {
+    return _buildLayout(/*orientation*/);
+    /*return OrientationBuilder(builder: (context, orientation) {
       return _buildLayout(orientation);
-    });
+    });*/
   }
 
-  _buildLayout(orientation) {
+  _buildLayout(/*orientation*/) {
     //final width = MediaQuery.of(context).size.width;
     var padding = context.widthPct(0.01);
     bool isTablet = context.diagonalInches >= 7;
@@ -48,12 +49,14 @@ class _CommonGridPageState extends State<CommonGridPage> {
         isLandscape ? (isTablet ? 0.7 : 0.7) : (isTablet ? 0.6 : 0.7),
         alignment: Alignment.center,
         child: GridView.count(
-          padding: orientation == Orientation.portrait
-              ? EdgeInsets.symmetric(vertical: 6 * padding)
-              : EdgeInsets.symmetric(
-              vertical: isTablet ? 5 * padding : 2 * padding),
+          padding: isLandscape //orientation == Orientation.portrait
+              ? EdgeInsets.symmetric(
+              vertical: isTablet ? 5 * padding : 2 * padding) : EdgeInsets
+              .symmetric(vertical: 6 * padding),
+          //:
           primary: false,
-          crossAxisCount: orientation == Orientation.portrait ? 2 : 4,
+          crossAxisCount: isLandscape ? 4 : 2,
+          //orientation == Orientation.portrait ? 2 : 4,
           children: _buildGridView(),
         ),
       ),
