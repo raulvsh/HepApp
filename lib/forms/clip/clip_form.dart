@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/forms/international_units_select.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
@@ -377,13 +376,6 @@ class ClipFormState extends State<ClipForm> with Observable {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-              padding: isLandscape ? EdgeInsets.only(right: 30) : EdgeInsets
-                  .only(left: 80),
-              child: FittedBox(
-                  child: InternationalUnitsSelect(
-                    formBloc: formBloc,
-                  ))),
           Container(
             padding: isLandscape
                 ? EdgeInsets.fromLTRB(0, 30, 30, 0)

@@ -151,8 +151,9 @@ class CpsFormBloc extends FormBloc<String, String> {
   void showObjectCPSData() {
     print("\n\n*****************OBJETO CPSDATA: "
         "\nbilirrubina : ${data.bilirubin}" +
-        "\nalbumina : ${data.albumin}" +
         "\ninr : ${data.inr}" +
+        "\nalbumina : ${data.albumin}" +
+
         "\nencefalopatia : ${data.encephalopaty}" +
         "\nascitis : ${data.ascites}" +
         "\nresultado: ${data.result}" +

@@ -261,7 +261,8 @@ class SummaryFormState extends State<SummaryForm> with Observable {
         children: <Widget>[
           _buildInitialBlueRectangle(),
           _buildSummaryText(key),
-          _buildSummaryContent(value.toString()),
+
+          _buildSummaryContent(value != null ? value.toString() : '-'),
         ],
       ));
     });

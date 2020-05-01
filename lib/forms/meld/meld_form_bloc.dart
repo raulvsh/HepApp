@@ -97,6 +97,9 @@ class MeldFormBloc extends FormBloc<String, String> {
     this.bilirubinField = TextFieldBloc(
       initialValue: data.bilirubin.toStringAsPrecision(4),
     );
+    this.inrField = TextFieldBloc(
+      initialValue: data.inr.toStringAsPrecision(4),
+    );
     this.creatinineField = TextFieldBloc(
       initialValue: data.creatinine.toStringAsPrecision(4),
     );
@@ -112,6 +115,9 @@ class MeldFormBloc extends FormBloc<String, String> {
     this.bilirubinField = TextFieldBloc(
       initialValue:
       units.getIUBilirrubin(data.bilirubin).toStringAsPrecision(4),
+    );
+    this.inrField = TextFieldBloc(
+      initialValue: data.inr.toStringAsPrecision(4),
     );
     this.creatinineField = TextFieldBloc(
       initialValue:
