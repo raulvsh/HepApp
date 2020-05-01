@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/calc_result_widget.dart';
 import 'package:hepapp/forms/right_bottom_title.dart';
@@ -35,11 +34,11 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations([
+    /*SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
     ]);
-
+*/
     super.initState();
   }
 
@@ -53,7 +52,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         selScreenshot: true,
         controller: widget.controller,
         calcBack: true,
-
       ),
       drawer: MenuWidget(),
       body: Stack(
@@ -64,6 +62,14 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               _buildTreatmentsRow(context)
             ],
           ),
+          Column(
+            children: <Widget>[
+              RightBottomTitle(
+                title: 'result',
+                padding: EdgeInsets.fromLTRB(10, 0, 15, 55),
+              )
+            ],
+          )
         ],
       ),
       bottomSheet: _buildBottomSheet(widget.formBloc),
@@ -71,8 +77,9 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   }
 
   Container _buildResultsRow(CompleteFormBloc formBloc) {
+    bool isLandscape = context.isLandscape;
     return Container(
-      height: context.heightPct(0.55),
+      height: isLandscape ? context.heightPct(0.52) : context.heightPct(0.3),
       //color: Colors.green,
       child: Row(
         //mainAxisAlignment: MainAxisAlignment.start,
@@ -86,26 +93,36 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   }
 
   Container _buildTreatmentsRow(BuildContext context) {
+    bool isLandscape = context.isLandscape;
     return Container(
       //color: Colors.red,
-      height: context.heightPct(0.20),
+      height: isLandscape ? context.heightPct(0.22) : context.heightPct(0.50),
 
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+      child: Column(
         children: <Widget>[
-          _buildRecommendedTreatments(),
-          SizedBox(
-            width: 70,
+          Row(
+            children: <Widget>[
+              _buildRecommendedTreatments(),
+              SizedBox(
+                width: 70,
+              ),
+              isLandscape ? _buildMoreInfoButton() : Container(
+                height: 0, width: 0,),
+              SizedBox(
+                width: 55,
+              ),
+              isLandscape ? _buildAlbertaButton() : Container(
+                height: 0, width: 0,),
+            ],
           ),
-          _buildMoreInfoButton(),
-          SizedBox(
-            width: 55,
-          ),
-          _buildAlbertaButton(),
-          RightBottomTitle(
-            title: 'result',
-            padding: EdgeInsets.fromLTRB(10, 0, 15, 0),
-          ),
+          !isLandscape ? Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _buildMoreInfoButton(),
+              SizedBox(width: 40),
+              _buildAlbertaButton(),
+            ],
+          ) : Container(height: 0, width: 0,),
         ],
       ),
     );
@@ -114,9 +131,11 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   _buildLeftColumn(CompleteFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
     Map<String, String> resultMap = {
-      'cirrhosis': formBloc.cirrhosisField.value != null ? aux.tr(
-          formBloc.cirrhosisField.value) : '-',
+      'cirrhosis': formBloc.cirrhosisField.value != null
+          ? aux.tr(formBloc.cirrhosisField.value)
+          : '-',
       'apri': '-',
       'child_pugh_score_oneline': '-',
       'meld': '-',
@@ -131,7 +150,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       child: Column(
         children: <Widget>[
           Container(
-
+              margin: isLandscape ? null : EdgeInsets.only(right: 10),
               width: isTablet ? 400 : 200,
               height: isTablet ? 30 : 20,
               color: Color.fromARGB(255, 210, 242, 245),
@@ -141,9 +160,12 @@ class ResultsFormState extends State<ResultsForm> with Observable {
                 style: TextStyle(
                     color: Colors.black, fontSize: isTablet ? 16 : 14),
               ))),
-          CalcResultWidget(
-            resultMap: resultMap,
-            alignment: MainAxisAlignment.start,
+          Container(
+            margin: isLandscape ? null : EdgeInsets.only(right: 10),
+            child: CalcResultWidget(
+              resultMap: resultMap,
+              alignment: MainAxisAlignment.start,
+            ),
           ),
         ],
       ),
@@ -151,19 +173,17 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   }
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
-    var aux = AppLocalizations.of(context);
-
     return BottomAppBar(
       child: Stack(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _buildResetButton(aux, formBloc),
+              _buildResetButton(formBloc),
               SizedBox(
                 width: 15,
               ),
-              _buildPreviousButton(aux, formBloc),
+              _buildPreviousButton(formBloc),
               SizedBox(
                 width: 15,
               ),
@@ -173,7 +193,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              _buildSummaryButton(aux, formBloc),
+              _buildSummaryButton(formBloc),
             ],
           ),
         ],
@@ -227,8 +247,9 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     );
   }
 
-  Container _buildPreviousButton(AppLocalizations aux, formBloc) {
+  Container _buildPreviousButton(formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,
@@ -248,8 +269,9 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, CompleteFormBloc formBloc) {
+  Container _buildResetButton(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,
@@ -272,6 +294,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   _buildRightColumn(CompleteFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
     Map<String, String> resultMap = {
       'okuda': '-',
       'clip': '-',
@@ -284,22 +307,30 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     return Container(
       width: context.widthPct(0.5),
       // color: Colors.blue,
-      padding: EdgeInsets.only(left: 20, top: 20),
+      padding: EdgeInsets.only(left: 10, top: 20),
       child: Column(
         children: <Widget>[
           Container(
+              margin: isLandscape ? null : EdgeInsets.only(right: 20),
               width: isTablet ? 400 : 200,
               height: isTablet ? 30 : 20,
               color: Color.fromARGB(255, 210, 242, 245),
-              child: Center(
-                  child: Text(
-                aux.tr('staging_algorithms').toUpperCase(),
-                style: TextStyle(
-                    color: Colors.black, fontSize: isTablet ? 16 : 14),
-              ))),
-          CalcResultWidget(
-            resultMap: resultMap,
-            alignment: MainAxisAlignment.start,
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Center(
+                    child: Text(
+                      aux.tr('staging_algorithms').toUpperCase(),
+                      style: TextStyle(
+                          color: Colors.black, fontSize: isTablet ? 16 : 14),
+                    )),
+              )),
+          Container(
+            margin: isLandscape ? null : EdgeInsets.only(right: 20),
+            child: CalcResultWidget(
+              resultMap: resultMap,
+              alignment: MainAxisAlignment.start,
+            ),
           ),
         ],
       ),
@@ -449,8 +480,9 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     //setState(() {});
   }
 
-  _buildSummaryButton(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildSummaryButton(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,
@@ -507,5 +539,3 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     );
   }
 }
-
-

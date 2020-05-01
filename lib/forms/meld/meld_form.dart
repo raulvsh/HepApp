@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
@@ -47,10 +46,10 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations([
+    /*SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
-    ]);
+    ]);*/
     streamSubIUnits = prefs.iUnitsUpdates.listen(
       (newVal) => setState(() {
         _internationalUnits = newVal;
@@ -69,12 +68,12 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   @override
   dispose() {
-    SystemChrome.setPreferredOrientations([
+    /* SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
-    ]);
+    ]);*/
     streamSubIUnits.cancel();
     //streamSubErrorList.cancel();
     streamSubErrorMap.cancel();
@@ -84,11 +83,17 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
+    var isLandscape = context.isLandscape;
+
     return BlocProvider<MeldFormBloc>(
       builder: (context) => MeldFormBloc(),
       child: Builder(
         builder: (context) {
           final formBloc = BlocProvider.of<MeldFormBloc>(context);
+          var elements = <Widget>[
+            _buildLeftColumn(formBloc),
+            _buildRightColumn(formBloc),
+          ];
           return FormBlocListener<MeldFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
@@ -99,12 +104,19 @@ class MeldFormState extends State<MeldForm> with Observable {
               drawer: MenuWidget(),
               body: Stack(
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  isLandscape
+                      ? Row(
+                    children: elements,
+                  )
+                      : ListView(
+                    children: elements,
+                  ),
+                  Column(
                     children: <Widget>[
-                      _buildLeftColumn(formBloc),
-                      _buildRightColumn(formBloc),
+                      RightBottomTitle(
+                        title: 'meld',
+                        padding: EdgeInsets.fromLTRB(10, 0, 45, 50),
+                      ),
                     ],
                   ),
                 ],
@@ -118,24 +130,20 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   _buildLeftColumn(MeldFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
-      height: context.heightPx,
-      //color: Colors.red,
       padding: EdgeInsets.only(left: 20, top: 20),
-      child: ListView(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildBilirrubinRow(aux, formBloc),
-          _buildInrRow(aux, formBloc),
-          _buildCreatinineRow(aux, formBloc),
-          _buildAlbuminRow(aux, formBloc),
-          _buildSodiumRow(aux, formBloc),
-          _buildDialysisRow(aux, formBloc),
-          _buildCalcButton(aux, formBloc),
+          _buildBilirrubinRow(formBloc),
+          _buildInrRow(formBloc),
+          _buildCreatinineRow(formBloc),
+          _buildAlbuminRow(formBloc),
+          _buildSodiumRow(formBloc),
+          _buildDialysisRow(formBloc),
+          _buildCalcButton(formBloc),
           Text(prefs.getErrorMap().toString()),
           Text(prefs.getErrorMap().values.toString()),
           Text(prefs.isMapError().toString()),
@@ -145,7 +153,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildBilirrubinRow(AppLocalizations aux, MeldFormBloc formBloc) {
+  _buildBilirrubinRow(MeldFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.bilirubinField,
@@ -154,7 +162,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildInrRow(AppLocalizations aux, MeldFormBloc formBloc) {
+  _buildInrRow(MeldFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.inrField,
@@ -163,7 +171,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildCreatinineRow(AppLocalizations aux, MeldFormBloc formBloc) {
+  _buildCreatinineRow(MeldFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.creatinineField,
@@ -173,7 +181,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildAlbuminRow(AppLocalizations aux, MeldFormBloc formBloc) {
+  _buildAlbuminRow(MeldFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.albuminField,
@@ -182,7 +190,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildSodiumRow(AppLocalizations aux, MeldFormBloc formBloc) {
+  _buildSodiumRow(MeldFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.sodiumField,
@@ -191,7 +199,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildDialysisRow(AppLocalizations aux, MeldFormBloc formBloc) {
+  _buildDialysisRow(MeldFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
       reset: reset,
@@ -207,10 +215,9 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildCalcButton(
-    AppLocalizations aux,
-    MeldFormBloc formBloc,
-  ) {
+  _buildCalcButton(MeldFormBloc formBloc) {
+    AppLocalizations aux = AppLocalizations.of(context);
+
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: 250,
@@ -243,27 +250,26 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   _buildBottomSheet(MeldFormBloc formBloc) {
-    var aux = AppLocalizations.of(context);
-
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _buildResetButton(aux, formBloc),
+          _buildResetButton(formBloc),
           SizedBox(
             width: 15,
           ),
-          _buildPreviousButton(aux, formBloc),
+          _buildPreviousButton(formBloc),
           SizedBox(
             width: 15,
           ),
-          _buildMoreInfoButton(aux),
+          _buildMoreInfoButton(),
         ],
       ),
     );
   }
 
-  Container _buildMoreInfoButton(AppLocalizations aux) {
+  Container _buildMoreInfoButton() {
+    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       height: 40,
@@ -295,8 +301,9 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  Container _buildPreviousButton(AppLocalizations aux, formBloc) {
+  Container _buildPreviousButton(formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    var aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,
@@ -316,8 +323,9 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, MeldFormBloc formBloc) {
+  Container _buildResetButton(MeldFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    var aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,
@@ -339,6 +347,7 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildRightColumn(MeldFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
     Map<String, String> resultList = {
       'meld': formBloc.results['meld'],
       'meld_na': formBloc.results['meld_na'],
@@ -350,8 +359,11 @@ class MeldFormState extends State<MeldForm> with Observable {
       //color: Colors.blue,
       child: Column(
         children: <Widget>[
-          InternationalUnitsSelect(
-            formBloc: formBloc,
+          Container(
+            padding: isLandscape ? null : EdgeInsets.only(left: 80),
+            child: InternationalUnitsSelect(
+              formBloc: formBloc,
+            ),
           ),
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 45, 0),
@@ -359,10 +371,6 @@ class MeldFormState extends State<MeldForm> with Observable {
               resultMap: resultList,
               alignment: MainAxisAlignment.center,
             ),
-          ),
-          RightBottomTitle(
-            title: 'meld',
-            padding: EdgeInsets.fromLTRB(10, 0, 45, 50),
           ),
         ],
       ),

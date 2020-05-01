@@ -43,16 +43,19 @@ class ComboButton extends StatelessWidget {
         Container(
           alignment: Alignment(0, 0.65),
           padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Text(
-            aux.tr(type[0]),
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Theme
-                  .of(context)
-                  .primaryColor,
-              //Colors.black, //Color.fromARGB(255, 93, 188, 210),
-              fontSize: isTablet ? 18 : 16,
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: Text(
+              aux.tr(type[0]),
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Theme
+                    .of(context)
+                    .primaryColor,
+                //Colors.black, //Color.fromARGB(255, 93, 188, 210),
+                fontSize: isTablet ? 18 : 16,
+              ),
             ),
           ),
         ),

@@ -65,7 +65,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
         selFullSettings: true,
         controller: widget.controller,
         calcBack: true,
-
       ),
       drawer: MenuWidget(),
       body: Stack(
@@ -83,7 +82,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   }
 
   _buildLeftColumn(CompleteFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
     return Container(
       width: context.widthPx,
       height: context.heightPx,
@@ -92,16 +90,16 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         children: <Widget>[
-          _buildBilirrubinRow(aux, formBloc),
-          _buildInrRow(aux, formBloc),
-          _buildCreatinineRow(aux, formBloc),
-          _buildAlbuminRow(aux, formBloc),
-          _buildSodiumRow(aux, formBloc),
-          _buildPlateletsRow(aux, formBloc),
-          _buildAFPRow(aux, formBloc),
-          _buildASTRow(aux, formBloc),
-          _buildALPRow(aux, formBloc),
-          _buildDialysisRow(aux, formBloc),
+          _buildBilirrubinRow(formBloc),
+          _buildInrRow(formBloc),
+          _buildCreatinineRow(formBloc),
+          _buildAlbuminRow(formBloc),
+          _buildSodiumRow(formBloc),
+          _buildPlateletsRow(formBloc),
+          _buildAFPRow(formBloc),
+          _buildASTRow(formBloc),
+          _buildALPRow(formBloc),
+          _buildDialysisRow(formBloc),
           Container(
             height: 50,
           ),
@@ -110,7 +108,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  _buildBilirrubinRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildBilirrubinRow(CompleteFormBloc formBloc) {
     return CalcTextField(
       textFieldBloc: formBloc.bilirubinField,
       title: 'bilirubin',
@@ -118,7 +116,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  _buildInrRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildInrRow(CompleteFormBloc formBloc) {
     return CalcTextField(
       textFieldBloc: formBloc.inrField,
       title: 'inr',
@@ -126,7 +124,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  _buildCreatinineRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildCreatinineRow(CompleteFormBloc formBloc) {
     return CalcTextField(
       textFieldBloc: formBloc.creatinineField,
       title: 'creatinine',
@@ -135,7 +133,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  _buildAlbuminRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildAlbuminRow(CompleteFormBloc formBloc) {
     return CalcTextField(
       textFieldBloc: formBloc.albuminField,
       title: 'albumin',
@@ -143,7 +141,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  _buildSodiumRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildSodiumRow(CompleteFormBloc formBloc) {
     return CalcTextField(
       textFieldBloc: formBloc.sodiumField,
       title: 'sodium',
@@ -151,7 +149,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  _buildPlateletsRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildPlateletsRow(CompleteFormBloc formBloc) {
     return CalcTextField(
       textFieldBloc: formBloc.plateletsField,
       title: 'platelets',
@@ -159,7 +157,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  _buildAFPRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildAFPRow(CompleteFormBloc formBloc) {
     return CalcTextField(
       textFieldBloc: formBloc.afpField,
       title: 'afp',
@@ -167,21 +165,40 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  _buildASTRow(AppLocalizations aux, CompleteFormBloc formBloc) {
-    return CalcMultipleTextField(
+  _buildASTRow(CompleteFormBloc formBloc) {
+    bool isLandscape = context.isLandscape;
+    var astCompleteRow = CalcMultipleTextField(
       multiTitle: true,
       textFieldBlocList: formBloc.astField,
       titleList: ['ast', 'ast_upper_limit'],
-      //titleList: ['ast','ast_upper_limit'],
       udsList: ['ug/L', 'ug/L'],
       length: 2,
       numActivos: 2,
-      //uds: 'ug/L',
+    );
+
+    var ast = CalcTextField(
+      textFieldBloc: formBloc.astField[0],
+      title: 'ast',
+      uds: 'ug/L',
+    );
+
+    var astUpperLimit = CalcTextField(
+      textFieldBloc: formBloc.astField[1],
+      title: 'ast_upper_limit',
+      uds: 'ug/L',
+    );
+
+    return isLandscape
+        ? astCompleteRow
+        : Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[ast, astUpperLimit],
     );
   }
 
-  _buildALPRow(AppLocalizations aux, CompleteFormBloc formBloc) {
-    return CalcMultipleTextField(
+  _buildALPRow(CompleteFormBloc formBloc) {
+    bool isLandscape = context.isLandscape;
+    var alpCompleteRow = CalcMultipleTextField(
       multiTitle: true,
       textFieldBlocList: formBloc.alpField,
       titleList: ['alp', 'alp_upper_limit'],
@@ -189,9 +206,26 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
       numActivos: 2,
       udsList: ['ug/L', 'ug/L'],
     );
+    var alp = CalcTextField(
+      textFieldBloc: formBloc.alpField[0],
+      title: 'alp',
+      uds: 'ug/L',
+    );
+
+    var alpUpperLimit = CalcTextField(
+      textFieldBloc: formBloc.alpField[1],
+      title: 'alp_upper_limit',
+      uds: 'ug/L',
+    );
+    return isLandscape
+        ? alpCompleteRow
+        : Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[alp, alpUpperLimit],
+    );
   }
 
-  _buildDialysisRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildDialysisRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -207,29 +241,27 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   }
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
-    var aux = AppLocalizations.of(context);
-
     return BottomAppBar(
       child: Stack(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _buildResetButton(aux, formBloc),
+              _buildResetButton(formBloc),
               SizedBox(
                 width: 15,
               ),
-              _buildPreviousButton(aux, formBloc),
+              _buildPreviousButton(formBloc),
               SizedBox(
                 width: 15,
               ),
-              _buildMoreInfoButton(aux),
+              _buildMoreInfoButton(),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              _buildNextButton(aux, formBloc),
+              _buildNextButton(formBloc),
             ],
           ),
         ],
@@ -237,8 +269,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, CompleteFormBloc formBloc) {
+  Container _buildResetButton(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,
@@ -258,8 +291,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  Container _buildPreviousButton(AppLocalizations aux, formBloc) {
+  Container _buildPreviousButton(formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,
@@ -279,7 +313,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  Container _buildMoreInfoButton(AppLocalizations aux) {
+  Container _buildMoreInfoButton() {
+    AppLocalizations aux = AppLocalizations.of(context);
+
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       height: 40,
@@ -335,8 +371,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     // setState(() {});
   }
 
-  _buildNextButton(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildNextButton(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,

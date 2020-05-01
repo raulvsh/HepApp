@@ -3,6 +3,7 @@ import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/DrawBottomBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 import 'package:painter/painter.dart';
+import 'package:sized_context/sized_context.dart';
 
 class DrawingDetailPage extends StatefulWidget {
   final String url;
@@ -37,13 +38,14 @@ class _FigureDetailPageState extends State<DrawingDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscape = context.isLandscape;
     return Scaffold(
       appBar: CustomAppBar(context, widget.title),
       drawer: MenuWidget(),
       body: Container(
         //color: Colors.red,
         //padding: EdgeInsets.only(top: 50),
-        height: MediaQuery.of(context).size.height * 0.8,
+        height: context.heightPct(isLandscape ? 0.75 : 0.85),
         child: Card(
           margin: EdgeInsets.all(10),
           child: Stack(
@@ -52,7 +54,7 @@ class _FigureDetailPageState extends State<DrawingDetailPage> {
               Center(
                 child: Image.asset(
                   'assets/images/${widget.url}',
-                  fit: BoxFit.cover,
+                  fit: BoxFit.scaleDown,
                 ),
               ),
               Painter(_controller),

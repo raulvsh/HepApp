@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
@@ -47,10 +46,10 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations([
+    /*SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
-    ]);
+    ]);*/
     streamSubIUnits = prefs.iUnitsUpdates.listen(
       (newVal) => setState(() {
         _internationalUnits = newVal;
@@ -74,12 +73,12 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   @override
   dispose() {
-    SystemChrome.setPreferredOrientations([
+    /*SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
-    ]);
+    ]);*/
     streamSubIUnits.cancel();
     //streamSubErrorList.cancel();
     streamSubErrorMap.cancel();
@@ -89,11 +88,17 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
+    var isLandscape = context.isLandscape;
+
     return BlocProvider<ClipFormBloc>(
       builder: (context) => ClipFormBloc(),
       child: Builder(
         builder: (context) {
           final formBloc = BlocProvider.of<ClipFormBloc>(context);
+          var elements = <Widget>[
+            _buildLeftColumn(formBloc),
+            _buildRightColumn(formBloc),
+          ];
           return FormBlocListener<ClipFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
@@ -105,12 +110,19 @@ class ClipFormState extends State<ClipForm> with Observable {
               drawer: MenuWidget(),
               body: Stack(
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  isLandscape
+                      ? Row(
+                    children: elements,
+                  )
+                      : ListView(
+                    children: elements,
+                  ),
+                  Column(
                     children: <Widget>[
-                      _buildLeftColumn(formBloc),
-                      _buildRightColumn(formBloc),
+                      RightBottomTitle(
+                        title: 'clip',
+                        padding: EdgeInsets.fromLTRB(10, 0, 45, 50),
+                      ),
                     ],
                   ),
                 ],
@@ -124,28 +136,21 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   _buildLeftColumn(ClipFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: isTablet ? context.widthPct(0.68) : context.widthPct(0.71),
-      height: context.heightPx,
-      //color: Colors.red,
       padding: EdgeInsets.only(left: 20, top: 20),
-      child: ListView(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildAFPRow(aux, formBloc),
-          _buildCPSRow(aux, formBloc),
-          _buildTumourNumberRow(aux, formBloc),
-          _buildTumourExtentRow(aux, formBloc),
-
-          _buildPVTRow(aux, formBloc),
-          _buildCalcButton(aux, formBloc),
+          _buildAFPRow(formBloc),
+          _buildCPSRow(formBloc),
+          _buildTumourNumberRow(formBloc),
+          _buildTumourExtentRow(formBloc),
+          _buildPVTRow(formBloc),
+          _buildCalcButton(formBloc),
           Text(prefs.getErrorMap().toString()),
-          //.entries.toList().toString(), style: TextStyle(fontSize: 16, color: Colors.black),),
           Text(prefs.getErrorMap().values.toString()),
-          //Text(prefs.getErrorMap().values.contains(true).toString()),
           Text(prefs.isMapError().toString()),
           Text(errorPrueba),
         ],
@@ -153,7 +158,7 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-  _buildAFPRow(AppLocalizations aux, ClipFormBloc formBloc) {
+  _buildAFPRow(ClipFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.afpField,
@@ -162,7 +167,7 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-  _buildCPSRow(AppLocalizations aux, ClipFormBloc formBloc) {
+  _buildCPSRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
       reset: reset,
@@ -178,7 +183,7 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-  _buildTumourNumberRow(AppLocalizations aux, ClipFormBloc formBloc) {
+  _buildTumourNumberRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
       reset: reset,
@@ -194,7 +199,7 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-  _buildTumourExtentRow(AppLocalizations aux, ClipFormBloc formBloc) {
+  _buildTumourExtentRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
       reset: reset,
@@ -210,7 +215,7 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-  _buildPVTRow(AppLocalizations aux, ClipFormBloc formBloc) {
+  _buildPVTRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
       reset: reset,
@@ -227,11 +232,11 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   _buildCalcButton(
-    AppLocalizations aux,
+
     ClipFormBloc formBloc,
   ) {
+    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
-    //var errordentro = prefs.getError();
     return Container(
       width: 250,
       //padding: EdgeInsets.all(8.0),
@@ -263,28 +268,29 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   _buildBottomSheet(ClipFormBloc formBloc) {
-    var aux = AppLocalizations.of(context);
 
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _buildResetButton(aux, formBloc),
+          _buildResetButton(formBloc),
           SizedBox(
             width: 15,
           ),
-          _buildPreviousButton(aux, formBloc),
+          _buildPreviousButton(formBloc),
           SizedBox(
             width: 15,
           ),
-          _buildMoreInfoButton(aux),
+          _buildMoreInfoButton(),
         ],
       ),
     );
   }
 
-  Container _buildMoreInfoButton(AppLocalizations aux) {
+  Container _buildMoreInfoButton() {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
+
     return Container(
       height: 40,
       padding: EdgeInsets.symmetric(vertical: 5),
@@ -315,8 +321,9 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-  Container _buildPreviousButton(AppLocalizations aux, formBloc) {
+  Container _buildPreviousButton(formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,
@@ -336,8 +343,9 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, ClipFormBloc formBloc) {
+  Container _buildResetButton(ClipFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,
@@ -359,6 +367,7 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   _buildRightColumn(ClipFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
     Map<String, String> resultMap = {
       'clip': formBloc.result,
     };
@@ -366,23 +375,23 @@ class ClipFormState extends State<ClipForm> with Observable {
     return Container(
       width: isTablet ? context.widthPct(0.32) : context.widthPct(0.29),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-              padding: EdgeInsets.only(right: 30),
+              padding: isLandscape ? EdgeInsets.only(right: 30) : EdgeInsets
+                  .only(left: 80),
               child: FittedBox(
                   child: InternationalUnitsSelect(
                     formBloc: formBloc,
                   ))),
           Container(
-            padding: EdgeInsets.fromLTRB(0, 30, 30, 0),
+            padding: isLandscape
+                ? EdgeInsets.fromLTRB(0, 30, 30, 0)
+                : EdgeInsets.fromLTRB(80, 30, 30, 0),
             child: CalcResultWidget(
               resultMap: resultMap,
               alignment: MainAxisAlignment.center,
             ),
-          ),
-          RightBottomTitle(
-            title: 'clip',
-            padding: EdgeInsets.fromLTRB(10, 0, 30, 50),
           ),
         ],
       ),
@@ -426,12 +435,14 @@ class ClipFormState extends State<ClipForm> with Observable {
                     child: Container(
                       alignment: Alignment.bottomRight,
                       child: FlatButton(
-                          padding: EdgeInsets.all(0),
-                          child: Text(
-                            aux.tr('accept'),
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor),
-                          ),
+                        padding: EdgeInsets.all(0),
+                        child: Text(
+                          aux.tr('accept'),
+                          style:
+                          TextStyle(color: Theme
+                              .of(context)
+                              .primaryColor),
+                        ),
                         onPressed: () => Navigator.pop(context),
                       ),
                     ),

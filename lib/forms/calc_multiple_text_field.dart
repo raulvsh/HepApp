@@ -56,6 +56,7 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
       if (widget.multiTitle || i == 0) {
         _addTitle(list, i);
       }
+
       _addTextField(list, context, i);
       if (widget.showUds) {
         _addUds(list, i);
@@ -188,9 +189,10 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
 
   double _calculateWidth(length) {
     bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
     bool moreThanTree = length > 3.0;
     if (moreThanTree) {
-      return isTablet ? 60 : 50;
+      return isTablet ? (isLandscape ? 60 : 50) : 50;
     }
     return isTablet ? 90 : 60;
   }

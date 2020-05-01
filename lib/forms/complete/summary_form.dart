@@ -80,8 +80,8 @@ class SummaryFormState extends State<SummaryForm> with Observable {
 
   Container _buildDiagnosticColumn() {
     AppLocalizations aux = AppLocalizations.of(context);
+    bool isLandscape = context.isLandscape;
     var tumourSize = widget.formBloc.tumourSizeField;
-    print("build diagnostic ${tumourSize.length}");
     for (int i = 0; i < tumourSize.length; i++)
       print(tumourSize[i].value);
     Map<String, dynamic> diagnosticMap1 = {
@@ -102,38 +102,61 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       aux.tr(widget.formBloc.portalHypertensionField.value),
       'pvt': aux.tr(widget.formBloc.pvtField.value),
     };
+    var unionMap = {};
+    unionMap.addAll(diagnosticMap1);
+    unionMap.addAll(diagnosticMap2);
 
     return Container(
-      width: context.widthPct(0.42),
+      width: isLandscape ? context.widthPct(0.42) : context.widthPct(0.37),
       padding: EdgeInsets.only(left: 20, top: 10, bottom: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildSummaryTitle('diagnostic_imaging'),
-          _buildSeparator(0.38),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                width: context.widthPct(0.20),
-                padding: EdgeInsets.only(top: 5),
-                child: _buildSummaryColumn(diagnosticMap1),
-              ),
-              Container(
-                width: context.widthPct(0.18),
-                padding: EdgeInsets.only(top: 5),
-                child: _buildSummaryColumn(diagnosticMap2),
-              ),
-            ],
-          ),
+          _buildSeparator(isLandscape ? 0.38 : 0.33),
+          isLandscape
+              ? _buildDiagnosticTwoColumns(diagnosticMap1, diagnosticMap2)
+              : _buildDiagnosticOneColumn(unionMap),
         ],
       ),
     );
   }
 
+  Row _buildDiagnosticTwoColumns(diagnosticMap1, diagnosticMap2) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          width: context.widthPct(0.20),
+          padding: EdgeInsets.only(top: 5),
+          child: _buildSummaryItem(diagnosticMap1),
+        ),
+        Container(
+          width: context.widthPct(0.18),
+          padding: EdgeInsets.only(top: 5),
+          child: _buildSummaryItem(diagnosticMap2),
+        ),
+      ],
+    );
+  }
+
+  Row _buildDiagnosticOneColumn(diagnosticMap) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          width: context.widthPct(0.33),
+          padding: EdgeInsets.only(top: 5),
+          child: _buildSummaryItem(diagnosticMap),
+        ),
+      ],
+    );
+  }
+
   Container _buildLabColumn() {
     AppLocalizations aux = AppLocalizations.of(context);
-    Map<String, dynamic> diagnosticMap3 = {
+    bool isLandscape = context.isLandscape;
+    Map<String, dynamic> laboratoryMap = {
       'international_units':
       prefs.getInternationalUnits() ? aux.tr('yes') : aux.tr('no'),
       'bilirubin': widget.formBloc.bilirubinField.value,
@@ -149,14 +172,14 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     };
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      width: context.widthPct(0.29),
+      width: isLandscape ? context.widthPct(0.29) : context.widthPct(0.33),
       child: Column(
         children: <Widget>[
           _buildSummaryTitle('laboratory_values'),
-          _buildSeparator(0.27),
+          _buildSeparator(isLandscape ? 0.27 : 0.31),
           Container(
             padding: EdgeInsets.only(top: 5),
-            child: _buildSummaryColumn(diagnosticMap3),
+            child: _buildSummaryItem(laboratoryMap),
           ),
         ],
       ),
@@ -165,29 +188,33 @@ class SummaryFormState extends State<SummaryForm> with Observable {
 
   Container _buildClinicalColumn() {
     AppLocalizations aux = AppLocalizations.of(context);
-    Map<String, dynamic> diagnosticMap4 = {
+    bool isLandscape = context.isLandscape;
+
+    Map<String, dynamic> clinicalMap = {
       'cirrhosis': aux.tr(widget.formBloc.cirrhosisField.value),
       'encephalopaty': aux.tr(widget.formBloc.encephalopatyField.value),
       'ascites': aux.tr(widget.formBloc.ascitesField.value),
       'varices': aux.tr(widget.formBloc.varicesField.value),
       'ecog': widget.formBloc.ecogField.value,
-      //'preclude_major_surgery': prefs.getPrecludeSurgery() ? aux.tr('yes') : aux.tr('no'),
-      //'age': widget.formBloc.
+      'preclude_major_surgery': 'yes',
+      //prefs.getPrecludeSurgery() ? aux.tr('yes') : aux.tr('no'),
+      'age': 'ok',
+      //widget.formBloc.
     };
     var anchura = 0.27;
 
     return Container(
       //color:Colors.pink,
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
 
-      width: context.widthPct(0.29),
+      width: isLandscape ? context.widthPct(0.29) : context.widthPct(0.28),
       child: Column(
         children: <Widget>[
           _buildSummaryTitle('clinical_questions'),
-          _buildSeparator(0.27),
+          _buildSeparator(isLandscape ? 0.27 : 0.26),
           Container(
             padding: EdgeInsets.only(top: 5),
-            child: _buildSummaryColumn(diagnosticMap4),
+            child: _buildSummaryItem(clinicalMap),
           ),
         ],
       ),
@@ -227,7 +254,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     );
   }
 
-  _buildSummaryColumn(Map<String, dynamic> summaryMap) {
+  _buildSummaryItem(summaryMap) {
     List<Widget> widgets = [];
     summaryMap.forEach((key, value) {
       widgets.add(Row(
@@ -240,13 +267,6 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     });
 
     return Column(children: widgets);
-    /*Row(
-      children: <Widget>[
-        _buildInitialBlueRectangle(),
-        _buildSummaryText("hola"),
-        _buildSummaryContent("contenido"),
-      ],
-    );*/
   }
 
   Container _buildInitialBlueRectangle() {
@@ -272,7 +292,6 @@ class SummaryFormState extends State<SummaryForm> with Observable {
   }
 
   _buildSummaryContent(String summaryContent) {
-    AppLocalizations aux = AppLocalizations.of(context);
     var isTablet = context.diagonalInches >= 7;
 
     return Container(

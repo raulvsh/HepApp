@@ -59,8 +59,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   }
 
   _buildLeftColumn(CompleteFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: context.widthPx,
       height: context.heightPx,
@@ -70,19 +68,17 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         children: <Widget>[
-          _buildCirrhosisRow(aux, formBloc),
-          _buildEncephalopatyRow(aux, formBloc),
-          _buildAscitesRow(aux, formBloc),
-          _buildVaricesRow(aux, formBloc),
-          _buildEcogRow(aux, formBloc),
+          _buildCirrhosisRow(formBloc),
+          _buildEncephalopatyRow(formBloc),
+          _buildAscitesRow(formBloc),
+          _buildVaricesRow(formBloc),
+          _buildEcogRow(formBloc),
         ],
       ),
     );
   }
 
-  _buildCirrhosisRow(
-    AppLocalizations aux,
-      CompleteFormBloc formBloc,
+  _buildCirrhosisRow(CompleteFormBloc formBloc
   ) {
     return CalcGroupField(
       initialValue: formBloc.cirrhosisField.value.toString(),
@@ -99,7 +95,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   }
 
   _buildEncephalopatyRow(
-    AppLocalizations aux,
+
       CompleteFormBloc formBloc,
   ) {
     return CalcGroupField(
@@ -117,7 +113,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   }
 
   _buildAscitesRow(
-    AppLocalizations aux,
+
       CompleteFormBloc formBloc,
   ) {
     return CalcGroupField(
@@ -135,7 +131,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   }
 
   _buildVaricesRow(
-    AppLocalizations aux,
+
       CompleteFormBloc formBloc,
   ) {
     return CalcGroupField(
@@ -153,7 +149,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   }
 
   _buildEcogRow(
-    AppLocalizations aux,
+
       CompleteFormBloc formBloc,
   ) {
     return CalcGroupField(
@@ -171,7 +167,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   }
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
-    var aux = AppLocalizations.of(context);
 
     return BottomAppBar(
       child: Stack(
@@ -179,21 +174,21 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _buildResetButton(aux, formBloc),
+              _buildResetButton(formBloc),
               SizedBox(
                 width: 15,
               ),
-              _buildPreviousButton(aux, formBloc),
+              _buildPreviousButton(formBloc),
               SizedBox(
                 width: 15,
               ),
-              _buildMoreInfoButton(aux),
+              _buildMoreInfoButton(),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              _buildNextButton(aux, formBloc),
+              _buildNextButton(formBloc),
             ],
           ),
         ],
@@ -201,9 +196,9 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, CompleteFormBloc formBloc) {
+  Container _buildResetButton(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
-
+    AppLocalizations aux = AppLocalizations.of(context);
     return Container(
       height: 40,
       padding: EdgeInsets.symmetric(vertical: 5),
@@ -222,8 +217,9 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  Container _buildPreviousButton(AppLocalizations aux, formBloc) {
+  Container _buildPreviousButton(formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,
@@ -243,8 +239,10 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  Container _buildMoreInfoButton(AppLocalizations aux) {
+  Container _buildMoreInfoButton() {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
+
     return Container(
       height: 40,
       padding: EdgeInsets.symmetric(vertical: 5),
@@ -299,8 +297,9 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     setState(() {});
   }
 
-  _buildNextButton(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildNextButton(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,

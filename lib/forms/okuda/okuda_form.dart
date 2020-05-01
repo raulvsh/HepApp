@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
@@ -46,10 +45,10 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations([
+    /*SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
-    ]);
+    ]);*/
     streamSubIUnits = prefs.iUnitsUpdates.listen(
           (newVal) =>
           setState(() {
@@ -69,12 +68,12 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   @override
   dispose() {
-    SystemChrome.setPreferredOrientations([
+    /*SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
-    ]);
+    ]);*/
     streamSubIUnits.cancel();
     streamSubErrorMap.cancel();
 
@@ -83,11 +82,17 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
+    var isLandscape = context.isLandscape;
+
     return BlocProvider<OkudaFormBloc>(
       builder: (context) => OkudaFormBloc(),
       child: Builder(
         builder: (context) {
           final formBloc = BlocProvider.of<OkudaFormBloc>(context);
+          var elements = <Widget>[
+            _buildLeftColumn(formBloc),
+            _buildRightColumn(formBloc),
+          ];
           return FormBlocListener<OkudaFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
@@ -99,12 +104,19 @@ class OkudaFormState extends State<OkudaForm> with Observable {
               drawer: MenuWidget(),
               body: Stack(
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  isLandscape
+                      ? Row(
+                    children: elements,
+                  )
+                      : ListView(
+                    children: elements,
+                  ),
+                  Column(
                     children: <Widget>[
-                      _buildLeftColumn(formBloc),
-                      _buildRightColumn(formBloc),
+                      RightBottomTitle(
+                        title: 'okuda',
+                        padding: EdgeInsets.fromLTRB(10, 0, 45, 50),
+                      ),
                     ],
                   ),
                 ],
@@ -118,22 +130,18 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   }
 
   _buildLeftColumn(OkudaFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
-      height: context.heightPx,
-      //color: Colors.red,
       padding: EdgeInsets.only(left: 20, top: 20),
-      child: ListView(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildBilirrubinRow(aux, formBloc),
-          _buildAlbuminRow(aux, formBloc),
-          _buildAscitesRow(aux, formBloc),
-          _buildTumourExtentRow(aux, formBloc),
-          _buildCalcButton(aux, formBloc),
+          _buildBilirrubinRow(formBloc),
+          _buildAlbuminRow(formBloc),
+          _buildAscitesRow(formBloc),
+          _buildTumourExtentRow(formBloc),
+          _buildCalcButton(formBloc),
           Text(prefs.getErrorMap().toString()),
           Text(prefs
               .getErrorMap()
@@ -146,7 +154,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  _buildBilirrubinRow(AppLocalizations aux, OkudaFormBloc formBloc) {
+  _buildBilirrubinRow(OkudaFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.bilirubinField,
@@ -155,7 +163,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  _buildAlbuminRow(AppLocalizations aux, OkudaFormBloc formBloc) {
+  _buildAlbuminRow(OkudaFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.albuminField,
@@ -164,8 +172,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  _buildAscitesRow(AppLocalizations aux,
-      OkudaFormBloc formBloc,) {
+  _buildAscitesRow(OkudaFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
       initialValue: formBloc.ascitesField.value.toString(),
@@ -181,7 +188,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  _buildTumourExtentRow(AppLocalizations aux, OkudaFormBloc formBloc) {
+  _buildTumourExtentRow(OkudaFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
       reset: reset,
@@ -197,8 +204,9 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  _buildCalcButton(AppLocalizations aux,
-      OkudaFormBloc formBloc,) {
+  _buildCalcButton(OkudaFormBloc formBloc) {
+    AppLocalizations aux = AppLocalizations.of(context);
+
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: 250,
@@ -233,28 +241,28 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   }
 
   _buildBottomSheet(OkudaFormBloc formBloc) {
-    var aux = AppLocalizations.of(context);
-
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _buildResetButton(aux, formBloc),
+          _buildResetButton(formBloc),
           SizedBox(
             width: 15,
           ),
-          _buildPreviousButton(aux, formBloc),
+          _buildPreviousButton(formBloc),
           SizedBox(
             width: 15,
           ),
-          _buildMoreInfoButton(aux),
+          _buildMoreInfoButton(),
         ],
       ),
     );
   }
 
-  Container _buildMoreInfoButton(AppLocalizations aux) {
+  Container _buildMoreInfoButton() {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
+
     return Container(
       height: 40,
       padding: EdgeInsets.symmetric(vertical: 5),
@@ -285,8 +293,9 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  Container _buildPreviousButton(AppLocalizations aux, formBloc) {
+  Container _buildPreviousButton(formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,
@@ -306,9 +315,9 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, OkudaFormBloc formBloc) {
+  Container _buildResetButton(OkudaFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
-
+    AppLocalizations aux = AppLocalizations.of(context);
     return Container(
       height: 40,
       padding: EdgeInsets.symmetric(vertical: 5),
@@ -329,6 +338,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   _buildRightColumn(OkudaFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
     Map<String, String> resultMap = {'okuda': formBloc.result};
 
     return Container(
@@ -336,8 +346,11 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       //color: Colors.blue,
       child: Column(
         children: <Widget>[
-          InternationalUnitsSelect(
-            formBloc: formBloc,
+          Container(
+            padding: isLandscape ? null : EdgeInsets.only(left: 80),
+            child: InternationalUnitsSelect(
+              formBloc: formBloc,
+            ),
           ),
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 45, 0),
@@ -345,10 +358,6 @@ class OkudaFormState extends State<OkudaForm> with Observable {
               resultMap: resultMap,
               alignment: MainAxisAlignment.center,
             ),
-          ),
-          RightBottomTitle(
-            title: 'okuda',
-            padding: EdgeInsets.fromLTRB(10, 0, 30, 50),
           ),
         ],
       ),

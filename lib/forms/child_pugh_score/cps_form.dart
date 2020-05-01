@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
@@ -46,10 +45,10 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations([
+    /*SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
-    ]);
+    ]);*/
     streamSubIUnits = prefs.iUnitsUpdates.listen(
           (newVal) =>
           setState(() {
@@ -71,12 +70,12 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   @override
   dispose() {
-    SystemChrome.setPreferredOrientations([
+    /*SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
-    ]);
+    ]);*/
     streamSubIUnits.cancel();
     streamSubErrorMap.cancel();
 
@@ -85,11 +84,16 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
+    var isLandscape = context.isLandscape;
     return BlocProvider<CpsFormBloc>(
       builder: (context) => CpsFormBloc(),
       child: Builder(
         builder: (context) {
           final formBloc = BlocProvider.of<CpsFormBloc>(context);
+          var elements = <Widget>[
+            _buildLeftColumn(formBloc),
+            _buildRightColumn(formBloc),
+          ];
           return FormBlocListener<CpsFormBloc, String, String>(
             /*onSubmitting: (context, state) => LoadingDialog.show(context),
               onSuccess: (context, state) {
@@ -114,12 +118,19 @@ class CpsFormState extends State<CpsForm> with Observable {
               drawer: MenuWidget(),
               body: Stack(
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  isLandscape
+                      ? Row(
+                    children: elements,
+                  )
+                      : ListView(
+                    children: elements,
+                  ),
+                  Column(
                     children: <Widget>[
-                      _buildLeftColumn(formBloc),
-                      _buildRightColumn(formBloc),
+                      RightBottomTitle(
+                        title: 'child_pugh_score_oneline',
+                        padding: EdgeInsets.fromLTRB(10, 0, 45, 50),
+                      ),
                     ],
                   ),
                 ],
@@ -133,23 +144,19 @@ class CpsFormState extends State<CpsForm> with Observable {
   }
 
   _buildLeftColumn(CpsFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: isTablet ? context.widthPct(0.62) : context.widthPct(0.65),
-      height: context.heightPx,
-      //color: Colors.red,
       padding: EdgeInsets.only(left: 20, top: 20),
-      child: ListView(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildBilirrubinRow(aux, formBloc),
-          _buildInrRow(aux, formBloc),
-          _buildAlbuminRow(aux, formBloc),
-          _buildEncephalopatyRow(aux, formBloc),
-          _buildAscitesRow(aux, formBloc),
-          _buildCalcButton(aux, formBloc),
+          _buildBilirrubinRow(formBloc),
+          _buildInrRow(formBloc),
+          _buildAlbuminRow(formBloc),
+          _buildEncephalopatyRow(formBloc),
+          _buildAscitesRow(formBloc),
+          _buildCalcButton(formBloc),
           Text(prefs.getErrorMap().toString()),
           Text(prefs
               .getErrorMap()
@@ -162,7 +169,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  _buildBilirrubinRow(AppLocalizations aux, CpsFormBloc formBloc) {
+  _buildBilirrubinRow(CpsFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.bilirubinField,
@@ -171,7 +178,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  _buildInrRow(AppLocalizations aux, CpsFormBloc formBloc) {
+  _buildInrRow(CpsFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.inrField,
@@ -179,7 +186,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  _buildAlbuminRow(AppLocalizations aux, CpsFormBloc formBloc) {
+  _buildAlbuminRow(CpsFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.albuminField,
@@ -188,8 +195,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  _buildEncephalopatyRow(AppLocalizations aux,
-      CpsFormBloc formBloc,) {
+  _buildEncephalopatyRow(CpsFormBloc formBloc,) {
     return CalcGroupField(
       errorControl: true,
       initialValue: formBloc.encephalopatyField.value.toString(),
@@ -205,8 +211,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  _buildAscitesRow(AppLocalizations aux,
-      CpsFormBloc formBloc,) {
+  _buildAscitesRow(CpsFormBloc formBloc,) {
     return CalcGroupField(
       errorControl: true,
       initialValue: formBloc.ascitesField.value.toString(),
@@ -222,8 +227,8 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  _buildCalcButton(AppLocalizations aux,
-      CpsFormBloc formBloc,) {
+  _buildCalcButton(CpsFormBloc formBloc,) {
+    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: 250,
@@ -257,27 +262,27 @@ class CpsFormState extends State<CpsForm> with Observable {
   }
 
   _buildBottomSheet(CpsFormBloc formBloc) {
-    var aux = AppLocalizations.of(context);
-
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _buildResetButton(aux, formBloc),
+          _buildResetButton(formBloc),
           SizedBox(
             width: 15,
           ),
-          _buildPreviousButton(aux, formBloc),
+          _buildPreviousButton(formBloc),
           SizedBox(
             width: 15,
           ),
-          _buildMoreInfoButton(aux),
+          _buildMoreInfoButton(),
         ],
       ),
     );
   }
 
-  Container _buildMoreInfoButton(AppLocalizations aux) {
+  Container _buildMoreInfoButton() {
+    AppLocalizations aux = AppLocalizations.of(context);
+
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       height: 40,
@@ -309,8 +314,9 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  Container _buildPreviousButton(AppLocalizations aux, formBloc) {
+  Container _buildPreviousButton(formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
       height: 40,
@@ -330,9 +336,9 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, CpsFormBloc formBloc) {
+  Container _buildResetButton(CpsFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
-
+    AppLocalizations aux = AppLocalizations.of(context);
     return Container(
       height: 40,
       padding: EdgeInsets.symmetric(vertical: 5),
@@ -353,6 +359,7 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   _buildRightColumn(CpsFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
     Map<String, String> resultMap = {
       'child_pugh_score_oneline': formBloc.resultadoField
     };
@@ -360,8 +367,11 @@ class CpsFormState extends State<CpsForm> with Observable {
       width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
       child: Column(
         children: <Widget>[
-          InternationalUnitsSelect(
-            formBloc: formBloc,
+          Container(
+            padding: isLandscape ? null : EdgeInsets.only(left: 80),
+            child: InternationalUnitsSelect(
+              formBloc: formBloc,
+            ),
           ),
           Container(
             padding: EdgeInsets.fromLTRB(0, 30, 50, 0),
@@ -372,10 +382,6 @@ class CpsFormState extends State<CpsForm> with Observable {
           ),
 
           // 'child_pugh_score_oneline', formBloc.resultadoField)),
-          RightBottomTitle(
-            title: 'child_pugh_score_oneline',
-            padding: EdgeInsets.fromLTRB(10, 0, 45, 50),
-          ),
         ],
       ),
     );

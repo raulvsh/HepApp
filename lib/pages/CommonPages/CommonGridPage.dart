@@ -7,9 +7,10 @@ class CommonGridPage extends StatefulWidget {
   final data;
   final String type;
 
-  //final index;
 
-  CommonGridPage({this.data, this.type, /*this.index = 0*/
+  CommonGridPage({
+    this.data,
+    this.type
   });
 
   @override
@@ -22,20 +23,11 @@ class _CommonGridPageState extends State<CommonGridPage> {
   @override
   void initState() {
     dataLength = widget.data.length;
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return _buildLayout(/*orientation*/);
-    /*return OrientationBuilder(builder: (context, orientation) {
-      return _buildLayout(orientation);
-    });*/
-  }
-
-  _buildLayout(/*orientation*/) {
-    //final width = MediaQuery.of(context).size.width;
     var padding = context.widthPct(0.01);
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
@@ -43,20 +35,17 @@ class _CommonGridPageState extends State<CommonGridPage> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      //color: Colors.lightBlueAccent,
       child: FractionallySizedBox(
         widthFactor:
         isLandscape ? (isTablet ? 0.7 : 0.7) : (isTablet ? 0.6 : 0.7),
         alignment: Alignment.center,
         child: GridView.count(
-          padding: isLandscape //orientation == Orientation.portrait
+          padding: isLandscape
               ? EdgeInsets.symmetric(
-              vertical: isTablet ? 5 * padding : 2 * padding) : EdgeInsets
-              .symmetric(vertical: 6 * padding),
-          //:
+              vertical: isTablet ? 5 * padding : 2 * padding)
+              : EdgeInsets.symmetric(vertical: 6 * padding),
           primary: false,
           crossAxisCount: isLandscape ? 4 : 2,
-          //orientation == Orientation.portrait ? 2 : 4,
           children: _buildGridView(),
         ),
       ),
@@ -70,11 +59,11 @@ class _CommonGridPageState extends State<CommonGridPage> {
         widgets.add(FigureButton(
           context,
           widget.data[i],
-          i, // + widget.index,
+          i,
         ));
       } else {
-        widgets.add(
-            ComboButton(context, widget.data[i], i)); //+ widget.index));
+        widgets
+            .add(ComboButton(context, widget.data[i], i)); //+ widget.index));
       }
     }
     return widgets;

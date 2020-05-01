@@ -232,10 +232,9 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                     });
                   },
                   child: Container(
-                    //color: Colors.black,
+                    // color: Colors.black,
                     height: 20,
                     width: _calculateWidth(state), //isTablet ? 110 : 90,
-                    //color: Colors.green,
                     padding: EdgeInsets.symmetric(horizontal: 4),
                     child: Stack(
                       children: <Widget>[
@@ -356,12 +355,13 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
   }
 
   double _calculateWidth(state) {
+    var isLandscape = context.isLandscape;
     bool isTablet = context.diagonalInches >= 7;
     bool moreThanTree = state.items.length > 3.0;
     if (moreThanTree) {
-      return isTablet ? 60 : 50;
+      return isTablet ? (isLandscape ? 60 : 50) : 50;
     }
-    return isTablet ? 110 : 90;
+    return isTablet ? (isLandscape ? 110 : 100) : 90;
   }
 
   InputDecoration _buildDecoration(BuildContext context,

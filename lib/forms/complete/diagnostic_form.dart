@@ -88,20 +88,20 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         children: <Widget>[
-          _buildTumourNumberRow(aux, formBloc),
-          _buildTumourSizeRow(aux, formBloc),
-          _buildTumourExtentRow(aux, formBloc),
-          _buildPviRow(aux, formBloc),
-          _buildNodesRow(aux, formBloc),
-          _buildMetastasisRow(aux, formBloc),
-          _buildPortalHypertensionRow(aux, formBloc),
-          _buildPvtRow(aux, formBloc),
+          _buildTumourNumberRow(formBloc),
+          _buildTumourSizeRow(formBloc),
+          _buildTumourExtentRow(formBloc),
+          _buildPviRow(formBloc),
+          _buildNodesRow(formBloc),
+          _buildMetastasisRow(formBloc),
+          _buildPortalHypertensionRow(formBloc),
+          _buildPvtRow(formBloc),
         ],
       ),
     );
   }
 
-  _buildTumourNumberRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildTumourNumberRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -116,7 +116,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  _buildTumourSizeRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildTumourSizeRow(CompleteFormBloc formBloc) {
     return CalcMultipleTextField(
       numActivos: _tumourNumber != null ? _tumourNumber - 1 : 0,
       titleList: ['tumour_size'],
@@ -128,7 +128,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  _buildTumourExtentRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildTumourExtentRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -143,7 +143,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  _buildPviRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildPviRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -158,7 +158,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  _buildNodesRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildNodesRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -173,7 +173,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  _buildMetastasisRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildMetastasisRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -188,7 +188,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  _buildPortalHypertensionRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildPortalHypertensionRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -203,7 +203,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  _buildPvtRow(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildPvtRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
       previous: previous,
@@ -220,29 +220,27 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
     var aux = AppLocalizations.of(context);
-
+    var isLandscape = context.isLandscape;
     return BottomAppBar(
       child: Stack(
         children: <Widget>[
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: isLandscape
+                ? MainAxisAlignment.center
+                : MainAxisAlignment.start,
             children: <Widget>[
+              SizedBox(
+                width: 5,
+              ),
               _buildResetButton(aux, formBloc),
-              SizedBox(
-                width: 15,
-              ),
               _buildPreviousButton(aux, formBloc),
-              SizedBox(
-                width: 15,
-              ),
               _buildMoreInfoButton(aux),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              _buildNextButton(aux, formBloc),
-            ],
+            children: <Widget>[_buildNextButton(aux, formBloc),],
+
           ),
         ],
       ),
@@ -253,12 +251,15 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
+      width: 150,
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: FlatButton(
-        child: Text(
-          aux.tr('more_information'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
+        child: FittedBox(
+          child: Text(
+            aux.tr('more_information'),
+            style: TextStyle(
+              fontSize: isTablet ? 14 : 12,
+            ),
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
@@ -286,12 +287,15 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
 
     return Container(
       height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
+      width: 150,
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: FlatButton(
-        child: Text(
-          aux.tr('previous_values'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
+        child: FittedBox(
+          child: Text(
+            aux.tr('previous_values'),
+            style: TextStyle(
+              fontSize: isTablet ? 14 : 12,
+            ),
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
@@ -307,12 +311,15 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
 
     return Container(
       height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
+      width: 150,
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: FlatButton(
-        child: Text(
-          aux.tr('reset'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
+        child: FittedBox(
+          child: Text(
+            aux.tr('reset'),
+            style: TextStyle(
+              fontSize: isTablet ? 14 : 12,
+            ),
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
@@ -351,7 +358,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      width: 150,
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       child: FlatButton(
         child: Text(
           aux.tr('next'),

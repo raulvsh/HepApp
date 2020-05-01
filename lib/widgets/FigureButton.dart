@@ -51,9 +51,10 @@ class FigureButton extends StatelessWidget {
                 maxLines: 3,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.black, //Color.fromARGB(255, 93, 188, 210),
+                  color: Colors.black, //Theme.of(context).primaryColor,
                   fontSize: isTablet ? 14 : 12,
                 ),
+
               ),
             ),
           ),

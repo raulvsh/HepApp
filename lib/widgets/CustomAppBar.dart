@@ -38,37 +38,41 @@ class _CustomAppBarState extends State<CustomAppBar> {
         icon: Icon(Icons.menu),
         onPressed: () => Scaffold.of(context).openDrawer(),
       ),
-      title: Container(
-        // color: Colors.red,
-        //margin: EdgeInsets.only(left: 5.0),
-        //padding: EdgeInsets.all(0),
-        width: double.infinity,
-        //height: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              flex: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  _backIcon(context),
-                  _homeIcon(context),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Text(
-                aux.tr(widget.title),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  //color: Colors.white,
-                  fontSize: isTablet ? 25 : 20,
+      title: Center(
+        child: Container(
+          // color: Colors.red,
+          //margin: EdgeInsets.only(left: 5.0),
+          //padding: EdgeInsets.all(0),
+          width: double.infinity,
+          //height: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                flex: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    _backIcon(context),
+                    _homeIcon(context),
+                  ],
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                flex: 1,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    aux.tr(widget.title),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: isTablet ? 25 : 20,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       actions: <Widget>[
@@ -76,9 +80,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         (widget.selFullSettings == true)
             ? _fullSettingsIcon(context)
             : Container(),
-        /*(widget.selPartialSettings == true)
-            ? _partialSettingsIcon(context)
-            : Container(),*/
+
       ],
     );
   }
