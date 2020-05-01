@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
-
+import 'package:sized_context/sized_context.dart';
 class InteractiveDetailPage extends StatefulWidget {
   final String img1;
   final String img2;
@@ -31,17 +31,28 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscape = context.isLandscape;
     return Scaffold(
       appBar: CustomAppBar(context, widget.title),
       drawer: MenuWidget(),
-      body: Card(
-        margin: EdgeInsets.all(15),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            _buildImgStack(),
-            _buildTxtRow(context),
-          ],
+      body: Center(
+        heightFactor: 1,
+
+        child: Container(
+          height: isLandscape ? context.heightPx * 0.75 : null,
+          width: !isLandscape ? context.widthPx : null,
+          //padding: EdgeInsets.only(top: 10),
+
+          child: Card(
+            margin: isLandscape ? EdgeInsets.only(top: 15) : EdgeInsets.all(15),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                _buildImgStack(),
+                _buildTxtRow(context),
+              ],
+            ),
+          ),
         ),
       ),
       bottomSheet: widget.bottomSheet,
@@ -74,11 +85,15 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
 
   Container _buildTxtRow(BuildContext context) {
     var aux = AppLocalizations.of(context);
+    bool isLandscape = context.isLandscape;
 
     return Container(
+      width: isLandscape ? context.widthPct(0.6) : context.widthPx,
+      //color: Colors.blueGrey,
       //margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Expanded(
             flex: 1,

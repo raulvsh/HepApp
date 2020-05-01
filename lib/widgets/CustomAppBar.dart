@@ -66,7 +66,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     aux.tr(widget.title),
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: isTablet ? 25 : 20,
+                      fontSize: isTablet ? 20 : 18,
                     ),
                   ),
                 ),
