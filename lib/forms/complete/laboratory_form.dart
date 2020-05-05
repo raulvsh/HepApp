@@ -35,7 +35,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   final units = Units();
 
   bool _internationalUnits = true;
-
   StreamSubscription streamSubIUnits;
 
   @override
@@ -72,7 +71,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
           Stack(
             children: <Widget>[
               FittedBox(
-                fit: BoxFit.scaleDown,
+                fit: BoxFit.contain,
                 child: _buildDataFields(widget.formBloc),
               ),
               _buildRightBottomTitle(widget.formBloc),
@@ -87,30 +86,31 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   _buildDataFields(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
-    return Container(
-      width: context.widthPx,
-      height: context.heightPx,
-      padding: isTablet
-          ? EdgeInsets.only(left: 20, top: 20)
-          : EdgeInsets.only(left: 10, top: 10),
-      child: ListView(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
-        children: <Widget>[
-          _buildBilirrubinRow(formBloc),
-          _buildInrRow(formBloc),
-          _buildCreatinineRow(formBloc),
-          _buildAlbuminRow(formBloc),
-          _buildSodiumRow(formBloc),
-          _buildPlateletsRow(formBloc),
-          _buildAFPRow(formBloc),
-          _buildASTRow(formBloc),
-          _buildALPRow(formBloc),
-          _buildDialysisRow(formBloc),
-          Container(
-            height: 50,
-          ),
-        ],
+    return FittedBox(
+      fit: BoxFit.contain,
+      child: Container(
+        width: context.widthPx,
+        padding: isTablet
+            ? EdgeInsets.only(left: 20, top: 20)
+            : EdgeInsets.only(left: 10, top: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildBilirrubinRow(formBloc),
+            _buildInrRow(formBloc),
+            _buildCreatinineRow(formBloc),
+            _buildAlbuminRow(formBloc),
+            _buildSodiumRow(formBloc),
+            _buildPlateletsRow(formBloc),
+            _buildAFPRow(formBloc),
+            _buildASTRow(formBloc),
+            _buildALPRow(formBloc),
+            _buildDialysisRow(formBloc),
+            SizedBox(height: kToolbarHeight + 10,)
+
+          ],
+        ),
       ),
     );
   }

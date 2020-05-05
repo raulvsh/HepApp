@@ -4,11 +4,11 @@ import 'package:sized_context/sized_context.dart';
 
 class CalcResultWidget extends StatefulWidget {
   final resultMap;
-  final alignment;
+  final textAlignment;
 
   CalcResultWidget({
     this.resultMap,
-    this.alignment,
+    this.textAlignment,
   });
 
   @override
@@ -39,7 +39,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: buildResultList(widget.alignment),
+        children: buildResultList(widget.textAlignment),
       ),
       //),
     );

@@ -49,7 +49,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
           Stack(
             children: <Widget>[
               FittedBox(
-                fit: BoxFit.scaleDown,
+                fit: BoxFit.contain,
                 child: _buildDataFields(widget.formBloc),
               ),
               _buildRightBottomTitle(widget.formBloc),
@@ -65,22 +65,24 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
-      width: context.widthPx,
-      height: context.heightPx,
-      //color: Colors.red,
-      padding: isTablet
-          ? EdgeInsets.only(left: 20, top: 20)
-          : EdgeInsets.only(left: 10, top: 10),
-      child: ListView(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
-        children: <Widget>[
-          _buildCirrhosisRow(formBloc),
-          _buildEncephalopatyRow(formBloc),
-          _buildAscitesRow(formBloc),
-          _buildVaricesRow(formBloc),
-          _buildEcogRow(formBloc),
-        ],
+      height: context.heightPct(isTablet ? 1 : 0.6),
+      child: FittedBox(
+        fit: BoxFit.contain,
+        child: Container(
+          width: context.widthPx,
+          padding: isTablet
+              ? EdgeInsets.only(left: 20, top: 20)
+              : EdgeInsets.only(left: 10, top: 10),
+          child: Column(
+            children: <Widget>[
+              _buildCirrhosisRow(formBloc),
+              _buildEncephalopatyRow(formBloc),
+              _buildAscitesRow(formBloc),
+              _buildVaricesRow(formBloc),
+              _buildEcogRow(formBloc),
+            ],
+          ),
+        ),
       ),
     );
   }

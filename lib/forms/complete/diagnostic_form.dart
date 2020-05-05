@@ -74,10 +74,11 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
       body: Stack(
         children: <Widget>[
           _buildRightBottomTitle(),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: _buildDataFields(widget.formBloc),
-          ),
+          //FittedBox(
+          //fit: BoxFit.contain,
+          // child:
+          _buildDataFields(widget.formBloc),
+          //),
         ],
       ),
       bottomSheet: _buildBottomSheet(widget.formBloc),
@@ -86,25 +87,32 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
 
   _buildDataFields(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
-    return Container(
-      width: context.widthPx,
-      height: context.heightPx,
-      padding: isTablet
-          ? EdgeInsets.only(left: 20, top: 20)
-          : EdgeInsets.only(left: 10, top: 10),
-      child: ListView(
-        shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
-        children: <Widget>[
-          _buildTumourNumberRow(formBloc),
-          _buildTumourSizeRow(formBloc),
-          _buildTumourExtentRow(formBloc),
-          _buildPviRow(formBloc),
-          _buildNodesRow(formBloc),
-          _buildMetastasisRow(formBloc),
-          _buildPortalHypertensionRow(formBloc),
-          _buildPvtRow(formBloc),
-        ],
+    return FittedBox(
+      fit: BoxFit.contain,
+      child: Container(
+        width: context.widthPx,
+        //height: context.heightPct(0.9),
+        padding: isTablet
+            ? EdgeInsets.only(left: 20, top: 20)
+            : EdgeInsets.only(left: 10, top: 10),
+        child: Column(
+
+          //shrinkWrap: true,
+          //physics: ClampingScrollPhysics(),
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildTumourNumberRow(formBloc),
+            _buildTumourSizeRow(formBloc),
+            _buildTumourExtentRow(formBloc),
+            _buildPviRow(formBloc),
+            _buildNodesRow(formBloc),
+            _buildMetastasisRow(formBloc),
+            _buildPortalHypertensionRow(formBloc),
+            _buildPvtRow(formBloc),
+            SizedBox(height: kToolbarHeight,)
+          ],
+        ),
       ),
     );
   }

@@ -170,7 +170,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               margin: isLandscape ? null : EdgeInsets.only(right: 10),
               child: CalcResultWidget(
                 resultMap: resultMap,
-                alignment: MainAxisAlignment.start,
+                textAlignment: MainAxisAlignment.start,
               ),
             ),
           ],
@@ -338,7 +338,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               margin: isLandscape ? null : EdgeInsets.only(right: 20),
               child: CalcResultWidget(
                 resultMap: resultMap,
-                alignment: MainAxisAlignment.start,
+                textAlignment: MainAxisAlignment.start,
               ),
             ),
           ],

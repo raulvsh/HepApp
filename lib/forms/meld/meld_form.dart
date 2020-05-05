@@ -35,22 +35,14 @@ class MeldFormState extends State<MeldForm> with Observable {
   final units = Units();
   bool _internationalUnits = true;
 
-  //List<bool> _errorList;
   Map<String, bool> _errorMap;
-
   StreamSubscription streamSubIUnits;
-
-  //StreamSubscription streamSubErrorList;
   StreamSubscription streamSubErrorMap;
 
   String errorPrueba = "";
 
   @override
   void initState() {
-    /*SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);*/
     streamSubIUnits = prefs.iUnitsUpdates.listen(
       (newVal) => setState(() {
         _internationalUnits = newVal;
@@ -76,9 +68,7 @@ class MeldFormState extends State<MeldForm> with Observable {
       DeviceOrientation.portraitDown,
     ]);
     streamSubIUnits.cancel();
-    //streamSubErrorList.cancel();
     streamSubErrorMap.cancel();
-
     super.dispose();
   }
 
@@ -98,10 +88,6 @@ class MeldFormState extends State<MeldForm> with Observable {
       child: Builder(
         builder: (context) {
           final formBloc = BlocProvider.of<MeldFormBloc>(context);
-          /*var elements = <Widget>[
-            _buildDataFields(formBloc),
-            _buildResult(formBloc),
-          ];*/
           return FormBlocListener<MeldFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
@@ -113,27 +99,22 @@ class MeldFormState extends State<MeldForm> with Observable {
               body: Stack(
                 children: <Widget>[
                   isLandscape
-                      ? Row(
-                    children: <Widget>[
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: _buildDataFields(formBloc),
-                      ),
-                      _buildResult(formBloc),
-                    ],
-                  )
-                      : ListView(
-                    children: <Widget>[
-                      _buildDataFields(formBloc),
-                      _buildResult(formBloc),
-                    ],
-                  ),
+                      ? Row(children: <Widget>[
+                    _buildDataFields(formBloc),
+                    _buildResult(formBloc),
+                  ])
+                      : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        _buildDataFields(formBloc),
+                        _buildResult(formBloc),
+                      ]),
                   Column(
                     children: <Widget>[
                       RightBottomTitle(
                         title: 'meld',
-                        padding: EdgeInsets.fromLTRB(
-                            10, 0, isTablet ? 45 : 15, 50),
+                        padding:
+                        EdgeInsets.fromLTRB(10, 0, isTablet ? 45 : 20, 50),
                       ),
                     ],
                   ),
@@ -149,26 +130,33 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   _buildDataFields(MeldFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
     return Container(
-      width: isTablet ? context.widthPct(0.62) : context.widthPct(0.64),
-      padding: isTablet
-          ? EdgeInsets.only(left: 20, top: 20)
-          : EdgeInsets.only(left: 10, top: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _buildBilirrubinRow(formBloc),
-          _buildInrRow(formBloc),
-          _buildCreatinineRow(formBloc),
-          _buildAlbuminRow(formBloc),
-          _buildSodiumRow(formBloc),
-          _buildDialysisRow(formBloc),
-          _buildCalcButton(formBloc),
-          Text(prefs.getErrorMap().toString()),
-          Text(prefs.getErrorMap().values.toString()),
-          Text(prefs.isMapError().toString()),
-          Text(errorPrueba),
-        ],
+      alignment: Alignment.topLeft,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Container(
+          width: context.widthPct(isLandscape ? 0.63 : 1),
+          padding: isTablet
+              ? EdgeInsets.only(left: 20, top: 20, bottom: 20)
+              : EdgeInsets.only(left: 10, top: 10, bottom: kToolbarHeight),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _buildBilirrubinRow(formBloc),
+              _buildInrRow(formBloc),
+              _buildCreatinineRow(formBloc),
+              _buildAlbuminRow(formBloc),
+              _buildSodiumRow(formBloc),
+              _buildDialysisRow(formBloc),
+              _buildCalcButton(formBloc),
+              //Text(prefs.getErrorMap().toString()),
+              //Text(prefs.getErrorMap().values.toString()),
+              //Text(prefs.isMapError().toString()),
+              //Text(errorPrueba),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -374,38 +362,44 @@ class MeldFormState extends State<MeldForm> with Observable {
       '5v_meld': formBloc.results['5v_meld'],
     };
 
-    return Container(
-      width: isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
-      //color: Colors.blue,
-      child: Column(
-        children: <Widget>[
-          Container(
-            padding: isLandscape ? null : EdgeInsets.only(left: 80),
-            child: isTablet
-                ? InternationalUnitsSelect(
-              formBloc: formBloc,
-            )
-                : Container(
-              padding: EdgeInsets.only(right: 10, left: 10),
+    return Expanded(
+      child: Container(
+        padding: isTablet
+            ? EdgeInsets.fromLTRB(40, 0, 40, 0)
+            : EdgeInsets.fromLTRB(20, 0, 20, 0),
+        alignment: Alignment.topCenter,
+        width: context.widthPct(isLandscape ? 0.4 : 1),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: isLandscape && !isTablet
+              ? CrossAxisAlignment.end
+              : CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              padding: isLandscape && !isTablet
+                  ? EdgeInsets.only(left: 90)
+                  : EdgeInsets.zero,
               child: FittedBox(
-                fit: BoxFit.scaleDown,
+                fit: BoxFit.contain,
                 child: InternationalUnitsSelect(
                   formBloc: formBloc,
                 ),
               ),
             ),
-          ),
-          FittedBox(
-            child: Container(
-              height: context.heightPct(0.4),
-              padding: EdgeInsets.fromLTRB(0, 30, isTablet ? 50 : 0, 0),
-              child: CalcResultWidget(
-                resultMap: resultMap,
-                alignment: MainAxisAlignment.center,
+            FittedBox(
+              child: Container(
+                height: isTablet
+                    ? context.heightPct(isLandscape ? 0.5 : 0.3)
+                    : context.heightPct(0.45),
+                padding: EdgeInsets.only(top: isTablet ? 50 : 15, bottom: 15),
+                child: CalcResultWidget(
+                  resultMap: resultMap,
+                  textAlignment: MainAxisAlignment.center,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -32,24 +32,15 @@ class ClipFormState extends State<ClipForm> with Observable {
   var previous = false;
   final prefs = UserSettings();
   final units = Units();
+
   bool _internationalUnits = true;
-
-  //List<bool> _errorList;
   Map<String, bool> _errorMap;
-
   StreamSubscription streamSubIUnits;
-
-  //StreamSubscription streamSubErrorList;
   StreamSubscription streamSubErrorMap;
-
   String errorPrueba = "";
 
   @override
   void initState() {
-    /*SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);*/
     streamSubIUnits = prefs.iUnitsUpdates.listen(
       (newVal) => setState(() {
         _internationalUnits = newVal;
@@ -81,7 +72,6 @@ class ClipFormState extends State<ClipForm> with Observable {
     ]);
     streamSubIUnits.cancel();
     streamSubErrorMap.cancel();
-
     super.dispose();
   }
 
@@ -101,7 +91,6 @@ class ClipFormState extends State<ClipForm> with Observable {
       child: Builder(
         builder: (context) {
           final formBloc = BlocProvider.of<ClipFormBloc>(context);
-
           return FormBlocListener<ClipFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
@@ -114,21 +103,16 @@ class ClipFormState extends State<ClipForm> with Observable {
               body: Stack(
                 children: <Widget>[
                   isLandscape
-                      ? Row(
-                    children: <Widget>[
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: _buildDataFields(formBloc),
-                      ),
-                      _buildResult(formBloc),
-                    ],
-                  )
-                      : ListView(
-                    children: <Widget>[
-                      _buildDataFields(formBloc),
-                      _buildResult(formBloc),
-                    ],
-                  ),
+                      ? Row(children: <Widget>[
+                    _buildDataFields(formBloc),
+                    _buildResult(formBloc),
+                  ])
+                      : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        _buildDataFields(formBloc),
+                        _buildResult(formBloc),
+                      ]),
                   Column(
                     children: <Widget>[
                       RightBottomTitle(
@@ -150,24 +134,34 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   _buildDataFields(ClipFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
     return Container(
-      width: context.widthPct(isTablet ? 0.68 : 0.72),
-      padding: isTablet
-          ? EdgeInsets.only(left: 20, top: 20)
-          : EdgeInsets.only(left: 10, top: 10),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _buildAFPRow(formBloc),
-          _buildCPSRow(formBloc),
-          _buildTumourNumberRow(formBloc),
-          _buildTumourExtentRow(formBloc),
-          _buildPVTRow(formBloc),
-          _buildCalcButton(formBloc),
-          Text(prefs.getErrorMap().toString()),
-          Text(prefs.getErrorMap().values.toString()),
-          Text(prefs.isMapError().toString()),
-          Text(errorPrueba),
-        ],
+      alignment: Alignment.topLeft,
+      //color: Colors.red,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Container(
+          width: context.widthPct(isLandscape ? 0.72 : 1),
+          padding: isTablet
+              ? EdgeInsets.only(left: 20, top: 20, bottom: 20)
+              : EdgeInsets.only(left: 10, top: 10, bottom: kToolbarHeight),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _buildAFPRow(formBloc),
+              _buildCPSRow(formBloc),
+              _buildTumourNumberRow(formBloc),
+              _buildTumourExtentRow(formBloc),
+              _buildPVTRow(formBloc),
+              SizedBox(height: 10),
+              _buildCalcButton(formBloc),
+              //Text(prefs.getErrorMap().toString()),
+              //Text(prefs.getErrorMap().values.toString()),
+              //Text(prefs.isMapError().toString()),
+              //Text(errorPrueba),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -380,26 +374,34 @@ class ClipFormState extends State<ClipForm> with Observable {
   _buildResult(ClipFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
-    Map<String, String> resultMap = {
-      'clip': formBloc.result,
-    };
+    Map<String, String> resultMap = {'clip': formBloc.result};
 
-    return Container(
-      width: isTablet ? context.widthPct(0.32) : context.widthPct(0.26),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          FittedBox(
-            child: Container(
-              height: context.heightPct(0.4),
-              margin: EdgeInsets.fromLTRB(0, 30, isTablet ? 50 : 0, 0),
-              child: CalcResultWidget(
-                resultMap: resultMap,
-                alignment: MainAxisAlignment.center,
+    return Expanded(
+      child: Container(
+        padding: isTablet
+            ? EdgeInsets.fromLTRB(40, 0, 40, 0)
+            : EdgeInsets.fromLTRB(20, 0, 20, 0),
+        width: context.widthPct(isLandscape ? 0.28 : 1),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: isLandscape && !isTablet
+              ? CrossAxisAlignment.end
+              : CrossAxisAlignment.center,
+          children: <Widget>[
+            FittedBox(
+              child: Container(
+                height: isTablet
+                    ? context.heightPct(isLandscape ? 0.5 : 0.3)
+                    : context.heightPct(0.5),
+                padding: EdgeInsets.only(top: isTablet ? 50 : 20, bottom: 15),
+                child: CalcResultWidget(
+                  resultMap: resultMap,
+                  textAlignment: MainAxisAlignment.center,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -43,10 +43,6 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   @override
   void initState() {
-    /*SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);*/
     streamSubIUnits = prefs.iUnitsUpdates.listen(
           (newVal) =>
           setState(() {
@@ -137,7 +133,7 @@ class CpsFormState extends State<CpsForm> with Observable {
                       RightBottomTitle(
                         title: 'child_pugh_score_oneline',
                         padding:
-                        EdgeInsets.fromLTRB(10, 0, isTablet ? 45 : 20, 50),
+                        EdgeInsets.fromLTRB(10, 10, isTablet ? 45 : 20, 50),
                       ),
                     ],
                   ),
@@ -159,7 +155,6 @@ class CpsFormState extends State<CpsForm> with Observable {
       child: FittedBox(
         fit: BoxFit.scaleDown,
         child: Container(
-          //color: Colors.green,
           width: context.widthPct(isLandscape ? 0.63 : 1),
           padding: isTablet
               ? EdgeInsets.only(left: 20, top: 20, bottom: 20)
@@ -173,9 +168,7 @@ class CpsFormState extends State<CpsForm> with Observable {
               _buildAlbuminRow(formBloc),
               _buildEncephalopatyRow(formBloc),
               _buildAscitesRow(formBloc),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20),
               _buildCalcButton(formBloc),
               //SizedBox(height: 45,)
               //Text(prefs.getErrorMap().toString()),
@@ -390,18 +383,17 @@ class CpsFormState extends State<CpsForm> with Observable {
             ? EdgeInsets.fromLTRB(40, 0, 40, 0)
             : EdgeInsets.fromLTRB(20, 0, 20, 0),
         alignment: Alignment.topCenter,
-
         width: context.widthPct(isLandscape ? 0.4 : 1),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment:
-          isLandscape && !isTablet ? CrossAxisAlignment.end : CrossAxisAlignment
-              .center,
+          crossAxisAlignment: isLandscape && !isTablet
+              ? CrossAxisAlignment.end
+              : CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              padding:
-              isLandscape && !isTablet ? EdgeInsets.only(left: 80) : EdgeInsets
-                  .zero,
+              padding: isLandscape && !isTablet
+                  ? EdgeInsets.only(left: 77)
+                  : EdgeInsets.zero,
               child: FittedBox(
                 fit: BoxFit.contain,
                 child: InternationalUnitsSelect(
@@ -412,15 +404,13 @@ class CpsFormState extends State<CpsForm> with Observable {
 
             FittedBox(
               child: Container(
-
-
                 height: isTablet
                     ? context.heightPct(isLandscape ? 0.5 : 0.3)
                     : context.heightPct(0.45),
-                padding: EdgeInsets.only(top: isTablet ? 50 : 20, bottom: 10),
+                padding: EdgeInsets.only(top: isTablet ? 50 : 15, bottom: 15),
                 child: CalcResultWidget(
                   resultMap: resultMap,
-                  alignment: MainAxisAlignment.center,
+                  textAlignment: MainAxisAlignment.center,
                 ),
               ),
             ),
