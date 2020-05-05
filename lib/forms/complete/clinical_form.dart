@@ -48,7 +48,10 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              _buildLeftColumn(widget.formBloc),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: _buildDataFields(widget.formBloc),
+              ),
               _buildRightBottomTitle(widget.formBloc),
             ],
           ),
@@ -58,12 +61,16 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  _buildLeftColumn(CompleteFormBloc formBloc) {
+  _buildDataFields(CompleteFormBloc formBloc) {
+    bool isTablet = context.diagonalInches >= 7;
+
     return Container(
       width: context.widthPx,
       height: context.heightPx,
       //color: Colors.red,
-      padding: EdgeInsets.only(left: 20, top: 20),
+      padding: isTablet
+          ? EdgeInsets.only(left: 20, top: 20)
+          : EdgeInsets.only(left: 10, top: 10),
       child: ListView(
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
@@ -78,8 +85,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  _buildCirrhosisRow(CompleteFormBloc formBloc
-  ) {
+  _buildCirrhosisRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       initialValue: formBloc.cirrhosisField.value.toString(),
       reset: reset,
@@ -94,9 +100,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  _buildEncephalopatyRow(
-
-      CompleteFormBloc formBloc,
+  _buildEncephalopatyRow(CompleteFormBloc formBloc,
   ) {
     return CalcGroupField(
       initialValue: formBloc.encephalopatyField.value.toString(),
@@ -112,9 +116,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  _buildAscitesRow(
-
-      CompleteFormBloc formBloc,
+  _buildAscitesRow(CompleteFormBloc formBloc,
   ) {
     return CalcGroupField(
       initialValue: formBloc.ascitesField.value.toString(),
@@ -130,9 +132,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  _buildVaricesRow(
-
-      CompleteFormBloc formBloc,
+  _buildVaricesRow(CompleteFormBloc formBloc,
   ) {
     return CalcGroupField(
       initialValue: formBloc.varicesField.value.toString(),
@@ -148,9 +148,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  _buildEcogRow(
-
-      CompleteFormBloc formBloc,
+  _buildEcogRow(CompleteFormBloc formBloc,
   ) {
     return CalcGroupField(
       initialValue: formBloc.ecogField.value.toString(),
@@ -167,7 +165,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   }
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
-
     return BottomAppBar(
       child: Stack(
         children: <Widget>[

@@ -36,14 +36,15 @@ class _CommonGridPageState extends State<CommonGridPage> {
       width: double.infinity,
       height: double.infinity,
       child: FractionallySizedBox(
+
         widthFactor:
         isLandscape ? (isTablet ? 0.7 : 0.7) : (isTablet ? 0.6 : 0.7),
-        alignment: Alignment.center,
+        alignment: Alignment.topCenter,
         child: GridView.count(
           padding: isLandscape
               ? EdgeInsets.symmetric(
               vertical: isTablet ? 5 * padding : 2 * padding)
-              : EdgeInsets.symmetric(vertical: 6 * padding),
+              : EdgeInsets.symmetric(vertical: 3 * padding),
           primary: false,
           crossAxisCount: isLandscape ? 4 : 2,
           children: _buildGridView(),

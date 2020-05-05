@@ -71,7 +71,10 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              _buildLeftColumn(widget.formBloc),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: _buildDataFields(widget.formBloc),
+              ),
               _buildRightBottomTitle(widget.formBloc),
             ],
           ),
@@ -81,11 +84,15 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  _buildLeftColumn(CompleteFormBloc formBloc) {
+  _buildDataFields(CompleteFormBloc formBloc) {
+    bool isTablet = context.diagonalInches >= 7;
+
     return Container(
       width: context.widthPx,
       height: context.heightPx,
-      padding: EdgeInsets.only(left: 20, top: 20),
+      padding: isTablet
+          ? EdgeInsets.only(left: 20, top: 20)
+          : EdgeInsets.only(left: 10, top: 10),
       child: ListView(
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),

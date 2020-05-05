@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hepapp/data/home_sections.dart';
-import 'package:hepapp/pages/CommonPages/CommonGridPage.dart';
+import 'package:hepapp/pages/CommonPages/common_grid_page.dart';
 import 'package:hepapp/widgets/HomeAppBar.dart';
 
 class HomePage extends StatefulWidget {

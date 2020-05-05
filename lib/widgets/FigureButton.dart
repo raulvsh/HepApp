@@ -15,9 +15,7 @@ class FigureButton extends StatelessWidget {
       margin: EdgeInsets.all(4),
       child: GestureDetector(
         child: buildStack(),
-        onTap: () {
-          Navigator.pushNamed(context, type[2], arguments: page);
-        },
+        onTap: () => Navigator.pushNamed(context, type[2], arguments: page),
       ),
     );
   }
@@ -25,11 +23,14 @@ class FigureButton extends StatelessWidget {
   buildStack() {
     var aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
-
+    bool isLandscape = context.isLandscape;
     return Column(
       children: <Widget>[
         Container(
-          height: isTablet ? 120 : 80,
+          /*height: isLandscape
+              ? context.heightPct(isTablet ? 0.19 : 0.19)
+              : context.heightPct(isTablet ? 0.12 : 0.12),*/
+          height: context.heightPct(isLandscape ? 0.19 : 0.12),
           width: double.infinity,
           //color: Colors.red,
           padding: isTablet
@@ -43,7 +44,7 @@ class FigureButton extends StatelessWidget {
         Expanded(
           child: Container(
             //color: Colors.blue,
-            padding: EdgeInsets.symmetric(horizontal: 7),
+            padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
             child: Center(
               child: Text(
                 aux.tr(type[0]),
@@ -51,10 +52,10 @@ class FigureButton extends StatelessWidget {
                 maxLines: 3,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.black, //Theme.of(context).primaryColor,
-                  fontSize: isTablet ? 14 : 12,
+                  color: Colors.black,
+                  fontSize: context.heightPct(isLandscape ? 0.025 : 0.014),
+                  //fontSize: isLandscape?context.heightPct(isTablet ? 0.025 : 0.025) : context.heightPct(isTablet ? 0.014 : 0.014),
                 ),
-
               ),
             ),
           ),

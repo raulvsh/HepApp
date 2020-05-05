@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hepapp/forms/calc_multiple_text_field.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
@@ -55,6 +56,13 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
+    bool isTablet = context.diagonalInches >= 7;
+    !isTablet
+        ? SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ])
+        : null;
     return Scaffold(
       appBar: CustomAppBar(
         context,
@@ -65,11 +73,10 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
       drawer: MenuWidget(),
       body: Stack(
         children: <Widget>[
-          Stack(
-            children: <Widget>[
-              _buildLeftColumn(widget.formBloc),
-              _buildRightBottomTitle(),
-            ],
+          _buildRightBottomTitle(),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: _buildDataFields(widget.formBloc),
           ),
         ],
       ),
@@ -77,13 +84,14 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  _buildLeftColumn(CompleteFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
+  _buildDataFields(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: context.widthPx,
       height: context.heightPx,
-      padding: EdgeInsets.only(left: 20, top: 20),
+      padding: isTablet
+          ? EdgeInsets.only(left: 20, top: 20)
+          : EdgeInsets.only(left: 10, top: 10),
       child: ListView(
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
@@ -239,8 +247,9 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[_buildNextButton(aux, formBloc),],
-
+            children: <Widget>[
+              _buildNextButton(aux, formBloc),
+            ],
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
@@ -72,14 +73,13 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   @override
   dispose() {
-    /*SystemChrome.setPreferredOrientations([
+    SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
-    ]);*/
+    ]);
     streamSubIUnits.cancel();
-    //streamSubErrorList.cancel();
     streamSubErrorMap.cancel();
 
     super.dispose();
@@ -87,17 +87,21 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
-    var isLandscape = context.isLandscape;
+    bool isLandscape = context.isLandscape;
 
+    bool isTablet = context.diagonalInches >= 7;
+    !isTablet
+        ? SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ])
+        : null;
     return BlocProvider<ClipFormBloc>(
       builder: (context) => ClipFormBloc(),
       child: Builder(
         builder: (context) {
           final formBloc = BlocProvider.of<ClipFormBloc>(context);
-          var elements = <Widget>[
-            _buildLeftColumn(formBloc),
-            _buildRightColumn(formBloc),
-          ];
+
           return FormBlocListener<ClipFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
@@ -111,16 +115,26 @@ class ClipFormState extends State<ClipForm> with Observable {
                 children: <Widget>[
                   isLandscape
                       ? Row(
-                    children: elements,
+                    children: <Widget>[
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: _buildDataFields(formBloc),
+                      ),
+                      _buildResult(formBloc),
+                    ],
                   )
                       : ListView(
-                    children: elements,
+                    children: <Widget>[
+                      _buildDataFields(formBloc),
+                      _buildResult(formBloc),
+                    ],
                   ),
                   Column(
                     children: <Widget>[
                       RightBottomTitle(
                         title: 'clip',
-                        padding: EdgeInsets.fromLTRB(10, 0, 45, 50),
+                        padding:
+                        EdgeInsets.fromLTRB(10, 0, isTablet ? 45 : 15, 50),
                       ),
                     ],
                   ),
@@ -134,13 +148,14 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-  _buildLeftColumn(ClipFormBloc formBloc) {
+  _buildDataFields(ClipFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
-      width: isTablet ? context.widthPct(0.68) : context.widthPct(0.71),
-      padding: EdgeInsets.only(left: 20, top: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      width: context.widthPct(isTablet ? 0.68 : 0.72),
+      padding: isTablet
+          ? EdgeInsets.only(left: 20, top: 20)
+          : EdgeInsets.only(left: 10, top: 10),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildAFPRow(formBloc),
           _buildCPSRow(formBloc),
@@ -231,7 +246,6 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   _buildCalcButton(
-
     ClipFormBloc formBloc,
   ) {
     AppLocalizations aux = AppLocalizations.of(context);
@@ -267,7 +281,6 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   _buildBottomSheet(ClipFormBloc formBloc) {
-
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -364,7 +377,7 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-  _buildRightColumn(ClipFormBloc formBloc) {
+  _buildResult(ClipFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
     Map<String, String> resultMap = {
@@ -372,17 +385,18 @@ class ClipFormState extends State<ClipForm> with Observable {
     };
 
     return Container(
-      width: isTablet ? context.widthPct(0.32) : context.widthPct(0.29),
+      width: isTablet ? context.widthPct(0.32) : context.widthPct(0.26),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            padding: isLandscape
-                ? EdgeInsets.fromLTRB(0, 30, 30, 0)
-                : EdgeInsets.fromLTRB(80, 30, 30, 0),
-            child: CalcResultWidget(
-              resultMap: resultMap,
-              alignment: MainAxisAlignment.center,
+          FittedBox(
+            child: Container(
+              height: context.heightPct(0.4),
+              margin: EdgeInsets.fromLTRB(0, 30, isTablet ? 50 : 0, 0),
+              child: CalcResultWidget(
+                resultMap: resultMap,
+                alignment: MainAxisAlignment.center,
+              ),
             ),
           ),
         ],

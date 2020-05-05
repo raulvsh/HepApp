@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hepapp/routes/RouteGenerator.dart';
+import 'package:hepapp/routes/route_generator.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 
 import 'lang/app_localizations.dart';

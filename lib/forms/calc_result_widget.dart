@@ -26,7 +26,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
 
     return Container(
       width: isTablet ? 400 : 200,
-      height: isTablet ? 200 : 140,
+      height: isTablet ? 200 : 170,
       //margin: EdgeInsets.fromLTRB(0, 30, 50, 0),
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
@@ -48,6 +48,8 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
   buildResultList(alignment) {
     AppLocalizations aux = AppLocalizations.of(context);
     List<Row> rowList = [];
+    bool isTablet = context.diagonalInches >= 7;
+
 
     // Map mapa = {};
     //widget.resultList.for
@@ -67,7 +69,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
                   //'${aux.tr(widget.resultList[i][0])}: ',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: isTablet ? 16 : 12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -79,7 +81,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
                   color: Theme
                       .of(context)
                       .primaryColor,
-                  fontSize: 16,
+                  fontSize: isTablet ? 16 : 12,
                 ),
               ),
             ],

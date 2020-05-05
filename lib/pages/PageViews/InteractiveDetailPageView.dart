@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/data/interactive.dart';
-import 'package:hepapp/pages/DetailPages/InteractiveDetailPage.dart';
+import 'package:hepapp/pages/DetailPages/interactive_detail_page.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 
 class InteractiveDetailPageView extends StatefulWidget {

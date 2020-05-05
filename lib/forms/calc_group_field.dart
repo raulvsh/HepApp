@@ -168,7 +168,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
     AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
-      //width: 90,
         padding: EdgeInsets.symmetric(horizontal: 5),
         child: Text(
           aux.tr(widget.title),
@@ -186,17 +185,14 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
 
     return Expanded(
       child: Container(
-        //alignment: Alignment.center,
         padding: EdgeInsets.only(
-          left: 15.0,
+          left: 5.0,
         ),
-        //color: Colors.red,
         width: 100.0 * state.items.length,
         height: 20.0,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: state.items.length,
-          //padding: EdgeInsets.symmetric(vertical: 1),
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           itemBuilder: (context, index) {
@@ -257,12 +253,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                               var opacity =
                               (!widget.reset && !_errorFlag) ? alpha : 0;
 
-                              /* print("dentro builder " +
-                                  isSelected.toString() +
-                                  " reset " +
-                                  widget.reset.toString() +
-                                  " error " +
-                                  _errorFlag.toString());*/
                               return Container(
                                 width: 100,
                                 height: 20,
@@ -336,22 +326,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
         prefs.getErrorMap().update(key, (v) => false);
       }
     });
-
-    /*if (widget.title == 'encephalopaty') {
-      prefs.getErrorMap().update('encephalopaty', (v) => false);
-    } else if (widget.title == 'ascites') {
-      prefs.getErrorMap().update('ascites', (v) => false);
-    } else if (widget.title == 'dialysis') {
-      prefs.getErrorMap().update('dialysis', (v) => false);
-    } else if (widget.title == 'child_pugh_score') {
-      prefs.getErrorMap().update('child_pugh_score', (v) => false);
-    } else if (widget.title == 'tumour_number') {
-      prefs.getErrorMap().update('tumour_number', (v) => false);
-    } else if (widget.title == 'tumour_extent') {
-      prefs.getErrorMap().update('tumour_extent', (v) => false);
-    } else if (widget.title == 'pvt_complete') {
-      prefs.getErrorMap().update('pvt_complete', (v) => false);
-    }*/
   }
 
   double _calculateWidth(state) {
@@ -359,7 +333,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
     bool isTablet = context.diagonalInches >= 7;
     bool moreThanTree = state.items.length > 3.0;
     if (moreThanTree) {
-      return isTablet ? (isLandscape ? 60 : 50) : 50;
+      return isTablet ? (isLandscape ? 60 : 50) : 42;
     }
     return isTablet ? (isLandscape ? 110 : 100) : 90;
   }
@@ -367,37 +341,18 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
   InputDecoration _buildDecoration(BuildContext context,
       SelectFieldBlocState<Value> state, bool isEnable) {
     InputDecoration decoration = this.widget.decoration;
-    //prefs.setError(false);
     _errorFlag = false;
     return decoration.copyWith(
-      /*suffix: SizedBox(width: 100,),//.shrink(),
-      prefixIcon: SizedBox.shrink(),
-      prefix: SizedBox.shrink(),
-      suffixIcon: SizedBox.shrink(),*/
       enabled: isEnable,
-      contentPadding:
-      //EdgeInsets.all(0),
-
-      Style.getGroupFieldBlocContentPadding(
+      contentPadding: Style.getGroupFieldBlocContentPadding(
         isVisible: true,
         decoration: decoration,
       ),
       errorText: Style.getErrorText(
         context: context,
-        //errorBuilder: widget.errorBuilder,
-        errorBuilder:
-        //widget.error ? (context,error){_errorFlag=true; return null;} : widget.errorBuilder,
-            (context, error) {
-          //widget.errorBuilder;
-          //print(error);
-          //prefs.setError(true);
-          print("selectfield to string: " + widget.selectFieldBloc.toString());
-          /* print("error desde error builder part group " +
-              prefs.getError().toString());*/
-          //_errorFlag = true;
+        errorBuilder: (context, error) {
           switch (error) {
             case ValidatorsError.requiredSelectFieldBloc:
-            //prefs.setError(true);
               if (widget.errorControl) {
                 _errorFlag = true;
               }
@@ -407,7 +362,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
               return 'This text is nor valid.';
           }
         },
-
         fieldBlocState: state,
       ),
     );

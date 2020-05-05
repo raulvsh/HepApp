@@ -57,6 +57,8 @@ class SummaryFormState extends State<SummaryForm> with Observable {
   }
 
   _buildBody() {
+    bool isTablet = context.diagonalInches >= 7;
+
     return Stack(
       children: <Widget>[
         Row(
@@ -70,7 +72,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
           children: <Widget>[
             RightBottomTitle(
               title: 'value_summary',
-              padding: EdgeInsets.fromLTRB(10, 0, 15, 30),
+              padding: EdgeInsets.fromLTRB(10, 0, 15, 0),
             ),
           ],
         ),
@@ -81,6 +83,8 @@ class SummaryFormState extends State<SummaryForm> with Observable {
   Container _buildDiagnosticColumn() {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isLandscape = context.isLandscape;
+    bool isTablet = context.diagonalInches >= 7;
+
     var tumourSize = widget.formBloc.tumourSizeField;
     for (int i = 0; i < tumourSize.length; i++)
       print(tumourSize[i].value);
@@ -107,14 +111,17 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     unionMap.addAll(diagnosticMap2);
 
     return Container(
-      width: isLandscape ? context.widthPct(0.42) : context.widthPct(0.37),
+      width: isLandscape
+          ? context.widthPct(isTablet ? 0.42 : 0.37)
+          : context.widthPct(0.37),
+      //width:
       padding: EdgeInsets.only(left: 20, top: 10, bottom: 5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
+        //crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildSummaryTitle('diagnostic_imaging'),
-          _buildSeparator(isLandscape ? 0.38 : 0.33),
-          isLandscape
+          _buildSeparator(isLandscape && isTablet ? 0.38 : 0.33),
+          isLandscape && isTablet
               ? _buildDiagnosticTwoColumns(diagnosticMap1, diagnosticMap2)
               : _buildDiagnosticOneColumn(unionMap),
         ],
@@ -172,8 +179,8 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     };
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      width: isLandscape ? context.widthPct(0.29) : context.widthPct(0.33),
-      child: Column(
+      width: context.widthPct(isLandscape ? 0.29 : 0.33),
+      child: ListView(
         children: <Widget>[
           _buildSummaryTitle('laboratory_values'),
           _buildSeparator(isLandscape ? 0.27 : 0.31),
@@ -208,7 +215,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
 
       width: isLandscape ? context.widthPct(0.29) : context.widthPct(0.28),
-      child: Column(
+      child: ListView(
         children: <Widget>[
           _buildSummaryTitle('clinical_questions'),
           _buildSeparator(isLandscape ? 0.27 : 0.26),
@@ -261,7 +268,6 @@ class SummaryFormState extends State<SummaryForm> with Observable {
         children: <Widget>[
           _buildInitialBlueRectangle(),
           _buildSummaryText(key),
-
           _buildSummaryContent(value != null ? value.toString() : '-'),
         ],
       ));

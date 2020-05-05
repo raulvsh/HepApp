@@ -44,7 +44,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
-    //printFormBloc(widget.formBloc);
     return Scaffold(
       appBar: CustomAppBar(
         context,
@@ -59,14 +58,14 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           Column(
             children: <Widget>[
               _buildResultsRow(widget.formBloc),
-              _buildTreatmentsRow(context)
+              _buildTreatmentsRow()
             ],
           ),
           Column(
             children: <Widget>[
               RightBottomTitle(
-                title: 'result',
-                padding: EdgeInsets.fromLTRB(10, 0, 15, 55),
+                title: 'results',
+                padding: EdgeInsets.fromLTRB(10, 0, 15, 45),
               )
             ],
           )
@@ -78,38 +77,44 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   Container _buildResultsRow(CompleteFormBloc formBloc) {
     bool isLandscape = context.isLandscape;
+    bool isTablet = context.diagonalInches >= 7;
+
     return Container(
-      height: isLandscape ? context.heightPct(0.52) : context.heightPct(0.3),
+      height: isLandscape ? context.heightPct(isTablet ? 0.52 : 0.4) : context
+          .heightPct(0.3),
       //color: Colors.green,
       child: Row(
-        //mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         //crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _buildLeftColumn(formBloc),
-          _buildRightColumn(formBloc),
+          _buildHepaticColumn(formBloc),
+          _buildAlgorithmsColumn(formBloc),
         ],
       ),
     );
   }
 
-  Container _buildTreatmentsRow(BuildContext context) {
+  Container _buildTreatmentsRow() {
     bool isLandscape = context.isLandscape;
     return Container(
       //color: Colors.red,
-      height: isLandscape ? context.heightPct(0.22) : context.heightPct(0.50),
+      height: context.heightPct(isLandscape ? 0.3 : 0.50),
 
       child: Column(
+
         children: <Widget>[
           Row(
+
             children: <Widget>[
               _buildRecommendedTreatments(),
               SizedBox(
-                width: 70,
+                width: 40,
+
               ),
               isLandscape ? _buildMoreInfoButton() : Container(
                 height: 0, width: 0,),
               SizedBox(
-                width: 55,
+                width: 40,
               ),
               isLandscape ? _buildAlbertaButton() : Container(
                 height: 0, width: 0,),
@@ -128,7 +133,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     );
   }
 
-  _buildLeftColumn(CompleteFormBloc formBloc) {
+  _buildHepaticColumn(CompleteFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
@@ -143,31 +148,33 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       '5v_meld': '-',
     };
 
-    return Container(
-      width: context.widthPct(0.5),
-      //color: Colors.red,
-      padding: EdgeInsets.only(left: 20, top: 20),
-      child: Column(
-        children: <Widget>[
-          Container(
+    return FittedBox(
+      child: Container(
+        width: context.widthPct(0.5),
+        //color: Colors.red,
+        padding: EdgeInsets.only(left: 20, top: 20),
+        child: Column(
+          children: <Widget>[
+            Container(
+                margin: isLandscape ? null : EdgeInsets.only(right: 10),
+                width: isTablet ? 400 : 200,
+                height: isTablet ? 30 : 20,
+                color: Color.fromARGB(255, 210, 242, 245),
+                child: Center(
+                    child: Text(
+                      aux.tr('liver_function').toUpperCase(),
+                      style: TextStyle(
+                          color: Colors.black, fontSize: isTablet ? 16 : 13),
+                    ))),
+            Container(
               margin: isLandscape ? null : EdgeInsets.only(right: 10),
-              width: isTablet ? 400 : 200,
-              height: isTablet ? 30 : 20,
-              color: Color.fromARGB(255, 210, 242, 245),
-              child: Center(
-                  child: Text(
-                aux.tr('liver_function').toUpperCase(),
-                style: TextStyle(
-                    color: Colors.black, fontSize: isTablet ? 16 : 14),
-              ))),
-          Container(
-            margin: isLandscape ? null : EdgeInsets.only(right: 10),
-            child: CalcResultWidget(
-              resultMap: resultMap,
-              alignment: MainAxisAlignment.start,
+              child: CalcResultWidget(
+                resultMap: resultMap,
+                alignment: MainAxisAlignment.start,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -206,7 +213,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       //width: 250,
-      padding: EdgeInsets.symmetric(vertical: 35.0, horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 10),
       //margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
@@ -291,7 +298,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     );
   }
 
-  _buildRightColumn(CompleteFormBloc formBloc) {
+  _buildAlgorithmsColumn(CompleteFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
@@ -304,35 +311,38 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       'bclc': '-',
     };
 
-    return Container(
-      width: context.widthPct(0.5),
-      // color: Colors.blue,
-      padding: EdgeInsets.only(left: 10, top: 20),
-      child: Column(
-        children: <Widget>[
-          Container(
+    return FittedBox(
+      //padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: context.widthPct(0.5),
+        // color: Colors.blue,
+        padding: EdgeInsets.only(left: 10, top: 20),
+        child: Column(
+          children: <Widget>[
+            Container(
+                margin: isLandscape ? null : EdgeInsets.only(right: 20),
+                width: isTablet ? 400 : 200,
+                height: isTablet ? 30 : 20,
+                color: Color.fromARGB(255, 210, 242, 245),
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Center(
+                      child: Text(
+                        aux.tr('staging_algorithms').toUpperCase(),
+                        style: TextStyle(
+                            color: Colors.black, fontSize: isTablet ? 16 : 14),
+                      )),
+                )),
+            Container(
               margin: isLandscape ? null : EdgeInsets.only(right: 20),
-              width: isTablet ? 400 : 200,
-              height: isTablet ? 30 : 20,
-              color: Color.fromARGB(255, 210, 242, 245),
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Center(
-                    child: Text(
-                      aux.tr('staging_algorithms').toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.black, fontSize: isTablet ? 16 : 14),
-                    )),
-              )),
-          Container(
-            margin: isLandscape ? null : EdgeInsets.only(right: 20),
-            child: CalcResultWidget(
-              resultMap: resultMap,
-              alignment: MainAxisAlignment.start,
+              child: CalcResultWidget(
+                resultMap: resultMap,
+                alignment: MainAxisAlignment.start,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -341,6 +351,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     AppLocalizations aux = AppLocalizations.of(context);
     return Row(
+      //crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         _buildInitialBlueRectangle(),
         SizedBox(
@@ -353,15 +364,15 @@ class ResultsFormState extends State<ResultsForm> with Observable {
             Text(
               aux.tr('recommended_treatment'),
               style:
-                  TextStyle(color: Colors.black, fontSize: isTablet ? 16 : 12),
+              TextStyle(color: Colors.black, fontSize: isTablet ? 16 : 11),
             ),
             SizedBox(
-              height: 10,
+              height: isTablet ? 10 : 4,
             ),
 
             buildRecommendedTreatmentRow('1', 'recommended treatment 1'),
             SizedBox(
-              height: 10,
+              height: isTablet ? 10 : 4,
             ),
             buildRecommendedTreatmentRow('2', 'recommended treatment 2'),
 
@@ -377,6 +388,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
 
     return Row(
+
       children: <Widget>[
         CircleAvatar(
           radius: 15,
@@ -399,10 +411,12 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   }
 
   Container _buildInitialBlueRectangle() {
+    bool isTablet = context.diagonalInches >= 7;
+
     return Container(
       color: Color.fromARGB(255, 210, 242, 245),
       width: 15.0,
-      height: 110.0,
+      height: 90.0,
     );
   }
 
@@ -467,6 +481,41 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         });
   }
 
+  _buildAlbertaButton() {
+    AppLocalizations aux = AppLocalizations.of(context);
+    bool isTablet = context.diagonalInches >= 7;
+    return Container(
+      //width: 250,
+      padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 10),
+      //margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(3),
+            side: BorderSide(
+              color: Color.fromARGB(255, 45, 145, 155),
+              width: 1.5,
+            )),
+        color: Theme
+            .of(context)
+            .primaryColor,
+        splashColor: Color.fromARGB(255, 56, 183, 198),
+        elevation: 3,
+        onPressed: () {
+          // submitDiagnostic(formBloc);
+        },
+        child: Center(
+          child: Text(
+            aux.tr('alberta_hcc_algorithm'),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: isTablet ? 15 : 12,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   void resetValues(CompleteFormBloc formBloc) {
     reset = true;
     formBloc.reset();
@@ -502,39 +551,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
           // Navigator.pushNamed(context, '/CompletePage', arguments: 4);
         },
-      ),
-    );
-  }
-
-  _buildAlbertaButton() {
-    AppLocalizations aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
-    return Container(
-      //width: 250,
-      padding: EdgeInsets.symmetric(vertical: 35.0, horizontal: 10),
-      //margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
-            side: BorderSide(
-              color: Color.fromARGB(255, 45, 145, 155),
-              width: 1.5,
-            )),
-        color: Theme.of(context).primaryColor,
-        splashColor: Color.fromARGB(255, 56, 183, 198),
-        elevation: 3,
-        onPressed: () {
-          // submitDiagnostic(formBloc);
-        },
-        child: Center(
-          child: Text(
-            aux.tr('alberta_hcc_algorithm'),
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: isTablet ? 15 : 12,
-            ),
-          ),
-        ),
       ),
     );
   }

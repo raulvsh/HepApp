@@ -18,14 +18,14 @@ import 'package:hepapp/forms/clip/clip_form.dart';
 import 'package:hepapp/forms/complete/complete_form.dart';
 import 'package:hepapp/forms/meld/meld_form.dart';
 import 'package:hepapp/forms/okuda/okuda_form.dart';
-import 'package:hepapp/pages/CommonPages/CommonPage.dart';
-import 'package:hepapp/pages/DetailPages/VideoDetailPage.dart';
-import 'package:hepapp/pages/DetailPages/WebDetailPage.dart';
-import 'package:hepapp/pages/HomePage.dart';
+import 'package:hepapp/pages/CommonPages/common_page.dart';
+import 'package:hepapp/pages/DetailPages/video_detail_page.dart';
+import 'package:hepapp/pages/DetailPages/web_detail_page.dart';
 import 'package:hepapp/pages/PageViews/CommonDetailPageView.dart';
 import 'package:hepapp/pages/PageViews/CommonPageView.dart';
 import 'package:hepapp/pages/PageViews/DrawingPageView.dart';
 import 'package:hepapp/pages/PageViews/InteractiveDetailPageView.dart';
+import 'package:hepapp/pages/home_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

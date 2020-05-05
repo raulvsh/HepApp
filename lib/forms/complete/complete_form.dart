@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
@@ -10,6 +11,7 @@ import 'package:hepapp/forms/complete/results_form.dart';
 import 'package:hepapp/forms/complete/summary_form.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:observable/observable.dart';
+import 'package:sized_context/sized_context.dart';
 
 import 'complete_form_bloc.dart';
 
@@ -31,10 +33,6 @@ class CompleteFormState extends State<CompleteForm> with Observable {
 
   @override
   void initState() {
-    /*SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);*/
     controller = PageController(
       initialPage: widget.initialPage,
     );
@@ -43,18 +41,26 @@ class CompleteFormState extends State<CompleteForm> with Observable {
 
   @override
   dispose() {
-    /* SystemChrome.setPreferredOrientations([
+    SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
-    ]);*/
+    ]);
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    bool isTablet = context.diagonalInches >= 7;
+    !isTablet
+        ? SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+    ])
+        : null;
+
     return BlocProvider<CompleteFormBloc>(
       builder: (context) => CompleteFormBloc(),
       child: Builder(

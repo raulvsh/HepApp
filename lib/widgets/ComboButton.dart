@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/pages/DetailPages/PDFDetailPage.dart';
+import 'package:hepapp/pages/DetailPages/pdf_detail_page.dart';
 import 'package:sized_context/sized_context.dart';
 
 class ComboButton extends StatelessWidget {
@@ -26,6 +26,7 @@ class ComboButton extends StatelessWidget {
   Stack buildStack() {
     var aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
 
     return Stack(
       children: <Widget>[
@@ -54,7 +55,8 @@ class ComboButton extends StatelessWidget {
                     .of(context)
                     .primaryColor,
                 //Colors.black, //Color.fromARGB(255, 93, 188, 210),
-                fontSize: isTablet ? 18 : 16,
+                fontSize: context.heightPct(isLandscape ? 0.03 : 0.02),
+                //fontSize: isLandscape?context.heightPct(isTablet ? 0.03 : 0.03) : context.heightPct(isTablet ? 0.02 : 0.02),
               ),
             ),
           ),

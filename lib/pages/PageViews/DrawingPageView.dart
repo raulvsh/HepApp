@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/data/draws.dart';
-import 'package:hepapp/pages/DetailPages/DrawingDetailPage.dart';
+import 'package:hepapp/pages/DetailPages/drawing_detail_page.dart';
 import 'package:hepapp/widgets/BottomNavigationSheet.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
 
