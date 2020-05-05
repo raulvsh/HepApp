@@ -40,7 +40,7 @@ class _InternationalUnitsSelectState extends State<InternationalUnitsSelect> {
               ),
             ),
             SizedBox(
-              width: 20,
+              width: isTablet ? 20 : 10,
             ),
             _buildToggleButtons(context, aux),
           ],
@@ -49,6 +49,8 @@ class _InternationalUnitsSelectState extends State<InternationalUnitsSelect> {
 
   ToggleButtons _buildToggleButtons(
       BuildContext context, AppLocalizations aux) {
+    bool isTablet = context.diagonalInches >= 7;
+
     return ToggleButtons(
       borderColor: Color.fromARGB(255, 45, 145, 155),
       fillColor: Theme.of(context).primaryColor,
@@ -59,7 +61,7 @@ class _InternationalUnitsSelectState extends State<InternationalUnitsSelect> {
       borderRadius: BorderRadius.all(Radius.circular(3.0)),
       children: <Widget>[
         Container(
-          width: 60,
+          width: isTablet ? 60 : 50,
           child: Text(
             aux.tr('on'),
             textAlign: TextAlign.center,
@@ -69,7 +71,7 @@ class _InternationalUnitsSelectState extends State<InternationalUnitsSelect> {
           ),
         ),
         Container(
-          width: 60,
+          width: isTablet ? 60 : 50,
           child: Text(
             aux.tr('off'),
             textAlign: TextAlign.center,

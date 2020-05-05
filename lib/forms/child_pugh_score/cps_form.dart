@@ -126,16 +126,18 @@ class CpsFormState extends State<CpsForm> with Observable {
                     _buildDataFields(formBloc),
                     _buildResult(formBloc),
                   ])
-                      : ListView(children: <Widget>[
-                    _buildDataFields(formBloc),
-                    _buildResult(formBloc),
-                  ]),
+                      : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        _buildDataFields(formBloc),
+                        _buildResult(formBloc),
+                      ]),
                   Column(
                     children: <Widget>[
                       RightBottomTitle(
                         title: 'child_pugh_score_oneline',
                         padding:
-                        EdgeInsets.fromLTRB(10, 0, isTablet ? 45 : 15, 50),
+                        EdgeInsets.fromLTRB(10, 0, isTablet ? 45 : 20, 50),
                       ),
                     ],
                   ),
@@ -151,17 +153,19 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   _buildDataFields(CpsFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
     return Container(
       alignment: Alignment.topLeft,
       child: FittedBox(
-        fit: BoxFit.contain,
+        fit: BoxFit.scaleDown,
         child: Container(
-          width: isTablet ? context.widthPct(0.62) : context.widthPct(0.64),
+          //color: Colors.green,
+          width: context.widthPct(isLandscape ? 0.63 : 1),
           padding: isTablet
               ? EdgeInsets.only(left: 20, top: 20, bottom: 20)
               : EdgeInsets.only(left: 10, top: 10, bottom: kToolbarHeight),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            //mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildBilirrubinRow(formBloc),
@@ -169,7 +173,9 @@ class CpsFormState extends State<CpsForm> with Observable {
               _buildAlbuminRow(formBloc),
               _buildEncephalopatyRow(formBloc),
               _buildAscitesRow(formBloc),
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               _buildCalcButton(formBloc),
               //SizedBox(height: 45,)
               //Text(prefs.getErrorMap().toString()),
@@ -379,18 +385,25 @@ class CpsFormState extends State<CpsForm> with Observable {
     };
     return Expanded(
       child: Container(
-        //color: Colors.blueAccent,
-        //width: context,//isTablet ? context.widthPct(0.38) : context.widthPct(0.35),
+        //color: Colors.green,
+        padding: isTablet
+            ? EdgeInsets.fromLTRB(40, 0, 40, 0)
+            : EdgeInsets.fromLTRB(20, 0, 20, 0),
+        alignment: Alignment.topCenter,
+
+        width: context.widthPct(isLandscape ? 0.4 : 1),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment:
+          isLandscape && !isTablet ? CrossAxisAlignment.end : CrossAxisAlignment
+              .center,
           children: <Widget>[
             Container(
-              padding: isTablet
-                  ? EdgeInsets.only(right: 50)
-                  : EdgeInsets.only(right: 10, left: 10),
+              padding:
+              isLandscape && !isTablet ? EdgeInsets.only(left: 80) : EdgeInsets
+                  .zero,
               child: FittedBox(
-                fit: BoxFit.scaleDown,
+                fit: BoxFit.contain,
                 child: InternationalUnitsSelect(
                   formBloc: formBloc,
                 ),
@@ -399,8 +412,12 @@ class CpsFormState extends State<CpsForm> with Observable {
 
             FittedBox(
               child: Container(
-                height: context.heightPct(0.4),
-                padding: EdgeInsets.fromLTRB(0, 30, isTablet ? 50 : 0, 0),
+
+
+                height: isTablet
+                    ? context.heightPct(isLandscape ? 0.5 : 0.3)
+                    : context.heightPct(0.45),
+                padding: EdgeInsets.only(top: isTablet ? 50 : 20, bottom: 10),
                 child: CalcResultWidget(
                   resultMap: resultMap,
                   alignment: MainAxisAlignment.center,
