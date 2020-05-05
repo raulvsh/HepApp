@@ -28,7 +28,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
       width: isTablet ? 400 : 200,
       height: isTablet ? 200 : 170,
       //margin: EdgeInsets.fromLTRB(0, 30, 50, 0),
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         border: Border.all(
           color: Color.fromARGB(255, 210, 242, 245),
@@ -38,7 +38,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: buildResultList(widget.textAlignment),
       ),
       //),
@@ -55,7 +55,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
         rowList.add(
           Row(
             mainAxisAlignment: alignment, //MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(right: 8),
@@ -64,7 +64,8 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
                   //'${aux.tr(widget.resultList[i][0])}: ',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: isTablet ? 16 : 12,
+                    fontSize: calculateFontSize(widget.resultMap),
+                    //isTablet ? 16 : 12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -76,13 +77,13 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
                   color: Theme
                       .of(context)
                       .primaryColor,
-                  fontSize: isTablet ? 16 : 12,
+                  fontSize: calculateFontSize(widget.resultMap),
                 ),
               ),
             ],
           ),
         );
-        if (widget.resultMap.length > 1) {
+        /*if (widget.resultMap.length > 1) {
           rowList.add(Row(
             children: <Widget>[
               SizedBox(
@@ -90,9 +91,19 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
               )
             ],
           ));
-        }
+        }*/
       },
     );
     return rowList;
+  }
+
+  calculateFontSize(resultMap) {
+    bool isTablet = context.diagonalInches >= 7;
+    if (resultMap.length > 3 && isTablet) {
+      return 16.0;
+    } else if (isTablet && resultMap.length <= 3) {
+      return 22.0;
+    } else
+      return 12.0;
   }
 }

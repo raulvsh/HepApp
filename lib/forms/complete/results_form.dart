@@ -18,7 +18,6 @@ class ResultsForm extends StatefulWidget with Observable {
   final formBloc;
 
   final PageController controller;
-
   ResultsForm({Key key, this.formBloc, this.controller}) : super(key: key);
 
   @override
@@ -30,16 +29,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   var previous = false;
   final prefs = UserSettings();
   final units = Units();
-
-  @override
-  void initState() {
-    /*SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
-*/
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +68,10 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
-      height: isLandscape ? context.heightPct(isTablet ? 0.52 : 0.4) : context
-          .heightPct(0.3),
+      height: isLandscape
+          ? context.heightPct(isTablet ? 0.52 : 0.4)
+          : context.heightPct(0.3),
+
       //color: Colors.green,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -100,33 +91,39 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       height: context.heightPct(isLandscape ? 0.3 : 0.50),
 
       child: Column(
-
         children: <Widget>[
           Row(
-
             children: <Widget>[
               _buildRecommendedTreatments(),
-              SizedBox(
-                width: 40,
-
+              SizedBox(width: 40),
+              isLandscape
+                  ? _buildMoreInfoButton()
+                  : Container(
+                  height: 0,
+                  width: 0
               ),
-              isLandscape ? _buildMoreInfoButton() : Container(
-                height: 0, width: 0,),
-              SizedBox(
-                width: 40,
+              SizedBox(width: 40),
+              isLandscape
+                  ? _buildAlbertaButton()
+                  : Container(
+                  height: 0,
+                  width: 0
               ),
-              isLandscape ? _buildAlbertaButton() : Container(
-                height: 0, width: 0,),
             ],
           ),
-          !isLandscape ? Row(
+          !isLandscape
+              ? Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               _buildMoreInfoButton(),
               SizedBox(width: 40),
               _buildAlbertaButton(),
             ],
-          ) : Container(height: 0, width: 0,),
+          )
+              : Container(
+            height: 0,
+            width: 0,
+          ),
         ],
       ),
     );
@@ -151,8 +148,9 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       child: Container(
         width: context.widthPct(0.5),
         //color: Colors.red,
-        padding: EdgeInsets.only(left: 20, top: 20),
+        //padding: EdgeInsets.only(left: 20, top: 20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Container(
                 margin: isLandscape ? null : EdgeInsets.only(right: 10),
@@ -263,14 +261,19 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       padding: EdgeInsets.symmetric(vertical: 5),
       child: FlatButton(
         child: Text(
-          aux.tr('previous_values'),
+          aux.tr('diagnostic_imaging'),
           style: TextStyle(
             fontSize: isTablet ? 14 : 12,
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
-          previousValues(formBloc);
+          widget.controller.jumpToPage(0);
+
+          //duration: Duration(seconds: 1), curve: Curves.easeInOut);
+          //previousValues(formBloc);
+
+
         },
       ),
     );
@@ -303,7 +306,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
     Map<String, String> resultMap = {
-      'okuda': '-',
+      'okuda': formBloc.resultsField['okuda'],
       'clip': '-',
       'getch': '-',
       'tnm': '-',
@@ -316,7 +319,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       child: Container(
         width: context.widthPct(0.5),
         // color: Colors.blue,
-        padding: EdgeInsets.only(left: 10, top: 20),
+        //padding: EdgeInsets.only(left: 10, top: 20),
         child: Column(
           children: <Widget>[
             Container(
@@ -388,7 +391,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
 
     return Row(
-
       children: <Widget>[
         CircleAvatar(
           radius: 15,

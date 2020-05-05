@@ -15,10 +15,10 @@ import 'complete_form_bloc.dart';
 
 class SummaryForm extends StatefulWidget with Observable {
   final CompleteFormBloc formBloc;
-
   final PageController controller;
 
-  SummaryForm({Key key, this.formBloc, this.controller}) : super(key: key);
+  SummaryForm({Key key, this.formBloc, this.controller})
+      : super(key: key);
 
   @override
   SummaryFormState createState() => SummaryFormState();
@@ -61,11 +61,16 @@ class SummaryFormState extends State<SummaryForm> with Observable {
 
     return Stack(
       children: <Widget>[
-        Row(
+        ListView(
           children: <Widget>[
-            _buildDiagnosticColumn(),
-            _buildLabColumn(),
-            _buildClinicalColumn()
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _buildDiagnosticColumn(),
+                _buildLabColumn(),
+                _buildClinicalColumn()
+              ],
+            ),
           ],
         ),
         Column(
@@ -116,7 +121,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
           : context.widthPct(0.37),
       //width:
       padding: EdgeInsets.only(left: 20, top: 10, bottom: 5),
-      child: ListView(
+      child: Column(
         //crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildSummaryTitle('diagnostic_imaging'),
@@ -163,6 +168,8 @@ class SummaryFormState extends State<SummaryForm> with Observable {
   Container _buildLabColumn() {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isLandscape = context.isLandscape;
+    bool isTablet = context.diagonalInches >= 7;
+
     Map<String, dynamic> laboratoryMap = {
       'international_units':
       prefs.getInternationalUnits() ? aux.tr('yes') : aux.tr('no'),
@@ -176,11 +183,17 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       'sodium': widget.formBloc.sodiumField.value,
       'platelets': widget.formBloc.plateletsField.value,
       'afp': widget.formBloc.afpField.value,
+      'ast': widget.formBloc.astField[0].value,
+      isTablet ? 'ast_upper_limit' : 'ast_limit': widget.formBloc.astField[1]
+          .value,
+      'alp': widget.formBloc.alpField[0].value,
+      isTablet ? 'alp_upper_limit' : 'alp_limit': widget.formBloc.alpField[1]
+          .value,
     };
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       width: context.widthPct(isLandscape ? 0.29 : 0.33),
-      child: ListView(
+      child: Column(
         children: <Widget>[
           _buildSummaryTitle('laboratory_values'),
           _buildSeparator(isLandscape ? 0.27 : 0.31),
@@ -203,7 +216,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       'ascites': aux.tr(widget.formBloc.ascitesField.value),
       'varices': aux.tr(widget.formBloc.varicesField.value),
       'ecog': widget.formBloc.ecogField.value,
-      'preclude_major_surgery': 'yes',
+      'preclude_major_surgery': widget.formBloc.preclude.toString(),
       //prefs.getPrecludeSurgery() ? aux.tr('yes') : aux.tr('no'),
       'age': 'ok',
       //widget.formBloc.
@@ -215,7 +228,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
 
       width: isLandscape ? context.widthPct(0.29) : context.widthPct(0.28),
-      child: ListView(
+      child: Column(
         children: <Widget>[
           _buildSummaryTitle('clinical_questions'),
           _buildSeparator(isLandscape ? 0.27 : 0.26),

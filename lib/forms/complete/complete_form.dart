@@ -26,15 +26,16 @@ class CompleteForm extends StatefulWidget with Observable {
 
 class CompleteFormState extends State<CompleteForm> with Observable {
   var reset = false;
-  var previous = false;
   final prefs = UserSettings();
   final units = Units();
   PageController controller;
+
 
   @override
   void initState() {
     controller = PageController(
       initialPage: widget.initialPage,
+
     );
     super.initState();
   }
@@ -60,7 +61,6 @@ class CompleteFormState extends State<CompleteForm> with Observable {
       DeviceOrientation.landscapeLeft,
     ])
         : null;
-
     return BlocProvider<CompleteFormBloc>(
       builder: (context) => CompleteFormBloc(),
       child: Builder(
@@ -69,6 +69,7 @@ class CompleteFormState extends State<CompleteForm> with Observable {
           return FormBlocListener<CompleteFormBloc, String, String>(
             child: PageView(
               controller: controller,
+              physics: NeverScrollableScrollPhysics(),
               children: <Widget>[
                 DiagnosticForm(formBloc: formBloc, controller: controller),
                 LaboratoryForm(formBloc: formBloc, controller: controller),

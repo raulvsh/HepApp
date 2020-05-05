@@ -81,7 +81,6 @@ class MeldFormBloc extends FormBloc<String, String> {
     yield currentState.toLoaded();
   }
 
-
   void showFields() {
     print("\n\n *********FIELD VALUES");
     print("Campo bilirrubina: " + bilirubinField.value);
@@ -161,10 +160,7 @@ class MeldFormBloc extends FormBloc<String, String> {
       initialValue: data.sodium.toString(),
     );
     this.dialysisField = SelectFieldBloc(
-      items: [
-        'yes',
-        'no',
-      ],
+      items: ['yes', 'no'],
       initialValue: data.dialysis.toString(),
     );
     this.results = data.results;

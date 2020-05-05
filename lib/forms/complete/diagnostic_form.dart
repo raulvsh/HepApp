@@ -17,7 +17,6 @@ import 'complete_form_bloc.dart';
 
 class DiagnosticForm extends StatefulWidget with Observable {
   final CompleteFormBloc formBloc;
-
   final PageController controller;
 
   DiagnosticForm({Key key, this.formBloc, this.controller}) : super(key: key);
@@ -95,7 +94,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
             ? EdgeInsets.only(left: 20, top: 20)
             : EdgeInsets.only(left: 10, top: 10),
         child: Column(
-
           //shrinkWrap: true,
           //physics: ClampingScrollPhysics(),
           mainAxisAlignment: MainAxisAlignment.start,
@@ -109,7 +107,9 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
             _buildMetastasisRow(formBloc),
             _buildPortalHypertensionRow(formBloc),
             _buildPvtRow(formBloc),
-            SizedBox(height: kToolbarHeight,)
+            SizedBox(
+                height: kToolbarHeight
+            )
           ],
         ),
       ),
@@ -417,4 +417,10 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         "Campo portal hipertension: " + formBloc.portalHypertensionField.value);
     print("Campo pvt: " + formBloc.pvtField.value);
   }
+
+/*void submitDiagnostic(CompleteFormBloc formBloc) {
+    formBloc.submit();
+    reset = false;
+    setState(() {});
+  }*/
 }

@@ -117,7 +117,7 @@ class ClipFormState extends State<ClipForm> with Observable {
                       RightBottomTitle(
                         title: 'clip',
                         padding:
-                        EdgeInsets.fromLTRB(10, 0, isTablet ? 45 : 15, 50),
+                        EdgeInsets.fromLTRB(10, 0, isTablet ? 30 : 15, 50),
                       ),
                     ],
                   ),
@@ -322,7 +322,10 @@ class ClipFormState extends State<ClipForm> with Observable {
           title: 'clip',
           pathList: 'assets/images/calc/M3C14S0d.png',
         );*/
-        return Text("por hacer");
+        return AlertDialog(
+          title: Text("por hacer"),
+          content: Text("wip"),
+        );
       },
     );
   }
@@ -379,7 +382,7 @@ class ClipFormState extends State<ClipForm> with Observable {
     return Expanded(
       child: Container(
         padding: isTablet
-            ? EdgeInsets.fromLTRB(40, 0, 40, 0)
+            ? EdgeInsets.fromLTRB(0, 20, 30, 0)
             : EdgeInsets.fromLTRB(20, 0, 20, 0),
         width: context.widthPct(isLandscape ? 0.28 : 1),
         child: Column(
@@ -391,7 +394,7 @@ class ClipFormState extends State<ClipForm> with Observable {
             FittedBox(
               child: Container(
                 height: isTablet
-                    ? context.heightPct(isLandscape ? 0.5 : 0.3)
+                    ? context.heightPct(isLandscape ? 0.6 : 0.3)
                     : context.heightPct(0.5),
                 padding: EdgeInsets.only(top: isTablet ? 50 : 20, bottom: 15),
                 child: CalcResultWidget(

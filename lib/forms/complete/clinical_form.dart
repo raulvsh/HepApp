@@ -16,7 +16,6 @@ import 'complete_form_bloc.dart';
 
 class ClinicalForm extends StatefulWidget with Observable {
   final formBloc;
-
   final PageController controller;
 
   ClinicalForm({Key key, this.formBloc, this.controller}) : super(key: key);

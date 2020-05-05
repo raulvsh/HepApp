@@ -2,9 +2,6 @@ import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 
-import 'complete_algorithm.dart';
-import 'complete_data.dart';
-
 class CompleteFormBloc extends FormBloc<String, String> {
   final prefs = UserSettings();
   final units = Units();
@@ -12,82 +9,97 @@ class CompleteFormBloc extends FormBloc<String, String> {
   //Diagnostic
   var tumourNumberField = SelectFieldBloc(
     items: ['0', '1', '2', '3', '4', '5', '6+'],
+    initialValue: '0',
   );
   var tumourSizeField = [
-    TextFieldBloc(),
-    TextFieldBloc(),
-    TextFieldBloc(),
-    TextFieldBloc(),
-    TextFieldBloc(),
-    TextFieldBloc(),
+    TextFieldBloc(initialValue: '-'),
+    TextFieldBloc(initialValue: '-'),
+    TextFieldBloc(initialValue: '-'),
+    TextFieldBloc(initialValue: '-'),
+    TextFieldBloc(initialValue: '-'),
+    TextFieldBloc(initialValue: '-'),
   ];
 
   var tumourExtentField = SelectFieldBloc(
     items: ['<=50%', '>50%'],
+    initialValue: '<=50%',
   );
   var pviField = SelectFieldBloc(
     items: ['yes', 'no'],
+    initialValue: 'no',
   );
   var nodesField = SelectFieldBloc(
     items: ['yes', 'no'],
+    initialValue: 'no',
   );
   var metastasisField = SelectFieldBloc(
     items: ['yes', 'no'],
+    initialValue: 'no',
   );
   var portalHypertensionField = SelectFieldBloc(
     items: ['yes', 'no'],
+    initialValue: 'no',
   );
   var pvtField = SelectFieldBloc(
     items: ['yes', 'no'],
+    initialValue: 'no',
   );
 
   //Laboratory
-  var bilirubinField = TextFieldBloc();
-  var inrField = TextFieldBloc();
-  var creatinineField = TextFieldBloc();
-  var albuminField = TextFieldBloc();
-  var sodiumField = TextFieldBloc();
-  var plateletsField = TextFieldBloc();
-  var afpField = TextFieldBloc();
+  var bilirubinField = TextFieldBloc(initialValue: '0');
+  var inrField = TextFieldBloc(initialValue: '0');
+  var creatinineField = TextFieldBloc(initialValue: '0');
+  var albuminField = TextFieldBloc(initialValue: '0');
+  var sodiumField = TextFieldBloc(initialValue: '0');
+  var plateletsField = TextFieldBloc(initialValue: '0');
+  var afpField = TextFieldBloc(initialValue: '0');
   var astField = [
-    TextFieldBloc(),
-    TextFieldBloc(),
+    TextFieldBloc(initialValue: '0'),
+    TextFieldBloc(initialValue: '0'),
   ];
 
   //var astField = TextFieldBloc();
   //var astUpperLimitField = TextFieldBloc();
   var alpField = [
-    TextFieldBloc(),
-    TextFieldBloc(),
+    TextFieldBloc(initialValue: '0'),
+    TextFieldBloc(initialValue: '0'),
   ];
 
   //var alpField = TextFieldBloc();
   //var alpUpperLimitField = TextFieldBloc();
   var dialysisField = SelectFieldBloc(
     items: ['yes', 'no'],
+    initialValue: 'no',
   );
 
   //Clinical
   var cirrhosisField = SelectFieldBloc(
     items: ['yes', 'no'],
+    initialValue: 'no',
   );
   var encephalopatyField = SelectFieldBloc(
     items: ['none_fem', 'grade_1_2', 'grade_3_4'],
+    initialValue: 'none_fem',
+
     //initialValue: ['none_fem'],
   );
   var ascitesField = SelectFieldBloc(
     items: ['none_fem', 'controlled', 'refractory'],
+    initialValue: 'none_fem',
   );
   var varicesField = SelectFieldBloc(
     items: ['yes', 'no'],
+    initialValue: 'no',
   );
   var ecogField = SelectFieldBloc(
     items: ['0', '1', '2', '3', '4'],
+    initialValue: '0',
   );
+  bool preclude = false;
 
-  Map<String, String> results = initResultMap();
+  Map<String, String> resultsField = initResultMap();
 
-  var data = CompleteData(
+  /*var data = CompleteData(
     tumourNumber: '0',
     tumourSize: [0, 0, 0, 0, 0, 0],
     tumourExtent: '<=50%',
@@ -112,7 +124,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
     varices: 'no',
     ecog: '0',
     results: initResultMap(),
-  );
+  );*/
 
   @override
   List<FieldBloc> get fieldBlocs => [
@@ -150,9 +162,15 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
+    print("inicio submit");
+
+    this.preclude = true;
+    print(preclude.toString());
+    this.resultsField['okuda'] = 'prueba';
+    //showObjectCompleteData();
     showFields();
 
-    data = CompleteData(
+    /*data = CompleteData(
       tumourNumber: tumourNumberField.value,
       tumourSize: [
         tumourSizeField[0].valueToDouble,
@@ -189,11 +207,12 @@ class CompleteFormBloc extends FormBloc<String, String> {
       ascites: ascitesField.value,
       varices: varicesField.value,
       ecog: ecogField.value,
-    );
+    );*/
 
-    CompleteAlgorithm completeAlgorithm = CompleteAlgorithm(data);
+    //CompleteAlgorithm completeAlgorithm = CompleteAlgorithm(data);
 
     try {
+      this.resultsField['okuda'] = (2 + 18).toString();
       /*Comprobacion
       * Si todos los campos de okuda están
       * crear objeto data okuda
@@ -220,7 +239,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
     yield currentState.toLoaded();
   }
 
-  void showObjectCompleteData() {
+  /* void showObjectCompleteData() {
     print("\n\n*****************OBJETO OkudaDATA: "
             "\nbili: ${data.bilirubin}" +
         "\nalbu: ${data.albumin}" +
@@ -228,12 +247,12 @@ class CompleteFormBloc extends FormBloc<String, String> {
         "\nextension : ${data.tumourExtent}" +
         "\nresultado: ${data.results.toString()}" +
         "\n**************");
-  }
+  }*/
 
   void showFields() {
     print("\n\n *********FIELD VALUES COMPLETE");
     print("Campo numero: " + tumourNumberField.value);
-    print("Campo tamaño: " + tumourSizeField.toString());
+    print("Campo tamaño: " + tumourSizeField[0].value);
     print("Campo extension: " + tumourExtentField.value);
     print("Campo pvi: " + pviField.value);
     print("Campo nodos: " + nodesField.value);
@@ -248,20 +267,22 @@ class CompleteFormBloc extends FormBloc<String, String> {
     print("Campo sodio: " + sodiumField.value);
     print("Campo plaquetas: " + plateletsField.value);
     print("Campo afp: " + afpField.value);
-    print("Campo ast: " + astField.toString());
-    print("Campo alp: " + alpField.toString());
+    print("Campo ast: " + astField[0].value);
+    print("Campo ast limite: " + astField[1].value);
+    print("Campo alp: " + alpField[0].value);
+    print("Campo alp limite: " + alpField[1].value);
     print("Campo dialisis: " + dialysisField.value);
-
     print("Campo cirrosis: " + cirrhosisField.value);
     print("Campo encefalopatia: " + encephalopatyField.value);
     print("Campo ascites: " + ascitesField.value);
     print("Campo varices: " + varicesField.value);
     print("Campo ecog: " + ecogField.value);
 
-    print("Campo resultado antes de operar: " + results.toString());
+    print("Campo resultado antes de operar: " + resultsField.toString());
   }
 
   showNotIU() {
+    //hacer para página lab
     /*this.bilirubinField = TextFieldBloc(
       initialValue: units.getNotIUBilirrubin(data.bilirubin)
           .toStringAsPrecision(2),
@@ -282,6 +303,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   void showIU() {
+    //hacer para pagina lab
     /*this.bilirubinField = TextFieldBloc(
       initialValue: data.bilirubin.toStringAsPrecision(2),
     );
@@ -308,25 +330,25 @@ class CompleteFormBloc extends FormBloc<String, String> {
       items: ['<=50%', '>50%'],
     );
 
-    this.results = initResultMap();
+    this.resultsField = initResultMap();
   }
 
   void previous() {
-    this.bilirubinField = TextFieldBloc(
+    /*this.bilirubinField = TextFieldBloc(
       initialValue: data.bilirubin.toString(),
     );
     this.albuminField = TextFieldBloc(
       initialValue: data.albumin.toString(),
     );
-    /*this.ascitesField = SelectFieldBloc(
+    this.ascitesField = SelectFieldBloc(
       items: ['none_fem', 'controlled', 'refractory'],
       initialValue: data.ascites.toString(),
-    );*/
+    );
 
     this.tumourExtentField = SelectFieldBloc(
       items: ['<=50%', '>50%'],
       initialValue: data.tumourExtent.toString(),
-    );
+    );*/
 
     //this.results = data.results;
 
