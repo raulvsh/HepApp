@@ -3,7 +3,6 @@ const albuminFactor = 10;
 const creatininFactor = 88.4017;
 const sodiumFactor = 1000;
 
-
 class Units {
   final List<String> bilirubinUds = ['umol/L', 'mg/dL'];
   final List<String> albuminUds = ['g/L', 'g/dL'];
@@ -12,14 +11,10 @@ class Units {
 
 
   double getIUBilirrubin(double bilirrubinNotIU) {
-    //print("bili vieja: $bilirrubinNotIU");
-    //print("bili nueva:  ${bilirrubinNotIU * bilirrubinFactor}");
     return bilirrubinNotIU * bilirrubinFactor;
   }
 
   double getIUAlbumin(double albuminNotIU) {
-    //print("bili vieja: $albuminNotIU");
-    //print("bili nueva:  ${albuminNotIU * albuminFactor}");
     return albuminNotIU * albuminFactor;
   }
 

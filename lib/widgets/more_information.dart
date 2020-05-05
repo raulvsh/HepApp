@@ -7,11 +7,11 @@ class MoreInformation extends StatelessWidget {
   const MoreInformation({
     Key key,
     this.title,
-    this.path,
+    this.pathList,
   }) : super(key: key);
 
   final String title;
-  final String path;
+  final List<String> pathList;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class MoreInformation extends StatelessWidget {
               fontSize: isTablet ? 24 : 12,
             ),
           )),
-      content: Image.asset(path),
+      content: buildImageList(pathList), //Image.asset(path),
       actions: <Widget>[
         FlatButton(
           child: Text(
@@ -41,6 +41,20 @@ class MoreInformation extends StatelessWidget {
           },
         ),
       ],
+    );
+  }
+
+  buildImageList(pathList) {
+    List<Widget> imageList = [];
+    for (int i = 0; i < pathList.length; i++) {
+      imageList.add(Image.asset(pathList[i]));
+    }
+    //pathList.forEach((path) {
+    //});
+
+    return Row(mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: imageList,
     );
   }
 }

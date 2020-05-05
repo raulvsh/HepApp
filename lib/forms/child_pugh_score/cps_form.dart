@@ -321,7 +321,7 @@ class CpsFormState extends State<CpsForm> with Observable {
       builder: (BuildContext context) {
         return MoreInformation(
           title: 'child_pugh_score_oneline',
-          path: 'assets/images/calc/M3C14S0c.png',
+          pathList: ['assets/images/calc/M3C14S0c.png'],
         );
       },
     );

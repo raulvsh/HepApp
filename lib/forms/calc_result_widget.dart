@@ -50,13 +50,8 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
     List<Row> rowList = [];
     bool isTablet = context.diagonalInches >= 7;
 
-
-    // Map mapa = {};
-    //widget.resultList.for
     widget.resultMap.forEach(
           (key, value) {
-        // print("key : $key , value: $value");
-        //for (int i = 0; i < widget.resultList.length; i++) {
         rowList.add(
           Row(
             mainAxisAlignment: alignment, //MainAxisAlignment.center,

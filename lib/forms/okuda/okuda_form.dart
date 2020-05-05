@@ -297,7 +297,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       builder: (BuildContext context) {
         return MoreInformation(
           title: 'okuda',
-          path: 'assets/images/calc/M3C14S0d.png',
+          pathList: ['assets/images/calc/M3C14S0d.png'],
         );
       },
     );

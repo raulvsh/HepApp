@@ -10,7 +10,6 @@ import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/CustomAppBar.dart';
 import 'package:hepapp/widgets/menu_widget.dart';
-import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
@@ -319,10 +318,11 @@ class ClipFormState extends State<ClipForm> with Observable {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        return MoreInformation(
+        /*return MoreInformation(
           title: 'clip',
-          path: 'assets/images/calc/M3C14S0d.png',
-        );
+          pathList: 'assets/images/calc/M3C14S0d.png',
+        );*/
+        return Text("por hacer");
       },
     );
   }
