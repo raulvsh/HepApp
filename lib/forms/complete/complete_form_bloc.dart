@@ -2,6 +2,8 @@ import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/child_pugh_score/cps_algorithm.dart';
 import 'package:hepapp/forms/child_pugh_score/cps_data.dart';
+import 'package:hepapp/forms/meld/meld_algorithm.dart';
+import 'package:hepapp/forms/meld/meld_data.dart';
 import 'package:hepapp/forms/okuda/okuda_algorithm.dart';
 import 'package:hepapp/forms/okuda/okuda_data.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
@@ -61,16 +63,10 @@ class CompleteFormBloc extends FormBloc<String, String> {
     TextFieldBloc(initialValue: '0'),
     TextFieldBloc(initialValue: '0'),
   ];
-
-  //var astField = TextFieldBloc();
-  //var astUpperLimitField = TextFieldBloc();
   var alpField = [
     TextFieldBloc(initialValue: '0'),
     TextFieldBloc(initialValue: '0'),
   ];
-
-  //var alpField = TextFieldBloc();
-  //var alpUpperLimitField = TextFieldBloc();
   var dialysisField = SelectFieldBloc(
     items: ['yes', 'no'],
     initialValue: '-',
@@ -84,8 +80,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
   var encephalopatyField = SelectFieldBloc(
     items: ['none_fem', 'grade_1_2', 'grade_3_4'],
     initialValue: '-',
-
-    //initialValue: ['none_fem'],
   );
   var ascitesField = SelectFieldBloc(
     items: ['none_fem', 'controlled', 'refractory'],
@@ -111,8 +105,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
     result: '-',
   );
   */
-
-
 
   /*var data = CompleteData(
     tumourNumber: '0',
@@ -182,11 +174,11 @@ class CompleteFormBloc extends FormBloc<String, String> {
     //this.resultsField['apri'] = comprobarApri() ? calcularApri() : '-';
     this.resultsField['child_pugh_score_oneline'] =
     comprobarCPS() ? calcularCPS() : '-';
-    //this.resultsField['meld'] = comprobarMeld() ? calcularMeld()['meld'] : '-';
-/*    this.resultsField['meld_na'] =
-        comprobarMeld() && comprobarNa() ? calcularOkuda()['meld_na'] : '-';*/
-    /*this.resultsField['5v_meld'] =
-        comprobarMeld() && comprobarAlb() ? calcularOkuda()['5v_meld'] : '-';*/
+    this.resultsField['meld'] = comprobarMeld() ? calcularMeld()['meld'] : '-';
+    this.resultsField['meld_na'] =
+    comprobarMeld() && comprobarNa() ? calcularMeld()['meld_na'] : '-';
+    this.resultsField['5v_meld'] =
+    comprobarMeld() && comprobarAlb() ? calcularMeld()['5v_meld'] : '-';
 
     this.resultsField['okuda'] = comprobarOkuda() ? calcularOkuda() : '-';
     /*this.resultsField['clip'] = comprobarClip() ? calcularClip() : '-';
@@ -196,9 +188,9 @@ class CompleteFormBloc extends FormBloc<String, String> {
     this.resultsField['bclc'] = comprobarBclc() ? calcularBclc() : '-';*/
 
     //OKUDA
-    print("comprobar " + comprobarOkuda().toString());
+    /*print("comprobar " + comprobarOkuda().toString());
     print("calcular " + calcularOkuda().toString());
-    print("resultado okuda " + this.resultsField['okuda']);
+    print("resultado okuda " + this.resultsField['okuda']);*/
 
     //print("pvi field" + this.pviField.value);
 
@@ -424,8 +416,8 @@ class CompleteFormBloc extends FormBloc<String, String> {
     if (bilirubinField.value != '0' &&
         inrField.value != '0' &&
         albuminField.value != '0' &&
-        encephalopatyField.value != '' &&
-        ascitesField.value != '')
+        encephalopatyField.value != '-' &&
+        ascitesField.value != '-')
       return true;
     else
       return false;
@@ -440,7 +432,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
       ascites: ascitesField.value,
     );
 
-
     CpsAlgorithm cpsAlgorithm = CpsAlgorithm(cpsData);
 
     return cpsAlgorithm.obtenerResultado();
@@ -448,22 +439,62 @@ class CompleteFormBloc extends FormBloc<String, String> {
     // OkudaAlgorithm okudaAlgorithm = OkudaAlgorithm(okudaData);
 
     // return okudaAlgorithm.obtenerResultado();
-
   }
 
-  bool comprobarMeld() {}
+  bool comprobarMeld() {
+    print("\n*****COMPROBAR meld");
+    print("Campo bilirrubina: " + bilirubinField.value);
+    print("Campo inr: " + inrField.value);
+    print("Campo creat: " + creatinineField.value);
+    print("campo sodio: " + sodiumField.value);
+    print("campo albumina: " + albuminField.value);
 
-  bool comprobarNa() {}
+    if (bilirubinField.value != '0' &&
+        inrField.value != '0' &&
+        creatinineField.value != '0')
+      return true;
+    else
+      return false;
+  }
 
-  bool comprobarAlb() {}
+  bool comprobarNa() {
+    print("\n*****comprobar sodio");
+    print("Campo sodio: " + sodiumField.value);
+    if (sodiumField.value != '0')
+      return true;
+    else
+      return false;
+  }
 
-  calcularMeld() {}
+  bool comprobarAlb() {
+    print("\n****comprobar albumina");
+    print("Campo albumina: " + albuminField.value);
+    if (albuminField.value != '0')
+      return true;
+    else
+      return false;
+  }
+
+  calcularMeld() {
+    var meldData = MeldData(
+      bilirubin: bilirubinField.valueToDouble,
+      inr: inrField.valueToDouble,
+      creatinine: creatinineField.valueToDouble,
+      albumin: albuminField.valueToDouble,
+      sodium: sodiumField.valueToDouble,
+
+    );
+
+    MeldAlgorithm meldAlgorithm = MeldAlgorithm(meldData);
+
+    return meldAlgorithm.obtenerResultado();
+  }
 
   bool comprobarOkuda() {
     if (bilirubinField.value != '0' &&
         albuminField.value != '0' &&
-        ascitesField.value != '' &&
-        tumourExtentField.value != '')
+        ascitesField.value != '-' &&
+        tumourExtentField.value != '-')
       return true;
     else
       return false;

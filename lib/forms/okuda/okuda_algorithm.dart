@@ -56,9 +56,9 @@ class OkudaAlgorithm {
     } else {
       ptsTumourExtent = 1;
     }
-
-    //showPts(
-    //   ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent);
+    showObjectOkudaData();
+    showPts(
+        ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent);
 
     int resultado =
         ptsBilirubin + ptsAlbumin + ptsAscites + ptsTumourExtent;

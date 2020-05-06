@@ -40,7 +40,7 @@ class OkudaFormBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    //showFields();
+    showFields();
 
     okudaData = OkudaData(
       bilirubin: bilirubinField.valueToDouble,

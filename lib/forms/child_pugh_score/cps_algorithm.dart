@@ -47,24 +47,36 @@ class CpsAlgorithm {
       ptsAlbumin = 1;
     }
 
-    if (cpsData.encephalopaty == 'none_fem') {
+    if (cpsData.encephalopaty == 'grade_3_4') {
+      ptsEncephalopaty = 3;
+    } else if (cpsData.encephalopaty == 'grade_1_2') {
+      ptsEncephalopaty = 2;
+    } else
+      ptsEncephalopaty = 1;
+
+    /*if (cpsData.encephalopaty == 'none_fem') {
       ptsEncephalopaty = 1;
     } else if (cpsData.encephalopaty == 'grade_1_2') {
       ptsEncephalopaty = 2;
     } else if (cpsData.encephalopaty == 'grade_3_4') {
       ptsEncephalopaty = 3;
-    }
+    }*/
+    if (cpsData.ascites == 'refractory') {
+      ptsAscites = 3;
+    } else if (cpsData.ascites == 'controlled') {
+      ptsAscites = 2;
+    } else
+      ptsAscites = 1;
 
-    if (cpsData.ascites == 'none_fem') {
+    /* if (cpsData.ascites == 'none_fem') {
       ptsAscites = 1;
     } else if (cpsData.ascites == 'controlled') {
       ptsAscites = 2;
     } else if (cpsData.ascites == 'refractory') {
       ptsAscites = 3;
-    }
+    }*/
 
-    showPts(
-        ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites);
+    showPts(ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites);
 
     int resultado =
         ptsBilirubin + ptsINR + ptsAlbumin + ptsEncephalopaty + ptsAscites;
@@ -82,8 +94,7 @@ class CpsAlgorithm {
     cpsData.albumin = units.getIUAlbumin(cpsData.albumin);
   }
 
-  void showPts(
-      ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites) {
+  void showPts(ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites) {
     print("\n\n**********PUNTOS\nPuntos bilirrubina: $ptsBilirubin");
     print("Puntos inr: $ptsINR");
     print("Puntos albúmina: $ptsAlbumin");

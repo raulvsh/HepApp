@@ -18,6 +18,7 @@ class ResultsForm extends StatefulWidget with Observable {
   final formBloc;
 
   final PageController controller;
+
   ResultsForm({Key key, this.formBloc, this.controller}) : super(key: key);
 
   @override
@@ -98,17 +99,11 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               SizedBox(width: 40),
               isLandscape
                   ? _buildMoreInfoButton()
-                  : Container(
-                  height: 0,
-                  width: 0
-              ),
+                  : Container(height: 0, width: 0),
               SizedBox(width: 40),
               isLandscape
                   ? _buildAlbertaButton()
-                  : Container(
-                  height: 0,
-                  width: 0
-              ),
+                  : Container(height: 0, width: 0),
             ],
           ),
           !isLandscape
@@ -134,13 +129,10 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
     Map<String, String> resultMap = {
-      'cirrhosis': //formBloc.cirrhosisField.value != ''
-      //?
-      aux.tr(formBloc.cirrhosisField.value),
-      //: '-',
+      'cirrhosis': aux.tr(formBloc.cirrhosisField.value),
       'apri': formBloc.resultsField['apri'],
-      'child_pugh_score_oneline': formBloc
-          .resultsField['child_pugh_score_oneline'],
+      'child_pugh_score_oneline':
+      formBloc.resultsField['child_pugh_score_oneline'],
       'meld': formBloc.resultsField['meld'],
       'meld_na': formBloc.resultsField['meld_na'],
       '5v_meld': formBloc.resultsField['5v_meld'],

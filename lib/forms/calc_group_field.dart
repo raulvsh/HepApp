@@ -150,7 +150,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
       children: <Widget>[
         _buildInitialBlueRectangle(),
         _buildInitialText(),
-        _buildOptionsRow(state, simpleBuilder),
+        _buildOptionsRow(state),
       ],
     );
   }
@@ -178,8 +178,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
         ));
   }
 
-  Expanded _buildOptionsRow(SelectFieldBlocState state,
-      RadioBuilder<String, double> simpleBuilder) {
+  Expanded _buildOptionsRow(SelectFieldBlocState state) {
     var aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
 
@@ -196,8 +195,8 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           itemBuilder: (context, index) {
-            return Row(
-              children: <Widget>[
+            return //Row(
+              //children: <Widget>[
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -217,25 +216,27 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                           .updateValue(radioValue); //Actualizo el valor
                       isSelected[radioValue] = true;
                       if (widget.title == 'tumour_number') {
-                        if (radioValue == '6+') {
-                          prefs.setTumourNumber(6);
-                        } else {
-                          prefs.setTumourNumber(int.parse(radioValue));
-                        }
+                        prefs.setTumourNumber(
+                            radioValue == '6+' ? 6 : int.parse(radioValue));
 
-                        print("numero de tumores ${prefs.getTumourNumber()}");
+                        /*if (radioValue == '6+') {
+                      prefs.setTumourNumber(6);
+                    } else {
+                      prefs.setTumourNumber(int.parse(radioValue));
+                    }*/
+                        // print("numero de tumores ${prefs.getTumourNumber()}");
                       }
                     });
                   },
                   child: Container(
-                    // color: Colors.black,
+                    //color: Colors.black,
                     height: 20,
-                    width: _calculateWidth(state), //isTablet ? 110 : 90,
+                    width: _calculateWidth(state),
                     padding: EdgeInsets.symmetric(horizontal: 4),
                     child: Stack(
                       children: <Widget>[
                         Container(
-                          //color: Colors.red,
+                          color: Colors.red,
                           child: CustomRadio<String, double>(
                             value: state.items.elementAt(index).toString(),
                             groupValue: radioValue,
@@ -245,16 +246,16 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                               CurvedAnimation(
                                   parent: controller, curve: Curves.easeInOut)
                             ],
-                            builder: (BuildContext context,
-                                List<double> animValues,
-                                Function updateState,
-                                String value) {
+                            builder: (BuildContext context, List<
+                                double> animValues,
+                                Function updateState, String value) {
                               final alpha = (animValues[0] * 255).toInt();
                               var opacity =
                               (!widget.reset && !_errorFlag) ? alpha : 0;
 
                               return Container(
-                                width: 100,
+                                //color: Colors.yellow,
+                                width: _calculateWidth(state),
                                 height: 20,
                                 //Alineación del texto dentro del botón
 
@@ -286,7 +287,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                           ),
                         ),
                         DefaultFieldBlocBuilderTextStyle(
-                          isEnabled: false,
+                          isEnabled: true,
                           child: Center(
                             child: Container(
                               child: Text(
@@ -309,8 +310,8 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                       ],
                     ),
                   ),
-                ),
-              ],
+                  //),
+                  //],
             );
 
             //return Row

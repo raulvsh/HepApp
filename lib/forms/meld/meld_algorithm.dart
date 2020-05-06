@@ -22,14 +22,12 @@ class MeldAlgorithm {
     };
 
     if (prefs.getInternationalUnits()) convertToNotIU();
-    showObjectMeldData();
+    //showObjectMeldData();
 
     _adaptarVariablesMeld();
-    showObjectMeldData();
+    //showObjectMeldData();
 
-    //double meldResult = _calculateMeld();
     results['meld'] = _calculateMeld().toStringAsPrecision(4);
-    //double meldNaResult;
     meldData.sodium != null
         ? results['meld_na'] =
         _calculateMeldNa(results['meld']).toStringAsPrecision(4)
@@ -39,27 +37,11 @@ class MeldAlgorithm {
         ? results['5v_meld'] =
         _calculate5vMeld(results['meld_na']).toStringAsPrecision(4)
         : '-';
-    //showPts(ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent);
 
-    //int resultado = ptsBilirubin + ptsAlbumin + ptsAscites + ptsTumourExtent;
 
-    /*if (resultado == 0) {
-      return 'I ($resultado)';
-    } else if (resultado == 1 || resultado == 2) {
-      return 'II ($resultado)';
-    } else {
-      return 'III ($resultado)';
-    }*/
     print(results);
     return results;
-    /*{
-      'meld' : meldResult.toStringAsPrecision(4),
-      'meld_na' : meldNaResult.toStringAsPrecision(4),
-      '5v_meld' : 'c',
 
-    };*/
-
-    //return 'prueba';
   }
 
   void convertToNotIU() {
