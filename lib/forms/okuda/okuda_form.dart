@@ -233,7 +233,8 @@ class OkudaFormState extends State<OkudaForm> with Observable {
             .primaryColor,
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
-        onPressed: () {
+        onPressed: () async {
+          await Future.delayed(Duration(milliseconds: 400));
           calculateOkuda(formBloc);
         },
         child: Center(

@@ -241,7 +241,8 @@ class MeldFormState extends State<MeldForm> with Observable {
         color: Theme.of(context).primaryColor,
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
-        onPressed: () {
+        onPressed: () async {
+          await Future.delayed(Duration(milliseconds: 400));
           calculateMeld(formBloc);
         },
         child: Center(
