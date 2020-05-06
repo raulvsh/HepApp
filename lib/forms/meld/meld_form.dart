@@ -415,7 +415,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
     formBloc.submit();
     reset = false;
-    // setState(() {});
+    setState(() {});
   }
 
   showErrorDialog() {
@@ -465,13 +465,13 @@ class MeldFormState extends State<MeldForm> with Observable {
   void resetValues(MeldFormBloc formBloc) {
     reset = true;
     formBloc.reset();
-    //setState(() {});
+    setState(() {});
   }
 
   void previousValues(MeldFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
-    // setState(() {});
+    setState(() {});
   }
 }

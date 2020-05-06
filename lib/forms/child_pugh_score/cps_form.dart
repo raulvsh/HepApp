@@ -432,7 +432,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     formBloc.submit();
 
     reset = false;
-    //setState(() {});
+    setState(() {});
   }
 
   showErrorDialog() {
@@ -481,13 +481,13 @@ class CpsFormState extends State<CpsForm> with Observable {
   void resetValues(CpsFormBloc formBloc) {
     reset = true;
     formBloc.reset();
-    // setState(() {});
+    setState(() {});
   }
 
   void previousValues(CpsFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
-    //setState(() {});
+    setState(() {});
   }
 }

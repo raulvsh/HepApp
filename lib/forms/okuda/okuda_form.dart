@@ -406,7 +406,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     formBloc.submit();
 
     reset = false;
-    //setState(() {});
+    setState(() {});
   }
 
   showErrorDialog() {
@@ -456,13 +456,13 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   void resetValues(OkudaFormBloc formBloc) {
     reset = true;
     formBloc.reset();
-    //setState(() {});
+    setState(() {});
   }
 
   void previousValues(OkudaFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
-    //setState(() {});
+    setState(() {});
   }
 }

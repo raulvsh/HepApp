@@ -418,7 +418,7 @@ class ClipFormState extends State<ClipForm> with Observable {
     formBloc.submit();
 
     reset = false;
-    // setState(() {});
+    setState(() {});
   }
 
   showErrorDialog() {
@@ -468,13 +468,13 @@ class ClipFormState extends State<ClipForm> with Observable {
   void resetValues(ClipFormBloc formBloc) {
     reset = true;
     formBloc.reset();
-    //setState(() {});
+    setState(() {});
   }
 
   void previousValues(ClipFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
-    //setState(() {});
+    setState(() {});
   }
 }
