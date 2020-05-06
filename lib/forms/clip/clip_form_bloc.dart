@@ -56,7 +56,6 @@ class ClipFormBloc extends FormBloc<String, String> {
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
     showFields();
-
     data = ClipData(
       afp: afpField.valueToDouble,
       cps: cpsField.value,

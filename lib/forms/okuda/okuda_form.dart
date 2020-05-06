@@ -456,8 +456,10 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   void resetValues(OkudaFormBloc formBloc) {
     reset = true;
+    previous = true;
     formBloc.reset();
     setState(() {});
+    reset = false;
   }
 
   void previousValues(OkudaFormBloc formBloc) {

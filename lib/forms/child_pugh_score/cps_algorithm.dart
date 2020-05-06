@@ -14,67 +14,16 @@ class CpsAlgorithm {
     final prefs = UserSettings();
     final units = Units();
 
-    var ptsBilirubin;
-    var ptsINR;
-    var ptsAlbumin;
-    var ptsEncephalopaty;
-    var ptsAscites;
+    int ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites;
 
     if (!prefs.getInternationalUnits()) convertToIU();
     showObjectCPSData();
 
-    if (cpsData.bilirubin <= 34) {
-      ptsBilirubin = 1;
-    } else if (cpsData.bilirubin <= 50) {
-      ptsBilirubin = 2;
-    } else {
-      ptsBilirubin = 3;
-    }
-
-    if (cpsData.inr <= 1.7) {
-      ptsINR = 1;
-    } else if (cpsData.inr <= 2.2) {
-      ptsINR = 2;
-    } else {
-      ptsINR = 3;
-    }
-
-    if (cpsData.albumin <= 28) {
-      ptsAlbumin = 3;
-    } else if (cpsData.albumin <= 35) {
-      ptsAlbumin = 2;
-    } else {
-      ptsAlbumin = 1;
-    }
-
-    if (cpsData.encephalopaty == 'grade_3_4') {
-      ptsEncephalopaty = 3;
-    } else if (cpsData.encephalopaty == 'grade_1_2') {
-      ptsEncephalopaty = 2;
-    } else
-      ptsEncephalopaty = 1;
-
-    /*if (cpsData.encephalopaty == 'none_fem') {
-      ptsEncephalopaty = 1;
-    } else if (cpsData.encephalopaty == 'grade_1_2') {
-      ptsEncephalopaty = 2;
-    } else if (cpsData.encephalopaty == 'grade_3_4') {
-      ptsEncephalopaty = 3;
-    }*/
-    if (cpsData.ascites == 'refractory') {
-      ptsAscites = 3;
-    } else if (cpsData.ascites == 'controlled') {
-      ptsAscites = 2;
-    } else
-      ptsAscites = 1;
-
-    /* if (cpsData.ascites == 'none_fem') {
-      ptsAscites = 1;
-    } else if (cpsData.ascites == 'controlled') {
-      ptsAscites = 2;
-    } else if (cpsData.ascites == 'refractory') {
-      ptsAscites = 3;
-    }*/
+    ptsBilirubin = _getBilirubinPoints();
+    ptsINR = _getInrPoints();
+    ptsAlbumin = _getAlbuminPoints();
+    ptsEncephalopaty = _getEncephalopatyPoints();
+    ptsAscites = _getAscitesPoints();
 
     showPts(ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites);
 
@@ -87,6 +36,55 @@ class CpsAlgorithm {
     } else {
       return 'C ($resultado)';
     }
+  }
+
+  int _getBilirubinPoints() {
+    if (cpsData.bilirubin <= 34) {
+      return 1;
+    } else if (cpsData.bilirubin <= 50) {
+      return 2;
+    } else {
+      return 3;
+    }
+  }
+
+  int _getInrPoints() {
+    if (cpsData.inr <= 1.7) {
+      return 1;
+    } else if (cpsData.inr <= 2.2) {
+      return 2;
+    } else {
+      return 3;
+    }
+  }
+
+  int _getAlbuminPoints() {
+    if (cpsData.albumin <= 28) {
+      return 3;
+    } else if (cpsData.albumin <= 35) {
+      return 2;
+    } else {
+      return 1;
+    }
+  }
+
+  int _getEncephalopatyPoints() {
+    if (cpsData.encephalopaty == 'grade_3_4') {
+      return 3;
+    } else if (cpsData.encephalopaty == 'grade_1_2') {
+      return 2;
+    } else {
+      return 1;
+    }
+  }
+
+  int _getAscitesPoints() {
+    if (cpsData.ascites == 'refractory') {
+      return 3;
+    } else if (cpsData.ascites == 'controlled') {
+      return 2;
+    } else
+      return 1;
   }
 
   void convertToIU() {

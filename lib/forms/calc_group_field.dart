@@ -82,6 +82,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
   final prefs = UserSettings();
   bool firstRun = true;
   bool _errorFlag = false;
+  bool _resetFlag = false;
 
   @override
   void initState() {
@@ -182,135 +183,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
       RadioBuilder<String, double> simpleBuilder) {
     var aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
-    /*return Expanded(
-      child: Container(
-        //color: Colors.green,
-        width: 100.0 * state.items.length,
-        height: 20.0,
-        child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: state.items.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                child: Stack(
-                  children: <Widget>[
-                    CustomRadio<String, double>(
-                      value: state.items.elementAt(index).toString(),
-                      groupValue: radioValue,
-                      duration: Duration(milliseconds: 150),
-                      animsBuilder: (AnimationController controller) =>
-                      [
-                        CurvedAnimation(
-                            parent: controller, curve: Curves.easeInOut)
-                      ],
-                      builder: (BuildContext context,
-                          List<double> animValues,
-                          Function updateState,
-                          String value) {
-                        final alpha = (animValues[0] * 255).toInt();
-                        var opacity =
-                        (!widget.reset && !_errorFlag) ? alpha : 0;
 
-                        return Container(
-                          //color: Colors.green,
-                          width: 100,
-                          height: 20,
-                          //Alineación del texto dentro del botón
-
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            //Color del fondo del botón
-                            color: isSelected[state.items
-                                .elementAt(index)
-                                .toString()] &&
-                                (!widget.reset && !_errorFlag)
-                                ? Theme
-                                .of(context)
-                                .primaryColor
-                                : Colors.white,
-                            border: Border.all(
-                              //Color del borde
-                              color: _errorFlag
-                                  ? Color.fromARGB(255, 211, 47, 47)
-                                  : Color.fromARGB(255, 45, 145, 155),
-                              width: _errorFlag ? 0.9 : 1.3,
-                            ),
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(3.0)),
-                          ),
-                          // ),
-                        );
-                      },
-                    ),
-                    DefaultFieldBlocBuilderTextStyle(
-                      isEnabled: false,
-                      child: Center(
-                        child: Container(
-                          color: Colors.red,
-                          child: Text(
-                            aux.tr(state.items.elementAt(index).toString()),
-                            style: TextStyle(
-                              color: isSelected[state.items
-                                  .elementAt(index)
-                                  .toString()] &&
-                                  (!widget.reset && !_errorFlag)
-                                  ? Colors.white
-                                  : Theme
-                                  .of(context)
-                                  .primaryColor,
-                              fontSize: isTablet ? 14 : 12,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                onTap: () async {
-                  print("pulsado " + radioValue);
-                 // setState(() {});
-                    widget.reset = false;
-                    widget.previous = false;
-                    //prefs.setError(false);
-                    //print("selectfield blo " + widget.title);
-                    _markErrorFalse();
-                    _errorFlag = false;
-
-                    _initMap(state);
-
-                    //Elemento seleccionado
-                    radioValue = state.items.elementAt(index).toString();
-
-                     widget.selectFieldBloc
-                        .updateValue(radioValue); //Actualizo el valor
-                  await Future.delayed(Duration(milliseconds: 300));
-
-                  isSelected[radioValue] = true;
-
-                    if (widget.title == 'tumour_number') {
-                      if (radioValue == '6+') {
-                        prefs.setTumourNumber(6);
-                      } else {
-                        prefs.setTumourNumber(int.parse(radioValue));
-                      }
-
-                      print("numero de tumores ${prefs.getTumourNumber()}");
-                    }
-                  print("pulsado despues " + radioValue);
-
-                  print(widget.selectFieldBloc.value);
-
-                  setState(() {});
-
-                  //});
-                },
-
-              );
-            }),
-      ),
-    );*/
     return Expanded(
       child: Container(
         padding: EdgeInsets.only(
@@ -328,11 +201,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () async {
-                    //async {
-                    widget.reset = false;
-                    widget.previous = false;
-                    //prefs.setError(false);
-                    //print("selectfield blo " + widget.title);
+                    _resetFlag = false;
                     _markErrorFalse();
                     _errorFlag = false;
 
@@ -346,6 +215,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                     await Future.delayed(Duration(milliseconds: 200));
 
                     isSelected[radioValue] = true;
+                    print(isSelected);
                     //await Future.delayed(Duration(milliseconds: 300));
 
                     if (widget.title == 'tumour_number') {
@@ -355,7 +225,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                         prefs.setTumourNumber(int.parse(radioValue));
                       }
 
-                      print("numero de tumores ${prefs.getTumourNumber()}");
+                      //print("numero de tumores ${prefs.getTumourNumber()}");
                     }
                     setState(() {});
                     await Future.delayed(Duration(milliseconds: 300));
@@ -368,7 +238,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                     child: Stack(
                       children: <Widget>[
                         Container(
-                          //color: Colors.red,
                           child: CustomRadio<String, double>(
                             value: state.items.elementAt(index).toString(),
                             groupValue: radioValue,
@@ -382,10 +251,9 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                                 List<double> animValues,
                                 Function updateState,
                                 String value) {
-                              final alpha = (animValues[0] * 255).toInt();
+                              /*final alpha = (animValues[0] * 255).toInt();
                               var opacity =
-                              (!widget.reset && !_errorFlag) ? alpha : 0;
-
+                              (!_resetFlag && !_errorFlag) ? alpha : 0;*/
                               return Container(
                                 width: 100,
                                 height: 20,
@@ -398,7 +266,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                                   color: isSelected[state.items
                                       .elementAt(index)
                                       .toString()] &&
-                                      (!widget.reset && !_errorFlag)
+                                      (!_resetFlag && !_errorFlag)
                                       ? Theme
                                       .of(context)
                                       .primaryColor
@@ -428,7 +296,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                                   color: isSelected[state.items
                                       .elementAt(index)
                                       .toString()] &&
-                                      (!widget.reset && !_errorFlag)
+                                      (!_resetFlag && !_errorFlag)
                                       ? Colors.white
                                       : Theme
                                       .of(context)
@@ -475,6 +343,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
       SelectFieldBlocState<Value> state, bool isEnable) {
     InputDecoration decoration = this.widget.decoration;
     _errorFlag = false;
+    _resetFlag = widget.reset;
     return decoration.copyWith(
       enabled: isEnable,
       contentPadding: Style.getGroupFieldBlocContentPadding(

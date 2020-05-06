@@ -142,7 +142,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       child: Container(
         width: context.widthPct(0.5),
         //color: Colors.red,
-        //padding: EdgeInsets.only(left: 20, top: 20),
+        padding: EdgeInsets.only(left: 20, top: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -307,11 +307,10 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     };
 
     return FittedBox(
-      //padding: const EdgeInsets.all(8.0),
       child: Container(
         width: context.widthPct(0.5),
         // color: Colors.blue,
-        //padding: EdgeInsets.only(left: 10, top: 20),
+        padding: EdgeInsets.only(left: 10, top: 20),
         child: Column(
           children: <Widget>[
             Container(

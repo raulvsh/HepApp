@@ -25,7 +25,8 @@ class MeldAlgorithm {
     //showObjectMeldData();
 
     _adaptarVariablesMeld();
-    //showObjectMeldData();
+    showObjectMeldData();
+
 
     results['meld'] = _calculateMeld().toStringAsPrecision(4);
     meldData.sodium != null
@@ -83,7 +84,6 @@ class MeldAlgorithm {
 
   double _calculateMeldNa(String meldResult) {
     double meld = double.parse(meldResult);
-
     return meld -
         meldData.sodium -
         (0.025 * meld * (140 - meldData.sodium)) +
@@ -92,18 +92,11 @@ class MeldAlgorithm {
 
   double _calculate5vMeld(String meldNaResult) {
     double meldNa = double.parse(meldNaResult);
-
     return meldNa +
         (5.275 * (4 - meldData.albumin)) -
         (0.136 * meldNa * (4 - meldData.albumin));
   }
 
-  void showPts(ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent) {
-    print("\n\n**********PUNTOS\nPuntos bilirrubina: $ptsBilirubin");
-    print("Puntos albúmina: $ptsAlbumin");
-    print("Puntos ascitis: $ptsAscites");
-    print("Puntos extension: $ptsTumourExtent");
-  }
 
   void showObjectMeldData() {
     print("\n\n*****************OBJETO MeldDATA: "

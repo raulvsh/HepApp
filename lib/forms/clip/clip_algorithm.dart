@@ -1,5 +1,4 @@
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/shared_preferences/user_settings.dart';
 
 import 'clip_data.dart';
 
@@ -10,107 +9,81 @@ class ClipAlgorithm {
 
   final units = Units();
 
-  String obtenerResultado(/*CpsData data*/ /*fieldBlocs*/) {
-    final prefs = UserSettings();
-    final units = Units();
+  String obtenerResultado() {
+    showObjectCLipData();
+    int ptsTumourNumber, ptsCps, ptsPvt, ptsAfp;
 
-    var ptsBilirubin;
-    var ptsINR;
-    var ptsAlbumin;
-    var ptsEncephalopaty;
-    var ptsAscites;
+    ptsTumourNumber = _buildTumourPoints();
+    ptsCps = _buildCpsPoints();
+    ptsPvt = _buildPvtPoints();
+    ptsAfp = _buildAfpPoints();
 
-/*if(antiguo.bilirubin<=34){
-      print("yujuuu " + antiguo.bilirubin.toString());
-    }*/
-//TODO Aquí llamar a los métodos de convertir a unidades internacionales
-/*if(prefs.internationalUnits == false){
-      antiguo.bilirubin = units.getConvertedBilirrubin(antiguo.bilirubin);
-      antiguo.albumin = units.getConvertedAlbumin(antiguo.albumin);
-    }*/
-//pasar a método externo
-//compruebo que esté en unidades interanacionales, si no, convierto
-    /*if (!prefs.getInternationalUnits()) convertToIU();
-    showObjectCPSData();
-
-    if (meldData.bilirubin <= 34) {
-      ptsBilirubin = 1;
-    } else if (meldData.bilirubin <= 50) {
-      ptsBilirubin = 2;
-    } else {
-      ptsBilirubin = 3;
-    }
-
-    if (meldData.inr <= 1.7) {
-      ptsINR = 1;
-    } else if (meldData.inr <= 2.2) {
-      ptsINR = 2;
-    } else {
-      ptsINR = 3;
-    }
-
-    if (meldData.albumin <= 28) {
-      ptsAlbumin = 3;
-    } else if (meldData.albumin <= 35) {
-      ptsAlbumin = 2;
-    } else {
-      ptsAlbumin = 1;
-    }
-
-    if (meldData.encephalopaty == 'none_fem') {
-      ptsEncephalopaty = 1;
-    } else if (meldData.encephalopaty == 'grade_1_2') {
-      ptsEncephalopaty = 2;
-    } else if (meldData.encephalopaty == 'grade_3_4') {
-      ptsEncephalopaty = 3;
-    }
-
-    if (meldData.ascites == 'none_fem') {
-      ptsAscites = 1;
-    } else if (meldData.ascites == 'controlled') {
-      ptsAscites = 2;
-    } else if (meldData.ascites == 'refractory') {
-      ptsAscites = 3;
-    }
-
-    obtenerPuntos(
-        ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites);
-
-    int resultado =
-        ptsBilirubin + ptsINR + ptsAlbumin + ptsEncephalopaty + ptsAscites;
-*/ /*print('Resultado numérico: $resultado');*/ /*
-    if (resultado == 5 || resultado == 6) {
-      return 'A ($resultado)';
-    } else if (resultado >= 7 && resultado <= 9) {
-      return 'B ($resultado)';
-    } else {
-      return 'C ($resultado)';
-    }*/
+    showpts(ptsTumourNumber, ptsCps, ptsPvt, ptsAfp);
+    int result = ptsTumourNumber + ptsCps + ptsPvt + ptsAfp;
+    return result.toString();
   }
 
-  void convertToIU() {
-    //if (!prefs.getIunitsPrueba()) {
-    //clipData.bilirubin = units.getIUBilirrubin(clipData.bilirubin);
-    //clipData.albumin = units.getIUAlbumin(clipData.albumin);
-    //}
+  int _buildTumourPoints() {
+    double tumourNumber = double.parse(clipData.tumourNumber);
+    /*if(tumourNumber >1 && clipData.tumourExtent == '>50%'){
+      return 2;
+    } else if (tumourNumber > 1 && clipData.tumourExtent == '<=50%') {
+      return 1;
+    } else {
+      return 0;
+    }*/
+
+    if (tumourNumber == 0 ||
+        (tumourNumber == 1 && clipData.tumourExtent == '<=50%')) {
+      return 0;
+    } else if (tumourNumber > 1 && clipData.tumourExtent == '<=50%') {
+      return 1;
+    } else {
+      return 2;
+    }
   }
 
-  void obtenerPuntos(
-      ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites) {
-    print("\n\n**********PUNTOS\nPuntos bilirrubina: $ptsBilirubin");
-    print("Puntos inr: $ptsINR");
-    print("Puntos albúmina: $ptsAlbumin");
-    print("Puntos encefalopatía: $ptsEncephalopaty");
-    print("Puntos ascitis: $ptsAscites");
+  int _buildCpsPoints() {
+    if (clipData.cps == 'A') {
+      return 0;
+    } else if (clipData.cps == 'B') {
+      return 1;
+    } else {
+      return 2;
+    }
   }
 
-  void showObjectCPSData() {
+  int _buildPvtPoints() {
+    if (clipData.pvt == 'no') {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+
+  int _buildAfpPoints() {
+    if (clipData.afp <= 400) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+
+
+  void showpts(ptsNumberTumours, ptsCPS, ptsPVT, ptsAFP) {
+    print("\n\n**********PUNTOS\nPuntos numero: $ptsNumberTumours");
+    print("Puntos cps: $ptsCPS");
+    print("Puntos pvt: $ptsPVT");
+    print("Puntos afp: $ptsAFP");
+  }
+
+  void showObjectCLipData() {
     print("\n\n*****************OBJETO clipDATA: "
-            "\nbilirrubina : ${clipData.afp}" +
-        "\nalbumina : ${clipData.cps}" +
-        "\ninr : ${clipData.tumourNumber}" +
-        "\nresultado: ${clipData.tumourExtent}" +
-        "\nresultado Na: ${clipData.pvt}" +
+        "\afp : ${clipData.afp}" +
+        "\ncps : ${clipData.cps}" +
+        "\ntumour number : ${clipData.tumourNumber}" +
+        "\ntumourextent: ${clipData.tumourExtent}" +
+        "\npvt: ${clipData.pvt}" +
         "\nresultado : ${clipData.result}" +
         "\n**************");
   }

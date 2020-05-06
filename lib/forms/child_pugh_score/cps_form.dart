@@ -281,13 +281,9 @@ class CpsFormState extends State<CpsForm> with Observable {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _buildResetButton(formBloc),
-          SizedBox(
-            width: 15,
-          ),
+          SizedBox(width: 15),
           _buildPreviousButton(formBloc),
-          SizedBox(
-            width: 15,
-          ),
+          SizedBox(width: 15),
           _buildMoreInfoButton(),
         ],
       ),
@@ -296,7 +292,6 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   Container _buildMoreInfoButton() {
     AppLocalizations aux = AppLocalizations.of(context);
-
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       height: 40,
@@ -310,7 +305,7 @@ class CpsFormState extends State<CpsForm> with Observable {
         ),
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
-          showMoreInfo();
+          //showMoreInfo();
         },
       ),
     );
@@ -481,8 +476,10 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   void resetValues(CpsFormBloc formBloc) {
     reset = true;
+    previous = true;
     formBloc.reset();
     setState(() {});
+    reset = false;
   }
 
   void previousValues(CpsFormBloc formBloc) {
