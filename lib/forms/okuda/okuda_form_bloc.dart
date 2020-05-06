@@ -21,7 +21,8 @@ class OkudaFormBloc extends FormBloc<String, String> {
   );
   String result = '-';
 
-  var data = OkudaData(
+
+  var okudaData = OkudaData(
     bilirubin: 0,
     albumin: 0,
     ascites: 'none_fem',
@@ -39,20 +40,20 @@ class OkudaFormBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    showFields();
+    //showFields();
 
-    data = OkudaData(
+    okudaData = OkudaData(
       bilirubin: bilirubinField.valueToDouble,
       albumin: albuminField.valueToDouble,
       ascites: ascitesField.value,
       tumourExtent: tumourExtentField.value,
     );
 
-    OkudaAlgorithm okudaAlgorithm = OkudaAlgorithm(data);
+    OkudaAlgorithm okudaAlgorithm = OkudaAlgorithm(okudaData);
 
     try {
       this.result = okudaAlgorithm.obtenerResultado();
-      data.result = this.result;
+      okudaData.result = this.result;
     } catch (e) {
       print("Excepción: $e");
     }
@@ -72,20 +73,21 @@ class OkudaFormBloc extends FormBloc<String, String> {
 
   void showIU() {
     this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toStringAsPrecision(4),
+      initialValue: okudaData.bilirubin.toStringAsPrecision(4),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toStringAsPrecision(4),
+      initialValue: okudaData.albumin.toStringAsPrecision(4),
     );
   }
 
   showNotIU() {
     this.bilirubinField = TextFieldBloc(
       initialValue:
-      units.getNotIUBilirrubin(data.bilirubin).toStringAsPrecision(4),
+      units.getNotIUBilirrubin(okudaData.bilirubin).toStringAsPrecision(4),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: units.getNotIUAlbumin(data.albumin).toStringAsPrecision(4),
+      initialValue: units.getNotIUAlbumin(okudaData.albumin)
+          .toStringAsPrecision(4),
     );
   }
 
@@ -103,20 +105,20 @@ class OkudaFormBloc extends FormBloc<String, String> {
 
   void previous() {
     this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toString(),
+      initialValue: okudaData.bilirubin.toString(),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toString(),
+      initialValue: okudaData.albumin.toString(),
     );
     this.ascitesField = SelectFieldBloc(
       items: ['none_fem', 'controlled', 'refractory'],
-      initialValue: data.ascites.toString(),
+      initialValue: okudaData.ascites.toString(),
     );
     this.tumourExtentField = SelectFieldBloc(
       items: ['<=50%', '>50%'],
-      initialValue: data.tumourExtent.toString(),
+      initialValue: okudaData.tumourExtent.toString(),
     );
-    this.result = data.result;
+    this.result = okudaData.result;
 
     print("\n*****AFTER PREVIOUS");
     showFields();
@@ -124,11 +126,11 @@ class OkudaFormBloc extends FormBloc<String, String> {
 
   void showObjectOkudaData() {
     print("\n\n*****************OBJETO OkudaDATA: "
-        "\nbili: ${data.bilirubin}" +
-        "\nalbu: ${data.albumin}" +
-        "\nascites : ${data.ascites}" +
-        "\nextension : ${data.tumourExtent}" +
-        "\nresultado: ${data.result}" +
+        "\nbili: ${okudaData.bilirubin}" +
+        "\nalbu: ${okudaData.albumin}" +
+        "\nascites : ${okudaData.ascites}" +
+        "\nextension : ${okudaData.tumourExtent}" +
+        "\nresultado: ${okudaData.result}" +
         "\n**************");
   }
 

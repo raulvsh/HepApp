@@ -173,22 +173,28 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     Map<String, dynamic> laboratoryMap = {
       'international_units':
       prefs.getInternationalUnits() ? aux.tr('yes') : aux.tr('no'),
-      'bilirubin': widget.formBloc.bilirubinField.value,
-      'inr_summary': widget.formBloc.inrField.value,
-      'creatinine': widget.formBloc.creatinineField.value,
+      'bilirubin': widget.formBloc.bilirubinField.valueToDouble
+          .toStringAsPrecision(3),
+      'inr_summary': widget.formBloc.inrField.valueToDouble.toStringAsPrecision(
+          3),
+      'creatinine': widget.formBloc.creatinineField.valueToDouble
+          .toStringAsPrecision(3),
       'dialysis': widget.formBloc.dialysisField.value == 'yes'
           ? aux.tr('yes')
           : aux.tr('no'),
-      'albumin': widget.formBloc.albuminField.value,
-      'sodium': widget.formBloc.sodiumField.value,
-      'platelets': widget.formBloc.plateletsField.value,
-      'afp': widget.formBloc.afpField.value,
-      'ast': widget.formBloc.astField[0].value,
+      'albumin': widget.formBloc.albuminField.valueToDouble.toStringAsPrecision(
+          3),
+      'sodium': widget.formBloc.sodiumField.valueToDouble.toStringAsPrecision(
+          3),
+      'platelets': widget.formBloc.plateletsField.valueToDouble
+          .toStringAsPrecision(3),
+      'afp': widget.formBloc.afpField.valueToDouble.toStringAsPrecision(3),
+      'ast': widget.formBloc.astField[0].valueToDouble.toStringAsPrecision(3),
       isTablet ? 'ast_upper_limit' : 'ast_limit': widget.formBloc.astField[1]
-          .value,
+          .valueToDouble.toStringAsPrecision(3),
       'alp': widget.formBloc.alpField[0].value,
       isTablet ? 'alp_upper_limit' : 'alp_limit': widget.formBloc.alpField[1]
-          .value,
+          .valueToDouble.toStringAsPrecision(3),
     };
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),

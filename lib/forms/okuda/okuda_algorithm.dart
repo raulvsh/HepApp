@@ -21,7 +21,7 @@ class OkudaAlgorithm {
 
 
     if (!prefs.getInternationalUnits()) convertToIU();
-    showObjectOkudaData();
+    //showObjectOkudaData();
 
     if (okudaData.bilirubin < 51) {
       ptsBilirubin = 0;
@@ -36,13 +36,20 @@ class OkudaAlgorithm {
     }
 
 
-    if (okudaData.ascites == 'none_fem') {
+    if (okudaData.ascites == 'controlled' ||
+        okudaData.ascites == 'refractory') {
+      ptsAscites = 1;
+    } else {
+      ptsAscites = 0;
+    }
+
+    /* if (okudaData.ascites == 'none_fem') {
       ptsAscites = 0;
     } else if (okudaData.ascites == 'controlled') {
       ptsAscites = 1;
     } else if (okudaData.ascites == 'refractory') {
       ptsAscites = 1;
-    }
+    }*/
 
     if (okudaData.tumourExtent == '<=50%') {
       ptsTumourExtent = 0;
@@ -50,8 +57,8 @@ class OkudaAlgorithm {
       ptsTumourExtent = 1;
     }
 
-    showPts(
-        ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent);
+    //showPts(
+    //   ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent);
 
     int resultado =
         ptsBilirubin + ptsAlbumin + ptsAscites + ptsTumourExtent;

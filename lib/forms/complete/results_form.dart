@@ -134,14 +134,16 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
     Map<String, String> resultMap = {
-      'cirrhosis': formBloc.cirrhosisField.value != null
-          ? aux.tr(formBloc.cirrhosisField.value)
-          : '-',
-      'apri': '-',
-      'child_pugh_score_oneline': '-',
-      'meld': '-',
-      'meld_na': '-',
-      '5v_meld': '-',
+      'cirrhosis': //formBloc.cirrhosisField.value != ''
+      //?
+      aux.tr(formBloc.cirrhosisField.value),
+      //: '-',
+      'apri': formBloc.resultsField['apri'],
+      'child_pugh_score_oneline': formBloc
+          .resultsField['child_pugh_score_oneline'],
+      'meld': formBloc.resultsField['meld'],
+      'meld_na': formBloc.resultsField['meld_na'],
+      '5v_meld': formBloc.resultsField['5v_meld'],
     };
 
     return FittedBox(
@@ -272,8 +274,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
           //duration: Duration(seconds: 1), curve: Curves.easeInOut);
           //previousValues(formBloc);
-
-
         },
       ),
     );

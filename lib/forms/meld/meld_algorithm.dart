@@ -20,11 +20,7 @@ class MeldAlgorithm {
       'meld_na': '-',
       '5v_meld': '-',
     };
-    var ptsBilirubin;
-    var ptsAlbumin;
-    var ptsAscites;
-    var ptsTumourExtent;
-    //print("iunits" + prefs.getInternationalUnits().toString());
+
     if (prefs.getInternationalUnits()) convertToNotIU();
     showObjectMeldData();
 

@@ -28,16 +28,15 @@ class _CalcTextFieldState extends State<CalcTextField> {
 
   @override
   Widget build(BuildContext context) {
-    bool isTablet = context.diagonalInches >= 7;
-
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         SizedBox(width: 8),
         _buildInitialBlueRectangle(),
-        _buildInitialText(isTablet),
-        _buildTextField(isTablet, context),
-        Container(
+        _buildInitialText(),
+        _buildTextField(),
+        _buildUds(),
+        /*Container(
             padding: EdgeInsets.symmetric(horizontal: 5),
             child: Text(
               widget.uds,
@@ -45,12 +44,37 @@ class _CalcTextFieldState extends State<CalcTextField> {
                 color: Colors.black,
                 fontSize: isTablet ? 15 : 12,
               ),
-            )),
+            ),),*/
       ],
     );
   }
 
-  Container _buildTextField(bool isTablet, BuildContext context) {
+  Container _buildInitialBlueRectangle() {
+    return Container(
+      color: Color.fromARGB(255, 210, 242, 245),
+      width: 10.0,
+      height: 20.0,
+    );
+  }
+
+  Container _buildInitialText() {
+    bool isTablet = context.diagonalInches >= 7;
+
+    AppLocalizations aux = AppLocalizations.of(context);
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        child: Text(
+          aux.tr(widget.title),
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: isTablet ? 15 : 12,
+          ),
+        ));
+  }
+
+  Container _buildTextField() {
+    bool isTablet = context.diagonalInches >= 7;
+
     return Container(
       width: isTablet ? 90 : 60,
       height: 40,
@@ -63,9 +87,7 @@ class _CalcTextFieldState extends State<CalcTextField> {
         keyboardType: TextInputType.numberWithOptions(),
         isEnabled: true,
         textFieldBloc: widget.textFieldBloc,
-
         expands: false,
-
         style: TextStyle(
           fontSize: isTablet ? 14 : 12,
           color: Theme
@@ -90,7 +112,6 @@ class _CalcTextFieldState extends State<CalcTextField> {
           contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
         ),
         onChanged: (text) => _markErrorFalse(),
-
         errorBuilder: widget.errorControl
             ? (context, error) {
           _markErrorTrue();
@@ -102,6 +123,21 @@ class _CalcTextFieldState extends State<CalcTextField> {
           }
         }
             : (context, error) => null,
+      ),
+    );
+  }
+
+  Container _buildUds() {
+    bool isTablet = context.diagonalInches >= 7;
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 5),
+      child: Text(
+        widget.uds,
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: isTablet ? 15 : 12,
+        ),
       ),
     );
   }
@@ -120,28 +156,5 @@ class _CalcTextFieldState extends State<CalcTextField> {
         prefs.getErrorMap().update(key, (v) => false);
       }
     });
-  }
-
-  Container _buildInitialText(bool isTablet) {
-    AppLocalizations aux = AppLocalizations.of(context);
-    return Container(
-      //color: Colors.red,
-      //width: 90,
-        padding: EdgeInsets.symmetric(horizontal: 5),
-        child: Text(
-          aux.tr(widget.title),
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: isTablet ? 15 : 12,
-          ),
-        ));
-  }
-
-  Container _buildInitialBlueRectangle() {
-    return Container(
-      color: Color.fromARGB(255, 210, 242, 245),
-      width: 10.0,
-      height: 20.0,
-    );
   }
 }
