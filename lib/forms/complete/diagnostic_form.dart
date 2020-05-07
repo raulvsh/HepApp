@@ -107,9 +107,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
             _buildMetastasisRow(formBloc),
             _buildPortalHypertensionRow(formBloc),
             _buildPvtRow(formBloc),
-            SizedBox(
-                height: kToolbarHeight
-            )
+            SizedBox(height: kToolbarHeight)
           ],
         ),
       ),
@@ -234,7 +232,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   }
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
-    var aux = AppLocalizations.of(context);
     var isLandscape = context.isLandscape;
     return BottomAppBar(
       child: Stack(
@@ -244,18 +241,16 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
                 ? MainAxisAlignment.center
                 : MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(
-                width: 5,
-              ),
-              _buildResetButton(aux, formBloc),
-              _buildPreviousButton(aux, formBloc),
-              _buildMoreInfoButton(aux),
+              SizedBox(width: 5),
+              _buildResetButton(formBloc),
+              _buildPreviousButton(formBloc),
+              _buildMoreInfoButton(),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              _buildNextButton(aux, formBloc),
+              _buildNextButton(formBloc),
             ],
           ),
         ],
@@ -263,7 +258,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  Container _buildMoreInfoButton(AppLocalizations aux) {
+  Container _buildMoreInfoButton() {
+    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       height: 40,
@@ -299,7 +295,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  Container _buildPreviousButton(AppLocalizations aux, formBloc) {
+  Container _buildPreviousButton(formBloc) {
+    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
@@ -316,14 +313,15 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          previousValues(formBloc);
-        },
+        onPressed: () =>
+            previousValues(formBloc),
+
       ),
     );
   }
 
-  Container _buildResetButton(AppLocalizations aux, CompleteFormBloc formBloc) {
+  Container _buildResetButton(CompleteFormBloc formBloc) {
+    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
@@ -340,9 +338,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          resetValues(formBloc);
-        },
+        onPressed: () => resetValues(formBloc),
       ),
     );
   }
@@ -371,8 +367,10 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     setState(() {});
   }
 
-  _buildNextButton(AppLocalizations aux, CompleteFormBloc formBloc) {
+  _buildNextButton(CompleteFormBloc formBloc) {
+    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
+
     return Container(
       height: 40,
       width: 150,

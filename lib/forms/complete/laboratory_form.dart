@@ -105,8 +105,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
             _buildASTRow(formBloc),
             _buildALPRow(formBloc),
             _buildDialysisRow(formBloc),
-            SizedBox(height: kToolbarHeight + 10,)
-
+            SizedBox(
+              height: kToolbarHeight + 10,
+            )
           ],
         ),
       ),
@@ -246,20 +247,19 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   }
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
+    var isLandscape = context.isLandscape;
+
     return BottomAppBar(
       child: Stack(
         children: <Widget>[
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: isLandscape
+                ? MainAxisAlignment.center
+                : MainAxisAlignment.start,
             children: <Widget>[
+              SizedBox(width: 5),
               _buildResetButton(formBloc),
-              SizedBox(
-                width: 15,
-              ),
               _buildPreviousButton(formBloc),
-              SizedBox(
-                width: 15,
-              ),
               _buildMoreInfoButton(),
             ],
           ),
@@ -280,18 +280,20 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
     return Container(
       height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
+      width: 150,
+
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: FlatButton(
-        child: Text(
-          aux.tr('reset'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
+        child: FittedBox(
+          child: Text(
+            aux.tr('reset'),
+            style: TextStyle(
+              fontSize: isTablet ? 14 : 12,
+            ),
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          resetValues(formBloc);
-        },
+        onPressed: () => resetValues(formBloc),
       ),
     );
   }
@@ -302,18 +304,22 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
     return Container(
       height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
+      width: 150,
+
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: FlatButton(
-        child: Text(
-          aux.tr('previous_values'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
+        child: FittedBox(
+          child: Text(
+            aux.tr('previous_values'),
+            style: TextStyle(
+              fontSize: isTablet ? 14 : 12,
+            ),
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          previousValues(formBloc);
-        },
+        onPressed: () =>
+            previousValues(formBloc),
+
       ),
     );
   }
@@ -324,7 +330,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
+      width: 150,
+
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: FlatButton(
         child: Text(
           aux.tr('more_information'),

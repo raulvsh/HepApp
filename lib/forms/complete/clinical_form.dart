@@ -165,20 +165,19 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   }
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
+    var isLandscape = context.isLandscape;
+
     return BottomAppBar(
       child: Stack(
         children: <Widget>[
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: isLandscape
+                ? MainAxisAlignment.center
+                : MainAxisAlignment.start,
             children: <Widget>[
+              SizedBox(width: 5),
               _buildResetButton(formBloc),
-              SizedBox(
-                width: 15,
-              ),
               _buildPreviousButton(formBloc),
-              SizedBox(
-                width: 15,
-              ),
               _buildMoreInfoButton(),
             ],
           ),
@@ -196,14 +195,18 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   Container _buildResetButton(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     AppLocalizations aux = AppLocalizations.of(context);
+
     return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
+      height: 40, width: 150,
+
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: FlatButton(
-        child: Text(
-          aux.tr('reset'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
+        child: FittedBox(
+          child: Text(
+            aux.tr('reset'),
+            style: TextStyle(
+              fontSize: isTablet ? 14 : 12,
+            ),
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
@@ -219,19 +222,22 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
+      height: 40, width: 150,
+
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: FlatButton(
-        child: Text(
-          aux.tr('previous_values'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
+        child: FittedBox(
+          child: Text(
+            aux.tr('previous_values'),
+            style: TextStyle(
+              fontSize: isTablet ? 14 : 12,
+            ),
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          previousValues(formBloc);
-        },
+        onPressed: () =>
+            previousValues(formBloc),
+
       ),
     );
   }
@@ -241,19 +247,20 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
+      height: 40, width: 150,
+
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: FlatButton(
-        child: Text(
-          aux.tr('more_information'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
+        child: FittedBox(
+          child: Text(
+            aux.tr('more_information'),
+            style: TextStyle(
+              fontSize: isTablet ? 14 : 12,
+            ),
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          showMoreInfo();
-        },
+        onPressed: () => showMoreInfo(),
       ),
     );
   }
