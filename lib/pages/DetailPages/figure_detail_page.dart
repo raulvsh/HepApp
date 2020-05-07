@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/menu_widget.dart';
+import 'package:hepapp/widgets/custom_appbar.dart';
+import 'package:hepapp/widgets/drawer_menu.dart';
 import 'package:sized_context/sized_context.dart';
 
 class FigureDetailPage extends StatefulWidget {

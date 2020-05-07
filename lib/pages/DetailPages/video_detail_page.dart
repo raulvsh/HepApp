@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hepapp/widgets/CustomAppBar.dart';
-import 'package:hepapp/widgets/menu_widget.dart';
+import 'package:hepapp/widgets/custom_appbar.dart';
+import 'package:hepapp/widgets/drawer_menu.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoDetailPage extends StatefulWidget {

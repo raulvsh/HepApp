@@ -21,10 +21,10 @@ import 'package:hepapp/forms/okuda/okuda_form.dart';
 import 'package:hepapp/pages/CommonPages/common_page.dart';
 import 'package:hepapp/pages/DetailPages/video_detail_page.dart';
 import 'package:hepapp/pages/DetailPages/web_detail_page.dart';
-import 'package:hepapp/pages/PageViews/CommonDetailPageView.dart';
-import 'package:hepapp/pages/PageViews/CommonPageView.dart';
-import 'package:hepapp/pages/PageViews/DrawingPageView.dart';
-import 'package:hepapp/pages/PageViews/InteractiveDetailPageView.dart';
+import 'package:hepapp/pages/PageViews/common_detail_page_view.dart';
+import 'package:hepapp/pages/PageViews/common_page_view.dart';
+import 'package:hepapp/pages/PageViews/drawing_page_view.dart';
+import 'package:hepapp/pages/PageViews/interactive_detail_page_view.dart';
 import 'package:hepapp/pages/home_page.dart';
 
 class RouteGenerator {

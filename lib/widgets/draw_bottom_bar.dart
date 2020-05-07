@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:painter/painter.dart';
 
-import 'ColorSelectButton.dart';
+import 'color_select_button.dart';
 
 class DrawBottomBar extends StatelessWidget {
   const DrawBottomBar({

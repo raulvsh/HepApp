@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hepapp/data/home_sections.dart';
 import 'package:hepapp/pages/CommonPages/common_grid_page.dart';
-import 'package:hepapp/widgets/HomeAppBar.dart';
+import 'package:hepapp/widgets/home_appbar.dart';
 
 class HomePage extends StatefulWidget {
   @override

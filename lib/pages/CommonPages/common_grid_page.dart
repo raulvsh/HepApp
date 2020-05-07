@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/widgets/ComboButton.dart';
-import 'package:hepapp/widgets/FigureButton.dart';
+import 'package:hepapp/widgets/combo_button.dart';
+import 'package:hepapp/widgets/figure_button.dart';
 import 'package:sized_context/sized_context.dart';
 
 class CommonGridPage extends StatefulWidget {
