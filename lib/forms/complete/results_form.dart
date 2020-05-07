@@ -299,11 +299,11 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isLandscape = context.isLandscape;
     Map<String, String> resultMap = {
       'okuda': formBloc.resultsField['okuda'],
-      'clip': '-',
-      'getch': '-',
-      'tnm': '-',
-      'cupi': '-',
-      'bclc': '-',
+      'clip': formBloc.resultsField['clip'],
+      'getch': formBloc.resultsField['getch'],
+      'tnm': formBloc.resultsField['tnm'],
+      'cupi': formBloc.resultsField['cupi'],
+      'bclc': formBloc.resultsField['bclc'],
     };
 
     return FittedBox(

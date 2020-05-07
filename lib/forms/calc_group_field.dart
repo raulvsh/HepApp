@@ -215,7 +215,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                     await Future.delayed(Duration(milliseconds: 200));
 
                     isSelected[radioValue] = true;
-                    print(isSelected);
                     //await Future.delayed(Duration(milliseconds: 300));
 
                     if (widget.title == 'tumour_number') {
@@ -225,7 +224,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                         prefs.setTumourNumber(int.parse(radioValue));
                       }
 
-                      //print("numero de tumores ${prefs.getTumourNumber()}");
                     }
                     setState(() {});
                     await Future.delayed(Duration(milliseconds: 300));

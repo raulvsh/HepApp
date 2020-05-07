@@ -1,12 +1,13 @@
+/*
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 
-import 'okuda_data.dart';
+import 'cupi_data.dart';
 
-class OkudaAlgorithm {
-  final OkudaData okudaData;
+class CupiAlgorithm {
+  final CupiData cupiData;
 
-  OkudaAlgorithm(this.okudaData);
+  CupiAlgorithm(this.cupiData);
 
   final units = Units();
 
@@ -24,10 +25,10 @@ class OkudaAlgorithm {
     ptsAscites = _getAscitesPoints();
     ptsTumourExtent = _getTumourExtentPoints();
 
-    // showObjectOkudaData();
+    showObjectOkudaData();
+    showPts(ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent);
 
     int resultado = ptsBilirubin + ptsAlbumin + ptsAscites + ptsTumourExtent;
-    showPts(resultado);
 
     if (resultado == 0) {
       return 'I ($resultado)';
@@ -41,7 +42,7 @@ class OkudaAlgorithm {
   }
 
   int _getBilirubinPoints() {
-    if (okudaData.bilirubin < 51) {
+    if (cupiData.bilirubin < 51) {
       return 0;
     } else {
       return 1;
@@ -49,7 +50,7 @@ class OkudaAlgorithm {
   }
 
   int _getAlbuminPoints() {
-    if (okudaData.albumin < 30) {
+    if (cupiData.albumin < 30) {
       return 1;
     } else {
       return 0;
@@ -57,8 +58,8 @@ class OkudaAlgorithm {
   }
 
   int _getAscitesPoints() {
-    if (okudaData.ascites == 'controlled' ||
-        okudaData.ascites == 'refractory') {
+    if (cupiData.ascites == 'controlled' ||
+        cupiData.ascites == 'refractory') {
       return 1;
     } else {
       return 0;
@@ -66,7 +67,7 @@ class OkudaAlgorithm {
   }
 
   int _getTumourExtentPoints() {
-    if (okudaData.tumourExtent == '<=50%') {
+    if (cupiData.tumourExtent == '<=50%') {
       return 0;
     } else {
       return 1;
@@ -74,19 +75,25 @@ class OkudaAlgorithm {
   }
 
   void convertToIU() {
-    okudaData.bilirubin = units.getIUBilirrubin(okudaData.bilirubin);
-    okudaData.albumin = units.getIUAlbumin(okudaData.albumin);
+    cupiData.bilirubin = units.getIUBilirrubin(cupiData.bilirubin);
+    cupiData.albumin = units.getIUAlbumin(cupiData.albumin);
   }
 
-  void showPts(int resultado) {
-    print("\n\n**********PUNTOS OKUDA\nPuntos bilirrubina: ${okudaData
-        .bilirubin}  ${_getBilirubinPoints()}");
-    print("Puntos albúmina: ${okudaData.albumin}  ${_getAlbuminPoints()}");
-    print("Puntos ascitis: ${okudaData.ascites}  ${_getAscitesPoints()}");
-    print("Puntos extension: ${okudaData
-        .tumourExtent}  ${_getTumourExtentPoints()}");
-    print("Resultado: $resultado");
+  void showPts(ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent) {
+    print("\n\n**********PUNTOS\nPuntos bilirrubina: $ptsBilirubin");
+    print("Puntos albúmina: $ptsAlbumin");
+    print("Puntos ascitis: $ptsAscites");
+    print("Puntos extension: $ptsTumourExtent");
   }
 
-
+  void showObjectOkudaData() {
+    print("\n\n*****************OBJETO OkudaDATA: "
+        "\nbilirrubina : ${cupiData.bilirubin}" +
+        "\nalbumina : ${cupiData.albumin}" +
+        "\nascites : ${cupiData.ascites}" +
+        "\n extension: ${cupiData.tumourExtent}" +
+        "\nresultado : ${cupiData.result}" +
+        "\n**************");
+  }
 }
+*/

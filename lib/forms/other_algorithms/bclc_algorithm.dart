@@ -1,12 +1,13 @@
+/*
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 
-import 'okuda_data.dart';
+import 'bclc_data.dart';
 
-class OkudaAlgorithm {
-  final OkudaData okudaData;
+class BclcAlgorithm {
+  final BclcData bclcData;
 
-  OkudaAlgorithm(this.okudaData);
+  BclcAlgorithm(this.bclcData);
 
   final units = Units();
 
@@ -41,7 +42,7 @@ class OkudaAlgorithm {
   }
 
   int _getBilirubinPoints() {
-    if (okudaData.bilirubin < 51) {
+    if (bclcData.bilirubin < 51) {
       return 0;
     } else {
       return 1;
@@ -49,7 +50,7 @@ class OkudaAlgorithm {
   }
 
   int _getAlbuminPoints() {
-    if (okudaData.albumin < 30) {
+    if (bclcData.albumin < 30) {
       return 1;
     } else {
       return 0;
@@ -57,8 +58,8 @@ class OkudaAlgorithm {
   }
 
   int _getAscitesPoints() {
-    if (okudaData.ascites == 'controlled' ||
-        okudaData.ascites == 'refractory') {
+    if (bclcData.ascites == 'controlled' ||
+        bclcData.ascites == 'refractory') {
       return 1;
     } else {
       return 0;
@@ -66,7 +67,7 @@ class OkudaAlgorithm {
   }
 
   int _getTumourExtentPoints() {
-    if (okudaData.tumourExtent == '<=50%') {
+    if (bclcData.tumourExtent == '<=50%') {
       return 0;
     } else {
       return 1;
@@ -74,8 +75,8 @@ class OkudaAlgorithm {
   }
 
   void convertToIU() {
-    okudaData.bilirubin = units.getIUBilirrubin(okudaData.bilirubin);
-    okudaData.albumin = units.getIUAlbumin(okudaData.albumin);
+    bclcData.bilirubin = units.getIUBilirrubin(bclcData.bilirubin);
+    bclcData.albumin = units.getIUAlbumin(bclcData.albumin);
   }
 
   void showPts(ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent) {
@@ -87,11 +88,12 @@ class OkudaAlgorithm {
 
   void showObjectOkudaData() {
     print("\n\n*****************OBJETO OkudaDATA: "
-            "\nbilirrubina : ${okudaData.bilirubin}" +
-        "\nalbumina : ${okudaData.albumin}" +
-        "\nascites : ${okudaData.ascites}" +
-        "\n extension: ${okudaData.tumourExtent}" +
-        "\nresultado : ${okudaData.result}" +
+        "\nbilirrubina : ${bclcData.bilirubin}" +
+        "\nalbumina : ${bclcData.albumin}" +
+        "\nascites : ${bclcData.ascites}" +
+        "\n extension: ${bclcData.tumourExtent}" +
+        "\nresultado : ${bclcData.result}" +
         "\n**************");
   }
 }
+*/

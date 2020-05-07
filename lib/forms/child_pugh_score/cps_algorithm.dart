@@ -12,12 +12,11 @@ class CpsAlgorithm {
 
   String obtenerResultado(/*CpsData data*/ /*fieldBlocs*/) {
     final prefs = UserSettings();
-    final units = Units();
 
     int ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites;
 
     if (!prefs.getInternationalUnits()) convertToIU();
-    showObjectCPSData();
+    //showObjectCPSData();
 
     ptsBilirubin = _getBilirubinPoints();
     ptsINR = _getInrPoints();
@@ -25,7 +24,7 @@ class CpsAlgorithm {
     ptsEncephalopaty = _getEncephalopatyPoints();
     ptsAscites = _getAscitesPoints();
 
-    showPts(ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites);
+    showPts();
 
     int resultado =
         ptsBilirubin + ptsINR + ptsAlbumin + ptsEncephalopaty + ptsAscites;
@@ -92,22 +91,13 @@ class CpsAlgorithm {
     cpsData.albumin = units.getIUAlbumin(cpsData.albumin);
   }
 
-  void showPts(ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites) {
-    print("\n\n**********PUNTOS\nPuntos bilirrubina: $ptsBilirubin");
-    print("Puntos inr: $ptsINR");
-    print("Puntos albúmina: $ptsAlbumin");
-    print("Puntos encefalopatía: $ptsEncephalopaty");
-    print("Puntos ascitis: $ptsAscites");
-  }
-
-  void showObjectCPSData() {
-    print("\n\n*****************OBJETO CPSDATA: "
-            "\nbilirrubina : ${cpsData.bilirubin}" +
-        "\nalbumina : ${cpsData.inr}" +
-        "\ninr : ${cpsData.albumin}" +
-        "\nencefalopatia : ${cpsData.encephalopaty}" +
-        "\nascitis : ${cpsData.ascites}" +
-        "\nresultado: ${cpsData.result}" +
-        "\n**************");
+  void showPts() {
+    print("\n\n**********PUNTOS CPS\nPuntos bilirrubina: ${cpsData
+        .bilirubin}  ${_getBilirubinPoints()}");
+    print("Puntos inr: ${cpsData.inr}  ${_getInrPoints()}");
+    print("Puntos albúmina: ${cpsData.albumin}  ${_getAlbuminPoints()}");
+    print("Puntos encefalopatía: ${cpsData
+        .encephalopaty}  ${_getEncephalopatyPoints()}");
+    print("Puntos ascitis: ${cpsData.ascites}  ${_getAscitesPoints()}");
   }
 }

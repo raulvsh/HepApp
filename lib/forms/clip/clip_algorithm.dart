@@ -10,20 +10,21 @@ class ClipAlgorithm {
   final units = Units();
 
   String obtenerResultado() {
-    showObjectCLipData();
+    //showObjectCLipData();
     int ptsTumourNumber, ptsCps, ptsPvt, ptsAfp;
 
-    ptsTumourNumber = _buildTumourPoints();
-    ptsCps = _buildCpsPoints();
-    ptsPvt = _buildPvtPoints();
-    ptsAfp = _buildAfpPoints();
+    ptsTumourNumber = _getTumourPoints();
+    ptsCps = _getCpsPoints();
+    ptsPvt = _getPvtPoints();
+    ptsAfp = _getAfpPoints();
 
-    showpts(ptsTumourNumber, ptsCps, ptsPvt, ptsAfp);
     int result = ptsTumourNumber + ptsCps + ptsPvt + ptsAfp;
+    showpts(result);
+
     return result.toString();
   }
 
-  int _buildTumourPoints() {
+  int _getTumourPoints() {
     double tumourNumber = double.parse(clipData.tumourNumber);
     /*if(tumourNumber >1 && clipData.tumourExtent == '>50%'){
       return 2;
@@ -43,7 +44,7 @@ class ClipAlgorithm {
     }
   }
 
-  int _buildCpsPoints() {
+  int _getCpsPoints() {
     if (clipData.cps == 'A') {
       return 0;
     } else if (clipData.cps == 'B') {
@@ -53,7 +54,7 @@ class ClipAlgorithm {
     }
   }
 
-  int _buildPvtPoints() {
+  int _getPvtPoints() {
     if (clipData.pvt == 'no') {
       return 0;
     } else {
@@ -61,7 +62,7 @@ class ClipAlgorithm {
     }
   }
 
-  int _buildAfpPoints() {
+  int _getAfpPoints() {
     if (clipData.afp <= 400) {
       return 0;
     } else {
@@ -70,21 +71,14 @@ class ClipAlgorithm {
   }
 
 
-  void showpts(ptsNumberTumours, ptsCPS, ptsPVT, ptsAFP) {
-    print("\n\n**********PUNTOS\nPuntos numero: $ptsNumberTumours");
-    print("Puntos cps: $ptsCPS");
-    print("Puntos pvt: $ptsPVT");
-    print("Puntos afp: $ptsAFP");
-  }
+  void showpts(int result) {
+    print("\n\n**********PUNTOS CLIP\nPuntos numero: ${clipData
+        .tumourNumber}  ${_getTumourPoints()}");
+    print("Extension: ${clipData.tumourExtent}  ${_getTumourPoints()}");
 
-  void showObjectCLipData() {
-    print("\n\n*****************OBJETO clipDATA: "
-        "\afp : ${clipData.afp}" +
-        "\ncps : ${clipData.cps}" +
-        "\ntumour number : ${clipData.tumourNumber}" +
-        "\ntumourextent: ${clipData.tumourExtent}" +
-        "\npvt: ${clipData.pvt}" +
-        "\nresultado : ${clipData.result}" +
-        "\n**************");
+    print("Puntos cps: ${clipData.cps}  ${_getCpsPoints()}");
+    print("Puntos pvt: ${clipData.pvt}  ${_getPvtPoints()}");
+    print("Puntos afp: ${clipData.afp}  ${_getAfpPoints()}");
+    print("Resultado: $result");
   }
 }

@@ -17,8 +17,7 @@ class SummaryForm extends StatefulWidget with Observable {
   final CompleteFormBloc formBloc;
   final PageController controller;
 
-  SummaryForm({Key key, this.formBloc, this.controller})
-      : super(key: key);
+  SummaryForm({Key key, this.formBloc, this.controller}) : super(key: key);
 
   @override
   SummaryFormState createState() => SummaryFormState();
@@ -117,15 +116,15 @@ class SummaryFormState extends State<SummaryForm> with Observable {
 
     return Container(
       width: isLandscape
-          ? context.widthPct(isTablet ? 0.42 : 0.37)
-          : context.widthPct(0.37),
+          ? context.widthPct(isTablet ? 0.42 : 0.35)
+          : context.widthPct(0.35),
       //width:
       padding: EdgeInsets.only(left: 20, top: 10, bottom: 5),
       child: Column(
         //crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildSummaryTitle('diagnostic_imaging'),
-          _buildSeparator(isLandscape && isTablet ? 0.38 : 0.33),
+          _buildSeparator(isLandscape && isTablet ? 0.38 : 0.31),
           isLandscape && isTablet
               ? _buildDiagnosticTwoColumns(diagnosticMap1, diagnosticMap2)
               : _buildDiagnosticOneColumn(unionMap),
@@ -141,60 +140,53 @@ class SummaryFormState extends State<SummaryForm> with Observable {
         Container(
           width: context.widthPct(0.20),
           padding: EdgeInsets.only(top: 5),
-          child: _buildSummaryItem(diagnosticMap1),
+          child: _buildSummaryColumn(diagnosticMap1),
         ),
         Container(
           width: context.widthPct(0.18),
           padding: EdgeInsets.only(top: 5),
-          child: _buildSummaryItem(diagnosticMap2),
+          child: _buildSummaryColumn(diagnosticMap2),
         ),
       ],
     );
   }
 
-  Row _buildDiagnosticOneColumn(diagnosticMap) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          width: context.widthPct(0.33),
-          padding: EdgeInsets.only(top: 5),
-          child: _buildSummaryItem(diagnosticMap),
-        ),
-      ],
-    );
+  _buildDiagnosticOneColumn(diagnosticMap) {
+    return Container(
+        padding: EdgeInsets.only(top: 5),
+        child: _buildSummaryColumn(diagnosticMap));
   }
 
   Container _buildLabColumn() {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isLandscape = context.isLandscape;
-    bool isTablet = context.diagonalInches >= 7;
+    bool isSmallFormFactor = context.diagonalInches <= 8;
 
     Map<String, dynamic> laboratoryMap = {
       'international_units':
       prefs.getInternationalUnits() ? aux.tr('yes') : aux.tr('no'),
-      'bilirubin': widget.formBloc.bilirubinField.valueToDouble
-          .toStringAsPrecision(3),
-      'inr_summary': widget.formBloc.inrField.valueToDouble.toStringAsPrecision(
-          3),
-      'creatinine': widget.formBloc.creatinineField.valueToDouble
-          .toStringAsPrecision(3),
+      'bilirubin':
+      widget.formBloc.bilirubinField.valueToDouble.toStringAsFixed(2),
+      'inr_summary':
+      widget.formBloc.inrField.valueToDouble.toStringAsFixed(2),
+      'creatinine':
+      widget.formBloc.creatinineField.valueToDouble.toStringAsFixed(2),
       'dialysis': widget.formBloc.dialysisField.value == 'yes'
           ? aux.tr('yes')
           : aux.tr('no'),
-      'albumin': widget.formBloc.albuminField.valueToDouble.toStringAsPrecision(
-          3),
-      'sodium': widget.formBloc.sodiumField.valueToDouble.toStringAsPrecision(
-          3),
-      'platelets': widget.formBloc.plateletsField.valueToDouble
-          .toStringAsPrecision(3),
-      'afp': widget.formBloc.afpField.valueToDouble.toStringAsPrecision(3),
-      'ast': widget.formBloc.astField[0].valueToDouble.toStringAsPrecision(3),
-      isTablet ? 'ast_upper_limit' : 'ast_limit': widget.formBloc.astField[1]
-          .valueToDouble.toStringAsPrecision(3),
+      'albumin':
+      widget.formBloc.albuminField.valueToDouble.toStringAsFixed(2),
+      'sodium':
+      widget.formBloc.sodiumField.valueToDouble.toStringAsFixed(2),
+      'platelets':
+      widget.formBloc.plateletsField.valueToDouble.toStringAsFixed(2),
+      'afp': widget.formBloc.afpField.valueToDouble.toStringAsFixed(2),
+      'ast': widget.formBloc.astField[0].valueToDouble.toStringAsFixed(2),
+      isSmallFormFactor ? 'ast_limit' : 'ast_upper_limit':
+      widget.formBloc.astField[1].valueToDouble.toStringAsFixed(2),
       'alp': widget.formBloc.alpField[0].value,
-      isTablet ? 'alp_upper_limit' : 'alp_limit': widget.formBloc.alpField[1]
-          .valueToDouble.toStringAsPrecision(3),
+      isSmallFormFactor ? 'alp_limit' : 'alp_upper_limit':
+      widget.formBloc.alpField[1].valueToDouble.toStringAsFixed(2),
     };
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
@@ -205,7 +197,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
           _buildSeparator(isLandscape ? 0.27 : 0.31),
           Container(
             padding: EdgeInsets.only(top: 5),
-            child: _buildSummaryItem(laboratoryMap),
+            child: _buildSummaryColumn(laboratoryMap),
           ),
         ],
       ),
@@ -222,7 +214,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       'ascites': aux.tr(widget.formBloc.ascitesField.value),
       'varices': aux.tr(widget.formBloc.varicesField.value),
       'ecog': widget.formBloc.ecogField.value,
-      'preclude_major_surgery': widget.formBloc.preclude.toString(),
+      'preclude_major_surgery': aux.tr(widget.formBloc.preclude ? 'yes' : 'no'),
       //prefs.getPrecludeSurgery() ? aux.tr('yes') : aux.tr('no'),
       'age': 'ok',
       //widget.formBloc.
@@ -233,14 +225,14 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       //color:Colors.pink,
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
 
-      width: isLandscape ? context.widthPct(0.29) : context.widthPct(0.28),
+      width: isLandscape ? context.widthPct(0.29) : context.widthPct(0.30),
       child: Column(
         children: <Widget>[
           _buildSummaryTitle('clinical_questions'),
           _buildSeparator(isLandscape ? 0.27 : 0.26),
           Container(
             padding: EdgeInsets.only(top: 5),
-            child: _buildSummaryItem(clinicalMap),
+            child: _buildSummaryColumn(clinicalMap),
           ),
         ],
       ),
@@ -280,7 +272,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     );
   }
 
-  _buildSummaryItem(summaryMap) {
+  _buildSummaryColumn(summaryMap) {
     List<Widget> widgets = [];
     summaryMap.forEach((key, value) {
       widgets.add(Row(

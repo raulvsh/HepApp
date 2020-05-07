@@ -14,7 +14,6 @@ class MeldAlgorithm {
 
   Map<String, String> obtenerResultado() {
     final prefs = UserSettings();
-    final units = Units();
     Map<String, String> results = {
       'meld': '-',
       'meld_na': '-',
@@ -25,7 +24,7 @@ class MeldAlgorithm {
     //showObjectMeldData();
 
     _adaptarVariablesMeld();
-    showObjectMeldData();
+    //showObjectMeldData();
 
 
     results['meld'] = _calculateMeld().toStringAsPrecision(4);
@@ -40,7 +39,7 @@ class MeldAlgorithm {
         : '-';
 
 
-    print(results);
+    showPts(results);
     return results;
 
   }
@@ -98,15 +97,18 @@ class MeldAlgorithm {
   }
 
 
-  void showObjectMeldData() {
-    print("\n\n*****************OBJETO MeldDATA: "
-        "\nbilirrubina : ${meldData.bilirubin}" +
+  void showPts(results) {
+    print("\n\n**********PUNTOS MELD");
+    print("\nbilirrubina : ${meldData.bilirubin}" +
         "\ninr : ${meldData.inr}" +
         "\ncreatinina : ${meldData.creatinine}" +
         "\nalbumina : ${meldData.albumin}" +
         "\nsodio : ${meldData.sodium}" +
-        "\ndialisis : ${meldData.dialysis}" +
-        "\nresults: ${meldData.results.toString()}"
-            "\n**************");
+        "\ndialisis : ${meldData.dialysis}");
+    print("Puntos meld: ${results['meld']}");
+    print("Puntos meldna: ${results['meld_na']}");
+    print("Puntos meld5v: ${results['5v_meld']}");
   }
+
+
 }

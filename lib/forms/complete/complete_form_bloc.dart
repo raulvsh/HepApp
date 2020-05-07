@@ -2,6 +2,8 @@ import 'package:form_bloc/form_bloc.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/child_pugh_score/cps_algorithm.dart';
 import 'package:hepapp/forms/child_pugh_score/cps_data.dart';
+import 'package:hepapp/forms/clip/clip_algorithm.dart';
+import 'package:hepapp/forms/clip/clip_data.dart';
 import 'package:hepapp/forms/meld/meld_algorithm.dart';
 import 'package:hepapp/forms/meld/meld_data.dart';
 import 'package:hepapp/forms/okuda/okuda_algorithm.dart';
@@ -18,12 +20,12 @@ class CompleteFormBloc extends FormBloc<String, String> {
     initialValue: '-',
   );
   var tumourSizeField = [
-    TextFieldBloc(initialValue: '-'),
-    TextFieldBloc(initialValue: '-'),
-    TextFieldBloc(initialValue: '-'),
-    TextFieldBloc(initialValue: '-'),
-    TextFieldBloc(initialValue: '-'),
-    TextFieldBloc(initialValue: '-'),
+    TextFieldBloc(initialValue: '0'),
+    TextFieldBloc(initialValue: '0'),
+    TextFieldBloc(initialValue: '0'),
+    TextFieldBloc(initialValue: '0'),
+    TextFieldBloc(initialValue: '0'),
+    TextFieldBloc(initialValue: '0'),
   ];
 
   var tumourExtentField = SelectFieldBloc(
@@ -171,7 +173,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
   Stream<FormBlocState<String, String>> onSubmitting() async* {
     print("inicio submit");
 
-    //this.resultsField['apri'] = comprobarApri() ? calcularApri() : '-';
+    // this.resultsField['apri'] = comprobarApri() ? calcularApri() : '-';
     this.resultsField['child_pugh_score_oneline'] =
     comprobarCPS() ? calcularCPS() : '-';
     this.resultsField['meld'] = comprobarMeld() ? calcularMeld()['meld'] : '-';
@@ -181,10 +183,11 @@ class CompleteFormBloc extends FormBloc<String, String> {
     comprobarMeld() && comprobarAlb() ? calcularMeld()['5v_meld'] : '-';
 
     this.resultsField['okuda'] = comprobarOkuda() ? calcularOkuda() : '-';
-    /*this.resultsField['clip'] = comprobarClip() ? calcularClip() : '-';
-    this.resultsField['getch'] = comprobarGetch() ? calcularGetch() : '-';
-    this.resultsField['tnm'] = comprobarTnm() ? calcularTnm() : '-';
-    this.resultsField['cupi'] = comprobarCupi() ? calcularCupi() : '-';
+    this.resultsField['clip'] =
+    comprobarCPS() && comprobarClip() ? calcularClip() : '-';
+    //this.resultsField['getch'] = comprobarGetch() ? calcularGetch() : '-';
+    //this.resultsField['tnm'] = comprobarTnm() ? calcularTnm() : '-';
+    /*this.resultsField['cupi'] = comprobarCupi() ? calcularCupi() : '-';
     this.resultsField['bclc'] = comprobarBclc() ? calcularBclc() : '-';*/
 
     //OKUDA
@@ -238,20 +241,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
     //CompleteAlgorithm completeAlgorithm = CompleteAlgorithm(data);
 
-    try {
-      // this.resultsField['okuda'] = (2 + 18).toString();
-      /*Comprobacion
-      * Si todos los campos de okuda están
-      * crear objeto data okuda
-      * this.results['okuda']=obtenerResultado(dataOkuda)
-      * así con todos
-       */
-      //this.result = okudaAlgorithm.obtenerResultado();
-      //data.result = this.result;
 
-    } catch (e) {
-      print("Excepción: $e");
-    }
 
     await Future<void>.delayed(Duration(seconds: 1));
 
@@ -405,13 +395,13 @@ class CompleteFormBloc extends FormBloc<String, String> {
   calcularApri() {}
 
   bool comprobarCPS() {
-    print("\n*****COMPROBAR cps");
+    /*  print("\n*****COMPROBAR cps");
     print("Campo bilirrubina: " + bilirubinField.value);
     print("Campo inr: " + inrField.value);
 
     print("Campo albumina: " + albuminField.value);
     print("Campo ence: " + encephalopatyField.value);
-    print("Campo ASCI: " + ascitesField.value);
+    print("Campo ascites: " + ascitesField.value);*/
 
     if (bilirubinField.value != '0' &&
         inrField.value != '0' &&
@@ -442,12 +432,12 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   bool comprobarMeld() {
-    print("\n*****COMPROBAR meld");
+    /* print("\n*****COMPROBAR meld");
     print("Campo bilirrubina: " + bilirubinField.value);
     print("Campo inr: " + inrField.value);
     print("Campo creat: " + creatinineField.value);
     print("campo sodio: " + sodiumField.value);
-    print("campo albumina: " + albuminField.value);
+    print("campo albumina: " + albuminField.value);*/
 
     if (bilirubinField.value != '0' &&
         inrField.value != '0' &&
@@ -458,8 +448,8 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   bool comprobarNa() {
-    print("\n*****comprobar sodio");
-    print("Campo sodio: " + sodiumField.value);
+/*    print("\n*****comprobar sodio");
+    print("Campo sodio: " + sodiumField.value);*/
     if (sodiumField.value != '0')
       return true;
     else
@@ -467,8 +457,8 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   bool comprobarAlb() {
-    print("\n****comprobar albumina");
-    print("Campo albumina: " + albuminField.value);
+    /*print("\n****comprobar albumina");
+    print("Campo albumina: " + albuminField.value);*/
     if (albuminField.value != '0')
       return true;
     else
@@ -482,7 +472,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
       creatinine: creatinineField.valueToDouble,
       albumin: albuminField.valueToDouble,
       sodium: sodiumField.valueToDouble,
-
     );
 
     MeldAlgorithm meldAlgorithm = MeldAlgorithm(meldData);
@@ -518,23 +507,66 @@ class CompleteFormBloc extends FormBloc<String, String> {
     return okudaAlgorithm.obtenerResultado();
   }
 
-  bool comprobarClip() {}
+  bool comprobarClip() {
+    if (tumourNumberField.value != '0' &&
+        pvtField.value != '0' &&
+        afpField.value != '-' &&
+        tumourExtentField.value != '-')
+      return true;
+    else
+      return false;
+  }
 
-  calcularClip() {}
+  calcularClip() {
+    String cps = calcularCPS();
 
-  bool comprobarGetch() {}
+    var clipData = ClipData(
+      afp: afpField.valueToDouble,
+      cps: cps[0],
+      tumourNumber: tumourNumberField.value,
+      tumourExtent: tumourExtentField.value,
+      pvt: pvtField.value,
+    );
+
+    print("\n*****CALCULAR CLIP");
+    print("Campo AFP: " + afpField.value);
+    print("Campo cps: " + cps);
+    print("Campo numero: " + tumourNumberField.value);
+    print("Campo extension: " + tumourExtentField.value);
+    print("Campo pvt: " + pvtField.toString());
+
+    ClipAlgorithm clipAlgorithm = ClipAlgorithm(clipData);
+    print("resultado " + clipAlgorithm.obtenerResultado());
+    return clipAlgorithm.obtenerResultado();
+  }
+
+  //bool comprobarGetch() {}
 
   calcularGetch() {}
 
-  bool comprobarTnm() {}
+  // bool comprobarTnm() {}
 
   calcularTnm() {}
 
-  bool comprobarCupi() {}
+  // bool comprobarCupi() {}
 
   calcularCupi() {}
 
-  bool comprobarBclc() {}
+  //bool comprobarBclc() {}
 
   calcularBclc() {}
+
+  bool comprobar(List<String> okudaData) {
+    print("dentro de comprobar");
+    print("okudadata" + okudaData.toString());
+
+    for (int i = 0; i < okudaData.length; i++) {
+      if (okudaData[i] == '0' || okudaData[i] == '') {
+        print(okudaData[i] + " si es cero salgo");
+        return false;
+      }
+      // if(okudaData[i])
+    }
+    return true;
+  }
 }

@@ -238,8 +238,7 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-  _buildCalcButton(ClipFormBloc formBloc
-  ) {
+  _buildCalcButton(ClipFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
