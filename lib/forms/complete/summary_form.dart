@@ -184,7 +184,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       'ast': widget.formBloc.astField[0].valueToDouble.toStringAsFixed(2),
       isSmallFormFactor ? 'ast_limit' : 'ast_upper_limit':
       widget.formBloc.astField[1].valueToDouble.toStringAsFixed(2),
-      'alp': widget.formBloc.alpField[0].value,
+      'alp': widget.formBloc.alpField[0].valueToDouble.toStringAsFixed(2),
       isSmallFormFactor ? 'alp_limit' : 'alp_upper_limit':
       widget.formBloc.alpField[1].valueToDouble.toStringAsFixed(2),
     };

@@ -13,7 +13,7 @@ class ApriAlgorithm {
     double resultado =
         ((apriData.ast / apriData.astUpperLimit) / apriData.platelets) * 100;
     showPts(resultado);
-    return resultado.toString();
+    return resultado.toStringAsFixed(2);
   }
 
   void showPts(double resultado) {

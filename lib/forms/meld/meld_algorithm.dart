@@ -27,15 +27,15 @@ class MeldAlgorithm {
     //showObjectMeldData();
 
 
-    results['meld'] = _calculateMeld().toStringAsPrecision(4);
+    results['meld'] = _calculateMeld().toStringAsFixed(2);
     meldData.sodium != null
         ? results['meld_na'] =
-        _calculateMeldNa(results['meld']).toStringAsPrecision(4)
+        _calculateMeldNa(results['meld']).toStringAsFixed(2)
         : '-';
 
     meldData.albumin != null
         ? results['5v_meld'] =
-        _calculate5vMeld(results['meld_na']).toStringAsPrecision(4)
+        _calculate5vMeld(results['meld_na']).toStringAsFixed(2)
         : '-';
 
 

@@ -76,9 +76,10 @@ class GetchAlgorithm {
   void showPts(int resultado) {
     print(
         "\n\n**********PUNTOS GETCH\nPuntos ecog: ${getchData.ecog} ${_getEcogPoints()}");
-    print("Puntos bili: ${getchData.bilirubin}  $_getBilirubinPoints()");
+    print("Puntos bili: ${getchData.bilirubin}  ${_getBilirubinPoints()}");
     print(
-        "Puntos alp: ${getchData.alp}  ${getchData.alpUpperLimit}  $_getAlpPoints()");
+        "Puntos alp: ${getchData.alp}  ${getchData
+            .alpUpperLimit}  ${_getAlpPoints()}");
     print("Puntos afp: ${getchData.afp}");
     print("Puntos pvt: ${getchData.pvt}");
     print("Resultado: $resultado");

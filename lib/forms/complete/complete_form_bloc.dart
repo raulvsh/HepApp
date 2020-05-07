@@ -8,6 +8,16 @@ import 'package:hepapp/forms/meld/meld_algorithm.dart';
 import 'package:hepapp/forms/meld/meld_data.dart';
 import 'package:hepapp/forms/okuda/okuda_algorithm.dart';
 import 'package:hepapp/forms/okuda/okuda_data.dart';
+import 'package:hepapp/forms/other_algorithms/apri_algorithm.dart';
+import 'package:hepapp/forms/other_algorithms/apri_data.dart';
+import 'package:hepapp/forms/other_algorithms/bclc_algorithm.dart';
+import 'package:hepapp/forms/other_algorithms/bclc_data.dart';
+import 'package:hepapp/forms/other_algorithms/cupi_algorithm.dart';
+import 'package:hepapp/forms/other_algorithms/cupi_data.dart';
+import 'package:hepapp/forms/other_algorithms/getch_algorithm.dart';
+import 'package:hepapp/forms/other_algorithms/getch_data.dart';
+import 'package:hepapp/forms/other_algorithms/tnm_algorithm.dart';
+import 'package:hepapp/forms/other_algorithms/tnm_data.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 
 class CompleteFormBloc extends FormBloc<String, String> {
@@ -173,7 +183,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
   Stream<FormBlocState<String, String>> onSubmitting() async* {
     print("inicio submit");
 
-    // this.resultsField['apri'] = comprobarApri() ? calcularApri() : '-';
+    this.resultsField['apri'] = comprobarApri() ? calcularApri() : '-';
     this.resultsField['child_pugh_score_oneline'] =
     comprobarCPS() ? calcularCPS() : '-';
     this.resultsField['meld'] = comprobarMeld() ? calcularMeld()['meld'] : '-';
@@ -185,10 +195,12 @@ class CompleteFormBloc extends FormBloc<String, String> {
     this.resultsField['okuda'] = comprobarOkuda() ? calcularOkuda() : '-';
     this.resultsField['clip'] =
     comprobarCPS() && comprobarClip() ? calcularClip() : '-';
-    //this.resultsField['getch'] = comprobarGetch() ? calcularGetch() : '-';
-    //this.resultsField['tnm'] = comprobarTnm() ? calcularTnm() : '-';
-    /*this.resultsField['cupi'] = comprobarCupi() ? calcularCupi() : '-';
-    this.resultsField['bclc'] = comprobarBclc() ? calcularBclc() : '-';*/
+    this.resultsField['getch'] = comprobarGetch() ? calcularGetch() : '-';
+    this.resultsField['tnm'] = comprobarTnm() ? calcularTnm() : '-';
+    this.resultsField['cupi'] =
+    comprobarTnm() && comprobarCupi() ? calcularCupi() : '-';
+    this.resultsField['bclc'] =
+    comprobarBclc() && comprobarCPS() ? calcularBclc() : '-';
 
     //OKUDA
     /*print("comprobar " + comprobarOkuda().toString());
@@ -240,8 +252,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
     );*/
 
     //CompleteAlgorithm completeAlgorithm = CompleteAlgorithm(data);
-
-
 
     await Future<void>.delayed(Duration(seconds: 1));
 
@@ -390,9 +400,31 @@ class CompleteFormBloc extends FormBloc<String, String> {
     };
   }
 
-  bool comprobarApri() {}
+  bool comprobarApri() {
+/*    print("\n*****COMPROBAR APRI");
+    print("Campo AST: " + astField[0].value);
+    print("Campo ast limite: " + astField[1].value);
+    print("Campo plaquetas: " + plateletsField.value);*/
 
-  calcularApri() {}
+    if (astField[0].value != '0' &&
+        astField[1].value != '0' &&
+        plateletsField.value != '0')
+      return true;
+    else
+      return false;
+  }
+
+  calcularApri() {
+    var apriData = ApriData(
+      ast: astField[0].valueToDouble,
+      astUpperLimit: astField[1].valueToDouble,
+      platelets: plateletsField.valueToDouble,
+    );
+
+    ApriAlgorithm apriAlgorithm = ApriAlgorithm(apriData);
+
+    return apriAlgorithm.obtenerResultado();
+  }
 
   bool comprobarCPS() {
     /*  print("\n*****COMPROBAR cps");
@@ -473,9 +505,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
       albumin: albuminField.valueToDouble,
       sodium: sodiumField.valueToDouble,
     );
-
     MeldAlgorithm meldAlgorithm = MeldAlgorithm(meldData);
-
     return meldAlgorithm.obtenerResultado();
   }
 
@@ -518,55 +548,167 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   calcularClip() {
-    String cps = calcularCPS();
+    //String cps = calcularCPS();
 
     var clipData = ClipData(
       afp: afpField.valueToDouble,
-      cps: cps[0],
+      cps: calcularCPS()[0],
       tumourNumber: tumourNumberField.value,
       tumourExtent: tumourExtentField.value,
       pvt: pvtField.value,
     );
-
-    print("\n*****CALCULAR CLIP");
+    /*print("\n*****CALCULAR CLIP");
     print("Campo AFP: " + afpField.value);
     print("Campo cps: " + cps);
     print("Campo numero: " + tumourNumberField.value);
     print("Campo extension: " + tumourExtentField.value);
-    print("Campo pvt: " + pvtField.toString());
-
+    print("Campo pvt: " + pvtField.toString());*/
     ClipAlgorithm clipAlgorithm = ClipAlgorithm(clipData);
-    print("resultado " + clipAlgorithm.obtenerResultado());
+    //print("resultado " + clipAlgorithm.obtenerResultado());
     return clipAlgorithm.obtenerResultado();
   }
 
-  //bool comprobarGetch() {}
+  bool comprobarGetch() {
+    if (ecogField.value != '-' &&
+        bilirubinField.value != '0' &&
+        alpField[0].value != '0' &&
+        alpField[1].value != '0' &&
+        afpField.value != '0' &&
+        pvtField.value != '0')
+      return true;
+    else
+      return false;
+  }
 
-  calcularGetch() {}
+  calcularGetch() {
+    var getchData = GetchData(
+      ecog: ecogField.value,
+      bilirubin: bilirubinField.valueToDouble,
+      alp: alpField[0].valueToDouble,
+      alpUpperLimit: alpField[1].valueToDouble,
+      afp: afpField.valueToDouble,
+      pvt: pvtField.value,
+    );
+    GetchAlgorithm getchAlgorithm = GetchAlgorithm(getchData);
+    return getchAlgorithm.obtenerResultado();
+  }
 
-  // bool comprobarTnm() {}
+  bool comprobarTnm() {
+    if (tumourNumberField.value != '-' &&
+        pviField.value != '0' &&
+        nodesField.value != '-' &&
+        metastasisField.value != '-')
+      return true;
+    else
+      return false;
+  }
 
-  calcularTnm() {}
+  calcularTnm() {
+    var tnmData = TnmData(
+      tumourNumber: ecogField.value,
+      pvi: pviField.value,
+      nodes: nodesField.value,
+      metastasis: metastasisField.value,
+    );
+    TnmAlgorithm tnmAlgorithm = TnmAlgorithm(tnmData);
+    return tnmAlgorithm.obtenerResultado();
+  }
 
-  // bool comprobarCupi() {}
+  bool comprobarCupi() {
+    if (ascitesField.value != '-' &&
+        afpField.value != '0' &&
+        bilirubinField.value != '0' &&
+        alpField[0].value != '0' &&
+        ecogField.value != '0')
+      return true;
+    else
+      return false;
+  }
 
-  calcularCupi() {}
+  calcularCupi() {
+    String tnm = calcularTnm();
 
-  //bool comprobarBclc() {}
+    var cupiData = CupiData(
+      tnm: tnm,
+      ascites: ascitesField.value,
+      afp: afpField.valueToDouble,
+      bilirubin: bilirubinField.valueToDouble,
+      alp: alpField[0].valueToDouble,
+      ecog: ecogField.value,
+    );
+    print("\n*****CALCULAR CUPI");
+    print("Campo TNM: " + tnm);
+    print("Campo ascites: " + ascitesField.value);
+    print("Campo afp: " + afpField.value);
+    print("Campo bilirubin: " + bilirubinField.value);
+    print("Campo alp: " + alpField[0].toString());
+    print("Campo alp limit: " + alpField[1].toString());
 
-  calcularBclc() {}
+    print("Campo ecog: " + ecogField.value);
 
-  bool comprobar(List<String> okudaData) {
-    print("dentro de comprobar");
-    print("okudadata" + okudaData.toString());
+    CupiAlgorithm cupiAlgorithm = CupiAlgorithm(cupiData);
+    //print("resultado " + cupiAlgorithm.obtenerResultado());
+    return cupiAlgorithm.obtenerResultado();
+  }
 
-    for (int i = 0; i < okudaData.length; i++) {
-      if (okudaData[i] == '0' || okudaData[i] == '') {
-        print(okudaData[i] + " si es cero salgo");
+  bool comprobarBclc() {
+    if (tumourNumberField.value != '-' &&
+        pviField.value != '-' &&
+        nodesField.value != '-' &&
+        metastasisField.value != '-' &&
+        ecogField.value != '0') {
+      return comprobarTumourSize(tumourNumberField.value) ? true : false;
+    }
+    return false;
+  }
+
+  comprobarTumourSize(String tumourNumber) {
+    int tN = int.parse(tumourNumber);
+    print("tumour number $tN");
+    print(tumourSizeField.toString());
+    for (int i = 0; i < tN; i++) {
+      if (tumourSizeField[i].value == '0') {
+        print("tamaño tumor $i " +
+            tumourSizeField[i].value.toString() +
+            " salgo falso");
         return false;
       }
-      // if(okudaData[i])
     }
     return true;
+  }
+
+  calcularBclc() {
+    String cps = calcularCPS();
+
+    var bclcData = BclcData(
+      tumourNumber: tumourNumberField.value,
+      tumourSize: getTumourSize(),
+      //tumourSizeField.toList(),
+      pvi: pviField.value,
+      nodes: nodesField.value,
+      metastasis: metastasisField.value,
+      ecog: ecogField.value,
+      cps: cps,
+    );
+
+    print("\n*****CALCULAR bclc");
+    print("Campo numero de tumores: ${tumourNumberField.value}");
+    print("Campo tamaño de tumores: ${tumourSizeField.toString()}");
+    print("Campo pvi: ${nodesField.toString()}");
+    print("Campo metastasis: ${metastasisField.toString()}");
+    print("Campo ecog: ${ecogField.toString()}");
+    print("Campo cps: " + cps);
+
+    BclcAlgorithm bclcAlgorithm = BclcAlgorithm(bclcData);
+    //print("resultado " + cupiAlgorithm.obtenerResultado());
+    return bclcAlgorithm.obtenerResultado();
+  }
+
+  getTumourSize() {
+    List<double> tumourSizeList = [];
+    for (int i = 0; i < tumourSizeField.length; i++) {
+      tumourSizeList.add(double.parse(tumourSizeField[i].value));
+    }
+    return tumourSizeList;
   }
 }

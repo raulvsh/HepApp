@@ -40,7 +40,7 @@ class TnmAlgorithm {
 
   void showPts() {
     print("\n\n*****************OBJETO TnmData: "
-            "\nnumero de tumores : ${tnmData.tumourNumber}" +
+        "\nnumero de tumores : ${tnmData.tumourNumber}" +
         "\n pvi : ${tnmData.pvi}" +
         "\n nodos : ${tnmData.nodes}" +
         "\n metastasis: ${tnmData.metastasis}" +
@@ -49,7 +49,8 @@ class TnmAlgorithm {
 
   bool upTo6of5() {
     int tN = int.parse(tnmData.tumourNumber);
-
+    print("tumour number $tN");
+    print(tnmData.tumourSize.toString());
     for (int i = 0; i < tN; i++) {
       if (tnmData.tumourSize[i] >= 5) {
         print("tamaño tumor $i " + tnmData.tumourSize[i].toString());
