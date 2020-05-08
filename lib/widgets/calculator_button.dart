@@ -5,10 +5,8 @@ import 'package:sized_context/sized_context.dart';
 class CalculatorButton extends StatelessWidget {
   final onPressed;
   final title;
-  final margin;
   const CalculatorButton(
-      {Key key, @required this.context, this.title, this.onPressed, this.margin = EdgeInsets
-          .zero})
+      {Key key, @required this.context, this.title, this.onPressed,})
       : super(key: key);
 
   final BuildContext context;
@@ -20,7 +18,6 @@ class CalculatorButton extends StatelessWidget {
     return Container(
       width: 250,
       padding: EdgeInsets.all(8.0),
-      margin: margin,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(3),
