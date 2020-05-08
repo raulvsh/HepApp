@@ -5,8 +5,9 @@ import 'package:sized_context/sized_context.dart';
 class CalculatorButton extends StatelessWidget {
   final onPressed;
   final title;
+  final width;
   const CalculatorButton(
-      {Key key, @required this.context, this.title, this.onPressed,})
+      {Key key, @required this.context, this.title, this.onPressed, this.width = 250.0})
       : super(key: key);
 
   final BuildContext context;
@@ -16,7 +17,7 @@ class CalculatorButton extends StatelessWidget {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     return Container(
-      width: 250,
+      width: width,
       padding: EdgeInsets.all(8.0),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
@@ -32,6 +33,7 @@ class CalculatorButton extends StatelessWidget {
         child: Center(
           child: Text(
             aux.tr(title),
+            textAlign: TextAlign.center,
             //aux.tr('calculate_clip'),
             style: TextStyle(
               color: Colors.white,

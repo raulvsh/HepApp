@@ -62,6 +62,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     ])
         : null;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: CustomAppBar(
         context,
         'calculators_all_algorithms_diagnostic',
@@ -85,9 +86,10 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
 
   _buildDataFields(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
-    return FittedBox(
-      fit: BoxFit.contain,
-      child: Container(
+    return SingleChildScrollView(
+      //fit: BoxFit.contain,
+      child:
+      Container(
         width: context.widthPx,
         //height: context.heightPct(0.9),
         padding: isTablet

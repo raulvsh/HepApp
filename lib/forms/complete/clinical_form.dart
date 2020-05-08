@@ -47,10 +47,11 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              FittedBox(
-                fit: BoxFit.contain,
-                child: _buildDataFields(widget.formBloc),
-              ),
+              //FittedBox(
+              //fit: BoxFit.contain,
+              //child:
+              _buildDataFields(widget.formBloc),
+              //   ),
               _buildRightBottomTitle(widget.formBloc),
             ],
           ),
@@ -64,7 +65,9 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
-      height: context.heightPct(isTablet ? 1 : 0.6),
+      //color: Colors.pink,
+      height: isTablet ? context.heightPx : context.heightPx -
+          2 * kToolbarHeight, //context.heightPct(isTablet ? 1 : 0.6),
       child: FittedBox(
         fit: BoxFit.contain,
         child: Container(
@@ -79,6 +82,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
               _buildAscitesRow(formBloc),
               _buildVaricesRow(formBloc),
               _buildEcogRow(formBloc),
+              SizedBox(height: 10)
             ],
           ),
         ),
@@ -149,7 +153,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  _buildEcogRow(CompleteFormBloc formBloc,
+  _buildEcogRow(CompleteFormBloc formBloc
   ) {
     return CalcGroupField(
       initialValue: formBloc.ecogField.value.toString(),
@@ -205,7 +209,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
       ),
     );
   }
-
 
   Future showMoreInfo() {
     return showDialog(

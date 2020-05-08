@@ -192,6 +192,8 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   Container _buildTreatmentsRow() {
     bool isLandscape = context.isLandscape;
+    bool isTablet = context.diagonalInches >= 7;
+
     return Container(
       //color: Colors.red,
       height: context.heightPct(isLandscape ? 0.3 : 0.50),
@@ -203,11 +205,11 @@ class ResultsFormState extends State<ResultsForm> with Observable {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               _buildRecommendedTreatments(),
-              SizedBox(width: 40),
+              SizedBox(width: isTablet ? 40 : 20),
               isLandscape
                   ? _buildMoreInfoButton()
                   : Container(height: 0, width: 0),
-              SizedBox(width: 40),
+              SizedBox(width: isTablet ? 40 : 20),
               isLandscape
                   ? _buildAlbertaButton()
                   : Container(height: 0, width: 0),
@@ -305,7 +307,10 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   _buildMoreInfoButton() {
     AppLocalizations aux = AppLocalizations.of(context);
+    bool isTablet = context.diagonalInches >= 7;
+
     return CalculatorButton(
+        width: isTablet ? 250.0 : 175.0,
         title: 'more_information',
         onPressed: () {
           showDialog(
@@ -330,8 +335,12 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   _buildAlbertaButton() {
     AppLocalizations aux = AppLocalizations.of(context);
+    bool isTablet = context.diagonalInches >= 7;
+
     return CalculatorButton(
         title: 'alberta_hcc_algorithm',
+        width: isTablet ? 250.0 : 175.0,
+
         onPressed: () {
           showDialog(
             context: context,
