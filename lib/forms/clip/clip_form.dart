@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
+import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:hepapp/widgets/calculator_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
@@ -254,41 +254,28 @@ class ClipFormState extends State<ClipForm> with Observable {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _buildResetButton(formBloc),
-          SizedBox(
-            width: 15,
-          ),
-          _buildPreviousButton(formBloc),
-          SizedBox(
-            width: 15,
-          ),
-          _buildMoreInfoButton(),
+          CalcBottomButton(
+              title: 'reset_values',
+              onPressed: () {
+                resetValues(formBloc);
+              }),
+          SizedBox(width: 15),
+          CalcBottomButton(
+              title: 'previous_values',
+              onPressed: () {
+                previousValues(formBloc);
+              }),
+          SizedBox(width: 15),
+          CalcBottomButton(
+              title: 'more_information',
+              onPressed: () {
+                showMoreInfo();
+              }),
         ],
       ),
     );
   }
 
-  Container _buildMoreInfoButton() {
-    bool isTablet = context.diagonalInches >= 7;
-    AppLocalizations aux = AppLocalizations.of(context);
-
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('more_information'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          showMoreInfo();
-        },
-      ),
-    );
-  }
 
   Future showMoreInfo() {
     return showDialog(
@@ -306,49 +293,7 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-  Container _buildPreviousButton(formBloc) {
-    bool isTablet = context.diagonalInches >= 7;
-    AppLocalizations aux = AppLocalizations.of(context);
 
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('previous_values'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          previousValues(formBloc);
-        },
-      ),
-    );
-  }
-
-  Container _buildResetButton(ClipFormBloc formBloc) {
-    bool isTablet = context.diagonalInches >= 7;
-    AppLocalizations aux = AppLocalizations.of(context);
-
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('reset_values'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          resetValues(formBloc);
-        },
-      ),
-    );
-  }
 
   _buildResult(ClipFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
@@ -357,30 +302,31 @@ class ClipFormState extends State<ClipForm> with Observable {
 
     return Expanded(
       child: Container(
+        alignment: isLandscape ? Alignment.topRight : Alignment.topCenter,
         padding: isTablet
-            ? EdgeInsets.fromLTRB(0, 20, 30, 0)
-            : EdgeInsets.fromLTRB(20, 0, 20, 0),
+            ? EdgeInsets.fromLTRB(0, 0, 30, 0)
+            : EdgeInsets.fromLTRB(20, 10, 20, 0),
         width: context.widthPct(isLandscape ? 0.28 : 1),
-        child: Column(
+        child: /*Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: isLandscape && !isTablet
               ? CrossAxisAlignment.end
               : CrossAxisAlignment.center,
-          children: <Widget>[
-            FittedBox(
-              child: Container(
-                height: isTablet
-                    ? context.heightPct(isLandscape ? 0.6 : 0.3)
-                    : context.heightPct(0.5),
-                padding: EdgeInsets.only(top: isTablet ? 50 : 20, bottom: 15),
-                child: CalcResultWidget(
-                  resultMap: resultMap,
-                  textAlignment: MainAxisAlignment.center,
-                ),
-              ),
+          children: <Widget>[*/
+        FittedBox(
+          child: Container(
+            height: isTablet
+                ? context.heightPct(isLandscape ? 0.6 : 0.3)
+                : context.heightPct(0.5),
+            padding: EdgeInsets.only(top: isTablet ? 60 : 20, bottom: 15),
+            child: CalcResultWidget(
+              resultMap: resultMap,
+              textAlignment: MainAxisAlignment.center,
             ),
-          ],
+          ),
         ),
+        // ],
+        // ),
       ),
     );
   }
