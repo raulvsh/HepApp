@@ -12,6 +12,7 @@ import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
+import 'package:hepapp/widgets/empty_fields_error_dialog.dart';
 import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
@@ -423,46 +424,10 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   showErrorDialog() {
-    AppLocalizations aux = AppLocalizations.of(context);
-
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              aux.tr('error'),
-              style: TextStyle(color: Colors.black),
-            ),
-            content: Container(
-              height: context.heightPct(0.20),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                      padding: EdgeInsets.only(right: 20),
-                      child: Text(
-                        aux.tr('fill_empty_fields'),
-                        style: TextStyle(color: Colors.black),
-                      )),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.bottomRight,
-                      child: FlatButton(
-                        padding: EdgeInsets.all(0),
-                        child: Text(
-                          aux.tr('accept'),
-                          style:
-                          TextStyle(color: Theme
-                              .of(context)
-                              .primaryColor),
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
+          return EmptyFieldsErrorDialog();
         });
   }
 

@@ -11,6 +11,7 @@ import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/calculator_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
+import 'package:hepapp/widgets/empty_fields_error_dialog.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
@@ -336,7 +337,7 @@ class ClipFormState extends State<ClipForm> with Observable {
       padding: EdgeInsets.symmetric(vertical: 5),
       child: FlatButton(
         child: Text(
-          aux.tr('reset'),
+          aux.tr('reset_values'),
           style: TextStyle(
             fontSize: isTablet ? 14 : 12,
           ),
@@ -397,46 +398,10 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   showErrorDialog() {
-    AppLocalizations aux = AppLocalizations.of(context);
-
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              aux.tr('error'),
-              style: TextStyle(color: Colors.black),
-            ),
-            content: Container(
-              height: context.heightPct(0.20),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                      padding: EdgeInsets.only(right: 20),
-                      child: Text(
-                        aux.tr('fill_empty_fields'),
-                        style: TextStyle(color: Colors.black),
-                      )),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.bottomRight,
-                      child: FlatButton(
-                        padding: EdgeInsets.all(0),
-                        child: Text(
-                          aux.tr('accept'),
-                          style:
-                          TextStyle(color: Theme
-                              .of(context)
-                              .primaryColor),
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
+          return EmptyFieldsErrorDialog();
         });
   }
 

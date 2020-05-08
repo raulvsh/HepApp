@@ -354,7 +354,7 @@
   "precludeMajorSurgery": "Preclude major surgery",
   "refractory": "Refractory",
   "reintentandoObtencionVersionRecursoRemoto": "Retrying obtaining the remote resource version…",
-  "reset": "Reset Values",
+  "reset_values": "Reset Values",
   "resumenDeValores": "Value summary",
   "siguientePantalla": "<![CDATA[Next >]]>",
   "sincronizandoContenidoAplicacion": "Syncing the app content\nwith the server…",

@@ -331,7 +331,7 @@
   "precludeMajorSurgery": "Precluir cirugía mayor",
   "refractory": "Refractario",
   "reintentandoObtencionVersionRecursoRemoto": "Reintentando la obtención de la versión del recurso remoto…",
-  "reset": "Restablecer valores",
+  "reset_values": "Restablecer valores",
   "resumenDeValores": "Resumen de valores",
   "sincronizandoContenidoAplicacion": "Sincronizando el contenido de\nla aplicación con el servidor…",
   "sodium": "Sodio",

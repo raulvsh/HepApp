@@ -30,10 +30,7 @@ class CalculatorButton extends StatelessWidget {
         color: Theme.of(context).primaryColor,
         splashColor: Color.fromARGB(255, 56, 183, 198),
         elevation: 3,
-        /*onPressed: () async {
-          await Future.delayed(Duration(milliseconds: 400));
-          calculateClip(formBloc);
-        },*/
+        onPressed: onPressed,
         child: Center(
           child: Text(
             aux.tr(title),
