@@ -35,9 +35,10 @@ class MeldFormState extends State<MeldForm> with Observable {
   final units = Units();
   bool _internationalUnits = true;
 
-  Map<String, bool> _errorMap;
+  //Map<String, bool> _errorMap;
   StreamSubscription streamSubIUnits;
-  StreamSubscription streamSubErrorMap;
+
+  //StreamSubscription streamSubErrorMap;
 
   String errorPrueba = "";
 
@@ -50,9 +51,9 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
     prefs.setInternationalUnits(true);
 
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
+    /*streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
           _errorMap = newVal;
-        }));
+        }));*/
     prefs.initErrorMap(
         ['bilirubin', 'inr', 'creatinine', 'albumin', 'sodium', 'dialysis']);
 
@@ -68,7 +69,7 @@ class MeldFormState extends State<MeldForm> with Observable {
       DeviceOrientation.portraitDown,
     ]);
     streamSubIUnits.cancel();
-    streamSubErrorMap.cancel();
+    //streamSubErrorMap.cancel();
     super.dispose();
   }
 
@@ -382,10 +383,12 @@ class MeldFormState extends State<MeldForm> with Observable {
             Container(
               padding: isLandscape && !isTablet
                   ? EdgeInsets.only(left: 90)
-                  : EdgeInsets.zero,
+                  : EdgeInsets.only(top: 30),
               child: FittedBox(
                 fit: BoxFit.contain,
                 child: InternationalUnitsSelect(
+                  title: 'international_units',
+
                   formBloc: formBloc,
                 ),
               ),

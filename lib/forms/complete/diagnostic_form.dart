@@ -42,7 +42,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
           }),
     );
 
-    prefs.setTumourNumber(0);
     super.initState();
   }
 

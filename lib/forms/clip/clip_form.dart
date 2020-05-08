@@ -8,6 +8,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
+import 'package:hepapp/widgets/calculator_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
 import 'package:observable/observable.dart';
@@ -32,24 +33,24 @@ class ClipFormState extends State<ClipForm> with Observable {
   final prefs = UserSettings();
   final units = Units();
 
-  bool _internationalUnits = true;
-  Map<String, bool> _errorMap;
-  StreamSubscription streamSubIUnits;
-  StreamSubscription streamSubErrorMap;
+  //bool _internationalUnits = true;
+  //Map<String, bool> _errorMap;
+  //StreamSubscription streamSubIUnits;
+  //StreamSubscription streamSubErrorMap;
   String errorPrueba = "";
 
   @override
   void initState() {
-    streamSubIUnits = prefs.iUnitsUpdates.listen(
+    /* streamSubIUnits = prefs.iUnitsUpdates.listen(
       (newVal) => setState(() {
         _internationalUnits = newVal;
       }),
     );
-    prefs.setInternationalUnits(true);
+    prefs.setInternationalUnits(true);*/
 
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
+    /*streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
           _errorMap = newVal;
-        }));
+        }));*/
     prefs.initErrorMap([
       'afp',
       'child_pugh_score',
@@ -69,8 +70,8 @@ class ClipFormState extends State<ClipForm> with Observable {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    streamSubIUnits.cancel();
-    streamSubErrorMap.cancel();
+    //streamSubIUnits.cancel();
+    //streamSubErrorMap.cancel();
     super.dispose();
   }
 
@@ -239,37 +240,12 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   _buildCalcButton(ClipFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
-    return Container(
-      width: 250,
-      //padding: EdgeInsets.all(8.0),
-      margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
-            side: BorderSide(
-              color: Color.fromARGB(255, 45, 145, 155),
-              width: 1.5,
-            )),
-        color: Theme.of(context).primaryColor,
-        splashColor: Color.fromARGB(255, 56, 183, 198),
-        elevation: 3,
+    return CalculatorButton(
+        title: 'calculate_clip',
         onPressed: () async {
           await Future.delayed(Duration(milliseconds: 400));
           calculateClip(formBloc);
-        },
-        child: Center(
-          child: Text(
-            aux.tr('calculate_clip'),
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: isTablet ? 15 : 12,
-            ),
-          ),
-        ),
-      ),
-    );
+        });
   }
 
   _buildBottomSheet(ClipFormBloc formBloc) {
@@ -479,3 +455,4 @@ class ClipFormState extends State<ClipForm> with Observable {
     setState(() {});
   }
 }
+

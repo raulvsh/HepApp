@@ -37,6 +37,10 @@ class CompleteFormState extends State<CompleteForm> with Observable {
       initialPage: widget.initialPage,
 
     );
+    prefs.setInternationalUnits(true);
+    prefs.setTumourNumber(0);
+    prefs.setPrecludeSurgery(true);
+
     super.initState();
   }
 

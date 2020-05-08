@@ -278,6 +278,13 @@
   "age": "Age",
   "inr_summary": "INR",
   "value_summary": "Value Summary",
+  "settings": "Settings",
+  "age_cutoff": "Age cutoff",
+  "lt_criteria": "LT Criteria",
+  "milan_criteria": "Milan",
+  "ttv_afp": "TTV + AFP",
+  "ucfs": "UCFS",
+  "up_to_seven": "Up to Seven",
 
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",

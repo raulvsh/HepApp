@@ -18,23 +18,21 @@ class TnmAlgorithm {
     bool metastasis = tnmData.metastasis == 'yes' ? true : false;
 
     bool firstConditionII = tN == 1 && pvi;
-    bool secondConditionII = tN > 1 && !pvi && upTo6of5();
+    bool secondConditionII = tN > 1 && !pvi && upTo6Of5();
 
     if (tN == 1 && !pvi && !nodes && !metastasis) {
       return 'I';
     } else
-    //if ((((tN == 1 && pvi) || (tN > 1 && !pvi && upTo6of5())) && !nodes &&
-    //  !metastasis)) {
     if ((firstConditionII || secondConditionII) && !nodes && !metastasis) {
       return 'II';
     } else if (tN > 1 && !pvi && !nodes && !metastasis) {
-      return 'IIIA';
+      return 'III A';
     } else if (tN >= 1 && pvi && !nodes && !metastasis) {
-      return 'IIIB';
+      return 'III B';
     } else if (tN >= 1 && nodes && !metastasis) {
-      return 'IVA';
+      return 'IV A';
     } else {
-      return 'IVB';
+      return 'IV B';
     }
   }
 
@@ -47,7 +45,7 @@ class TnmAlgorithm {
         "\n**************");
   }
 
-  bool upTo6of5() {
+  bool upTo6Of5() {
     int tN = int.parse(tnmData.tumourNumber);
     print("tumour number $tN");
     print(tnmData.tumourSize.toString());

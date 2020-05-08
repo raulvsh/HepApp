@@ -248,6 +248,13 @@
   "ast": "AST",
   "ast_upper_limit": "AST (Límite superior de lo normal)",
   "ast_limit": "AST (Límite superior)",
+  "settings": "Preferencias",
+  "age_cutoff": "Límite de edad",
+  "lt_criteria": "Criterio de transplante",
+  "milan_criteria": "Milán",
+  "ttv_afp": "TTV + AFP",
+  "ucfs": "UCFS",
+  "up_to_seven": "Up to Seven",
 
   "ecog": "ECOG",
   "apri": "APRI",

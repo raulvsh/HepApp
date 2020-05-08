@@ -66,38 +66,32 @@ class CpsFormBloc extends FormBloc<String, String> {
     await Future<void>.delayed(Duration(seconds: 1));
 
     yield currentState.toSuccess('Success');
-
-    // yield `currentState.toLoaded()` because
-    // you can't submit if the current state is `FormBlocSuccess`.
-    // In most cases you don't need to do this,
-    // because you only want to submit only once,
-    // but in this case you want the user to submit more than once.
-    // See: https://pub.dev/documentation/form_bloc/latest/form_bloc/FormBloc/onSubmitting.html
+    //yield toLoaded para poder hacer submit más de una vez
     yield currentState.toLoaded();
   }
 
   void showIU() {
     this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toStringAsPrecision(4),
+      initialValue: data.bilirubin.toStringAsFixed(2),
     );
     this.inrField = TextFieldBloc(
-      initialValue: data.inr.toStringAsPrecision(4),
+      initialValue: data.inr.toStringAsFixed(2),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toStringAsPrecision(4),
+      initialValue: data.albumin.toStringAsFixed(2),
     );
   }
 
   showNotIU() {
     this.bilirubinField = TextFieldBloc(
       initialValue:
-      units.getNotIUBilirrubin(data.bilirubin).toStringAsPrecision(4),
+      units.getNotIUBilirrubin(data.bilirubin).toStringAsFixed(2),
     );
     this.inrField = TextFieldBloc(
-      initialValue: data.inr.toStringAsPrecision(4),
+      initialValue: data.inr.toStringAsFixed(2),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: units.getNotIUAlbumin(data.albumin).toStringAsPrecision(4),
+      initialValue: units.getNotIUAlbumin(data.albumin).toStringAsFixed(2),
     );
   }
 
@@ -139,15 +133,8 @@ class CpsFormBloc extends FormBloc<String, String> {
 
     print("\n*****AFTER PREVIOUS");
     showFields();
-    /*print("bilirrubin: " + this.bilirubinField.value);
-    print("INR: " + this.inrField.value);
-    print("albumina: " + this.albuminField.value);
-    print("encefalopatia: " + this.encephalopatyField.value.toString());
-    print("ascitis: " + this.ascitesField.value.toString());
-    print("resultado: " + this.resultadoField);*/
   }
 
-  //Para debug
   void showObjectCPSData() {
     print("\n\n*****************OBJETO CPSDATA: "
         "\nbilirrubina : ${data.bilirubin}" +
@@ -160,7 +147,6 @@ class CpsFormBloc extends FormBloc<String, String> {
         "\n**************");
   }
 
-  //Para debug
   void showFields() {
     print("\n\n *********FIELD VALUES");
     print("Campo bilirrubina: " + bilirubinField.value);

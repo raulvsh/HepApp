@@ -6,11 +6,9 @@ import 'package:sized_context/sized_context.dart';
 class InternationalUnitsSelect extends StatefulWidget {
   const InternationalUnitsSelect({
     Key key,
-    this.title,
     this.formBloc,
   }) : super(key: key);
   final formBloc;
-  final title;
 
   @override
   _InternationalUnitsSelectState createState() =>
@@ -24,16 +22,10 @@ class _InternationalUnitsSelectState extends State<InternationalUnitsSelect> {
 
   @override
   Widget build(BuildContext context) {
-
+    isSelected[0] = prefs.getInternationalUnits();
+    isSelected[1] = !isSelected[0];
     var aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
-    if (widget.title == 'international_units') {
-      isSelected[0] = prefs.getInternationalUnits();
-    }
-    else if (widget.title == 'preclude_major_surgery') {
-      isSelected[0] = prefs.getPrecludeSurgery();
-    }
-    isSelected[1] = !isSelected[0];
 
     return Container(
         height: 30,
@@ -41,9 +33,7 @@ class _InternationalUnitsSelectState extends State<InternationalUnitsSelect> {
         child: Row(
           children: <Widget>[
             Text(
-              aux.tr(widget.title),
-
-              //aux.tr("international_units"),
+              aux.tr("international_units"),
               style: TextStyle(
                 fontSize: isTablet ? 15 : 12,
                 color: Colors.black,
@@ -89,16 +79,7 @@ class _InternationalUnitsSelectState extends State<InternationalUnitsSelect> {
           ),
         ),
       ],
-      onPressed: (index) {
-        if (widget.title == 'international_units') {
-          _switchInternationalUnits(index);
-        } else if (widget.title == 'preclude_major_surgery') {
-          _switchPrecludeSurgery(index);
-        }
-        setState(() {
-
-        });
-      },
+      onPressed: _switchInternationalUnits,
       isSelected: isSelected,
     );
   }
@@ -110,17 +91,8 @@ class _InternationalUnitsSelectState extends State<InternationalUnitsSelect> {
     isSelected[0] ? widget.formBloc.showIU() : widget.formBloc.showNotIU();
 
     prefs.setInternationalUnits(isSelected[0]);
-    print("unidades int: " + prefs.getInternationalUnits().toString());
-    setState(() {});
-  }
-
-  void _switchPrecludeSurgery(int index) {
-    for (int i = 0; i < isSelected.length; i++) {
-      isSelected[i] = i == index;
-    }
-
-    prefs.setPrecludeSurgery(isSelected[0]);
-    print("preclude surgery: " + prefs.getPrecludeSurgery().toString());
+    print("unidades internacionales: " +
+        prefs.getInternationalUnits().toString());
     setState(() {});
   }
 }

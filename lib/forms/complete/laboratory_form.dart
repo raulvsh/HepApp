@@ -293,7 +293,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () => resetValues(formBloc),
+        //onPressed: () => resetValues(formBloc),
       ),
     );
   }

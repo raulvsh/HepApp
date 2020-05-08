@@ -34,9 +34,11 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   final units = Units();
 
   bool _internationalUnits = true;
-  Map<String, bool> _errorMap;
+
+  //Map<String, bool> _errorMap;
   StreamSubscription streamSubIUnits;
-  StreamSubscription streamSubErrorMap;
+
+  //StreamSubscription streamSubErrorMap;
   String errorPrueba = "";
 
   @override
@@ -49,10 +51,10 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
     prefs.setInternationalUnits(true);
 
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
+    /* streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
         setState(() {
           _errorMap = newVal;
-        }));
+        }));*/
     prefs.initErrorMap(['bilirubin', 'albumin', 'ascites', 'tumour_extent']);
 
     super.initState();
@@ -67,7 +69,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       DeviceOrientation.portraitDown,
     ]);
     streamSubIUnits.cancel();
-    streamSubErrorMap.cancel();
+    // streamSubErrorMap.cancel();
     super.dispose();
   }
 
@@ -370,10 +372,12 @@ class OkudaFormState extends State<OkudaForm> with Observable {
             Container(
               padding: isLandscape && !isTablet
                   ? EdgeInsets.only(left: 35)
-                  : EdgeInsets.zero,
+                  : EdgeInsets.only(top: 30),
               child: FittedBox(
                 fit: BoxFit.contain,
                 child: InternationalUnitsSelect(
+                  title: 'international_units',
+
                   formBloc: formBloc,
                 ),
               ),
@@ -401,7 +405,6 @@ class OkudaFormState extends State<OkudaForm> with Observable {
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";
 
-    //prefs.isError()
     prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
 
     formBloc.submit();

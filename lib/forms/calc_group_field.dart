@@ -30,9 +30,9 @@ class CalcGroupField<Value> extends StatefulWidget {
     this.canDeselect = true,
     this.nextFocusNode,
     this.title,
-    this.reset,
-    this.error,
-    this.previous,
+    this.reset = false,
+    this.error = false,
+    this.previous = false,
     this.initialValue,
     this.formBloc,
   })  : assert(selectFieldBloc != null),
@@ -330,7 +330,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
   double _calculateWidth(state) {
     var isLandscape = context.isLandscape;
     bool isTablet = context.diagonalInches >= 7;
-    bool moreThanTree = state.items.length > 3.0;
+    bool moreThanTree = state.items.length > 4.0;
     if (moreThanTree) {
       return isTablet ? (isLandscape ? 60 : 50) : 42;
     }

@@ -94,12 +94,12 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       print(tumourSize[i].value);
     Map<String, dynamic> diagnosticMap1 = {
       'tumours': widget.formBloc.tumourNumberField.value,
-      '#1': tumourSize[0].value != '' ? tumourSize[0].value : '-',
-      '#2': tumourSize[1].value != '' ? tumourSize[1].value : '-',
-      '#3': tumourSize[2].value != '' ? tumourSize[2].value : '-',
-      '#4': tumourSize[3].value != '' ? tumourSize[3].value : '-',
-      '#5': tumourSize[4].value != '' ? tumourSize[4].value : '-',
-      '#6': tumourSize[5].value != '' ? tumourSize[5].value : '-',
+      '#1': tumourSize[0].value != '0' ? tumourSize[0].value : '-',
+      '#2': tumourSize[1].value != '0' ? tumourSize[1].value : '-',
+      '#3': tumourSize[2].value != '0' ? tumourSize[2].value : '-',
+      '#4': tumourSize[3].value != '0' ? tumourSize[3].value : '-',
+      '#5': tumourSize[4].value != '0' ? tumourSize[4].value : '-',
+      '#6': tumourSize[5].value != '0' ? tumourSize[5].value : '-',
       'tumour_extent': widget.formBloc.tumourExtentField.value,
     };
     Map<String, dynamic> diagnosticMap2 = {
@@ -162,31 +162,59 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     bool isLandscape = context.isLandscape;
     bool isSmallFormFactor = context.diagonalInches <= 8;
 
+    var internationalUnits =
+    prefs.getInternationalUnits() ? aux.tr('yes') : aux.tr('no');
+    var bilirubin = widget.formBloc.bilirubinField.valueToDouble != 0
+        ? widget.formBloc.bilirubinField.valueToDouble.toStringAsFixed(2)
+        : '-';
+    var inr = widget.formBloc.inrField.valueToDouble != 0
+        ? widget.formBloc.inrField.valueToDouble.toStringAsFixed(2)
+        : '-';
+    var creatinine = widget.formBloc.creatinineField.valueToDouble != 0
+        ? widget.formBloc.creatinineField.valueToDouble.toStringAsFixed(2)
+        : '-';
+    var dialysis = widget.formBloc.dialysisField.value != '-'
+        ? aux.tr(widget.formBloc.dialysisField.value)
+        : '-';
+    var albumin = widget.formBloc.albuminField.valueToDouble != 0
+        ? widget.formBloc.albuminField.valueToDouble.toStringAsFixed(2)
+        : '-';
+    var sodium = widget.formBloc.sodiumField.valueToDouble != 0
+        ? widget.formBloc.sodiumField.valueToDouble.toStringAsFixed(2)
+        : '-';
+    var platelets = widget.formBloc.plateletsField.valueToDouble != 0
+        ? widget.formBloc.plateletsField.valueToDouble.toStringAsFixed(2)
+        : '-';
+    var afp = widget.formBloc.afpField.valueToDouble != 0
+        ? widget.formBloc.afpField.valueToDouble.toStringAsFixed(2)
+        : '-';
+    var ast = widget.formBloc.astField[0].valueToDouble != 0
+        ? widget.formBloc.astField[0].valueToDouble.toStringAsFixed(2)
+        : '-';
+    var astLimit = widget.formBloc.astField[1].valueToDouble != 0
+        ? widget.formBloc.astField[1].valueToDouble.toStringAsFixed(2)
+        : '-';
+    var alp = widget.formBloc.alpField[0].valueToDouble != 0
+        ? widget.formBloc.alpField[0].valueToDouble.toStringAsFixed(2)
+        : '-';
+    var alpLimit = widget.formBloc.alpField[1].valueToDouble != 0
+        ? widget.formBloc.alpField[1].valueToDouble.toStringAsFixed(2)
+        : '-';
+
     Map<String, dynamic> laboratoryMap = {
-      'international_units':
-      prefs.getInternationalUnits() ? aux.tr('yes') : aux.tr('no'),
-      'bilirubin':
-      widget.formBloc.bilirubinField.valueToDouble.toStringAsFixed(2),
-      'inr_summary':
-      widget.formBloc.inrField.valueToDouble.toStringAsFixed(2),
-      'creatinine':
-      widget.formBloc.creatinineField.valueToDouble.toStringAsFixed(2),
-      'dialysis': widget.formBloc.dialysisField.value == 'yes'
-          ? aux.tr('yes')
-          : aux.tr('no'),
-      'albumin':
-      widget.formBloc.albuminField.valueToDouble.toStringAsFixed(2),
-      'sodium':
-      widget.formBloc.sodiumField.valueToDouble.toStringAsFixed(2),
-      'platelets':
-      widget.formBloc.plateletsField.valueToDouble.toStringAsFixed(2),
-      'afp': widget.formBloc.afpField.valueToDouble.toStringAsFixed(2),
-      'ast': widget.formBloc.astField[0].valueToDouble.toStringAsFixed(2),
-      isSmallFormFactor ? 'ast_limit' : 'ast_upper_limit':
-      widget.formBloc.astField[1].valueToDouble.toStringAsFixed(2),
-      'alp': widget.formBloc.alpField[0].valueToDouble.toStringAsFixed(2),
-      isSmallFormFactor ? 'alp_limit' : 'alp_upper_limit':
-      widget.formBloc.alpField[1].valueToDouble.toStringAsFixed(2),
+      'international_units': internationalUnits,
+      'bilirubin': bilirubin,
+      'inr_summary': inr,
+      'creatinine': creatinine,
+      'dialysis': dialysis,
+      'albumin': albumin,
+      'sodium': sodium,
+      'platelets': platelets,
+      'afp': afp,
+      'ast': ast,
+      isSmallFormFactor ? 'ast_limit' : 'ast_upper_limit': astLimit,
+      'alp': alp,
+      isSmallFormFactor ? 'alp_limit' : 'alp_upper_limit': alpLimit,
     };
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),

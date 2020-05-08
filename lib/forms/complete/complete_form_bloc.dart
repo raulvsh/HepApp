@@ -256,13 +256,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
     await Future<void>.delayed(Duration(seconds: 1));
 
     yield currentState.toSuccess('Success');
-
-    // yield `currentState.toLoaded()` because
-    // you can't submit if the current state is `FormBlocSuccess`.
-    // In most cases you don't need to do this,
-    // because you only want to submit only once,
-    // but in this case you want the user to submit more than once.
-    // See: https://pub.dev/documentation/form_bloc/latest/form_bloc/FormBloc/onSubmitting.html
+    //yield toLoaded para poder hacer submit más de una vez
     yield currentState.toLoaded();
   }
 
@@ -312,7 +306,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
     //hacer para página lab
     /*this.bilirubinField = TextFieldBloc(
       initialValue: units.getNotIUBilirrubin(data.bilirubin)
-          .toStringAsPrecision(2),
+          .toStringAsFixed(2),
     );
     this.creatinineField = TextFieldBloc(
       initialValue: units.getNotIUCreatinin(data.creatinine)
@@ -332,17 +326,17 @@ class CompleteFormBloc extends FormBloc<String, String> {
   void showIU() {
     //hacer para pagina lab
     /*this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toStringAsPrecision(2),
+      initialValue: data.bilirubin.toStringAsFixed(2),
     );
     this.creatinineField = TextFieldBloc(
-      initialValue: data.creatinine.toStringAsPrecision(2),
+      initialValue: data.creatinine.toStringAsFixed(2),
     );
 
     this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toStringAsPrecision(2),
+      initialValue: data.albumin.toStringAsFixed(2),
     );
     this.sodiumField = TextFieldBloc(
-      initialValue: data.sodium.toStringAsPrecision(2),
+      initialValue: data.sodium.toStringAsFixed(2),
     );
 */
   }
@@ -656,7 +650,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
         pviField.value != '-' &&
         nodesField.value != '-' &&
         metastasisField.value != '-' &&
-        ecogField.value != '0') {
+        ecogField.value != '-') {
       return comprobarTumourSize(tumourNumberField.value) ? true : false;
     }
     return false;

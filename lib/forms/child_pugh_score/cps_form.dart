@@ -9,6 +9,7 @@ import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
+import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
 import 'package:hepapp/widgets/more_information.dart';
@@ -280,7 +281,11 @@ class CpsFormState extends State<CpsForm> with Observable {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _buildResetButton(formBloc),
+          CalcBottomButton(
+            onPressed: () {
+              resetValues(formBloc);
+            },
+          ),
           SizedBox(width: 15),
           _buildPreviousButton(formBloc),
           SizedBox(width: 15),
@@ -345,27 +350,6 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  Container _buildResetButton(CpsFormBloc formBloc) {
-    bool isTablet = context.diagonalInches >= 7;
-    AppLocalizations aux = AppLocalizations.of(context);
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('reset'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          resetValues(formBloc);
-        },
-      ),
-    );
-  }
-
   _buildResult(CpsFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
@@ -388,11 +372,14 @@ class CpsFormState extends State<CpsForm> with Observable {
           children: <Widget>[
             Container(
               padding: isLandscape && !isTablet
-                  ? EdgeInsets.only(left: 77)
-                  : EdgeInsets.zero,
+                  ? EdgeInsets.only(
+                  left: 77
+              )
+                  : EdgeInsets.only(top: 30),
               child: FittedBox(
                 fit: BoxFit.contain,
                 child: InternationalUnitsSelect(
+                  title: 'international_units',
                   formBloc: formBloc,
                 ),
               ),

@@ -21,7 +21,6 @@ class OkudaFormBloc extends FormBloc<String, String> {
   );
   String result = '-';
 
-
   var okudaData = OkudaData(
     bilirubin: 0,
     albumin: 0,
@@ -59,35 +58,28 @@ class OkudaFormBloc extends FormBloc<String, String> {
     }
 
     await Future<void>.delayed(Duration(seconds: 1));
-
     yield currentState.toSuccess('Success');
-
-    // yield `currentState.toLoaded()` because
-    // you can't submit if the current state is `FormBlocSuccess`.
-    // In most cases you don't need to do this,
-    // because you only want to submit only once,
-    // but in this case you want the user to submit more than once.
-    // See: https://pub.dev/documentation/form_bloc/latest/form_bloc/FormBloc/onSubmitting.html
+    //yield toLoaded para poder hacer submit más de una vez
     yield currentState.toLoaded();
   }
 
   void showIU() {
     this.bilirubinField = TextFieldBloc(
-      initialValue: okudaData.bilirubin.toStringAsPrecision(4),
+      initialValue: okudaData.bilirubin.toStringAsFixed(2),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: okudaData.albumin.toStringAsPrecision(4),
+      initialValue: okudaData.albumin.toStringAsFixed(2),
     );
   }
 
   showNotIU() {
     this.bilirubinField = TextFieldBloc(
       initialValue:
-      units.getNotIUBilirrubin(okudaData.bilirubin).toStringAsPrecision(4),
+      units.getNotIUBilirrubin(okudaData.bilirubin).toStringAsFixed(2),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: units.getNotIUAlbumin(okudaData.albumin)
-          .toStringAsPrecision(4),
+      initialValue:
+      units.getNotIUAlbumin(okudaData.albumin).toStringAsFixed(2),
     );
   }
 

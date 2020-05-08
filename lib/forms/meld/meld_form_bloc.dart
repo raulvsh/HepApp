@@ -22,10 +22,6 @@ class MeldFormBloc extends FormBloc<String, String> {
 
   Map<String, String> results = initResultMap();
 
-  //String meldResult = '-';
-  //String meldNaResult = '-';
-  //String meld5vResult = '-';
-
   var data = MeldData(
     bilirubin: 0,
     inr: 0,
@@ -72,12 +68,7 @@ class MeldFormBloc extends FormBloc<String, String> {
 
     yield currentState.toSuccess('Success');
 
-    // yield `currentState.toLoaded()` because
-    // you can't submit if the current state is `FormBlocSuccess`.
-    // In most cases you don't need to do this,
-    // because you only want to submit only once,
-    // but in this case you want the user to submit more than once.
-    // See: https://pub.dev/documentation/form_bloc/latest/form_bloc/FormBloc/onSubmitting.html
+    //yield toLoaded para poder hacer submit más de una vez
     yield currentState.toLoaded();
   }
 
@@ -94,40 +85,40 @@ class MeldFormBloc extends FormBloc<String, String> {
 
   showNotIU() {
     this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toStringAsPrecision(4),
+      initialValue: data.bilirubin.toStringAsFixed(2),
     );
     this.inrField = TextFieldBloc(
-      initialValue: data.inr.toStringAsPrecision(4),
+      initialValue: data.inr.toStringAsFixed(2),
     );
     this.creatinineField = TextFieldBloc(
-      initialValue: data.creatinine.toStringAsPrecision(4),
+      initialValue: data.creatinine.toStringAsFixed(2),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toStringAsPrecision(4),
+      initialValue: data.albumin.toStringAsFixed(2),
     );
     this.sodiumField = TextFieldBloc(
-      initialValue: data.sodium.toStringAsPrecision(4),
+      initialValue: data.sodium.toStringAsFixed(2),
     );
   }
 
   showIU() {
     this.bilirubinField = TextFieldBloc(
       initialValue:
-      units.getIUBilirrubin(data.bilirubin).toStringAsPrecision(4),
+      units.getIUBilirrubin(data.bilirubin).toStringAsFixed(2),
     );
     this.inrField = TextFieldBloc(
-      initialValue: data.inr.toStringAsPrecision(4),
+      initialValue: data.inr.toStringAsFixed(2),
     );
     this.creatinineField = TextFieldBloc(
       initialValue:
-      units.getIUCreatinin(data.creatinine).toStringAsPrecision(4),
+      units.getIUCreatinin(data.creatinine).toStringAsFixed(2),
     );
 
     this.albuminField = TextFieldBloc(
-      initialValue: units.getIUAlbumin(data.albumin).toStringAsPrecision(4),
+      initialValue: units.getIUAlbumin(data.albumin).toStringAsFixed(2),
     );
     this.sodiumField = TextFieldBloc(
-      initialValue: units.getIUSodium(data.albumin).toStringAsPrecision(4),
+      initialValue: units.getIUSodium(data.albumin).toStringAsFixed(2),
     );
   }
 
