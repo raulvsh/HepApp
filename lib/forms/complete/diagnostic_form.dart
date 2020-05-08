@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:hepapp/forms/calc_multiple_text_field.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
+import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
 import 'package:observable/observable.dart';
@@ -240,10 +241,23 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
                 ? MainAxisAlignment.center
                 : MainAxisAlignment.start,
             children: <Widget>[
-              SizedBox(width: 5),
-              _buildResetButton(formBloc),
-              _buildPreviousButton(formBloc),
-              _buildMoreInfoButton(),
+              CalcBottomButton(
+                  title: 'reset_values',
+                  onPressed: () {
+                    resetValues(formBloc);
+                  }),
+              SizedBox(width: 15),
+              CalcBottomButton(
+                  title: 'previous_values',
+                  onPressed: () {
+                    previousValues(formBloc);
+                  }),
+              SizedBox(width: 15),
+              CalcBottomButton(
+                  title: 'more_information',
+                  onPressed: () {
+                    showMoreInfo();
+                  }),
             ],
           ),
           Row(
@@ -257,29 +271,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  Container _buildMoreInfoButton() {
-    AppLocalizations aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
-    return Container(
-      height: 40,
-      width: 150,
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      child: FlatButton(
-        child: FittedBox(
-          child: Text(
-            aux.tr('more_information'),
-            style: TextStyle(
-              fontSize: isTablet ? 14 : 12,
-            ),
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          showMoreInfo();
-        },
-      ),
-    );
-  }
 
   Future showMoreInfo() {
     return showDialog(
@@ -294,53 +285,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-  Container _buildPreviousButton(formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
 
-    return Container(
-      height: 40,
-      width: 150,
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      child: FlatButton(
-        child: FittedBox(
-          child: Text(
-            aux.tr('previous_values'),
-            style: TextStyle(
-              fontSize: isTablet ? 14 : 12,
-            ),
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () =>
-            previousValues(formBloc),
-
-      ),
-    );
-  }
-
-  Container _buildResetButton(CompleteFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
-
-    return Container(
-      height: 40,
-      width: 150,
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      child: FlatButton(
-        child: FittedBox(
-          child: Text(
-            aux.tr('reset'),
-            style: TextStyle(
-              fontSize: isTablet ? 14 : 12,
-            ),
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () => resetValues(formBloc),
-      ),
-    );
-  }
 
   _buildRightBottomTitle() {
     return Column(

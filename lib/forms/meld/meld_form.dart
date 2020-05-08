@@ -8,8 +8,9 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/boolean_select.dart';
 import 'package:hepapp/forms/right_bottom_title.dart';
-import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
+import 'package:hepapp/widgets/calc_bottom_button.dart';
+import 'package:hepapp/widgets/calculator_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
 import 'package:hepapp/widgets/empty_fields_error_dialog.dart';
@@ -226,37 +227,12 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   _buildCalcButton(MeldFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
-
-    bool isTablet = context.diagonalInches >= 7;
-    return Container(
-      width: 250,
-      //padding: EdgeInsets.all(8.0),
-      margin: EdgeInsets.only(right: context.widthPct(0.25), left: 25),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
-            side: BorderSide(
-              color: Color.fromARGB(255, 45, 145, 155),
-              width: 1.5,
-            )),
-        color: Theme.of(context).primaryColor,
-        splashColor: Color.fromARGB(255, 56, 183, 198),
-        elevation: 3,
-        onPressed: () async {
-          await Future.delayed(Duration(milliseconds: 400));
-          calculateMeld(formBloc);
-        },
-        child: Center(
-          child: Text(
-            aux.tr('calculate_meld'),
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: isTablet ? 15 : 12,
-            ),
-          ),
-        ),
-      ),
+    return CalculatorButton(
+      title: 'calculate_meld',
+      onPressed: () async {
+        await Future.delayed(Duration(milliseconds: 400));
+        calculateMeld(formBloc);
+      },
     );
   }
 
@@ -265,37 +241,24 @@ class MeldFormState extends State<MeldForm> with Observable {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          _buildResetButton(formBloc),
-          SizedBox(
-            width: 15,
-          ),
-          _buildPreviousButton(formBloc),
-          SizedBox(
-            width: 15,
-          ),
-          _buildMoreInfoButton(),
+          CalcBottomButton(
+              title: 'reset_values',
+              onPressed: () {
+                resetValues(formBloc);
+              }),
+          SizedBox(width: 15),
+          CalcBottomButton(
+              title: 'previous_values',
+              onPressed: () {
+                previousValues(formBloc);
+              }),
+          SizedBox(width: 15),
+          CalcBottomButton(
+              title: 'more_information',
+              onPressed: () {
+                showMoreInfo();
+              }),
         ],
-      ),
-    );
-  }
-
-  Container _buildMoreInfoButton() {
-    AppLocalizations aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('more_information'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          showMoreInfo();
-        },
       ),
     );
   }
@@ -312,50 +275,6 @@ class MeldFormState extends State<MeldForm> with Observable {
           ],
         );
       },
-    );
-  }
-
-  Container _buildPreviousButton(formBloc) {
-    bool isTablet = context.diagonalInches >= 7;
-    var aux = AppLocalizations.of(context);
-
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('previous_values'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          previousValues(formBloc);
-        },
-      ),
-    );
-  }
-
-  Container _buildResetButton(MeldFormBloc formBloc) {
-    bool isTablet = context.diagonalInches >= 7;
-    var aux = AppLocalizations.of(context);
-
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('reset'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          resetValues(formBloc);
-        },
-      ),
     );
   }
 
@@ -381,32 +300,41 @@ class MeldFormState extends State<MeldForm> with Observable {
               ? CrossAxisAlignment.end
               : CrossAxisAlignment.center,
           children: <Widget>[
-            Container(
-              padding: isLandscape && !isTablet
-                  ? EdgeInsets.only(left: 90)
-                  : EdgeInsets.only(top: 30),
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: InternationalUnitsSelect(
-                  title: 'international_units',
-
-                  formBloc: formBloc,
-                ),
-              ),
-            ),
-            FittedBox(
-              child: Container(
-                height: isTablet
-                    ? context.heightPct(isLandscape ? 0.5 : 0.3)
-                    : context.heightPct(0.45),
-                padding: EdgeInsets.only(top: isTablet ? 50 : 15, bottom: 15),
-                child: CalcResultWidget(
-                  resultMap: resultMap,
-                  textAlignment: MainAxisAlignment.center,
-                ),
-              ),
-            ),
+            _buildInternationalUnitsRow(isLandscape, isTablet, formBloc),
+            _buildCalcResultRow(isTablet, isLandscape, resultMap),
           ],
+        ),
+      ),
+    );
+  }
+
+  _buildCalcResultRow(bool isTablet, bool isLandscape,
+      Map<String, String> resultMap) {
+    return FittedBox(
+      child: Container(
+        height: isTablet
+            ? context.heightPct(isLandscape ? 0.5 : 0.3)
+            : context.heightPct(0.45),
+        padding: EdgeInsets.only(top: isTablet ? 50 : 15, bottom: 15),
+        child: CalcResultWidget(
+          resultMap: resultMap,
+          textAlignment: MainAxisAlignment.center,
+        ),
+      ),
+    );
+  }
+
+  _buildInternationalUnitsRow(bool isLandscape, bool isTablet,
+      MeldFormBloc formBloc) {
+    return Container(
+      padding: isLandscape && !isTablet
+          ? EdgeInsets.only(left: 90)
+          : EdgeInsets.only(top: 30),
+      child: FittedBox(
+        fit: BoxFit.contain,
+        child: InternationalUnitsSelect(
+          title: 'international_units',
+          formBloc: formBloc,
         ),
       ),
     );

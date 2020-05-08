@@ -276,7 +276,6 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-
   Future showMoreInfo() {
     return showDialog(
       context: context,
@@ -292,8 +291,6 @@ class ClipFormState extends State<ClipForm> with Observable {
       },
     );
   }
-
-
 
   _buildResult(ClipFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;

@@ -235,16 +235,17 @@ class SummaryFormState extends State<SummaryForm> with Observable {
   Container _buildClinicalColumn() {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isLandscape = context.isLandscape;
-
+    print("Edad " + prefs.getAgeCutoff().toString());
     Map<String, dynamic> clinicalMap = {
       'cirrhosis': aux.tr(widget.formBloc.cirrhosisField.value),
       'encephalopaty': aux.tr(widget.formBloc.encephalopatyField.value),
       'ascites': aux.tr(widget.formBloc.ascitesField.value),
       'varices': aux.tr(widget.formBloc.varicesField.value),
       'ecog': widget.formBloc.ecogField.value,
-      'preclude_major_surgery': aux.tr(widget.formBloc.preclude ? 'yes' : 'no'),
+      'preclude_major_surgery': prefs.getPrecludeSurgery() == true ? aux.tr(
+          'yes') : aux.tr('no'),
       //prefs.getPrecludeSurgery() ? aux.tr('yes') : aux.tr('no'),
-      'age': 'ok',
+      'age': prefs.getAgeCutoff() != 0 ? prefs.getAgeCutoff().toString() : '-',
       //widget.formBloc.
     };
     var anchura = 0.27;

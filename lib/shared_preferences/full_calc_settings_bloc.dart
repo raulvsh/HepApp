@@ -6,10 +6,11 @@ class FullCalcSettingsBloc extends FormBloc<String, String> {
   final prefs = UserSettings();
   final units = Units();
 
-  var ageField = TextFieldBloc();
+  var ageField = TextFieldBloc(initialValue: '0');
 
   var ltCriteriaField = SelectFieldBloc(
     items: ['milan_criteria', 'ttv_afp', 'ucfs', 'up_to_seven'],
+      initialValue: '-'
   );
 
   @override
@@ -20,7 +21,7 @@ class FullCalcSettingsBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    showFields();
+    //showFields();
     prefs.setAgeCutoff(ageField.valueToDouble);
     prefs.setLtCriteria(ltCriteriaField.value);
 
