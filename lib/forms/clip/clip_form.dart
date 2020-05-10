@@ -35,9 +35,9 @@ class ClipFormState extends State<ClipForm> with Observable {
   final units = Units();
 
   //bool _internationalUnits = true;
-  //Map<String, bool> _errorMap;
+  Map<String, bool> _errorMap;
   //StreamSubscription streamSubIUnits;
-  //StreamSubscription streamSubErrorMap;
+  StreamSubscription streamSubErrorMap;
   String errorPrueba = "";
 
   @override
@@ -49,9 +49,10 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
     prefs.setInternationalUnits(true);*/
 
-    /*streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
+        setState(() {
           _errorMap = newVal;
-        }));*/
+        }));
     prefs.initErrorMap([
       'afp',
       'child_pugh_score',
@@ -179,9 +180,9 @@ class ClipFormState extends State<ClipForm> with Observable {
   _buildCPSRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      reset: reset,
-      previous: previous,
       initialValue: formBloc.cpsField.value.toString(),
+      previous: previous,
+      reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.cpsField,
       title: 'child_pugh_score',
@@ -195,9 +196,9 @@ class ClipFormState extends State<ClipForm> with Observable {
   _buildTumourNumberRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      reset: reset,
-      previous: previous,
       initialValue: formBloc.tumourNumberField.value.toString(),
+      previous: previous,
+      reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.tumourNumberField,
       title: 'tumour_number',
@@ -211,9 +212,9 @@ class ClipFormState extends State<ClipForm> with Observable {
   _buildTumourExtentRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      reset: reset,
-      previous: previous,
       initialValue: formBloc.tumourExtentField.value.toString(),
+      previous: previous,
+      reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.tumourExtentField,
       title: 'tumour_extent',
@@ -226,10 +227,10 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   _buildPVTRow(ClipFormBloc formBloc) {
     return CalcGroupField(
-      errorControl: true,
-      reset: reset,
-      previous: previous,
       initialValue: formBloc.pvtField.value.toString(),
+      errorControl: true,
+      previous: previous,
+      reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.pvtField,
       title: 'pvt_complete',
@@ -304,7 +305,8 @@ class ClipFormState extends State<ClipForm> with Observable {
             ? EdgeInsets.fromLTRB(0, 0, 30, 0)
             : EdgeInsets.fromLTRB(20, 10, 20, 0),
         width: context.widthPct(isLandscape ? 0.28 : 1),
-        child: /*Column(
+        child:
+        /*Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: isLandscape && !isTablet
               ? CrossAxisAlignment.end
@@ -363,4 +365,3 @@ class ClipFormState extends State<ClipForm> with Observable {
     setState(() {});
   }
 }
-

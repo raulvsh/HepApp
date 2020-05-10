@@ -38,10 +38,10 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   bool _internationalUnits = true;
 
-  //Map<String, bool> _errorMap;
+  Map<String, bool> _errorMap;
   StreamSubscription streamSubIUnits;
 
-  //StreamSubscription streamSubErrorMap;
+  StreamSubscription streamSubErrorMap;
   String errorPrueba = "";
 
   @override
@@ -54,10 +54,10 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
     prefs.setInternationalUnits(true);
 
-    /* streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
         setState(() {
           _errorMap = newVal;
-        }));*/
+        }));
     prefs.initErrorMap(['bilirubin', 'albumin', 'ascites', 'tumour_extent']);
 
     super.initState();
