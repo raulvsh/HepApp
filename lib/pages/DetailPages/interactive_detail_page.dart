@@ -33,7 +33,7 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
   Widget build(BuildContext context) {
     bool isLandscape = context.isLandscape;
     return Scaffold(
-      appBar: CustomAppBar(context, widget.title),
+      appBar: CustomAppBar(widget.title),
       drawer: MenuWidget(),
       body: Center(
         heightFactor: 1,

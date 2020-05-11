@@ -96,7 +96,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
           return FormBlocListener<OkudaFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
-                context,
+
                 'calculators_okuda',
                 selScreenshot: true,
                 //selPartialSettings: true,

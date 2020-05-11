@@ -77,7 +77,9 @@ class ComboButton extends StatelessWidget {
         showPDF(type);
         break;
       case 'Video':
-        Navigator.pushNamed(context, '/Video', arguments: [type[2], type[0]]);
+      //print("tipo video " + type[0].replaceFirst(RegExp('p'), 'v'));
+        Navigator.pushNamed(context, '/Video',
+            arguments: [type[2], type[0].replaceFirst(RegExp('p'), 'v')]);
         break;
     }
   }

@@ -102,6 +102,7 @@ class RouteGenerator {
 
       case '/Video':
         var arguments = settings.arguments as List<String>;
+        print("arguments " + arguments.toString());
         return MaterialPageRoute(
           builder: (context) =>
               VideoDetailPage(

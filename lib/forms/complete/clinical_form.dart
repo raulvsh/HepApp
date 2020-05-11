@@ -35,7 +35,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        context,
+
         'calculators_all_algorithms_clinical',
         selScreenshot: true,
         selFullSettings: true,

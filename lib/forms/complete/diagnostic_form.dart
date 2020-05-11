@@ -64,7 +64,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: CustomAppBar(
-        context,
+
         'calculators_all_algorithms_diagnostic',
         selScreenshot: true,
         selFullSettings: true,

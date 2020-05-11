@@ -40,7 +40,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
           return FormBlocListener<CompleteFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
-                context,
+
                 'calculators_all_algorithms_summary',
                 selScreenshot: true,
                 controller: widget.controller,

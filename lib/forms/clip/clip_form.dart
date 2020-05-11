@@ -96,7 +96,7 @@ class ClipFormState extends State<ClipForm> with Observable {
           return FormBlocListener<ClipFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
-                context,
+
                 'calculators_clip',
                 selScreenshot: true,
                 //selPartialSettings: true,

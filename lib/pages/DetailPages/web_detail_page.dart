@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class WebDetailPage extends StatefulWidget {
   final String url;
@@ -17,7 +17,7 @@ class _WebDetailPageState extends State<WebDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(context, widget.title),
+      appBar: CustomAppBar(widget.title),
       drawer: MenuWidget(),
       body: WebView(
         initialUrl: widget.url,

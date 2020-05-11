@@ -95,7 +95,7 @@ class MeldFormState extends State<MeldForm> with Observable {
           return FormBlocListener<MeldFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
-                context,
+
                 'calculators_meld',
                 selScreenshot: true,
               ),

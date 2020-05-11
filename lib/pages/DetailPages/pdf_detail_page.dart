@@ -34,7 +34,7 @@ class _PdfDetailPageState extends State<PdfDetailPage> {
   Widget build(BuildContext context) {
     //print('widget path desde pdfdetailpage ' + widget.path);
     return Scaffold(
-      appBar: CustomAppBar(context, widget.title),
+      appBar: CustomAppBar(widget.title),
       drawer: MenuWidget(),
       body: Stack(
         children: <Widget>[

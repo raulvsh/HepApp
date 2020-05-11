@@ -30,7 +30,7 @@ class _CommonPageState extends State<CommonPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 
-      appBar: CustomAppBar(context, widget.title),
+      appBar: CustomAppBar(widget.title),
       drawer: MenuWidget(),
       body: CommonGridPage(
         data: widget.data,

@@ -111,7 +111,7 @@ class CpsFormState extends State<CpsForm> with Observable {
             },*/
             child: Scaffold(
               appBar: CustomAppBar(
-                context,
+
                 'child_pugh_score_oneline',
                 selScreenshot: true,
                 //selPartialSettings: true,

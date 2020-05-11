@@ -36,7 +36,7 @@ class _CommonPageWithBottomNavState extends State<CommonPageWithBottomNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MenuWidget(),
-      appBar: CustomAppBar(context, widget.title),
+      appBar: CustomAppBar(widget.title),
       body: CommonGridPage(
         data: widget.data,
         type: widget.type,

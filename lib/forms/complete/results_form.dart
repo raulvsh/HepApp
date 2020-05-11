@@ -35,7 +35,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        context,
+
         'calculators_all_algorithms_results',
         selScreenshot: true,
         controller: widget.controller,

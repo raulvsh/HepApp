@@ -7,10 +7,9 @@ class CalculatorButton extends StatelessWidget {
   final title;
   final width;
   const CalculatorButton(
-      {Key key, @required this.context, this.title, this.onPressed, this.width = 250.0})
+      {Key key, this.title, this.onPressed, this.width = 250.0})
       : super(key: key);
 
-  final BuildContext context;
 
   @override
   Widget build(BuildContext context) {

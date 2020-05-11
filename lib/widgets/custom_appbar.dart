@@ -4,14 +4,13 @@ import 'package:hepapp/shared_preferences/full_calc_settings.dart';
 import 'package:sized_context/sized_context.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  final BuildContext context;
   final String title;
   final bool selScreenshot;
   final bool selFullSettings;
   final bool calcBack;
   final PageController controller;
 
-  CustomAppBar(this.context, this.title,
+  CustomAppBar(this.title,
       {this.selScreenshot,
         this.selFullSettings,
         this.calcBack = false,

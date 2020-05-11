@@ -40,7 +40,7 @@ class _FigureDetailPageState extends State<DrawingDetailPage> {
   Widget build(BuildContext context) {
     bool isLandscape = context.isLandscape;
     return Scaffold(
-      appBar: CustomAppBar(context, widget.title),
+      appBar: CustomAppBar(widget.title),
       drawer: MenuWidget(),
       body: Container(
         //color: Colors.red,

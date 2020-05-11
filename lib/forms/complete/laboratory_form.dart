@@ -57,7 +57,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        context,
+
         'calculators_all_algorithms_laboratory',
         selScreenshot: true,
         selFullSettings: true,
