@@ -55,7 +55,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: _ids.first,
+      initialVideoId: _ids[int.parse(widget.url)],
       flags: YoutubePlayerFlags(
         mute: false,
         autoPlay: true,
@@ -107,6 +107,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       controller: _controller,
       showVideoProgressIndicator: true,
       progressIndicatorColor: Colors.blueAccent,
+
       topActions: <Widget>[
         SizedBox(width: 8.0),
         Expanded(
@@ -145,9 +146,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
         //_playerState?_controller.metadata.title.substring(0,9):widget.title,
         _playerState == PlayerState.unknown ? 'vodcasts' : _videoMetaData.title,
       ),
-      body: isLandscape
-          ? _buildHorizontal()
-          : ListView(
+      body: ListView(
         children: [
           youtubePlayer,
           Padding(
@@ -282,7 +281,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                         value: _volume,
                         min: 0.0,
                         max: 100.0,
-                        divisions: 20,
+                        divisions: 100,
                         //label: '${(_volume).round()}',
                         onChanged: _isPlayerReady
                             ? (value) {
@@ -297,7 +296,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                   ],
                 ),
                 _space,
-                AnimatedContainer(
+                /*AnimatedContainer(
                   duration: Duration(milliseconds: 800),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
@@ -312,7 +311,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                ),
+                ),*/
               ],
             ),
           ),
@@ -321,28 +320,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     );
   }
 
-  _buildHorizontal() {
-    _controller.toggleFullScreenMode();
-    return YoutubePlayer(
-        controller: _controller,
-        showVideoProgressIndicator: true,
 
-        progressIndicatorColor: Colors.blueAccent,
-        topActions: <Widget>[
-          SizedBox(width: 8.0),
-          Expanded(
-            child: Text(
-              _controller.metadata.title,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-          ),
-        ]);
-  }
 
   Widget _text(String title, String value) {
     return RichText(

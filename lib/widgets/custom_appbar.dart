@@ -61,11 +61,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 flex: 1,
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
-                  child: Text(
-                    aux.tr(widget.title),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: isTablet ? 20 : 18,
+                  child: Container(
+                    padding: EdgeInsets.only(right: 10),
+                    child: Text(
+                      aux.tr(widget.title),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: isTablet ? 20 : 18,
+                      ),
                     ),
                   ),
                 ),
