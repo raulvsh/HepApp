@@ -106,7 +106,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) =>
               VideoDetailPage(
-                url: arguments[0],
+                index: arguments[0],
                 title: arguments[1],
               ),
         );

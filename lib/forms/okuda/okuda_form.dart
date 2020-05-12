@@ -72,7 +72,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       DeviceOrientation.portraitDown,
     ]);
     streamSubIUnits.cancel();
-    // streamSubErrorMap.cancel();
+    streamSubErrorMap.cancel();
     super.dispose();
   }
 

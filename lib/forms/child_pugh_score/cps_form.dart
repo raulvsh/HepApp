@@ -74,7 +74,6 @@ class CpsFormState extends State<CpsForm> with Observable {
     ]);
     streamSubIUnits.cancel();
     streamSubErrorMap.cancel();
-
     super.dispose();
   }
 
@@ -111,7 +110,6 @@ class CpsFormState extends State<CpsForm> with Observable {
             },*/
             child: Scaffold(
               appBar: CustomAppBar(
-
                 'child_pugh_score_oneline',
                 selScreenshot: true,
                 //selPartialSettings: true,

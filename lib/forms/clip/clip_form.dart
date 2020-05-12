@@ -73,7 +73,7 @@ class ClipFormState extends State<ClipForm> with Observable {
       DeviceOrientation.portraitDown,
     ]);
     //streamSubIUnits.cancel();
-    //streamSubErrorMap.cancel();
+    streamSubErrorMap.cancel();
     super.dispose();
   }
 

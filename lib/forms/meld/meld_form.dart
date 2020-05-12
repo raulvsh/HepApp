@@ -72,7 +72,7 @@ class MeldFormState extends State<MeldForm> with Observable {
       DeviceOrientation.portraitDown,
     ]);
     streamSubIUnits.cancel();
-    //streamSubErrorMap.cancel();
+    streamSubErrorMap.cancel();
     super.dispose();
   }
 
@@ -95,7 +95,6 @@ class MeldFormState extends State<MeldForm> with Observable {
           return FormBlocListener<MeldFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
-
                 'calculators_meld',
                 selScreenshot: true,
               ),
