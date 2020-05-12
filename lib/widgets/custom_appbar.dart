@@ -32,18 +32,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return AppBar(
       automaticallyImplyLeading: false,
       titleSpacing: 0.0,
-      //centerTitle: false,
       leading: IconButton(
         icon: Icon(Icons.menu),
         onPressed: () => Scaffold.of(context).openDrawer(),
       ),
       title: Center(
         child: Container(
-          // color: Colors.red,
-          //margin: EdgeInsets.only(left: 5.0),
-          //padding: EdgeInsets.all(0),
+
           width: double.infinity,
-          //height: double.infinity,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -90,7 +86,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
   IconButton _homeIcon(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.home),
-
       /*Image.asset(
         'assets/images/homeicon.png',
         width: 18,
@@ -150,7 +145,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return IconButton(
       icon: Icon(Icons.photo_camera),
       onPressed: () {
-        //Añadir función captura de pantalla _screenCapture()
+        //TODO Añadir función captura de pantalla _screenCapture()
         showDialog(
           context: context,
           builder: (BuildContext context) {

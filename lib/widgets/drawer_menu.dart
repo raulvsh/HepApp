@@ -41,7 +41,7 @@ class MenuWidget extends StatelessWidget {
   }
 }
 
-// One entry in the multilevel list displayed by this app.
+// Modelo de una entrada de la lista multinivel
 class Item {
   const Item(this.image, this.title, this.route,
       [this.children = const <Item>[]]);
@@ -53,13 +53,8 @@ class Item {
   final List<Item> children;
 }
 
-// Data to display.
+// Datos completos
 const List<Item> data = <Item>[
-  /*Item(
-    'assets/images/hepapplogo.png',
-    'app_title',
-    ['/', 0],
-  ),*/
   Item(
     'assets/images/menu/0_home.png',
     'home',
@@ -319,7 +314,6 @@ class MenuItem extends StatelessWidget {
     var aux = AppLocalizations.of(context);
 
     return ListTile(
-      //contentPadding: EdgeInsets.all(0),
         leading: Image.asset(
           root.image,
           height: 25,
@@ -330,8 +324,6 @@ class MenuItem extends StatelessWidget {
           aux.tr(root.title),
         ),
         onTap: () {
-          //print("ruta ${root.route}");
-
           if (root.route[0] == "/PDF") {
             showPDF(root.route[1]);
           } else {
@@ -345,11 +337,9 @@ class MenuItem extends StatelessWidget {
   }
 
   showPDF(List<String> attributes) async {
-    //print("route desde menu_widget " + attributes[0] + " " + attributes[1]);
     var assetPDFPath;
     await getFileFromAsset("assets/pdf/${attributes[0]}").then((f) {
       assetPDFPath = f.path;
-      //print("Asset pdf path desde menu " + assetPDFPath);
     });
     if (assetPDFPath != null) {
       Navigator.push(

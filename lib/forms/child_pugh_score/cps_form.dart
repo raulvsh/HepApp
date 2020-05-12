@@ -308,7 +308,7 @@ class CpsFormState extends State<CpsForm> with Observable {
           : EdgeInsets.only(top: 30),
       child: FittedBox(
         fit: BoxFit.contain,
-        child: InternationalUnitsSelect(
+        child: BooleanSelect(
           title: 'international_units',
           formBloc: formBloc,
         ),

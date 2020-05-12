@@ -49,10 +49,9 @@ class MoreInformation extends StatelessWidget {
     for (int i = 0; i < pathList.length; i++) {
       imageList.add(Image.asset(pathList[i]));
     }
-    //pathList.forEach((path) {
-    //});
 
-    return Row(mainAxisSize: MainAxisSize.min,
+    return Row(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: imageList,
     );

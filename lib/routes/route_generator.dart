@@ -233,27 +233,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => DrawingPageView(initialPage));
 
       case '/CompleteCalc':
-        var initialPage = settings.arguments as int;
-
         return MaterialPageRoute(builder: (_) => CompleteForm(initialPage: 0));
 
       case '/CompletePage':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
             builder: (_) => CompleteForm(initialPage: initialPage));
-
-    /*case '/CompleteDiagnosticCalc':
-        return MaterialPageRoute(builder: (_) => DiagnosticForm());
-      case '/CompleteLaboratoryCalc':
-        var formBloc = settings.arguments;
-        return MaterialPageRoute(
-            builder: (_) => LaboratoryForm(formBloc: formBloc,));
-      case '/CompleteClinicalCalc':
-        return MaterialPageRoute(builder: (_) => ClinicalForm());
-      case '/CompleteResultsCalc':
-        return MaterialPageRoute(builder: (_) => ResultsForm());
-      case '/CompleteSummaryCalc':
-        return MaterialPageRoute(builder: (_) => SummaryForm());*/
 
       case '/ChildCalc':
         return MaterialPageRoute(builder: (_) => CpsForm());

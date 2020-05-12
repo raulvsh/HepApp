@@ -10,34 +10,43 @@ class BottomNavigationSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<IconButton> widgets = [];
-    var backIcon = IconButton(
-      icon: Icon(Icons.arrow_back_ios),
-      color: Theme.of(context).primaryColor,
-      onPressed: () =>
-          Navigator.pushReplacementNamed(
-              context, '$route', arguments: currentPage - 1),
-    );
 
-    var nextIcon = IconButton(
-      icon: Icon(Icons.arrow_forward_ios),
-      color: Theme.of(context).primaryColor,
-      onPressed: () =>
-          Navigator.pushReplacementNamed(
-              context, '$route', arguments: currentPage + 1),
-    );
-    //print('Contador i $i, url $url, endpage $endPage');
     if (currentPage == 0) {
-      widgets.add(nextIcon);
+      widgets.add(_buildNextIcon(context));
     } else if (currentPage == endPage - 1) {
-      widgets.add(backIcon);
+      widgets.add(_buildBackIcon(context));
     } else {
-      widgets.add(backIcon);
-      widgets.add(nextIcon);
+      widgets.add(_buildBackIcon(context));
+      widgets.add(_buildNextIcon(context));
     }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: widgets,
+    );
+  }
+
+  IconButton _buildBackIcon(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back_ios),
+      color: Theme
+          .of(context)
+          .primaryColor,
+      onPressed: () =>
+          Navigator.pushReplacementNamed(context, '$route',
+              arguments: currentPage - 1),
+    );
+  }
+
+  IconButton _buildNextIcon(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_forward_ios),
+      color: Theme
+          .of(context)
+          .primaryColor,
+      onPressed: () =>
+          Navigator.pushReplacementNamed(context, '$route',
+              arguments: currentPage + 1),
     );
   }
 }

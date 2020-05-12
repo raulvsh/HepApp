@@ -22,15 +22,12 @@ class CalcBottomButton extends StatelessWidget {
       child: FlatButton(
         child: Text(
           aux.tr(title),
-          //aux.tr('reset'),
           style: TextStyle(
             fontSize: isTablet ? 14 : 12,
           ),
         ),
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: onPressed, //() {
-        // resetValues(formBloc);
-        //},
       ),
     );
   }

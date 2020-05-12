@@ -43,8 +43,6 @@ class _FigureDetailPageState extends State<DrawingDetailPage> {
       appBar: CustomAppBar(widget.title),
       drawer: MenuWidget(),
       body: Container(
-        //color: Colors.red,
-        //padding: EdgeInsets.only(top: 50),
         height: context.heightPct(isLandscape ? 0.75 : 0.85),
         child: Card(
           margin: EdgeInsets.all(10),

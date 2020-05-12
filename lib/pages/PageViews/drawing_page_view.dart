@@ -4,7 +4,6 @@ import 'package:hepapp/pages/DetailPages/drawing_detail_page.dart';
 import 'package:hepapp/widgets/bottom_navigation_sheet.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
 
-
 class DrawingPageView extends StatefulWidget {
   final initialPage;
 
@@ -16,31 +15,14 @@ class DrawingPageView extends StatefulWidget {
 
 class _DrawingPageViewState extends State<DrawingPageView> {
   PageController controller;
-
-  /*static var draws = [
-    ['anatomy', 'drawing/Doodle_Figure_1.png', '/DrawingPV'],
-    ['anterior_view_liver', 'drawing/Doodle_Figure_2.png', '/DrawingPV'],
-    ['posterior_view_liver', 'drawing/Doodle_Figure_3.png', '/DrawingPV'],
-    ['portal_circulation', 'drawing/Doodle_Figure_4.png', '/DrawingPV'],
-    [
-      'liver_stomach_pancreas_gall_bladder',
-      'drawing/Doodle_Figure_5.png',
-      '/DrawingPV'
-    ],
-    ['liver_vasculature', 'drawing/Doodle_Figure_6.png', '/DrawingPV'],
-    ['liver_histology', 'drawing/Doodle_Figure_7.png', '/DrawingPV'],
-    ['liver_cell', 'drawing/Doodle_Figure_8.png', '/DrawingPV'],
-  ];*/
-
   var numDraws = draws.length;
 
   @override
   void initState() {
-    super.initState();
-
     controller = PageController(
       initialPage: widget.initialPage,
     );
+    super.initState();
   }
 
   @override
@@ -55,5 +37,4 @@ class _DrawingPageViewState extends State<DrawingPageView> {
       ),
     );
   }
-
 }

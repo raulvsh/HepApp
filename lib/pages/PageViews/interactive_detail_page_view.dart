@@ -5,7 +5,6 @@ import 'package:hepapp/widgets/bottom_navigation_sheet.dart';
 
 class InteractiveDetailPageView extends StatefulWidget {
   final initialPage;
-
   InteractiveDetailPageView(this.initialPage);
 
   @override

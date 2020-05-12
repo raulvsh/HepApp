@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     Locale('es', 'ES'),
   ];
 
-  final /*Iterable<localizationDelegates>*/ _localizationDelegates = [
+  final _localizationDelegates = [
     AppLocalizations.delegate, //Carga las traducciones desde el JSON
     GlobalMaterialLocalizations.delegate, //Localización de text báxico
     GlobalWidgetsLocalizations.delegate, //Localización de texto LTR/RTL
@@ -44,21 +44,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-       statusBarColor: Color.fromARGB(255, 93, 188, 210),
-       statusBarIconBrightness: Brightness.light,
-     ));*/
     final title = 'HepApp';
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       title: title,
       theme: ThemeData(
           primaryColor: Color.fromARGB(255, 73, 195, 207),
-          //93, 188, 210),
           primaryTextTheme: TextTheme(
-            title: TextStyle(color: Colors.white),
+            headline6: TextStyle(color: Colors.white),
           ),
           scaffoldBackgroundColor: Color.fromARGB(255, 250, 250, 250),
           primaryIconTheme: IconThemeData(
@@ -69,7 +63,6 @@ class MyApp extends StatelessWidget {
               .textTheme
               .apply(
             bodyColor: Color.fromARGB(255, 93, 188, 210),
-
           )),
       supportedLocales: _supoortedLocales,
       localizationsDelegates: _localizationDelegates,

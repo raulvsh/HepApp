@@ -3,9 +3,6 @@ import 'package:hepapp/lang/app_localizations.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final BuildContext context;
-
-  //final String title;
-
   HomeAppBar(this.context);
 
   @override

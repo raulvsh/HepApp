@@ -27,12 +27,8 @@ class FigureButton extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          /*height: isLandscape
-              ? context.heightPct(isTablet ? 0.19 : 0.19)
-              : context.heightPct(isTablet ? 0.12 : 0.12),*/
           height: context.heightPct(isLandscape ? 0.19 : 0.12),
           width: double.infinity,
-          //color: Colors.red,
           padding: isTablet
               ? EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 0)
               : EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 0),
@@ -43,7 +39,6 @@ class FigureButton extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            //color: Colors.blue,
             padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
             child: Center(
               child: Text(
@@ -54,7 +49,6 @@ class FigureButton extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: context.heightPct(isLandscape ? 0.025 : 0.014),
-                  //fontSize: isLandscape?context.heightPct(isTablet ? 0.025 : 0.025) : context.heightPct(isTablet ? 0.014 : 0.014),
                 ),
               ),
             ),

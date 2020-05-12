@@ -12,8 +12,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var numHomeSections = homeSections.length;
 
-  //static GlobalKey mainScaffold = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
 

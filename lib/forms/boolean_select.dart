@@ -3,8 +3,8 @@ import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:sized_context/sized_context.dart';
 
-class InternationalUnitsSelect extends StatefulWidget {
-  const InternationalUnitsSelect({
+class BooleanSelect extends StatefulWidget {
+  const BooleanSelect({
     Key key,
     this.title,
     this.formBloc,
@@ -13,11 +13,11 @@ class InternationalUnitsSelect extends StatefulWidget {
   final title;
 
   @override
-  _InternationalUnitsSelectState createState() =>
-      _InternationalUnitsSelectState();
+  _BooleanSelectState createState() =>
+      _BooleanSelectState();
 }
 
-class _InternationalUnitsSelectState extends State<InternationalUnitsSelect> {
+class _BooleanSelectState extends State<BooleanSelect> {
   final prefs = new UserSettings();
 
   List<bool> isSelected = [true, false];

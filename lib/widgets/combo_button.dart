@@ -12,10 +12,8 @@ class ComboButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var aux = AppLocalizations.of(context);
     return Card(
       elevation: 0,
-      //margin: EdgeInsets.all(4),
       child: GestureDetector(
         child: buildStack(),
         onTap: onTap,
@@ -25,13 +23,11 @@ class ComboButton extends StatelessWidget {
 
   Stack buildStack() {
     var aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
 
     return Stack(
       children: <Widget>[
         Container(
-          //color: Colors.red,
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
@@ -54,9 +50,7 @@ class ComboButton extends StatelessWidget {
                 color: Theme
                     .of(context)
                     .primaryColor,
-                //Colors.black, //Color.fromARGB(255, 93, 188, 210),
                 fontSize: context.heightPct(isLandscape ? 0.03 : 0.02),
-                //fontSize: isLandscape?context.heightPct(isTablet ? 0.03 : 0.03) : context.heightPct(isTablet ? 0.02 : 0.02),
               ),
             ),
           ),
@@ -77,7 +71,6 @@ class ComboButton extends StatelessWidget {
         showPDF(type);
         break;
       case 'Video':
-      //print("tipo video " + type[0].replaceFirst(RegExp('p'), 'v'));
         Navigator.pushNamed(context, '/Video',
             arguments: [type[2], type[0].replaceFirst(RegExp('p'), 'v')]);
         break;

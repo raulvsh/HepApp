@@ -34,7 +34,6 @@ class _FigureDetailPageState extends State<FigureDetailPage> {
               margin: EdgeInsets.all(10),
               child: Image.asset(
                 'assets/images/${widget.url}',
-                //width: double.infinity,
                 fit: BoxFit.contain,
                 alignment: Alignment.topCenter,
               ),

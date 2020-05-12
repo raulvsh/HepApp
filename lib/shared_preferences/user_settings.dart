@@ -14,20 +14,19 @@ class UserSettings {
 
   bool _internationalUnits;
   StreamController _streamController = StreamController<bool>.broadcast();
-  Stream<bool> get iUnitsUpdates =>
-      _streamController.stream;
 
+  Stream<bool> get iUnitsUpdates => _streamController.stream;
 
   Map<String, bool> _errorMap = {};
-  StreamController _streamController2 = StreamController<
-      Map<String, bool>>.broadcast();
-  Stream<Map<String, bool>> get errorMapUpdates =>
-      _streamController2.stream;
+  StreamController _streamController2 =
+  StreamController<Map<String, bool>>.broadcast();
+
+  Stream<Map<String, bool>> get errorMapUpdates => _streamController2.stream;
 
   int _tumourNumber = 0;
   StreamController _streamController3 = StreamController<int>.broadcast();
-  Stream<int> get tumourNumUpdates =>
-      _streamController3.stream;
+
+  Stream<int> get tumourNumUpdates => _streamController3.stream;
 
   double _ageCutoff = 0.0;
   StreamController _streamController4 = StreamController<double>.broadcast();
@@ -39,20 +38,17 @@ class UserSettings {
 
   Stream<String> get ltCriteriaUpdates => _streamController5.stream;
 
-
   bool _precludeSurgery;
   StreamController _streamController6 = StreamController<bool>.broadcast();
 
-  Stream<bool> get precludeSurgeryUpdates =>
-      _streamController6.stream;
+  Stream<bool> get precludeSurgeryUpdates => _streamController6.stream;
+
   initPrefs() async {
     this._prefs = await SharedPreferences.getInstance();
   }
 
   void switchInternationalUnits() {
-    //print("iunits " + _internationalUnits.toString());
     _internationalUnits = !_internationalUnits;
-    //print("iunits despues" + _internationalUnits.toString());
     _streamController.add(_internationalUnits);
   }
 
@@ -64,7 +60,6 @@ class UserSettings {
   bool getInternationalUnits() {
     return _internationalUnits;
   }
-
 
   Map<String, bool> getErrorMap() {
     _streamController2.add(_errorMap);
@@ -119,9 +114,6 @@ class UserSettings {
     _precludeSurgery = value;
     _streamController6.add(_precludeSurgery);
   }
-
-
-
 
   void dispose() {
     _streamController.close();

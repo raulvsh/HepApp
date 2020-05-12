@@ -7,11 +7,7 @@ class CommonGridPage extends StatefulWidget {
   final data;
   final String type;
 
-
-  CommonGridPage({
-    this.data,
-    this.type
-  });
+  CommonGridPage({this.data, this.type});
 
   @override
   _CommonGridPageState createState() => _CommonGridPageState();
@@ -36,7 +32,6 @@ class _CommonGridPageState extends State<CommonGridPage> {
       width: double.infinity,
       height: double.infinity,
       child: FractionallySizedBox(
-
         widthFactor:
         isLandscape ? (isTablet ? 0.7 : 0.7) : (isTablet ? 0.6 : 0.7),
         alignment: Alignment.topCenter,
