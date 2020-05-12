@@ -43,33 +43,12 @@ class GetchAlgorithm {
   int _getEcogPoints() =>
       getchData.ecog == '0' || getchData.ecog == '1' ? 0 : 3;
 
-  /*if (getchData.ecog == '0' || getchData.ecog=='1') {
-      return 0;
-    } else {
-      return 2;
-    }
-  }*/
-
   int _getBilirubinPoints() => getchData.bilirubin < 50 ? 0 : 3;
-
-  /*if (getchData.bilirubin < 50) {
-      return 0;
-    } else {
-      return 3;
-    }
-  }*/
 
   int _getAlpPoints() =>
       getchData.alp < ((2 * getchData.alp) / (getchData.alpUpperLimit)) ? 0 : 2;
 
   int _getAfpPoints() => getchData.afp < 35 ? 0 : 2;
-
-  /*if (getchData.tumourExtent == '<=50%') {
-      return 0;
-    } else {
-      return 1;
-    }
-  }*/
 
   int _getPvtPoints() => getchData.pvt == 'no' ? 0 : 2;
 

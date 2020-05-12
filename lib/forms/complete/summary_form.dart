@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
@@ -35,20 +34,15 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       builder: (context) => CompleteFormBloc(),
       child: Builder(
         builder: (context) {
-          //final formBloc = widget.formBloc;//BlocProvider.of<AllFormBloc>(context);
-          final formBloc = BlocProvider.of<CompleteFormBloc>(context);
-          return FormBlocListener<CompleteFormBloc, String, String>(
-            child: Scaffold(
-              appBar: CustomAppBar(
-
-                'calculators_all_algorithms_summary',
-                selScreenshot: true,
-                controller: widget.controller,
-                calcBack: true,
-              ),
-              drawer: MenuWidget(),
-              body: _buildBody(),
+          return Scaffold(
+            appBar: CustomAppBar(
+              'calculators_all_algorithms_summary',
+              selScreenshot: true,
+              controller: widget.controller,
+              calcBack: true,
             ),
+            drawer: MenuWidget(),
+            body: _buildBody(),
           );
         },
       ),
@@ -56,21 +50,17 @@ class SummaryFormState extends State<SummaryForm> with Observable {
   }
 
   _buildBody() {
-    bool isTablet = context.diagonalInches >= 7;
-
     return Stack(
       children: <Widget>[
-        ListView(
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _buildDiagnosticColumn(),
-                _buildLabColumn(),
-                _buildClinicalColumn()
-              ],
-            ),
-          ],
+        SingleChildScrollView(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _buildDiagnosticColumn(),
+              _buildLabColumn(),
+              _buildClinicalColumn()
+            ],
+          ),
         ),
         Column(
           children: <Widget>[
@@ -121,7 +111,6 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       //width:
       padding: EdgeInsets.only(left: 20, top: 10, bottom: 5),
       child: Column(
-        //crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildSummaryTitle('diagnostic_imaging'),
           _buildSeparator(isLandscape && isTablet ? 0.38 : 0.31),
@@ -242,8 +231,8 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       'ascites': aux.tr(widget.formBloc.ascitesField.value),
       'varices': aux.tr(widget.formBloc.varicesField.value),
       'ecog': widget.formBloc.ecogField.value,
-      'preclude_major_surgery': prefs.getPrecludeSurgery() == true ? aux.tr(
-          'yes') : aux.tr('no'),
+      'preclude_major_surgery':
+      prefs.getPrecludeSurgery() == true ? aux.tr('yes') : aux.tr('no'),
       //prefs.getPrecludeSurgery() ? aux.tr('yes') : aux.tr('no'),
       'age': prefs.getAgeCutoff() != 0 ? prefs.getAgeCutoff().toString() : '-',
       //widget.formBloc.
@@ -251,9 +240,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     var anchura = 0.27;
 
     return Container(
-      //color:Colors.pink,
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-
       width: isLandscape ? context.widthPct(0.29) : context.widthPct(0.30),
       child: Column(
         children: <Widget>[

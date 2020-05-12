@@ -19,19 +19,15 @@ class RightBottomTitle extends StatelessWidget {
     AppLocalizations aux = AppLocalizations.of(context);
     return Expanded(
       child: Container(
-        //color: Colors.red,
         alignment: Alignment.bottomRight,
-
-        //margin: EdgeInsets.only(top: 50),
-        padding: padding, //EdgeInsets.fromLTRB(10, 0, 15, 50),
-        //alignment: Alignment.bottomRight,
+        padding: padding,
         child: Text(
           aux.tr(title),
           style: TextStyle(
             fontSize: isTablet ? 28 : 20,
             color: Theme.of(context)
                 .primaryColor
-                .withAlpha(150), //Color.fromARGB(255, 210, 242, 245),
+                .withAlpha(150),
           ),
         ),
       ),

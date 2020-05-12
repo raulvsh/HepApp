@@ -16,7 +16,6 @@ import 'complete_form_bloc.dart';
 
 class ResultsForm extends StatefulWidget with Observable {
   final formBloc;
-
   final PageController controller;
 
   ResultsForm({Key key, this.formBloc, this.controller}) : super(key: key);
@@ -35,7 +34,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-
         'calculators_all_algorithms_results',
         selScreenshot: true,
         controller: widget.controller,
@@ -72,11 +70,8 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       height: isLandscape
           ? context.heightPct(isTablet ? 0.52 : 0.4)
           : context.heightPct(0.3),
-
-      //color: Colors.green,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        //crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildHepaticColumn(formBloc),
           _buildAlgorithmsColumn(formBloc),
@@ -101,7 +96,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     return FittedBox(
       child: Container(
         width: context.widthPct(0.5),
-        //color: Colors.red,
         padding: EdgeInsets.only(left: 20, top: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -172,7 +166,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     return FittedBox(
       child: Container(
         width: context.widthPct(0.5),
-        // color: Colors.blue,
         padding: EdgeInsets.only(left: 10, top: 20),
         child: Column(
           children: <Widget>[
@@ -195,15 +188,20 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
-      //color: Colors.red,
       height: context.heightPct(isLandscape ? 0.3 : 0.50),
-
+      width: context.widthPx,
+      padding: EdgeInsets.only(left: isLandscape ? 50 : 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Row(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+
             children: <Widget>[
+
               _buildRecommendedTreatments(),
               SizedBox(width: isTablet ? 40 : 20),
               isLandscape
@@ -219,6 +217,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               ? Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+
               _buildMoreInfoButton(),
               SizedBox(width: 40),
               _buildAlbertaButton(),
@@ -237,14 +236,14 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     AppLocalizations aux = AppLocalizations.of(context);
     return Row(
-      //crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        _buildInitialBlueRectangle(),
+        _initialBlueRectangle,
         SizedBox(
           width: 10,
         ),
         Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
@@ -255,30 +254,24 @@ class ResultsFormState extends State<ResultsForm> with Observable {
             SizedBox(
               height: isTablet ? 10 : 4,
             ),
-
             buildRecommendedTreatmentRow('1', 'recommended treatment 1'),
             SizedBox(
               height: isTablet ? 10 : 4,
             ),
             buildRecommendedTreatmentRow('2', 'recommended treatment 2'),
-
-            //ListTile(leading: CircleAvatar(child: Text("1"),), title: Text("Best Supportive Care"),),
-            //ListTile(leading: CircleAvatar(child: Text("1"),), title: Text("Best Supportive Care"),),
           ],
         ),
       ],
     );
   }
 
-  Container _buildInitialBlueRectangle() {
-    bool isTablet = context.diagonalInches >= 7;
-
-    return Container(
+  Widget get _initialBlueRectangle =>
+      Container(
       color: Color.fromARGB(255, 210, 242, 245),
       width: 15.0,
-      height: 90.0,
+        height: 100.0,
     );
-  }
+
 
   Row buildRecommendedTreatmentRow(String position, String title) {
     bool isTablet = context.diagonalInches >= 7;
@@ -340,7 +333,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     return CalculatorButton(
         title: 'alberta_hcc_algorithm',
         width: isTablet ? 250.0 : 175.0,
-
         onPressed: () {
           showDialog(
             context: context,
@@ -423,33 +415,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         ],
       ),
     );
-  }
-
-  void submitDiagnostic(CompleteFormBloc formBloc) {
-    /*prefs.isMapError()
-        ? errorPrueba = "hay al menos un error"
-        : errorPrueba = "no hay errores";*/
-
-    //prefs.isError()
-    // prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
-
-    formBloc.submit();
-
-    reset = false;
-    setState(() {});
-  }
-
-  void resetValues(CompleteFormBloc formBloc) {
-    reset = true;
-    formBloc.reset();
-    //setState(() {});
-  }
-
-  void previousValues(CompleteFormBloc formBloc) {
-    reset = false;
-    previous = true;
-    formBloc.previous();
-    //setState(() {});
   }
 
   _buildSummaryButton(CompleteFormBloc formBloc) {

@@ -209,13 +209,9 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
 
                     //Elemento seleccionado
                     radioValue = state.items.elementAt(index).toString();
-
-                    widget.selectFieldBloc
-                        .updateValue(radioValue); //Actualizo el valor
+                    widget.selectFieldBloc.updateValue(radioValue);
                     await Future.delayed(Duration(milliseconds: 200));
-
                     isSelected[radioValue] = true;
-                    //await Future.delayed(Duration(milliseconds: 300));
 
                     if (widget.title == 'tumour_number') {
                       if (radioValue == '6+') {
@@ -223,7 +219,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                       } else {
                         prefs.setTumourNumber(int.parse(radioValue));
                       }
-
                     }
                     setState(() {});
                     await Future.delayed(Duration(milliseconds: 300));
@@ -311,8 +306,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                 ),
               ],
             );
-
-            //return Row
           },
         ),
       ),

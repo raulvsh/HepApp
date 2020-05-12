@@ -36,15 +36,6 @@ class _CalcTextFieldState extends State<CalcTextField> {
         _buildInitialText(),
         _buildTextField(),
         _buildUds(),
-        /*Container(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Text(
-              widget.uds,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: isTablet ? 15 : 12,
-              ),
-            ),),*/
       ],
     );
   }

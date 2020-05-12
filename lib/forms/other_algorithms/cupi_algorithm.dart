@@ -5,25 +5,22 @@ import 'cupi_data.dart';
 
 class CupiAlgorithm {
   final CupiData cupiData;
+  final units = Units();
 
   CupiAlgorithm(this.cupiData);
 
-  final units = Units();
-
   String obtenerResultado() {
     final prefs = UserSettings();
-
     int ptsTnm, ptsAscites, ptsAfp, ptsBilirubin, ptsAlp, ptsEcog;
 
     if (!prefs.getInternationalUnits()) convertToIU();
-    //showObjectOkudaData();
+
     ptsTnm = _getTnmPoints();
     ptsAscites = _getAscitesPoints();
     ptsAfp = _getAfpPoints();
     ptsBilirubin = _getBilirubinPoints();
     ptsAlp = _getAlpPoints();
     ptsEcog = _getEcogPoints();
-
 
     int result = ptsTnm + ptsAscites + ptsAfp + ptsBilirubin + ptsAlp + ptsEcog;
     showPts(result);
@@ -43,20 +40,12 @@ class CupiAlgorithm {
     } else {
       return 0;
     }
-
   }
 
   int _getAscitesPoints() =>
       cupiData.ascites == 'controlled' || cupiData.ascites == 'refractory'
           ? 3
           : 0;
-
-  /*if (cupiData.ascites == 'controlled' || cupiData.ascites == 'refractory') {
-      return 3;
-    } else {
-      return 0;
-    }
-  }*/
 
   int _getAfpPoints() => cupiData.afp >= 500 ? 2 : 0;
 

@@ -34,21 +34,12 @@ class ClipFormState extends State<ClipForm> with Observable {
   final prefs = UserSettings();
   final units = Units();
 
-  //bool _internationalUnits = true;
   Map<String, bool> _errorMap;
-  //StreamSubscription streamSubIUnits;
   StreamSubscription streamSubErrorMap;
   String errorPrueba = "";
 
   @override
   void initState() {
-    /* streamSubIUnits = prefs.iUnitsUpdates.listen(
-      (newVal) => setState(() {
-        _internationalUnits = newVal;
-      }),
-    );
-    prefs.setInternationalUnits(true);*/
-
     streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
         setState(() {
           _errorMap = newVal;
@@ -72,7 +63,6 @@ class ClipFormState extends State<ClipForm> with Observable {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    //streamSubIUnits.cancel();
     streamSubErrorMap.cancel();
     super.dispose();
   }
@@ -96,10 +86,8 @@ class ClipFormState extends State<ClipForm> with Observable {
           return FormBlocListener<ClipFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
-
                 'calculators_clip',
                 selScreenshot: true,
-                //selPartialSettings: true,
               ),
               drawer: MenuWidget(),
               body: Stack(
@@ -139,7 +127,6 @@ class ClipFormState extends State<ClipForm> with Observable {
     bool isLandscape = context.isLandscape;
     return Container(
       alignment: Alignment.topLeft,
-      //color: Colors.red,
       child: FittedBox(
         fit: BoxFit.scaleDown,
         child: Container(
@@ -281,10 +268,6 @@ class ClipFormState extends State<ClipForm> with Observable {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        /*return MoreInformation(
-          title: 'clip',
-          pathList: 'assets/images/calc/M3C14S0d.png',
-        );*/
         return AlertDialog(
           title: Text("por hacer"),
           content: Text("wip"),
@@ -306,12 +289,7 @@ class ClipFormState extends State<ClipForm> with Observable {
             : EdgeInsets.fromLTRB(20, 10, 20, 0),
         width: context.widthPct(isLandscape ? 0.28 : 1),
         child:
-        /*Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: isLandscape && !isTablet
-              ? CrossAxisAlignment.end
-              : CrossAxisAlignment.center,
-          children: <Widget>[*/
+
         FittedBox(
           child: Container(
             height: isTablet
@@ -324,8 +302,7 @@ class ClipFormState extends State<ClipForm> with Observable {
             ),
           ),
         ),
-        // ],
-        // ),
+
       ),
     );
   }

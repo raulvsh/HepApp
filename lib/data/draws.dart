@@ -1,3 +1,4 @@
+/*||título | imagen | ruta ||*/
 final draws = [
   ['anatomy', 'drawing/Doodle_Figure_1.png', '/DrawingPV'],
   ['anterior_view_liver', 'drawing/Doodle_Figure_2.png', '/DrawingPV'],

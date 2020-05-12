@@ -42,8 +42,6 @@ class BclcAlgorithm {
     } else {
       return 'end_stage_d';
     }
-
-    return 'prueba';
   }
 
   void showPts() {

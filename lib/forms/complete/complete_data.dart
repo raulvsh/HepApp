@@ -18,11 +18,7 @@ class CompleteData {
   double platelets;
   double afp;
   List<double> ast;
-
-  //double astUpperLimit;
   List<double> alp;
-
-  //double alpUpperLimit;
   String dialysis;
 
   //Clinical
@@ -55,9 +51,7 @@ class CompleteData {
       this.platelets,
       this.afp,
       this.ast,
-        //this.astUpperLimit,
       this.alp,
-        //this.alpUpperLimit,
       this.dialysis,
       //Clinical
       this.cirrhosis,

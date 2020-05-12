@@ -67,7 +67,6 @@ class MeldFormBloc extends FormBloc<String, String> {
     await Future<void>.delayed(Duration(seconds: 1));
 
     yield currentState.toSuccess('Success');
-
     //yield toLoaded para poder hacer submit más de una vez
     yield currentState.toLoaded();
   }

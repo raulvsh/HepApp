@@ -33,7 +33,6 @@ class CalculatorButton extends StatelessWidget {
           child: Text(
             aux.tr(title),
             textAlign: TextAlign.center,
-            //aux.tr('calculate_clip'),
             style: TextStyle(
               color: Colors.white,
               fontSize: isTablet ? 15 : 12,

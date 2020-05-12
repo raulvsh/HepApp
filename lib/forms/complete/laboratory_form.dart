@@ -20,7 +20,6 @@ import 'complete_form_bloc.dart';
 class LaboratoryForm extends StatefulWidget with Observable {
   final formBloc;
   final PageController controller;
-
   LaboratoryForm({Key key, this.formBloc, this.controller}) : super(key: key);
 
   @override
@@ -32,7 +31,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   var previous = false;
   final prefs = UserSettings();
   final units = Units();
-
   bool _internationalUnits = true;
   StreamSubscription streamSubIUnits;
 
@@ -57,7 +55,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-
         'calculators_all_algorithms_laboratory',
         selScreenshot: true,
         selFullSettings: true,
@@ -69,11 +66,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              //FittedBox(
-              //fit: BoxFit.contain,
-              //child:
               _buildDataFields(widget.formBloc),
-              //),
               _buildRightBottomTitle(widget.formBloc),
             ],
           ),
@@ -86,9 +79,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   _buildDataFields(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
-    return //FittedBox(
-      //fit: BoxFit.contain,
-      SingleChildScrollView(
+    return SingleChildScrollView(
       child: Container(
         width: context.widthPx,
         padding: isTablet
@@ -290,7 +281,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-
   Future showMoreInfo() {
     return showDialog(
       context: context,
@@ -317,15 +307,17 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
   void resetValues(CompleteFormBloc formBloc) {
     reset = true;
+    previous = true;
     formBloc.reset();
-    //setState(() {});
+    setState(() {});
+    reset = false;
   }
 
   void previousValues(CompleteFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
-    // setState(() {});
+    setState(() {});
   }
 
   _buildNextButton(CompleteFormBloc formBloc) {

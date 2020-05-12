@@ -1,3 +1,4 @@
+/*||título | imagen | ruta | tipo ||*/
 final calculators = [
   ['all_algorithms', 'items/5_calculators.png', '/CompleteCalc', 'Nav'],
   ['child_pugh_score', 'items/5_calculators.png', '/ChildCalc', 'Nav'],

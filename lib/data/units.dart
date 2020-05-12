@@ -9,36 +9,19 @@ class Units {
   final List<String> creatinineUds = ['umol/L', 'mg/dL'];
   final List<String> sodiumUds = ['umol/L', 'mEq/L'];
 
+  getIUBilirrubin(double bilirrubinNotIU) => bilirrubinNotIU * bilirrubinFactor;
 
-  double getIUBilirrubin(double bilirrubinNotIU) {
-    return bilirrubinNotIU * bilirrubinFactor;
-  }
+  getIUAlbumin(double albuminNotIU) => albuminNotIU * albuminFactor;
 
-  double getIUAlbumin(double albuminNotIU) {
-    return albuminNotIU * albuminFactor;
-  }
+  getIUCreatinin(double creatininNotIU) => creatininNotIU * creatininFactor;
 
-  double getIUCreatinin(double creatininNotIU) {
-    return creatininNotIU * creatininFactor;
-  }
+  getIUSodium(double sodiumNotIU) => sodiumNotIU * sodiumFactor;
 
-  double getIUSodium(double sodiumNotIU) {
-    return sodiumNotIU * sodiumFactor;
-  }
+  getNotIUBilirrubin(double bilirrubinIU) => bilirrubinIU / bilirrubinFactor;
 
-  double getNotIUBilirrubin(double bilirrubinIU) {
-    return bilirrubinIU / bilirrubinFactor;
-  }
+  getNotIUAlbumin(double albuminIU) => albuminIU / albuminFactor;
 
-  double getNotIUAlbumin(double albuminIU) {
-    return albuminIU / albuminFactor;
-  }
+  getNotIUCreatinin(double creatininIU) => creatininIU / creatininFactor;
 
-  double getNotIUCreatinin(double creatininIU) {
-    return creatininIU / creatininFactor;
-  }
-
-  double getNotIUSodium(double sodiumIU) {
-    return sodiumIU / sodiumFactor;
-  }
+  getNotIUSodium(double sodiumIU) => sodiumIU / sodiumFactor;
 }

@@ -54,25 +54,21 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
           (key, value) {
         rowList.add(
           Row(
-            mainAxisAlignment: alignment, //MainAxisAlignment.center,
-            //crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: alignment,
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(right: 8),
                 child: Text(
                   aux.tr(key) + ": ",
-                  //'${aux.tr(widget.resultList[i][0])}: ',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: calculateFontSize(widget.resultMap),
-                    //isTablet ? 16 : 12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               Text(
                 value,
-                // widget.resultList[i][1],
                 style: TextStyle(
                   color: Theme
                       .of(context)
@@ -83,15 +79,6 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
             ],
           ),
         );
-        /*if (widget.resultMap.length > 1) {
-          rowList.add(Row(
-            children: <Widget>[
-              SizedBox(
-                height: 10,
-              )
-            ],
-          ));
-        }*/
       },
     );
     return rowList;

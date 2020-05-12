@@ -95,24 +95,10 @@ class CpsFormState extends State<CpsForm> with Observable {
           final formBloc = BlocProvider.of<CpsFormBloc>(context);
 
           return FormBlocListener<CpsFormBloc, String, String>(
-            /*onSubmitting: (context, state) => LoadingDialog.show(context),
-              onSuccess: (context, state) {
-                LoadingDialog.hide(context);
-                 Notifications.showSnackBarWithSuccess(
-                    context, state.successResponse);
-                 //Muestra una barra verde con la palabra success
-              },*/
-            /*onFailure: (context, state) {
-
-              //LoadingDialog.hide(context);
-              Notifications.showSnackBarWithError(
-                  context, state.failureResponse);
-            },*/
             child: Scaffold(
               appBar: CustomAppBar(
                 'child_pugh_score_oneline',
                 selScreenshot: true,
-                //selPartialSettings: true,
               ),
               drawer: MenuWidget(),
               body: Stack(
@@ -160,7 +146,6 @@ class CpsFormState extends State<CpsForm> with Observable {
               ? EdgeInsets.only(left: 20, top: 20, bottom: 20)
               : EdgeInsets.only(left: 10, top: 10, bottom: kToolbarHeight),
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildBilirrubinRow(formBloc),
@@ -348,13 +333,13 @@ class CpsFormState extends State<CpsForm> with Observable {
   }
 
   void calculateCps(CpsFormBloc formBloc) {
-    prefs.isMapError()
+    /*prefs.isMapError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";
+    prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";*/
+    prefs.isMapError() ? showErrorDialog() : null;
 
-    prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
     formBloc.submit();
-
     reset = false;
     setState(() {});
   }

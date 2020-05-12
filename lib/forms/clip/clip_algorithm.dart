@@ -26,13 +26,6 @@ class ClipAlgorithm {
 
   int _getTumourPoints() {
     double tumourNumber = double.parse(clipData.tumourNumber);
-    /*if(tumourNumber >1 && clipData.tumourExtent == '>50%'){
-      return 2;
-    } else if (tumourNumber > 1 && clipData.tumourExtent == '<=50%') {
-      return 1;
-    } else {
-      return 0;
-    }*/
 
     if (tumourNumber == 0 ||
         (tumourNumber == 1 && clipData.tumourExtent == '<=50%')) {

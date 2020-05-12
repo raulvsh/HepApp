@@ -1,3 +1,4 @@
+/*||título | imagen | ruta | tipo ||*/
 final module3Chapters = [
   ['chapter_10', 'items/1_chapters.png', 'HepAPP_M3C10.pdf', 'PDF'],
   ['chapter_11', 'items/1_chapters.png', 'HepAPP_M3C11.pdf', 'PDF'],

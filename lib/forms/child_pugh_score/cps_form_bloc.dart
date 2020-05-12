@@ -10,8 +10,6 @@ class CpsFormBloc extends FormBloc<String, String> {
   final prefs = UserSettings();
   final units = Units();
 
-  //bool iUnits = true;
-
   var bilirubinField = TextFieldBloc();
   var inrField = TextFieldBloc();
   var albuminField = TextFieldBloc();
@@ -24,12 +22,13 @@ class CpsFormBloc extends FormBloc<String, String> {
   String resultadoField = '-';
 
   var data = CpsData(
-      bilirubin: 0,
-      inr: 0,
-      albumin: 0,
-      encephalopaty: 'none_fem',
-      ascites: 'none_fem',
-      result: '-');
+    bilirubin: 0,
+    inr: 0,
+    albumin: 0,
+    encephalopaty: 'none_fem',
+    ascites: 'none_fem',
+    result: '-',
+  );
 
   @override
   List<FieldBloc> get fieldBlocs =>
@@ -84,8 +83,7 @@ class CpsFormBloc extends FormBloc<String, String> {
 
   showNotIU() {
     this.bilirubinField = TextFieldBloc(
-      initialValue:
-      units.getNotIUBilirrubin(data.bilirubin).toStringAsFixed(2),
+      initialValue: units.getNotIUBilirrubin(data.bilirubin).toStringAsFixed(2),
     );
     this.inrField = TextFieldBloc(
       initialValue: data.inr.toStringAsFixed(2),
@@ -122,13 +120,11 @@ class CpsFormBloc extends FormBloc<String, String> {
       initialValue: data.albumin.toString(),
     );
     this.encephalopatyField = SelectFieldBloc(
-      items: ['none_fem', 'grade_1_2', 'grade_3_4'],
-      initialValue: data.encephalopaty.toString(),
-    );
+        items: ['none_fem', 'grade_1_2', 'grade_3_4'],
+        initialValue: data.encephalopaty.toString());
     this.ascitesField = SelectFieldBloc(
-      items: ['none_fem', 'controlled', 'refractory'],
-      initialValue: data.ascites.toString(),
-    );
+        items: ['none_fem', 'controlled', 'refractory'],
+        initialValue: data.ascites.toString());
     this.resultadoField = data.result;
 
     print("\n*****AFTER PREVIOUS");
@@ -140,7 +136,6 @@ class CpsFormBloc extends FormBloc<String, String> {
         "\nbilirrubina : ${data.bilirubin}" +
         "\ninr : ${data.inr}" +
         "\nalbumina : ${data.albumin}" +
-
         "\nencefalopatia : ${data.encephalopaty}" +
         "\nascitis : ${data.ascites}" +
         "\nresultado: ${data.result}" +

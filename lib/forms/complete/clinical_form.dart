@@ -35,7 +35,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-
         'calculators_all_algorithms_clinical',
         selScreenshot: true,
         selFullSettings: true,
@@ -47,11 +46,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              //FittedBox(
-              //fit: BoxFit.contain,
-              //child:
               _buildDataFields(widget.formBloc),
-              //   ),
               _buildRightBottomTitle(widget.formBloc),
             ],
           ),
@@ -64,12 +59,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   _buildDataFields(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
-    return Container(
-      //color: Colors.pink,
-      height: isTablet ? context.heightPx : context.heightPx -
-          2 * kToolbarHeight, //context.heightPct(isTablet ? 1 : 0.6),
-      child: FittedBox(
-        fit: BoxFit.contain,
+    return SingleChildScrollView(
         child: Container(
           width: context.widthPx,
           padding: isTablet
@@ -86,7 +76,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
             ],
           ),
         ),
-      ),
+
     );
   }
 
@@ -105,8 +95,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  _buildEncephalopatyRow(CompleteFormBloc formBloc,
-  ) {
+  _buildEncephalopatyRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       initialValue: formBloc.encephalopatyField.value.toString(),
       reset: reset,
@@ -121,8 +110,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  _buildAscitesRow(CompleteFormBloc formBloc,
-  ) {
+  _buildAscitesRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       initialValue: formBloc.ascitesField.value.toString(),
       previous: previous,
@@ -137,8 +125,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  _buildVaricesRow(CompleteFormBloc formBloc,
-  ) {
+  _buildVaricesRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       initialValue: formBloc.varicesField.value.toString(),
       previous: previous,
@@ -153,8 +140,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  _buildEcogRow(CompleteFormBloc formBloc
-  ) {
+  _buildEcogRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       initialValue: formBloc.ecogField.value.toString(),
       previous: previous,
@@ -236,8 +222,10 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
 
   void resetValues(CompleteFormBloc formBloc) {
     reset = true;
+    previous = true;
     formBloc.reset();
     setState(() {});
+    reset = false;
   }
 
   void previousValues(CompleteFormBloc formBloc) {
@@ -264,7 +252,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
         color: Color.fromARGB(255, 210, 242, 245),
         onPressed: () {
           formBloc.submit();
-          //printClinical(formBloc);
           widget.controller.nextPage(
               duration: Duration(seconds: 1), curve: Curves.easeInOut);
         },

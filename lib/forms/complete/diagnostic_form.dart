@@ -42,7 +42,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
             _tumourNumber = newVal;
           }),
     );
-
     super.initState();
   }
 
@@ -64,7 +63,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: CustomAppBar(
-
         'calculators_all_algorithms_diagnostic',
         selScreenshot: true,
         selFullSettings: true,
@@ -73,11 +71,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
       body: Stack(
         children: <Widget>[
           _buildRightBottomTitle(),
-          //FittedBox(
-          //fit: BoxFit.contain,
-          // child:
           _buildDataFields(widget.formBloc),
-          //),
         ],
       ),
       bottomSheet: _buildBottomSheet(widget.formBloc),
@@ -87,17 +81,12 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   _buildDataFields(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     return SingleChildScrollView(
-      //fit: BoxFit.contain,
-      child:
-      Container(
+      child: Container(
         width: context.widthPx,
-        //height: context.heightPct(0.9),
         padding: isTablet
             ? EdgeInsets.only(left: 20, top: 20)
             : EdgeInsets.only(left: 10, top: 10),
         child: Column(
-          //shrinkWrap: true,
-          //physics: ClampingScrollPhysics(),
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -138,7 +127,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
       textFieldBlocList: formBloc.tumourSizeField,
       length: 6,
       hintList: ['#1', '#2', '#3', '#4', '#5', '#6+'],
-      //udsList: [''],
       showUds: false,
     );
   }
@@ -273,7 +261,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     );
   }
 
-
   Future showMoreInfo() {
     return showDialog(
       context: context,
@@ -286,8 +273,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
       },
     );
   }
-
-
 
   _buildRightBottomTitle() {
     return Column(
@@ -302,8 +287,10 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
 
   void resetValues(CompleteFormBloc formBloc) {
     reset = true;
+    previous = true;
     formBloc.reset();
     setState(() {});
+    reset = false;
   }
 
   void previousValues(CompleteFormBloc formBloc) {
@@ -361,10 +348,4 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         "Campo portal hipertension: " + formBloc.portalHypertensionField.value);
     print("Campo pvt: " + formBloc.pvtField.value);
   }
-
-/*void submitDiagnostic(CompleteFormBloc formBloc) {
-    formBloc.submit();
-    reset = false;
-    setState(() {});
-  }*/
 }

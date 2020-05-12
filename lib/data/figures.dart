@@ -1,3 +1,4 @@
+/*||título | imagen | ruta | tipo ||*/
 final figures = [
   [
     'table_contents',

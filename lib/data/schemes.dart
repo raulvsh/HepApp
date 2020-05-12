@@ -1,3 +1,4 @@
+/*||título | imagen | ruta ||*/
 final schemes = [
   ['jaundice', 'schemes/Scheme_1_Jaundice.png', '/SchemesPV'],
   ['abn_liver_tests', 'schemes/Scheme_2_AbN_Liver_Tests.png', '/SchemesPV'],

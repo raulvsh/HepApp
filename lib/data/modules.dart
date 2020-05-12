@@ -1,3 +1,4 @@
+/*||título | imagen | ruta | tipo ||*/
 final modules = [
   ['module_1', 'items/9_modules.png', '/ModulePV', 'Nav'],
   ['module_2', 'items/9_modules.png', '/ModulePV', 'Nav'],

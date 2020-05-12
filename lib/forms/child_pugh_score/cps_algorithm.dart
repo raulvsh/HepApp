@@ -4,15 +4,13 @@ import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'cps_data.dart';
 
 class CpsAlgorithm {
+  final units = Units();
   final CpsData cpsData;
 
   CpsAlgorithm(this.cpsData);
 
-  final units = Units();
-
-  String obtenerResultado(/*CpsData data*/ /*fieldBlocs*/) {
+  String obtenerResultado() {
     final prefs = UserSettings();
-
     int ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites;
 
     if (!prefs.getInternationalUnits()) convertToIU();

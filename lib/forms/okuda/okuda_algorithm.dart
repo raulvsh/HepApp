@@ -12,8 +12,6 @@ class OkudaAlgorithm {
 
   String obtenerResultado() {
     final prefs = UserSettings();
-    final units = Units();
-
     int ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent;
 
     if (!prefs.getInternationalUnits()) convertToIU();
@@ -36,8 +34,6 @@ class OkudaAlgorithm {
     } else {
       return 'III ($resultado)';
     }
-
-    //return 'prueba';
   }
 
   int _getBilirubinPoints() {

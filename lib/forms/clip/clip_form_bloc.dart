@@ -9,22 +9,12 @@ class ClipFormBloc extends FormBloc<String, String> {
   final prefs = UserSettings();
   final units = Units();
 
-  ///Usadas por mi
   var afpField = TextFieldBloc();
-
   var cpsField = SelectFieldBloc(
     items: ['A', 'B', 'C'],
   );
   var tumourNumberField = SelectFieldBloc(
-    items: [
-      '0',
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6+',
-    ],
+    items: ['0', '1', '2', '3', '4', '5', '6+'],
   );
   var tumourExtentField = SelectFieldBloc(
     items: ['<=50%', '>50%'],
@@ -41,17 +31,11 @@ class ClipFormBloc extends FormBloc<String, String> {
     tumourNumber: '0',
     tumourExtent: '<=50%',
     pvt: 'no',
-    result: '-',
-  );
+    result: '-',);
 
   @override
-  List<FieldBloc> get fieldBlocs => [
-        afpField,
-        cpsField,
-        tumourNumberField,
-        tumourExtentField,
-        pvtField,
-      ];
+  List<FieldBloc> get fieldBlocs =>
+      [afpField, cpsField, tumourNumberField, tumourExtentField, pvtField];
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
@@ -61,8 +45,7 @@ class ClipFormBloc extends FormBloc<String, String> {
       cps: cpsField.value,
       tumourNumber: tumourNumberField.value,
       tumourExtent: tumourExtentField.value,
-      pvt: pvtField.value,
-    );
+      pvt: pvtField.value,);
 
     ClipAlgorithm clipAlgorithm = ClipAlgorithm(data);
 
@@ -96,68 +79,20 @@ class ClipFormBloc extends FormBloc<String, String> {
     print("Campo afp: " + afpField.value);
     print("Campo cps: " + cpsField.value);
     print("Campo numero: " + tumourNumberField.value);
-
     print("Campo extension: " + tumourExtentField.value);
-
     print("Campo pvt: " + pvtField.value);
-
     print("Campo resultado antes : " + result);
   }
 
-  showNotIU() {
-    //TODO mirar las unidades del afp, unico que cambia
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(data.bilirubin)
-          .toStringAsFixed(2),
-    );
-    this.creatinineField = TextFieldBloc(
-      initialValue: units.getNotIUCreatinin(data.creatinine)
-          .toStringAsPrecision(
-          2),
-    );
-    this.albuminField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(data.albumin).toStringAsPrecision(
-          2),
-    );
-    this.sodiumField = TextFieldBloc(
-      initialValue: units.getNotIUSodium(data.sodium).toStringAsPrecision(
-          2),
-    );*/
-  }
+  showNotIU() {}
 
-  void showIU() {
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toStringAsFixed(2),
-    );
-    this.creatinineField = TextFieldBloc(
-      initialValue: data.creatinine.toStringAsFixed(2),
-    );
-
-    this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toStringAsFixed(2),
-    );
-    this.sodiumField = TextFieldBloc(
-      initialValue: data.sodium.toStringAsFixed(2),
-    );
-*/
-  }
+  showIU() {}
 
   reset() {
     this.afpField = TextFieldBloc();
-    this.cpsField = SelectFieldBloc(
-      items: ['A', 'B', 'C'],
-    );
-    this.tumourNumberField = SelectFieldBloc(
-      items: [
-        '0',
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6+',
-      ],
-    );
+    this.cpsField = SelectFieldBloc(items: ['A', 'B', 'C']);
+    this.tumourNumberField =
+        SelectFieldBloc(items: ['0', '1', '2', '3', '4', '5', '6+'],);
     this.tumourExtentField = SelectFieldBloc(
       items: ['<=50%', '>50%'],
     );
@@ -177,15 +112,7 @@ class ClipFormBloc extends FormBloc<String, String> {
       initialValue: data.cps.toString(),
     );
     this.tumourNumberField = SelectFieldBloc(
-      items: [
-        '0',
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6+',
-      ],
+      items: ['0', '1', '2', '3', '4', '5', '6+'],
       initialValue: data.tumourNumber.toString(),
     );
     this.tumourExtentField = SelectFieldBloc(
@@ -201,37 +128,7 @@ class ClipFormBloc extends FormBloc<String, String> {
       initialValue: data.pvt.toString(),
     );
     this.result = data.result;
-
-    //this.ascitesField.updateValue('none_fem');
-    //this.ascitesField.updateItems(['none_fem', 'controlled', 'refractory'],);
-    //print("ascites dentro previo " + this.ascitesField.value.toString());
-    //var radio = state.elementAt(0).toString();
-    //print("radio" + radio);
-
-    //encephalopatyField.updateValue(data.encephalopaty.toString(),);
-    /* _initMap(state);
-
-      radioValue = state.items
-          .elementAt(index)
-          .toString(); //radioValue es el elemento seleccionado
-
-      */ /*Venían en la función onChange, quizás se necesiten
-                      widget.isEnabled,
-                      widget.nextFocusNode,*/ /*
-
-      widget.selectFieldBloc
-          .updateValue(radioValue); //Actualizo el valor
-      isSelected[radioValue] = true;
-      //print('Mapa actualizado $isSelected \n\n');*/
-
-    print("\n*****AFTER PREVIOUS");
-    showFields();
-    /*print("afp: " + this.afpField.value);
-    print("cps: " + this.cpsField.value);
-    print("number: " + this.tumourNumberField.value);
-    print("exte: " + this.tumourExtentField.value);
-    print("pvt: " + this.pvtField.value);
-
-    print("resultado: " + this.result);*/
+    //print("\n*****AFTER PREVIOUS");
+    //showFields();
   }
 }

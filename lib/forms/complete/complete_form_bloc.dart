@@ -109,42 +109,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   Map<String, String> resultsField = initResultMap();
 
-/*  var okudaData = OkudaData(
-    bilirubin: 0,
-    albumin: 0,
-    ascites: 'none_fem',
-    tumourExtent: '<=50%',
-    result: '-',
-  );
-  */
-
-  /*var data = CompleteData(
-    tumourNumber: '0',
-    tumourSize: [0, 0, 0, 0, 0, 0],
-    tumourExtent: '<=50%',
-    pvi: 'no',
-    nodes: 'no',
-    metastasis: 'no',
-    portalHypertension: 'no',
-    pvt: 'no',
-    bilirubin: 0,
-    inr: 0,
-    creatinine: 0,
-    albumin: 0,
-    sodium: 0,
-    platelets: 0,
-    afp: 0,
-    ast: [0, 0],
-    alp: [0, 0],
-    dialysis: 'no',
-    cirrhosis: 'no',
-    encephalopaty: 'none_fem',
-    ascites: 'none_fem',
-    varices: 'no',
-    ecog: '0',
-    results: initResultMap(),
-  );*/
-
   @override
   List<FieldBloc> get fieldBlocs => [
     tumourNumberField,
@@ -202,73 +166,12 @@ class CompleteFormBloc extends FormBloc<String, String> {
     this.resultsField['bclc'] =
     comprobarBclc() && comprobarCPS() ? calcularBclc() : '-';
 
-    //OKUDA
-    /*print("comprobar " + comprobarOkuda().toString());
-    print("calcular " + calcularOkuda().toString());
-    print("resultado okuda " + this.resultsField['okuda']);*/
-
-    //print("pvi field" + this.pviField.value);
-
-    //showObjectCompleteData();
-    //showFields();
-
-    /*data = CompleteData(
-      tumourNumber: tumourNumberField.value,
-      tumourSize: [
-        tumourSizeField[0].valueToDouble,
-        tumourSizeField[1].valueToDouble,
-        tumourSizeField[2].valueToDouble,
-        tumourSizeField[3].valueToDouble,
-        tumourSizeField[4].valueToDouble,
-        tumourSizeField[5].valueToDouble,
-      ],
-      tumourExtent: tumourExtentField.value,
-      pvi: pviField.value,
-      nodes: nodesField.value,
-      metastasis: metastasisField.value,
-      portalHypertension: portalHypertensionField.value,
-      pvt: pvtField.value,
-      bilirubin: bilirubinField.valueToDouble,
-      inr: inrField.valueToDouble,
-      creatinine: creatinineField.valueToDouble,
-      albumin: albuminField.valueToDouble,
-      sodium: sodiumField.valueToDouble,
-      platelets: 0,
-      afp: afpField.valueToDouble,
-      ast: [
-        astField[0].valueToDouble,
-        astField[1].valueToDouble,
-      ],
-      alp: [
-        alpField[0].valueToDouble,
-        alpField[1].valueToDouble,
-      ],
-      dialysis: dialysisField.value,
-      cirrhosis: cirrhosisField.value,
-      encephalopaty: encephalopatyField.value,
-      ascites: ascitesField.value,
-      varices: varicesField.value,
-      ecog: ecogField.value,
-    );*/
-
-    //CompleteAlgorithm completeAlgorithm = CompleteAlgorithm(data);
-
     await Future<void>.delayed(Duration(seconds: 1));
 
     yield currentState.toSuccess('Success');
     //yield toLoaded para poder hacer submit más de una vez
     yield currentState.toLoaded();
   }
-
-  /* void showObjectCompleteData() {
-    print("\n\n*****************OBJETO OkudaDATA: "
-            "\nbili: ${data.bilirubin}" +
-        "\nalbu: ${data.albumin}" +
-        "\nascites : ${data.ascites}" +
-        "\nextension : ${data.tumourExtent}" +
-        "\nresultado: ${data.results.toString()}" +
-        "\n**************");
-  }*/
 
   void showFields() {
     print("\n\n *********FIELD VALUES COMPLETE");
@@ -303,42 +206,11 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   showNotIU() {
-    //hacer para página lab
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(data.bilirubin)
-          .toStringAsFixed(2),
-    );
-    this.creatinineField = TextFieldBloc(
-      initialValue: units.getNotIUCreatinin(data.creatinine)
-          .toStringAsPrecision(
-          2),
-    );
-    this.albuminField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(data.albumin).toStringAsPrecision(
-          2),
-    );
-    this.sodiumField = TextFieldBloc(
-      initialValue: units.getNotIUSodium(data.sodium).toStringAsPrecision(
-          2),
-    );*/
+
   }
 
   void showIU() {
-    //hacer para pagina lab
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toStringAsFixed(2),
-    );
-    this.creatinineField = TextFieldBloc(
-      initialValue: data.creatinine.toStringAsFixed(2),
-    );
 
-    this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toStringAsFixed(2),
-    );
-    this.sodiumField = TextFieldBloc(
-      initialValue: data.sodium.toStringAsFixed(2),
-    );
-*/
   }
 
   reset() {
@@ -685,13 +557,13 @@ class CompleteFormBloc extends FormBloc<String, String> {
       cps: cps,
     );
 
-    print("\n*****CALCULAR bclc");
+    /*print("\n*****CALCULAR bclc");
     print("Campo numero de tumores: ${tumourNumberField.value}");
     print("Campo tamaño de tumores: ${tumourSizeField.toString()}");
     print("Campo pvi: ${nodesField.toString()}");
     print("Campo metastasis: ${metastasisField.toString()}");
     print("Campo ecog: ${ecogField.toString()}");
-    print("Campo cps: " + cps);
+    print("Campo cps: " + cps);*/
 
     BclcAlgorithm bclcAlgorithm = BclcAlgorithm(bclcData);
     //print("resultado " + cupiAlgorithm.obtenerResultado());

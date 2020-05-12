@@ -30,7 +30,6 @@ class CompleteFormState extends State<CompleteForm> with Observable {
   final units = Units();
   PageController controller;
 
-
   @override
   void initState() {
     controller = PageController(
@@ -40,7 +39,6 @@ class CompleteFormState extends State<CompleteForm> with Observable {
     prefs.setInternationalUnits(true);
     prefs.setTumourNumber(0);
     prefs.setPrecludeSurgery(true);
-
     super.initState();
   }
 
@@ -52,7 +50,6 @@ class CompleteFormState extends State<CompleteForm> with Observable {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
     super.dispose();
   }
 

@@ -1,3 +1,4 @@
+/*||título | imagen | url | tipo ||*/
 final resources = [
   [
     'casl',

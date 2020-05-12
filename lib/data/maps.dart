@@ -1,3 +1,4 @@
+/*||título | imagen | ruta ||*/
 final maps = [
   ['map_1', 'maps/Map01_HAV.png', '/MapsPV'],
   ['map_2', 'maps/Map02_HBV.png', '/MapsPV'],

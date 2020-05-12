@@ -1,4 +1,4 @@
-/* title||ruta imagen A||ruta navegacion||ruta imagenB||titulo imagen A||título imagen B
+/* ||title||ruta imagen A||ruta navegacion||ruta imagenB||titulo imagen A||título imagen B||
  * Tienen este orden para que sirva para la página principal de imágenes interactivas y para
  * la página de detalles de las mismas */
 final interactive = [
