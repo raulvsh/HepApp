@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hepapp/calculators/calc_result_widget.dart';
+import 'package:hepapp/calculators/right_bottom_title.dart';
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/forms/calc_result_widget.dart';
-import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/calc_bottom_button.dart';

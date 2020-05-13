@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:hepapp/calculators/boolean_select.dart';
+import 'package:hepapp/calculators/right_bottom_title.dart';
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/forms/right_bottom_title.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:hepapp/widgets/calculator_button.dart';
@@ -17,20 +18,19 @@ import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../boolean_select.dart';
 import '../calc_group_field.dart';
 import '../calc_result_widget.dart';
 import '../calc_text_field.dart';
-import 'cps_form_bloc.dart';
+import 'meld_form_bloc.dart';
 
-class CpsForm extends StatefulWidget with Observable {
-  CpsForm({Key key}) : super(key: key);
+class MeldForm extends StatefulWidget with Observable {
+  MeldForm({Key key}) : super(key: key);
 
   @override
-  CpsFormState createState() => CpsFormState();
+  MeldFormState createState() => MeldFormState();
 }
 
-class CpsFormState extends State<CpsForm> with Observable {
+class MeldFormState extends State<MeldForm> with Observable {
   var reset = false;
   var previous = false;
   final prefs = UserSettings();
@@ -39,6 +39,7 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   Map<String, bool> _errorMap;
   StreamSubscription streamSubIUnits;
+
   StreamSubscription streamSubErrorMap;
 
   String errorPrueba = "";
@@ -46,12 +47,10 @@ class CpsFormState extends State<CpsForm> with Observable {
   @override
   void initState() {
     streamSubIUnits = prefs.iUnitsUpdates.listen(
-          (newVal) =>
-          setState(() {
-            _internationalUnits = newVal;
-          }),
+      (newVal) => setState(() {
+        _internationalUnits = newVal;
+      }),
     );
-
     prefs.setInternationalUnits(true);
 
     streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
@@ -59,7 +58,7 @@ class CpsFormState extends State<CpsForm> with Observable {
           _errorMap = newVal;
         }));
     prefs.initErrorMap(
-        ['bilirubin', 'inr', 'albumin', 'encephalopaty', 'ascites']);
+        ['bilirubin', 'inr', 'creatinine', 'albumin', 'sodium', 'dialysis']);
 
     super.initState();
   }
@@ -88,16 +87,15 @@ class CpsFormState extends State<CpsForm> with Observable {
     ])
         : null;
 
-    return BlocProvider<CpsFormBloc>(
-      builder: (context) => CpsFormBloc(),
+    return BlocProvider<MeldFormBloc>(
+      builder: (context) => MeldFormBloc(),
       child: Builder(
         builder: (context) {
-          final formBloc = BlocProvider.of<CpsFormBloc>(context);
-
-          return FormBlocListener<CpsFormBloc, String, String>(
+          final formBloc = BlocProvider.of<MeldFormBloc>(context);
+          return FormBlocListener<MeldFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
-                'child_pugh_score_oneline',
+                'calculators_meld',
                 selScreenshot: true,
               ),
               drawer: MenuWidget(),
@@ -117,9 +115,9 @@ class CpsFormState extends State<CpsForm> with Observable {
                   Column(
                     children: <Widget>[
                       RightBottomTitle(
-                        title: 'child_pugh_score_oneline',
+                        title: 'meld',
                         padding:
-                        EdgeInsets.fromLTRB(10, 10, isTablet ? 45 : 20, 50),
+                        EdgeInsets.fromLTRB(10, 0, isTablet ? 45 : 20, 50),
                       ),
                     ],
                   ),
@@ -133,7 +131,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  _buildDataFields(CpsFormBloc formBloc) {
+  _buildDataFields(MeldFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
     return Container(
@@ -150,12 +148,11 @@ class CpsFormState extends State<CpsForm> with Observable {
             children: <Widget>[
               _buildBilirrubinRow(formBloc),
               _buildInrRow(formBloc),
+              _buildCreatinineRow(formBloc),
               _buildAlbuminRow(formBloc),
-              _buildEncephalopatyRow(formBloc),
-              _buildAscitesRow(formBloc),
-              SizedBox(height: 20),
+              _buildSodiumRow(formBloc),
+              _buildDialysisRow(formBloc),
               _buildCalcButton(formBloc),
-              //SizedBox(height: 45,)
               //Text(prefs.getErrorMap().toString()),
               //Text(prefs.getErrorMap().values.toString()),
               //Text(prefs.isMapError().toString()),
@@ -167,7 +164,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  _buildBilirrubinRow(CpsFormBloc formBloc) {
+  _buildBilirrubinRow(MeldFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.bilirubinField,
@@ -176,15 +173,26 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  _buildInrRow(CpsFormBloc formBloc) {
+  _buildInrRow(MeldFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.inrField,
       title: 'inr',
+      //uds: '',
     );
   }
 
-  _buildAlbuminRow(CpsFormBloc formBloc) {
+  _buildCreatinineRow(MeldFormBloc formBloc) {
+    return CalcTextField(
+      errorControl: true,
+      textFieldBloc: formBloc.creatinineField,
+      title: 'creatinine',
+      uds:
+      _internationalUnits ? units.creatinineUds[0] : units.creatinineUds[1],
+    );
+  }
+
+  _buildAlbuminRow(MeldFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.albuminField,
@@ -193,15 +201,24 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  _buildEncephalopatyRow(CpsFormBloc formBloc) {
+  _buildSodiumRow(MeldFormBloc formBloc) {
+    return CalcTextField(
+      errorControl: true,
+      textFieldBloc: formBloc.sodiumField,
+      title: 'sodium',
+      uds: _internationalUnits ? units.sodiumUds[0] : units.sodiumUds[1],
+    );
+  }
+
+  _buildDialysisRow(MeldFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      initialValue: formBloc.encephalopatyField.value.toString(),
       reset: reset,
       previous: previous,
+      initialValue: formBloc.dialysisField.value.toString(),
       padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.encephalopatyField,
-      title: 'encephalopaty',
+      selectFieldBloc: formBloc.dialysisField,
+      title: 'dialysis',
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
@@ -209,32 +226,17 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  _buildAscitesRow(CpsFormBloc formBloc) {
-    return CalcGroupField(
-      errorControl: true,
-      initialValue: formBloc.ascitesField.value.toString(),
-      previous: previous,
-      reset: reset,
-      padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.ascitesField,
-      title: 'ascites',
-      decoration: InputDecoration(
-        border: InputBorder.none,
-      ),
-      itemBuilder: (context, item) => item,
-    );
-  }
-
-  _buildCalcButton(CpsFormBloc formBloc) {
+  _buildCalcButton(MeldFormBloc formBloc) {
     return CalculatorButton(
-        title: 'calculate_cp_score',
-        onPressed: () async {
-          await Future.delayed(Duration(milliseconds: 400));
-          calculateCps(formBloc);
-        });
+      title: 'calculate_meld',
+      onPressed: () async {
+        await Future.delayed(Duration(milliseconds: 400));
+        calculateMeld(formBloc);
+      },
+    );
   }
 
-  _buildBottomSheet(CpsFormBloc formBloc) {
+  _buildBottomSheet(MeldFormBloc formBloc) {
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -266,19 +268,25 @@ class CpsFormState extends State<CpsForm> with Observable {
       context: context,
       builder: (BuildContext context) {
         return MoreInformation(
-          title: 'child_pugh_score_oneline',
-          pathList: ['assets/images/calc/M3C14S0c.png'],
+          title: 'meld',
+          pathList: [
+            'assets/images/calc/M3C14S0d.png',
+            'assets/images/calc/M3C14S0e.png'
+          ],
         );
       },
     );
   }
 
-  _buildResult(CpsFormBloc formBloc) {
+  _buildResult(MeldFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
     Map<String, String> resultMap = {
-      'child_pugh_score_oneline': formBloc.resultadoField
+      'meld': formBloc.results['meld'],
+      'meld_na': formBloc.results['meld_na'],
+      '5v_meld': formBloc.results['5v_meld'],
     };
+
     return Expanded(
       child: Container(
         padding: isTablet
@@ -300,23 +308,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  Container _buildInternationalUnitsRow(bool isLandscape, bool isTablet,
-      CpsFormBloc formBloc) {
-    return Container(
-      padding: isLandscape && !isTablet
-          ? EdgeInsets.only(left: 77)
-          : EdgeInsets.only(top: 30),
-      child: FittedBox(
-        fit: BoxFit.contain,
-        child: BooleanSelect(
-          title: 'international_units',
-          formBloc: formBloc,
-        ),
-      ),
-    );
-  }
-
-  FittedBox _buildCalcResultRow(bool isTablet, bool isLandscape,
+  _buildCalcResultRow(bool isTablet, bool isLandscape,
       Map<String, String> resultMap) {
     return FittedBox(
       child: Container(
@@ -332,13 +324,28 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
   }
 
-  void calculateCps(CpsFormBloc formBloc) {
-    /*prefs.isMapError()
+  _buildInternationalUnitsRow(bool isLandscape, bool isTablet,
+      MeldFormBloc formBloc) {
+    return Container(
+      padding: isLandscape && !isTablet
+          ? EdgeInsets.only(left: 90)
+          : EdgeInsets.only(top: 30),
+      child: FittedBox(
+        fit: BoxFit.contain,
+        child: BooleanSelect(
+          title: 'international_units',
+          formBloc: formBloc,
+        ),
+      ),
+    );
+  }
+
+  void calculateMeld(MeldFormBloc formBloc) {
+    prefs.isMapError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";
-    prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";*/
-    prefs.isMapError() ? showErrorDialog() : null;
 
+    prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
     formBloc.submit();
     reset = false;
     setState(() {});
@@ -352,7 +359,7 @@ class CpsFormState extends State<CpsForm> with Observable {
         });
   }
 
-  void resetValues(CpsFormBloc formBloc) {
+  void resetValues(MeldFormBloc formBloc) {
     reset = true;
     previous = true;
     formBloc.reset();
@@ -360,7 +367,7 @@ class CpsFormState extends State<CpsForm> with Observable {
     reset = false;
   }
 
-  void previousValues(CpsFormBloc formBloc) {
+  void previousValues(MeldFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();

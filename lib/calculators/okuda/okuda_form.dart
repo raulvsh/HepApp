@@ -5,51 +5,52 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:hepapp/calculators/right_bottom_title.dart';
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/forms/boolean_select.dart';
-import 'package:hepapp/forms/right_bottom_title.dart';
+import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:hepapp/widgets/calculator_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
 import 'package:hepapp/widgets/empty_fields_error_dialog.dart';
-import 'package:hepapp/widgets/more_information.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
+import '../boolean_select.dart';
 import '../calc_group_field.dart';
 import '../calc_result_widget.dart';
 import '../calc_text_field.dart';
-import 'meld_form_bloc.dart';
+import 'okuda_form_bloc.dart';
 
-class MeldForm extends StatefulWidget with Observable {
-  MeldForm({Key key}) : super(key: key);
+class OkudaForm extends StatefulWidget with Observable {
+  OkudaForm({Key key}) : super(key: key);
 
   @override
-  MeldFormState createState() => MeldFormState();
+  OkudaFormState createState() => OkudaFormState();
 }
 
-class MeldFormState extends State<MeldForm> with Observable {
+class OkudaFormState extends State<OkudaForm> with Observable {
   var reset = false;
   var previous = false;
   final prefs = UserSettings();
   final units = Units();
+
   bool _internationalUnits = true;
 
   Map<String, bool> _errorMap;
   StreamSubscription streamSubIUnits;
 
   StreamSubscription streamSubErrorMap;
-
   String errorPrueba = "";
 
   @override
   void initState() {
     streamSubIUnits = prefs.iUnitsUpdates.listen(
-      (newVal) => setState(() {
-        _internationalUnits = newVal;
-      }),
+          (newVal) =>
+          setState(() {
+            _internationalUnits = newVal;
+          }),
     );
     prefs.setInternationalUnits(true);
 
@@ -57,8 +58,7 @@ class MeldFormState extends State<MeldForm> with Observable {
         setState(() {
           _errorMap = newVal;
         }));
-    prefs.initErrorMap(
-        ['bilirubin', 'inr', 'creatinine', 'albumin', 'sodium', 'dialysis']);
+    prefs.initErrorMap(['bilirubin', 'albumin', 'ascites', 'tumour_extent']);
 
     super.initState();
   }
@@ -79,6 +79,7 @@ class MeldFormState extends State<MeldForm> with Observable {
   @override
   Widget build(BuildContext context) {
     bool isLandscape = context.isLandscape;
+
     bool isTablet = context.diagonalInches >= 7;
     !isTablet
         ? SystemChrome.setPreferredOrientations([
@@ -87,16 +88,18 @@ class MeldFormState extends State<MeldForm> with Observable {
     ])
         : null;
 
-    return BlocProvider<MeldFormBloc>(
-      builder: (context) => MeldFormBloc(),
+    return BlocProvider<OkudaFormBloc>(
+      builder: (context) => OkudaFormBloc(),
       child: Builder(
         builder: (context) {
-          final formBloc = BlocProvider.of<MeldFormBloc>(context);
-          return FormBlocListener<MeldFormBloc, String, String>(
+          final formBloc = BlocProvider.of<OkudaFormBloc>(context);
+          return FormBlocListener<OkudaFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
-                'calculators_meld',
+
+                'calculators_okuda',
                 selScreenshot: true,
+                //selPartialSettings: true,
               ),
               drawer: MenuWidget(),
               body: Stack(
@@ -115,9 +118,9 @@ class MeldFormState extends State<MeldForm> with Observable {
                   Column(
                     children: <Widget>[
                       RightBottomTitle(
-                        title: 'meld',
+                        title: 'okuda',
                         padding:
-                        EdgeInsets.fromLTRB(10, 0, isTablet ? 45 : 20, 50),
+                        EdgeInsets.fromLTRB(10, 0, isTablet ? 45 : 17, 50),
                       ),
                     ],
                   ),
@@ -131,7 +134,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildDataFields(MeldFormBloc formBloc) {
+  _buildDataFields(OkudaFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
     return Container(
@@ -147,11 +150,10 @@ class MeldFormState extends State<MeldForm> with Observable {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildBilirrubinRow(formBloc),
-              _buildInrRow(formBloc),
-              _buildCreatinineRow(formBloc),
               _buildAlbuminRow(formBloc),
-              _buildSodiumRow(formBloc),
-              _buildDialysisRow(formBloc),
+              _buildAscitesRow(formBloc),
+              _buildTumourExtentRow(formBloc),
+              SizedBox(height: 20),
               _buildCalcButton(formBloc),
               //Text(prefs.getErrorMap().toString()),
               //Text(prefs.getErrorMap().values.toString()),
@@ -164,7 +166,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildBilirrubinRow(MeldFormBloc formBloc) {
+  _buildBilirrubinRow(OkudaFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.bilirubinField,
@@ -173,26 +175,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildInrRow(MeldFormBloc formBloc) {
-    return CalcTextField(
-      errorControl: true,
-      textFieldBloc: formBloc.inrField,
-      title: 'inr',
-      //uds: '',
-    );
-  }
-
-  _buildCreatinineRow(MeldFormBloc formBloc) {
-    return CalcTextField(
-      errorControl: true,
-      textFieldBloc: formBloc.creatinineField,
-      title: 'creatinine',
-      uds:
-      _internationalUnits ? units.creatinineUds[0] : units.creatinineUds[1],
-    );
-  }
-
-  _buildAlbuminRow(MeldFormBloc formBloc) {
+  _buildAlbuminRow(OkudaFormBloc formBloc) {
     return CalcTextField(
       errorControl: true,
       textFieldBloc: formBloc.albuminField,
@@ -201,24 +184,15 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildSodiumRow(MeldFormBloc formBloc) {
-    return CalcTextField(
-      errorControl: true,
-      textFieldBloc: formBloc.sodiumField,
-      title: 'sodium',
-      uds: _internationalUnits ? units.sodiumUds[0] : units.sodiumUds[1],
-    );
-  }
-
-  _buildDialysisRow(MeldFormBloc formBloc) {
+  _buildAscitesRow(OkudaFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      reset: reset,
+      initialValue: formBloc.ascitesField.value.toString(),
       previous: previous,
-      initialValue: formBloc.dialysisField.value.toString(),
+      reset: reset,
       padding: EdgeInsets.only(left: 8),
-      selectFieldBloc: formBloc.dialysisField,
-      title: 'dialysis',
+      selectFieldBloc: formBloc.ascitesField,
+      title: 'ascites',
       decoration: InputDecoration(
         border: InputBorder.none,
       ),
@@ -226,17 +200,33 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildCalcButton(MeldFormBloc formBloc) {
+  _buildTumourExtentRow(OkudaFormBloc formBloc) {
+    return CalcGroupField(
+      errorControl: true,
+      reset: reset,
+      previous: previous,
+      initialValue: formBloc.tumourExtentField.value.toString(),
+      padding: EdgeInsets.only(left: 8),
+      selectFieldBloc: formBloc.tumourExtentField,
+      title: 'tumour_extent',
+      decoration: InputDecoration(
+        border: InputBorder.none,
+      ),
+      itemBuilder: (context, item) => item,
+    );
+  }
+
+  _buildCalcButton(OkudaFormBloc formBloc) {
     return CalculatorButton(
-      title: 'calculate_meld',
+      title: 'calculate_okuda',
       onPressed: () async {
         await Future.delayed(Duration(milliseconds: 400));
-        calculateMeld(formBloc);
+        calculateOkuda(formBloc);
       },
     );
   }
 
-  _buildBottomSheet(MeldFormBloc formBloc) {
+  _buildBottomSheet(OkudaFormBloc formBloc) {
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -263,29 +253,47 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
+  Container _buildMoreInfoButton() {
+    bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
+
+    return Container(
+      height: 40,
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: FlatButton(
+        child: Text(
+          aux.tr('more_information'),
+          style: TextStyle(
+            fontSize: isTablet ? 14 : 12,
+          ),
+        ),
+        color: Color.fromARGB(255, 210, 242, 245),
+        onPressed: () {
+          showMoreInfo();
+        },
+      ),
+    );
+  }
+
   Future showMoreInfo() {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        return MoreInformation(
-          title: 'meld',
-          pathList: [
-            'assets/images/calc/M3C14S0d.png',
-            'assets/images/calc/M3C14S0e.png'
-          ],
+        /*return MoreInformation(
+          title: 'okuda',
+          pathList: ['assets/images/calc/M3C14S0d.png'],
+        );*/
+        return AlertDialog(
+          title: Text("por hacer"),
         );
       },
     );
   }
 
-  _buildResult(MeldFormBloc formBloc) {
+  _buildResult(OkudaFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
-    Map<String, String> resultMap = {
-      'meld': formBloc.results['meld'],
-      'meld_na': formBloc.results['meld_na'],
-      '5v_meld': formBloc.results['5v_meld'],
-    };
+    Map<String, String> resultMap = {'okuda': formBloc.result};
 
     return Expanded(
       child: Container(
@@ -308,7 +316,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildCalcResultRow(bool isTablet, bool isLandscape,
+  FittedBox _buildCalcResultRow(bool isTablet, bool isLandscape,
       Map<String, String> resultMap) {
     return FittedBox(
       child: Container(
@@ -324,11 +332,11 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  _buildInternationalUnitsRow(bool isLandscape, bool isTablet,
-      MeldFormBloc formBloc) {
+  Container _buildInternationalUnitsRow(bool isLandscape, bool isTablet,
+      OkudaFormBloc formBloc) {
     return Container(
       padding: isLandscape && !isTablet
-          ? EdgeInsets.only(left: 90)
+          ? EdgeInsets.only(left: 35)
           : EdgeInsets.only(top: 30),
       child: FittedBox(
         fit: BoxFit.contain,
@@ -340,13 +348,15 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
   }
 
-  void calculateMeld(MeldFormBloc formBloc) {
+  void calculateOkuda(OkudaFormBloc formBloc) {
     prefs.isMapError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";
 
     prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
+
     formBloc.submit();
+
     reset = false;
     setState(() {});
   }
@@ -359,7 +369,7 @@ class MeldFormState extends State<MeldForm> with Observable {
         });
   }
 
-  void resetValues(MeldFormBloc formBloc) {
+  void resetValues(OkudaFormBloc formBloc) {
     reset = true;
     previous = true;
     formBloc.reset();
@@ -367,7 +377,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     reset = false;
   }
 
-  void previousValues(MeldFormBloc formBloc) {
+  void previousValues(OkudaFormBloc formBloc) {
     reset = false;
     previous = true;
     formBloc.previous();
