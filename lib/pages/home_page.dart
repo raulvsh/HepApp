@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:hepapp/data/home_sections.dart';
 import 'package:hepapp/pages/CommonPages/common_grid_page.dart';
 import 'package:hepapp/widgets/home_appbar.dart';
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -14,7 +13,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false, //No haría falta al no escribirse nunca
 

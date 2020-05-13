@@ -327,13 +327,14 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   }
 
   _buildAlbertaButton() {
-    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
 
     return CalculatorButton(
         title: 'alberta_hcc_algorithm',
         width: isTablet ? 250.0 : 175.0,
-        onPressed: () {
+      onPressed: () =>
+          Navigator.pushNamed(context, '/Alberta',
+          ), /*() {
           showDialog(
             context: context,
             builder: (BuildContext dialogContext) {
@@ -352,7 +353,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               );
             },
           );
-        });
+        }*/);
   }
 
   _buildBottomSheet(CompleteFormBloc formBloc) {

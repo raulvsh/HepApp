@@ -18,7 +18,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final prefs = new UserSettings();
-
   final _supoortedLocales = [
     Locale('en', 'US'),
     Locale('es', 'ES'),

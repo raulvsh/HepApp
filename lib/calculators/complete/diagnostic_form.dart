@@ -84,7 +84,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
       child: Container(
         width: context.widthPx,
         padding: isTablet
-            ? EdgeInsets.only(left: 20, top: 20)
+            ? EdgeInsets.only(left: 15, top: 20)
             : EdgeInsets.only(left: 10, top: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

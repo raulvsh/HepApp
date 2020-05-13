@@ -1,5 +1,7 @@
 /*||título | imagen | ruta | tipo ||*/
 final homeSections = [
+  ['alberta_hcc_algorithm', 'items/5_calculators.png', '/Alberta', 'Nav'],
+
   ['chapters', 'items/1_chapters.png', '/Chapters', 'Nav'],
   [
     'podcasts',

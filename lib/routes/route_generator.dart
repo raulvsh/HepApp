@@ -4,6 +4,7 @@ import 'package:hepapp/calculators/clip/clip_form.dart';
 import 'package:hepapp/calculators/complete/complete_form.dart';
 import 'package:hepapp/calculators/meld/meld_form.dart';
 import 'package:hepapp/calculators/okuda/okuda_form.dart';
+import 'package:hepapp/calculators/other_algorithms/alberta_page.dart';
 import 'package:hepapp/data/calculators.dart';
 import 'package:hepapp/data/draws.dart';
 import 'package:hepapp/data/figures.dart';
@@ -248,6 +249,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MeldForm());
       case '/OkudaCalc':
         return MaterialPageRoute(builder: (_) => OkudaForm());
+      case '/Alberta':
+        return MaterialPageRoute(builder: (_) => AlbertaPage());
 
       default:
         return MaterialPageRoute(
