@@ -13,8 +13,8 @@ import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:hepapp/widgets/calculator_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
-import 'package:hepapp/widgets/empty_fields_error_dialog.dart';
 import 'package:hepapp/widgets/more_information.dart';
+import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
@@ -152,7 +152,22 @@ class MeldFormState extends State<MeldForm> with Observable {
               _buildAlbuminRow(formBloc),
               _buildSodiumRow(formBloc),
               _buildDialysisRow(formBloc),
-              _buildCalcButton(formBloc),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  _buildCalcButton(formBloc),
+                  IconButton(
+                    icon: Icon(
+                      Icons.help,
+                      color: Theme
+                          .of(context)
+                          .primaryColor,
+                    ),
+                    onPressed: showMeldInfoDialog,
+                  ),
+                ],
+              )
               //Text(prefs.getErrorMap().toString()),
               //Text(prefs.getErrorMap().values.toString()),
               //Text(prefs.isMapError().toString()),
@@ -328,7 +343,7 @@ class MeldFormState extends State<MeldForm> with Observable {
       MeldFormBloc formBloc) {
     return Container(
       padding: isLandscape && !isTablet
-          ? EdgeInsets.only(left: 90)
+          ? EdgeInsets.only(left: context.widthPct(0.16), top: 10)
           : EdgeInsets.only(top: 30),
       child: FittedBox(
         fit: BoxFit.contain,
@@ -355,7 +370,21 @@ class MeldFormState extends State<MeldForm> with Observable {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return EmptyFieldsErrorDialog();
+          return PopUpDialog(title: 'error',
+            content: 'fill_empty_fields',
+            height: context.heightPct(0.20),);
+        });
+  }
+
+  showMeldInfoDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return PopUpDialog(
+            title: 'meld_info_title',
+            content: 'meld_info_content',
+            height: context.heightPct(0.38),
+          );
         });
   }
 

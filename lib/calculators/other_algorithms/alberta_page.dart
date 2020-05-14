@@ -5,9 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
-import 'package:sized_context/sized_context.dart';
 
 import 'alberta_field.dart';
+import 'alberta_header.dart';
+
+Color blueTumourColor = Color.fromARGB(255, 68, 142, 179);
+Color yellowCpsColor = Color.fromARGB(255, 229, 215, 95);
+Color redClinicalColor = Color.fromARGB(255, 214, 85, 101);
+Color blueTreatmentColor = Color.fromARGB(255, 85, 163, 188);
+Color greyPrognosisColor = Color.fromARGB(255, 68, 103, 114);
 
 class AlbertaPage extends StatefulWidget {
   //final title;
@@ -59,12 +65,13 @@ class _AlbertaPageState extends State<AlbertaPage> {
               child: Stack(
                 children: <Widget>[
                   Container(
-                    color: Colors.pink.withAlpha(25),
-                    height: 300,
-                    width: 530,
+                    //color: Colors.pink.withAlpha(25),
+                    height: 300.0,
+                    width: 530.0,
                     child: Column(
                       children: <Widget>[
                         _buildTitleRow(),
+                        _buildSeparator(),
                         _buildTumourRow(),
                         _buildCpsRow(),
                         _buildClinicalRow(),
@@ -90,54 +97,62 @@ class _AlbertaPageState extends State<AlbertaPage> {
         ));
   }
 
+  Container _buildSeparator() {
+    return Container(
+      height: 2,
+      width: 530,
+      color: Color.fromARGB(255, 24, 125, 153),
+    );
+  }
+
   _buildTitleRow() {
     var heightTitleRow = 15.0;
     return Row(
       children: <Widget>[
         Container(
           height: heightTitleRow,
-          width: 15,
+          width: 15.0,
           color: Colors.white,
-          child: Text('hola'),
+          //child: Text('hola'),
         ),
-        Container(
+        AlbertaHeader(
           height: heightTitleRow,
-          width: 75,
-          color: Colors.green,
-          child: FittedBox(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-              child: Text(
-                'BCLC',
-                style: TextStyle(fontSize: 8, color: Colors.black),
-              ),
-            ),
-          ),
+          width: 75.0,
+          txt: 'bclc',
+
+          //color: Colors.red,
         ),
-        Container(
+        AlbertaHeader(
           height: heightTitleRow,
-          width: 80,
-          color: Colors.yellow,
+          width: 80.0,
+          txt: 'stage_0_very_early',
+          //color: Colors.yellow,
         ),
-        Container(
+        AlbertaHeader(
           height: heightTitleRow,
-          width: 105,
-          color: Colors.pink,
+          width: 105.0,
+          //color: Colors.pink,
+          txt: 'stage_a_early',
         ),
-        Container(
+        AlbertaHeader(
           height: heightTitleRow,
-          width: 110,
-          color: Colors.orange,
+          width: 110.0,
+          txt: 'stage_b_intermediate',
+          isSelected: true,
+
+          // color: Colors.orange,
         ),
-        Container(
+        AlbertaHeader(
           height: heightTitleRow,
-          width: 85,
-          color: Colors.purple,
+          width: 85.0,
+          txt: 'stage_c_advanced',
+          //color: Colors.purple,
         ),
-        Container(
+        AlbertaHeader(
           height: heightTitleRow,
-          width: 60,
-          color: Colors.blueGrey,
+          width: 60.0,
+          txt: 'stage_d_end_stage',
+          //color: Colors.blueGrey,
         )
       ],
     );
@@ -149,38 +164,51 @@ class _AlbertaPageState extends State<AlbertaPage> {
       children: <Widget>[
         Container(
           height: heightTumourRow,
-          width: 15,
-          color: Colors.blueGrey,
+          width: 15.0,
+          color: blueTumourColor,
+        ),
+        AlbertaHeader(
+          height: heightTumourRow,
+          width: 75.0,
+          upperCase: true,
+          txt: 'tumour',
+          //color: Colors.pinkAccent,
+        ),
+        AlbertaField(
+          height: heightTumourRow,
+          width: 80.0,
+          txt: '1_(≤2cm)',
+          isSelected: false,
+          padding: EdgeInsets.all(8),
+          //color: Colors.green,
+        ),
+        AlbertaField(
+          height: heightTumourRow,
+          width: 105.0,
+          txt: '1_(≥2cm)_or_up_to_3_(≤3cm)',
+          padding: EdgeInsets.all(8),
+          //color: Colors.deepPurpleAccent,
+        ),
+        AlbertaField(
+          height: heightTumourRow,
+          width: 110.0,
+          txt: '>_milan_criteria',
+          padding: EdgeInsets.all(8),
+
+          // color: Colors.black,
+        ),
+        AlbertaField(
+          height: heightTumourRow,
+          width: 85.0,
+          txt: 'pvi_n1_m1',
+          padding: EdgeInsets.all(8),
+
+          //color: Colors.greenAccent,
         ),
         Container(
           height: heightTumourRow,
-          width: 75,
-          color: Colors.pinkAccent,
-        ),
-        Container(
-          height: heightTumourRow,
-          width: 80,
-          color: Colors.green,
-        ),
-        Container(
-          height: heightTumourRow,
-          width: 105,
-          color: Colors.deepPurpleAccent,
-        ),
-        Container(
-          height: heightTumourRow,
-          width: 110,
-          color: Colors.black,
-        ),
-        Container(
-          height: heightTumourRow,
-          width: 85,
-          color: Colors.greenAccent,
-        ),
-        Container(
-          height: heightTumourRow,
-          width: 60,
-          color: Colors.green,
+          width: 60.0,
+          color: Colors.white,
         )
       ],
     );
@@ -192,38 +220,112 @@ class _AlbertaPageState extends State<AlbertaPage> {
       children: <Widget>[
         Container(
           height: cpsHeight,
-          width: 15,
-          color: Colors.grey,
+          width: 15.0,
+          color: yellowCpsColor,
+        ),
+        AlbertaHeader(
+          height: cpsHeight,
+          width: 75.0,
+          upperCase: true,
+          txt: 'child_pugh_class',
+          //color: Colors.green,
+        ),
+        AlbertaField(
+          height: cpsHeight,
+          width: 80.0,
+          color: yellowCpsColor,
+          //isSelected: true,
+          txt: 'a',
+          shape: BoxShape.circle,
         ),
         Container(
           height: cpsHeight,
-          width: 75,
-          color: Colors.green,
+          width: 105.0,
+          color: Colors.white,
+          child: Row(
+            children: <Widget>[
+              SizedBox(
+                width: 25,
+              ),
+              AlbertaField(
+                height: cpsHeight,
+                width: 35.0,
+                color: yellowCpsColor,
+                //isSelected: true,
+                txt: 'b',
+                shape: BoxShape.circle,
+              ),
+              AlbertaField(
+                height: cpsHeight,
+                width: 35.0,
+                color: yellowCpsColor,
+                //isSelected: true,
+                txt: 'c',
+                shape: BoxShape.circle,
+              ),
+            ],
+          ),
         ),
         Container(
           height: cpsHeight,
-          width: 80,
-          color: Colors.yellow,
+          width: 110.0,
+          color: Colors.white,
+          child: Row(
+            children: <Widget>[
+              SizedBox(
+                width: 20,
+              ),
+              AlbertaField(
+                height: cpsHeight,
+                width: 35.0,
+                color: yellowCpsColor,
+                //isSelected: true,
+                txt: 'b8_9_c',
+                shape: BoxShape.circle,
+              ),
+              AlbertaField(
+                height: cpsHeight,
+                width: 35.0,
+                color: yellowCpsColor,
+                //isSelected: true,
+                txt: 'a_b7',
+                shape: BoxShape.circle,
+              ),
+            ],
+          ),
         ),
         Container(
           height: cpsHeight,
-          width: 105,
-          color: Colors.pink,
+          width: 85.0,
+          color: Colors.white,
+          child: Row(
+            children: <Widget>[
+              SizedBox(
+                width: 7.5,
+              ),
+              AlbertaField(
+                height: cpsHeight,
+                width: 35.0,
+                color: yellowCpsColor,
+                //isSelected: true,
+                txt: 'a*',
+                shape: BoxShape.circle,
+              ),
+              AlbertaField(
+                height: cpsHeight,
+                width: 35.0,
+                color: yellowCpsColor,
+                //isSelected: true,
+                txt: 'b_c',
+                shape: BoxShape.circle,
+              ),
+            ],
+          ),
         ),
         Container(
-          height: cpsHeight,
-          width: 110,
-          color: Colors.orange,
-        ),
-        Container(
-          height: cpsHeight,
-          width: 85,
-          color: Colors.purple,
-        ),
-        Container(
+          color: Colors.white,
           height: cpsHeight,
           width: 60,
-          color: Colors.blueGrey,
         )
       ],
     );
@@ -236,35 +338,296 @@ class _AlbertaPageState extends State<AlbertaPage> {
         Container(
           height: clinicalHeight,
           width: 15,
-          color: Colors.pink,
+          color: redClinicalColor,
+        ),
+        AlbertaHeader(
+          height: clinicalHeight,
+          width: 75.0,
+          upperCase: true,
+          txt: 'clinical_questions',
+          //color: Colors.black,
+        ),
+        Column(
+          children: <Widget>[
+            _buildPortalRow(),
+            _build01Row(),
+            _buildNoRow(),
+            _buildMainPvtRow(),
+            _buildNoYesRow(),
+          ],
+        )
+      ],
+    );
+  }
+
+  Row _buildPortalRow() {
+    var portalHeight = 35.0;
+    return Row(
+      children: <Widget>[
+        AlbertaField(
+          height: portalHeight,
+          width: 80.0,
+          //
+          txt: 'portal_ht_and_or_bilirubin',
         ),
         Container(
-          height: clinicalHeight,
-          width: 75,
-          color: Colors.black,
+          width: 105.0,
+          color: Colors.white,
+          child: Row(
+            children: <Widget>[
+              SizedBox(
+                width: 15,
+              ),
+              AlbertaField(
+                height: portalHeight,
+                width: 45.0,
+                color: Colors.orange,
+                txt: 'lt_candidate?',
+                padding: EdgeInsets.fromLTRB(0, 4, 1, 4),
+              ),
+              AlbertaField(
+                height: portalHeight,
+                width: 45.0,
+                color: Colors.orange,
+                txt: 'lt_candidate?',
+                padding: EdgeInsets.fromLTRB(1, 4, 0, 4),
+              ),
+            ],
+          ),
         ),
         Container(
-          height: clinicalHeight,
+          width: 195,
+          color: Colors.white,
+          child: Row(
+            children: <Widget>[
+              AlbertaField(
+                height: portalHeight,
+                width: 110.0,
+                txt: 'ecog_ps',
+                padding: EdgeInsets.fromLTRB(48, 8, 1, 8),
+                //color: Colors.cyan,
+              ),
+
+
+              AlbertaField(
+                height: portalHeight,
+                width: 85.0,
+                color: Colors.pinkAccent,
+                txt: 'ecog_ps',
+                padding: EdgeInsets.fromLTRB(1, 8, 23, 8),
+
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: portalHeight,
+          width: 60.0,
+          color: Colors.white,
+        )
+      ],
+    );
+  }
+
+  Row _build01Row() {
+    var row01Height = 25.0;
+    return Row(
+      children: <Widget>[
+        Container(
+          height: row01Height,
+          width: 185,
+          color: Colors.white,
+        ),
+        Container(
+          height: row01Height,
+          width: 195,
+          color: Colors.white,
+          child: Row(
+            children: <Widget>[
+              Container(
+                width: 44,
+                color: Colors.white,
+              ),
+              AlbertaField(
+                width: 35.0,
+                height: row01Height,
+                txt: '0_1',
+                shape: BoxShape.circle,
+                padding: EdgeInsets.zero,
+              ),
+              Container(
+                width: 15,
+                color: Colors.white,
+              ),
+              AlbertaField(
+                width: 35.0,
+                height: row01Height,
+                txt: '>2',
+                shape: BoxShape.circle,
+                padding: EdgeInsets.zero,
+              )
+            ],
+          ),
+        ),
+        /*Container(
+          height: row01Height,
+          width: 85,
+          color: Colors.pinkAccent,
+        ),*/
+        Container(
+          height: row01Height,
+          width: 60,
+          color: Colors.white,
+        )
+      ],
+    );
+  }
+
+  _buildNoRow() {
+    var rowNoHeight = 25.0;
+    return Row(
+      children: <Widget>[
+        Container(
+          height: rowNoHeight,
           width: 80,
-          color: Colors.brown,
+          color: Colors.white,
+          child: Row(
+            children: <Widget>[
+              SizedBox(width: 10),
+              AlbertaField(
+                width: 25.0,
+                height: rowNoHeight,
+                shape: BoxShape.circle,
+                txt: 'no',
+                padding: EdgeInsets.zero,
+              ),
+              Container(
+                width: 20,
+                color: Colors.white,
+              ),
+              AlbertaField(
+                width: 25.0,
+                shape: BoxShape.circle,
+                height: rowNoHeight,
+                txt: 'yes',
+                padding: EdgeInsets.zero,
+              ),
+
+            ],
+          ),
         ),
         Container(
-          height: clinicalHeight,
+          height: rowNoHeight,
           width: 105,
-          color: Colors.orange,
+          color: Colors.white,
+          child: Row(
+            children: <Widget>[
+              SizedBox(width: 20),
+              AlbertaField(
+                width: 25.0,
+                height: rowNoHeight,
+                shape: BoxShape.circle,
+                txt: 'no',
+                padding: EdgeInsets.zero,
+              ),
+              SizedBox(width: 3),
+              AlbertaField(
+                width: 25.0,
+                shape: BoxShape.circle,
+                height: rowNoHeight,
+                txt: 'yes',
+                padding: EdgeInsets.zero,
+              ),
+
+            ],
+          ),
+
         ),
         Container(
-          height: clinicalHeight,
-          width: 110,
-          color: Colors.cyan,
+          color: Colors.white,
+          padding: EdgeInsets.only(right: 60),
+          child: AlbertaField(
+            height: rowNoHeight,
+            width: 50.0,
+            color: Colors.cyan,
+            txt: 'no',
+            shape: BoxShape.circle,
+            padding: EdgeInsets.zero,
+          ),
         ),
         Container(
-          height: clinicalHeight,
+          height: rowNoHeight,
           width: 85,
           color: Colors.pinkAccent,
         ),
         Container(
-          height: clinicalHeight,
+          height: rowNoHeight,
+          width: 60,
+          color: Colors.green,
+        )
+      ],
+    );
+  }
+
+  _buildMainPvtRow() {
+    var rowMainHeight = 25.0;
+    return Row(
+      children: <Widget>[
+        Container(
+          height: rowMainHeight,
+          width: 80,
+          color: Colors.brown,
+        ),
+        Container(
+          height: rowMainHeight,
+          width: 105,
+          color: Colors.orange,
+        ),
+        Container(
+          height: rowMainHeight,
+          width: 110,
+          color: Colors.cyan,
+        ),
+        Container(
+          height: rowMainHeight,
+          width: 85,
+          color: Colors.pinkAccent,
+        ),
+        Container(
+          height: rowMainHeight,
+          width: 60,
+          color: Colors.green,
+        )
+      ],
+    );
+  }
+
+  _buildNoYesRow() {
+    var rowNoYesHeight = 25.0;
+    return Row(
+      children: <Widget>[
+        Container(
+          height: rowNoYesHeight,
+          width: 80,
+          color: Colors.brown,
+        ),
+        Container(
+          height: rowNoYesHeight,
+          width: 105,
+          color: Colors.orange,
+        ),
+        Container(
+          height: rowNoYesHeight,
+          width: 110,
+          color: Colors.cyan,
+        ),
+        Container(
+          height: rowNoYesHeight,
+          width: 85,
+          color: Colors.pinkAccent,
+        ),
+        Container(
+          height: rowNoYesHeight,
           width: 60,
           color: Colors.green,
         )
@@ -279,12 +642,15 @@ class _AlbertaPageState extends State<AlbertaPage> {
         Container(
           height: treatmentHeight,
           width: 15,
-          color: Colors.blue,
+          color: blueTreatmentColor,
         ),
-        Container(
+        AlbertaHeader(
           height: treatmentHeight,
-          width: 75,
-          color: Colors.green,
+          width: 75.0,
+          upperCase: true,
+          txt: 'treatment',
+
+          //color: Colors.green,
         ),
         Container(
           height: treatmentHeight,
@@ -316,18 +682,20 @@ class _AlbertaPageState extends State<AlbertaPage> {
   }
 
   _buildPrognosisRow() {
-    var prognosisHeight = 32.0;
+    var prognosisHeight = 30.0;
     return Row(
       children: <Widget>[
         Container(
           height: prognosisHeight,
           width: 15,
-          color: Colors.blueGrey,
+          color: greyPrognosisColor,
         ),
-        Container(
+        AlbertaHeader(
           height: prognosisHeight,
-          width: 75,
-          color: Colors.purple,
+          width: 75.0,
+          upperCase: true,
+          txt: 'prognosis',
+          //color: Colors.purple,
         ),
         Container(
           height: prognosisHeight,
@@ -357,107 +725,11 @@ class _AlbertaPageState extends State<AlbertaPage> {
       ],
     );
   }
-
-  _buildTitleRow2() {
-    List<String> txt = [
-      '1 (<=2cm)',
-      '1(>=2cm) or up to 3 (<=3cm)',
-      '>Milan Criteria',
-      'PVI, N1, M1'
-    ];
-
-    return Container(
-      margin: EdgeInsets.only(top: 20),
-      //padding: EdgeInsets.only(left: 5.0),
-
-      //color: Colors.red,
-      //width: context.widthPx,
-      width: 100 * 4.0,
-      height: 20.0,
-      child: Container(
-        //color: Colors.pink,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 4,
-          shrinkWrap: false,
-          physics: ClampingScrollPhysics(),
-          itemBuilder: (context, index) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //crossAxisAlignment: CrossAxisAlignment.sp,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 4),
-                  child: Container(
-                    height: 20,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      border: Border.all(
-                        color: Colors.blueAccent,
-                        width: 1.3,
-                      ),
-                    ),
-                    child: Text(txt[index]),
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  _buildListView() {
-    print("toolbar height: " + kToolbarHeight.toString());
-
-    return Container(
-        margin: EdgeInsets.only(top: 20),
-        padding: EdgeInsets.only(left: 5.0),
-        //color: Colors.red,
-        //width: context.widthPx,
-        width: context.widthPx,
-        height: 25.0,
-        child: Row(
-          //mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //crossAxisAlignment: CrossAxisAlignment.sp,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            AlbertaField(
-              //color: Colors.red,
-              width: 200.0,
-              height: 20.0,
-              shape: BoxShape.rectangle,
-              txt: '1 (<=2cm)',
-            ),
-            AlbertaField(
-              color: Colors.yellow,
-              width: 150.0,
-              height: 100.0,
-              shape: BoxShape.circle,
-              txt: 'A',
-            ),
-          ],
-        ));
-  }
 }
 
 class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    var width = size.width;
-    var height = size.height;
-    print("width: " + width.toString() + " height: " + height.toString());
-    double widthPct(double pct) {
-      return width * pct;
-    }
-
-    double heightPct(double pct) {
-      return height * pct;
-    }
-
     final pointMode = ui.PointMode.polygon;
     final points = [
       Offset(50, 100),
@@ -467,7 +739,7 @@ class MyPainter extends CustomPainter {
       Offset(270, 100),
     ];
     final paint = Paint()
-      ..color = Color.fromARGB(255, 73, 195, 207)
+      ..color = blueTreatmentColor
       ..strokeWidth = 1.3
       ..strokeCap = StrokeCap.round;
 
@@ -498,13 +770,13 @@ class MyPainter extends CustomPainter {
     canvas.drawPoints(
         pointMode,
         [
-          /*Offset(100, 43),
+          Offset(100, 43),
           Offset(100, 70),
           Offset(280, 70),
           Offset(280, 44),
           Offset(276, 48),
           Offset(280, 44),
-          Offset(284, 48),*/
+          Offset(284, 48),
         ],
         paint);
   }

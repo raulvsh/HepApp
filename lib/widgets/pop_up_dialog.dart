@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:sized_context/sized_context.dart';
 
-class EmptyFieldsErrorDialog extends StatelessWidget {
-  const EmptyFieldsErrorDialog({
+class PopUpDialog extends StatelessWidget {
+  final String title;
+  final String content;
+  final double height;
+
+  const PopUpDialog({
     Key key,
+    this.title = '',
+    this.content = '',
+    this.height,
   }) : super(key: key);
 
   @override
@@ -13,18 +19,24 @@ class EmptyFieldsErrorDialog extends StatelessWidget {
 
     return AlertDialog(
       title: Text(
-        aux.tr('error'),
-        style: TextStyle(color: Colors.black),
+        aux.tr(title),
+        style:
+        TextStyle(color: Theme
+            .of(context)
+            .primaryColor), //Colors.black),
       ),
       content: Container(
-        height: context.heightPct(0.20),
+        height: height, //context.heightPct(0.20),
         child: Column(
           children: <Widget>[
             Container(
                 padding: EdgeInsets.only(right: 20),
                 child: Text(
-                  aux.tr('fill_empty_fields'),
-                  style: TextStyle(color: Colors.black),
+                  aux.tr(content),
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  textAlign: TextAlign.justify,
                 )),
             Expanded(
               child: Container(

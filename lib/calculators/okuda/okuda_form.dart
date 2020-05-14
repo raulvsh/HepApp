@@ -7,13 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:hepapp/calculators/right_bottom_title.dart';
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:hepapp/widgets/calculator_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
-import 'package:hepapp/widgets/empty_fields_error_dialog.dart';
+import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
@@ -96,7 +95,6 @@ class OkudaFormState extends State<OkudaForm> with Observable {
           return FormBlocListener<OkudaFormBloc, String, String>(
             child: Scaffold(
               appBar: CustomAppBar(
-
                 'calculators_okuda',
                 selScreenshot: true,
                 //selPartialSettings: true,
@@ -242,51 +240,8 @@ class OkudaFormState extends State<OkudaForm> with Observable {
               onPressed: () {
                 previousValues(formBloc);
               }),
-          SizedBox(width: 15),
-          CalcBottomButton(
-              title: 'more_information',
-              onPressed: () {
-                showMoreInfo();
-              }),
         ],
       ),
-    );
-  }
-
-  Container _buildMoreInfoButton() {
-    bool isTablet = context.diagonalInches >= 7;
-    AppLocalizations aux = AppLocalizations.of(context);
-
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: FlatButton(
-        child: Text(
-          aux.tr('more_information'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          showMoreInfo();
-        },
-      ),
-    );
-  }
-
-  Future showMoreInfo() {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        /*return MoreInformation(
-          title: 'okuda',
-          pathList: ['assets/images/calc/M3C14S0d.png'],
-        );*/
-        return AlertDialog(
-          title: Text("por hacer"),
-        );
-      },
     );
   }
 
@@ -336,7 +291,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       OkudaFormBloc formBloc) {
     return Container(
       padding: isLandscape && !isTablet
-          ? EdgeInsets.only(left: 35)
+          ? EdgeInsets.only(left: context.widthPct(0.08), top: 10)
           : EdgeInsets.only(top: 30),
       child: FittedBox(
         fit: BoxFit.contain,
@@ -365,7 +320,10 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return EmptyFieldsErrorDialog();
+          return PopUpDialog(
+            title: 'error',
+            content: 'fill_empty_fields',
+            height: context.heightPct(0.20),);
         });
   }
 

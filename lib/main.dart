@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
               .textTheme
               .apply(
             bodyColor: Color.fromARGB(255, 93, 188, 210),
-          )),
+          ),),
       supportedLocales: _supoortedLocales,
       localizationsDelegates: _localizationDelegates,
       localeResolutionCallback: _localeResolutionCallback,
