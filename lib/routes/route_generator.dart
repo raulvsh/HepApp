@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/calculators/alberta/alberta_page2.dart';
+import 'package:hepapp/calculators/alberta/alberta_diagram_page.dart';
 import 'package:hepapp/calculators/child_pugh_score/cps_form.dart';
 import 'package:hepapp/calculators/clip/clip_form.dart';
 import 'package:hepapp/calculators/complete/complete_form.dart';
@@ -250,7 +250,7 @@ class RouteGenerator {
       case '/OkudaCalc':
         return MaterialPageRoute(builder: (_) => OkudaForm());
       case '/Alberta':
-        return MaterialPageRoute(builder: (_) => AlbertaPage2());
+        return MaterialPageRoute(builder: (_) => AlbertaPage());
 
       default:
         return MaterialPageRoute(
