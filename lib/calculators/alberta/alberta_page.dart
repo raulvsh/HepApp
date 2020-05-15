@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
 
-import 'alberta_arrows.dart';
 import 'alberta_circle_field.dart';
 import 'alberta_header.dart';
 import 'alberta_square_field.dart';
@@ -34,7 +33,13 @@ class AlbertaPage extends StatefulWidget {
   @override
   _AlbertaPageState createState() => _AlbertaPageState();
 }
+/* isSelected es una lista de 47 booleanos, correspondientes cada uno a un
+     * elemento del diagrama de flujo, de izquierda a derecha y de arriba abajo
+     * isSelected[0]: Corresponde al elemento "BCLC"
+     * isSelected[46]: Corresponde al elemento "~3mo"
+     */
 
+//Iniciar isSelected
 class _AlbertaPageState extends State<AlbertaPage> {
   @override
   void initState() {
@@ -69,8 +74,9 @@ class _AlbertaPageState extends State<AlbertaPage> {
               fit: BoxFit.contain,
               child: Stack(
                 children: <Widget>[
+
                   Container(
-                    color: Colors.pink.withAlpha(25),
+                    //color: Colors.pink.withAlpha(25),
                     height: totalHeight,
                     width: totalWidth,
                     child: Column(
@@ -90,7 +96,6 @@ class _AlbertaPageState extends State<AlbertaPage> {
                     height: totalHeight,
                     width: totalWidth,
                     child: CustomPaint(
-                      //                       <-- CustomPaint widget
 
                       size: Size(totalHeight, totalWidth),
                       painter: MyPainter(),
@@ -100,8 +105,8 @@ class _AlbertaPageState extends State<AlbertaPage> {
                     alignment: Alignment.topCenter,
                     height: totalHeight,
                     width: totalWidth,
-                    //margin: EdgeInsets.all(20),
-                    /*child: RaisedButton(
+                    margin: EdgeInsets.all(20),
+                    child: RaisedButton(
                       //: EdgeInsets.all(5),
 
                       child: Text('ON/OFF', style: TextStyle(fontSize: 10),),
@@ -111,13 +116,13 @@ class _AlbertaPageState extends State<AlbertaPage> {
 
                          });
                       },
-                    ),*/
+                    ),
                   )
                 ],
               ),
             ),
           ),
-        ));
+        ),);
   }
 
   Container _buildSeparator() {
@@ -997,6 +1002,8 @@ class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final pointMode = ui.PointMode.polygon;
+    final p1 = Offset(50, 50);
+    final p2 = Offset(250, 150);
     final points = [
       Offset(50, 100),
       Offset(150, 75),
@@ -1008,9 +1015,12 @@ class MyPainter extends CustomPainter {
       ..color = blueTreatmentColor
       ..strokeWidth = 1.3
       ..strokeCap = StrokeCap.round;
-    canvas.drawPoints(pointMode, arrow00, paint);
+    canvas.drawLine(p1, p2, paint);
+
+    //canvas.drawPoints(pointMode, arrow00, paint);
     //canvas.drawPoints(pointMode, arrow01, paint);
     //canvas.drawPoints(pointMode, arrow02, paint);
+
     /*canvas.drawPoints(pointMode, arrow03, paint);
     canvas.drawPoints(pointMode, arrow04, paint);
 
