@@ -3,25 +3,22 @@ import 'package:hepapp/lang/app_localizations.dart';
 
 Color blueTreatmentColor = Color.fromARGB(255, 85, 163, 188);
 
-
-class AlbertaField extends StatelessWidget {
+class AlbertaRectangleField extends StatelessWidget {
   final height;
   final width;
   final color;
   final txt;
-  final shape;
   final isSelected;
 
   final padding;
 
-  const AlbertaField({
+  const AlbertaRectangleField({
     Key key,
     this.height,
     this.width,
     this.color,
     this.txt = '',
-    this.shape = BoxShape.rectangle,
-    this.padding = const EdgeInsets.all(4),
+    this.padding = const EdgeInsets.all(8),
     this.isSelected = false,
   }) : super(key: key);
 
@@ -29,15 +26,15 @@ class AlbertaField extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations aux = AppLocalizations.of(context);
     return Container(
-
       height: height,
       width: width,
       color: Colors.white,
       padding: padding,
+      //EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       //shape ==BoxShape.rectangle?EdgeInsets.symmetric(horizontal: 8, vertical: 8):padding,
       child: Container(
         decoration: BoxDecoration(
-          shape: shape,
+          shape: BoxShape.rectangle,
           color: isSelected ? color : Colors.white,
           border: Border.all(
             color: blueTreatmentColor,
@@ -47,13 +44,13 @@ class AlbertaField extends StatelessWidget {
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Container(
-            padding: shape == BoxShape.rectangle ? EdgeInsets.symmetric(
-                horizontal: 4, vertical: 2) : EdgeInsets.symmetric(
-                horizontal: 2, vertical: 0),
+            padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
             child: Text(
               aux.tr(txt),
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 8, color: blueTreatmentColor),
+              style: TextStyle(
+                  fontSize: 8,
+                  color: isSelected ? Colors.white : blueTreatmentColor),
             ),
           ),
         ),

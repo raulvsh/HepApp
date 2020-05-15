@@ -324,6 +324,23 @@
   "ecog_ps": "ECOG PS?",
   "0_1": "0-1",
   ">2": ">2",
+  "main_pvt?": "Main PVT?",
+  "0_2": "0-2",
+  "resection": "Resection",
+  "rfa": "RFA",
+  "lt": "LT",
+  "curative_options": "Curative Options",
+  "5_year_survival": "5 Years Survival ~ 50-70%",
+  "tare": "TARE",
+  "tace": "TACE",
+  "sorafenib": "Sorafenib",
+  "palliative_options": "Palliative Options",
+  "~20_mo": "~ 20 mo",
+  "~11_mo": "~ 11 mo",
+  "best_supportive_care": "Best\nSupportive\n Care",
+  "~3_mo": "~ 3 mo",
+
+
 
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
