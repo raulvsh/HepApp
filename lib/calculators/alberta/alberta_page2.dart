@@ -18,7 +18,7 @@ double totalWidth = 530.0;
 double totalHeight = 300.0;
 bool isSelected = false;
 
-class AlbertaPage extends StatefulWidget {
+class AlbertaPage2 extends StatefulWidget {
   //final title;
   //final data;
   //final type;
@@ -30,10 +30,10 @@ class AlbertaPage extends StatefulWidget {
   });*/
 
   @override
-  _AlbertaPageState createState() => _AlbertaPageState();
+  _AlbertaPage2State createState() => _AlbertaPage2State();
 }
 
-class _AlbertaPageState extends State<AlbertaPage> {
+class _AlbertaPage2State extends State<AlbertaPage2> {
   @override
   void initState() {
     SystemChrome.setPreferredOrientations([
@@ -67,7 +67,6 @@ class _AlbertaPageState extends State<AlbertaPage> {
             fit: BoxFit.contain,
             child: Stack(
               children: <Widget>[
-
                 Container(
                   //color: Colors.pink.withAlpha(25),
                   height: totalHeight,
@@ -89,7 +88,6 @@ class _AlbertaPageState extends State<AlbertaPage> {
                   height: totalHeight,
                   width: totalWidth,
                   child: CustomPaint(
-
                     size: Size(totalHeight, totalWidth),
                     painter: MyPainter(),
                   ),
@@ -102,12 +100,13 @@ class _AlbertaPageState extends State<AlbertaPage> {
                   child: RaisedButton(
                     //: EdgeInsets.all(5),
 
-                    child: Text('ON/OFF', style: TextStyle(fontSize: 10),),
+                    child: Text(
+                      'ON/OFF',
+                      style: TextStyle(fontSize: 10),
+                    ),
                     onPressed: () {
                       isSelected = !isSelected;
-                      setState(() {
-
-                      });
+                      setState(() {});
                     },
                   ),
                 )
@@ -115,8 +114,10 @@ class _AlbertaPageState extends State<AlbertaPage> {
             ),
           ),
         ),
-      ),);
+      ),
+    );
   }
+
   _buildTitleRow() {
     var heightTitleRow = 15.0;
     print(isSelected);
@@ -990,7 +991,6 @@ class _AlbertaPageState extends State<AlbertaPage> {
   }
 }
 
-
 class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -1011,8 +1011,6 @@ class MyPainter extends CustomPainter {
     //canvas.drawLine(p1, p2, paint);
 
     //canvas.drawPoints(pointMode, arrow00, paint);
-
-
   }
 
   @override

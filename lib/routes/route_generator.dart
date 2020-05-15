@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/calculators/alberta/alberta_page2.dart';
 import 'package:hepapp/calculators/child_pugh_score/cps_form.dart';
 import 'package:hepapp/calculators/clip/clip_form.dart';
 import 'package:hepapp/calculators/complete/complete_form.dart';
@@ -26,8 +27,6 @@ import 'package:hepapp/pages/PageViews/common_page_view.dart';
 import 'package:hepapp/pages/PageViews/drawing_page_view.dart';
 import 'package:hepapp/pages/PageViews/interactive_detail_page_view.dart';
 import 'package:hepapp/pages/home_page.dart';
-
-import 'file:///D:/GitHub/HepApp/lib/calculators/alberta/alberta_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -251,7 +250,7 @@ class RouteGenerator {
       case '/OkudaCalc':
         return MaterialPageRoute(builder: (_) => OkudaForm());
       case '/Alberta':
-        return MaterialPageRoute(builder: (_) => AlbertaPage());
+        return MaterialPageRoute(builder: (_) => AlbertaPage2());
 
       default:
         return MaterialPageRoute(
