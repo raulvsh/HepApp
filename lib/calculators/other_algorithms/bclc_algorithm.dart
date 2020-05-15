@@ -1,5 +1,4 @@
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/shared_preferences/user_settings.dart';
 
 import 'bclc_data.dart';
 
@@ -11,8 +10,8 @@ class BclcAlgorithm {
   final units = Units();
 
   String obtenerResultado() {
-    final prefs = UserSettings();
-    final units = Units();
+    //final prefs = UserSettings();
+    //final units = Units();
 
     showPts();
     int tN = int.parse(bclcData.tumourNumber);

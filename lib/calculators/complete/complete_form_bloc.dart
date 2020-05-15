@@ -111,19 +111,19 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   @override
   List<FieldBloc> get fieldBlocs => [
-    tumourNumberField,
-    tumourSizeField[0],
-    tumourSizeField[1],
-    tumourSizeField[2],
-    tumourSizeField[3],
-    tumourSizeField[4],
-    tumourSizeField[5],
-    tumourExtentField,
-    pviField,
-    nodesField,
-    metastasisField,
-    portalHypertensionField,
-    pvtField,
+        tumourNumberField,
+        tumourSizeField[0],
+        tumourSizeField[1],
+        tumourSizeField[2],
+        tumourSizeField[3],
+        tumourSizeField[4],
+        tumourSizeField[5],
+        tumourExtentField,
+        pviField,
+        nodesField,
+        metastasisField,
+        portalHypertensionField,
+        pvtField,
         bilirubinField,
     inrField,
     creatinineField,
@@ -205,13 +205,9 @@ class CompleteFormBloc extends FormBloc<String, String> {
     print("Campo resultado antes de operar: " + resultsField.toString());
   }
 
-  showNotIU() {
+  showNotIU() {}
 
-  }
-
-  void showIU() {
-
-  }
+  void showIU() {}
 
   reset() {
     this.bilirubinField = TextFieldBloc();

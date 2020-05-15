@@ -1,14 +1,13 @@
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
 
-import 'alberta_arrows.dart';
 import 'alberta_circle_field.dart';
+import 'alberta_diagram_painter.dart';
 import 'alberta_header.dart';
 import 'alberta_square_field.dart';
+
 Color blueTumourColor = Color.fromARGB(255, 68, 142, 179);
 Color yellowCpsColor = Color.fromARGB(255, 229, 215, 95);
 Color redClinicalColor = Color.fromARGB(255, 214, 85, 101);
@@ -89,7 +88,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
                   width: totalWidth,
                   child: CustomPaint(
                     size: Size(totalHeight, totalWidth),
-                    painter: MyPainter(),
+                    painter: AlbertaDiagramPainter(),
                   ),
                 ),
                 /*Container(
@@ -988,34 +987,5 @@ class _AlbertaPageState extends State<AlbertaPage> {
         ],
       ),
     );
-  }
-}
-
-class MyPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final pointMode = ui.PointMode.polygon;
-    //final p1 = Offset(50, 50);
-    //final p2 = Offset(250, 150);
-    final points = [
-      Offset(50, 100),
-      Offset(150, 75),
-      Offset(250, 250),
-      Offset(130, 200),
-      Offset(270, 100),
-    ];
-    final paint = Paint()
-      ..color = blueTreatmentColor
-      ..strokeWidth = 1.3
-      ..strokeCap = StrokeCap.round;
-    //canvas.drawLine(p1, p2, paint);
-
-    canvas.drawPoints(pointMode, arrow00, paint);
-    canvas.drawPoints(pointMode, arrow01, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter old) {
-    return false;
   }
 }
