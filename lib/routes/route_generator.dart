@@ -251,7 +251,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => OkudaForm());
       case '/Alberta':
         var coloredFields = settings.arguments as List<bool>;
-        print("colored fields " + coloredFields.toString());
+        //print("colored fields " + coloredFields.toString());
         return MaterialPageRoute(
             builder: (_) => AlbertaPage(
                   isSelected: coloredFields,

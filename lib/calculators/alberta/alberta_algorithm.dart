@@ -19,7 +19,15 @@ class AlbertaAlgorithm {
   obtenerRecorrido() {
     initList();
     //print("cps "  + albertaData.cps);
-    if (albertaData.cps[0] == 'A') coloredFields[10] = true;
+    //if (albertaData.cps[0] == 'A') coloredFields[10] = true;
+
+    if (albertaData.results['bclc'] == 'end_stage_d') {
+      coloredFields[5] = true;
+
+      coloredFields[40] = true;
+      coloredFields[46] = true;
+    }
+
     /* recorrido imagen Miriam
 
     coloredFields[6] = true;
@@ -32,7 +40,7 @@ class AlbertaAlgorithm {
     coloredFields[41] = true;
     coloredFields[43] = true;
 */
-    coloredFields[0] = true;
+    /*coloredFields[0] = true;
     coloredFields[1] = true;
     coloredFields[2] = true;
     coloredFields[3] = true;
@@ -81,7 +89,7 @@ class AlbertaAlgorithm {
     coloredFields[43] = true;
     coloredFields[44] = true;
     coloredFields[45] = true;
-    coloredFields[46] = true;
+    coloredFields[46] = true;*/
 
     return coloredFields;
   }

@@ -339,6 +339,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
             platelets: formBloc.plateletsField.value,
             varices: formBloc.varicesField.value,
             bilirubin: formBloc.bilirubinField.valueToDouble,
+            results: formBloc.resultsField,
           );
           print("\n\n*****************OBJETO albertaDATA: "
               "\nbclc : ${data.bclc}" +
@@ -348,6 +349,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               "\nplatelets : ${data.platelets}" +
               "\nvarices: ${data.varices}" +
               "\nbilirrubina : ${data.bilirubin}" +
+              "\nresultados : ${data.results}" +
               "\n**************");
 
           List<bool> coloredFields = [];
@@ -381,7 +383,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           } else {
             AlbertaAlgorithm albertaAlgorithm = AlbertaAlgorithm(data);
             coloredFields = albertaAlgorithm.obtenerRecorrido();
-            print(albertaAlgorithm.obtenerRecorrido());
+            //print(albertaAlgorithm.obtenerRecorrido());
             Navigator.pushNamed(context, '/Alberta', arguments: coloredFields);
           }
 
