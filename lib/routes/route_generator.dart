@@ -250,7 +250,12 @@ class RouteGenerator {
       case '/OkudaCalc':
         return MaterialPageRoute(builder: (_) => OkudaForm());
       case '/Alberta':
-        return MaterialPageRoute(builder: (_) => AlbertaPage());
+        var coloredFields = settings.arguments as List<bool>;
+        print("colored fields " + coloredFields.toString());
+        return MaterialPageRoute(
+            builder: (_) => AlbertaPage(
+                  isSelected: coloredFields,
+                ));
 
       default:
         return MaterialPageRoute(

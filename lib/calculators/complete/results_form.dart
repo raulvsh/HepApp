@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hepapp/calculators/alberta/alberta_algorithm.dart';
+import 'package:hepapp/calculators/alberta/alberta_data.dart';
 import 'package:hepapp/calculators/calc_result_widget.dart';
 import 'package:hepapp/calculators/right_bottom_title.dart';
 import 'package:hepapp/data/units.dart';
@@ -87,7 +89,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       'cirrhosis': aux.tr(formBloc.cirrhosisField.value),
       'apri': formBloc.resultsField['apri'],
       'child_pugh_score_oneline':
-      formBloc.resultsField['child_pugh_score_oneline'],
+          formBloc.resultsField['child_pugh_score_oneline'],
       'meld': formBloc.resultsField['meld'],
       'meld_na': formBloc.resultsField['meld_na'],
       '5v_meld': formBloc.resultsField['5v_meld'],
@@ -160,7 +162,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       'getch': formBloc.resultsField['getch'],
       'tnm': formBloc.resultsField['tnm'],
       'cupi': formBloc.resultsField['cupi'],
-      'bclc': formBloc.resultsField['bclc'],
+      'bclc': aux.tr(formBloc.resultsField['bclc']),
     };
 
     return FittedBox(
@@ -199,9 +201,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
-
             children: <Widget>[
-
               _buildRecommendedTreatments(),
               SizedBox(width: isTablet ? 40 : 20),
               isLandscape
@@ -209,7 +209,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
                   : Container(height: 0, width: 0),
               SizedBox(width: isTablet ? 40 : 20),
               isLandscape
-                  ? _buildAlbertaButton()
+                  ? _buildAlbertaButton(widget.formBloc)
                   : Container(height: 0, width: 0),
             ],
           ),
@@ -217,10 +217,9 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               ? Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-
               _buildMoreInfoButton(),
               SizedBox(width: 40),
-              _buildAlbertaButton(),
+              _buildAlbertaButton(widget.formBloc),
             ],
           )
               : Container(
@@ -267,11 +266,10 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   Widget get _initialBlueRectangle =>
       Container(
-      color: Color.fromARGB(255, 210, 242, 245),
-      width: 15.0,
+        color: Color.fromARGB(255, 210, 242, 245),
+        width: 15.0,
         height: 100.0,
-    );
-
+      );
 
   Row buildRecommendedTreatmentRow(String position, String title) {
     bool isTablet = context.diagonalInches >= 7;
@@ -326,15 +324,78 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         });
   }
 
-  _buildAlbertaButton() {
+  _buildAlbertaButton(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
 
     return CalculatorButton(
         title: 'alberta_hcc_algorithm',
         width: isTablet ? 250.0 : 175.0,
-      onPressed: () =>
-          Navigator.pushNamed(context, '/Alberta',
-          ), /*() {
+        onPressed: () {
+          var data = AlbertaData(
+            bclc: formBloc.resultsField['bclc'],
+            cps: formBloc.resultsField['child_pugh_score_oneline'],
+            portalHypertension: formBloc.portalHypertensionField.value,
+            pvt: formBloc.pvtField.value,
+            platelets: formBloc.plateletsField.value,
+            varices: formBloc.varicesField.value,
+            bilirubin: formBloc.bilirubinField.valueToDouble,
+          );
+          print("\n\n*****************OBJETO albertaDATA: "
+              "\nbclc : ${data.bclc}" +
+              "\ncps : ${data.cps}" +
+              "\nportal ht : ${data.portalHypertension}" +
+              "\npvt : ${data.pvt}" +
+              "\nplatelets : ${data.platelets}" +
+              "\nvarices: ${data.varices}" +
+              "\nbilirrubina : ${data.bilirubin}" +
+              "\n**************");
+
+          List<bool> coloredFields = [];
+          for (int i = 0; i <= 46; i++) {
+            coloredFields.add(false);
+          }
+
+
+          if (formBloc.resultsField['bclc'] == '-' ||
+              formBloc.resultsField['cps'] == '-') {
+            showDialog(
+              context: context,
+              builder: (BuildContext dialogContext) {
+                return AlertDialog(
+                  title: Text('error'),
+                  content: Text(
+                      'error alberta'),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('continuar'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(
+                            context, '/Alberta', arguments: coloredFields);
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          } else {
+            AlbertaAlgorithm albertaAlgorithm = AlbertaAlgorithm(data);
+            coloredFields = albertaAlgorithm.obtenerRecorrido();
+            print(albertaAlgorithm.obtenerRecorrido());
+            Navigator.pushNamed(context, '/Alberta', arguments: coloredFields);
+          }
+
+          /*try {
+          this.resultadoField = cpsAlgorithm.obtenerResultado();
+          data.result = this.resultadoField;
+        } catch (e) {
+          print("Excepción: $e");
+        }
+          formBloc.*/
+        } /*=>
+            Navigator.pushNamed(context, '/Alberta',
+            )
+      },*/ /*() {
           showDialog(
             context: context,
             builder: (BuildContext dialogContext) {
@@ -353,7 +414,8 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               );
             },
           );
-        }*/);
+        }*/
+    );
   }
 
   _buildBottomSheet(CompleteFormBloc formBloc) {

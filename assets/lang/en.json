@@ -339,8 +339,11 @@
   "~11_mo": "~ 11 mo",
   "best_supportive_care": "Best\nSupportive\n Care",
   "~3_mo": "~ 3 mo",
-
-
+  "very_early_0": "Stage 0: Very Early",
+  "early_a": "Stage A: Early",
+  "intermediate_b": "Stage B: Intermediate",
+  "advanced_c": "Stage C: Advanced",
+  "end_stage_d": "Stage D: End Stage",
 
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",

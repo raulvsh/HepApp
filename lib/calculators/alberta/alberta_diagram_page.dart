@@ -15,18 +15,19 @@ Color blueTreatmentColor = Color.fromARGB(255, 85, 163, 188);
 Color greyPrognosisColor = Color.fromARGB(255, 68, 103, 114);
 double totalWidth = 530.0;
 double totalHeight = 300.0;
-bool isSelected = false;
+bool isSelectedGlobal = false;
 
 class AlbertaPage extends StatefulWidget {
-  //final title;
+  final isSelected;
+
   //final data;
   //final type;
 
-  /* AlbertaPage({
-    this.title,
-    this.data,
-    this.type,
-  });*/
+  AlbertaPage({
+    this.isSelected,
+    //this.data,
+    //this.type,
+  });
 
   @override
   _AlbertaPageState createState() => _AlbertaPageState();
@@ -119,7 +120,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
 
   _buildTitleRow() {
     var heightTitleRow = 15.0;
-    print(isSelected);
+    print(isSelectedGlobal);
     return Container(
       width: totalWidth,
       height: heightTitleRow,
@@ -136,7 +137,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
             height: heightTitleRow,
             width: 75.0,
             txt: 'bclc',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[0],
 
             //color: Colors.red,
           ),
@@ -144,7 +145,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
             height: heightTitleRow,
             width: 80.0,
             txt: 'stage_0_very_early',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[1],
 
             //color: Colors.yellow,
           ),
@@ -153,13 +154,13 @@ class _AlbertaPageState extends State<AlbertaPage> {
             width: 105.0,
             //color: Colors.pink,
             txt: 'stage_a_early',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[2],
           ),
           AlbertaHeader(
             height: heightTitleRow,
             width: 110.0,
             txt: 'stage_b_intermediate',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[3],
 
             // color: Colors.orange,
           ),
@@ -167,7 +168,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
             height: heightTitleRow,
             width: 85.0,
             txt: 'stage_c_advanced',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[4],
 
             //color: Colors.purple,
           ),
@@ -175,7 +176,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
             height: heightTitleRow,
             width: 60.0,
             txt: 'stage_d_end_stage',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[5],
 
             //color: Colors.blueGrey,
           )
@@ -216,7 +217,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
             //height: heightTumourRow,
             width: 80.0,
             txt: '1_(≤2cm)',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[6],
             color: blueTumourColor,
 
             // padding: EdgeInsets.all(8),
@@ -226,36 +227,23 @@ class _AlbertaPageState extends State<AlbertaPage> {
             height: heightTumourRow,
             width: 105.0,
             txt: '1_(≥2cm)_or_up_to_3_(≤3cm)',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[7],
             color: blueTumourColor,
             //padding: EdgeInsets.all(4),
             //color: Colors.deepPurpleAccent,
           ),
           AlbertaRectangleField(
-            //height: heightTumourRow,
             width: 110.0,
             txt: '>_milan_criteria',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[8],
             color: blueTumourColor,
-            //padding: EdgeInsets.all(8),
-
-            // color: Colors.black,
           ),
           AlbertaRectangleField(
-            //height: heightTumourRow,
             width: 85.0,
             txt: 'pvi_n1_m1',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[9],
             color: blueTumourColor,
-            //padding: EdgeInsets.all(8),
-
-            //color: Colors.greenAccent,
           ),
-          /*Container(
-            height: heightTumourRow,
-            width: 60.0,
-            color: Colors.white,
-          )*/
         ],
       ),
     );
@@ -270,129 +258,89 @@ class _AlbertaPageState extends State<AlbertaPage> {
       child: Row(
         children: <Widget>[
           Container(
-            //height: cpsHeight,
             width: 15.0,
             color: yellowCpsColor,
           ),
           AlbertaHeader(
-            //height: cpsHeight,
             width: 75.0,
             upperCase: true,
             txt: 'child_pugh_class',
-            //color: Colors.green,
           ),
           AlbertaCircleField(
-            //height: cpsHeight,
             width: 80.0,
-            //isSelected: true,
             padding: EdgeInsets.all(5),
             txt: 'a',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[10],
             color: yellowCpsColor,
-
-            //shape: BoxShape.circle,
           ),
           Container(
-            //height: cpsHeight,
             width: 105.0,
-            //color: Colors.white,
             child: Row(
               children: <Widget>[
                 SizedBox(width: 25),
                 AlbertaCircleField(
-                  //height: cpsHeight,
                   width: 35.0,
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[11],
                   color: yellowCpsColor,
-                  //isSelected: true,
                   padding: EdgeInsets.all(5),
-
                   txt: 'b',
-                  //shape: BoxShape.circle,
                 ),
                 AlbertaCircleField(
-                  //height: cpsHeight,
                   width: 35.0,
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[12],
                   color: yellowCpsColor,
                   padding: EdgeInsets.all(5),
-
-                  //isSelected: true,
                   txt: 'c',
-                  //shape: BoxShape.circle,
                 ),
               ],
             ),
           ),
           Container(
-            //height: cpsHeight,
             width: 110.0,
-            //color: Colors.white,
             child: Row(
               children: <Widget>[
                 SizedBox(width: 20),
                 AlbertaCircleField(
                   height: cpsHeight,
                   width: 25.0,
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[13],
                   color: yellowCpsColor,
-                  //isSelected: true,
                   txt: 'b8_9_c',
-                  //shape: BoxShape.circle,
-                  //padding: EdgeInsets.zero,
                 ),
                 SizedBox(width: 20),
                 AlbertaCircleField(
                   height: cpsHeight,
                   width: 25.0,
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[14],
                   color: yellowCpsColor,
-                  //isSelected: true,
                   txt: 'a_b7',
-                  //shape: BoxShape.circle,
                 ),
               ],
             ),
           ),
           Container(
-            //height: cpsHeight,
             width: 85.0,
-            //color: Colors.white,
             child: Row(
               children: <Widget>[
-                SizedBox(
-                  width: 7.5,
-                ),
+                SizedBox(width: 7.5),
                 AlbertaCircleField(
-                  // height: cpsHeight,
                   width: 35.0,
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[15],
                   color: yellowCpsColor,
-                  //isSelected: true,
                   txt: 'a*',
                   padding: EdgeInsets.all(5),
-
-                  //shape: BoxShape.circle,
                 ),
                 AlbertaCircleField(
                   height: cpsHeight,
                   width: 35.0,
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[16],
                   color: yellowCpsColor,
                   padding: EdgeInsets.all(5),
-
-                  //isSelected: true,
                   txt: 'b_c',
-                  //shape: BoxShape.circle,
                 ),
               ],
             ),
           ),
-          /*Container(
-            color: Colors.white,
-            height: cpsHeight,
-            width: 60,
-          )*/
         ],
       ),
     );
@@ -416,7 +364,6 @@ class _AlbertaPageState extends State<AlbertaPage> {
             width: 75.0,
             upperCase: true,
             txt: 'clinical_questions',
-            //color: Colors.black,
           ),
           Column(
             children: <Widget>[
@@ -435,30 +382,26 @@ class _AlbertaPageState extends State<AlbertaPage> {
   _buildPortalRow() {
     var portalHeight = 35.0;
     return Container(
-      //color: Colors.white,
       width: 440,
       child: Row(
         children: <Widget>[
           AlbertaRectangleField(
             height: portalHeight,
             width: 80.0,
-            //
             txt: 'portal_ht_and_or_bilirubin',
             padding: EdgeInsets.all(4),
-            isSelected: isSelected,
+            isSelected: widget.isSelected[17],
             color: redClinicalColor,
           ),
           Container(
             width: 105.0,
             child: Row(
               children: <Widget>[
-                SizedBox(
-                  width: 15,
-                ),
+                SizedBox(width: 15),
                 AlbertaRectangleField(
                   height: portalHeight,
                   width: 45.0,
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[18],
                   color: redClinicalColor,
                   txt: 'lt_candidate?',
                   padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
@@ -466,7 +409,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
                 AlbertaRectangleField(
                   height: portalHeight,
                   width: 45.0,
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[19],
                   color: redClinicalColor,
                   txt: 'lt_candidate?',
                   padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
@@ -484,27 +427,20 @@ class _AlbertaPageState extends State<AlbertaPage> {
                   width: 110.0,
                   txt: 'ecog_ps',
                   padding: EdgeInsets.fromLTRB(48, 4, 0, 12),
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[20],
                   color: redClinicalColor,
-                  //color: Colors.cyan,
                 ),
                 AlbertaRectangleField(
                   height: portalHeight,
                   width: 85.0,
-                  //color: Colors.pinkAccent,
                   txt: 'ecog_ps',
                   padding: EdgeInsets.fromLTRB(0, 4, 23, 12),
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[21],
                   color: redClinicalColor,
                 ),
               ],
             ),
           ),
-          /*Container(
-            height: portalHeight,
-            width: 60.0,
-            color: Colors.white,
-          )*/
         ],
       ),
     );
@@ -514,58 +450,33 @@ class _AlbertaPageState extends State<AlbertaPage> {
     var row01Height = 25.0;
     return Container(
       width: 440,
-      //color: Colors.white,
       child: Row(
         children: <Widget>[
           SizedBox(width: 185),
-          /*Container(
-            height: row01Height,
-            width: 185,
-            color: Colors.white,
-          ),*/
           Container(
             height: row01Height,
             width: 195,
-            //color: Colors.pinkAccent,
             child: Row(
               children: <Widget>[
                 SizedBox(width: 44),
-                /*Container(
-                  width: 44,
-                  color: Colors.white,
-                ),*/
                 AlbertaCircleField(
                   width: 35.0,
                   height: row01Height,
                   txt: '0_1',
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[22],
                   color: redClinicalColor,
-                  //shape: BoxShape.circle,
-                  // padding: EdgeInsets.zero,
                 ),
                 SizedBox(width: 15),
                 AlbertaCircleField(
                   width: 35.0,
                   height: row01Height,
                   txt: '>2',
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[23],
                   color: redClinicalColor,
-                  //shape: BoxShape.circle,
-                  //padding: EdgeInsets.zero,
                 )
               ],
             ),
           ),
-          /*Container(
-            height: row01Height,
-            width: 85,
-            color: Colors.pinkAccent,
-          ),*/
-          /*Container(
-            height: row01Height,
-            width: 60,
-            color: Colors.white,
-          )*/
         ],
       ),
     );
@@ -581,32 +492,23 @@ class _AlbertaPageState extends State<AlbertaPage> {
           Container(
             height: rowNoHeight,
             width: 80,
-            //color: Colors.white,
             child: Row(
               children: <Widget>[
                 SizedBox(width: 10),
                 AlbertaCircleField(
                   width: 25.0,
                   height: rowNoHeight,
-                  //shape: BoxShape.circle,
                   txt: 'no',
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[24],
                   color: redClinicalColor,
-                  //padding: EdgeInsets.zero,
                 ),
                 SizedBox(width: 20),
-                /*Container(
-                  width: 20,
-                  color: Colors.white,
-                ),*/
                 AlbertaCircleField(
                   width: 25.0,
-                  //shape: BoxShape.circle,
                   height: rowNoHeight,
                   txt: 'yes',
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[25],
                   color: redClinicalColor,
-                  //padding: EdgeInsets.zero,
                 ),
               ],
             ),
@@ -614,59 +516,35 @@ class _AlbertaPageState extends State<AlbertaPage> {
           Container(
             height: rowNoHeight,
             width: 105,
-            //color: Colors.white,
             child: Row(
               children: <Widget>[
                 SizedBox(width: 20),
                 AlbertaCircleField(
                   width: 25.0,
                   height: rowNoHeight,
-                  //shape: BoxShape.circle,
                   txt: 'no',
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[26],
                   color: redClinicalColor,
-                  //padding: EdgeInsets.zero,
                 ),
                 SizedBox(width: 5),
                 AlbertaCircleField(
                   width: 25.0,
-                  //shape: BoxShape.circle,
                   height: rowNoHeight,
                   txt: 'yes',
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[27],
                   color: redClinicalColor,
                   padding: EdgeInsets.zero,
                 ),
               ],
             ),
           ),
-          // Container(
-          //color: Colors.white,
-
-          //padding: EdgeInsets.only(right: 60),
-          //child:
           AlbertaCircleField(
             padding: EdgeInsets.only(right: 80),
-            //height: rowNoHeight,
             width: 110.0,
-            //color: Colors.cyan,
             txt: 'no',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[28],
             color: redClinicalColor,
-            //shape: BoxShape.circle,
-            //padding: EdgeInsets.zero,
           ),
-          //),
-          /*Container(
-            height: rowNoHeight,
-            width: 85,
-            color: Colors.pinkAccent,
-          ),
-          Container(
-            height: rowNoHeight,
-            width: 60,
-            color: Colors.green,
-          )*/
         ],
       ),
     );
@@ -685,29 +563,18 @@ class _AlbertaPageState extends State<AlbertaPage> {
             height: rowMainPvtHeight,
             width: 110.0,
             txt: 'main_pvt?',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[29],
             color: redClinicalColor,
             padding: EdgeInsets.fromLTRB(30, 4, 15, 4),
-            //color: Colors.cyan,
           ),
           AlbertaCircleField(
             height: rowMainPvtHeight,
             width: 85.0,
             txt: '0_2',
-            isSelected: isSelected,
+            isSelected: widget.isSelected[30],
             color: redClinicalColor,
             padding: EdgeInsets.only(right: 20),
           ),
-          /*Container(
-            height: rowMainPvtHeight,
-            width: 85,
-            color: Colors.pinkAccent,
-          ),*/
-          /*Container(
-            height: rowMainPvtHeight,
-            width: 60,
-            color: Colors.green,
-          )*/
         ],
       ),
     );
@@ -725,53 +592,27 @@ class _AlbertaPageState extends State<AlbertaPage> {
           Container(
             height: rowNoYesHeight,
             width: 110,
-            //color: Colors.white,
             child: Row(
               children: <Widget>[
                 SizedBox(width: 28),
                 AlbertaCircleField(
-                  //padding: EdgeInsets.only(left: 20),
                   width: 25.0,
                   height: rowNoYesHeight,
-                  //shape: BoxShape.circle,
                   txt: 'no',
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[31],
                   color: redClinicalColor,
-                  //padding: EdgeInsets.zero,
                 ),
-                //SizedBox(width: 20),
-                /*Container(
-                  width: 20,
-                  color: Colors.white,
-                ),*/
                 SizedBox(width: 20),
                 AlbertaCircleField(
                   width: 25.0,
-                  //shape: BoxShape.circle,
                   height: rowNoYesHeight,
                   txt: 'yes',
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[32],
                   color: redClinicalColor,
-                  //padding: EdgeInsets.zero,
                 ),
               ],
             ),
           ),
-          /*Container(
-            height: rowNoYesHeight,
-            width: 110,
-            color: Colors.cyan,
-          ),*/
-          /*Container(
-            height: rowNoYesHeight,
-            width: 85,
-            color: Colors.pinkAccent,
-          ),
-          Container(
-            height: rowNoYesHeight,
-            width: 60,
-            color: Colors.green,
-          )*/
         ],
       ),
     );
@@ -795,33 +636,29 @@ class _AlbertaPageState extends State<AlbertaPage> {
             width: 75.0,
             upperCase: true,
             txt: 'treatment',
-
-            //color: Colors.green,
           ),
           Container(
             height: treatmentHeight,
             width: 185,
-            //color: Colors.yellow,
             child: Column(
               children: <Widget>[
                 Container(
                   width: 185,
                   height: 24,
-                  //color: Colors.pinkAccent,
                   child: Row(
                     children: <Widget>[
                       AlbertaRectangleField(
                         width: 90.0,
                         txt: 'resection',
                         padding: EdgeInsets.fromLTRB(4, 4, 2, 2),
-                        isSelected: isSelected,
+                        isSelected: widget.isSelected[33],
                         color: blueTreatmentColor,
                       ),
                       AlbertaRectangleField(
                         width: 40.0,
                         txt: 'rfa',
                         padding: EdgeInsets.fromLTRB(2, 4, 2, 2),
-                        isSelected: isSelected,
+                        isSelected: widget.isSelected[34],
                         color: blueTreatmentColor,
                       ),
                       AlbertaRectangleField(
@@ -829,7 +666,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
                         width: 40.0,
                         txt: 'lt',
                         padding: EdgeInsets.fromLTRB(2, 4, 4, 2),
-                        isSelected: isSelected,
+                        isSelected: widget.isSelected[35],
                         color: blueTreatmentColor,
                       )
                     ],
@@ -840,27 +677,20 @@ class _AlbertaPageState extends State<AlbertaPage> {
                   height: 24.0,
                   txt: 'curative_options',
                   color: blueTreatmentColor,
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[41],
                   padding: EdgeInsets.fromLTRB(4, 2, 19, 4),
                 )
               ],
             ),
           ),
-          /*Container(
-            height: treatmentHeight,
-            width: 105,
-            color: Colors.pink,
-          ),*/
           Container(
             height: treatmentHeight,
             width: 195,
-            //color: Colors.yellow,
             child: Column(
               children: <Widget>[
                 Container(
                   width: 195,
                   height: 24,
-                  //color: Colors.pinkAccent,
                   child: Row(
                     children: <Widget>[
                       SizedBox(width: 9),
@@ -869,7 +699,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
                         height: 24.0,
                         txt: 'tare',
                         padding: EdgeInsets.fromLTRB(0, 4, 0, 2),
-                        isSelected: isSelected,
+                        isSelected: widget.isSelected[36],
                         color: blueTreatmentColor,
                       ),
                       AlbertaRectangleField(
@@ -877,7 +707,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
                         height: 24.0,
                         txt: 'tace',
                         padding: EdgeInsets.fromLTRB(0, 4, 0, 2),
-                        isSelected: isSelected,
+                        isSelected: widget.isSelected[37],
                         color: blueTreatmentColor,
                       ),
                       AlbertaRectangleField(
@@ -885,7 +715,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
                         height: 24.0,
                         txt: 'tare',
                         padding: EdgeInsets.fromLTRB(0, 4, 2, 2),
-                        isSelected: isSelected,
+                        isSelected: widget.isSelected[38],
                         color: blueTreatmentColor,
                       ),
                       AlbertaRectangleField(
@@ -893,7 +723,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
                         width: 80.0,
                         txt: 'sorafenib',
                         padding: EdgeInsets.fromLTRB(2, 4, 4, 2),
-                        isSelected: isSelected,
+                        isSelected: widget.isSelected[39],
                         color: blueTreatmentColor,
                       )
                     ],
@@ -904,7 +734,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
                   height: 24.0,
                   txt: 'palliative_options',
                   color: blueTreatmentColor,
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[42],
                   padding: EdgeInsets.fromLTRB(9, 2, 14, 4),
                 )
               ],
@@ -914,7 +744,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
             height: treatmentHeight,
             width: 60.0,
             color: blueTreatmentColor,
-            isSelected: isSelected,
+            isSelected: widget.isSelected[40],
             txt: 'best_supportive_care',
             padding: EdgeInsets.all(4),
           )
@@ -940,20 +770,18 @@ class _AlbertaPageState extends State<AlbertaPage> {
             width: 75.0,
             upperCase: true,
             txt: 'prognosis',
-            //color: Colors.purple,
           ),
           AlbertaRectangleField(
             width: 185.0,
             height: prognosisHeight,
             txt: '5_year_survival',
             color: greyPrognosisColor,
-            isSelected: isSelected,
+            isSelected: widget.isSelected[43],
             padding: EdgeInsets.fromLTRB(4, 0, 19, 0),
           ),
           Container(
             width: 195,
             height: prognosisHeight,
-            //color: Colors.pinkAccent,
             child: Row(
               children: <Widget>[
                 SizedBox(width: 9),
@@ -962,7 +790,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
                   height: prognosisHeight,
                   txt: '~20_mo',
                   padding: EdgeInsets.fromLTRB(0, 0, 2, 0),
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[44],
                   color: greyPrognosisColor,
                 ),
                 AlbertaRectangleField(
@@ -970,7 +798,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
                   width: 80.0,
                   txt: '~11_mo',
                   padding: EdgeInsets.fromLTRB(2, 0, 3, 0),
-                  isSelected: isSelected,
+                  isSelected: widget.isSelected[45],
                   color: greyPrognosisColor,
                 )
               ],
@@ -982,7 +810,7 @@ class _AlbertaPageState extends State<AlbertaPage> {
             color: greyPrognosisColor,
             txt: '~3_mo',
             padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
-            isSelected: isSelected,
+            isSelected: widget.isSelected[46],
           )
         ],
       ),

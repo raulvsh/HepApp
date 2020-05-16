@@ -342,7 +342,11 @@
   "~11_mo": "~ 11 messe",
   "best_supportive_care": "Cuidados\nPaliativos",
   "~3_mo": "~ 3 meses",
-
+  "very_early_0": "Estadio 0: Muy temprano",
+  "early_a": "Estadio A: Temprano",
+  "intermediate_b": "Estadio B: Intermedio",
+  "advanced_c": "Estadio C: Avanzado",
+  "end_stage_d": "Estadio D: Etapa final",
 
 
 
