@@ -70,7 +70,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
     return Container(
       height: isLandscape
-          ? context.heightPct(isTablet ? 0.52 : 0.4)
+          ? context.heightPct(isTablet ? 0.52 : 0.42)
           : context.heightPct(0.3),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -94,17 +94,18 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       'meld_na': formBloc.resultsField['meld_na'],
       '5v_meld': formBloc.resultsField['5v_meld'],
     };
+    bool isTablet = context.diagonalInches >= 7;
 
     return FittedBox(
       child: Container(
         width: context.widthPct(0.5),
-        padding: EdgeInsets.only(left: 20, top: 20),
+        padding: EdgeInsets.only(left: 20, top: isTablet ? 20 : 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             _buildLiverFunctionHeader(),
             Container(
-              margin: isLandscape ? null : EdgeInsets.only(right: 10),
+              margin: EdgeInsets.only(right: isLandscape ? 10 : 0),
               child: CalcResultWidget(
                 resultMap: resultMap,
                 textAlignment: MainAxisAlignment.start,
@@ -121,22 +122,21 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
     return Container(
-        margin: isLandscape ? null : EdgeInsets.only(right: 10),
+        margin: EdgeInsets.only(right: isLandscape ? 10 : 0),
         width: isTablet ? 400 : 200,
         height: isTablet ? 30 : 20,
         color: Color.fromARGB(255, 210, 242, 245),
         child: Center(
             child: Text(
-              aux.tr('liver_function').toUpperCase(),
-              style: TextStyle(
-                  color: Colors.black, fontSize: isTablet ? 16 : 13),
-            )));
+          aux.tr('liver_function').toUpperCase(),
+          style: TextStyle(color: Colors.black, fontSize: isTablet ? 16 : 13),
+        )));
   }
 
   Container _buildStagingAlgorithmsHeader(bool isLandscape, bool isTablet,
       AppLocalizations aux) {
     return Container(
-        margin: isLandscape ? null : EdgeInsets.only(right: 20),
+        margin: EdgeInsets.only(right: isLandscape ? 20 : 0),
         width: isTablet ? 400 : 200,
         height: isTablet ? 30 : 20,
         color: Color.fromARGB(255, 210, 242, 245),
@@ -168,12 +168,12 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     return FittedBox(
       child: Container(
         width: context.widthPct(0.5),
-        padding: EdgeInsets.only(left: 10, top: 20),
+        padding: EdgeInsets.only(left: 10, top: isTablet ? 20 : 10),
         child: Column(
           children: <Widget>[
             _buildStagingAlgorithmsHeader(isLandscape, isTablet, aux),
             Container(
-              margin: isLandscape ? null : EdgeInsets.only(right: 20),
+              margin: EdgeInsets.only(right: isLandscape ? 20 : 0),
               child: CalcResultWidget(
                 resultMap: resultMap,
                 textAlignment: MainAxisAlignment.start,
@@ -190,10 +190,40 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
-      height: context.heightPct(isLandscape ? 0.3 : 0.50),
-      width: context.widthPx,
-      padding: EdgeInsets.only(left: isLandscape ? 50 : 20),
-      child: Column(
+      //color: Colors.red,
+        height: context.heightPct(isLandscape ? 0.255 : 0.50),
+        width: context.widthPx,
+        padding: isTablet
+            ? EdgeInsets.only(left: isLandscape ? 50 : 20)
+            : EdgeInsets.only(left: 10, top: 10, bottom: 10),
+        child: isLandscape
+            ? Row(
+          //crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            _buildRecommendedTreatments(),
+            SizedBox(width: isTablet ? 40 : 20),
+            _buildMoreInfoButton(),
+            SizedBox(width: isTablet ? 30 : 20),
+            _buildAlbertaButton(widget.formBloc),
+          ],
+        )
+            : Column(
+          children: <Widget>[
+            SizedBox(height: 20),
+            _buildRecommendedTreatments(),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _buildMoreInfoButton(),
+                SizedBox(width: 40),
+                _buildAlbertaButton(widget.formBloc),
+              ],
+            ),
+          ],
+        )
+
+      /*Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -215,52 +245,52 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           ),
           !isLandscape
               ? Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _buildMoreInfoButton(),
-              SizedBox(width: 40),
-              _buildAlbertaButton(widget.formBloc),
-            ],
-          )
-              : Container(
-            height: 0,
-            width: 0,
-          ),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    _buildMoreInfoButton(),
+                    SizedBox(width: 40),
+                    _buildAlbertaButton(widget.formBloc),
+                  ],
+                )
+              : Container(height: 0, width: 0),
         ],
-      ),
+      ),*/
     );
   }
 
   _buildRecommendedTreatments() {
     bool isTablet = context.diagonalInches >= 7;
     AppLocalizations aux = AppLocalizations.of(context);
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        _initialBlueRectangle,
-        SizedBox(
-          width: 10,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              aux.tr('recommended_treatment'),
-              style:
-              TextStyle(color: Colors.black, fontSize: isTablet ? 16 : 11),
-            ),
-            SizedBox(
-              height: isTablet ? 10 : 4,
-            ),
-            buildRecommendedTreatmentRow('1', 'recommended treatment 1'),
-            SizedBox(
-              height: isTablet ? 10 : 4,
-            ),
-            buildRecommendedTreatmentRow('2', 'recommended treatment 2'),
-          ],
-        ),
-      ],
+    return FittedBox(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          _initialBlueRectangle,
+          SizedBox(
+            width: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                aux.tr('recommended_treatment'),
+                style: TextStyle(
+                    color: Colors.black, fontSize: isTablet ? 16 : 10),
+              ),
+              SizedBox(
+                height: isTablet ? 10 : 4,
+              ),
+              buildRecommendedTreatmentRow('1', 'recommended treatment 1'),
+              SizedBox(
+                height: isTablet ? 10 : 4,
+              ),
+              buildRecommendedTreatmentRow('2', 'recommended treatment 2'),
+              SizedBox(height: 2)
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -357,7 +387,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
             coloredFields.add(false);
           }
 
-
           if (formBloc.resultsField['bclc'] == '-' ||
               formBloc.resultsField['cps'] == '-') {
             showDialog(
@@ -365,15 +394,14 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               builder: (BuildContext dialogContext) {
                 return AlertDialog(
                   title: Text('error'),
-                  content: Text(
-                      'error alberta'),
+                  content: Text('error alberta'),
                   actions: <Widget>[
                     FlatButton(
                       child: Text('continuar'),
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.pushNamed(
-                            context, '/Alberta', arguments: coloredFields);
+                        Navigator.pushNamed(context, '/Alberta',
+                            arguments: coloredFields);
                       },
                     ),
                   ],
@@ -422,64 +450,95 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
+    var diagnosticButton = CalcBottomButton(
+        title: 'diagnostic_imaging',
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext dialogContext) {
+              return AlertDialog(
+                title: Text(aux.tr('diagnostic_imaging')),
+                content: Text('dialogBody'),
+              );
+            },
+          );
+        });
+    var laboratoryButton = CalcBottomButton(
+        title: 'laboratory_values',
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext dialogContext) {
+              return AlertDialog(
+                title: Text(aux.tr('laboratory_values')),
+                content: Text('dialogBody'),
+              );
+            },
+          );
+        });
+    var summaryButton = CalcBottomButton(
+        title: 'value_summary',
+        onPressed: () {
+          widget.controller.nextPage(
+              duration: Duration(seconds: 1), curve: Curves.easeInOut);
+        });
+    var isLandscape = context.isLandscape;
+    bool isTablet = context.diagonalInches >= 7;
+
     return BottomAppBar(
-      child: Stack(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      child: Container(
+        width: context.widthPx,
+        height: 45,
+        child: FittedBox(
+          fit: BoxFit.contain,
+          child: Row(
+            /*mainAxisAlignment: isLandscape && !isTablet
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,*/
             children: <Widget>[
-              CalcBottomButton(
-                  title: 'diagnostic_imaging',
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext dialogContext) {
-                        return AlertDialog(
-                          title: Text(aux.tr('diagnostic_imaging')),
-                          content: Text('dialogBody'),
-                        );
-                      },
-                    );
-                  }),
-              SizedBox(width: 15),
-              CalcBottomButton(
-                  title: 'laboratory_values',
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext dialogContext) {
-                        return AlertDialog(
-                          title: Text(aux.tr('laboratory_values')),
-                          content: Text('dialogBody'),
-                        );
-                      },
-                    );
-                  }),
-              SizedBox(width: 15),
-              CalcBottomButton(
-                  title: 'clinical_questions',
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext dialogContext) {
-                        return AlertDialog(
-                          title: Text(aux.tr('clinical_questions')),
-                          content: Text('dialogBody'),
-                        );
-                      },
-                    );
-                  }),
+              SizedBox(width: 10),
+
+              diagnosticButton,
+              SizedBox(width: isTablet ? 15 : 10),
+              laboratoryButton,
+              SizedBox(width: isTablet ? 15 : 10),
+              clinicalButton(aux),
+              //SizedBox(width: double.infinity,),
+              //Expanded(child: Container(),),
+              SizedBox(width: isTablet ? 15 : 10),
+
+              //isLandscape?Expanded():Container(),
+              summaryButton,
+              SizedBox(width: 10),
             ],
           ),
-          Row(
+        ),
+      ),
+      /*Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              _buildSummaryButton(formBloc),
+              summaryButton,
+              SizedBox(width: 10),
+              //_buildSummaryButton(formBloc),
             ],
-          ),
-        ],
-      ),
+          ),*/
     );
+  }
+
+  CalcBottomButton clinicalButton(AppLocalizations aux) {
+    return CalcBottomButton(
+        title: 'clinical_questions',
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext dialogContext) {
+              return AlertDialog(
+                title: Text(aux.tr('clinical_questions')),
+                content: Text('dialogBody'),
+              );
+            },
+          );
+        });
   }
 
   _buildSummaryButton(CompleteFormBloc formBloc) {

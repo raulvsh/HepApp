@@ -6,8 +6,13 @@ class CalculatorButton extends StatelessWidget {
   final onPressed;
   final title;
   final width;
+  final height;
   const CalculatorButton(
-      {Key key, this.title, this.onPressed, this.width = 250.0})
+      {Key key,
+      this.title,
+      this.onPressed,
+      this.width = 250.0,
+      this.height = 50.0})
       : super(key: key);
 
 
@@ -17,6 +22,7 @@ class CalculatorButton extends StatelessWidget {
     bool isTablet = context.diagonalInches >= 7;
     return Container(
       width: width,
+      height: height,
       padding: EdgeInsets.all(8.0),
       child: RaisedButton(
         shape: RoundedRectangleBorder(

@@ -20,6 +20,7 @@ import 'complete_form_bloc.dart';
 class LaboratoryForm extends StatefulWidget with Observable {
   final formBloc;
   final PageController controller;
+
   LaboratoryForm({Key key, this.formBloc, this.controller}) : super(key: key);
 
   @override
@@ -191,9 +192,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     return isLandscape
         ? astCompleteRow
         : Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[ast, astUpperLimit],
-    );
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[ast, astUpperLimit],
+          );
   }
 
   _buildALPRow(CompleteFormBloc formBloc) {
@@ -242,6 +243,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
     var isLandscape = context.isLandscape;
+    bool isTablet = context.diagonalInches >= 7;
 
     return BottomAppBar(
       child: Stack(
@@ -251,18 +253,20 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
                 ? MainAxisAlignment.center
                 : MainAxisAlignment.start,
             children: <Widget>[
+              SizedBox(width: isTablet ? 10 : 0),
+
               CalcBottomButton(
                   title: 'reset_values',
                   onPressed: () {
                     resetValues(formBloc);
                   }),
-              SizedBox(width: 15),
+              SizedBox(width: isTablet ? 15 : 10),
               CalcBottomButton(
                   title: 'previous_values',
                   onPressed: () {
                     previousValues(formBloc);
                   }),
-              SizedBox(width: 15),
+              SizedBox(width: isTablet ? 15 : 10),
               CalcBottomButton(
                   title: 'more_information',
                   onPressed: () {
@@ -273,7 +277,16 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              _buildNextButton(formBloc),
+              CalcBottomButton(
+                  title: 'next',
+                  onPressed: () {
+                    widget.controller.nextPage(
+                        duration: Duration(seconds: 1),
+                        curve: Curves.easeInOut);
+                  }),
+              SizedBox(width: 10),
+
+              //_buildNextButton(formBloc),
             ],
           ),
         ],

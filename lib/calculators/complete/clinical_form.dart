@@ -157,6 +157,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
     var isLandscape = context.isLandscape;
+    bool isTablet = context.diagonalInches >= 7;
 
     return BottomAppBar(
       child: Stack(
@@ -166,18 +167,19 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
                 ? MainAxisAlignment.center
                 : MainAxisAlignment.start,
             children: <Widget>[
+              SizedBox(width: isTablet ? 10 : 0),
               CalcBottomButton(
                   title: 'reset_values',
                   onPressed: () {
                     resetValues(formBloc);
                   }),
-              SizedBox(width: 15),
+              SizedBox(width: isTablet ? 15 : 10),
               CalcBottomButton(
                   title: 'previous_values',
                   onPressed: () {
                     previousValues(formBloc);
                   }),
-              SizedBox(width: 15),
+              SizedBox(width: isTablet ? 15 : 10),
               CalcBottomButton(
                   title: 'more_information',
                   onPressed: () {
@@ -188,7 +190,16 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              _buildNextButton(formBloc),
+              CalcBottomButton(
+                  title: 'next',
+                  onPressed: () {
+                    widget.controller.nextPage(
+                        duration: Duration(seconds: 1),
+                        curve: Curves.easeInOut);
+                  }),
+              SizedBox(width: 10),
+
+              //_buildNextButton(formBloc),
             ],
           ),
         ],
