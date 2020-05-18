@@ -27,10 +27,12 @@ class ResultsForm extends StatefulWidget with Observable {
 }
 
 class ResultsFormState extends State<ResultsForm> with Observable {
+  var debug = true;
   var reset = false;
   var previous = false;
   final prefs = UserSettings();
   final units = Units();
+  List<bool> coloredFields = [];
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +91,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       'cirrhosis': aux.tr(formBloc.cirrhosisField.value),
       'apri': formBloc.resultsField['apri'],
       'child_pugh_score_oneline':
-          formBloc.resultsField['child_pugh_score_oneline'],
+      formBloc.resultsField['child_pugh_score_oneline'],
       'meld': formBloc.resultsField['meld'],
       'meld_na': formBloc.resultsField['meld_na'],
       '5v_meld': formBloc.resultsField['5v_meld'],
@@ -128,13 +130,13 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         color: Color.fromARGB(255, 210, 242, 245),
         child: Center(
             child: Text(
-          aux.tr('liver_function').toUpperCase(),
-          style: TextStyle(color: Colors.black, fontSize: isTablet ? 16 : 13),
-        )));
+              aux.tr('liver_function').toUpperCase(),
+              style: TextStyle(color: Colors.black, fontSize: isTablet ? 16 : 13),
+            )));
   }
 
-  Container _buildStagingAlgorithmsHeader(bool isLandscape, bool isTablet,
-      AppLocalizations aux) {
+  Container _buildStagingAlgorithmsHeader(
+      bool isLandscape, bool isTablet, AppLocalizations aux) {
     return Container(
         margin: EdgeInsets.only(right: isLandscape ? 20 : 0),
         width: isTablet ? 400 : 200,
@@ -208,8 +210,8 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           ],
         )
             : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
             SizedBox(height: 20),
             _buildRecommendedTreatments(),
             SizedBox(height: 20),
@@ -262,6 +264,29 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   _buildRecommendedTreatments() {
     bool isTablet = context.diagonalInches >= 7;
     AppLocalizations aux = AppLocalizations.of(context);
+    AlbertaAlgorithm albertaAlgorithm = AlbertaAlgorithm(/*data*/);
+    var data = AlbertaData(
+      bclc: widget.formBloc.resultsField['bclc'],
+      cps: widget.formBloc.resultsField['child_pugh_score_oneline'],
+      portalHypertension: widget.formBloc.portalHypertensionField.value,
+      pvt: widget.formBloc.pvtField.value,
+      platelets: widget.formBloc.plateletsField.value,
+      varices: widget.formBloc.varicesField.value,
+      bilirubin: widget.formBloc.bilirubinField.valueToDouble,
+      encephalopaty: widget.formBloc.encephalopatyField.value,
+      ascites: widget.formBloc.ascitesField.value,
+      tumourSize: getTumourSize(),
+      afp: widget.formBloc.afpField.valueToDouble,
+      results: ['-', '-'],
+    );
+    if (debug) printAlbertaObject(data);
+
+    for (int i = 0; i <= 46; i++) {
+      coloredFields.add(false);
+    }
+
+    coloredFields = albertaAlgorithm.obtenerRecorrido(data);
+
     return FittedBox(
       child: Row(
         //crossAxisAlignment: CrossAxisAlignment.start,
@@ -282,11 +307,13 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               SizedBox(
                 height: isTablet ? 10 : 4,
               ),
-              buildRecommendedTreatmentRow('1', 'recommended treatment 1'),
+              buildRecommendedTreatmentRow(
+                  '1', "reduccion de la fibross de higado"),
+              //albertaAlgorithm.treatments[0]),
               SizedBox(
                 height: isTablet ? 10 : 4,
               ),
-              buildRecommendedTreatmentRow('2', 'recommended treatment 2'),
+              buildRecommendedTreatmentRow('2', albertaAlgorithm.treatments[1]),
               SizedBox(height: 2)
             ],
           ),
@@ -357,39 +384,12 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   _buildAlbertaButton(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
-
     return CalculatorButton(
         title: 'alberta_hcc_algorithm',
         width: isTablet ? 250.0 : 175.0,
         onPressed: () {
-          var data = AlbertaData(
-            bclc: formBloc.resultsField['bclc'],
-            cps: formBloc.resultsField['child_pugh_score_oneline'],
-            portalHypertension: formBloc.portalHypertensionField.value,
-            pvt: formBloc.pvtField.value,
-            platelets: formBloc.plateletsField.value,
-            varices: formBloc.varicesField.value,
-            bilirubin: formBloc.bilirubinField.valueToDouble,
-            results: formBloc.resultsField,
-          );
-          print("\n\n*****************OBJETO albertaDATA: "
-              "\nbclc : ${data.bclc}" +
-              "\ncps : ${data.cps}" +
-              "\nportal ht : ${data.portalHypertension}" +
-              "\npvt : ${data.pvt}" +
-              "\nplatelets : ${data.platelets}" +
-              "\nvarices: ${data.varices}" +
-              "\nbilirrubina : ${data.bilirubin}" +
-              "\nresultados : ${data.results}" +
-              "\n**************");
-
-          List<bool> coloredFields = [];
-          for (int i = 0; i <= 46; i++) {
-            coloredFields.add(false);
-          }
-
           if (formBloc.resultsField['bclc'] == '-' ||
-              formBloc.resultsField['cps'] == '-') {
+              formBloc.resultsField['child_pugh_score_oneline'] == '-') {
             showDialog(
               context: context,
               builder: (BuildContext dialogContext) {
@@ -410,80 +410,50 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               },
             );
           } else {
-            AlbertaAlgorithm albertaAlgorithm = AlbertaAlgorithm(data);
-            coloredFields = albertaAlgorithm.obtenerRecorrido();
-            //print(albertaAlgorithm.obtenerRecorrido());
             Navigator.pushNamed(context, '/Alberta', arguments: coloredFields);
           }
+        });
+  }
 
-          /*try {
-          this.resultadoField = cpsAlgorithm.obtenerResultado();
-          data.result = this.resultadoField;
-        } catch (e) {
-          print("Excepción: $e");
-        }
-          formBloc.*/
-        } /*=>
-            Navigator.pushNamed(context, '/Alberta',
-            )
-      },*/ /*() {
-          showDialog(
-            context: context,
-            builder: (BuildContext dialogContext) {
-              return AlertDialog(
-                title: Text(aux.tr('alberta_hcc_algorithm')),
-                content:
-                Text('Contenido del Alberta HCC, seguramenta widget nuevo'),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text(aux.tr('close')),
-                    onPressed: () {
-                      Navigator.of(dialogContext).pop(); // Dismiss alert dialog
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-        }*/
-    );
+  void printAlbertaObject(AlbertaData data) {
+    print("\n\n*****************OBJETO albertaDATA: "
+        "\nbclc : ${data.bclc}" +
+        "\ncps : ${data.cps}" +
+        "\nportal ht : ${data.portalHypertension}" +
+        "\npvt : ${data.pvt}" +
+        "\nplatelets : ${data.platelets}" +
+        "\nvarices: ${data.varices}" +
+        "\nbilirrubina : ${data.bilirubin}");
+    print("Encefalopatía: " + data.encephalopaty);
+    print("Ascitis: " + data.ascites);
+    print("Tamaño de tumor: " + data.tumourSize.toString());
+    print("AFP: " + data.afp.toString());
+    print("\nresultados : ${data.results.toString()}" +
+        "\n**************");
   }
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
     var diagnosticButton = CalcBottomButton(
-        title: 'diagnostic_imaging',
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext dialogContext) {
-              return AlertDialog(
-                title: Text(aux.tr('diagnostic_imaging')),
-                content: Text('dialogBody'),
-              );
-            },
-          );
-        });
+      title: 'diagnostic_imaging',
+      onPressed: () => widget.controller.jumpToPage(0),
+    );
+
     var laboratoryButton = CalcBottomButton(
-        title: 'laboratory_values',
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext dialogContext) {
-              return AlertDialog(
-                title: Text(aux.tr('laboratory_values')),
-                content: Text('dialogBody'),
-              );
-            },
-          );
-        });
+      title: 'laboratory_values',
+      onPressed: () => widget.controller.jumpToPage(1),
+    );
+
+    var clinicalButton = CalcBottomButton(
+        title: 'clinical_questions',
+        onPressed: () => widget.controller.jumpToPage(2));
+
     var summaryButton = CalcBottomButton(
-        title: 'value_summary',
-        onPressed: () {
-          widget.controller.nextPage(
-              duration: Duration(seconds: 1), curve: Curves.easeInOut);
-        });
-    var isLandscape = context.isLandscape;
+      title: 'value_summary',
+      onPressed: () =>
+          widget.controller
+              .nextPage(
+              duration: Duration(seconds: 1), curve: Curves.easeInOut),
+    );
     bool isTablet = context.diagonalInches >= 7;
 
     return BottomAppBar(
@@ -493,9 +463,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         child: FittedBox(
           fit: BoxFit.contain,
           child: Row(
-            /*mainAxisAlignment: isLandscape && !isTablet
-                    ? MainAxisAlignment.start
-                    : MainAxisAlignment.center,*/
             children: <Widget>[
               SizedBox(width: 10),
 
@@ -503,7 +470,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               SizedBox(width: isTablet ? 15 : 10),
               laboratoryButton,
               SizedBox(width: isTablet ? 15 : 10),
-              clinicalButton(aux),
+              clinicalButton,
               //SizedBox(width: double.infinity,),
               //Expanded(child: Container(),),
               SizedBox(width: isTablet ? 15 : 10),
@@ -515,42 +482,15 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           ),
         ),
       ),
-      /*Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              summaryButton,
-              SizedBox(width: 10),
-              //_buildSummaryButton(formBloc),
-            ],
-          ),*/
     );
   }
 
-  CalcBottomButton clinicalButton(AppLocalizations aux) {
-    return CalcBottomButton(
-        title: 'clinical_questions',
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext dialogContext) {
-              return AlertDialog(
-                title: Text(aux.tr('clinical_questions')),
-                content: Text('dialogBody'),
-              );
-            },
-          );
-        });
-  }
-
-  _buildSummaryButton(CompleteFormBloc formBloc) {
-    return CalcBottomButton(
-      title: 'value_summary',
-      onPressed: () {
-        //creo que no hará falta
-        // submitDiagnostic(formBloc);
-        widget.controller
-            .nextPage(duration: Duration(seconds: 1), curve: Curves.easeInOut);
-      },
-    );
+  getTumourSize() {
+    List<double> tumourSizeList = [];
+    for (int i = 0; i < widget.formBloc.tumourSizeField.length; i++) {
+      tumourSizeList.add(
+          double.parse(widget.formBloc.tumourSizeField[i].value));
+    }
+    return tumourSizeList;
   }
 }

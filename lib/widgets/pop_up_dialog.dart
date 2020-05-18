@@ -44,8 +44,11 @@ class PopUpDialog extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 child: FlatButton(
                   child: Text(
-                    aux.tr('accept'),
-                    style: TextStyle(color: Theme.of(context).primaryColor),
+                    aux.tr('close'),
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
                   ),
                   onPressed: () => Navigator.pop(context),
                 ),

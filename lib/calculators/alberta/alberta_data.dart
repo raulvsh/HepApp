@@ -6,7 +6,11 @@ class AlbertaData {
   String platelets;
   String varices;
   double bilirubin;
-  Map<String, String> results = {};
+  String encephalopaty;
+  String ascites;
+  List<double> tumourSize;
+  double afp;
+  List<String> results;
 
   AlbertaData({
     this.bclc,
@@ -16,6 +20,10 @@ class AlbertaData {
     this.platelets,
     this.varices,
     this.bilirubin,
+    this.encephalopaty,
+    this.ascites,
+    this.tumourSize,
+    this.afp,
     this.results,
   });
 }

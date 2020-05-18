@@ -80,16 +80,27 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
 
     var tumourSize = widget.formBloc.tumourSizeField;
-    for (int i = 0; i < tumourSize.length; i++)
-      print(tumourSize[i].value);
+    for (int i = 0; i < tumourSize.length; i++) print(tumourSize[i].value);
     Map<String, dynamic> diagnosticMap1 = {
       'tumours': widget.formBloc.tumourNumberField.value,
-      '#1': tumourSize[0].value != '0' ? tumourSize[0].value : '-',
-      '#2': tumourSize[1].value != '0' ? tumourSize[1].value : '-',
-      '#3': tumourSize[2].value != '0' ? tumourSize[2].value : '-',
-      '#4': tumourSize[3].value != '0' ? tumourSize[3].value : '-',
-      '#5': tumourSize[4].value != '0' ? tumourSize[4].value : '-',
-      '#6': tumourSize[5].value != '0' ? tumourSize[5].value : '-',
+      '#1': tumourSize[0].value != '0'
+          ? tumourSize[0].valueToDouble.toStringAsFixed(2) + " cm."
+          : '-',
+      '#2': tumourSize[1].value != '0'
+          ? tumourSize[1].valueToDouble.toStringAsFixed(2) + " cm."
+          : '-',
+      '#3': tumourSize[2].value != '0'
+          ? tumourSize[2].valueToDouble.toStringAsFixed(2) + " cm."
+          : '-',
+      '#4': tumourSize[3].value != '0'
+          ? tumourSize[3].valueToDouble.toStringAsFixed(2) + " cm."
+          : '-',
+      '#5': tumourSize[4].value != '0'
+          ? tumourSize[4].valueToDouble.toStringAsFixed(2) + " cm."
+          : '-',
+      '#6': tumourSize[5].value != '0'
+          ? tumourSize[5].valueToDouble.toStringAsFixed(2) + " cm."
+          : '-',
       'tumour_extent': widget.formBloc.tumourExtentField.value,
     };
     Map<String, dynamic> diagnosticMap2 = {

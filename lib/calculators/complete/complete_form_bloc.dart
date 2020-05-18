@@ -22,13 +22,14 @@ import 'package:hepapp/data/units.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 
 class CompleteFormBloc extends FormBloc<String, String> {
+  bool debug = true;
   final prefs = UserSettings();
   final units = Units();
 
   //Diagnostic
   var tumourNumberField = SelectFieldBloc(
     items: ['0', '1', '2', '3', '4', '5', '6+'],
-    initialValue: '-1',
+    initialValue: '-',
   );
   var tumourSizeField = [
     TextFieldBloc(initialValue: '0'),
@@ -119,26 +120,47 @@ class CompleteFormBloc extends FormBloc<String, String> {
     pvt: '-',
   );
 
+  var laboratoryData = LaboratoryData(
+    bilirubin: 0.0,
+    inr: 0.0,
+    creatinine: 0.0,
+    albumin: 0.0,
+    sodium: 0.0,
+    platelets: 0.0,
+    afp: 0.0,
+    ast: [0.0, 0.0],
+    alp: [0.0, 0.0],
+    dialysis: '-',
+  );
+
+  var clinicalData = ClinicalData(
+    cirrhosis: '-',
+    encephalopaty: '-',
+    ascites: '-',
+    varices: '-',
+    ecog: '-',
+  );
+
   Map<String, String> resultsField = initResultMap();
 
   @override
   List<FieldBloc> get fieldBlocs => [
-        tumourNumberField,
-        tumourSizeField[0],
-        tumourSizeField[1],
-        tumourSizeField[2],
-        tumourSizeField[3],
-        tumourSizeField[4],
-        tumourSizeField[5],
-        tumourExtentField,
-        pviField,
-        nodesField,
-        metastasisField,
-        portalHypertensionField,
-        pvtField,
-        bilirubinField,
-    inrField,
-    creatinineField,
+    tumourNumberField,
+    tumourSizeField[0],
+    tumourSizeField[1],
+    tumourSizeField[2],
+    tumourSizeField[3],
+    tumourSizeField[4],
+    tumourSizeField[5],
+    tumourExtentField,
+    pviField,
+    nodesField,
+    metastasisField,
+    portalHypertensionField,
+    pvtField,
+    bilirubinField,
+        inrField,
+        creatinineField,
         albuminField,
     sodiumField,
     plateletsField,
@@ -153,7 +175,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
     ascitesField,
     varicesField,
     ecogField,
-      ];
+  ];
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
@@ -185,299 +207,9 @@ class CompleteFormBloc extends FormBloc<String, String> {
     yield currentState.toLoaded();
   }
 
-  void showFields() {
-    print("\n\n *********FIELD VALUES COMPLETE");
-    print("Campo numero: " + tumourNumberField.value);
-    print("Campo tamaño: " + tumourSizeField[0].value);
-    print("Campo extension: " + tumourExtentField.value);
-    print("Campo pvi: " + pviField.value);
-    print("Campo nodos: " + nodesField.value);
-    print("Campo metastasis: " + metastasisField.value);
-    print("Campo portal hipertension: " + portalHypertensionField.value);
-    print("Campo pvt: " + pvtField.value);
-
-    print("Campo bilirrubina: " + bilirubinField.value);
-    print("Campo inr: " + inrField.value);
-    print("Campo creatinina: " + creatinineField.value);
-    print("Campo albumina: " + albuminField.value);
-    print("Campo sodio: " + sodiumField.value);
-    print("Campo plaquetas: " + plateletsField.value);
-    print("Campo afp: " + afpField.value);
-    print("Campo ast: " + astField[0].value);
-    print("Campo ast limite: " + astField[1].value);
-    print("Campo alp: " + alpField[0].value);
-    print("Campo alp limite: " + alpField[1].value);
-    print("Campo dialisis: " + dialysisField.value);
-    print("Campo cirrosis: " + cirrhosisField.value);
-    print("Campo encefalopatia: " + encephalopatyField.value);
-    print("Campo ascites: " + ascitesField.value);
-    print("Campo varices: " + varicesField.value);
-    print("Campo ecog: " + ecogField.value);
-
-    print("Campo resultado antes de operar: " + resultsField.toString());
-  }
-
   showNotIU() {}
 
   void showIU() {}
-
-  resetDiagnostic() {
-    diagnosticData = DiagnosticData(
-      tumourNumber: tumourNumberField.value,
-      tumourSize: [
-        tumourSizeField[0].valueToDouble,
-        tumourSizeField[1].valueToDouble,
-        tumourSizeField[2].valueToDouble,
-        tumourSizeField[3].valueToDouble,
-        tumourSizeField[4].valueToDouble,
-        tumourSizeField[5].valueToDouble,
-      ],
-      tumourExtent: tumourExtentField.value,
-      pvi: pviField.value,
-      nodes: nodesField.value,
-      metastasis: metastasisField.value,
-      portalHypertension: portalHypertensionField.value,
-      pvt: pvtField.value,
-    );
-    printObjectData();
-    this.tumourNumberField.updateValue('-1');
-    /*  this.tumourNumberField = SelectFieldBloc(
-      items: ['0', '1', '2', '3', '4', '5', '6+'],
-      initialValue: '-',
-    );*/
-    this.tumourSizeField[0].updateValue('0');
-    this.tumourSizeField[1].updateValue('0');
-    this.tumourSizeField[2].updateValue('0');
-    this.tumourSizeField[3].updateValue('0');
-    this.tumourSizeField[4].updateValue('0');
-    this.tumourSizeField[5].updateValue('0');
-
-    /*this.tumourSizeField = [
-      TextFieldBloc(initialValue: '0'),
-      TextFieldBloc(initialValue: '0'),
-      TextFieldBloc(initialValue: '0'),
-      TextFieldBloc(initialValue: '0'),
-      TextFieldBloc(initialValue: '0'),
-      TextFieldBloc(initialValue: '0'),
-    ];*/
-    this.tumourExtentField.updateValue('-');
-    /* this.tumourExtentField = SelectFieldBloc(
-      items: ['<=50%', '>50%'],
-      initialValue: '-',
-    );*/
-    this.pviField.updateValue('-');
-    /*this.pviField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: '-',
-    );*/
-    this.nodesField.updateValue('-');
-    /*this.nodesField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: '-',
-    );*/
-    this.metastasisField.updateValue('-');
-    /*this.metastasisField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: '-',
-    );*/
-    this.portalHypertensionField.updateValue('-');
-    /*this.portalHypertensionField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: '-',
-    );*/
-    this.pvtField.updateValue('-');
-
-
-    /*this.pvtField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: '-',
-    );*/
-  }
-
-  void printObjectData() {
-    print(diagnosticData.tumourNumber);
-    print(diagnosticData.tumourSize.toString());
-    print(diagnosticData.tumourExtent);
-    print(diagnosticData.pvi);
-    print(diagnosticData.nodes);
-    print(diagnosticData.metastasis);
-    print(diagnosticData.portalHypertension);
-    print(diagnosticData.pvt);
-  }
-
-  void previousDiagnostic() {
-    printObjectData();
-    print("numero desde field " + tumourNumberField.value);
-    //this.tumourNumberField.updateInitialValue(diagnosticData.tumourNumber.toString());
-    this.tumourNumberField.updateValue(diagnosticData.tumourNumber.toString());
-    if (diagnosticData.tumourNumber == '6+') {
-      prefs.setTumourNumber(6);
-    } else {
-      prefs.setTumourNumber(int.parse(diagnosticData.tumourNumber));
-    }
-
-    /*this.tumourNumberField = SelectFieldBloc(
-      items: ['0', '1', '2', '3', '4', '5', '6+'],
-      initialValue: diagnosticData.tumourNumber,
-    );*/
-    print("numero despues " + tumourNumberField.value);
-    print("numero data " + diagnosticData.tumourNumber);
-    this.tumourSizeField[0].updateValue(
-        diagnosticData.tumourSize[0].toString());
-    this.tumourSizeField[1].updateValue(
-        diagnosticData.tumourSize[1].toString());
-    this.tumourSizeField[2].updateValue(
-        diagnosticData.tumourSize[2].toString());
-    this.tumourSizeField[3].updateValue(
-        diagnosticData.tumourSize[3].toString());
-    this.tumourSizeField[4].updateValue(
-        diagnosticData.tumourSize[4].toString());
-    this.tumourSizeField[5].updateValue(
-        diagnosticData.tumourSize[5].toString());
-
-    print("tamaño despues " + tumourSizeField[0].value.toString());
-    print("tamaño despues " + tumourSizeField[1].value);
-    print("tamaño despues " + tumourSizeField[2].value);
-
-
-    /*this.tumourSizeField = [
-      TextFieldBloc(initialValue: diagnosticData.tumourSize[0].toString()),
-      TextFieldBloc(initialValue: diagnosticData.tumourSize[1].toString()),
-      TextFieldBloc(initialValue: diagnosticData.tumourSize[2].toString()),
-      TextFieldBloc(initialValue: diagnosticData.tumourSize[3].toString()),
-      TextFieldBloc(initialValue: diagnosticData.tumourSize[4].toString()),
-      TextFieldBloc(initialValue: diagnosticData.tumourSize[5].toString()),
-    ];*/
-    this.tumourExtentField.updateValue(diagnosticData.tumourExtent);
-    /* this.tumourExtentField = SelectFieldBloc(
-      items: ['<=50%', '>50%'],
-      initialValue: diagnosticData.tumourExtent,
-    );*/
-    this.pviField.updateValue(diagnosticData.pvi);
-    /* this.pviField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: diagnosticData.pvi,
-    );*/
-    this.nodesField.updateValue(diagnosticData.nodes);
-    /*this.nodesField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: diagnosticData.nodes,
-    );*/
-    this.metastasisField.updateValue(diagnosticData.metastasis);
-    /*this.metastasisField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: diagnosticData.metastasis,
-    );*/
-    this.portalHypertensionField.updateValue(diagnosticData.portalHypertension);
-    /*this.portalHypertensionField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: diagnosticData.portalHypertension,
-    );*/
-    this.pvtField.updateValue(diagnosticData.pvt);
-    /* this.pvtField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: diagnosticData.pvt,
-    );*/
-    print("after previous");
-    printObjectData();
-
-  }
-
-  resetLaboratory() {
-    diagnosticData = DiagnosticData(
-      tumourNumber: tumourNumberField.value,
-      tumourSize: [
-        tumourSizeField[0].valueToDouble,
-        tumourSizeField[1].valueToDouble,
-        tumourSizeField[2].valueToDouble,
-        tumourSizeField[3].valueToDouble,
-        tumourSizeField[4].valueToDouble,
-        tumourSizeField[5].valueToDouble,
-      ],
-      tumourExtent: tumourExtentField.value,
-      pvi: pviField.value,
-      nodes: nodesField.value,
-      metastasis: metastasisField.value,
-      portalHypertension: portalHypertensionField.value,
-      pvt: pvtField.value,
-    );
-    printObjectData();
-
-    this.tumourNumberField = SelectFieldBloc(
-      items: ['0', '1', '2', '3', '4', '5', '6+'],
-      initialValue: '-',
-    );
-
-    this.tumourSizeField = [
-      TextFieldBloc(initialValue: '0'),
-      TextFieldBloc(initialValue: '0'),
-      TextFieldBloc(initialValue: '0'),
-      TextFieldBloc(initialValue: '0'),
-      TextFieldBloc(initialValue: '0'),
-      TextFieldBloc(initialValue: '0'),
-    ];
-    this.tumourExtentField = SelectFieldBloc(
-      items: ['<=50%', '>50%'],
-      initialValue: '-',
-    );
-    this.pviField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: '-',
-    );
-    this.nodesField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: '-',
-    );
-    this.metastasisField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: '-',
-    );
-    this.portalHypertensionField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: '-',
-    );
-    this.pvtField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: '-',
-    );
-  }
-
-  reset() {
-    this.bilirubinField = TextFieldBloc();
-    this.albuminField = TextFieldBloc();
-    /*this.ascitesField = SelectFieldBloc(
-      items: ['none_fem', 'controlled', 'refractory'],
-    );*/
-    this.tumourExtentField = SelectFieldBloc(
-      items: ['<=50%', '>50%'],
-    );
-
-    this.resultsField = initResultMap();
-  }
-
-  void previous() {
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toString(),
-    );
-    this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toString(),
-    );
-    this.ascitesField = SelectFieldBloc(
-      items: ['none_fem', 'controlled', 'refractory'],
-      initialValue: data.ascites.toString(),
-    );
-
-    this.tumourExtentField = SelectFieldBloc(
-      items: ['<=50%', '>50%'],
-      initialValue: data.tumourExtent.toString(),
-    );*/
-
-    //this.results = data.results;
-
-    print("\n*****AFTER PREVIOUS");
-    showFields();
-    //showFields();
-  }
 
   static initResultMap() {
     return {
@@ -496,11 +228,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   bool comprobarApri() {
-/*    print("\n*****COMPROBAR APRI");
-    print("Campo AST: " + astField[0].value);
-    print("Campo ast limite: " + astField[1].value);
-    print("Campo plaquetas: " + plateletsField.value);*/
-
     if (astField[0].value != '0' &&
         astField[1].value != '0' &&
         plateletsField.value != '0')
@@ -515,21 +242,19 @@ class CompleteFormBloc extends FormBloc<String, String> {
       astUpperLimit: astField[1].valueToDouble,
       platelets: plateletsField.valueToDouble,
     );
-
+    if (debug) printApri();
     ApriAlgorithm apriAlgorithm = ApriAlgorithm(apriData);
-
     return apriAlgorithm.obtenerResultado();
   }
 
+  void printApri() {
+    print("\n*****CALCULAR APRI");
+    print("Campo AST: " + astField[0].value);
+    print("Campo ast limite: " + astField[1].value);
+    print("Campo plaquetas: " + plateletsField.value);
+  }
+
   bool comprobarCPS() {
-    /*  print("\n*****COMPROBAR cps");
-    print("Campo bilirrubina: " + bilirubinField.value);
-    print("Campo inr: " + inrField.value);
-
-    print("Campo albumina: " + albuminField.value);
-    print("Campo ence: " + encephalopatyField.value);
-    print("Campo ascites: " + ascitesField.value);*/
-
     if (bilirubinField.value != '0' &&
         inrField.value != '0' &&
         albuminField.value != '0' &&
@@ -548,24 +273,21 @@ class CompleteFormBloc extends FormBloc<String, String> {
       encephalopaty: encephalopatyField.value,
       ascites: ascitesField.value,
     );
-
+    if (debug) printCps();
     CpsAlgorithm cpsAlgorithm = CpsAlgorithm(cpsData);
-
     return cpsAlgorithm.obtenerResultado();
+  }
 
-    // OkudaAlgorithm okudaAlgorithm = OkudaAlgorithm(okudaData);
-
-    // return okudaAlgorithm.obtenerResultado();
+  void printCps() {
+    print("\n*****CALCULAR cps");
+    print("Campo bilirrubina: " + bilirubinField.value);
+    print("Campo inr: " + inrField.value);
+    print("Campo albumina: " + albuminField.value);
+    print("Campo ence: " + encephalopatyField.value);
+    print("Campo ascites: " + ascitesField.value);
   }
 
   bool comprobarMeld() {
-    /* print("\n*****COMPROBAR meld");
-    print("Campo bilirrubina: " + bilirubinField.value);
-    print("Campo inr: " + inrField.value);
-    print("Campo creat: " + creatinineField.value);
-    print("campo sodio: " + sodiumField.value);
-    print("campo albumina: " + albuminField.value);*/
-
     if (bilirubinField.value != '0' &&
         inrField.value != '0' &&
         creatinineField.value != '0')
@@ -575,8 +297,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   bool comprobarNa() {
-/*    print("\n*****comprobar sodio");
-    print("Campo sodio: " + sodiumField.value);*/
     if (sodiumField.value != '0')
       return true;
     else
@@ -584,8 +304,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   bool comprobarAlb() {
-    /*print("\n****comprobar albumina");
-    print("Campo albumina: " + albuminField.value);*/
     if (albuminField.value != '0')
       return true;
     else
@@ -600,8 +318,18 @@ class CompleteFormBloc extends FormBloc<String, String> {
       albumin: albuminField.valueToDouble,
       sodium: sodiumField.valueToDouble,
     );
+    if (debug) printMeld();
     MeldAlgorithm meldAlgorithm = MeldAlgorithm(meldData);
     return meldAlgorithm.obtenerResultado();
+  }
+
+  void printMeld() {
+    print("\n*****CALCULAR meld");
+    print("Campo bilirrubina: " + bilirubinField.value);
+    print("Campo inr: " + inrField.value);
+    print("Campo creat: " + creatinineField.value);
+    print("campo sodio: " + sodiumField.value);
+    print("campo albumina: " + albuminField.value);
   }
 
   bool comprobarOkuda() {
@@ -621,15 +349,18 @@ class CompleteFormBloc extends FormBloc<String, String> {
       ascites: ascitesField.value,
       tumourExtent: tumourExtentField.value,
     );
-    /*    print("\n*****CALCULAR OKUDA");
+    if (debug) printOkuda();
+    OkudaAlgorithm okudaAlgorithm = OkudaAlgorithm(okudaData);
+    return okudaAlgorithm.obtenerResultado();
+  }
+
+  void printOkuda() {
+    print("\n*****CALCULAR OKUDA");
     print("Campo bilirrubina: " + bilirubinField.value);
     print("Campo albumina: " + albuminField.value);
     print("Campo ascites: " + ascitesField.value);
     print("Campo extension: " + tumourExtentField.value);
-    print("Campo result: " + resultsField.toString());*/
-    OkudaAlgorithm okudaAlgorithm = OkudaAlgorithm(okudaData);
-
-    return okudaAlgorithm.obtenerResultado();
+    print("Campo result: " + resultsField.toString());
   }
 
   bool comprobarClip() {
@@ -643,8 +374,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   calcularClip() {
-    //String cps = calcularCPS();
-
     var clipData = ClipData(
       afp: afpField.valueToDouble,
       cps: calcularCPS()[0],
@@ -652,15 +381,18 @@ class CompleteFormBloc extends FormBloc<String, String> {
       tumourExtent: tumourExtentField.value,
       pvt: pvtField.value,
     );
-    /*print("\n*****CALCULAR CLIP");
+    if (debug) printClip();
+    ClipAlgorithm clipAlgorithm = ClipAlgorithm(clipData);
+    return clipAlgorithm.obtenerResultado();
+  }
+
+  void printClip() {
+    print("\n*****CALCULAR CLIP");
     print("Campo AFP: " + afpField.value);
-    print("Campo cps: " + cps);
+    print("Campo cps: " + calcularCPS());
     print("Campo numero: " + tumourNumberField.value);
     print("Campo extension: " + tumourExtentField.value);
-    print("Campo pvt: " + pvtField.toString());*/
-    ClipAlgorithm clipAlgorithm = ClipAlgorithm(clipData);
-    //print("resultado " + clipAlgorithm.obtenerResultado());
-    return clipAlgorithm.obtenerResultado();
+    print("Campo pvt: " + pvtField.toString());
   }
 
   bool comprobarGetch() {
@@ -722,7 +454,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   calcularCupi() {
     String tnm = calcularTnm();
-
     var cupiData = CupiData(
       tnm: tnm,
       ascites: ascitesField.value,
@@ -731,6 +462,12 @@ class CompleteFormBloc extends FormBloc<String, String> {
       alp: alpField[0].valueToDouble,
       ecog: ecogField.value,
     );
+    if (debug) printCupi(tnm);
+    CupiAlgorithm cupiAlgorithm = CupiAlgorithm(cupiData);
+    return cupiAlgorithm.obtenerResultado();
+  }
+
+  void printCupi(String tnm) {
     print("\n*****CALCULAR CUPI");
     print("Campo TNM: " + tnm);
     print("Campo ascites: " + ascitesField.value);
@@ -738,12 +475,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
     print("Campo bilirubin: " + bilirubinField.value);
     print("Campo alp: " + alpField[0].toString());
     print("Campo alp limit: " + alpField[1].toString());
-
     print("Campo ecog: " + ecogField.value);
-
-    CupiAlgorithm cupiAlgorithm = CupiAlgorithm(cupiData);
-    //print("resultado " + cupiAlgorithm.obtenerResultado());
-    return cupiAlgorithm.obtenerResultado();
   }
 
   bool comprobarBclc() {
@@ -759,13 +491,9 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   comprobarTumourSize(String tumourNumber) {
     int tN = int.parse(tumourNumber);
-    //print("tumour number $tN");
-    //print(tumourSizeField.toString());
     for (int i = 0; i < tN; i++) {
       if (tumourSizeField[i].value == '0') {
-        print("tamaño tumor $i " +
-            tumourSizeField[i].value.toString() +
-            " salgo falso");
+        print("tumor $i " + tumourSizeField[i].value.toString() + " falso");
         return false;
       }
     }
@@ -774,29 +502,28 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   calcularBclc() {
     String cps = calcularCPS();
-
     var bclcData = BclcData(
       tumourNumber: tumourNumberField.value,
       tumourSize: getTumourSize(),
-      //tumourSizeField.toList(),
       pvi: pviField.value,
       nodes: nodesField.value,
       metastasis: metastasisField.value,
       ecog: ecogField.value,
       cps: cps,
     );
+    if (debug) printBclc(cps);
+    BclcAlgorithm bclcAlgorithm = BclcAlgorithm(bclcData);
+    return bclcAlgorithm.obtenerResultado();
+  }
 
-    /*print("\n*****CALCULAR bclc");
+  void printBclc(cps) {
+    print("\n*****CALCULAR bclc");
     print("Campo numero de tumores: ${tumourNumberField.value}");
     print("Campo tamaño de tumores: ${tumourSizeField.toString()}");
     print("Campo pvi: ${nodesField.toString()}");
     print("Campo metastasis: ${metastasisField.toString()}");
     print("Campo ecog: ${ecogField.toString()}");
-    print("Campo cps: " + cps);*/
-
-    BclcAlgorithm bclcAlgorithm = BclcAlgorithm(bclcData);
-    //print("resultado " + cupiAlgorithm.obtenerResultado());
-    return bclcAlgorithm.obtenerResultado();
+    print("Campo cps: " + cps);
   }
 
   getTumourSize() {
@@ -805,5 +532,228 @@ class CompleteFormBloc extends FormBloc<String, String> {
       tumourSizeList.add(double.parse(tumourSizeField[i].value));
     }
     return tumourSizeList;
+  }
+
+  resetDiagnostic() {
+    diagnosticData = DiagnosticData(
+      tumourNumber: tumourNumberField.value,
+      tumourSize: getTumourSize(),
+      tumourExtent: tumourExtentField.value,
+      pvi: pviField.value,
+      nodes: nodesField.value,
+      metastasis: metastasisField.value,
+      portalHypertension: portalHypertensionField.value,
+      pvt: pvtField.value,
+    );
+
+    this.tumourNumberField.updateValue('-1');
+    this.tumourSizeField[0].updateValue('0');
+    this.tumourSizeField[1].updateValue('0');
+    this.tumourSizeField[2].updateValue('0');
+    this.tumourSizeField[3].updateValue('0');
+    this.tumourSizeField[4].updateValue('0');
+    this.tumourSizeField[5].updateValue('0');
+    this.tumourExtentField.updateValue('-');
+    this.pviField.updateValue('-');
+    this.nodesField.updateValue('-');
+    this.metastasisField.updateValue('-');
+    this.portalHypertensionField.updateValue('-');
+    this.pvtField.updateValue('-');
+
+    if (debug) {
+      print("\nReset diagnostic");
+      printDiagnosticData();
+      printDiagnosticFields();
+    }
+  }
+
+  void previousDiagnostic() {
+    this.tumourNumberField.updateValue(diagnosticData.tumourNumber.toString());
+    if (diagnosticData.tumourNumber == '6+') {
+      prefs.setTumourNumber(6);
+    } else {
+      prefs.setTumourNumber(int.parse(diagnosticData.tumourNumber));
+    }
+
+    for (int i = 0; i < tumourSizeField.length; i++) {
+      this
+          .tumourSizeField[i]
+          .updateValue(diagnosticData.tumourSize[i].toString());
+    }
+    this.tumourExtentField.updateValue(diagnosticData.tumourExtent);
+    this.pviField.updateValue(diagnosticData.pvi);
+    this.nodesField.updateValue(diagnosticData.nodes);
+    this.metastasisField.updateValue(diagnosticData.metastasis);
+    this.portalHypertensionField.updateValue(diagnosticData.portalHypertension);
+    this.pvtField.updateValue(diagnosticData.pvt);
+    if (debug) {
+      print("\nPrevious diagnostic");
+      printDiagnosticData();
+      printDiagnosticFields();
+    }
+  }
+
+  void printDiagnosticData() {
+    print("\nObjeto Diagnostic Data:");
+    print(diagnosticData.tumourNumber);
+    print(diagnosticData.tumourSize.toString());
+    print(diagnosticData.tumourExtent);
+    print(diagnosticData.pvi);
+    print(diagnosticData.nodes);
+    print(diagnosticData.metastasis);
+    print(diagnosticData.portalHypertension);
+    print(diagnosticData.pvt);
+  }
+
+  void printDiagnosticFields() {
+    print("\nCampos Diagnósitco:");
+    print(tumourNumberField.value);
+    for (int i = 0; i < tumourSizeField.length; i++)
+      print(tumourSizeField[i].value);
+    print(tumourExtentField.value);
+    print(pviField.value);
+    print(nodesField.value);
+    print(metastasisField.value);
+    print(portalHypertensionField.value);
+    print(pvtField.value);
+  }
+
+  resetLaboratory() {
+    laboratoryData = LaboratoryData(
+      bilirubin: bilirubinField.valueToDouble,
+      inr: inrField.valueToDouble,
+      creatinine: creatinineField.valueToDouble,
+      albumin: albuminField.valueToDouble,
+      sodium: sodiumField.valueToDouble,
+      platelets: plateletsField.valueToDouble,
+      afp: afpField.valueToDouble,
+      ast: [astField[0].valueToDouble, astField[1].valueToDouble],
+      alp: [alpField[0].valueToDouble, alpField[1].valueToDouble],
+      dialysis: dialysisField.value,
+    );
+
+    this.bilirubinField.updateValue('0');
+    this.inrField.updateValue('0');
+    this.creatinineField.updateValue('0');
+    this.albuminField.updateValue('0');
+    this.sodiumField.updateValue('0');
+    this.plateletsField.updateValue('0');
+    this.afpField.updateValue('0');
+    this.astField[0].updateValue('0');
+    this.astField[1].updateValue('0');
+    this.alpField[0].updateValue('0');
+    this.alpField[1].updateValue('0');
+    this.dialysisField.updateValue('-');
+
+    if (debug) {
+      print("\nReset laboratory");
+      printLaboratoryData();
+      printLaboratoryFields();
+    }
+  }
+
+  void previousLaboratory() {
+    this.bilirubinField.updateValue(laboratoryData.bilirubin.toString());
+    this.inrField.updateValue(laboratoryData.inr.toString());
+    this.creatinineField.updateValue(laboratoryData.creatinine.toString());
+    this.albuminField.updateValue(laboratoryData.albumin.toString());
+    this.sodiumField.updateValue(laboratoryData.sodium.toString());
+    this.plateletsField.updateValue(laboratoryData.platelets.toString());
+    this.afpField.updateValue(laboratoryData.afp.toString());
+    this.astField[0].updateValue(laboratoryData.ast[0].toString());
+    this.astField[1].updateValue(laboratoryData.ast[1].toString());
+    this.alpField[0].updateValue(laboratoryData.alp[0].toString());
+    this.alpField[1].updateValue(laboratoryData.alp[1].toString());
+    this.dialysisField.updateValue(laboratoryData.dialysis.toString());
+
+    if (debug) {
+      print("\nPrevious laboratory");
+      printLaboratoryData();
+      printLaboratoryFields();
+    }
+  }
+
+  void printLaboratoryData() {
+    print("\nObjeto Laboratory Data:");
+    print(laboratoryData.bilirubin);
+    print(laboratoryData.inr);
+    print(laboratoryData.creatinine);
+    print(laboratoryData.albumin);
+    print(laboratoryData.sodium);
+    print(laboratoryData.platelets);
+    print(laboratoryData.afp);
+    print(laboratoryData.ast.toString());
+    print(laboratoryData.alp.toString());
+    print(laboratoryData.dialysis);
+  }
+
+  void printLaboratoryFields() {
+    print("\nCampos Laboratory:");
+    print(bilirubinField.value);
+    print(inrField.value);
+    print(creatinineField.value);
+    print(albuminField.value);
+    print(sodiumField.value);
+    print(plateletsField.value);
+    print(afpField.value);
+    print(astField[0].value);
+    print(astField[1].value);
+    print(alpField[0].value);
+    print(alpField[1].value);
+    print(dialysisField.value);
+  }
+
+  resetClinical() {
+    clinicalData = ClinicalData(
+      cirrhosis: cirrhosisField.value,
+      encephalopaty: encephalopatyField.value,
+      ascites: ascitesField.value,
+      varices: varicesField.value,
+      ecog: ecogField.value,
+    );
+
+    this.cirrhosisField.updateValue('-');
+    this.encephalopatyField.updateValue('-');
+    this.ascitesField.updateValue('-');
+    this.varicesField.updateValue('-');
+    this.ecogField.updateValue('-');
+
+    if (debug) {
+      print("\nReset clinical");
+      printClinicalData();
+      printClinicalFields();
+    }
+  }
+
+  void previousClinical() {
+    this.cirrhosisField.updateValue(clinicalData.cirrhosis.toString());
+    this.encephalopatyField.updateValue(clinicalData.encephalopaty.toString());
+    this.ascitesField.updateValue(clinicalData.ascites.toString());
+    this.varicesField.updateValue(clinicalData.varices.toString());
+    this.ecogField.updateValue(clinicalData.ecog.toString());
+
+    if (debug) {
+      print("\nPrevious clinical");
+      printClinicalData();
+      printClinicalFields();
+    }
+  }
+
+  void printClinicalData() {
+    print("\nObjeto Clinical Data:");
+    print(clinicalData.cirrhosis);
+    print(clinicalData.encephalopaty);
+    print(clinicalData.ascites);
+    print(clinicalData.varices);
+    print(clinicalData.ecog);
+  }
+
+  void printClinicalFields() {
+    print("\nCampos Clinical:");
+    print(cirrhosisField.value);
+    print(encephalopatyField.value);
+    print(ascitesField.value);
+    print(varicesField.value);
+    print(ecogField.value);
   }
 }

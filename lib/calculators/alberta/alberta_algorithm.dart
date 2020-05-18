@@ -1,13 +1,14 @@
+import 'dart:math';
+
 import 'package:hepapp/data/units.dart';
+import 'package:hepapp/shared_preferences/user_settings.dart';
 
 import 'alberta_data.dart';
 
 class AlbertaAlgorithm {
   final units = Units();
-  final AlbertaData albertaData;
-
-  AlbertaAlgorithm(this.albertaData);
-
+  final prefs = UserSettings();
+  List<String> treatments = ['', ''];
   List<bool> coloredFields = [];
 
   initList() {
@@ -16,17 +17,84 @@ class AlbertaAlgorithm {
     }
   }
 
-  obtenerRecorrido() {
+  obtenerRecorrido(AlbertaData data) {
     initList();
+    var portalHT = data.portalHypertension;
+    var platelets = double.parse(data.platelets);
+    var ltCandidate = calculateLtCandidate(data);
+    //No se ha seleccionado la hipertensión portal, la calculamos con los datos que tenemos
+    if (portalHT == '-') {
+      portalHT = calculatePortalHypertension(data, platelets);
+    }
+    var bilirubin = prefs.getInternationalUnits()
+        ? data.bilirubin
+        : units.getIUBilirrubin(data.bilirubin);
+    bool highBilirubin = bilirubin > 17.104;
+    bool portalHtOrHighBilirubin = portalHT == 'yes' || highBilirubin;
+
+    printAlbertaObject(data);
+
+    if (data.bclc == 'very_early_0' &&
+        data.cps[0] == 'A' &&
+        !portalHtOrHighBilirubin) {
+      markColored([1, 6, 10, 17, 24, 33, 41, 43]);
+      treatments[0] = 'resection';
+    } else if (data.bclc == 'very_early_0' &&
+        data.cps[0] == 'A' &&
+        portalHtOrHighBilirubin &&
+        !ltCandidate) {
+      markColored([1, 6, 10, 17, 25, 18, 26, 34, 41, 43]);
+      treatments[0] = 'rfa';
+    } else if (data.bclc == 'very_early_0' &&
+        data.cps[0] == 'A' &&
+        portalHtOrHighBilirubin &&
+        ltCandidate) {
+      markColored([1, 6, 10, 17, 25, 18, 27, 35, 41, 43]);
+      treatments[0] = 'lt_long';
+    } else if (data.bclc == 'early_a' &&
+        data.cps[0] == 'A' &&
+        !portalHtOrHighBilirubin) {
+      markColored([2, 7, 10, 17, 24, 33, 41, 43]);
+      treatments[0] = 'resection';
+    } else if (data.bclc == 'early_a' &&
+        data.cps[0] == 'A' &&
+        portalHtOrHighBilirubin &&
+        !ltCandidate) {
+      markColored([2, 7, 10, 17, 25, 18, 26, 34, 41, 43]);
+      treatments[0] = 'rfa';
+    } else if (data.bclc == 'early_a' &&
+        data.cps[0] == 'A' &&
+        portalHtOrHighBilirubin &&
+        ltCandidate) {
+      markColored([2, 7, 10, 17, 25, 18, 27, 35, 41, 43]);
+      treatments[0] = 'lt_long';
+    } else if (data.bclc == 'early_a' && data.cps[0] == 'B' && !ltCandidate) {
+      markColored([2, 7, 11, 18, 26, 34, 41, 43]);
+      treatments[0] = 'rfa';
+    } else if (data.bclc == 'early_a' && data.cps[0] == 'B' && ltCandidate) {
+      markColored([2, 7, 11, 18, 27, 35, 41, 43]);
+      treatments[0] = 'lt_long';
+    } else if (data.bclc == 'early_a' && data.cps[0] == 'C' && ltCandidate) {
+      markColored([2, 7, 12, 19, 27, 35, 41, 43]);
+      treatments[0] = 'rfa';
+    } else if (data.bclc == 'early_a' && data.cps[0] == 'C' && !ltCandidate) {
+      markColored([2, 7, 12, 19, 28, 40, 46]);
+      treatments[0] = 'best_supportive_care';
+    }
+
+    //markColored([1,3,5,7,11]);
+
+    print(coloredFields);
+
     //print("cps "  + albertaData.cps);
     //if (albertaData.cps[0] == 'A') coloredFields[10] = true;
 
-    if (albertaData.results['bclc'] == 'end_stage_d') {
-      coloredFields[5] = true;
-
-      coloredFields[40] = true;
-      coloredFields[46] = true;
-    }
+    //if (albertatreatments['bclc'] == 'end_stage_d') {
+    //coloredFields[5] = true;
+    //coloredFields[40] = true;
+    //coloredFields[46] = true;
+    //treatments = ['prueba', 'prueba2'];
+    //}
 
     /* recorrido imagen Miriam
 
@@ -92,5 +160,58 @@ class AlbertaAlgorithm {
     coloredFields[46] = true;*/
 
     return coloredFields;
+  }
+
+  void markColored(List<int> lista) {
+    for (int i in lista) {
+      coloredFields[i] = true;
+    }
+  }
+
+  void printAlbertaObject(AlbertaData data) {
+    print("\n\n*****************OBJETO albertaDATA: "
+        "\nbclc : ${data.bclc}" +
+        "\ncps : ${data.cps}" +
+        "\nportal ht : ${data.portalHypertension}" +
+        "\npvt : ${data.pvt}" +
+        "\nplatelets : ${data.platelets}" +
+        "\nvarices: ${data.varices}" +
+        "\nbilirrubina : ${data.bilirubin}");
+    print("Encefalopatía: " + data.encephalopaty);
+    print("Ascitis: " + data.ascites);
+    print("Tamaño de tumor: " + data.tumourSize.toString());
+    print("AFP: " + data.afp.toString());
+    print("\nresultados : ${treatments}" +
+        "\n**************");
+  }
+
+  String calculatePortalHypertension(AlbertaData data,
+      double platelets,) {
+    if (data.pvt == 'yes' ||
+        platelets < 100 ||
+        ((data.encephalopaty == 'grade_1_2' ||
+            data.encephalopaty == 'grade_3_4') ||
+            (data.ascites == 'controlled' || data.ascites == 'refractory') ||
+            data.varices == 'yes')) {
+      return 'yes';
+    } else {
+      return 'no';
+    }
+  }
+
+  calculateLtCandidate(AlbertaData data) {
+    double ttv = calculateTTV(data);
+    if (ttv < 115 && data.afp < 400 && prefs.getAgeCutoff() < 70) {
+      return true;
+    } else
+      return false;
+  }
+
+  calculateTTV(AlbertaData data) {
+    double ttv = 0.0;
+    for (int i = 0; i < data.tumourSize.length; i++) {
+      ttv += 1 / 6 * pi * pow(data.tumourSize[i], 3);
+    }
+    return ttv;
   }
 }

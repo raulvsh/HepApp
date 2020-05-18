@@ -8,7 +8,6 @@ import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
-import 'package:hepapp/widgets/more_information.dart';
 import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
@@ -45,8 +44,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         _tumourNumber = newVal;
       }),
     );
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
-        setState(() {
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
           _errorMap = newVal;
         }));
     super.initState();
@@ -129,7 +127,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   }
 
   _buildTumourSizeRow(CompleteFormBloc formBloc) {
-    print("tumour number " + _tumourNumber.toString());
+    //print("tumour number " + _tumourNumber.toString());
     return CalcMultipleTextField(
       numActivos: _tumourNumber != -1 ? _tumourNumber - 1 : -1,
       titleList: ['tumour_size'],
@@ -255,11 +253,9 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
                   }),
               SizedBox(width: isTablet ? 15 : 10),
               CalcBottomButton(
-                  title: 'more_information',
-                  onPressed: () {
-                    MoreInformation();
-                    showMeldInfoDialog();
-                  }),
+                title: 'more_information',
+                onPressed: showMeldInfoDialog,
+              ),
             ],
           ),
           Row(
@@ -312,7 +308,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     previous = true;
     formBloc.resetDiagnostic();
     prefs.setTumourNumber(0);
-    //_tumourNumber = 0;
     setState(() {});
     reset = false;
   }
@@ -321,40 +316,18 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     reset = false;
     previous = true;
     formBloc.previousDiagnostic();
-
-    try {
-      _tumourNumber = int.parse(formBloc.tumourNumberField.value);
-    } catch (e) {
-      print(e);
-    }
     setState(() {});
   }
 
-  void printdiagnostic(CompleteFormBloc formBloc) {
-    print("\n***DIAGNOSTIC***");
-    print("Campo numero: " + formBloc.tumourNumberField.value);
-    print("Tamaño 1: " + formBloc.tumourSizeField[0].value);
-    print("Tamaño 2: " + formBloc.tumourSizeField[1].value);
-    print("Tamaño 3: " + formBloc.tumourSizeField[2].value);
-    print("Tamaño 4: " + formBloc.tumourSizeField[3].value);
-    print("Tamaño 5: " + formBloc.tumourSizeField[4].value);
-    print("Tamaño 6+: " + formBloc.tumourSizeField[5].value);
-    print("Campo extension: " + formBloc.tumourExtentField.value);
-    print("Campo pvi: " + formBloc.pviField.value);
-    print("Campo nodos: " + formBloc.nodesField.value);
-    print("Campo metastasis: " + formBloc.metastasisField.value);
-    print("Campo portal hip: " + formBloc.portalHypertensionField.value);
-    print("Campo pvt: " + formBloc.pvtField.value);
-  }
-
   void showMeldInfoDialog() {
+    bool isTablet = context.diagonalInches >= 7;
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return PopUpDialog(
             title: 'meld_info_title',
             content: 'meld_info_content',
-            height: context.heightPct(0.38),
+            height: context.heightPct(isTablet ? 0.35 : 0.45),
           );
         });
   }

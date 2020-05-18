@@ -383,7 +383,7 @@ class MeldFormState extends State<MeldForm> with Observable {
           return PopUpDialog(
             title: 'meld_info_title',
             content: 'meld_info_content',
-            height: context.heightPct(0.38),
+            height: context.heightPct(0.45),
           );
         });
   }

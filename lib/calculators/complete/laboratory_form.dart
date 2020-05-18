@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/calculators/calc_multiple_text_field.dart';
 import 'package:hepapp/calculators/right_bottom_title.dart';
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
+import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
@@ -228,9 +228,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     return isLandscape
         ? alpCompleteRow
         : Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[alp, alpUpperLimit],
-    );
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[alp, alpUpperLimit],
+          );
   }
 
   _buildDialysisRow(CompleteFormBloc formBloc) {
@@ -261,7 +261,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
                 : MainAxisAlignment.start,
             children: <Widget>[
               SizedBox(width: isTablet ? 10 : 0),
-
               CalcBottomButton(
                   title: 'reset_values',
                   onPressed: () {
@@ -275,10 +274,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
                   }),
               SizedBox(width: isTablet ? 15 : 10),
               CalcBottomButton(
-                  title: 'more_information',
-                  onPressed: () {
-                    showMoreInfo();
-                  }),
+                title: 'more_information',
+                onPressed: showMeldInfoDialog,
+              ),
             ],
           ),
           Row(
@@ -336,51 +334,21 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   void previousValues(CompleteFormBloc formBloc) {
     reset = false;
     previous = true;
-    formBloc.previous();
+    formBloc.previousLaboratory();
     setState(() {});
   }
 
-  _buildNextButton(CompleteFormBloc formBloc) {
+  void showMeldInfoDialog() {
     bool isTablet = context.diagonalInches >= 7;
-    AppLocalizations aux = AppLocalizations.of(context);
+    showDialog(
 
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-      child: FlatButton(
-        child: Text(
-          aux.tr('next'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          // printLaboratory(formBloc);
-          widget.controller.nextPage(
-              duration: Duration(seconds: 1), curve: Curves.easeInOut);
-        },
-      ),
-    );
-  }
-
-  void printLaboratory(CompleteFormBloc formBloc) {
-    print("\n***LABORATORY***");
-    print("Campo bilirrubina: " + formBloc.bilirubinField.value);
-    print("Campo inr: " + formBloc.inrField.value);
-    print("Campo creatinina: " + formBloc.creatinineField.value);
-    print("Campo albumina: " + formBloc.albuminField.value);
-    print("Campo sodio: " + formBloc.sodiumField.value);
-    print("Campo plaquetas: " + formBloc.plateletsField.value);
-    print("Campo afp: " + formBloc.afpField.value);
-    print("Campo ast: " +
-        formBloc.astField[0].value +
-        " " +
-        formBloc.astField[1].value);
-    print("Campo alp: " +
-        formBloc.alpField[0].value +
-        " " +
-        formBloc.alpField[1].value);
-    print("Campo dialisis: " + formBloc.dialysisField.value);
+        context: context,
+        builder: (BuildContext context) {
+          return PopUpDialog(
+            title: 'meld_info_title',
+            content: 'meld_info_content',
+            height: context.heightPct(isTablet ? 0.35 : 0.45),
+          );
+        });
   }
 }

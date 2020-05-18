@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hepapp/calculators/right_bottom_title.dart';
 import 'package:hepapp/data/units.dart';
-import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
+import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
@@ -76,23 +76,22 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
 
     return SingleChildScrollView(
-        child: Container(
-          width: context.widthPx,
-          padding: isTablet
-              ? EdgeInsets.only(left: 20, top: 20)
-              : EdgeInsets.only(left: 10, top: 10),
-          child: Column(
-            children: <Widget>[
-              _buildCirrhosisRow(formBloc),
-              _buildEncephalopatyRow(formBloc),
-              _buildAscitesRow(formBloc),
-              _buildVaricesRow(formBloc),
-              _buildEcogRow(formBloc),
-              SizedBox(height: 10)
-            ],
-          ),
+      child: Container(
+        width: context.widthPx,
+        padding: isTablet
+            ? EdgeInsets.only(left: 20, top: 20)
+            : EdgeInsets.only(left: 10, top: 10),
+        child: Column(
+          children: <Widget>[
+            _buildCirrhosisRow(formBloc),
+            _buildEncephalopatyRow(formBloc),
+            _buildAscitesRow(formBloc),
+            _buildVaricesRow(formBloc),
+            _buildEcogRow(formBloc),
+            SizedBox(height: 10)
+          ],
         ),
-
+      ),
     );
   }
 
@@ -197,10 +196,9 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
                   }),
               SizedBox(width: isTablet ? 15 : 10),
               CalcBottomButton(
-                  title: 'more_information',
-                  onPressed: () {
-                    showMoreInfo();
-                  }),
+                title: 'more_information',
+                onPressed: showMeldInfoDialog,
+              ),
             ],
           ),
           Row(
@@ -209,13 +207,12 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
               CalcBottomButton(
                   title: 'next',
                   onPressed: () {
+                    formBloc.submit();
                     widget.controller.nextPage(
                         duration: Duration(seconds: 1),
                         curve: Curves.easeInOut);
                   }),
               SizedBox(width: 10),
-
-              //_buildNextButton(formBloc),
             ],
           ),
         ],
@@ -223,18 +220,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
     );
   }
 
-  Future showMoreInfo() {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        /*return MoreInformation(
-          title: 'okuda',
-          pathList: 'assets/images/calc/M3C14S0d.png',
-        );*/
-        return Text("por hacer");
-      },
-    );
-  }
 
   _buildRightBottomTitle(CompleteFormBloc formBloc) {
     return Column(
@@ -250,7 +235,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   void resetValues(CompleteFormBloc formBloc) {
     reset = true;
     previous = true;
-    formBloc.reset();
+    formBloc.resetClinical();
     setState(() {});
     reset = false;
   }
@@ -258,40 +243,20 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   void previousValues(CompleteFormBloc formBloc) {
     reset = false;
     previous = true;
-    formBloc.previous();
+    formBloc.previousClinical();
     setState(() {});
   }
 
-  _buildNextButton(CompleteFormBloc formBloc) {
+  void showMeldInfoDialog() {
     bool isTablet = context.diagonalInches >= 7;
-    AppLocalizations aux = AppLocalizations.of(context);
-
-    return Container(
-      height: 40,
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-      child: FlatButton(
-        child: Text(
-          aux.tr('next'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          formBloc.submit();
-          widget.controller.nextPage(
-              duration: Duration(seconds: 1), curve: Curves.easeInOut);
-        },
-      ),
-    );
-  }
-
-  void printClinical(CompleteFormBloc formBloc) {
-    print("\n***CLINICAL***");
-    print("Campo cirrosis: " + formBloc.cirrhosisField.value);
-    print("Campo encefalopatia: " + formBloc.encephalopatyField.value);
-    print("Campo ascites: " + formBloc.ascitesField.value);
-    print("Campo varices: " + formBloc.varicesField.value);
-    print("Campo ecog: " + formBloc.ecogField.value);
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return PopUpDialog(
+            title: 'meld_info_title',
+            content: 'meld_info_content',
+            height: context.heightPct(isTablet ? 0.35 : 0.45),
+          );
+        });
   }
 }

@@ -254,11 +254,6 @@ class ClipFormState extends State<ClipForm> with Observable {
                 previousValues(formBloc);
               }),
           SizedBox(width: 15),
-          CalcBottomButton(
-              title: 'more_information',
-              onPressed: () {
-                showMoreInfo();
-              }),
         ],
       ),
     );
