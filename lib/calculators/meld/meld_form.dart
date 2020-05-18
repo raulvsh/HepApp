@@ -343,7 +343,7 @@ class MeldFormState extends State<MeldForm> with Observable {
       MeldFormBloc formBloc) {
     return Container(
       padding: isLandscape && !isTablet
-          ? EdgeInsets.only(left: context.widthPct(0.16), top: 10)
+          ? EdgeInsets.only(left: context.widthPct(0.14), top: 10)
           : EdgeInsets.only(top: 30),
       child: FittedBox(
         fit: BoxFit.contain,

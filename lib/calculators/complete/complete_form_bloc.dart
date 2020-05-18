@@ -209,6 +209,86 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   void showIU() {}
 
+  resetDiagnostic() {
+    this.tumourNumberField = SelectFieldBloc(
+      items: ['0', '1', '2', '3', '4', '5', '6+'],
+      //initialValue: '-',
+    );
+    this.tumourSizeField = [
+      TextFieldBloc(initialValue: '0'),
+      TextFieldBloc(initialValue: '0'),
+      TextFieldBloc(initialValue: '0'),
+      TextFieldBloc(initialValue: '0'),
+      TextFieldBloc(initialValue: '0'),
+      TextFieldBloc(initialValue: '0'),
+    ];
+    this.tumourExtentField = SelectFieldBloc(
+      items: ['<=50%', '>50%'],
+    );
+    this.pviField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: '-',
+    );
+    this.nodesField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: '-',
+    );
+    this.metastasisField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: '-',
+    );
+    this.portalHypertensionField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: '-',
+    );
+    this.pvtField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: '-',
+    );
+  }
+
+  void previousDiagnostic() {
+    this.tumourNumberField = SelectFieldBloc(
+      items: ['0', '1', '2', '3', '4', '5', '6+'],
+      //initialValue: '-',
+    );
+    this.tumourSizeField = [
+      TextFieldBloc(initialValue: '0'),
+      TextFieldBloc(initialValue: '0'),
+      TextFieldBloc(initialValue: '0'),
+      TextFieldBloc(initialValue: '0'),
+      TextFieldBloc(initialValue: '0'),
+      TextFieldBloc(initialValue: '0'),
+    ];
+    this.tumourExtentField = SelectFieldBloc(
+      items: ['<=50%', '>50%'],
+    );
+    this.pviField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: '-',
+    );
+    this.nodesField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: '-',
+    );
+    this.metastasisField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: '-',
+    );
+    this.portalHypertensionField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: '-',
+    );
+    this.pvtField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: '-',
+    );
+
+    print("\n*****AFTER PREVIOUS");
+    showFields();
+    //showFields();
+  }
+
   reset() {
     this.bilirubinField = TextFieldBloc();
     this.albuminField = TextFieldBloc();

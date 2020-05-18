@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/calculators/calc_multiple_text_field.dart';
-import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
@@ -31,7 +30,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   var previous = false;
   final prefs = UserSettings();
 
-  int _tumourNumber;
+  int _tumourNumber = -1;
   StreamSubscription streamTumourNumber;
 
   @override
@@ -121,8 +120,9 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   }
 
   _buildTumourSizeRow(CompleteFormBloc formBloc) {
+    print("tumour number " + _tumourNumber.toString());
     return CalcMultipleTextField(
-      numActivos: _tumourNumber != null ? _tumourNumber - 1 : 0,
+      numActivos: _tumourNumber != -1 ? _tumourNumber - 1 : -1,
       titleList: ['tumour_size'],
       textFieldBlocList: formBloc.tumourSizeField,
       length: 6,
@@ -299,7 +299,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   void resetValues(CompleteFormBloc formBloc) {
     reset = true;
     previous = true;
-    formBloc.reset();
+    formBloc.resetDiagnostic();
     setState(() {});
     reset = false;
   }
@@ -307,34 +307,10 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   void previousValues(CompleteFormBloc formBloc) {
     reset = false;
     previous = true;
-    formBloc.previous();
+    formBloc.previousDiagnostic();
     setState(() {});
   }
 
-  _buildNextButton(CompleteFormBloc formBloc) {
-    AppLocalizations aux = AppLocalizations.of(context);
-    bool isTablet = context.diagonalInches >= 7;
-
-    return Container(
-      height: 40,
-      width: 150,
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      child: FlatButton(
-        child: Text(
-          aux.tr('next'),
-          style: TextStyle(
-            fontSize: isTablet ? 14 : 12,
-          ),
-        ),
-        color: Color.fromARGB(255, 210, 242, 245),
-        onPressed: () {
-          //printdiagnostic(formBloc);
-          widget.controller.nextPage(
-              duration: Duration(seconds: 1), curve: Curves.easeInOut);
-        },
-      ),
-    );
-  }
 
   void printdiagnostic(CompleteFormBloc formBloc) {
     print("\n***DIAGNOSTIC***");

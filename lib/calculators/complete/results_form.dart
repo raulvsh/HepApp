@@ -208,7 +208,8 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           ],
         )
             : Column(
-          children: <Widget>[
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
             SizedBox(height: 20),
             _buildRecommendedTreatments(),
             SizedBox(height: 20),
@@ -263,8 +264,8 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     AppLocalizations aux = AppLocalizations.of(context);
     return FittedBox(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
+        //crossAxisAlignment: CrossAxisAlignment.start,
+        //mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           _initialBlueRectangle,
           SizedBox(

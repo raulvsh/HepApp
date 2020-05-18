@@ -291,7 +291,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       OkudaFormBloc formBloc) {
     return Container(
       padding: isLandscape && !isTablet
-          ? EdgeInsets.only(left: context.widthPct(0.08), top: 10)
+          ? EdgeInsets.only(left: context.widthPct(0.06), top: 10)
           : EdgeInsets.only(top: 30),
       child: FittedBox(
         fit: BoxFit.contain,

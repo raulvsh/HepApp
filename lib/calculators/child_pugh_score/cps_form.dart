@@ -304,7 +304,7 @@ class CpsFormState extends State<CpsForm> with Observable {
       CpsFormBloc formBloc) {
     return Container(
       padding: isLandscape && !isTablet
-          ? EdgeInsets.only(left: context.widthPct(0.16), top: 10)
+          ? EdgeInsets.only(left: context.widthPct(0.13), top: 10)
           : EdgeInsets.only(top: 30),
       child: FittedBox(
         fit: BoxFit.contain,
