@@ -23,10 +23,11 @@ class PopUpDialog extends StatelessWidget {
         style:
         TextStyle(color: Theme
             .of(context)
-            .primaryColor), //Colors.black),
+            .primaryColor),
       ),
       content: Container(
         height: height, //context.heightPct(0.20),
+        width: 500,
         child: Column(
           children: <Widget>[
             Container(

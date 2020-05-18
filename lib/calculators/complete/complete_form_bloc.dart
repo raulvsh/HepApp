@@ -3,6 +3,7 @@ import 'package:hepapp/calculators/child_pugh_score/cps_algorithm.dart';
 import 'package:hepapp/calculators/child_pugh_score/cps_data.dart';
 import 'package:hepapp/calculators/clip/clip_algorithm.dart';
 import 'package:hepapp/calculators/clip/clip_data.dart';
+import 'package:hepapp/calculators/complete/complete_data.dart';
 import 'package:hepapp/calculators/meld/meld_algorithm.dart';
 import 'package:hepapp/calculators/meld/meld_data.dart';
 import 'package:hepapp/calculators/okuda/okuda_algorithm.dart';
@@ -27,7 +28,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
   //Diagnostic
   var tumourNumberField = SelectFieldBloc(
     items: ['0', '1', '2', '3', '4', '5', '6+'],
-    initialValue: '-',
+    initialValue: '-1',
   );
   var tumourSizeField = [
     TextFieldBloc(initialValue: '0'),
@@ -106,6 +107,17 @@ class CompleteFormBloc extends FormBloc<String, String> {
     initialValue: '-',
   );
   bool preclude = false;
+
+  var diagnosticData = DiagnosticData(
+    tumourNumber: '-',
+    tumourSize: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+    tumourExtent: '-',
+    pvi: '-',
+    nodes: '-',
+    metastasis: '-',
+    portalHypertension: '-',
+    pvt: '-',
+  );
 
   Map<String, String> resultsField = initResultMap();
 
@@ -210,48 +222,192 @@ class CompleteFormBloc extends FormBloc<String, String> {
   void showIU() {}
 
   resetDiagnostic() {
-    this.tumourNumberField = SelectFieldBloc(
+    diagnosticData = DiagnosticData(
+      tumourNumber: tumourNumberField.value,
+      tumourSize: [
+        tumourSizeField[0].valueToDouble,
+        tumourSizeField[1].valueToDouble,
+        tumourSizeField[2].valueToDouble,
+        tumourSizeField[3].valueToDouble,
+        tumourSizeField[4].valueToDouble,
+        tumourSizeField[5].valueToDouble,
+      ],
+      tumourExtent: tumourExtentField.value,
+      pvi: pviField.value,
+      nodes: nodesField.value,
+      metastasis: metastasisField.value,
+      portalHypertension: portalHypertensionField.value,
+      pvt: pvtField.value,
+    );
+    printObjectData();
+    this.tumourNumberField.updateValue('-1');
+    /*  this.tumourNumberField = SelectFieldBloc(
       items: ['0', '1', '2', '3', '4', '5', '6+'],
-      //initialValue: '-',
-    );
-    this.tumourSizeField = [
+      initialValue: '-',
+    );*/
+    this.tumourSizeField[0].updateValue('0');
+    this.tumourSizeField[1].updateValue('0');
+    this.tumourSizeField[2].updateValue('0');
+    this.tumourSizeField[3].updateValue('0');
+    this.tumourSizeField[4].updateValue('0');
+    this.tumourSizeField[5].updateValue('0');
+
+    /*this.tumourSizeField = [
       TextFieldBloc(initialValue: '0'),
       TextFieldBloc(initialValue: '0'),
       TextFieldBloc(initialValue: '0'),
       TextFieldBloc(initialValue: '0'),
       TextFieldBloc(initialValue: '0'),
       TextFieldBloc(initialValue: '0'),
-    ];
-    this.tumourExtentField = SelectFieldBloc(
+    ];*/
+    this.tumourExtentField.updateValue('-');
+    /* this.tumourExtentField = SelectFieldBloc(
       items: ['<=50%', '>50%'],
-    );
-    this.pviField = SelectFieldBloc(
+      initialValue: '-',
+    );*/
+    this.pviField.updateValue('-');
+    /*this.pviField = SelectFieldBloc(
       items: ['yes', 'no'],
       initialValue: '-',
-    );
-    this.nodesField = SelectFieldBloc(
+    );*/
+    this.nodesField.updateValue('-');
+    /*this.nodesField = SelectFieldBloc(
       items: ['yes', 'no'],
       initialValue: '-',
-    );
-    this.metastasisField = SelectFieldBloc(
+    );*/
+    this.metastasisField.updateValue('-');
+    /*this.metastasisField = SelectFieldBloc(
       items: ['yes', 'no'],
       initialValue: '-',
-    );
-    this.portalHypertensionField = SelectFieldBloc(
+    );*/
+    this.portalHypertensionField.updateValue('-');
+    /*this.portalHypertensionField = SelectFieldBloc(
       items: ['yes', 'no'],
       initialValue: '-',
-    );
-    this.pvtField = SelectFieldBloc(
+    );*/
+    this.pvtField.updateValue('-');
+
+
+    /*this.pvtField = SelectFieldBloc(
       items: ['yes', 'no'],
       initialValue: '-',
-    );
+    );*/
+  }
+
+  void printObjectData() {
+    print(diagnosticData.tumourNumber);
+    print(diagnosticData.tumourSize.toString());
+    print(diagnosticData.tumourExtent);
+    print(diagnosticData.pvi);
+    print(diagnosticData.nodes);
+    print(diagnosticData.metastasis);
+    print(diagnosticData.portalHypertension);
+    print(diagnosticData.pvt);
   }
 
   void previousDiagnostic() {
+    printObjectData();
+    print("numero desde field " + tumourNumberField.value);
+    //this.tumourNumberField.updateInitialValue(diagnosticData.tumourNumber.toString());
+    this.tumourNumberField.updateValue(diagnosticData.tumourNumber.toString());
+    if (diagnosticData.tumourNumber == '6+') {
+      prefs.setTumourNumber(6);
+    } else {
+      prefs.setTumourNumber(int.parse(diagnosticData.tumourNumber));
+    }
+
+    /*this.tumourNumberField = SelectFieldBloc(
+      items: ['0', '1', '2', '3', '4', '5', '6+'],
+      initialValue: diagnosticData.tumourNumber,
+    );*/
+    print("numero despues " + tumourNumberField.value);
+    print("numero data " + diagnosticData.tumourNumber);
+    this.tumourSizeField[0].updateValue(
+        diagnosticData.tumourSize[0].toString());
+    this.tumourSizeField[1].updateValue(
+        diagnosticData.tumourSize[1].toString());
+    this.tumourSizeField[2].updateValue(
+        diagnosticData.tumourSize[2].toString());
+    this.tumourSizeField[3].updateValue(
+        diagnosticData.tumourSize[3].toString());
+    this.tumourSizeField[4].updateValue(
+        diagnosticData.tumourSize[4].toString());
+    this.tumourSizeField[5].updateValue(
+        diagnosticData.tumourSize[5].toString());
+
+    print("tamaño despues " + tumourSizeField[0].value.toString());
+    print("tamaño despues " + tumourSizeField[1].value);
+    print("tamaño despues " + tumourSizeField[2].value);
+
+
+    /*this.tumourSizeField = [
+      TextFieldBloc(initialValue: diagnosticData.tumourSize[0].toString()),
+      TextFieldBloc(initialValue: diagnosticData.tumourSize[1].toString()),
+      TextFieldBloc(initialValue: diagnosticData.tumourSize[2].toString()),
+      TextFieldBloc(initialValue: diagnosticData.tumourSize[3].toString()),
+      TextFieldBloc(initialValue: diagnosticData.tumourSize[4].toString()),
+      TextFieldBloc(initialValue: diagnosticData.tumourSize[5].toString()),
+    ];*/
+    this.tumourExtentField.updateValue(diagnosticData.tumourExtent);
+    /* this.tumourExtentField = SelectFieldBloc(
+      items: ['<=50%', '>50%'],
+      initialValue: diagnosticData.tumourExtent,
+    );*/
+    this.pviField.updateValue(diagnosticData.pvi);
+    /* this.pviField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: diagnosticData.pvi,
+    );*/
+    this.nodesField.updateValue(diagnosticData.nodes);
+    /*this.nodesField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: diagnosticData.nodes,
+    );*/
+    this.metastasisField.updateValue(diagnosticData.metastasis);
+    /*this.metastasisField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: diagnosticData.metastasis,
+    );*/
+    this.portalHypertensionField.updateValue(diagnosticData.portalHypertension);
+    /*this.portalHypertensionField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: diagnosticData.portalHypertension,
+    );*/
+    this.pvtField.updateValue(diagnosticData.pvt);
+    /* this.pvtField = SelectFieldBloc(
+      items: ['yes', 'no'],
+      initialValue: diagnosticData.pvt,
+    );*/
+    print("after previous");
+    printObjectData();
+
+  }
+
+  resetLaboratory() {
+    diagnosticData = DiagnosticData(
+      tumourNumber: tumourNumberField.value,
+      tumourSize: [
+        tumourSizeField[0].valueToDouble,
+        tumourSizeField[1].valueToDouble,
+        tumourSizeField[2].valueToDouble,
+        tumourSizeField[3].valueToDouble,
+        tumourSizeField[4].valueToDouble,
+        tumourSizeField[5].valueToDouble,
+      ],
+      tumourExtent: tumourExtentField.value,
+      pvi: pviField.value,
+      nodes: nodesField.value,
+      metastasis: metastasisField.value,
+      portalHypertension: portalHypertensionField.value,
+      pvt: pvtField.value,
+    );
+    printObjectData();
+
     this.tumourNumberField = SelectFieldBloc(
       items: ['0', '1', '2', '3', '4', '5', '6+'],
-      //initialValue: '-',
+      initialValue: '-',
     );
+
     this.tumourSizeField = [
       TextFieldBloc(initialValue: '0'),
       TextFieldBloc(initialValue: '0'),
@@ -262,6 +418,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
     ];
     this.tumourExtentField = SelectFieldBloc(
       items: ['<=50%', '>50%'],
+      initialValue: '-',
     );
     this.pviField = SelectFieldBloc(
       items: ['yes', 'no'],
@@ -283,10 +440,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
       items: ['yes', 'no'],
       initialValue: '-',
     );
-
-    print("\n*****AFTER PREVIOUS");
-    showFields();
-    //showFields();
   }
 
   reset() {
@@ -606,8 +759,8 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   comprobarTumourSize(String tumourNumber) {
     int tN = int.parse(tumourNumber);
-    print("tumour number $tN");
-    print(tumourSizeField.toString());
+    //print("tumour number $tN");
+    //print(tumourSizeField.toString());
     for (int i = 0; i < tN; i++) {
       if (tumourSizeField[i].value == '0') {
         print("tamaño tumor $i " +

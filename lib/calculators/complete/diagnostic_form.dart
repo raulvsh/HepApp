@@ -8,6 +8,8 @@ import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:hepapp/widgets/custom_appbar.dart';
 import 'package:hepapp/widgets/drawer_menu.dart';
+import 'package:hepapp/widgets/more_information.dart';
+import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
@@ -31,22 +33,29 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   final prefs = UserSettings();
 
   int _tumourNumber = -1;
+
   StreamSubscription streamTumourNumber;
+  StreamSubscription streamSubErrorMap;
+  Map<String, bool> _errorMap;
 
   @override
   void initState() {
     streamTumourNumber = prefs.tumourNumUpdates.listen(
-          (newVal) =>
-          setState(() {
-            _tumourNumber = newVal;
-          }),
+      (newVal) => setState(() {
+        _tumourNumber = newVal;
+      }),
     );
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
+        setState(() {
+          _errorMap = newVal;
+        }));
     super.initState();
   }
 
   @override
   void dispose() {
     streamTumourNumber.cancel();
+    streamSubErrorMap.cancel();
     super.dispose();
   }
 
@@ -248,7 +257,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
               CalcBottomButton(
                   title: 'more_information',
                   onPressed: () {
-                    showMoreInfo();
+                    MoreInformation();
+                    showMeldInfoDialog();
                   }),
             ],
           ),
@@ -256,14 +266,15 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               CalcBottomButton(
-
                   title: 'next',
                   onPressed: () {
                     widget.controller.nextPage(
                         duration: Duration(seconds: 1),
                         curve: Curves.easeInOut);
                   }),
-              SizedBox(width: 10,),
+              SizedBox(
+                width: 10,
+              ),
               // _buildNextButton(formBloc),
             ],
           ),
@@ -300,6 +311,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     reset = true;
     previous = true;
     formBloc.resetDiagnostic();
+    prefs.setTumourNumber(0);
+    //_tumourNumber = 0;
     setState(() {});
     reset = false;
   }
@@ -308,31 +321,41 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     reset = false;
     previous = true;
     formBloc.previousDiagnostic();
+
+    try {
+      _tumourNumber = int.parse(formBloc.tumourNumberField.value);
+    } catch (e) {
+      print(e);
+    }
     setState(() {});
   }
-
 
   void printdiagnostic(CompleteFormBloc formBloc) {
     print("\n***DIAGNOSTIC***");
     print("Campo numero: " + formBloc.tumourNumberField.value);
-    print("Campo tamaño: " +
-        formBloc.tumourSizeField[0].value +
-        " " +
-        formBloc.tumourSizeField[1].value +
-        " " +
-        formBloc.tumourSizeField[2].value +
-        " " +
-        formBloc.tumourSizeField[3].value +
-        " " +
-        formBloc.tumourSizeField[4].value +
-        " " +
-        formBloc.tumourSizeField[5].value);
+    print("Tamaño 1: " + formBloc.tumourSizeField[0].value);
+    print("Tamaño 2: " + formBloc.tumourSizeField[1].value);
+    print("Tamaño 3: " + formBloc.tumourSizeField[2].value);
+    print("Tamaño 4: " + formBloc.tumourSizeField[3].value);
+    print("Tamaño 5: " + formBloc.tumourSizeField[4].value);
+    print("Tamaño 6+: " + formBloc.tumourSizeField[5].value);
     print("Campo extension: " + formBloc.tumourExtentField.value);
     print("Campo pvi: " + formBloc.pviField.value);
     print("Campo nodos: " + formBloc.nodesField.value);
     print("Campo metastasis: " + formBloc.metastasisField.value);
-    print(
-        "Campo portal hipertension: " + formBloc.portalHypertensionField.value);
+    print("Campo portal hip: " + formBloc.portalHypertensionField.value);
     print("Campo pvt: " + formBloc.pvtField.value);
+  }
+
+  void showMeldInfoDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return PopUpDialog(
+            title: 'meld_info_title',
+            content: 'meld_info_content',
+            height: context.heightPct(0.38),
+          );
+        });
   }
 }

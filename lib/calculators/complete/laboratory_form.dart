@@ -34,6 +34,8 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   final units = Units();
   bool _internationalUnits = true;
   StreamSubscription streamSubIUnits;
+  StreamSubscription streamSubErrorMap;
+  Map<String, bool> _errorMap;
 
   @override
   void initState() {
@@ -42,6 +44,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
         _internationalUnits = newVal;
       }),
     );
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
+          _errorMap = newVal;
+        }));
     prefs.setInternationalUnits(true);
     super.initState();
   }
@@ -49,6 +54,8 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   @override
   dispose() {
     streamSubIUnits.cancel();
+    streamSubErrorMap.cancel();
+
     super.dispose();
   }
 
@@ -321,7 +328,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   void resetValues(CompleteFormBloc formBloc) {
     reset = true;
     previous = true;
-    formBloc.reset();
+    formBloc.resetLaboratory();
     setState(() {});
     reset = false;
   }

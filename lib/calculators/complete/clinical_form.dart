@@ -30,6 +30,22 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   var previous = false;
   final prefs = UserSettings();
   final units = Units();
+  StreamSubscription streamSubErrorMap;
+  Map<String, bool> _errorMap;
+
+  @override
+  void initState() {
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
+          _errorMap = newVal;
+        }));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    streamSubErrorMap.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
