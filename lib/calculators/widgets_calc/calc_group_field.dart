@@ -9,9 +9,9 @@ import 'package:sized_context/sized_context.dart';
 
 /// A material design radio buttons.
 class CalcGroupField<Value> extends StatefulWidget {
-  bool reset;
-  bool error;
-  bool previous;
+  final reset;
+  final error;
+  final previous;
 
   final initialValue;
   final formBloc;
@@ -101,12 +101,15 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
       builder: (context, state) {
         if (firstRun) {
           _initMap(state);
+
           firstRun = false;
         }
-        if (widget.previous) {
+        /*if (widget.previous) {
           updateMap(state);
-        }
-        //updateMap(state);
+        }*/
+        markInitialValue(state);
+
+        updateMap(state);
 
         final isEnabled = fieldBlocIsEnabled(
           isEnabled: this.widget.isEnabled,
@@ -129,13 +132,32 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
   _initMap(SelectFieldBlocState<Value> state) {
     for (int i = 0; i < state.items.length; i++) {
       isSelected[state.items.elementAt(i).toString()] = false;
+      if (widget.title == 'lt_criteria') print(isSelected);
     }
+  }
+
+  markInitialValue(SelectFieldBlocState<Value> state) {
+    for (int i = 0; i < state.items.length; i++) {
+      //print("hola");
+      if (widget.title == 'lt_criteria') {
+        print("element at $i " + state.items.elementAt(i).toString());
+        print("initial value" + widget.initialValue.toString());
+      }
+      if (state.items.elementAt(i).toString() ==
+          widget.initialValue.toString()) {
+        isSelected[state.items.elementAt(i).toString()] = true;
+      } else
+        isSelected[state.items.elementAt(i).toString()] = false;
+    }
+    print(isSelected);
   }
 
   updateMap(SelectFieldBlocState<Value> state) {
     for (int i = 0; i < state.items.length; i++) {
-      if (state.items.elementAt(i).toString() ==
-          widget.initialValue.toString()) {
+      // print("element at $i tostring " + state.items.elementAt(i).toString());
+      //print("state value " + state.value.toString());
+      if (state.items.elementAt(i).toString() == state.value.toString()) {
+        //widget.initialValue.toString()) {
         isSelected[state.items.elementAt(i).toString()] = true;
       } else
         isSelected[state.items.elementAt(i).toString()] = false;
@@ -180,8 +202,8 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
         ));
   }
 
-  _buildOptionsRow(SelectFieldBlocState state,
-      RadioBuilder<String, double> simpleBuilder) {
+  _buildOptionsRow(
+      SelectFieldBlocState state, RadioBuilder<String, double> simpleBuilder) {
     var aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
 
@@ -202,6 +224,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () async {
+                    print("entro en gestura");
                     _resetFlag = false;
                     _markErrorFalse();
                     _errorFlag = false;
@@ -210,6 +233,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
 
                     //Elemento seleccionado
                     radioValue = state.items.elementAt(index).toString();
+                    print("radio value " + radioValue);
                     widget.selectFieldBloc.updateValue(radioValue);
                     await Future.delayed(Duration(milliseconds: 200));
                     isSelected[radioValue] = true;
@@ -353,7 +377,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
               if (widget.errorControl) {
                 _errorFlag = true;
               }
-              return null; //null; //"dentro";
+              return null;
               break;
             default:
               return 'This text is nor valid.';

@@ -16,6 +16,7 @@ class CpsFormBloc extends FormBloc<String, String> {
   var albuminField = TextFieldBloc();
   var encephalopatyField = SelectFieldBloc(
     items: ['none_fem', 'grade_1_2', 'grade_3_4'],
+    initialValue: 'grade_1_2',
   );
   var ascitesField = SelectFieldBloc(
     items: ['none_fem', 'controlled', 'refractory'],

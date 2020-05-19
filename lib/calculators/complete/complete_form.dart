@@ -39,6 +39,7 @@ class CompleteFormState extends State<CompleteForm> with Observable {
     prefs.setInternationalUnits(true);
     prefs.setTumourNumber(0);
     prefs.setPrecludeSurgery(true);
+    prefs.setLtCriteria('milan_criteria');
     super.initState();
   }
 

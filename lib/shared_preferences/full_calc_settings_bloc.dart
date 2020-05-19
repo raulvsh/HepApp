@@ -7,10 +7,9 @@ class FullCalcSettingsBloc extends FormBloc<String, String> {
   final units = Units();
 
   var ageField = TextFieldBloc(initialValue: '0');
-
   var ltCriteriaField = SelectFieldBloc(
     items: ['milan_criteria', 'ttv_afp', 'ucfs', 'up_to_seven'],
-      initialValue: '-'
+    initialValue: '-',
   );
 
   @override

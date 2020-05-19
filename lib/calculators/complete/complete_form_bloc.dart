@@ -159,20 +159,20 @@ class CompleteFormBloc extends FormBloc<String, String> {
         inrField,
         creatinineField,
         albuminField,
-    sodiumField,
-    plateletsField,
-    afpField,
-    astField[0],
-    astField[1],
-    alpField[0],
-    alpField[1],
-    dialysisField,
-    cirrhosisField,
-    encephalopatyField,
-    ascitesField,
-    varicesField,
-    ecogField,
-  ];
+        sodiumField,
+        plateletsField,
+        afpField,
+        astField[0],
+        astField[1],
+        alpField[0],
+        alpField[1],
+        dialysisField,
+        cirrhosisField,
+        encephalopatyField,
+        ascitesField,
+        varicesField,
+        ecogField,
+      ];
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
@@ -524,10 +524,12 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   getTumourSize() {
     List<double> tumourSizeList = [];
-    for (int i = 0;
-    i < prefs.getTumourNumber() /*tumourSizeField.length*/;
-    i++) {
-      tumourSizeList.add(double.parse(tumourSizeField[i].value));
+    for (int i = 0; i < prefs.getTumourNumber(); i++) {
+      try {
+        tumourSizeList.add(double.parse(tumourSizeField[i].value));
+      } catch (e) {
+        tumourSizeList.add(0.0);
+      }
     }
     return tumourSizeList;
   }

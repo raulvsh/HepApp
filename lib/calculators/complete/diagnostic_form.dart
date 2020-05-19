@@ -116,7 +116,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   _buildTumourNumberRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
-      previous: previous,
+      //previous: previous,
       initialValue: formBloc.tumourNumberField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.tumourNumberField,
@@ -311,7 +311,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
 
   void resetValues(CompleteFormBloc formBloc) {
     reset = true;
-    previous = true;
+    //previous = true;
     formBloc.resetDiagnostic();
     prefs.setTumourNumber(0);
     setState(() {});
@@ -320,7 +320,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
 
   void previousValues(CompleteFormBloc formBloc) {
     reset = false;
-    previous = true;
+    //previous = true;
     formBloc.previousDiagnostic();
     setState(() {});
   }
