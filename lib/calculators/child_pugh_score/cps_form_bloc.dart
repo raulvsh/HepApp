@@ -9,6 +9,7 @@ import 'package:hepapp/shared_preferences/user_settings.dart';
 class CpsFormBloc extends FormBloc<String, String> {
   final prefs = UserSettings();
   final units = Units();
+  final debug = false;
 
   var bilirubinField = TextFieldBloc();
   var inrField = TextFieldBloc();
@@ -21,12 +22,12 @@ class CpsFormBloc extends FormBloc<String, String> {
   );
   String resultadoField = '-';
 
-  var data = CpsData(
+  CpsData cpsData = CpsData(
     bilirubin: 0,
     inr: 0,
     albumin: 0,
-    encephalopaty: 'none_fem',
-    ascites: 'none_fem',
+    encephalopaty: '-',
+    ascites: '-',
     result: '-',
   );
 
@@ -42,9 +43,9 @@ class CpsFormBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    showFields();
+    if (debug) showCpsFields();
 
-    data = CpsData(
+    cpsData = CpsData(
       bilirubin: bilirubinField.valueToDouble,
       inr: inrField.valueToDouble,
       albumin: albuminField.valueToDouble,
@@ -52,65 +53,85 @@ class CpsFormBloc extends FormBloc<String, String> {
       ascites: ascitesField.value,
       result: resultadoField,
     );
-    CpsAlgorithm cpsAlgorithm = CpsAlgorithm(data);
-    showObjectCPSData();
+    CpsAlgorithm cpsAlgorithm = CpsAlgorithm(cpsData);
+    if (debug) showObjectCPSData();
 
     try {
       this.resultadoField = cpsAlgorithm.obtenerResultado();
-      data.result = this.resultadoField;
+      cpsData.result = this.resultadoField;
     } catch (e) {
       print("Excepción: $e");
     }
 
     await Future<void>.delayed(Duration(seconds: 1));
-
     yield currentState.toSuccess('Success');
     //yield toLoaded para poder hacer submit más de una vez
     yield currentState.toLoaded();
   }
 
   void showIU() {
-    this.bilirubinField = TextFieldBloc(
+    this.bilirubinField.updateValue(cpsData.bilirubin.toStringAsFixed(2));
+    this.inrField.updateValue(cpsData.inr.toStringAsFixed(2));
+    this.albuminField.updateValue(cpsData.albumin.toStringAsFixed(2));
+    /*this.bilirubinField = TextFieldBloc(
       initialValue: data.bilirubin.toStringAsFixed(2),
     );
     this.inrField = TextFieldBloc(
-      initialValue: data.inr.toStringAsFixed(2),
+      initialValue: cpsData.inr.toStringAsFixed(2),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toStringAsFixed(2),
-    );
+      initialValue: cpsData.albumin.toStringAsFixed(2),
+    );*/
   }
 
   showNotIU() {
-    this.bilirubinField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(data.bilirubin).toStringAsFixed(2),
+    this.bilirubinField.updateValue(
+        units.getNotIUBilirrubin(cpsData.bilirubin).toStringAsFixed(2));
+    this.inrField.updateValue(cpsData.inr.toStringAsFixed(2));
+    this
+        .albuminField
+        .updateValue(units.getNotIUAlbumin(cpsData.albumin).toStringAsFixed(2));
+    /*this.bilirubinField = TextFieldBloc(
+      initialValue: units.getNotIUBilirrubin(cpsData.bilirubin).toStringAsFixed(2),
     );
     this.inrField = TextFieldBloc(
-      initialValue: data.inr.toStringAsFixed(2),
+      initialValue: cpsData.inr.toStringAsFixed(2),
     );
     this.albuminField = TextFieldBloc(
-      initialValue: units.getNotIUAlbumin(data.albumin).toStringAsFixed(2),
-    );
+      initialValue: units.getNotIUAlbumin(cpsData.albumin).toStringAsFixed(2),
+    );*/
   }
 
   reset() {
     this.bilirubinField = TextFieldBloc();
     this.inrField = TextFieldBloc();
     this.albuminField = TextFieldBloc();
-    this.encephalopatyField = SelectFieldBloc(
+    this.encephalopatyField.updateValue('-');
+    this.ascitesField.updateValue('-');
+
+    /*this.encephalopatyField = SelectFieldBloc(
       items: ['none_fem', 'grade_1_2', 'grade_3_4'],
     );
     this.ascitesField = SelectFieldBloc(
       items: ['none_fem', 'controlled', 'refractory'],
-    );
+    );*/
     this.resultadoField = "-";
 
-    //showFields();
-    //showObjectCPSData();
+    if (debug) {
+      showCpsFields();
+      showObjectCPSData();
+    }
   }
 
   void previous() {
-    this.bilirubinField = TextFieldBloc(
+    this.bilirubinField.updateValue(cpsData.bilirubin.toString());
+    this.inrField.updateValue(cpsData.inr.toString());
+    this.albuminField.updateValue(cpsData.albumin.toString());
+    this.encephalopatyField.updateValue(cpsData.encephalopaty.toString());
+    this.ascitesField.updateValue(cpsData.ascites.toString());
+
+
+    /*this.bilirubinField = TextFieldBloc(
       initialValue: data.bilirubin.toString(),
     );
     this.inrField = TextFieldBloc(
@@ -124,25 +145,28 @@ class CpsFormBloc extends FormBloc<String, String> {
         initialValue: data.encephalopaty.toString());
     this.ascitesField = SelectFieldBloc(
         items: ['none_fem', 'controlled', 'refractory'],
-        initialValue: data.ascites.toString());
-    this.resultadoField = data.result;
+        initialValue: data.ascites.toString());*/
+    this.resultadoField = cpsData.result;
 
-    print("\n*****AFTER PREVIOUS");
-    showFields();
+    if (debug) {
+      print("\n*****CPS AFTER PREVIOUS");
+      showCpsFields();
+      showObjectCPSData();
+    }
   }
 
   void showObjectCPSData() {
     print("\n\n*****************OBJETO CPSDATA: "
-        "\nbilirrubina : ${data.bilirubin}" +
-        "\ninr : ${data.inr}" +
-        "\nalbumina : ${data.albumin}" +
-        "\nencefalopatia : ${data.encephalopaty}" +
-        "\nascitis : ${data.ascites}" +
-        "\nresultado: ${data.result}" +
+        "\nbilirrubina : ${cpsData.bilirubin}" +
+        "\ninr : ${cpsData.inr}" +
+        "\nalbumina : ${cpsData.albumin}" +
+        "\nencefalopatia : ${cpsData.encephalopaty}" +
+        "\nascitis : ${cpsData.ascites}" +
+        "\nresultado: ${cpsData.result}" +
         "\n**************");
   }
 
-  void showFields() {
+  void showCpsFields() {
     print("\n\n *********FIELD VALUES");
     print("Campo bilirrubina: " + bilirubinField.value);
     print("Campo inr: " + inrField.value);

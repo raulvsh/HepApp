@@ -8,9 +8,8 @@ import 'okuda_data.dart';
 class OkudaFormBloc extends FormBloc<String, String> {
   final prefs = UserSettings();
   final units = Units();
+  final debug = true;
 
-  ///Usadas por mi
-  ///  var bilirubinField = TextFieldBloc();
   var bilirubinField = TextFieldBloc();
   var albuminField = TextFieldBloc();
   var ascitesField = SelectFieldBloc(
@@ -21,33 +20,29 @@ class OkudaFormBloc extends FormBloc<String, String> {
   );
   String result = '-';
 
-  var okudaData = OkudaData(
+  OkudaData okudaData = OkudaData(
     bilirubin: 0,
     albumin: 0,
-    ascites: 'none_fem',
-    tumourExtent: '<=50%',
-    result: '-',
+    ascites: '-',
+    tumourExtent: '-',
   );
 
   @override
   List<FieldBloc> get fieldBlocs => [
-    bilirubinField,
-    albuminField,
-    ascitesField,
-    tumourExtentField,
-  ];
+        bilirubinField,
+        albuminField,
+        ascitesField,
+        tumourExtentField,
+      ];
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    showFields();
-
     okudaData = OkudaData(
       bilirubin: bilirubinField.valueToDouble,
       albumin: albuminField.valueToDouble,
       ascites: ascitesField.value,
       tumourExtent: tumourExtentField.value,
     );
-
     OkudaAlgorithm okudaAlgorithm = OkudaAlgorithm(okudaData);
 
     try {
@@ -64,39 +59,52 @@ class OkudaFormBloc extends FormBloc<String, String> {
   }
 
   void showIU() {
-    this.bilirubinField = TextFieldBloc(
+    this.bilirubinField.updateValue(okudaData.bilirubin.toStringAsFixed(2));
+    this.albuminField.updateValue(okudaData.albumin.toStringAsFixed(2));
+    /*this.bilirubinField = TextFieldBloc(
       initialValue: okudaData.bilirubin.toStringAsFixed(2),
     );
     this.albuminField = TextFieldBloc(
       initialValue: okudaData.albumin.toStringAsFixed(2),
-    );
+    );*/
   }
 
   showNotIU() {
-    this.bilirubinField = TextFieldBloc(
+    this.bilirubinField.updateValue(
+        units.getNotIUBilirrubin(okudaData.bilirubin).toStringAsFixed(2));
+    this.albuminField.updateValue(
+        units.getNotIUAlbumin(okudaData.albumin).toStringAsFixed(2));
+    /* this.bilirubinField = TextFieldBloc(
       initialValue:
       units.getNotIUBilirrubin(okudaData.bilirubin).toStringAsFixed(2),
     );
     this.albuminField = TextFieldBloc(
       initialValue:
       units.getNotIUAlbumin(okudaData.albumin).toStringAsFixed(2),
-    );
+    );*/
   }
 
   reset() {
     this.bilirubinField = TextFieldBloc();
     this.albuminField = TextFieldBloc();
-    this.ascitesField = SelectFieldBloc(
+    this.ascitesField.updateValue('-');
+    this.tumourExtentField.updateValue('-');
+    /*this.ascitesField = SelectFieldBloc(
       items: ['none_fem', 'controlled', 'refractory'],
     );
     this.tumourExtentField = SelectFieldBloc(
       items: ['<=50%', '>50%'],
-    );
+    );*/
     this.result = "-";
   }
 
   void previous() {
-    this.bilirubinField = TextFieldBloc(
+    this.bilirubinField.updateValue(okudaData.bilirubin.toString());
+    this.albuminField.updateValue(okudaData.albumin.toString());
+    this.ascitesField.updateValue(okudaData.ascites.toString());
+    this.tumourExtentField.updateValue(okudaData.tumourExtent.toString());
+
+    /* this.bilirubinField = TextFieldBloc(
       initialValue: okudaData.bilirubin.toString(),
     );
     this.albuminField = TextFieldBloc(
@@ -109,29 +117,18 @@ class OkudaFormBloc extends FormBloc<String, String> {
     this.tumourExtentField = SelectFieldBloc(
       items: ['<=50%', '>50%'],
       initialValue: okudaData.tumourExtent.toString(),
-    );
+    );*/
     this.result = okudaData.result;
 
-    print("\n*****AFTER PREVIOUS");
-    showFields();
+    if (debug) showObjectOkudaData();
   }
 
   void showObjectOkudaData() {
-    print("\n\n*****************OBJETO OkudaDATA: "
-        "\nbili: ${okudaData.bilirubin}" +
-        "\nalbu: ${okudaData.albumin}" +
-        "\nascites : ${okudaData.ascites}" +
-        "\nextension : ${okudaData.tumourExtent}" +
-        "\nresultado: ${okudaData.result}" +
-        "\n**************");
-  }
-
-  void showFields() {
     print("\n\n *********FIELD VALUES");
-    print("Campo bili: " + bilirubinField.value);
-    print("Campo albu: " + albuminField.value);
-    print("Campo ascites: " + ascitesField.value);
-    print("Campo extension: " + tumourExtentField.value);
-    print("Campo resultado antes : " + result);
+    print("Campo bilirrubina:            ${okudaData.bilirubin}");
+    print("Campo albumina:            ${okudaData.albumin}");
+    print("Campo ascites:         ${okudaData.ascites}");
+    print("Campo extension:       ${okudaData.tumourExtent}  ");
+    print("Campo resultado  :${okudaData.result}");
   }
 }

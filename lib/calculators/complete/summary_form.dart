@@ -80,35 +80,27 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
 
     var tumourSize = widget.formBloc.tumourSizeField;
-    for (int i = 0; i < tumourSize.length; i++) print(tumourSize[i].value);
+
     Map<String, dynamic> diagnosticMap1 = {
       'tumours': widget.formBloc.tumourNumberField.value,
-      '#1': tumourSize[0].valueToDouble != 0.0
-          ? tumourSize[0].valueToDouble.toStringAsFixed(2) + " cm."
-          : '-',
-      '#2': tumourSize[1].valueToDouble != 0.0
-          ? tumourSize[1].valueToDouble.toStringAsFixed(2) + " cm."
-          : '-',
-      '#3': tumourSize[2].valueToDouble != 0.0
-          ? tumourSize[2].valueToDouble.toStringAsFixed(2) + " cm."
-          : '-',
-      '#4': tumourSize[3].valueToDouble != 0.0
-          ? tumourSize[3].valueToDouble.toStringAsFixed(2) + " cm."
-          : '-',
-      '#5': tumourSize[4].valueToDouble != 0.0
-          ? tumourSize[4].valueToDouble.toStringAsFixed(2) + " cm."
-          : '-',
-      '#6': tumourSize[5].valueToDouble != 0.0
-          ? tumourSize[5].valueToDouble.toStringAsFixed(2) + " cm."
-          : '-',
-      'tumour_extent': widget.formBloc.tumourExtentField.value,
     };
+    for (int i = 0; i < tumourSize.length; i++) {
+      diagnosticMap1.addAll({
+        "#${i + 1}": tumourSize[i].value != '0'
+            ? tumourSize[i].valueToDouble.toStringAsFixed(2) + " cm."
+            : '-',
+      });
+    }
+    diagnosticMap1.addAll({
+      'tumour_extent': widget.formBloc.tumourExtentField.value,
+    });
+
     Map<String, dynamic> diagnosticMap2 = {
       'pvi': aux.tr(widget.formBloc.pviField.value),
       'nodes': aux.tr(widget.formBloc.nodesField.value),
       'metastasis': aux.tr(widget.formBloc.metastasisField.value),
       'portal_hypertension':
-      aux.tr(widget.formBloc.portalHypertensionField.value),
+          aux.tr(widget.formBloc.portalHypertensionField.value),
       'pvt': aux.tr(widget.formBloc.pvtField.value),
     };
     var unionMap = {};

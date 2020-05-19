@@ -271,6 +271,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
               CalcBottomButton(
                   title: 'previous_values',
                   onPressed: () {
+                    comprobarValoresLab();
                     previousValues(formBloc);
                   }),
               SizedBox(width: isTablet ? 15 : 10),

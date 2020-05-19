@@ -251,6 +251,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
               CalcBottomButton(
                   title: 'previous_values',
                   onPressed: () {
+                    comprobarValoresDiag();
                     previousValues(formBloc);
                   }),
               SizedBox(width: isTablet ? 15 : 10),
@@ -338,7 +339,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
 
   void comprobarValoresDiag() {
     //Si el usuario no introduce valor, se pondrá a cero para que haya contenido
-    for (int i = 0; i < prefs.getTumourNumber(); i++) {
+    for (int i = 0; i < widget.formBloc.tumourSizeField.length; i++) {
       if (widget.formBloc.tumourSizeField[i].value == '') {
         widget.formBloc.tumourSizeField[i].updateValue('0');
       }

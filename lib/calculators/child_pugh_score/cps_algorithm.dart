@@ -11,10 +11,10 @@ class CpsAlgorithm {
 
   String obtenerResultado() {
     final prefs = UserSettings();
+    final debug = false;
     int ptsBilirubin, ptsINR, ptsAlbumin, ptsEncephalopaty, ptsAscites;
 
     if (!prefs.getInternationalUnits()) convertToIU();
-    //showObjectCPSData();
 
     ptsBilirubin = _getBilirubinPoints();
     ptsINR = _getInrPoints();
@@ -22,7 +22,7 @@ class CpsAlgorithm {
     ptsEncephalopaty = _getEncephalopatyPoints();
     ptsAscites = _getAscitesPoints();
 
-    showPts();
+    if (debug) showCpsPoints();
 
     int resultado =
         ptsBilirubin + ptsINR + ptsAlbumin + ptsEncephalopaty + ptsAscites;
@@ -89,7 +89,7 @@ class CpsAlgorithm {
     cpsData.albumin = units.getIUAlbumin(cpsData.albumin);
   }
 
-  void showPts() {
+  void showCpsPoints() {
     print("\n\n**********PUNTOS CPS\nPuntos bilirrubina: ${cpsData
         .bilirubin}  ${_getBilirubinPoints()}");
     print("Puntos inr: ${cpsData.inr}  ${_getInrPoints()}");

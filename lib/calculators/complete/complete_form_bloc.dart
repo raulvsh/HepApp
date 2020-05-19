@@ -570,8 +570,11 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   void previousDiagnostic() {
     this.tumourNumberField.updateValue(diagnosticData.tumourNumber.toString());
+    print("tumor num " + diagnosticData.tumourNumber);
     if (diagnosticData.tumourNumber == '6+') {
       prefs.setTumourNumber(6);
+    } else if (diagnosticData.tumourNumber == '-') {
+      prefs.setTumourNumber(0);
     } else {
       prefs.setTumourNumber(int.parse(diagnosticData.tumourNumber));
     }

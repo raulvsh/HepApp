@@ -8,6 +8,7 @@ import 'clip_data.dart';
 class ClipFormBloc extends FormBloc<String, String> {
   final prefs = UserSettings();
   final units = Units();
+  final debug = true;
 
   var afpField = TextFieldBloc();
   var cpsField = SelectFieldBloc(
@@ -25,13 +26,14 @@ class ClipFormBloc extends FormBloc<String, String> {
 
   String result = '-';
 
-  var data = ClipData(
+  ClipData clipData = ClipData(
     afp: 0,
-    cps: 'A',
-    tumourNumber: '0',
-    tumourExtent: '<=50%',
-    pvt: 'no',
-    result: '-',);
+    cps: '-',
+    tumourNumber: '-',
+    tumourExtent: '-',
+    pvt: '-',
+    result: '-',
+  );
 
   @override
   List<FieldBloc> get fieldBlocs =>
@@ -39,58 +41,40 @@ class ClipFormBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    showFields();
-    data = ClipData(
+    clipData = ClipData(
       afp: afpField.valueToDouble,
       cps: cpsField.value,
       tumourNumber: tumourNumberField.value,
       tumourExtent: tumourExtentField.value,
-      pvt: pvtField.value,);
+      pvt: pvtField.value,
+    );
 
-    ClipAlgorithm clipAlgorithm = ClipAlgorithm(data);
+    ClipAlgorithm clipAlgorithm = ClipAlgorithm(clipData);
 
     try {
       this.result = clipAlgorithm.obtenerResultado();
-      data.result = this.result;
+      clipData.result = this.result;
     } catch (e) {
       print("Excepción: $e");
     }
 
     await Future<void>.delayed(Duration(seconds: 1));
-
     yield currentState.toSuccess('Success');
     //yield toLoaded para poder hacer submit más de una vez
     yield currentState.toLoaded();
   }
 
-  void showObjectMeldData() {
-    print("\n\n*****************OBJETO clipDATA: "
-            "\nafp : ${data.afp}" +
-        "\ncps : ${data.cps}" +
-        "\nnumero : ${data.tumourNumber}" +
-        "\nextension : ${data.tumourExtent}" +
-        "\pvt : ${data.pvt}" +
-        "\nresultado: ${data.result}" +
-        "\n**************");
-  }
-
-  void showFields() {
-    print("\n\n *********FIELD VALUES");
-    print("Campo afp: " + afpField.value);
-    print("Campo cps: " + cpsField.value);
-    print("Campo numero: " + tumourNumberField.value);
-    print("Campo extension: " + tumourExtentField.value);
-    print("Campo pvt: " + pvtField.value);
-    print("Campo resultado antes : " + result);
-  }
+  showIU() {}
 
   showNotIU() {}
 
-  showIU() {}
-
   reset() {
     this.afpField = TextFieldBloc();
-    this.cpsField = SelectFieldBloc(items: ['A', 'B', 'C']);
+    this.cpsField.updateValue('-');
+    this.tumourNumberField.updateValue('-');
+    this.tumourExtentField.updateValue('-');
+    this.pvtField.updateValue('-');
+    /*this.cpsField = SelectFieldBloc(items: ['A', 'B', 'C']);
     this.tumourNumberField =
         SelectFieldBloc(items: ['0', '1', '2', '3', '4', '5', '6+'],);
     this.tumourExtentField = SelectFieldBloc(
@@ -98,26 +82,30 @@ class ClipFormBloc extends FormBloc<String, String> {
     );
     this.pvtField = SelectFieldBloc(
       items: ['yes', 'no'],
-    );
-
+    );*/
     this.result = "-";
   }
 
   void previous() {
-    this.afpField = TextFieldBloc(
-      initialValue: data.afp.toString(),
+    this.afpField.updateValue(clipData.afp.toString());
+    this.cpsField.updateValue(clipData.cps.toString());
+    this.tumourNumberField.updateValue(clipData.tumourNumber.toString());
+    this.tumourExtentField.updateValue(clipData.tumourExtent.toString());
+    this.pvtField.updateValue(clipData.pvt.toString());
+    /*this.afpField = TextFieldBloc(
+      initialValue: clipData.afp.toString(),
     );
     this.cpsField = SelectFieldBloc(
       items: ['A', 'B', 'C'],
-      initialValue: data.cps.toString(),
+      initialValue: clipData.cps.toString(),
     );
     this.tumourNumberField = SelectFieldBloc(
       items: ['0', '1', '2', '3', '4', '5', '6+'],
-      initialValue: data.tumourNumber.toString(),
+      initialValue: clipData.tumourNumber.toString(),
     );
     this.tumourExtentField = SelectFieldBloc(
       items: ['<=50%', '>50%'],
-      initialValue: data.tumourExtent.toString(),
+      initialValue: clipData.tumourExtent.toString(),
     );
 
     this.pvtField = SelectFieldBloc(
@@ -125,10 +113,19 @@ class ClipFormBloc extends FormBloc<String, String> {
         'yes',
         'no',
       ],
-      initialValue: data.pvt.toString(),
-    );
-    this.result = data.result;
-    //print("\n*****AFTER PREVIOUS");
-    //showFields();
+      initialValue: clipData.pvt.toString(),
+    );*/
+    this.result = clipData.result;
+    if (debug) showObjectClipData();
+  }
+
+  void showObjectClipData() {
+    print("\n\n *********FIELD VALUES");
+    print("Campo afp: ${clipData.afp}");
+    print("Campo cps: ${clipData.cps}");
+    print("Campo numero: ${clipData.tumourNumber}");
+    print("Campo extension: ${clipData.tumourExtent}");
+    print("Campo pvt: ${clipData.pvt}");
+    print("Campo resultado: ${clipData.result}");
   }
 }
