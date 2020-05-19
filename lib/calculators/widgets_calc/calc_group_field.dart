@@ -107,7 +107,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
         /*if (widget.previous) {
           updateMap(state);
         }*/
-        markInitialValue(state);
+        //markInitialValue(state);
 
         updateMap(state);
 
@@ -132,7 +132,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
   _initMap(SelectFieldBlocState<Value> state) {
     for (int i = 0; i < state.items.length; i++) {
       isSelected[state.items.elementAt(i).toString()] = false;
-      if (widget.title == 'lt_criteria') print(isSelected);
     }
   }
 
@@ -224,16 +223,13 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () async {
-                    print("entro en gestura");
                     _resetFlag = false;
                     _markErrorFalse();
                     _errorFlag = false;
-
                     _initMap(state);
 
                     //Elemento seleccionado
                     radioValue = state.items.elementAt(index).toString();
-                    print("radio value " + radioValue);
                     widget.selectFieldBloc.updateValue(radioValue);
                     await Future.delayed(Duration(milliseconds: 200));
                     isSelected[radioValue] = true;
@@ -259,8 +255,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                             value: state.items.elementAt(index).toString(),
                             groupValue: radioValue,
                             duration: Duration(milliseconds: 150),
-                            animsBuilder: (AnimationController controller) =>
-                            [
+                            animsBuilder: (AnimationController controller) => [
                               CurvedAnimation(
                                   parent: controller, curve: Curves.easeInOut)
                             ],

@@ -20,11 +20,10 @@ class FullCalcSettingsBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    //showFields();
     prefs.setAgeCutoff(ageField.valueToDouble);
     prefs.setLtCriteria(ltCriteriaField.value);
 
-    showFinalValues();
+    //showFinalValues();
 
     await Future<void>.delayed(Duration(seconds: 1));
 
