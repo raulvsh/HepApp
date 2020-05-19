@@ -9,23 +9,21 @@ class OkudaAlgorithm {
   OkudaAlgorithm(this.okudaData);
 
   final units = Units();
+  final debug = false;
 
   String obtenerResultado() {
     final prefs = UserSettings();
     int ptsBilirubin, ptsAlbumin, ptsAscites, ptsTumourExtent;
 
     if (!prefs.getInternationalUnits()) convertToIU();
-    //showObjectOkudaData();
 
     ptsBilirubin = _getBilirubinPoints();
     ptsAlbumin = _getAlbuminPoints();
     ptsAscites = _getAscitesPoints();
     ptsTumourExtent = _getTumourExtentPoints();
 
-    // showObjectOkudaData();
-
     int resultado = ptsBilirubin + ptsAlbumin + ptsAscites + ptsTumourExtent;
-    showPts(resultado);
+    if (debug) showPts(resultado);
 
     if (resultado == 0) {
       return 'I ($resultado)';
@@ -75,14 +73,11 @@ class OkudaAlgorithm {
   }
 
   void showPts(int resultado) {
-    print("\n\n**********PUNTOS OKUDA\nPuntos bilirrubina: ${okudaData
-        .bilirubin}  ${_getBilirubinPoints()}");
+    print("\n\n**********PUNTOS OKUDA");
+    print("Pts bilirrubina: ${okudaData.bilirubin} ${_getBilirubinPoints()}");
     print("Puntos albúmina: ${okudaData.albumin}  ${_getAlbuminPoints()}");
     print("Puntos ascitis: ${okudaData.ascites}  ${_getAscitesPoints()}");
-    print("Puntos extension: ${okudaData
-        .tumourExtent}  ${_getTumourExtentPoints()}");
+    print("Pts extens: ${okudaData.tumourExtent} ${_getTumourExtentPoints()}");
     print("Resultado: $resultado");
   }
-
-
 }

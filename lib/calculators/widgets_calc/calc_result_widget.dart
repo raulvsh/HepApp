@@ -41,15 +41,12 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: buildResultList(widget.textAlignment),
       ),
-      //),
     );
   }
 
   buildResultList(alignment) {
     AppLocalizations aux = AppLocalizations.of(context);
     List<Row> rowList = [];
-    bool isTablet = context.diagonalInches >= 7;
-
     widget.resultMap.forEach(
           (key, value) {
         rowList.add(

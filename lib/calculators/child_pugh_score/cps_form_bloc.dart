@@ -32,8 +32,7 @@ class CpsFormBloc extends FormBloc<String, String> {
   );
 
   @override
-  List<FieldBloc> get fieldBlocs =>
-      [
+  List<FieldBloc> get fieldBlocs => [
         bilirubinField,
         inrField,
         albuminField,
@@ -43,7 +42,6 @@ class CpsFormBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    if (debug) showCpsFields();
 
     cpsData = CpsData(
       bilirubin: bilirubinField.valueToDouble,
@@ -73,15 +71,6 @@ class CpsFormBloc extends FormBloc<String, String> {
     this.bilirubinField.updateValue(cpsData.bilirubin.toStringAsFixed(2));
     this.inrField.updateValue(cpsData.inr.toStringAsFixed(2));
     this.albuminField.updateValue(cpsData.albumin.toStringAsFixed(2));
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toStringAsFixed(2),
-    );
-    this.inrField = TextFieldBloc(
-      initialValue: cpsData.inr.toStringAsFixed(2),
-    );
-    this.albuminField = TextFieldBloc(
-      initialValue: cpsData.albumin.toStringAsFixed(2),
-    );*/
   }
 
   showNotIU() {
@@ -91,15 +80,6 @@ class CpsFormBloc extends FormBloc<String, String> {
     this
         .albuminField
         .updateValue(units.getNotIUAlbumin(cpsData.albumin).toStringAsFixed(2));
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: units.getNotIUBilirrubin(cpsData.bilirubin).toStringAsFixed(2),
-    );
-    this.inrField = TextFieldBloc(
-      initialValue: cpsData.inr.toStringAsFixed(2),
-    );
-    this.albuminField = TextFieldBloc(
-      initialValue: units.getNotIUAlbumin(cpsData.albumin).toStringAsFixed(2),
-    );*/
   }
 
   reset() {
@@ -108,19 +88,9 @@ class CpsFormBloc extends FormBloc<String, String> {
     this.albuminField = TextFieldBloc();
     this.encephalopatyField.updateValue('-');
     this.ascitesField.updateValue('-');
-
-    /*this.encephalopatyField = SelectFieldBloc(
-      items: ['none_fem', 'grade_1_2', 'grade_3_4'],
-    );
-    this.ascitesField = SelectFieldBloc(
-      items: ['none_fem', 'controlled', 'refractory'],
-    );*/
     this.resultadoField = "-";
 
-    if (debug) {
-      showCpsFields();
-      showObjectCPSData();
-    }
+    if (debug) showObjectCPSData();
   }
 
   void previous() {
@@ -129,50 +99,18 @@ class CpsFormBloc extends FormBloc<String, String> {
     this.albuminField.updateValue(cpsData.albumin.toString());
     this.encephalopatyField.updateValue(cpsData.encephalopaty.toString());
     this.ascitesField.updateValue(cpsData.ascites.toString());
-
-
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: data.bilirubin.toString(),
-    );
-    this.inrField = TextFieldBloc(
-      initialValue: data.inr.toString(),
-    );
-    this.albuminField = TextFieldBloc(
-      initialValue: data.albumin.toString(),
-    );
-    this.encephalopatyField = SelectFieldBloc(
-        items: ['none_fem', 'grade_1_2', 'grade_3_4'],
-        initialValue: data.encephalopaty.toString());
-    this.ascitesField = SelectFieldBloc(
-        items: ['none_fem', 'controlled', 'refractory'],
-        initialValue: data.ascites.toString());*/
     this.resultadoField = cpsData.result;
 
-    if (debug) {
-      print("\n*****CPS AFTER PREVIOUS");
-      showCpsFields();
-      showObjectCPSData();
-    }
+    if (debug) showObjectCPSData();
   }
 
   void showObjectCPSData() {
-    print("\n\n*****************OBJETO CPSDATA: "
-        "\nbilirrubina : ${cpsData.bilirubin}" +
-        "\ninr : ${cpsData.inr}" +
-        "\nalbumina : ${cpsData.albumin}" +
-        "\nencefalopatia : ${cpsData.encephalopaty}" +
-        "\nascitis : ${cpsData.ascites}" +
-        "\nresultado: ${cpsData.result}" +
-        "\n**************");
-  }
-
-  void showCpsFields() {
-    print("\n\n *********FIELD VALUES");
-    print("Campo bilirrubina: " + bilirubinField.value);
-    print("Campo inr: " + inrField.value);
-    print("Campo albumina: " + albuminField.value);
-    print("Campo encefalopatía: " + encephalopatyField.value);
-    print("Campo ascitis: " + ascitesField.value);
-    print("Campo resultado antes de operar: " + resultadoField);
+    print("\n\n*****************OBJETO CPSDATA: ");
+    print("Bilirrubina: ${cpsData.bilirubin}");
+    print("Inr: ${cpsData.inr}");
+    print("Albumina: ${cpsData.albumin}");
+    print("Encefalopatía: ${cpsData.encephalopaty}");
+    print("Ascitis: ${cpsData.ascites}");
+    print("Resultado antes de operar: ${cpsData.result}");
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/widgets/custom_appbar.dart';
-import 'package:hepapp/widgets/drawer_menu.dart';
+import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
+import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class WebDetailPage extends StatefulWidget {

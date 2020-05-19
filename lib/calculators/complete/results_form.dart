@@ -2,17 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hepapp/calculators/alberta/alberta_algorithm.dart';
 import 'package:hepapp/calculators/alberta/alberta_data.dart';
-import 'package:hepapp/calculators/calc_result_widget.dart';
-import 'package:hepapp/calculators/right_bottom_title.dart';
+import 'package:hepapp/calculators/widgets_calc/calc_bottom_button.dart';
+import 'package:hepapp/calculators/widgets_calc/calculator_button.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/lang/app_localizations.dart';
+import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
+import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
-import 'package:hepapp/widgets/calc_bottom_button.dart';
-import 'package:hepapp/widgets/calculator_button.dart';
-import 'package:hepapp/widgets/custom_appbar.dart';
-import 'package:hepapp/widgets/drawer_menu.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
+
+import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/calc_result_widget.dart';
+import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/right_bottom_title.dart';
 
 import 'complete_form_bloc.dart';
 
@@ -91,7 +92,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       'cirrhosis': aux.tr(formBloc.cirrhosisField.value),
       'apri': formBloc.resultsField['apri'],
       'child_pugh_score_oneline':
-      formBloc.resultsField['child_pugh_score_oneline'],
+          formBloc.resultsField['child_pugh_score_oneline'],
       'meld': formBloc.resultsField['meld'],
       'meld_na': formBloc.resultsField['meld_na'],
       '5v_meld': formBloc.resultsField['5v_meld'],
@@ -131,7 +132,8 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         child: Center(
             child: Text(
               aux.tr('liver_function').toUpperCase(),
-              style: TextStyle(color: Colors.black, fontSize: isTablet ? 16 : 13),
+              style: TextStyle(
+                  color: Colors.black, fontSize: isTablet ? 16 : 13),
             )));
   }
 
@@ -416,20 +418,19 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   }
 
   void printAlbertaObject(AlbertaData data) {
-    print("\n\n*****************OBJETO albertaDATA: "
-        "\nbclc : ${data.bclc}" +
-        "\ncps : ${data.cps}" +
-        "\nportal ht : ${data.portalHypertension}" +
-        "\npvt : ${data.pvt}" +
-        "\nplatelets : ${data.platelets}" +
-        "\nvarices: ${data.varices}" +
-        "\nbilirrubina : ${data.bilirubin}");
+    print("\n\n*****************OBJETO albertaDATA: ");
+    print("Bclc : ${data.bclc}");
+    print("Cps : ${data.cps}");
+    print("Portal ht : ${data.portalHypertension}");
+    print("Pvt : ${data.pvt}");
+    print("Platelets : ${data.platelets}");
+    print("Varices: ${data.varices}");
+    print("Bilirrubina : ${data.bilirubin}");
     print("Encefalopatía: " + data.encephalopaty);
     print("Ascitis: " + data.ascites);
     print("Tamaño de tumor: " + data.tumourSize.toString());
     print("AFP: " + data.afp.toString());
-    print("\nresultados : ${data.results.toString()}" +
-        "\n**************");
+    print("Resultados : ${data.results.toString()}");
   }
 
   _buildBottomSheet(CompleteFormBloc formBloc) {
@@ -465,17 +466,12 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           child: Row(
             children: <Widget>[
               SizedBox(width: 10),
-
               diagnosticButton,
               SizedBox(width: isTablet ? 15 : 10),
               laboratoryButton,
               SizedBox(width: isTablet ? 15 : 10),
               clinicalButton,
-              //SizedBox(width: double.infinity,),
-              //Expanded(child: Container(),),
               SizedBox(width: isTablet ? 15 : 10),
-
-              //isLandscape?Expanded():Container(),
               summaryButton,
               SizedBox(width: 10),
             ],
@@ -488,10 +484,10 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   getTumourSize() {
     List<double> tumourSizeList = [];
     for (int i = 0;
-        i < prefs.getTumourNumber() /*widget.formBloc.tumourSizeField.length*/;
+    i < prefs.getTumourNumber();
         i++) {
-      tumourSizeList.add(
-          double.parse(widget.formBloc.tumourSizeField[i].value));
+      tumourSizeList
+          .add(double.parse(widget.formBloc.tumourSizeField[i].value));
     }
     return tumourSizeList;
   }

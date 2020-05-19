@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/widgets/custom_appbar.dart';
-import 'package:hepapp/widgets/drawer_menu.dart';
+import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
+import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 
 import 'alberta_circle_field.dart';
 import 'alberta_diagram_painter.dart';

@@ -10,7 +10,6 @@ class ClipAlgorithm {
   final units = Units();
 
   String obtenerResultado() {
-    //showObjectCLipData();
     int ptsTumourNumber, ptsCps, ptsPvt, ptsAfp;
 
     ptsTumourNumber = _getTumourPoints();
@@ -63,12 +62,10 @@ class ClipAlgorithm {
     }
   }
 
-
   void showpts(int result) {
-    print("\n\n**********PUNTOS CLIP\nPuntos numero: ${clipData
-        .tumourNumber}  ${_getTumourPoints()}");
+    print("\n\n**********PUNTOS CLIP");
+    print("Puntos numero: ${clipData.tumourNumber}  ${_getTumourPoints()}");
     print("Extension: ${clipData.tumourExtent}  ${_getTumourPoints()}");
-
     print("Puntos cps: ${clipData.cps}  ${_getCpsPoints()}");
     print("Puntos pvt: ${clipData.pvt}  ${_getPvtPoints()}");
     print("Puntos afp: ${clipData.afp}  ${_getAfpPoints()}");

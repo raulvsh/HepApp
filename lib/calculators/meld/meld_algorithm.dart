@@ -11,6 +11,7 @@ class MeldAlgorithm {
   MeldAlgorithm(this.meldData);
 
   final units = Units();
+  final debug = false;
 
   Map<String, String> obtenerResultado() {
     final prefs = UserSettings();
@@ -20,17 +21,14 @@ class MeldAlgorithm {
       '5v_meld': '-',
     };
 
+    //Meld se calcula con unidades no internacionales
     if (prefs.getInternationalUnits()) convertToNotIU();
-    //showObjectMeldData();
-
     _adaptarVariablesMeld();
-    //showObjectMeldData();
-
 
     results['meld'] = _calculateMeld().toStringAsFixed(2);
     meldData.sodium != null
         ? results['meld_na'] =
-        _calculateMeldNa(results['meld']).toStringAsFixed(2)
+            _calculateMeldNa(results['meld']).toStringAsFixed(2)
         : '-';
 
     meldData.albumin != null
@@ -38,10 +36,8 @@ class MeldAlgorithm {
         _calculate5vMeld(results['meld_na']).toStringAsFixed(2)
         : '-';
 
-
-    showPts(results);
+    if (debug) showPts(results);
     return results;
-
   }
 
   void convertToNotIU() {
@@ -96,7 +92,6 @@ class MeldAlgorithm {
         (0.136 * meldNa * (4 - meldData.albumin));
   }
 
-
   void showPts(results) {
     print("\n\n**********PUNTOS MELD");
     print("\nbilirrubina : ${meldData.bilirubin}" +
@@ -109,6 +104,4 @@ class MeldAlgorithm {
     print("Puntos meldna: ${results['meld_na']}");
     print("Puntos meld5v: ${results['5v_meld']}");
   }
-
-
 }

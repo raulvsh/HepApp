@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hepapp/data/home_sections.dart';
-import 'package:hepapp/pages/CommonPages/common_grid_page.dart';
-import 'package:hepapp/widgets/home_appbar.dart';
+import 'package:hepapp/pages/widgets_navigation/home_appbar.dart';
+
+import 'common_pages/common_grid_page.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();

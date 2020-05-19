@@ -75,24 +75,6 @@ class MeldFormBloc extends FormBloc<String, String> {
     this.creatinineField.updateValue(meldData.creatinine.toStringAsFixed(2));
     this.albuminField.updateValue(meldData.albumin.toStringAsFixed(2));
     this.sodiumField.updateValue(meldData.sodium.toStringAsFixed(2));
-/*    this.bilirubinField = TextFieldBloc(
-      initialValue:
-          units.getIUBilirrubin(meldData.bilirubin).toStringAsFixed(2),
-    );
-    this.inrField = TextFieldBloc(
-      initialValue: meldData.inr.toStringAsFixed(2),
-    );
-    this.creatinineField = TextFieldBloc(
-      initialValue:
-          units.getIUCreatinin(meldData.creatinine).toStringAsFixed(2),
-    );
-
-    this.albuminField = TextFieldBloc(
-      initialValue: units.getIUAlbumin(meldData.albumin).toStringAsFixed(2),
-    );
-    this.sodiumField = TextFieldBloc(
-      initialValue: units.getIUSodium(meldData.albumin).toStringAsFixed(2),
-    );*/
   }
 
   showNotIU() {
@@ -105,21 +87,6 @@ class MeldFormBloc extends FormBloc<String, String> {
         units.getNotIUAlbumin(meldData.albumin).toStringAsFixed(2));
     this.sodiumField.updateValue(
         units.getNotIUSodium(meldData.sodium).toStringAsFixed(2));
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: meldData.bilirubin.toStringAsFixed(2),
-    );
-    this.inrField = TextFieldBloc(
-      initialValue: meldData.inr.toStringAsFixed(2),
-    );
-    this.creatinineField = TextFieldBloc(
-      initialValue: meldData.creatinine.toStringAsFixed(2),
-    );
-    this.albuminField = TextFieldBloc(
-      initialValue: meldData.albumin.toStringAsFixed(2),
-    );
-    this.sodiumField = TextFieldBloc(
-      initialValue: meldData.sodium.toStringAsFixed(2),
-    );*/
   }
 
   reset() {
@@ -129,9 +96,6 @@ class MeldFormBloc extends FormBloc<String, String> {
     this.albuminField = TextFieldBloc();
     this.sodiumField = TextFieldBloc();
     this.dialysisField.updateValue('-');
-    /*this.dialysisField = SelectFieldBloc(
-      items: ['yes', 'no'],
-    );*/
     this.results = initResultMap();
   }
 
@@ -142,27 +106,7 @@ class MeldFormBloc extends FormBloc<String, String> {
     this.albuminField.updateValue(meldData.albumin.toString());
     this.sodiumField.updateValue(meldData.sodium.toString());
     this.dialysisField.updateValue(meldData.dialysis.toString());
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: meldData.bilirubin.toString(),
-    );
-    this.inrField = TextFieldBloc(
-      initialValue: meldData.inr.toString(),
-    );
-    this.creatinineField = TextFieldBloc(
-      initialValue: meldData.creatinine.toString(),
-    );
-    this.albuminField = TextFieldBloc(
-      initialValue: meldData.albumin.toString(),
-    );
-    this.sodiumField = TextFieldBloc(
-      initialValue: meldData.sodium.toString(),
-    );
-    this.dialysisField = SelectFieldBloc(
-      items: ['yes', 'no'],
-      initialValue: meldData.dialysis.toString(),
-    );*/
     this.results = meldData.results;
-
   }
 
   static initResultMap() {

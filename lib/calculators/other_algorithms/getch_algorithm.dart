@@ -16,7 +16,6 @@ class GetchAlgorithm {
     int ptsEcog, ptsBilirubin, ptsAlp, ptsAfp, ptsPvt;
 
     if (!prefs.getInternationalUnits()) convertToIU();
-    //showObjectOkudaData();
 
     ptsEcog = _getEcogPoints();
     ptsBilirubin = _getBilirubinPoints();
@@ -24,7 +23,7 @@ class GetchAlgorithm {
     ptsAfp = _getAfpPoints();
     ptsPvt = _getPvtPoints();
 
-    int resultado = ptsEcog + ptsBilirubin + ptsAlp + ptsAfp;
+    int resultado = ptsEcog + ptsBilirubin + ptsAlp + ptsAfp + ptsPvt;
     showPts(resultado);
 
     if (resultado == 0) {

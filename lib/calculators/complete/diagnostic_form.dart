@@ -3,17 +3,18 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/calculators/calc_multiple_text_field.dart';
+import 'package:hepapp/calculators/widgets_calc/calc_bottom_button.dart';
+import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
+import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
-import 'package:hepapp/widgets/calc_bottom_button.dart';
-import 'package:hepapp/widgets/custom_appbar.dart';
-import 'package:hepapp/widgets/drawer_menu.dart';
 import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../calc_group_field.dart';
-import '../right_bottom_title.dart';
+import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/calc_multiple_text_field.dart';
+
+import '../widgets_calc/calc_group_field.dart';
+import '../widgets_calc/right_bottom_title.dart';
 import 'complete_form_bloc.dart';
 
 class DiagnosticForm extends StatefulWidget with Observable {

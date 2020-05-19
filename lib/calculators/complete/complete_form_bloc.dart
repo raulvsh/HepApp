@@ -3,7 +3,7 @@ import 'package:hepapp/calculators/child_pugh_score/cps_algorithm.dart';
 import 'package:hepapp/calculators/child_pugh_score/cps_data.dart';
 import 'package:hepapp/calculators/clip/clip_algorithm.dart';
 import 'package:hepapp/calculators/clip/clip_data.dart';
-import 'package:hepapp/calculators/complete/complete_data.dart';
+import 'package:hepapp/calculators/complete/clinical_data.dart';
 import 'package:hepapp/calculators/meld/meld_algorithm.dart';
 import 'package:hepapp/calculators/meld/meld_data.dart';
 import 'package:hepapp/calculators/okuda/okuda_algorithm.dart';
@@ -21,6 +21,9 @@ import 'package:hepapp/calculators/other_algorithms/tnm_data.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 
+import 'diagnostic_data.dart';
+import 'laboratory_data.dart';
+
 class CompleteFormBloc extends FormBloc<String, String> {
   bool debug = true;
   final prefs = UserSettings();
@@ -32,12 +35,12 @@ class CompleteFormBloc extends FormBloc<String, String> {
     initialValue: '-',
   );
   var tumourSizeField = [
-    TextFieldBloc(/*initialValue: '0'*/),
-    TextFieldBloc(/*initialValue: '0'*/),
-    TextFieldBloc(/*initialValue: '0'*/),
-    TextFieldBloc(/*initialValue: '0'*/),
-    TextFieldBloc(/*initialValue: '0'*/),
-    TextFieldBloc(/*initialValue: '0'*/),
+    TextFieldBloc(),
+    TextFieldBloc(),
+    TextFieldBloc(),
+    TextFieldBloc(),
+    TextFieldBloc(),
+    TextFieldBloc(),
   ];
 
   var tumourExtentField = SelectFieldBloc(
@@ -66,21 +69,15 @@ class CompleteFormBloc extends FormBloc<String, String> {
   );
 
   //Laboratory
-  var bilirubinField = TextFieldBloc(/*initialValue: '0'*/);
-  var inrField = TextFieldBloc(/*initialValue: '0'*/);
-  var creatinineField = TextFieldBloc(/*initialValue: '0'*/);
-  var albuminField = TextFieldBloc(/*initialValue: '0'*/);
-  var sodiumField = TextFieldBloc(/*initialValue: '0'*/);
-  var plateletsField = TextFieldBloc(/*initialValue: '0'*/);
-  var afpField = TextFieldBloc(/*initialValue: '0'*/);
-  var astField = [
-    TextFieldBloc(/*initialValue: '0'*/),
-    TextFieldBloc(/*initialValue: '0'*/),
-  ];
-  var alpField = [
-    TextFieldBloc(/*initialValue: '0'*/),
-    TextFieldBloc(/*initialValue: '0'*/),
-  ];
+  var bilirubinField = TextFieldBloc();
+  var inrField = TextFieldBloc();
+  var creatinineField = TextFieldBloc();
+  var albuminField = TextFieldBloc();
+  var sodiumField = TextFieldBloc();
+  var plateletsField = TextFieldBloc();
+  var afpField = TextFieldBloc();
+  var astField = [TextFieldBloc(), TextFieldBloc()];
+  var alpField = [TextFieldBloc(), TextFieldBloc()];
   var dialysisField = SelectFieldBloc(
     items: ['yes', 'no'],
     initialValue: '-',
@@ -145,20 +142,20 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   @override
   List<FieldBloc> get fieldBlocs => [
-    tumourNumberField,
-    tumourSizeField[0],
-    tumourSizeField[1],
-    tumourSizeField[2],
-    tumourSizeField[3],
-    tumourSizeField[4],
-    tumourSizeField[5],
-    tumourExtentField,
-    pviField,
-    nodesField,
-    metastasisField,
-    portalHypertensionField,
-    pvtField,
-    bilirubinField,
+        tumourNumberField,
+        tumourSizeField[0],
+        tumourSizeField[1],
+        tumourSizeField[2],
+        tumourSizeField[3],
+        tumourSizeField[4],
+        tumourSizeField[5],
+        tumourExtentField,
+        pviField,
+        nodesField,
+        metastasisField,
+        portalHypertensionField,
+        pvtField,
+        bilirubinField,
         inrField,
         creatinineField,
         albuminField,
@@ -189,7 +186,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
     comprobarMeld() && comprobarNa() ? calcularMeld()['meld_na'] : '-';
     this.resultsField['5v_meld'] =
     comprobarMeld() && comprobarAlb() ? calcularMeld()['5v_meld'] : '-';
-
     this.resultsField['okuda'] = comprobarOkuda() ? calcularOkuda() : '-';
     this.resultsField['clip'] =
     comprobarCPS() && comprobarClip() ? calcularClip() : '-';
@@ -528,8 +524,9 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   getTumourSize() {
     List<double> tumourSizeList = [];
-    for (int i = 0; i <
-        prefs.getTumourNumber() /*tumourSizeField.length*/; i++) {
+    for (int i = 0;
+    i < prefs.getTumourNumber() /*tumourSizeField.length*/;
+    i++) {
       tumourSizeList.add(double.parse(tumourSizeField[i].value));
     }
     return tumourSizeList;
@@ -570,7 +567,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   void previousDiagnostic() {
     this.tumourNumberField.updateValue(diagnosticData.tumourNumber.toString());
-    print("tumor num " + diagnosticData.tumourNumber);
     if (diagnosticData.tumourNumber == '6+') {
       prefs.setTumourNumber(6);
     } else if (diagnosticData.tumourNumber == '-') {
@@ -646,19 +642,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
     this.astField[1].clear();
     this.alpField[0].clear();
     this.alpField[1].clear();
-    //this.dialysisField.updateValue('-');
-
-    /* this.bilirubinField.updateValue('0');
-    this.inrField.updateValue('0');
-    this.creatinineField.updateValue('0');
-    this.albuminField.updateValue('0');
-    this.sodiumField.updateValue('0');
-    this.plateletsField.updateValue('0');
-    this.afpField.updateValue('0');
-    this.astField[0].updateValue('0');
-    this.astField[1].updateValue('0');
-    this.alpField[0].updateValue('0');
-    this.alpField[1].updateValue('0');*/
     this.dialysisField.updateValue('-');
 
     if (debug) {

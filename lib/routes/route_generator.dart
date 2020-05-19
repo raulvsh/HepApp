@@ -19,14 +19,14 @@ import 'package:hepapp/data/podcasts_page_view.dart';
 import 'package:hepapp/data/resources.dart';
 import 'package:hepapp/data/schemes.dart';
 import 'package:hepapp/data/tocs.dart';
-import 'package:hepapp/pages/CommonPages/common_page.dart';
-import 'package:hepapp/pages/DetailPages/video_detail_page.dart';
-import 'package:hepapp/pages/DetailPages/web_detail_page.dart';
-import 'package:hepapp/pages/PageViews/common_detail_page_view.dart';
-import 'package:hepapp/pages/PageViews/common_page_view.dart';
-import 'package:hepapp/pages/PageViews/drawing_page_view.dart';
-import 'package:hepapp/pages/PageViews/interactive_detail_page_view.dart';
+import 'package:hepapp/pages/common_pages/common_page.dart';
+import 'package:hepapp/pages/detail_pages/video_detail_page.dart';
+import 'package:hepapp/pages/detail_pages/web_detail_page.dart';
 import 'package:hepapp/pages/home_page.dart';
+import 'package:hepapp/pages/page_views/common_detail_page_view.dart';
+import 'package:hepapp/pages/page_views/common_page_view.dart';
+import 'package:hepapp/pages/page_views/drawing_page_view.dart';
+import 'package:hepapp/pages/page_views/interactive_detail_page_view.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {

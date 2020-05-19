@@ -8,12 +8,12 @@ class BclcAlgorithm {
   BclcAlgorithm(this.bclcData);
 
   final units = Units();
-
+  final debug = false;
   String obtenerResultado() {
     //final prefs = UserSettings();
     //final units = Units();
 
-    showPts();
+    if (debug) showPts();
     int tN = int.parse(bclcData.tumourNumber);
     bool pvi = bclcData.pvi == 'yes' ? true : false;
     bool nodes = bclcData.nodes == 'yes' ? true : false;

@@ -5,22 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:hepapp/calculators/right_bottom_title.dart';
+import 'package:hepapp/calculators/widgets_calc/calc_bottom_button.dart';
+import 'package:hepapp/calculators/widgets_calc/calculator_button.dart';
+import 'package:hepapp/calculators/widgets_calc/more_information.dart';
 import 'package:hepapp/data/units.dart';
+import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
+import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
-import 'package:hepapp/widgets/calc_bottom_button.dart';
-import 'package:hepapp/widgets/calculator_button.dart';
-import 'package:hepapp/widgets/custom_appbar.dart';
-import 'package:hepapp/widgets/drawer_menu.dart';
-import 'package:hepapp/widgets/more_information.dart';
 import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../boolean_select.dart';
-import '../calc_group_field.dart';
-import '../calc_result_widget.dart';
-import '../calc_text_field.dart';
+import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/right_bottom_title.dart';
+
+import '../widgets_calc/boolean_select.dart';
+import '../widgets_calc/calc_group_field.dart';
+import '../widgets_calc/calc_result_widget.dart';
+import '../widgets_calc/calc_text_field.dart';
 import 'cps_form_bloc.dart';
 
 class CpsForm extends StatefulWidget with Observable {

@@ -74,15 +74,6 @@ class ClipFormBloc extends FormBloc<String, String> {
     this.tumourNumberField.updateValue('-');
     this.tumourExtentField.updateValue('-');
     this.pvtField.updateValue('-');
-    /*this.cpsField = SelectFieldBloc(items: ['A', 'B', 'C']);
-    this.tumourNumberField =
-        SelectFieldBloc(items: ['0', '1', '2', '3', '4', '5', '6+'],);
-    this.tumourExtentField = SelectFieldBloc(
-      items: ['<=50%', '>50%'],
-    );
-    this.pvtField = SelectFieldBloc(
-      items: ['yes', 'no'],
-    );*/
     this.result = "-";
   }
 
@@ -92,29 +83,6 @@ class ClipFormBloc extends FormBloc<String, String> {
     this.tumourNumberField.updateValue(clipData.tumourNumber.toString());
     this.tumourExtentField.updateValue(clipData.tumourExtent.toString());
     this.pvtField.updateValue(clipData.pvt.toString());
-    /*this.afpField = TextFieldBloc(
-      initialValue: clipData.afp.toString(),
-    );
-    this.cpsField = SelectFieldBloc(
-      items: ['A', 'B', 'C'],
-      initialValue: clipData.cps.toString(),
-    );
-    this.tumourNumberField = SelectFieldBloc(
-      items: ['0', '1', '2', '3', '4', '5', '6+'],
-      initialValue: clipData.tumourNumber.toString(),
-    );
-    this.tumourExtentField = SelectFieldBloc(
-      items: ['<=50%', '>50%'],
-      initialValue: clipData.tumourExtent.toString(),
-    );
-
-    this.pvtField = SelectFieldBloc(
-      items: [
-        'yes',
-        'no',
-      ],
-      initialValue: clipData.pvt.toString(),
-    );*/
     this.result = clipData.result;
     if (debug) showObjectClipData();
   }

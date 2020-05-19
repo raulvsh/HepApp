@@ -2,15 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:hepapp/calculators/boolean_select.dart';
-import 'package:hepapp/calculators/calc_group_field.dart';
-import 'package:hepapp/calculators/calc_text_field.dart';
+import 'package:hepapp/calculators/widgets_calc/calc_bottom_button.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/full_calc_settings_bloc.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
-import 'package:hepapp/widgets/calc_bottom_button.dart';
 import 'package:observable/observable.dart';
 import 'package:sized_context/sized_context.dart';
+
+import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/boolean_select.dart';
+import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/calc_group_field.dart';
+import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/calc_text_field.dart';
 
 class FullCalcSettings extends StatefulWidget with Observable {
   FullCalcSettings({Key key}) : super(key: key);

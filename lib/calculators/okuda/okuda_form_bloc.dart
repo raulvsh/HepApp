@@ -61,12 +61,6 @@ class OkudaFormBloc extends FormBloc<String, String> {
   void showIU() {
     this.bilirubinField.updateValue(okudaData.bilirubin.toStringAsFixed(2));
     this.albuminField.updateValue(okudaData.albumin.toStringAsFixed(2));
-    /*this.bilirubinField = TextFieldBloc(
-      initialValue: okudaData.bilirubin.toStringAsFixed(2),
-    );
-    this.albuminField = TextFieldBloc(
-      initialValue: okudaData.albumin.toStringAsFixed(2),
-    );*/
   }
 
   showNotIU() {
@@ -74,14 +68,6 @@ class OkudaFormBloc extends FormBloc<String, String> {
         units.getNotIUBilirrubin(okudaData.bilirubin).toStringAsFixed(2));
     this.albuminField.updateValue(
         units.getNotIUAlbumin(okudaData.albumin).toStringAsFixed(2));
-    /* this.bilirubinField = TextFieldBloc(
-      initialValue:
-      units.getNotIUBilirrubin(okudaData.bilirubin).toStringAsFixed(2),
-    );
-    this.albuminField = TextFieldBloc(
-      initialValue:
-      units.getNotIUAlbumin(okudaData.albumin).toStringAsFixed(2),
-    );*/
   }
 
   reset() {
@@ -89,12 +75,6 @@ class OkudaFormBloc extends FormBloc<String, String> {
     this.albuminField = TextFieldBloc();
     this.ascitesField.updateValue('-');
     this.tumourExtentField.updateValue('-');
-    /*this.ascitesField = SelectFieldBloc(
-      items: ['none_fem', 'controlled', 'refractory'],
-    );
-    this.tumourExtentField = SelectFieldBloc(
-      items: ['<=50%', '>50%'],
-    );*/
     this.result = "-";
   }
 
@@ -103,28 +83,13 @@ class OkudaFormBloc extends FormBloc<String, String> {
     this.albuminField.updateValue(okudaData.albumin.toString());
     this.ascitesField.updateValue(okudaData.ascites.toString());
     this.tumourExtentField.updateValue(okudaData.tumourExtent.toString());
-
-    /* this.bilirubinField = TextFieldBloc(
-      initialValue: okudaData.bilirubin.toString(),
-    );
-    this.albuminField = TextFieldBloc(
-      initialValue: okudaData.albumin.toString(),
-    );
-    this.ascitesField = SelectFieldBloc(
-      items: ['none_fem', 'controlled', 'refractory'],
-      initialValue: okudaData.ascites.toString(),
-    );
-    this.tumourExtentField = SelectFieldBloc(
-      items: ['<=50%', '>50%'],
-      initialValue: okudaData.tumourExtent.toString(),
-    );*/
     this.result = okudaData.result;
 
     if (debug) showObjectOkudaData();
   }
 
   void showObjectOkudaData() {
-    print("\n\n *********FIELD VALUES");
+    print("\n\n *********OKUDA DATA");
     print("Campo bilirrubina:            ${okudaData.bilirubin}");
     print("Campo albumina:            ${okudaData.albumin}");
     print("Campo ascites:         ${okudaData.ascites}");

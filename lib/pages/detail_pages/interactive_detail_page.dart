@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
-import 'package:hepapp/widgets/custom_appbar.dart';
-import 'package:hepapp/widgets/drawer_menu.dart';
+import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
+import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:sized_context/sized_context.dart';
 
 class InteractiveDetailPage extends StatefulWidget {

@@ -6,6 +6,7 @@ import 'cupi_data.dart';
 class CupiAlgorithm {
   final CupiData cupiData;
   final units = Units();
+  final debug = false;
 
   CupiAlgorithm(this.cupiData);
 
@@ -23,7 +24,7 @@ class CupiAlgorithm {
     ptsEcog = _getEcogPoints();
 
     int result = ptsTnm + ptsAscites + ptsAfp + ptsBilirubin + ptsAlp + ptsEcog;
-    showPts(result);
+    if (debug) showPts(result);
 
     return result.toString();
   }

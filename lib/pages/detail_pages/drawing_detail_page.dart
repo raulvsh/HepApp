@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/widgets/custom_appbar.dart';
-import 'package:hepapp/widgets/draw_bottom_bar.dart';
-import 'package:hepapp/widgets/drawer_menu.dart';
+import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
+import 'package:hepapp/pages/widgets_navigation/draw_bottom_bar.dart';
+import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:painter/painter.dart';
 import 'package:sized_context/sized_context.dart';
 

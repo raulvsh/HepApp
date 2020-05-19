@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/pages/CommonPages/common_grid_page.dart';
-import 'package:hepapp/widgets/bottom_navigation_sheet.dart';
-import 'package:hepapp/widgets/custom_appbar.dart';
-import 'package:hepapp/widgets/drawer_menu.dart';
+import 'package:hepapp/pages/widgets_navigation/bottom_navigation_sheet.dart';
+import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
+import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
+
+import 'common_grid_page.dart';
 
 class CommonPageWithBottomNav extends StatefulWidget {
   final title;
