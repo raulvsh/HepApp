@@ -280,6 +280,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       tumourSize: getTumourSize(),
       afp: widget.formBloc.afpField.valueToDouble,
       tumourNumber: widget.formBloc.tumourNumberField.value,
+      ecog: widget.formBloc.ecogField.value,
       results: ['-', '-'],
     );
     if (debug) printAlbertaObject(data);

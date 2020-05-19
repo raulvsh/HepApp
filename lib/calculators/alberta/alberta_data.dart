@@ -11,6 +11,7 @@ class AlbertaData {
   List<double> tumourSize;
   double afp;
   String tumourNumber;
+  String ecog;
   List<String> results;
 
   AlbertaData({
@@ -26,6 +27,7 @@ class AlbertaData {
     this.tumourSize,
     this.afp,
     this.tumourNumber,
+    this.ecog,
     this.results,
   });
 }

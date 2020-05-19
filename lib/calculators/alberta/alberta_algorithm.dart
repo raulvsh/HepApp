@@ -31,6 +31,12 @@ class AlbertaAlgorithm {
         : units.getIUBilirrubin(data.bilirubin);
     bool highBilirubin = bilirubin > 17.104;
     bool portalHtOrHighBilirubin = portalHT == 'yes' || highBilirubin;
+    bool cpsB89C =
+        data.cps == 'B (8)' || data.cps == 'B (9)' || data.cps[0] == 'C';
+    bool cpsAB7 = data.cps[0] == 'A' || data.cps == 'B (7)';
+    bool ecog01 = data.ecog == '0' || data.ecog == '1';
+    bool ecog2;
+    data.ecog != '-' ? ecog2 = int.parse(data.ecog) >= 2 : ecog2 = false;
 
     printAlbertaObject(data);
 
@@ -80,84 +86,44 @@ class AlbertaAlgorithm {
     } else if (data.bclc == 'early_a' && data.cps[0] == 'C' && !ltCandidate) {
       markColored([2, 7, 12, 19, 28, 40, 46]);
       treatments[0] = 'best_supportive_care';
+    } else if (data.bclc == 'intermediate_b' && cpsB89C && ltCandidate) {
+      markColored([3, 8, 13, 19, 27, 35, 41, 43]);
+      treatments[0] = 'lt_long';
+    } else if (data.bclc == 'intermediate_b' && cpsB89C && !ltCandidate) {
+      markColored([3, 8, 13, 19, 28, 40, 46]);
+      treatments[0] = 'best_supportive_care';
+    } else if (data.bclc == 'intermediate_b' &&
+        cpsAB7 &&
+        ecog01 &&
+        data.pvt == 'no') {
+      markColored([3, 8, 14, 20, 22, 29, 31, 37, 37, 42, 44]);
+      treatments[0] = 'tare';
+      treatments[1] = 'tace';
+    } else if (data.bclc == 'intermediate_b' &&
+        cpsAB7 &&
+        ecog01 &&
+        data.pvt == 'yes') {
+      markColored([3, 8, 14, 20, 22, 29, 32, 38, 42, 44]);
+      treatments[0] = 'tare';
+    } else if (data.bclc == 'intermediate_b' && cpsAB7 && ecog2) {
+      markColored([3, 8, 14, 20, 23, 40, 46]);
+      treatments[0] = 'best_supportive_care';
+    } else if (data.bclc == 'advanced_c' && data.cps[0] == 'A' && ecog2) {
+      markColored([4, 9, 15, 21, 23, 40, 46]);
+      treatments[0] = 'best_supportive_care';
+    } else if (data.bclc == 'advanced_c' && data.cps[0] == 'A' && ecog01) {
+      markColored([4, 9, 15, 21, 30, 39, 42, 45]);
+      treatments[0] = 'sorafenib';
+    } else if (data.bclc == 'advanced_c' &&
+        (data.cps[0] == 'B' || data.cps[0] == 'C')) {
+      markColored([4, 9, 16, 40, 46]);
+      treatments[0] = 'best_supportive_care';
+    } else if (data.bclc == 'end_stage_d') {
+      markColored([5, 40, 46]);
+      treatments[0] = 'best_supportive_care';
     }
 
-    //markColored([1,3,5,7,11]);
-
-    print(coloredFields);
-
-    //print("cps "  + albertaData.cps);
-    //if (albertaData.cps[0] == 'A') coloredFields[10] = true;
-
-    //if (albertatreatments['bclc'] == 'end_stage_d') {
-    //coloredFields[5] = true;
-    //coloredFields[40] = true;
-    //coloredFields[46] = true;
-    //treatments = ['prueba', 'prueba2'];
-    //}
-
-    /* recorrido imagen Miriam
-
-    coloredFields[6] = true;
-    coloredFields[10] = true;
-    coloredFields[17] = true;
-    coloredFields[18] = true;
-    coloredFields[25] = true;
-    coloredFields[26] = true;
-    coloredFields[34] = true;
-    coloredFields[41] = true;
-    coloredFields[43] = true;
-*/
-    /*coloredFields[0] = true;
-    coloredFields[1] = true;
-    coloredFields[2] = true;
-    coloredFields[3] = true;
-    coloredFields[4] = true;
-    coloredFields[5] = false;
-    coloredFields[6] = true;
-    coloredFields[7] = true;
-    coloredFields[8] = true;
-    coloredFields[9] = true;
-    coloredFields[10] = true;
-    coloredFields[11] = true;
-    coloredFields[12] = true;
-    coloredFields[13] = true;
-    coloredFields[14] = true;
-    coloredFields[15] = true;
-    coloredFields[16] = false;
-    coloredFields[17] = true;
-    coloredFields[18] = true;
-    coloredFields[18] = true;
-    coloredFields[19] = true;
-    coloredFields[20] = true;
-    coloredFields[21] = true;
-    coloredFields[22] = true;
-    coloredFields[23] = false;
-    coloredFields[24] = true;
-    coloredFields[25] = true;
-    coloredFields[26] = true;
-    coloredFields[27] = true;
-    coloredFields[28] = true;
-    coloredFields[28] = true;
-    coloredFields[29] = true;
-    coloredFields[30] = true;
-    //coloredFields[31] = true;
-    //coloredFields[32] = true;
-    //coloredFields[33] = true;
-    coloredFields[34] = true;
-    coloredFields[35] = true;
-    coloredFields[36] = true;
-    coloredFields[37] = true;
-    coloredFields[38] = true;
-    coloredFields[38] = false;
-    coloredFields[39] = true;
-    coloredFields[40] = true;
-    coloredFields[41] = false;
-    coloredFields[42] = false;
-    coloredFields[43] = true;
-    coloredFields[44] = true;
-    coloredFields[45] = true;
-    coloredFields[46] = true;*/
+    // print(coloredFields);
 
     return coloredFields;
   }
@@ -184,8 +150,10 @@ class AlbertaAlgorithm {
     print("\nresultados : ${treatments}" + "\n**************");
   }
 
-  String calculatePortalHypertension(AlbertaData data,
-      double platelets,) {
+  String calculatePortalHypertension(
+    AlbertaData data,
+    double platelets,
+  ) {
     if (data.pvt == 'yes' ||
         platelets < 100 ||
         ((data.encephalopaty == 'grade_1_2' ||

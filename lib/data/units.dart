@@ -17,7 +17,8 @@ class Units {
 
   getIUSodium(double sodiumNotIU) => sodiumNotIU * sodiumFactor;
 
-  getNotIUBilirrubin(double bilirrubinIU) => bilirrubinIU / bilirrubinFactor;
+  double getNotIUBilirrubin(double bilirrubinIU) =>
+      bilirrubinIU / bilirrubinFactor;
 
   getNotIUAlbumin(double albuminIU) => albuminIU / albuminFactor;
 

@@ -288,6 +288,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
               CalcBottomButton(
                   title: 'next',
                   onPressed: () {
+                    widget.formBloc.crearLaboratoryData();
                     comprobarValoresLab();
                     widget.controller.nextPage(
                         duration: Duration(seconds: 1),

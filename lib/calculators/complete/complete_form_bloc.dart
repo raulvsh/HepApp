@@ -180,7 +180,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
     this.resultsField['apri'] = comprobarApri() ? calcularApri() : '-';
     this.resultsField['child_pugh_score_oneline'] =
-    comprobarCPS() ? calcularCPS() : '-';
+        comprobarCPS() ? calcularCPS() : '-';
     this.resultsField['meld'] = comprobarMeld() ? calcularMeld()['meld'] : '-';
     this.resultsField['meld_na'] =
     comprobarMeld() && comprobarNa() ? calcularMeld()['meld_na'] : '-';
@@ -203,9 +203,9 @@ class CompleteFormBloc extends FormBloc<String, String> {
     yield currentState.toLoaded();
   }
 
-  showNotIU() {}
-
   void showIU() {}
+
+  showNotIU() {}
 
   static initResultMap() {
     return {
@@ -621,18 +621,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   resetLaboratory() {
-    laboratoryData = LaboratoryData(
-      bilirubin: bilirubinField.valueToDouble,
-      inr: inrField.valueToDouble,
-      creatinine: creatinineField.valueToDouble,
-      albumin: albuminField.valueToDouble,
-      sodium: sodiumField.valueToDouble,
-      platelets: plateletsField.valueToDouble,
-      afp: afpField.valueToDouble,
-      ast: [astField[0].valueToDouble, astField[1].valueToDouble],
-      alp: [alpField[0].valueToDouble, alpField[1].valueToDouble],
-      dialysis: dialysisField.value,
-    );
+    crearLaboratoryData();
     this.bilirubinField.clear();
     this.inrField.clear();
     this.creatinineField.clear();
@@ -727,6 +716,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   void previousClinical() {
+    crearLaboratoryData();
     this.cirrhosisField.updateValue(clinicalData.cirrhosis.toString());
     this.encephalopatyField.updateValue(clinicalData.encephalopaty.toString());
     this.ascitesField.updateValue(clinicalData.ascites.toString());
@@ -756,5 +746,20 @@ class CompleteFormBloc extends FormBloc<String, String> {
     print(ascitesField.value);
     print(varicesField.value);
     print(ecogField.value);
+  }
+
+  void crearLaboratoryData() {
+    laboratoryData = LaboratoryData(
+      bilirubin: bilirubinField.valueToDouble,
+      inr: inrField.valueToDouble,
+      creatinine: creatinineField.valueToDouble,
+      albumin: albuminField.valueToDouble,
+      sodium: sodiumField.valueToDouble,
+      platelets: plateletsField.valueToDouble,
+      afp: afpField.valueToDouble,
+      ast: [astField[0].valueToDouble, astField[1].valueToDouble],
+      alp: [alpField[0].valueToDouble, alpField[1].valueToDouble],
+      dialysis: dialysisField.value,
+    );
   }
 }

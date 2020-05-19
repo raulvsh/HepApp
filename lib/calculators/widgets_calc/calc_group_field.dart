@@ -137,26 +137,17 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
 
   markInitialValue(SelectFieldBlocState<Value> state) {
     for (int i = 0; i < state.items.length; i++) {
-      //print("hola");
-      if (widget.title == 'lt_criteria') {
-        print("element at $i " + state.items.elementAt(i).toString());
-        print("initial value" + widget.initialValue.toString());
-      }
       if (state.items.elementAt(i).toString() ==
           widget.initialValue.toString()) {
         isSelected[state.items.elementAt(i).toString()] = true;
       } else
         isSelected[state.items.elementAt(i).toString()] = false;
     }
-    print(isSelected);
   }
 
   updateMap(SelectFieldBlocState<Value> state) {
     for (int i = 0; i < state.items.length; i++) {
-      // print("element at $i tostring " + state.items.elementAt(i).toString());
-      //print("state value " + state.value.toString());
       if (state.items.elementAt(i).toString() == state.value.toString()) {
-        //widget.initialValue.toString()) {
         isSelected[state.items.elementAt(i).toString()] = true;
       } else
         isSelected[state.items.elementAt(i).toString()] = false;
