@@ -18,7 +18,7 @@ import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/right_bottom_title
 import 'complete_form_bloc.dart';
 
 class ResultsForm extends StatefulWidget with Observable {
-  final formBloc;
+  final CompleteFormBloc formBloc;
   final PageController controller;
 
   ResultsForm({Key key, this.formBloc, this.controller}) : super(key: key);
@@ -279,6 +279,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       ascites: widget.formBloc.ascitesField.value,
       tumourSize: getTumourSize(),
       afp: widget.formBloc.afpField.valueToDouble,
+      tumourNumber: widget.formBloc.tumourNumberField.value,
       results: ['-', '-'],
     );
     if (debug) printAlbertaObject(data);

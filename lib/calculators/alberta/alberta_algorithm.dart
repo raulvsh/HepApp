@@ -170,7 +170,7 @@ class AlbertaAlgorithm {
 
   void printAlbertaObject(AlbertaData data) {
     print("\n\n*****************OBJETO albertaDATA: "
-        "\nbclc : ${data.bclc}" +
+            "\nbclc : ${data.bclc}" +
         "\ncps : ${data.cps}" +
         "\nportal ht : ${data.portalHypertension}" +
         "\npvt : ${data.pvt}" +
@@ -181,8 +181,7 @@ class AlbertaAlgorithm {
     print("Ascitis: " + data.ascites);
     print("Tamaño de tumor: " + data.tumourSize.toString());
     print("AFP: " + data.afp.toString());
-    print("\nresultados : ${treatments}" +
-        "\n**************");
+    print("\nresultados : ${treatments}" + "\n**************");
   }
 
   String calculatePortalHypertension(AlbertaData data,
@@ -200,11 +199,114 @@ class AlbertaAlgorithm {
   }
 
   calculateLtCandidate(AlbertaData data) {
-    double ttv = calculateTTV(data);
-    if (ttv < 115 && data.afp < 400 && prefs.getAgeCutoff() < 70) {
-      return true;
+    bool ltCandidate;
+    switch (prefs.getLtCriteria()) {
+      case 'milan_criteria':
+        ltCandidate = criterioMilan(data);
+        break;
+      case 'ttv_afp':
+        ltCandidate = criterioTtvAfp(data);
+        break;
+      case 'ucfs':
+        ltCandidate = criterioUcfs(data);
+        break;
+      case 'up_to_seven':
+        ltCandidate = criterioUpToSeven(data);
+        break;
+    }
+    return ltCandidate;
+  }
+
+  bool criterioMilan(AlbertaData data) {
+    bool upTo1Of5 = data.tumourNumber == '1' && data.tumourSize[0] <= 5;
+    bool criterioMilan;
+    if (upTo1Of5 || upTo3Of3(data)) {
+      criterioMilan = true;
     } else
-      return false;
+      criterioMilan = false;
+
+    return criterioMilan;
+  }
+
+  bool upTo3Of3(AlbertaData data) {
+    int tN = prefs.getTumourNumber(); //int.parse(data.tumourNumber);
+    bool upTo3Of3 = true;
+    if (tN > 3) upTo3Of3 = false;
+    for (int i = 0; i < tN; i++) {
+      if (data.tumourSize[i] > 3) {
+        upTo3Of3 = false;
+      }
+    }
+    return upTo3Of3;
+  }
+
+  bool criterioTtvAfp(AlbertaData data) {
+    double ttv = calculateTTV(data);
+    bool criterioTtvAfp;
+    if (ttv < 115 && data.afp < 400 && prefs.getAgeCutoff() < 70) {
+      criterioTtvAfp = true;
+    } else
+      criterioTtvAfp = false;
+    return criterioTtvAfp;
+  }
+
+  bool criterioUcfs(AlbertaData data) {
+    int tN = int.parse(data.tumourNumber);
+    bool upTo1Of65 = data.tumourNumber == '1' && data.tumourSize[0] <= 6.5;
+    bool ucfs;
+    double totalDiameter = 0;
+    for (int i = 0; i < tN; i++) {
+      totalDiameter += data.tumourSize[i];
+    }
+
+    if ((upTo1Of65 || upTo3Of45(data)) && totalDiameter <= 8) {
+      ucfs = true;
+    } else
+      ucfs = false;
+
+    return ucfs;
+  }
+
+  bool upTo3Of45(AlbertaData data) {
+    int tN = int.parse(data.tumourNumber);
+    bool upTo3Of45 = true;
+    if (tN > 3) upTo3Of45 = false;
+    for (int i = 0; i < tN; i++) {
+      if (data.tumourSize[i] > 4.5) {
+        upTo3Of45 = false;
+      }
+    }
+    return upTo3Of45;
+  }
+
+  bool criterioUpToSeven(AlbertaData data) {
+    int tN = prefs.getTumourNumber(); //int.parse(data.tumourNumber);
+    bool upToSeven = false;
+    /*bool firstCondition = data.tumourSize[0] < 6;
+    bool secondCondition = data.tumourSize[1]<5;
+    bool thirdCondition = data.tumourSize[2]<4;
+    bool fourthCondition = data.tumourSize[3]<3;
+    bool fifthCondition = data.tumourSize[4]<2;
+    bool sixthCondition = data.tumourSize[5]<1;*/
+
+    print(data.tumourSize);
+    for (int i = 1; i < tN; i++) {
+      if (data.tumourSize[i - 1] > 6 - i) {
+        upToSeven = false;
+      } else
+        upToSeven = true;
+    }
+    print("uptoseven $upToSeven");
+
+    /*switch (tN) {
+      case 0:
+        upToSeven = true;
+        break;
+      case 1:
+        if (data.tumourSize[0] < 6) upToSeven = true;
+      case 2:*/
+    return upToSeven;
+    //}
   }
 
   calculateTTV(AlbertaData data) {

@@ -10,6 +10,7 @@ class AlbertaData {
   String ascites;
   List<double> tumourSize;
   double afp;
+  String tumourNumber;
   List<String> results;
 
   AlbertaData({
@@ -24,6 +25,7 @@ class AlbertaData {
     this.ascites,
     this.tumourSize,
     this.afp,
+    this.tumourNumber,
     this.results,
   });
 }
