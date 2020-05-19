@@ -44,7 +44,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         _tumourNumber = newVal;
       }),
     );
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
+        setState(() {
           _errorMap = newVal;
         }));
     super.initState();
@@ -243,6 +244,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
               CalcBottomButton(
                   title: 'reset_values',
                   onPressed: () {
+                    comprobarValoresDiag();
                     resetValues(formBloc);
                   }),
               SizedBox(width: isTablet ? 15 : 10),
@@ -264,6 +266,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
               CalcBottomButton(
                   title: 'next',
                   onPressed: () {
+                    comprobarValoresDiag();
+
                     widget.controller.nextPage(
                         duration: Duration(seconds: 1),
                         curve: Curves.easeInOut);
@@ -330,5 +334,14 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
             height: context.heightPct(isTablet ? 0.35 : 0.45),
           );
         });
+  }
+
+  void comprobarValoresDiag() {
+    //Si el usuario no introduce valor, se pondrá a cero para que haya contenido
+    for (int i = 0; i < prefs.getTumourNumber(); i++) {
+      if (widget.formBloc.tumourSizeField[i].value == '') {
+        widget.formBloc.tumourSizeField[i].updateValue('0');
+      }
+    }
   }
 }

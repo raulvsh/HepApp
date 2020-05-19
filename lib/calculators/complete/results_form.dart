@@ -487,7 +487,9 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   getTumourSize() {
     List<double> tumourSizeList = [];
-    for (int i = 0; i < widget.formBloc.tumourSizeField.length; i++) {
+    for (int i = 0;
+        i < prefs.getTumourNumber() /*widget.formBloc.tumourSizeField.length*/;
+        i++) {
       tumourSizeList.add(
           double.parse(widget.formBloc.tumourSizeField[i].value));
     }

@@ -18,7 +18,7 @@ import '../calc_text_field.dart';
 import 'complete_form_bloc.dart';
 
 class LaboratoryForm extends StatefulWidget with Observable {
-  final formBloc;
+  final CompleteFormBloc formBloc;
   final PageController controller;
 
   LaboratoryForm({Key key, this.formBloc, this.controller}) : super(key: key);
@@ -264,6 +264,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
               CalcBottomButton(
                   title: 'reset_values',
                   onPressed: () {
+                    comprobarValoresLab();
                     resetValues(formBloc);
                   }),
               SizedBox(width: isTablet ? 15 : 10),
@@ -285,6 +286,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
               CalcBottomButton(
                   title: 'next',
                   onPressed: () {
+                    comprobarValoresLab();
                     widget.controller.nextPage(
                         duration: Duration(seconds: 1),
                         curve: Curves.easeInOut);
@@ -299,17 +301,41 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     );
   }
 
-  Future showMoreInfo() {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        /*return MoreInformation(
-          title: 'okuda',
-          pathList: 'assets/images/calc/M3C14S0d.png',
-        );*/
-        return Text("por hacer");
-      },
-    );
+  void comprobarValoresLab() {
+    //Si el usuario no introduce valor, se pondrá a cero para que haya contenido
+    if (widget.formBloc.bilirubinField.value == '') {
+      widget.formBloc.bilirubinField.updateValue('0');
+    }
+    if (widget.formBloc.inrField.value == '') {
+      widget.formBloc.inrField.updateValue('0');
+    }
+    if (widget.formBloc.creatinineField.value == '') {
+      widget.formBloc.creatinineField.updateValue('0');
+    }
+    if (widget.formBloc.albuminField.value == '') {
+      widget.formBloc.albuminField.updateValue('0');
+    }
+    if (widget.formBloc.sodiumField.value == '') {
+      widget.formBloc.sodiumField.updateValue('0');
+    }
+    if (widget.formBloc.plateletsField.value == '') {
+      widget.formBloc.plateletsField.updateValue('0');
+    }
+    if (widget.formBloc.afpField.value == '') {
+      widget.formBloc.afpField.updateValue('0');
+    }
+    if (widget.formBloc.astField[0].value == '') {
+      widget.formBloc.astField[0].updateValue('0');
+    }
+    if (widget.formBloc.astField[1].value == '') {
+      widget.formBloc.astField[1].updateValue('0');
+    }
+    if (widget.formBloc.alpField[0].value == '') {
+      widget.formBloc.alpField[0].updateValue('0');
+    }
+    if (widget.formBloc.alpField[1].value == '') {
+      widget.formBloc.alpField[1].updateValue('0');
+    }
   }
 
   _buildRightBottomTitle(CompleteFormBloc formBloc) {
@@ -341,7 +367,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   void showMeldInfoDialog() {
     bool isTablet = context.diagonalInches >= 7;
     showDialog(
-
         context: context,
         builder: (BuildContext context) {
           return PopUpDialog(

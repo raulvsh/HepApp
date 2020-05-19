@@ -83,22 +83,22 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     for (int i = 0; i < tumourSize.length; i++) print(tumourSize[i].value);
     Map<String, dynamic> diagnosticMap1 = {
       'tumours': widget.formBloc.tumourNumberField.value,
-      '#1': tumourSize[0].value != '0'
+      '#1': tumourSize[0].valueToDouble != 0.0
           ? tumourSize[0].valueToDouble.toStringAsFixed(2) + " cm."
           : '-',
-      '#2': tumourSize[1].value != '0'
+      '#2': tumourSize[1].valueToDouble != 0.0
           ? tumourSize[1].valueToDouble.toStringAsFixed(2) + " cm."
           : '-',
-      '#3': tumourSize[2].value != '0'
+      '#3': tumourSize[2].valueToDouble != 0.0
           ? tumourSize[2].valueToDouble.toStringAsFixed(2) + " cm."
           : '-',
-      '#4': tumourSize[3].value != '0'
+      '#4': tumourSize[3].valueToDouble != 0.0
           ? tumourSize[3].valueToDouble.toStringAsFixed(2) + " cm."
           : '-',
-      '#5': tumourSize[4].value != '0'
+      '#5': tumourSize[4].valueToDouble != 0.0
           ? tumourSize[4].valueToDouble.toStringAsFixed(2) + " cm."
           : '-',
-      '#6': tumourSize[5].value != '0'
+      '#6': tumourSize[5].valueToDouble != 0.0
           ? tumourSize[5].valueToDouble.toStringAsFixed(2) + " cm."
           : '-',
       'tumour_extent': widget.formBloc.tumourExtentField.value,
@@ -248,7 +248,6 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       'age': prefs.getAgeCutoff() != 0 ? prefs.getAgeCutoff().toString() : '-',
       //widget.formBloc.
     };
-    var anchura = 0.27;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
