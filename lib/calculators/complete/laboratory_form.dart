@@ -263,18 +263,14 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
             children: <Widget>[
               SizedBox(width: isTablet ? 10 : 0),
               CalcBottomButton(
-                  title: 'reset_values',
-                  onPressed: () {
-                    comprobarValoresLab();
-                    resetValues(formBloc);
-                  }),
+                title: 'reset_values',
+                onPressed: () => resetValues(formBloc),
+              ),
               SizedBox(width: isTablet ? 15 : 10),
               CalcBottomButton(
-                  title: 'previous_values',
-                  onPressed: () {
-                    comprobarValoresLab();
-                    previousValues(formBloc);
-                  }),
+                title: 'previous_values',
+                onPressed: () => previousValues(formBloc),
+              ),
               SizedBox(width: isTablet ? 15 : 10),
               CalcBottomButton(
                 title: 'more_information',
@@ -288,7 +284,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
               CalcBottomButton(
                   title: 'next',
                   onPressed: () {
-                    widget.formBloc.crearLaboratoryData();
                     comprobarValoresLab();
                     widget.controller.nextPage(
                         duration: Duration(seconds: 1),
@@ -354,7 +349,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
   void resetValues(CompleteFormBloc formBloc) {
     reset = true;
-    previous = true;
+    //previous = true;
     formBloc.resetLaboratory();
     setState(() {});
     reset = false;

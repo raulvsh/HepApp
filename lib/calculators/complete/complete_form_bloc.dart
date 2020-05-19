@@ -183,7 +183,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
         comprobarCPS() ? calcularCPS() : '-';
     this.resultsField['meld'] = comprobarMeld() ? calcularMeld()['meld'] : '-';
     this.resultsField['meld_na'] =
-    comprobarMeld() && comprobarNa() ? calcularMeld()['meld_na'] : '-';
+        comprobarMeld() && comprobarNa() ? calcularMeld()['meld_na'] : '-';
     this.resultsField['5v_meld'] =
     comprobarMeld() && comprobarAlb() ? calcularMeld()['5v_meld'] : '-';
     this.resultsField['okuda'] = comprobarOkuda() ? calcularOkuda() : '-';
@@ -621,18 +621,31 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   resetLaboratory() {
-    crearLaboratoryData();
-    this.bilirubinField.clear();
-    this.inrField.clear();
-    this.creatinineField.clear();
-    this.albuminField.clear();
-    this.sodiumField.clear();
-    this.plateletsField.clear();
-    this.afpField.clear();
-    this.astField[0].clear();
-    this.astField[1].clear();
-    this.alpField[0].clear();
-    this.alpField[1].clear();
+    laboratoryData = LaboratoryData(
+      bilirubin: bilirubinField.valueToDouble ?? 0,
+      inr: inrField.valueToDouble ?? 0,
+      creatinine: creatinineField.valueToDouble ?? 0,
+      albumin: albuminField.valueToDouble ?? 0,
+      sodium: sodiumField.valueToDouble ?? 0,
+      platelets: plateletsField.valueToDouble ?? 0,
+      afp: afpField.valueToDouble ?? 0,
+      ast: [astField[0].valueToDouble ?? 0, astField[1].valueToDouble ?? 0],
+      alp: [alpField[0].valueToDouble ?? 0, alpField[1].valueToDouble ?? 0],
+      dialysis: dialysisField.value,
+    );
+    printLaboratoryData();
+
+    this.bilirubinField = TextFieldBloc(); //.updateValue('0');
+    this.inrField = TextFieldBloc();
+    this.creatinineField = TextFieldBloc();
+    this.albuminField = TextFieldBloc();
+    this.sodiumField = TextFieldBloc();
+    this.plateletsField = TextFieldBloc();
+    this.afpField = TextFieldBloc();
+    this.astField[0] = TextFieldBloc();
+    this.astField[1] = TextFieldBloc();
+    this.alpField[0] = TextFieldBloc();
+    this.alpField[1] = TextFieldBloc();
     this.dialysisField.updateValue('-');
 
     if (debug) {
@@ -716,7 +729,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   void previousClinical() {
-    crearLaboratoryData();
     this.cirrhosisField.updateValue(clinicalData.cirrhosis.toString());
     this.encephalopatyField.updateValue(clinicalData.encephalopaty.toString());
     this.ascitesField.updateValue(clinicalData.ascites.toString());
@@ -748,18 +760,5 @@ class CompleteFormBloc extends FormBloc<String, String> {
     print(ecogField.value);
   }
 
-  void crearLaboratoryData() {
-    laboratoryData = LaboratoryData(
-      bilirubin: bilirubinField.valueToDouble,
-      inr: inrField.valueToDouble,
-      creatinine: creatinineField.valueToDouble,
-      albumin: albuminField.valueToDouble,
-      sodium: sodiumField.valueToDouble,
-      platelets: plateletsField.valueToDouble,
-      afp: afpField.valueToDouble,
-      ast: [astField[0].valueToDouble, astField[1].valueToDouble],
-      alp: [alpField[0].valueToDouble, alpField[1].valueToDouble],
-      dialysis: dialysisField.value,
-    );
-  }
+
 }
