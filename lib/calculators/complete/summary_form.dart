@@ -154,44 +154,60 @@ class SummaryFormState extends State<SummaryForm> with Observable {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isLandscape = context.isLandscape;
     bool isSmallFormFactor = context.diagonalInches <= 8;
+    var udBili = prefs.getInternationalUnits()
+        ? units.bilirubinUds[0]
+        : units.bilirubinUds[1];
+    var udCrea = prefs.getInternationalUnits()
+        ? units.creatinineUds[0]
+        : units.creatinineUds[1];
+    var udAlbu = prefs.getInternationalUnits()
+        ? units.albuminUds[0]
+        : units.albuminUds[1];
+    var udSodi =
+        prefs.getInternationalUnits() ? units.sodiumUds[0] : units.sodiumUds[1];
 
     var internationalUnits =
     prefs.getInternationalUnits() ? aux.tr('yes') : aux.tr('no');
     var bilirubin = widget.formBloc.bilirubinField.valueToDouble != 0
-        ? widget.formBloc.bilirubinField.valueToDouble.toStringAsFixed(2)
+        ? widget.formBloc.bilirubinField.valueToDouble.toStringAsFixed(2) +
+        " $udBili"
         : '-';
     var inr = widget.formBloc.inrField.valueToDouble != 0
         ? widget.formBloc.inrField.valueToDouble.toStringAsFixed(2)
         : '-';
     var creatinine = widget.formBloc.creatinineField.valueToDouble != 0
-        ? widget.formBloc.creatinineField.valueToDouble.toStringAsFixed(2)
+        ? widget.formBloc.creatinineField.valueToDouble.toStringAsFixed(2) +
+        " $udCrea"
         : '-';
     var dialysis = widget.formBloc.dialysisField.value != '-'
         ? aux.tr(widget.formBloc.dialysisField.value)
         : '-';
     var albumin = widget.formBloc.albuminField.valueToDouble != 0
-        ? widget.formBloc.albuminField.valueToDouble.toStringAsFixed(2)
+        ? widget.formBloc.albuminField.valueToDouble.toStringAsFixed(2) +
+        " $udAlbu"
         : '-';
     var sodium = widget.formBloc.sodiumField.valueToDouble != 0
-        ? widget.formBloc.sodiumField.valueToDouble.toStringAsFixed(2)
+        ? widget.formBloc.sodiumField.valueToDouble.toStringAsFixed(2) +
+        " $udSodi"
         : '-';
     var platelets = widget.formBloc.plateletsField.valueToDouble != 0
-        ? widget.formBloc.plateletsField.valueToDouble.toStringAsFixed(2)
+        ? widget.formBloc.plateletsField.valueToDouble.toStringAsFixed(2) +
+        " x10E3/uL"
         : '-';
     var afp = widget.formBloc.afpField.valueToDouble != 0
-        ? widget.formBloc.afpField.valueToDouble.toStringAsFixed(2)
+        ? widget.formBloc.afpField.valueToDouble.toStringAsFixed(2) + " ug/L"
         : '-';
     var ast = widget.formBloc.astField[0].valueToDouble != 0
-        ? widget.formBloc.astField[0].valueToDouble.toStringAsFixed(2)
+        ? widget.formBloc.astField[0].valueToDouble.toStringAsFixed(2) + " ug/L"
         : '-';
     var astLimit = widget.formBloc.astField[1].valueToDouble != 0
-        ? widget.formBloc.astField[1].valueToDouble.toStringAsFixed(2)
+        ? widget.formBloc.astField[1].valueToDouble.toStringAsFixed(2) + " ug/L"
         : '-';
     var alp = widget.formBloc.alpField[0].valueToDouble != 0
-        ? widget.formBloc.alpField[0].valueToDouble.toStringAsFixed(2)
+        ? widget.formBloc.alpField[0].valueToDouble.toStringAsFixed(2) + " ug/L"
         : '-';
     var alpLimit = widget.formBloc.alpField[1].valueToDouble != 0
-        ? widget.formBloc.alpField[1].valueToDouble.toStringAsFixed(2)
+        ? widget.formBloc.alpField[1].valueToDouble.toStringAsFixed(2) + " ug/L"
         : '-';
 
     Map<String, dynamic> laboratoryMap = {

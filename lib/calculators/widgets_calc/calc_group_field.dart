@@ -106,11 +106,12 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
         if (widget.previous) {
           updateMap(state);
         }
+        //updateMap(state);
 
         final isEnabled = fieldBlocIsEnabled(
           isEnabled: this.widget.isEnabled,
           enableOnlyWhenFormBlocCanSubmit:
-          widget.enableOnlyWhenFormBlocCanSubmit,
+              widget.enableOnlyWhenFormBlocCanSubmit,
           fieldBlocState: state,
         );
 
@@ -179,7 +180,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
         ));
   }
 
-  Expanded _buildOptionsRow(SelectFieldBlocState state,
+  _buildOptionsRow(SelectFieldBlocState state,
       RadioBuilder<String, double> simpleBuilder) {
     var aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
@@ -189,7 +190,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
         padding: EdgeInsets.only(
           left: 5.0,
         ),
-        width: 100.0 * state.items.length,
         height: 20.0,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -198,6 +198,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
           physics: ClampingScrollPhysics(),
           itemBuilder: (context, index) {
             return Row(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 GestureDetector(
                   onTap: () async {
@@ -224,7 +225,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                     await Future.delayed(Duration(milliseconds: 300));
                   },
                   child: Container(
-                    // color: Colors.black,
                     height: 20,
                     width: _calculateWidth(state),
                     padding: EdgeInsets.symmetric(horizontal: 4),
@@ -245,8 +245,8 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                                 Function updateState,
                                 String value) {
                               /*final alpha = (animValues[0] * 255).toInt();
-                              var opacity =
-                              (!_resetFlag && !_errorFlag) ? alpha : 0;*/
+                                  var opacity =
+                                  (!_resetFlag && !_errorFlag) ? alpha : 0;*/
                               return Container(
                                 width: 100,
                                 height: 20,
@@ -323,9 +323,13 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
   double _calculateWidth(state) {
     var isLandscape = context.isLandscape;
     bool isTablet = context.diagonalInches >= 7;
-    bool moreThanTree = state.items.length > 4.0;
-    if (moreThanTree) {
-      return isTablet ? (isLandscape ? 60 : 50) : 42;
+    bool moreThanFive = state.items.length > 5.0;
+    bool moreThanFour = state.items.length > 4.0;
+
+    if (moreThanFive) {
+      return isTablet ? (isLandscape ? 70 : 55) : 42;
+    } else if (moreThanFour) {
+      return isTablet ? 80 : 42;
     }
     return isTablet ? (isLandscape ? 110 : 100) : 90;
   }

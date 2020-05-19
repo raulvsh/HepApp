@@ -31,6 +31,8 @@ class FullCalcSettingsState extends State<FullCalcSettings> with Observable {
   @override
   Widget build(BuildContext context) {
     AppLocalizations aux = AppLocalizations.of(context);
+    bool isLandscape = context.isLandscape;
+    bool isTablet = context.diagonalInches >= 7;
 
     return BlocProvider<FullCalcSettingsBloc>(
       builder: (context) => FullCalcSettingsBloc(),
@@ -39,13 +41,18 @@ class FullCalcSettingsState extends State<FullCalcSettings> with Observable {
           final formBloc = BlocProvider.of<FullCalcSettingsBloc>(context);
           return FormBlocListener<FullCalcSettingsBloc, String, String>(
             child: AlertDialog(
+              contentPadding: EdgeInsets.fromLTRB(3, 5, 0, 10),
               title: Center(child: Text(aux.tr('settings'))),
               content: Container(
-                width: context.widthPct(0.7),
+                width:
+                context.widthPct(isLandscape ? (isTablet ? 0.6 : 0.9) : 0.9),
+                height: context
+                    .heightPct(isLandscape ? (isTablet ? 0.45 : 0.8) : 0.25),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    SizedBox(height: 10),
                     _buildInternationalUnitsRow(formBloc),
                     SizedBox(height: 15),
                     _buildAgeRow(formBloc),
@@ -78,11 +85,7 @@ class FullCalcSettingsState extends State<FullCalcSettings> with Observable {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         SizedBox(width: 7),
-        Container(
-          color: Color.fromARGB(255, 210, 242, 245),
-          width: 10.0,
-          height: 20.0,
-        ),
+        initialBlueRectangle,
         SizedBox(width: 5),
         Container(
           height: 20,
@@ -102,8 +105,9 @@ class FullCalcSettingsState extends State<FullCalcSettings> with Observable {
   }
 
   _buildLtCriteriaRow(FullCalcSettingsBloc formBloc) {
+    formBloc.ltCriteriaField.updateValue(prefs.getLtCriteria());
     return CalcGroupField(
-      initialValue: '-',
+      initialValue: prefs.getLtCriteria(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ltCriteriaField,
       title: 'lt_criteria',
@@ -114,6 +118,13 @@ class FullCalcSettingsState extends State<FullCalcSettings> with Observable {
     );
   }
 
+  Container get initialBlueRectangle =>
+      Container(
+        color: Color.fromARGB(255, 210, 242, 245),
+        width: 10.0,
+        height: 20.0,
+      );
+
   _buildPrecludeSurgeryRow(FullCalcSettingsBloc formBloc) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -121,11 +132,7 @@ class FullCalcSettingsState extends State<FullCalcSettings> with Observable {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         SizedBox(width: 7),
-        Container(
-          color: Color.fromARGB(255, 210, 242, 245),
-          width: 10.0,
-          height: 20.0,
-        ),
+        initialBlueRectangle,
         SizedBox(width: 5),
         Container(
           height: 20,
