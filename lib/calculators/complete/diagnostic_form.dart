@@ -35,8 +35,9 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   int _tumourNumber = -1;
 
   StreamSubscription streamTumourNumber;
-  StreamSubscription streamSubErrorMap;
-  Map<String, bool> _errorMap;
+
+  //StreamSubscription streamSubErrorMap;
+  //Map<String, bool> _errorMap;
 
   @override
   void initState() {
@@ -45,29 +46,28 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         _tumourNumber = newVal;
       }),
     );
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
+    /*streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
         setState(() {
           _errorMap = newVal;
-        }));
+        }));*/
     super.initState();
   }
 
   @override
   void dispose() {
     streamTumourNumber.cancel();
-    streamSubErrorMap.cancel();
+    //streamSubErrorMap.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     bool isTablet = context.diagonalInches >= 7;
-    !isTablet
-        ? SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ])
-        : null;
+    if (!isTablet)
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+      ]);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: CustomAppBar(
@@ -117,7 +117,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
     return CalcGroupField(
       reset: reset,
       //previous: previous,
-      initialValue: formBloc.tumourNumberField.value.toString(),
+      //initialValue: formBloc.tumourNumberField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.tumourNumberField,
       title: 'tumour_number',
@@ -143,8 +143,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   _buildTumourExtentRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
-      previous: previous,
-      initialValue: formBloc.tumourExtentField.value.toString(),
+      //previous: previous,
+      //initialValue: formBloc.tumourExtentField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.tumourExtentField,
       title: 'tumour_extent',
@@ -158,8 +158,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   _buildPviRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
-      previous: previous,
-      initialValue: formBloc.pviField.value.toString(),
+      //previous: previous,
+      //initialValue: formBloc.pviField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.pviField,
       title: 'pvi_portal_vein_invasion',
@@ -173,8 +173,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   _buildNodesRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
-      previous: previous,
-      initialValue: formBloc.nodesField.value.toString(),
+      //previous: previous,
+      //initialValue: formBloc.nodesField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.nodesField,
       title: 'nodes',
@@ -188,8 +188,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   _buildMetastasisRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
-      previous: previous,
-      initialValue: formBloc.metastasisField.value.toString(),
+      //previous: previous,
+      //initialValue: formBloc.metastasisField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.metastasisField,
       title: 'metastasis',
@@ -203,8 +203,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   _buildPortalHypertensionRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
-      previous: previous,
-      initialValue: formBloc.portalHypertensionField.value.toString(),
+      //previous: previous,
+      //initialValue: formBloc.portalHypertensionField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.portalHypertensionField,
       title: 'portal_hypertension_complete',
@@ -218,8 +218,8 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   _buildPvtRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
-      previous: previous,
-      initialValue: formBloc.pvtField.value.toString(),
+      //previous: previous,
+      //initialValue: formBloc.pvtField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.pvtField,
       title: 'pvt_complete',

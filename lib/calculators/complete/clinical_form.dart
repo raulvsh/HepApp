@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hepapp/calculators/widgets_calc/calc_bottom_button.dart';
@@ -31,20 +29,21 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
   var previous = false;
   final prefs = UserSettings();
   final units = Units();
-  StreamSubscription streamSubErrorMap;
-  Map<String, bool> _errorMap;
+
+  //StreamSubscription streamSubErrorMap;
+  //Map<String, bool> _errorMap;
 
   @override
   void initState() {
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
+    /*streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
           _errorMap = newVal;
-        }));
+        }));*/
     super.initState();
   }
 
   @override
   void dispose() {
-    streamSubErrorMap.cancel();
+    //streamSubErrorMap.cancel();
     super.dispose();
   }
 
@@ -98,9 +97,9 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
 
   _buildCirrhosisRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
-      initialValue: formBloc.cirrhosisField.value.toString(),
+      //initialValue: formBloc.cirrhosisField.value.toString(),
       reset: reset,
-      previous: previous,
+      //previous: previous,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.cirrhosisField,
       title: 'cirrhosis',
@@ -113,9 +112,9 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
 
   _buildEncephalopatyRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
-      initialValue: formBloc.encephalopatyField.value.toString(),
+      //initialValue: formBloc.encephalopatyField.value.toString(),
       reset: reset,
-      previous: previous,
+      //previous: previous,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.encephalopatyField,
       title: 'encephalopaty',
@@ -128,8 +127,8 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
 
   _buildAscitesRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
-      initialValue: formBloc.ascitesField.value.toString(),
-      previous: previous,
+      //initialValue: formBloc.ascitesField.value.toString(),
+      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ascitesField,
@@ -143,8 +142,8 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
 
   _buildVaricesRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
-      initialValue: formBloc.varicesField.value.toString(),
-      previous: previous,
+      //initialValue: formBloc.varicesField.value.toString(),
+      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.varicesField,
@@ -158,8 +157,8 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
 
   _buildEcogRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
-      initialValue: formBloc.ecogField.value.toString(),
-      previous: previous,
+      //initialValue: formBloc.ecogField.value.toString(),
+      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ecogField,

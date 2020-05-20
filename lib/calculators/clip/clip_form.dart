@@ -40,8 +40,7 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   @override
   void initState() {
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
-        setState(() {
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
           _errorMap = newVal;
         }));
     prefs.initErrorMap([
@@ -72,12 +71,11 @@ class ClipFormState extends State<ClipForm> with Observable {
     bool isLandscape = context.isLandscape;
 
     bool isTablet = context.diagonalInches >= 7;
-    !isTablet
-        ? SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ])
-        : null;
+    if (!isTablet)
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+      ]);
     return BlocProvider<ClipFormBloc>(
       builder: (context) => ClipFormBloc(),
       child: Builder(
@@ -167,8 +165,8 @@ class ClipFormState extends State<ClipForm> with Observable {
   _buildCPSRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      initialValue: formBloc.cpsField.value.toString(),
-      previous: previous,
+      //initialValue: formBloc.cpsField.value.toString(),
+      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.cpsField,
@@ -183,8 +181,8 @@ class ClipFormState extends State<ClipForm> with Observable {
   _buildTumourNumberRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      initialValue: formBloc.tumourNumberField.value.toString(),
-      previous: previous,
+      //initialValue: formBloc.tumourNumberField.value.toString(),
+      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.tumourNumberField,
@@ -199,8 +197,8 @@ class ClipFormState extends State<ClipForm> with Observable {
   _buildTumourExtentRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      initialValue: formBloc.tumourExtentField.value.toString(),
-      previous: previous,
+      //initialValue: formBloc.tumourExtentField.value.toString(),
+      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.tumourExtentField,
@@ -214,9 +212,9 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   _buildPVTRow(ClipFormBloc formBloc) {
     return CalcGroupField(
-      initialValue: formBloc.pvtField.value.toString(),
+      //initialValue: formBloc.pvtField.value.toString(),
       errorControl: true,
-      previous: previous,
+      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.pvtField,
@@ -283,9 +281,7 @@ class ClipFormState extends State<ClipForm> with Observable {
             ? EdgeInsets.fromLTRB(0, 0, 30, 0)
             : EdgeInsets.fromLTRB(20, 10, 20, 0),
         width: context.widthPct(isLandscape ? 0.28 : 1),
-        child:
-
-        FittedBox(
+        child: FittedBox(
           child: Container(
             height: isTablet
                 ? context.heightPct(isLandscape ? 0.6 : 0.3)
@@ -297,7 +293,6 @@ class ClipFormState extends State<ClipForm> with Observable {
             ),
           ),
         ),
-
       ),
     );
   }
@@ -318,9 +313,11 @@ class ClipFormState extends State<ClipForm> with Observable {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return PopUpDialog(title: 'error',
+          return PopUpDialog(
+            title: 'error',
             content: 'fill_empty_fields',
-            height: context.heightPct(0.20),);
+            height: context.heightPct(0.20),
+          );
         });
   }
 

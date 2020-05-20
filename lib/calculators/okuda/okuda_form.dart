@@ -47,10 +47,9 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   @override
   void initState() {
     streamSubIUnits = prefs.iUnitsUpdates.listen(
-          (newVal) =>
-          setState(() {
-            _internationalUnits = newVal;
-          }),
+      (newVal) => setState(() {
+        _internationalUnits = newVal;
+      }),
     );
     prefs.setInternationalUnits(true);
 
@@ -81,12 +80,11 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     bool isLandscape = context.isLandscape;
 
     bool isTablet = context.diagonalInches >= 7;
-    !isTablet
-        ? SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ])
-        : null;
+    if (!isTablet)
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+      ]);
 
     return BlocProvider<OkudaFormBloc>(
       builder: (context) => OkudaFormBloc(),
@@ -186,8 +184,8 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   _buildAscitesRow(OkudaFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      initialValue: formBloc.ascitesField.value.toString(),
-      previous: previous,
+      //initialValue: formBloc.ascitesField.value.toString(),
+      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ascitesField,
@@ -203,8 +201,8 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     return CalcGroupField(
       errorControl: true,
       reset: reset,
-      previous: previous,
-      initialValue: formBloc.tumourExtentField.value.toString(),
+      //previous: previous,
+      //initialValue: formBloc.tumourExtentField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.tumourExtentField,
       title: 'tumour_extent',
@@ -324,7 +322,8 @@ class OkudaFormState extends State<OkudaForm> with Observable {
           return PopUpDialog(
             title: 'error',
             content: 'fill_empty_fields',
-            height: context.heightPct(0.20),);
+            height: context.heightPct(0.20),
+          );
         });
   }
 

@@ -11,9 +11,10 @@ import 'package:sized_context/sized_context.dart';
 class CalcGroupField<Value> extends StatefulWidget {
   final reset;
   final error;
-  final previous;
 
-  final initialValue;
+  //final previous;
+
+  //final initialValue;
   final formBloc;
   final errorControl;
 
@@ -32,8 +33,8 @@ class CalcGroupField<Value> extends StatefulWidget {
     this.title,
     this.reset = false,
     this.error = false,
-    this.previous = false,
-    this.initialValue,
+    //this.previous = false,
+    //this.initialValue,
     this.formBloc,
   })  : assert(selectFieldBloc != null),
         assert(enableOnlyWhenFormBlocCanSubmit != null),
@@ -135,7 +136,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
     }
   }
 
-  markInitialValue(SelectFieldBlocState<Value> state) {
+  /*markInitialValue(SelectFieldBlocState<Value> state) {
     for (int i = 0; i < state.items.length; i++) {
       if (state.items.elementAt(i).toString() ==
           widget.initialValue.toString()) {
@@ -143,7 +144,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
       } else
         isSelected[state.items.elementAt(i).toString()] = false;
     }
-  }
+  }*/
 
   updateMap(SelectFieldBlocState<Value> state) {
     for (int i = 0; i < state.items.length; i++) {

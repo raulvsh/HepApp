@@ -54,8 +54,7 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
     prefs.setInternationalUnits(true);
 
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
-        setState(() {
+    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
           _errorMap = newVal;
         }));
     prefs.initErrorMap(
@@ -81,12 +80,11 @@ class MeldFormState extends State<MeldForm> with Observable {
   Widget build(BuildContext context) {
     bool isLandscape = context.isLandscape;
     bool isTablet = context.diagonalInches >= 7;
-    !isTablet
-        ? SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ])
-        : null;
+    if (!isTablet)
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+      ]);
 
     return BlocProvider<MeldFormBloc>(
       builder: (context) => MeldFormBloc(),
@@ -230,8 +228,8 @@ class MeldFormState extends State<MeldForm> with Observable {
     return CalcGroupField(
       errorControl: true,
       reset: reset,
-      previous: previous,
-      initialValue: formBloc.dialysisField.value.toString(),
+      //previous: previous,
+      //initialValue: formBloc.dialysisField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.dialysisField,
       title: 'dialysis',
@@ -371,9 +369,11 @@ class MeldFormState extends State<MeldForm> with Observable {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return PopUpDialog(title: 'error',
+          return PopUpDialog(
+            title: 'error',
             content: 'fill_empty_fields',
-            height: context.heightPct(0.20),);
+            height: context.heightPct(0.20),
+          );
         });
   }
 

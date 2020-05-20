@@ -197,9 +197,9 @@ class CpsFormState extends State<CpsForm> with Observable {
   _buildEncephalopatyRow(CpsFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      initialValue: formBloc.encephalopatyField.value.toString(),
+      //initialValue: 'none_fem',//formBloc.encephalopatyField.value.toString(),
       reset: reset,
-      previous: previous,
+      //previous: previous,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.encephalopatyField,
       title: 'encephalopaty',
@@ -213,8 +213,8 @@ class CpsFormState extends State<CpsForm> with Observable {
   _buildAscitesRow(CpsFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      initialValue: formBloc.ascitesField.value.toString(),
-      previous: previous,
+      //initialValue: formBloc.ascitesField.value.toString(),
+      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ascitesField,
