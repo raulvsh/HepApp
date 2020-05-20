@@ -28,7 +28,7 @@ class ResultsForm extends StatefulWidget with Observable {
 }
 
 class ResultsFormState extends State<ResultsForm> with Observable {
-  var debug = true;
+  var debug = false;
   var reset = false;
   var previous = false;
   final prefs = UserSettings();
@@ -194,7 +194,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
-      //color: Colors.red,
         height: context.heightPct(isLandscape ? 0.255 : 0.50),
         width: context.widthPx,
         padding: isTablet
@@ -205,8 +204,8 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           //crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             _buildRecommendedTreatments(),
-            SizedBox(width: isTablet ? 40 : 20),
-            _buildMoreInfoButton(),
+                  SizedBox(width: isTablet ? 20 : 20),
+                  _buildMoreInfoButton(),
             SizedBox(width: isTablet ? 30 : 20),
             _buildAlbertaButton(widget.formBloc),
           ],
@@ -227,39 +226,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
             ),
           ],
         )
-
-      /*Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              _buildRecommendedTreatments(),
-              SizedBox(width: isTablet ? 40 : 20),
-              isLandscape
-                  ? _buildMoreInfoButton()
-                  : Container(height: 0, width: 0),
-              SizedBox(width: isTablet ? 40 : 20),
-              isLandscape
-                  ? _buildAlbertaButton(widget.formBloc)
-                  : Container(height: 0, width: 0),
-            ],
-          ),
-          !isLandscape
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    _buildMoreInfoButton(),
-                    SizedBox(width: 40),
-                    _buildAlbertaButton(widget.formBloc),
-                  ],
-                )
-              : Container(height: 0, width: 0),
-        ],
-      ),*/
     );
   }
 
@@ -298,28 +264,33 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         children: <Widget>[
           _initialBlueRectangle,
           SizedBox(
-            width: 10,
+              width: 10
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                aux.tr('recommended_treatment'),
-                style: TextStyle(
-                    color: Colors.black, fontSize: isTablet ? 16 : 10),
-              ),
-              SizedBox(
-                height: isTablet ? 10 : 4,
-              ),
-              buildRecommendedTreatmentRow(
-                  '1', "reduccion de la fibross de higado"),
-              //albertaAlgorithm.treatments[0]),
-              SizedBox(
-                height: isTablet ? 10 : 4,
-              ),
-              buildRecommendedTreatmentRow('2', albertaAlgorithm.treatments[1]),
-              SizedBox(height: 2)
-            ],
+          Container(
+            width: 300,
+            //color: Colors.red,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  aux.tr('recommended_treatment'),
+                  style: TextStyle(
+                      color: Colors.black, fontSize: isTablet ? 16 : 10),
+                ),
+                SizedBox(
+                  height: isTablet ? 10 : 4,
+                ),
+                buildRecommendedTreatmentRow(
+                    '1', albertaAlgorithm.treatments[0]),
+                //albertaAlgorithm.treatments[0]),
+                SizedBox(
+                  height: isTablet ? 10 : 4,
+                ),
+                buildRecommendedTreatmentRow(
+                    '2', albertaAlgorithm.treatments[1]),
+                SizedBox(height: 2)
+              ],
+            ),
           ),
         ],
       ),
@@ -359,13 +330,14 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   }
 
   _buildMoreInfoButton() {
-    AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
 
     return CalculatorButton(
         width: isTablet ? 250.0 : 175.0,
         title: 'more_information',
-        onPressed: () {
+      onPressed: () => Navigator.pushNamed(context, '/AlbertaMoreInfo'),
+
+      /*  () {
           showDialog(
             context: context,
             builder: (BuildContext dialogContext) {
@@ -383,7 +355,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               );
             },
           );
-        });
+        }*/);
   }
 
   _buildAlbertaButton(CompleteFormBloc formBloc) {

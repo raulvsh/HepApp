@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/calculators/alberta/alberta_diagram_page.dart';
+import 'package:hepapp/calculators/alberta/alberta_info_page_view.dart';
 import 'package:hepapp/calculators/child_pugh_score/cps_form.dart';
 import 'package:hepapp/calculators/clip/clip_form.dart';
 import 'package:hepapp/calculators/complete/complete_form.dart';
@@ -255,6 +256,11 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => AlbertaPage(
                   isSelected: coloredFields,
+                ));
+      case '/AlbertaMoreInfo':
+        return MaterialPageRoute(
+            builder: (_) => AlbertaInfoPageView(
+                  initialPage: 0,
                 ));
 
       default:

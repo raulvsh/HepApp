@@ -34,7 +34,6 @@ class CompleteFormState extends State<CompleteForm> with Observable {
   void initState() {
     controller = PageController(
       initialPage: widget.initialPage,
-
     );
     prefs.setInternationalUnits(true);
     prefs.setTumourNumber(0);
@@ -57,12 +56,11 @@ class CompleteFormState extends State<CompleteForm> with Observable {
   @override
   Widget build(BuildContext context) {
     bool isTablet = context.diagonalInches >= 7;
-    !isTablet
-        ? SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ])
-        : null;
+    if (!isTablet)
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+      ]);
     return BlocProvider<CompleteFormBloc>(
       builder: (context) => CompleteFormBloc(),
       child: Builder(

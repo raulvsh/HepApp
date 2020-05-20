@@ -6,11 +6,13 @@ import 'package:sized_context/sized_context.dart';
 class RightBottomTitle extends StatelessWidget {
   final title;
   final padding;
+  final alignment;
 
   const RightBottomTitle({
     Key key,
     this.title,
     this.padding,
+    this.alignment = Alignment.bottomRight,
   }) : super(key: key);
 
   @override
@@ -19,10 +21,11 @@ class RightBottomTitle extends StatelessWidget {
     AppLocalizations aux = AppLocalizations.of(context);
     return Expanded(
       child: Container(
-        alignment: Alignment.bottomRight,
+        alignment: alignment,
         padding: padding,
         child: Text(
           aux.tr(title),
+          textAlign: TextAlign.end,
           style: TextStyle(
             fontSize: isTablet ? 28 : 20,
             color: Theme.of(context)
