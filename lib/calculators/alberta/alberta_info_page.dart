@@ -70,14 +70,15 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Container(
-            height: 30 + 20 * textList.length.toDouble(),
+            //height: 30 + 20 * textList.length.toDouble(),
+            height: double.infinity,
             width: 15,
             color: Color.fromARGB(255, 210, 242, 245),
           ),
 
           Container(
             padding: EdgeInsets.only(left: 10),
-            color: Colors.orange,
+            //color: Colors.orange,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -109,22 +110,23 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
     for (int i = 0; i < value.length; i++) {
       listTxt.add(
         Container(
-          padding: EdgeInsets.symmetric(vertical: 2),
-          width: context.widthPx - 45,
+          //padding: EdgeInsets.symmetric(vertical: 2),
+          width: context.widthPct(0.92),
 
-          color: Colors.red,
+          //color: Colors.red,
           child: //Row(
               //mainAxisSize: MainAxisSize.max,
               //children: <Widget>[
               Text(
             aux.tr(value[i]),
             style: TextStyle(
-              color: Colors.black,
-              //fontSize: 10
+              color: Colors.black, height: 1.5
+                //fontSize: 10
             ),
             textAlign: TextAlign.justify,
             maxLines: 3,
-          ),
+
+              ),
           //],
           //),
         ),

@@ -257,7 +257,7 @@ class RouteGenerator {
             builder: (_) => AlbertaPage(
                   isSelected: coloredFields,
                 ));
-      case '/AlbertaMoreInfo':
+      case '/AlbertaInfoPage':
         return MaterialPageRoute(
             builder: (_) => AlbertaInfoPageView(
                   initialPage: 0,

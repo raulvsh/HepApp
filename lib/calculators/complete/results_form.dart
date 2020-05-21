@@ -131,10 +131,9 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         color: Color.fromARGB(255, 210, 242, 245),
         child: Center(
             child: Text(
-              aux.tr('liver_function').toUpperCase(),
-              style: TextStyle(
-                  color: Colors.black, fontSize: isTablet ? 16 : 13),
-            )));
+          aux.tr('liver_function').toUpperCase(),
+          style: TextStyle(color: Colors.black, fontSize: isTablet ? 16 : 13),
+        )));
   }
 
   Container _buildStagingAlgorithmsHeader(
@@ -225,8 +224,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               ],
             ),
           ],
-        )
-    );
+        ));
   }
 
   _buildRecommendedTreatments() {
@@ -263,9 +261,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         //mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           _initialBlueRectangle,
-          SizedBox(
-              width: 10
-          ),
+          SizedBox(width: 10),
           Container(
             width: 300,
             //color: Colors.red,
@@ -333,29 +329,10 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
 
     return CalculatorButton(
-        width: isTablet ? 250.0 : 175.0,
-        title: 'more_information',
-      onPressed: () => Navigator.pushNamed(context, '/AlbertaMoreInfo'),
-
-      /*  () {
-          showDialog(
-            context: context,
-            builder: (BuildContext dialogContext) {
-              return AlertDialog(
-                title: Text(aux.tr('more_information')),
-                content: Text('Contenido del more information, a añadir'),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text(aux.tr('close')),
-                    onPressed: () {
-                      Navigator.of(dialogContext).pop(); // Dismiss alert dialog
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-        }*/);
+      width: isTablet ? 250.0 : 175.0,
+      title: 'more_information',
+      onPressed: () => Navigator.pushNamed(context, '/AlbertaInfoPage'),
+    );
   }
 
   _buildAlbertaButton(CompleteFormBloc formBloc) {
@@ -457,9 +434,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   getTumourSize() {
     List<double> tumourSizeList = [];
-    for (int i = 0;
-    i < prefs.getTumourNumber();
-        i++) {
+    for (int i = 0; i < prefs.getTumourNumber(); i++) {
       tumourSizeList
           .add(double.parse(widget.formBloc.tumourSizeField[i].value));
     }
