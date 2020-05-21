@@ -28,7 +28,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
       width: isTablet ? 400 : 200,
       height: isTablet ? 200 : 170,
       //margin: EdgeInsets.fromLTRB(0, 30, 50, 0),
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.only(left: 15, right: 10),
       decoration: BoxDecoration(
         border: Border.all(
           color: Color.fromARGB(255, 210, 242, 245),
@@ -54,7 +54,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
             mainAxisAlignment: alignment,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(right: 8),
+                padding: EdgeInsets.only(right: 5),
                 child: Text(
                   aux.tr(key) + ": ",
                   style: TextStyle(

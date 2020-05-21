@@ -7,7 +7,7 @@ import 'alberta_arrows.dart';
 
 Color blueTreatmentColor = Color.fromARGB(255, 85, 163, 188);
 
-/*Clase que se encargará de dibujar las líneas del diagrama de flujo Alberta*/
+/*Clase que se encargará de dibujar las flechas del diagrama de flujo Alberta*/
 class AlbertaDiagramPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -15,9 +15,6 @@ class AlbertaDiagramPainter extends CustomPainter {
     /*final points = [
       Offset(430, 183),
       Offset(500, 183),
-      Offset(497, 180),
-      Offset(500, 183),
-      Offset(497, 186),
     ];*/
     final paintBlue = Paint()
       ..color = blueTreatmentColor

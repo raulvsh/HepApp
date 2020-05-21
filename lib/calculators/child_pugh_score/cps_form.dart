@@ -47,12 +47,10 @@ class CpsFormState extends State<CpsForm> with Observable {
   @override
   void initState() {
     streamSubIUnits = prefs.iUnitsUpdates.listen(
-          (newVal) =>
-          setState(() {
-            _internationalUnits = newVal;
-          }),
+      (newVal) => setState(() {
+        _internationalUnits = newVal;
+      }),
     );
-
     prefs.setInternationalUnits(true);
 
     streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
@@ -82,12 +80,11 @@ class CpsFormState extends State<CpsForm> with Observable {
   Widget build(BuildContext context) {
     bool isLandscape = context.isLandscape;
     bool isTablet = context.diagonalInches >= 7;
-    !isTablet
-        ? SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ])
-        : null;
+    if (!isTablet)
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+      ]);
 
     return BlocProvider<CpsFormBloc>(
       builder: (context) => CpsFormBloc(),
@@ -349,9 +346,11 @@ class CpsFormState extends State<CpsForm> with Observable {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return PopUpDialog(title: 'error',
+          return PopUpDialog(
+            title: 'error',
             content: 'fill_empty_fields',
-            height: context.heightPct(0.20),);
+            height: context.heightPct(0.20),
+          );
         });
   }
 

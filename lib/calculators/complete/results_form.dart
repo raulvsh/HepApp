@@ -73,7 +73,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
     return Container(
       height: isLandscape
-          ? context.heightPct(isTablet ? 0.52 : 0.42)
+          ? context.heightPct(isTablet ? 0.52 : 0.45)
           : context.heightPct(0.3),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +87,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   _buildHepaticColumn(CompleteFormBloc formBloc) {
     AppLocalizations aux = AppLocalizations.of(context);
-    bool isLandscape = context.isLandscape;
     Map<String, String> resultMap = {
       'cirrhosis': aux.tr(formBloc.cirrhosisField.value),
       'apri': formBloc.resultsField['apri'],
@@ -102,13 +101,15 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     return FittedBox(
       child: Container(
         width: context.widthPct(0.5),
-        padding: EdgeInsets.only(left: 20, top: isTablet ? 20 : 10),
+        padding: isTablet
+            ? EdgeInsets.only(left: 20, top: 20)
+            : EdgeInsets.only(left: 10, top: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             _buildLiverFunctionHeader(),
             Container(
-              margin: EdgeInsets.only(right: isLandscape ? 10 : 0),
+              margin: EdgeInsets.only(right: 10),
               child: CalcResultWidget(
                 resultMap: resultMap,
                 textAlignment: MainAxisAlignment.start,
@@ -125,7 +126,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
     return Container(
-        margin: EdgeInsets.only(right: isLandscape ? 10 : 0),
+        margin: EdgeInsets.only(right: 10),
         width: isTablet ? 400 : 200,
         height: isTablet ? 30 : 20,
         color: Color.fromARGB(255, 210, 242, 245),
@@ -139,7 +140,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   Container _buildStagingAlgorithmsHeader(
       bool isLandscape, bool isTablet, AppLocalizations aux) {
     return Container(
-        margin: EdgeInsets.only(right: isLandscape ? 20 : 0),
+        margin: EdgeInsets.only(right: 20),
         width: isTablet ? 400 : 200,
         height: isTablet ? 30 : 20,
         color: Color.fromARGB(255, 210, 242, 245),
@@ -150,7 +151,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               child: Text(
                 aux.tr('staging_algorithms').toUpperCase(),
                 style: TextStyle(
-                    color: Colors.black, fontSize: isTablet ? 16 : 14),
+                  color: Colors.black, fontSize: isTablet ? 16 : 14,),
               )),
         ));
   }
@@ -169,6 +170,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     };
 
     return FittedBox(
+      fit: BoxFit.fitWidth,
       child: Container(
         width: context.widthPct(0.5),
         padding: EdgeInsets.only(left: 10, top: isTablet ? 20 : 10),
@@ -176,12 +178,13 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           children: <Widget>[
             _buildStagingAlgorithmsHeader(isLandscape, isTablet, aux),
             Container(
-              margin: EdgeInsets.only(right: isLandscape ? 20 : 0),
+              margin: EdgeInsets.only(right: 20),
               child: CalcResultWidget(
                 resultMap: resultMap,
                 textAlignment: MainAxisAlignment.start,
               ),
             ),
+
           ],
         ),
       ),
@@ -197,15 +200,14 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         width: context.widthPx,
         padding: isTablet
             ? EdgeInsets.only(left: isLandscape ? 50 : 20)
-            : EdgeInsets.only(left: 10, top: 10, bottom: 10),
+            : EdgeInsets.only(left: 10, top: 5, bottom: 10),
         child: isLandscape
             ? Row(
-          //crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             _buildRecommendedTreatments(),
-                  SizedBox(width: isTablet ? 20 : 20),
+            SizedBox(width: isTablet ? 20 : 0),
                   _buildMoreInfoButton(),
-            SizedBox(width: isTablet ? 30 : 20),
+            SizedBox(width: isTablet ? 30 : 10),
             _buildAlbertaButton(widget.formBloc),
           ],
         )
@@ -230,7 +232,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   _buildRecommendedTreatments() {
     bool isTablet = context.diagonalInches >= 7;
     AppLocalizations aux = AppLocalizations.of(context);
-    AlbertaAlgorithm albertaAlgorithm = AlbertaAlgorithm(/*data*/);
+    AlbertaAlgorithm albertaAlgorithm = AlbertaAlgorithm();
     var data = AlbertaData(
       bclc: widget.formBloc.resultsField['bclc'],
       cps: widget.formBloc.resultsField['child_pugh_score_oneline'],
@@ -257,14 +259,11 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
     return FittedBox(
       child: Row(
-        //crossAxisAlignment: CrossAxisAlignment.start,
-        //mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           _initialBlueRectangle,
           SizedBox(width: 10),
           Container(
             width: 300,
-            //color: Colors.red,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -278,7 +277,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
                 ),
                 buildRecommendedTreatmentRow(
                     '1', albertaAlgorithm.treatments[0]),
-                //albertaAlgorithm.treatments[0]),
                 SizedBox(
                   height: isTablet ? 10 : 4,
                 ),
@@ -302,6 +300,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   Row buildRecommendedTreatmentRow(String position, String title) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
 
     return Row(
       children: <Widget>[
@@ -320,7 +319,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
         SizedBox(
           width: 10,
         ),
-        Text(title),
+        Text(aux.tr(title)),
       ],
     );
   }
@@ -351,7 +350,10 @@ class ResultsFormState extends State<ResultsForm> with Observable {
                   content: Text('error alberta'),
                   actions: <Widget>[
                     FlatButton(
-                      child: Text('continuar'),
+                      child: Text(
+                        'continuar',
+                        style: TextStyle(color: Colors.black),
+                      ),
                       onPressed: () {
                         Navigator.pop(context);
                         Navigator.pushNamed(context, '/Alberta',

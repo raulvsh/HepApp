@@ -8,7 +8,7 @@ import 'alberta_data.dart';
 class AlbertaAlgorithm {
   final units = Units();
   final prefs = UserSettings();
-  List<String> treatments = ['', ''];
+  List<String> treatments = ['-', '-'];
   List<bool> coloredFields = [];
 
   initList() {
@@ -85,13 +85,13 @@ class AlbertaAlgorithm {
       treatments[0] = 'rfa';
     } else if (data.bclc == 'early_a' && data.cps[0] == 'C' && !ltCandidate) {
       markColored([2, 7, 12, 19, 28, 40, 46]);
-      treatments[0] = 'best_supportive_care';
+      treatments[0] = 'best_supportive_care_oneline';
     } else if (data.bclc == 'intermediate_b' && cpsB89C && ltCandidate) {
       markColored([3, 8, 13, 19, 27, 35, 41, 43]);
       treatments[0] = 'lt_long';
     } else if (data.bclc == 'intermediate_b' && cpsB89C && !ltCandidate) {
       markColored([3, 8, 13, 19, 28, 40, 46]);
-      treatments[0] = 'best_supportive_care';
+      treatments[0] = 'best_supportive_care_oneline';
     } else if (data.bclc == 'intermediate_b' &&
         cpsAB7 &&
         ecog01 &&
@@ -107,20 +107,20 @@ class AlbertaAlgorithm {
       treatments[0] = 'tare';
     } else if (data.bclc == 'intermediate_b' && cpsAB7 && ecog2) {
       markColored([3, 8, 14, 20, 23, 40, 46]);
-      treatments[0] = 'best_supportive_care';
+      treatments[0] = 'best_supportive_care_oneline';
     } else if (data.bclc == 'advanced_c' && data.cps[0] == 'A' && ecog2) {
       markColored([4, 9, 15, 21, 23, 40, 46]);
-      treatments[0] = 'best_supportive_care';
+      treatments[0] = 'best_supportive_care_oneline';
     } else if (data.bclc == 'advanced_c' && data.cps[0] == 'A' && ecog01) {
       markColored([4, 9, 15, 21, 30, 39, 42, 45]);
       treatments[0] = 'sorafenib';
     } else if (data.bclc == 'advanced_c' &&
         (data.cps[0] == 'B' || data.cps[0] == 'C')) {
       markColored([4, 9, 16, 40, 46]);
-      treatments[0] = 'best_supportive_care';
+      treatments[0] = 'best_supportive_care_oneline';
     } else if (data.bclc == 'end_stage_d') {
       markColored([5, 40, 46]);
-      treatments[0] = 'best_supportive_care';
+      treatments[0] = 'best_supportive_care_oneline';
     }
 
     // print(coloredFields);
