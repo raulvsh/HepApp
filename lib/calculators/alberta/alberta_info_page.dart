@@ -4,8 +4,6 @@ import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:sized_context/sized_context.dart';
 
-Color blueTreatmentColor = Color.fromARGB(255, 70, 146, 174);
-
 class AlbertaInfoPage extends StatefulWidget {
   final String title;
   final List<String> subTitle;
@@ -40,6 +38,16 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
     });
     return Stack(
       children: <Widget>[
+        SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(bottom: 15),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: listRows,
+            ),
+          ),
+        ),
         Column(
           children: <Widget>[
             RightBottomTitle(
@@ -49,15 +57,6 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
             ),
           ],
         ),
-        SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: listRows,
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -65,20 +64,17 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
   _textRow(String key, List<String> textList) {
     AppLocalizations aux = AppLocalizations.of(context);
     return Container(
-      padding: EdgeInsets.only(top: 15),
+      margin: EdgeInsets.only(top: 15, left: 10), //right: 32),
+      color: Color.fromARGB(255, 210, 242, 245),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          Container(
-            //height: 30 + 20 * textList.length.toDouble(),
-            height: double.infinity,
-            width: 15,
-            color: Color.fromARGB(255, 210, 242, 245),
-          ),
+          SizedBox(width: 15),
 
           Container(
-            padding: EdgeInsets.only(left: 10),
-            //color: Colors.orange,
+            padding: EdgeInsets.only(left: 10, right: 30),
+            width: context.widthPx - 25,
+            color: Color.fromARGB(255, 250, 250, 250),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -103,42 +99,44 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
     );
   }
 
-  _buildTextList(value) {
+  _buildTextList(textList) {
     AppLocalizations aux = AppLocalizations.of(context);
     List<Widget> listTxt = [];
-    //print("value + value length " + value.toString() + value.length.toString());
-    for (int i = 0; i < value.length; i++) {
+    for (int i = 0; i < textList.length; i++) {
       listTxt.add(
-        Container(
-          //padding: EdgeInsets.symmetric(vertical: 2),
-          width: context.widthPct(0.92),
-
-          //color: Colors.red,
-          child: //Row(
-              //mainAxisSize: MainAxisSize.max,
-              //children: <Widget>[
-              Text(
-            aux.tr(value[i]),
-            style: TextStyle(
-              color: Colors.black, height: 1.5
-                //fontSize: 10
-            ),
-            textAlign: TextAlign.justify,
-            maxLines: 3,
-
-              ),
-          //],
-          //),
-        ),
+        textList[i] != 'sorafenib_data_table'
+            ? Text(
+                aux.tr(textList[i]),
+                style: TextStyle(color: Colors.black, height: 1.5
+                    //fontSize: 10
+                    ),
+                textAlign: TextAlign.justify,
+                maxLines: 4,
+              )
+            : _buildSoranefibTable(),
       );
     }
     return listTxt;
   }
 
+  _buildSoranefibTable() {
+    String imgRoute = '';
+    AppLocalizations
+        .of(context)
+        .locale
+        .toString() == 'es_ES'
+        ? imgRoute = 'assets/images/calc/tabla_sorafenib_es_ES.png' :
+    imgRoute = 'assets/images/calc/tabla_sorafenib_en_US.png';
+
+    return Container(
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+        child: Image.asset(imgRoute,));
+  }
+
   Widget get _subTitle {
     AppLocalizations aux = AppLocalizations.of(context);
     return Container(
-      padding: EdgeInsets.only(left: 25),
+      padding: EdgeInsets.fromLTRB(30, 10, 0, 0),
       child: Row(
         children: <Widget>[
           Text(
@@ -160,9 +158,11 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
   }
 
   Widget get _separator => Container(
-        margin: EdgeInsets.only(top: 5),
+    margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
         width: context.widthPx,
         height: 2,
         color: Theme.of(context).primaryColor,
       );
+
+
 }

@@ -2,7 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/data/best_supportive_care.dart';
+import 'package:hepapp/data/rfa.dart';
+import 'package:hepapp/data/sbrt.dart';
+import 'package:hepapp/data/sorafenib.dart';
 import 'package:hepapp/data/tace.dart';
+import 'package:hepapp/data/tare.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:observable/observable.dart';
@@ -28,7 +32,7 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
   @override
   void initState() {
     controller = PageController(
-      initialPage: 1, //widget.initialPage,
+      initialPage: 3, //widget.initialPage,
     );
     super.initState();
   }
@@ -52,25 +56,27 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
         DeviceOrientation.landscapeRight,
         DeviceOrientation.landscapeLeft,
       ]);
-    Map a = {
-      'colegio': ['a', 'b'],
-    };
-    print(a);
-    print(a['colegio']);
-    print(a['colegio'][0]);
-    print(a['colegio'][1]);
+
     return PageView(
       controller: controller,
       //physics: NeverScrollableScrollPhysics(),
 
       children: <Widget>[
         AlbertaInfoPage(
-          title: 'terminal_stage_best_supportive_care',
+          title: 'early_stage_rfa',
           subTitle: [
-            'terminal_stage_hepatocellular_carcinoma',
+            'early_stage_hepatocellular_carcinoma',
             'definitions_goals_recommendations'
           ],
-          content: bestSupportiveCare,
+          content: rfa,
+        ),
+        AlbertaInfoPage(
+          title: 'intermediate_stage_tare',
+          subTitle: [
+            'intermediate_stage_hepatocellular_carcinoma',
+            'definitions_goals_recommendations'
+          ],
+          content: tare,
         ),
         AlbertaInfoPage(
           title: 'intermediate_stage_tace',
@@ -79,6 +85,31 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
             'definitions_goals_recommendations'
           ],
           content: tace,
+        ),
+        AlbertaInfoPage(
+          title: 'advanced_stage_sorafenib',
+          subTitle: [
+            'advanced_stage_hepatocellular_carcinoma',
+            'definitions_goals_recommendations'
+          ],
+          content: sorafenib,
+        ),
+        AlbertaInfoPage(
+          title: 'advanced_stage_sbrt',
+          subTitle: [
+            'advanced_stage_hepatocellular_carcinoma',
+            'definitions_goals_recommendations'
+          ],
+          content: sbrt,
+        ),
+
+        AlbertaInfoPage(
+          title: 'terminal_stage_best_supportive_care',
+          subTitle: [
+            'terminal_stage_hepatocellular_carcinoma',
+            'definitions_goals_recommendations'
+          ],
+          content: bestSupportiveCare,
         ),
         //AlbertaInfoPage(title: 'close', content: 'contenido 2'),
       ],
