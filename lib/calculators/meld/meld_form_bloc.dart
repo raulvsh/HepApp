@@ -32,30 +32,28 @@ class MeldFormBloc extends FormBloc<String, String> {
 
   @override
   List<FieldBloc> get fieldBlocs => [
-    bilirubinField,
-    inrField,
-    creatinineField,
-    albuminField,
-    sodiumField,
-    dialysisField,
-  ];
+        bilirubinField,
+        inrField,
+        creatinineField,
+        albuminField,
+        sodiumField,
+        dialysisField,
+      ];
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    if (debug) showMeldFields();
-
-    meldData = MeldData(
-      bilirubin: bilirubinField.valueToDouble,
-      inr: inrField.valueToDouble,
-      creatinine: creatinineField.valueToDouble,
-      albumin: albuminField.valueToDouble,
-      sodium: sodiumField.valueToDouble,
-      dialysis: dialysisField.value,
-    );
-
-    MeldAlgorithm meldAlgorithm = MeldAlgorithm(meldData);
-
     try {
+      meldData = MeldData(
+        bilirubin: bilirubinField.valueToDouble,
+        inr: inrField.valueToDouble,
+        creatinine: creatinineField.valueToDouble,
+        albumin: albuminField.valueToDouble,
+        sodium: sodiumField.valueToDouble,
+        dialysis: dialysisField.value,
+      );
+
+      MeldAlgorithm meldAlgorithm = MeldAlgorithm(meldData);
+
       this.results = meldAlgorithm.obtenerResultado();
       meldData.results = this.results;
     } catch (e) {
@@ -85,8 +83,9 @@ class MeldFormBloc extends FormBloc<String, String> {
         units.getNotIUCreatinin(meldData.creatinine).toStringAsFixed(2));
     this.albuminField.updateValue(
         units.getNotIUAlbumin(meldData.albumin).toStringAsFixed(2));
-    this.sodiumField.updateValue(
-        units.getNotIUSodium(meldData.sodium).toStringAsFixed(2));
+    this
+        .sodiumField
+        .updateValue(units.getNotIUSodium(meldData.sodium).toStringAsFixed(2));
   }
 
   reset() {

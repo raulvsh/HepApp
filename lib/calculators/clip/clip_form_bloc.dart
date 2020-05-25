@@ -41,17 +41,17 @@ class ClipFormBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    clipData = ClipData(
-      afp: afpField.valueToDouble,
-      cps: cpsField.value,
-      tumourNumber: tumourNumberField.value,
-      tumourExtent: tumourExtentField.value,
-      pvt: pvtField.value,
-    );
-
-    ClipAlgorithm clipAlgorithm = ClipAlgorithm(clipData);
-
     try {
+      clipData = ClipData(
+        afp: afpField.valueToDouble,
+        cps: cpsField.value,
+        tumourNumber: tumourNumberField.value,
+        tumourExtent: tumourExtentField.value,
+        pvt: pvtField.value,
+      );
+
+      ClipAlgorithm clipAlgorithm = ClipAlgorithm(clipData);
+
       this.result = clipAlgorithm.obtenerResultado();
       clipData.result = this.result;
     } catch (e) {

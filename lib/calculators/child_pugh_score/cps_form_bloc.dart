@@ -52,24 +52,14 @@ class CpsFormBloc extends FormBloc<String, String> {
         ascites: ascitesField.value,
         result: resultadoField,
       );
-      //prefs.getEmptyFieldsErrorMap().update('parse', (v) => false);
-      //await Future<void>.delayed(Duration(milliseconds: 2000));
 
       CpsAlgorithm cpsAlgorithm = CpsAlgorithm(cpsData);
       this.resultadoField = cpsAlgorithm.obtenerResultado();
       cpsData.result = this.resultadoField;
       if (debug) showObjectCPSData();
-
+    } catch (e) {
+      print("Excepción: $e");
     }
-    catch (e) {
-      print(e);
-      //prefs.getEmptyFieldsErrorMap().update('parse', (v) => true);
-
-      //throw Exception('no hago cpsdata bien');
-
-    }
-
-
 
     await Future<void>.delayed(Duration(seconds: 1));
     yield currentState.toSuccess('Success');

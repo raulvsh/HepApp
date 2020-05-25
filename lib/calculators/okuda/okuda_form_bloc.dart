@@ -37,15 +37,15 @@ class OkudaFormBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    okudaData = OkudaData(
-      bilirubin: bilirubinField.valueToDouble,
-      albumin: albuminField.valueToDouble,
-      ascites: ascitesField.value,
-      tumourExtent: tumourExtentField.value,
-    );
-    OkudaAlgorithm okudaAlgorithm = OkudaAlgorithm(okudaData);
-
     try {
+      okudaData = OkudaData(
+        bilirubin: bilirubinField.valueToDouble,
+        albumin: albuminField.valueToDouble,
+        ascites: ascitesField.value,
+        tumourExtent: tumourExtentField.value,
+      );
+      OkudaAlgorithm okudaAlgorithm = OkudaAlgorithm(okudaData);
+
       this.result = okudaAlgorithm.obtenerResultado();
       okudaData.result = this.result;
     } catch (e) {
