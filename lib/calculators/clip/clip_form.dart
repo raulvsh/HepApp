@@ -36,7 +36,8 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   Map<String, bool> _emptyFieldsErrorMap;
   StreamSubscription streamSubEmptyFieldsErrorMap;
-  String errorPrueba = "";
+  Map<String, bool> _parseErrorMap;
+  StreamSubscription streamSubParseErrorMap;
 
   @override
   void initState() {
@@ -52,6 +53,13 @@ class ClipFormState extends State<ClipForm> with Observable {
       'pvt_complete',
     ]);
 
+    streamSubParseErrorMap =
+        prefs.parseErrorMapUpdates.listen((newVal) => setState(() {
+              _parseErrorMap = newVal;
+            }));
+    prefs.initParseErrorMap([
+      'afp',
+    ]);
     super.initState();
   }
 
@@ -64,6 +72,9 @@ class ClipFormState extends State<ClipForm> with Observable {
       DeviceOrientation.portraitDown,
     ]);
     streamSubEmptyFieldsErrorMap.cancel();
+    streamSubParseErrorMap.cancel();
+    streamSubParseErrorMap.cancel();
+
     super.dispose();
   }
 
@@ -174,8 +185,6 @@ class ClipFormState extends State<ClipForm> with Observable {
   _buildCPSRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      //initialValue: formBloc.cpsField.value.toString(),
-      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.cpsField,
@@ -190,8 +199,6 @@ class ClipFormState extends State<ClipForm> with Observable {
   _buildTumourNumberRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      //initialValue: formBloc.tumourNumberField.value.toString(),
-      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.tumourNumberField,
@@ -206,8 +213,6 @@ class ClipFormState extends State<ClipForm> with Observable {
   _buildTumourExtentRow(ClipFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      //initialValue: formBloc.tumourExtentField.value.toString(),
-      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.tumourExtentField,
@@ -221,9 +226,7 @@ class ClipFormState extends State<ClipForm> with Observable {
 
   _buildPVTRow(ClipFormBloc formBloc) {
     return CalcGroupField(
-      //initialValue: formBloc.pvtField.value.toString(),
       errorControl: true,
-      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.pvtField,
@@ -266,18 +269,6 @@ class ClipFormState extends State<ClipForm> with Observable {
     );
   }
 
-  Future showMoreInfo() {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("por hacer"),
-          content: Text("wip"),
-        );
-      },
-    );
-  }
-
   _buildResult(ClipFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
@@ -307,11 +298,11 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   void calculateClip(ClipFormBloc formBloc) {
-    prefs.isEmptyFieldsError()
-        ? errorPrueba = "hay al menos un error"
-        : errorPrueba = "no hay errores";
-    prefs.isEmptyFieldsError() ? showErrorDialog() : errorPrueba =
-    "no hay errores";
+    if (prefs.isEmptyFieldsError()) {
+      showErrorDialog('fill_empty_fields'); //print("error empty");
+    } else if (prefs.isParseError()) {
+      showErrorDialog('format_error'); //print("error parse");
+    }
 
     formBloc.submit();
 
@@ -319,15 +310,16 @@ class ClipFormState extends State<ClipForm> with Observable {
     setState(() {});
   }
 
-  showErrorDialog() {
+  showErrorDialog(String content) {
+    bool isLandscape = context.isLandscape;
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return PopUpDialog(
             title: 'error',
-            content: 'fill_empty_fields',
-            height: context.heightPct(0.20),
-          );
+            content: content,
+            height: context.heightPct(isLandscape ? 0.20 : 0.12),
+            width: context.widthPct(isLandscape ? 0.3 : 0.5),);
         });
   }
 

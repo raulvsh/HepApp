@@ -44,8 +44,6 @@ class CpsFormState extends State<CpsForm> with Observable {
   Map<String, bool> _parseErrorMap;
   StreamSubscription streamSubParseErrorMap;
 
-  String errorPrueba = "";
-
   @override
   void initState() {
     streamSubIUnits = prefs.iUnitsUpdates.listen(
@@ -59,13 +57,8 @@ class CpsFormState extends State<CpsForm> with Observable {
         prefs.emptyFieldsErrorMapUpdates.listen((newVal) => setState(() {
               _emptyFieldsErrorMap = newVal;
             }));
-    prefs.initEmptyFieldsErrorMap([
-      'bilirubin',
-      'inr',
-      'albumin',
-      'encephalopaty',
-      'ascites',
-    ]);
+    prefs.initEmptyFieldsErrorMap(
+        ['bilirubin', 'inr', 'albumin', 'encephalopaty', 'ascites']);
 
     streamSubParseErrorMap =
         prefs.parseErrorMapUpdates.listen((newVal) => setState(() {
@@ -121,9 +114,9 @@ class CpsFormState extends State<CpsForm> with Observable {
                 children: <Widget>[
                   isLandscape
                       ? Row(children: <Widget>[
-                    _buildDataFields(formBloc),
-                    _buildResult(formBloc),
-                  ])
+                          _buildDataFields(formBloc),
+                          _buildResult(formBloc),
+                        ])
                       : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -184,7 +177,6 @@ class CpsFormState extends State<CpsForm> with Observable {
                   .values
                   .toString()),
               Text(prefs.isParseError().toString()),
-              Text(errorPrueba),
             ],
           ),
         ),
@@ -221,9 +213,7 @@ class CpsFormState extends State<CpsForm> with Observable {
   _buildEncephalopatyRow(CpsFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      //initialValue: 'none_fem',//formBloc.encephalopatyField.value.toString(),
       reset: reset,
-      //previous: previous,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.encephalopatyField,
       title: 'encephalopaty',
@@ -237,8 +227,6 @@ class CpsFormState extends State<CpsForm> with Observable {
   _buildAscitesRow(CpsFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      //initialValue: formBloc.ascitesField.value.toString(),
-      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ascitesField,
@@ -255,11 +243,7 @@ class CpsFormState extends State<CpsForm> with Observable {
         title: 'calculate_cp_score',
         onPressed: () async {
           await Future.delayed(Duration(milliseconds: 400));
-          //try{
           calculateCps(formBloc);
-          //}catch(e){
-          //print("desde calc button");
-          //}
         });
   }
 
@@ -405,13 +389,13 @@ class CpsFormState extends State<CpsForm> with Observable {
             title: 'error',
             content: content,
             height: context.heightPct(isLandscape ? 0.20 : 0.12),
+            width: context.widthPct(isLandscape ? 0.3 : 0.5),
           );
         });
   }
 
   void resetValues(CpsFormBloc formBloc) {
     reset = true;
-    //previous = true;
     formBloc.reset();
     setState(() {});
     reset = false;
@@ -419,7 +403,6 @@ class CpsFormState extends State<CpsForm> with Observable {
 
   void previousValues(CpsFormBloc formBloc) {
     reset = false;
-    //previous = true;
     formBloc.previous();
     setState(() {});
   }

@@ -5,12 +5,14 @@ class PopUpDialog extends StatelessWidget {
   final String title;
   final String content;
   final double height;
+  final double width;
 
   const PopUpDialog({
     Key key,
     this.title = '',
     this.content = '',
     this.height,
+    this.width = 500.0,
   }) : super(key: key);
 
   @override
@@ -20,24 +22,27 @@ class PopUpDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(
         aux.tr(title),
+        textAlign: TextAlign.justify,
         style:
         TextStyle(color: Theme
             .of(context)
             .primaryColor),
       ),
       content: Container(
-        height: height, //context.heightPct(0.20),
-        width: 500,
+        height: height,
+        width: width,
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Container(
-                padding: EdgeInsets.only(right: 20),
+                width: width,
+                //padding: EdgeInsets.only(right: 20),
                 child: Text(
                   aux.tr(content),
                   style: TextStyle(
                     color: Colors.black,
                   ),
-                  textAlign: TextAlign.justify,
+                  textAlign: TextAlign.center,
                 )),
             Expanded(
               child: Container(

@@ -40,10 +40,9 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   Map<String, bool> _emptyFieldsErrorMap;
   StreamSubscription streamSubIUnits;
-
   StreamSubscription streamSubEmptyFieldsErrorMap;
-
-  String errorPrueba = "";
+  Map<String, bool> _parseErrorMap;
+  StreamSubscription streamSubParseErrorMap;
 
   @override
   void initState() {
@@ -61,6 +60,12 @@ class MeldFormState extends State<MeldForm> with Observable {
     prefs.initEmptyFieldsErrorMap(
         ['bilirubin', 'inr', 'creatinine', 'albumin', 'sodium', 'dialysis']);
 
+    streamSubParseErrorMap =
+        prefs.parseErrorMapUpdates.listen((newVal) => setState(() {
+              _parseErrorMap = newVal;
+            }));
+    prefs.initParseErrorMap(
+        ['bilirubin', 'inr', 'creatinine', 'albumin', 'sodium']);
     super.initState();
   }
 
@@ -74,6 +79,8 @@ class MeldFormState extends State<MeldForm> with Observable {
     ]);
     streamSubIUnits.cancel();
     streamSubEmptyFieldsErrorMap.cancel();
+    streamSubParseErrorMap.cancel();
+
     super.dispose();
   }
 
@@ -237,8 +244,6 @@ class MeldFormState extends State<MeldForm> with Observable {
     return CalcGroupField(
       errorControl: true,
       reset: reset,
-      //previous: previous,
-      //initialValue: formBloc.dialysisField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.dialysisField,
       title: 'dialysis',
@@ -364,25 +369,27 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   void calculateMeld(MeldFormBloc formBloc) {
-    prefs.isEmptyFieldsError()
-        ? errorPrueba = "hay al menos un error"
-        : errorPrueba = "no hay errores";
+    if (prefs.isEmptyFieldsError()) {
+      showErrorDialog('fill_empty_fields'); //print("error empty");
+    } else if (prefs.isParseError()) {
+      showErrorDialog('format_error'); //print("error parse");
+    }
 
-    prefs.isEmptyFieldsError() ? showErrorDialog() : errorPrueba =
-    "no hay errores";
     formBloc.submit();
     reset = false;
     setState(() {});
   }
 
-  showErrorDialog() {
+  showErrorDialog(String content) {
+    bool isLandscape = context.isLandscape;
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return PopUpDialog(
             title: 'error',
-            content: 'fill_empty_fields',
-            height: context.heightPct(0.20),
+            content: content,
+            height: context.heightPct(isLandscape ? 0.20 : 0.12),
+            width: context.widthPct(isLandscape ? 0.3 : 0.5),
           );
         });
   }

@@ -40,9 +40,9 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   Map<String, bool> _emptyFieldsErrorMap;
   StreamSubscription streamSubIUnits;
-
   StreamSubscription streamSubEmptyFieldsErrorMap;
-  String errorPrueba = "";
+  Map<String, bool> _parseErrorMap;
+  StreamSubscription streamSubParseErrorMap;
 
   @override
   void initState() {
@@ -60,6 +60,11 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     prefs.initEmptyFieldsErrorMap(
         ['bilirubin', 'albumin', 'ascites', 'tumour_extent']);
 
+    streamSubParseErrorMap =
+        prefs.parseErrorMapUpdates.listen((newVal) => setState(() {
+              _parseErrorMap = newVal;
+            }));
+    prefs.initParseErrorMap(['bilirubin', 'albumin']);
     super.initState();
   }
 
@@ -73,6 +78,8 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     ]);
     streamSubIUnits.cancel();
     streamSubEmptyFieldsErrorMap.cancel();
+    streamSubParseErrorMap.cancel();
+
     super.dispose();
   }
 
@@ -193,8 +200,6 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   _buildAscitesRow(OkudaFormBloc formBloc) {
     return CalcGroupField(
       errorControl: true,
-      //initialValue: formBloc.ascitesField.value.toString(),
-      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ascitesField,
@@ -210,8 +215,6 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     return CalcGroupField(
       errorControl: true,
       reset: reset,
-      //previous: previous,
-      //initialValue: formBloc.tumourExtentField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.tumourExtentField,
       title: 'tumour_extent',
@@ -312,28 +315,27 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   }
 
   void calculateOkuda(OkudaFormBloc formBloc) {
-    prefs.isEmptyFieldsError()
-        ? errorPrueba = "hay al menos un error"
-        : errorPrueba = "no hay errores";
-
-    prefs.isEmptyFieldsError() ? showErrorDialog() : errorPrueba =
-    "no hay errores";
+    if (prefs.isEmptyFieldsError()) {
+      showErrorDialog('fill_empty_fields'); //print("error empty");
+    } else if (prefs.isParseError()) {
+      showErrorDialog('format_error'); //print("error parse");
+    }
 
     formBloc.submit();
-
     reset = false;
     setState(() {});
   }
 
-  showErrorDialog() {
+  showErrorDialog(String content) {
+    bool isLandscape = context.isLandscape;
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return PopUpDialog(
             title: 'error',
-            content: 'fill_empty_fields',
-            height: context.heightPct(0.20),
-          );
+            content: content,
+            height: context.heightPct(isLandscape ? 0.20 : 0.12),
+            width: context.widthPct(isLandscape ? 0.3 : 0.5),);
         });
   }
 
