@@ -71,10 +71,8 @@ class _CalcTextFieldState extends State<CalcTextField> {
       height: 40,
       child: TextFieldBlocBuilder(
         padding:
-        EdgeInsets.symmetric(vertical: 10, horizontal: isTablet ? 10 : 5),
-        cursorColor: Theme
-            .of(context)
-            .primaryColor,
+            EdgeInsets.symmetric(vertical: 10, horizontal: isTablet ? 10 : 5),
+        cursorColor: Theme.of(context).primaryColor,
         keyboardType: TextInputType.numberWithOptions(),
         isEnabled: true,
         textFieldBloc: widget.textFieldBloc,
@@ -102,10 +100,20 @@ class _CalcTextFieldState extends State<CalcTextField> {
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
         ),
-        onChanged: (text) => _markErrorFalse(),
+        onChanged: (text) {
+          _markEmptyFieldsErrorFalse();
+          try {
+            double.parse(text);
+            _markParseErrorFalse();
+          } catch (e) {
+            _markParseErrorTrue();
+
+            print(e);
+          }
+        },
         errorBuilder: widget.errorControl
             ? (context, error) {
-          _markErrorTrue();
+          _markEmptyFieldsErrorTrue();
           switch (error) {
             case ValidatorsError.requiredTextFieldBloc:
               return "";
@@ -133,18 +141,34 @@ class _CalcTextFieldState extends State<CalcTextField> {
     );
   }
 
-  void _markErrorTrue() {
-    prefs.getErrorMap().forEach((key, value) {
+  void _markEmptyFieldsErrorTrue() {
+    prefs.getEmptyFieldsErrorMap().forEach((key, value) {
       if (widget.title == key) {
-        prefs.getErrorMap().update(key, (v) => true);
+        prefs.getEmptyFieldsErrorMap().update(key, (v) => true);
       }
     });
   }
 
-  void _markErrorFalse() {
-    prefs.getErrorMap().forEach((key, value) {
+  void _markEmptyFieldsErrorFalse() {
+    prefs.getEmptyFieldsErrorMap().forEach((key, value) {
       if (widget.title == key) {
-        prefs.getErrorMap().update(key, (v) => false);
+        prefs.getEmptyFieldsErrorMap().update(key, (v) => false);
+      }
+    });
+  }
+
+  void _markParseErrorTrue() {
+    prefs.getParseErrorMap().forEach((key, value) {
+      if (widget.title == key) {
+        prefs.getParseErrorMap().update(key, (v) => true);
+      }
+    });
+  }
+
+  void _markParseErrorFalse() {
+    prefs.getParseErrorMap().forEach((key, value) {
+      if (widget.title == key) {
+        prefs.getParseErrorMap().update(key, (v) => false);
       }
     });
   }

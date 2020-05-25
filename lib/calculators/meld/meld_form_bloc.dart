@@ -95,7 +95,9 @@ class MeldFormBloc extends FormBloc<String, String> {
     this.creatinineField = TextFieldBloc();
     this.albuminField = TextFieldBloc();
     this.sodiumField = TextFieldBloc();
-    this.dialysisField.updateValue('-');
+    this.dialysisField = SelectFieldBloc(
+      items: ['yes', 'no'],
+    );
     this.results = initResultMap();
   }
 

@@ -336,6 +336,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
 
   _buildAlbertaButton(CompleteFormBloc formBloc) {
     bool isTablet = context.diagonalInches >= 7;
+    AppLocalizations aux = AppLocalizations.of(context);
     return CalculatorButton(
         title: 'alberta_hcc_algorithm',
         width: isTablet ? 250.0 : 175.0,
@@ -346,12 +347,12 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               context: context,
               builder: (BuildContext dialogContext) {
                 return AlertDialog(
-                  title: Text('error'),
-                  content: Text('error alberta'),
+                  title: Text(aux.tr('error')),
+                  content: Text(aux.tr('error_alberta')),
                   actions: <Widget>[
                     FlatButton(
                       child: Text(
-                        'continuar',
+                        aux.tr('continue'),
                         style: TextStyle(color: Colors.black),
                       ),
                       onPressed: () {

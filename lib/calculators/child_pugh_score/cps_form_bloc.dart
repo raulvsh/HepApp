@@ -16,7 +16,7 @@ class CpsFormBloc extends FormBloc<String, String> {
   var albuminField = TextFieldBloc();
   var encephalopatyField = SelectFieldBloc(
     items: ['none_fem', 'grade_1_2', 'grade_3_4'],
-    initialValue: '-',
+    //initialValue: '-',
   );
   var ascitesField = SelectFieldBloc(
     items: ['none_fem', 'controlled', 'refractory'],
@@ -43,24 +43,33 @@ class CpsFormBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-
-    cpsData = CpsData(
-      bilirubin: bilirubinField.valueToDouble,
-      inr: inrField.valueToDouble,
-      albumin: albuminField.valueToDouble,
-      encephalopaty: encephalopatyField.value,
-      ascites: ascitesField.value,
-      result: resultadoField,
-    );
-    CpsAlgorithm cpsAlgorithm = CpsAlgorithm(cpsData);
-    if (debug) showObjectCPSData();
-
     try {
+      cpsData = CpsData(
+        bilirubin: bilirubinField.valueToDouble,
+        inr: inrField.valueToDouble,
+        albumin: albuminField.valueToDouble,
+        encephalopaty: encephalopatyField.value,
+        ascites: ascitesField.value,
+        result: resultadoField,
+      );
+      //prefs.getEmptyFieldsErrorMap().update('parse', (v) => false);
+      //await Future<void>.delayed(Duration(milliseconds: 2000));
+
+      CpsAlgorithm cpsAlgorithm = CpsAlgorithm(cpsData);
       this.resultadoField = cpsAlgorithm.obtenerResultado();
       cpsData.result = this.resultadoField;
-    } catch (e) {
-      print("Excepción: $e");
+      if (debug) showObjectCPSData();
+
     }
+    catch (e) {
+      print(e);
+      //prefs.getEmptyFieldsErrorMap().update('parse', (v) => true);
+
+      //throw Exception('no hago cpsdata bien');
+
+    }
+
+
 
     await Future<void>.delayed(Duration(seconds: 1));
     yield currentState.toSuccess('Success');
@@ -87,8 +96,12 @@ class CpsFormBloc extends FormBloc<String, String> {
     this.bilirubinField = TextFieldBloc();
     this.inrField = TextFieldBloc();
     this.albuminField = TextFieldBloc();
-    this.encephalopatyField.updateValue('-');
-    this.ascitesField.updateValue('-');
+    this.encephalopatyField = SelectFieldBloc(
+      items: ['none_fem', 'grade_1_2', 'grade_3_4'],
+    );
+    this.ascitesField = SelectFieldBloc(
+      items: ['none_fem', 'controlled', 'refractory'],
+    );
     this.resultadoField = "-";
 
     if (debug) showObjectCPSData();

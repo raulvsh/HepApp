@@ -440,6 +440,10 @@
   "sorafenib_desc_1": "• Retrasa la progresión y mejora la supervivencia general en comparación con el placebo en dos ensayos aleatorizados, doble ciego, controlados con placebo, fase III:",
   "sorafenib_desc_2": "• El hipotiroidismo se desarrolla en el 18% de los pacientes dentro de los dos o cuatro meses posteriores al inicio de Sorafenib. Obtenga una TSH de referencia y luego controle los niveles cada seis semanas.",
   "sorafenib_desc_3": "• Aumenta la incidencia de eventos tromboembólicos arteriales (1.4%, RR 3.03, p = 0.015).",
+  "error_alberta": "No hay datos suficientes para recomendar un tratamiento. Se muestra el gráfico completo.",
+  "continue": "Continuar",
+  "format_error": "Formato incorrecto de los datos.\nFormato correcto: ##.##",
+
 
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",

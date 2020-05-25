@@ -164,17 +164,17 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
   }
 
   void _markErrorTrue() {
-    prefs.getErrorMap().forEach((key, value) {
+    prefs.getEmptyFieldsErrorMap().forEach((key, value) {
       if (widget.titleList == key) {
-        prefs.getErrorMap().update(key, (v) => true);
+        prefs.getEmptyFieldsErrorMap().update(key, (v) => true);
       }
     });
   }
 
   void _markErrorFalse() {
-    prefs.getErrorMap().forEach((key, value) {
+    prefs.getEmptyFieldsErrorMap().forEach((key, value) {
       if (widget.titleList == key) {
-        prefs.getErrorMap().update(key, (v) => false);
+        prefs.getEmptyFieldsErrorMap().update(key, (v) => false);
       }
     });
   }

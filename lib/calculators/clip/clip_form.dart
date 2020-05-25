@@ -34,16 +34,17 @@ class ClipFormState extends State<ClipForm> with Observable {
   final prefs = UserSettings();
   final units = Units();
 
-  Map<String, bool> _errorMap;
-  StreamSubscription streamSubErrorMap;
+  Map<String, bool> _emptyFieldsErrorMap;
+  StreamSubscription streamSubEmptyFieldsErrorMap;
   String errorPrueba = "";
 
   @override
   void initState() {
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
-          _errorMap = newVal;
-        }));
-    prefs.initErrorMap([
+    streamSubEmptyFieldsErrorMap =
+        prefs.emptyFieldsErrorMapUpdates.listen((newVal) => setState(() {
+              _emptyFieldsErrorMap = newVal;
+            }));
+    prefs.initEmptyFieldsErrorMap([
       'afp',
       'child_pugh_score',
       'tumour_number',
@@ -62,7 +63,7 @@ class ClipFormState extends State<ClipForm> with Observable {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    streamSubErrorMap.cancel();
+    streamSubEmptyFieldsErrorMap.cancel();
     super.dispose();
   }
 
@@ -142,10 +143,18 @@ class ClipFormState extends State<ClipForm> with Observable {
               _buildPVTRow(formBloc),
               SizedBox(height: 10),
               _buildCalcButton(formBloc),
-              //Text(prefs.getErrorMap().toString()),
-              //Text(prefs.getErrorMap().values.toString()),
-              //Text(prefs.isMapError().toString()),
-              //Text(errorPrueba),
+              Text(prefs.getEmptyFieldsErrorMap().toString()),
+              Text(prefs
+                  .getEmptyFieldsErrorMap()
+                  .values
+                  .toString()),
+              Text(prefs.isEmptyFieldsError().toString()),
+              Text(prefs.getParseErrorMap().toString()),
+              Text(prefs
+                  .getParseErrorMap()
+                  .values
+                  .toString()),
+              Text(prefs.isParseError().toString()),
             ],
           ),
         ),
@@ -298,10 +307,11 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   void calculateClip(ClipFormBloc formBloc) {
-    prefs.isMapError()
+    prefs.isEmptyFieldsError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";
-    prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
+    prefs.isEmptyFieldsError() ? showErrorDialog() : errorPrueba =
+    "no hay errores";
 
     formBloc.submit();
 

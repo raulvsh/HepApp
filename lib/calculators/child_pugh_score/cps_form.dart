@@ -38,9 +38,11 @@ class CpsFormState extends State<CpsForm> with Observable {
   final units = Units();
   bool _internationalUnits = true;
 
-  Map<String, bool> _errorMap;
+  Map<String, bool> _emptyFieldsErrorMap;
   StreamSubscription streamSubIUnits;
-  StreamSubscription streamSubErrorMap;
+  StreamSubscription streamSubEmptyFieldsErrorMap;
+  Map<String, bool> _parseErrorMap;
+  StreamSubscription streamSubParseErrorMap;
 
   String errorPrueba = "";
 
@@ -53,12 +55,27 @@ class CpsFormState extends State<CpsForm> with Observable {
     );
     prefs.setInternationalUnits(true);
 
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
-        setState(() {
-          _errorMap = newVal;
-        }));
-    prefs.initErrorMap(
-        ['bilirubin', 'inr', 'albumin', 'encephalopaty', 'ascites']);
+    streamSubEmptyFieldsErrorMap =
+        prefs.emptyFieldsErrorMapUpdates.listen((newVal) => setState(() {
+              _emptyFieldsErrorMap = newVal;
+            }));
+    prefs.initEmptyFieldsErrorMap([
+      'bilirubin',
+      'inr',
+      'albumin',
+      'encephalopaty',
+      'ascites',
+    ]);
+
+    streamSubParseErrorMap =
+        prefs.parseErrorMapUpdates.listen((newVal) => setState(() {
+              _parseErrorMap = newVal;
+            }));
+    prefs.initParseErrorMap([
+      'bilirubin',
+      'inr',
+      'albumin',
+    ]);
 
     super.initState();
   }
@@ -72,7 +89,8 @@ class CpsFormState extends State<CpsForm> with Observable {
       DeviceOrientation.portraitDown,
     ]);
     streamSubIUnits.cancel();
-    streamSubErrorMap.cancel();
+    streamSubEmptyFieldsErrorMap.cancel();
+    streamSubParseErrorMap.cancel();
     super.dispose();
   }
 
@@ -154,10 +172,19 @@ class CpsFormState extends State<CpsForm> with Observable {
               SizedBox(height: 20),
               _buildCalcButton(formBloc),
               //SizedBox(height: 45,)
-              //Text(prefs.getErrorMap().toString()),
-              //Text(prefs.getErrorMap().values.toString()),
-              //Text(prefs.isMapError().toString()),
-              //Text(errorPrueba),
+              Text(prefs.getEmptyFieldsErrorMap().toString()),
+              Text(prefs
+                  .getEmptyFieldsErrorMap()
+                  .values
+                  .toString()),
+              Text(prefs.isEmptyFieldsError().toString()),
+              Text(prefs.getParseErrorMap().toString()),
+              Text(prefs
+                  .getParseErrorMap()
+                  .values
+                  .toString()),
+              Text(prefs.isParseError().toString()),
+              Text(errorPrueba),
             ],
           ),
         ),
@@ -228,7 +255,11 @@ class CpsFormState extends State<CpsForm> with Observable {
         title: 'calculate_cp_score',
         onPressed: () async {
           await Future.delayed(Duration(milliseconds: 400));
+          //try{
           calculateCps(formBloc);
+          //}catch(e){
+          //print("desde calc button");
+          //}
         });
   }
 
@@ -321,7 +352,7 @@ class CpsFormState extends State<CpsForm> with Observable {
         height: isTablet
             ? context.heightPct(isLandscape ? 0.5 : 0.3)
             : context.heightPct(0.45),
-        padding: EdgeInsets.only(top: isTablet ? 50 : 15, bottom: 15),
+        padding: EdgeInsets.only(top: isTablet ? 40 : 15, bottom: 15),
         child: CalcResultWidget(
           resultMap: resultMap,
           textAlignment: MainAxisAlignment.center,
@@ -335,21 +366,45 @@ class CpsFormState extends State<CpsForm> with Observable {
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";
     prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";*/
-    prefs.isMapError() ? showErrorDialog() : null;
+    if (prefs.isEmptyFieldsError()) {
+      showErrorDialog('fill_empty_fields'); //print("error empty");
+    } else if (prefs.isParseError()) {
+      showErrorDialog('format_error'); //print("error parse");
+    }
 
     formBloc.submit();
+
+    /*print(prefs.getEmptyFieldsErrorMap());
+    if (prefs.isEmptyFieldsError() &&
+        prefs.getEmptyFieldsErrorMap()['parse'] == false) {
+      print("faltan datos");
+      showErrorDialog();
+    } else if (prefs.isEmptyFieldsError() &&
+        prefs.getEmptyFieldsErrorMap()['parse'] == true) {
+      print("error de parseado");
+    }*/
+
+    //prefs.isMapError() ? showErrorDialog() : null;
+
+    //try {
+    //formBloc.submit();
+    //} catch (e) {
+    //  print("excepcion fuera $e");
+    // print(e.toString());
+    //}
     reset = false;
     setState(() {});
   }
 
-  showErrorDialog() {
+  showErrorDialog(String content) {
+    bool isLandscape = context.isLandscape;
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return PopUpDialog(
             title: 'error',
-            content: 'fill_empty_fields',
-            height: context.heightPct(0.20),
+            content: content,
+            height: context.heightPct(isLandscape ? 0.20 : 0.12),
           );
         });
   }

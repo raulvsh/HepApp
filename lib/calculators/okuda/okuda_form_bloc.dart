@@ -73,8 +73,12 @@ class OkudaFormBloc extends FormBloc<String, String> {
   reset() {
     this.bilirubinField = TextFieldBloc();
     this.albuminField = TextFieldBloc();
-    this.ascitesField.updateValue('-');
-    this.tumourExtentField.updateValue('-');
+    this.ascitesField = SelectFieldBloc(
+      items: ['none_fem', 'controlled', 'refractory'],
+    );
+    this.tumourExtentField = SelectFieldBloc(
+      items: ['<=50%', '>50%'],
+    );
     this.result = "-";
   }
 

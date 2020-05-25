@@ -70,10 +70,18 @@ class ClipFormBloc extends FormBloc<String, String> {
 
   reset() {
     this.afpField = TextFieldBloc();
-    this.cpsField.updateValue('-');
-    this.tumourNumberField.updateValue('-');
-    this.tumourExtentField.updateValue('-');
-    this.pvtField.updateValue('-');
+    this.cpsField = SelectFieldBloc(
+      items: ['A', 'B', 'C'],
+    );
+    this.tumourNumberField = SelectFieldBloc(
+      items: ['0', '1', '2', '3', '4', '5', '6+'],
+    );
+    this.tumourExtentField = SelectFieldBloc(
+      items: ['<=50%', '>50%'],
+    );
+    this.pvtField = SelectFieldBloc(
+      items: ['yes', 'no'],
+    );
     this.result = "-";
   }
 

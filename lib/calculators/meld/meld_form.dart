@@ -38,10 +38,10 @@ class MeldFormState extends State<MeldForm> with Observable {
   final units = Units();
   bool _internationalUnits = true;
 
-  Map<String, bool> _errorMap;
+  Map<String, bool> _emptyFieldsErrorMap;
   StreamSubscription streamSubIUnits;
 
-  StreamSubscription streamSubErrorMap;
+  StreamSubscription streamSubEmptyFieldsErrorMap;
 
   String errorPrueba = "";
 
@@ -54,10 +54,11 @@ class MeldFormState extends State<MeldForm> with Observable {
     );
     prefs.setInternationalUnits(true);
 
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
-          _errorMap = newVal;
-        }));
-    prefs.initErrorMap(
+    streamSubEmptyFieldsErrorMap =
+        prefs.emptyFieldsErrorMapUpdates.listen((newVal) => setState(() {
+              _emptyFieldsErrorMap = newVal;
+            }));
+    prefs.initEmptyFieldsErrorMap(
         ['bilirubin', 'inr', 'creatinine', 'albumin', 'sodium', 'dialysis']);
 
     super.initState();
@@ -72,7 +73,7 @@ class MeldFormState extends State<MeldForm> with Observable {
       DeviceOrientation.portraitDown,
     ]);
     streamSubIUnits.cancel();
-    streamSubErrorMap.cancel();
+    streamSubEmptyFieldsErrorMap.cancel();
     super.dispose();
   }
 
@@ -166,11 +167,19 @@ class MeldFormState extends State<MeldForm> with Observable {
                     onPressed: showMeldInfoDialog,
                   ),
                 ],
-              )
-              //Text(prefs.getErrorMap().toString()),
-              //Text(prefs.getErrorMap().values.toString()),
-              //Text(prefs.isMapError().toString()),
-              //Text(errorPrueba),
+              ),
+              Text(prefs.getEmptyFieldsErrorMap().toString()),
+              Text(prefs
+                  .getEmptyFieldsErrorMap()
+                  .values
+                  .toString()),
+              Text(prefs.isEmptyFieldsError().toString()),
+              Text(prefs.getParseErrorMap().toString()),
+              Text(prefs
+                  .getParseErrorMap()
+                  .values
+                  .toString()),
+              Text(prefs.isParseError().toString()),
             ],
           ),
         ),
@@ -355,11 +364,12 @@ class MeldFormState extends State<MeldForm> with Observable {
   }
 
   void calculateMeld(MeldFormBloc formBloc) {
-    prefs.isMapError()
+    prefs.isEmptyFieldsError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";
 
-    prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
+    prefs.isEmptyFieldsError() ? showErrorDialog() : errorPrueba =
+    "no hay errores";
     formBloc.submit();
     reset = false;
     setState(() {});

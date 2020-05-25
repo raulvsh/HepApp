@@ -437,7 +437,9 @@
   "sorafenib_desc_1": "• Delays progression and improves overall survival when compared to placebo in two randomized, double blind, placebo-controlled, phase Ill trials:",
   "sorafenib_desc_2": "• Hypothyroidism develops in 18% of patients within two to four months of starting Sorafenib. Obtain a baseline TSH and then monitor levels every six weeks.",
   "sorafenib_desc_3": "• Increases the incidence of arterial thromboembolic events (1.4%, RR 3.03, p = 0.015).",
-
+  "error_alberta": "Not enough data to recommend a treatment. Full diagram shown.",
+  "continue": "Continue",
+  "format_error": "Incorrect data format.\nCorrect format: ##.##",
 
   "******************************************COMENTARIO**************2": "CLAVES ANTIGUAS PARA BORRAR",
   "AFP": "AFP",

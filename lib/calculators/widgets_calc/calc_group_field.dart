@@ -324,9 +324,9 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
   }
 
   void _markErrorFalse() {
-    prefs.getErrorMap().forEach((key, value) {
+    prefs.getEmptyFieldsErrorMap().forEach((key, value) {
       if (widget.title == key) {
-        prefs.getErrorMap().update(key, (v) => false);
+        prefs.getEmptyFieldsErrorMap().update(key, (v) => false);
       }
     });
   }

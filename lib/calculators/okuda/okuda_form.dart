@@ -38,10 +38,10 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
   bool _internationalUnits = true;
 
-  Map<String, bool> _errorMap;
+  Map<String, bool> _emptyFieldsErrorMap;
   StreamSubscription streamSubIUnits;
 
-  StreamSubscription streamSubErrorMap;
+  StreamSubscription streamSubEmptyFieldsErrorMap;
   String errorPrueba = "";
 
   @override
@@ -53,11 +53,12 @@ class OkudaFormState extends State<OkudaForm> with Observable {
     );
     prefs.setInternationalUnits(true);
 
-    streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) =>
-        setState(() {
-          _errorMap = newVal;
+    streamSubEmptyFieldsErrorMap =
+        prefs.emptyFieldsErrorMapUpdates.listen((newVal) => setState(() {
+          _emptyFieldsErrorMap = newVal;
         }));
-    prefs.initErrorMap(['bilirubin', 'albumin', 'ascites', 'tumour_extent']);
+    prefs.initEmptyFieldsErrorMap(
+        ['bilirubin', 'albumin', 'ascites', 'tumour_extent']);
 
     super.initState();
   }
@@ -71,7 +72,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
       DeviceOrientation.portraitDown,
     ]);
     streamSubIUnits.cancel();
-    streamSubErrorMap.cancel();
+    streamSubEmptyFieldsErrorMap.cancel();
     super.dispose();
   }
 
@@ -152,10 +153,18 @@ class OkudaFormState extends State<OkudaForm> with Observable {
               _buildTumourExtentRow(formBloc),
               SizedBox(height: 20),
               _buildCalcButton(formBloc),
-              //Text(prefs.getErrorMap().toString()),
-              //Text(prefs.getErrorMap().values.toString()),
-              //Text(prefs.isMapError().toString()),
-              //Text(errorPrueba),
+              Text(prefs.getEmptyFieldsErrorMap().toString()),
+              Text(prefs
+                  .getEmptyFieldsErrorMap()
+                  .values
+                  .toString()),
+              Text(prefs.isEmptyFieldsError().toString()),
+              Text(prefs.getParseErrorMap().toString()),
+              Text(prefs
+                  .getParseErrorMap()
+                  .values
+                  .toString()),
+              Text(prefs.isParseError().toString()),
             ],
           ),
         ),
@@ -303,11 +312,12 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   }
 
   void calculateOkuda(OkudaFormBloc formBloc) {
-    prefs.isMapError()
+    prefs.isEmptyFieldsError()
         ? errorPrueba = "hay al menos un error"
         : errorPrueba = "no hay errores";
 
-    prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";
+    prefs.isEmptyFieldsError() ? showErrorDialog() : errorPrueba =
+    "no hay errores";
 
     formBloc.submit();
 
