@@ -36,9 +36,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   bool _internationalUnits = true;
   StreamSubscription streamSubIUnits;
 
-  //StreamSubscription streamSubErrorMap;
-  //Map<String, bool> _errorMap;
-
   @override
   void initState() {
     streamSubIUnits = prefs.iUnitsUpdates.listen(
@@ -46,18 +43,14 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
         _internationalUnits = newVal;
       }),
     );
-    /*streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
-          _errorMap = newVal;
-        }));*/
     prefs.setInternationalUnits(true);
+
     super.initState();
   }
 
   @override
   dispose() {
     streamSubIUnits.cancel();
-    //streamSubErrorMap.cancel();
-
     super.dispose();
   }
 
@@ -109,6 +102,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
             _buildASTRow(formBloc),
             _buildALPRow(formBloc),
             _buildDialysisRow(formBloc),
+            Text(prefs.getParseErrorMap().toString()),
+            Text(prefs.getParseErrorMap().values.toString()),
+            Text(prefs.isParseError().toString()),
             SizedBox(
               height: kToolbarHeight + 10,
             )
@@ -286,9 +282,13 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
                   title: 'next',
                   onPressed: () {
                     comprobarValoresLab();
-                    widget.controller.nextPage(
-                        duration: Duration(seconds: 1),
-                        curve: Curves.easeInOut);
+                    if (prefs.isParseError()) {
+                      showErrorDialog('format_error'); //print("error parse");
+                    } else {
+                      widget.controller.nextPage(
+                          duration: Duration(seconds: 1),
+                          curve: Curves.easeInOut);
+                    }
                   }),
               SizedBox(width: 10),
 
@@ -298,6 +298,23 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
         ],
       ),
     );
+  }
+
+  showErrorDialog(String content) {
+    bool isTablet = context.diagonalInches >= 7;
+
+    bool isLandscape = context.isLandscape;
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return PopUpDialog(
+            title: 'error',
+            content: content,
+            height: context
+                .heightPct(isLandscape ? (isTablet ? 0.20 : 0.25) : 0.12),
+            width: context.widthPct(isLandscape ? (isTablet ? 0.3 : 0.4) : 0.5),
+          );
+        });
   }
 
   void comprobarValoresLab() {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
+import 'package:sized_context/sized_context.dart';
 
 import 'alberta_circle_field.dart';
 import 'alberta_diagram_painter.dart';
@@ -36,10 +37,6 @@ class AlbertaPage extends StatefulWidget {
 class _AlbertaPageState extends State<AlbertaPage> {
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
-    ]);
     super.initState();
   }
 
@@ -56,13 +53,23 @@ class _AlbertaPageState extends State<AlbertaPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
+
+    if (!isTablet) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+      ]);
+    }
     return Scaffold(
       appBar: CustomAppBar('calculators_all_algorithms_alberta'),
       drawer: MenuWidget(),
       body: Center(
+        heightFactor: isLandscape ? 2 : 0.5,
         child: FractionallySizedBox(
           heightFactor: 0.90,
-          //alignment: Alignment.center,
+          alignment: Alignment.topCenter,
           child: FittedBox(
             fit: BoxFit.contain,
             child: Stack(

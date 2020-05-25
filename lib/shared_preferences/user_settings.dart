@@ -127,7 +127,7 @@ class UserSettings {
     var length = lista.length;
     _parseErrorMap = {};
     for (int i = 0; i < length; i++) {
-      _parseErrorMap.putIfAbsent(lista[i].toString(), () => true);
+      _parseErrorMap.putIfAbsent(lista[i].toString(), () => false);
     }
   }
 

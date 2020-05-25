@@ -311,6 +311,8 @@ class ClipFormState extends State<ClipForm> with Observable {
   }
 
   showErrorDialog(String content) {
+    bool isTablet = context.diagonalInches >= 7;
+
     bool isLandscape = context.isLandscape;
     showDialog(
         context: context,
@@ -318,8 +320,10 @@ class ClipFormState extends State<ClipForm> with Observable {
           return PopUpDialog(
             title: 'error',
             content: content,
-            height: context.heightPct(isLandscape ? 0.20 : 0.12),
-            width: context.widthPct(isLandscape ? 0.3 : 0.5),);
+            height: context
+                .heightPct(isLandscape ? (isTablet ? 0.20 : 0.25) : 0.12),
+            width: context.widthPct(isLandscape ? (isTablet ? 0.3 : 0.4) : 0.5),
+          );
         });
   }
 

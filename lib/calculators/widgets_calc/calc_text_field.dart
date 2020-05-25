@@ -107,7 +107,6 @@ class _CalcTextFieldState extends State<CalcTextField> {
             _markParseErrorFalse();
           } catch (e) {
             _markParseErrorTrue();
-
             print(e);
           }
         },

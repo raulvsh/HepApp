@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,6 +31,8 @@ class CompleteFormState extends State<CompleteForm> with Observable {
   final prefs = UserSettings();
   final units = Units();
   PageController controller;
+  Map<String, bool> _parseErrorMap;
+  StreamSubscription streamSubParseErrorMap;
 
   @override
   void initState() {
@@ -39,6 +43,30 @@ class CompleteFormState extends State<CompleteForm> with Observable {
     prefs.setTumourNumber(0);
     prefs.setPrecludeSurgery(true);
     prefs.setLtCriteria('milan_criteria');
+    streamSubParseErrorMap =
+        prefs.parseErrorMapUpdates.listen((newVal) => setState(() {
+              _parseErrorMap = newVal;
+            }));
+    prefs.initParseErrorMap([
+      'tumour_size[0]',
+      'tumour_size[1]',
+      'tumour_size[2]',
+      'tumour_size[3]',
+      'tumour_size[4]',
+      'tumour_size[5]',
+      'bilirubin',
+      'inr',
+      'creatinine',
+      'albumin',
+      'sodium',
+      'platelets',
+      'afp',
+      'ast',
+      'ast_upper_limit',
+      'alp',
+      'alp_upper_limit',
+    ]);
+
     super.initState();
   }
 
@@ -50,6 +78,8 @@ class CompleteFormState extends State<CompleteForm> with Observable {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    streamSubParseErrorMap.cancel();
+
     super.dispose();
   }
 

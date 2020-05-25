@@ -42,6 +42,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         _tumourNumber = newVal;
       }),
     );
+
     super.initState();
   }
 
@@ -97,6 +98,9 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
             _buildMetastasisRow(formBloc),
             _buildPortalHypertensionRow(formBloc),
             _buildPvtRow(formBloc),
+            Text(prefs.getParseErrorMap().toString()),
+            Text(prefs.getParseErrorMap().values.toString()),
+            Text(prefs.isParseError().toString()),
             SizedBox(height: kToolbarHeight)
           ],
         ),
@@ -107,8 +111,6 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   _buildTumourNumberRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
-      //previous: previous,
-      //initialValue: formBloc.tumourNumberField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.tumourNumberField,
       title: 'tumour_number',
@@ -247,10 +249,13 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
                   title: 'next',
                   onPressed: () {
                     comprobarValoresDiag();
-
-                    widget.controller.nextPage(
-                        duration: Duration(seconds: 1),
-                        curve: Curves.easeInOut);
+                    if (prefs.isParseError()) {
+                      showErrorDialog('format_error'); //print("error parse");
+                    } else {
+                      widget.controller.nextPage(
+                          duration: Duration(seconds: 1),
+                          curve: Curves.easeInOut);
+                    }
                   }),
               SizedBox(
                 width: 10,
@@ -260,6 +265,22 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         ],
       ),
     );
+  }
+
+  showErrorDialog(String content) {
+    bool isTablet = context.diagonalInches >= 7;
+    bool isLandscape = context.isLandscape;
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return PopUpDialog(
+            title: 'error',
+            content: content,
+            height: context
+                .heightPct(isLandscape ? (isTablet ? 0.20 : 0.25) : 0.12),
+            width: context.widthPct(isLandscape ? (isTablet ? 0.3 : 0.4) : 0.5),
+          );
+        });
   }
 
   _buildRightBottomTitle() {

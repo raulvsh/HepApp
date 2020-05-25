@@ -57,12 +57,10 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
         _addTitle(list, i);
       }
 
-      _addTextField(list, context, i);
+      _addTextField(list, i);
       if (widget.showUds) {
         _addUds(list, i);
-        list.add(SizedBox(
-          width: 20,
-        ));
+        list.add(SizedBox(width: 20));
       }
     }
 
@@ -106,7 +104,7 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
     );
   }
 
-  void _addTextField(List<Widget> list, BuildContext context, int i) {
+  void _addTextField(List<Widget> list, int i) {
     bool isTablet = context.diagonalInches >= 7;
 
     list.add(
@@ -146,10 +144,19 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
             ),
             contentPadding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
           ),
-          onChanged: (text) => _markErrorFalse(),
+          onChanged: (text) {
+            _markEmptyFieldsErrorFalse();
+            try {
+              double.parse(text);
+              _markParseErrorFalse(i);
+            } catch (e) {
+              _markParseErrorTrue(i);
+              print(e);
+            }
+          },
           errorBuilder: widget.errorControl
               ? (context, error) {
-                  _markErrorTrue();
+                  _markEmptyFieldsErrorTrue();
                   switch (error) {
                     case ValidatorsError.requiredTextFieldBloc:
                       return "";
@@ -163,7 +170,7 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
     );
   }
 
-  void _markErrorTrue() {
+  void _markEmptyFieldsErrorTrue() {
     prefs.getEmptyFieldsErrorMap().forEach((key, value) {
       if (widget.titleList == key) {
         prefs.getEmptyFieldsErrorMap().update(key, (v) => true);
@@ -171,7 +178,7 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
     });
   }
 
-  void _markErrorFalse() {
+  void _markEmptyFieldsErrorFalse() {
     prefs.getEmptyFieldsErrorMap().forEach((key, value) {
       if (widget.titleList == key) {
         prefs.getEmptyFieldsErrorMap().update(key, (v) => false);
@@ -195,5 +202,35 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
       return isTablet ? (isLandscape ? 60 : 50) : 50;
     }
     return isTablet ? 90 : 60;
+  }
+
+  void _markParseErrorTrue(i) {
+    bool isLandscape = context.isLandscape;
+    widget.multiTitle && isLandscape
+        ? prefs.getParseErrorMap().forEach((key, value) {
+      if (widget.titleList[i] == key) {
+        prefs.getParseErrorMap().update(key, (v) => true);
+      }
+    })
+        : prefs.getParseErrorMap().forEach((key, value) {
+      if (widget.titleList[0] + "[$i]" == key) {
+        prefs.getParseErrorMap().update(key, (v) => true);
+      }
+    });
+  }
+
+  void _markParseErrorFalse(i) {
+    bool isLandscape = context.isLandscape;
+    widget.multiTitle && isLandscape
+        ? prefs.getParseErrorMap().forEach((key, value) {
+      if (widget.titleList[i] == key) {
+        prefs.getParseErrorMap().update(key, (v) => false);
+      }
+    })
+        : prefs.getParseErrorMap().forEach((key, value) {
+      if (widget.titleList[0] + "[$i]" == key) {
+        prefs.getParseErrorMap().update(key, (v) => false);
+      }
+    });
   }
 }

@@ -55,8 +55,8 @@ class OkudaFormState extends State<OkudaForm> with Observable {
 
     streamSubEmptyFieldsErrorMap =
         prefs.emptyFieldsErrorMapUpdates.listen((newVal) => setState(() {
-          _emptyFieldsErrorMap = newVal;
-        }));
+              _emptyFieldsErrorMap = newVal;
+            }));
     prefs.initEmptyFieldsErrorMap(
         ['bilirubin', 'albumin', 'ascites', 'tumour_extent']);
 
@@ -327,6 +327,8 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   }
 
   showErrorDialog(String content) {
+    bool isTablet = context.diagonalInches >= 7;
+
     bool isLandscape = context.isLandscape;
     showDialog(
         context: context,
@@ -334,8 +336,10 @@ class OkudaFormState extends State<OkudaForm> with Observable {
           return PopUpDialog(
             title: 'error',
             content: content,
-            height: context.heightPct(isLandscape ? 0.20 : 0.12),
-            width: context.widthPct(isLandscape ? 0.3 : 0.5),);
+            height: context
+                .heightPct(isLandscape ? (isTablet ? 0.20 : 0.25) : 0.12),
+            width: context.widthPct(isLandscape ? (isTablet ? 0.3 : 0.4) : 0.5),
+          );
         });
   }
 

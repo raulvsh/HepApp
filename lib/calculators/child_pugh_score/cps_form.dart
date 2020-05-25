@@ -64,11 +64,7 @@ class CpsFormState extends State<CpsForm> with Observable {
         prefs.parseErrorMapUpdates.listen((newVal) => setState(() {
               _parseErrorMap = newVal;
             }));
-    prefs.initParseErrorMap([
-      'bilirubin',
-      'inr',
-      'albumin',
-    ]);
+    prefs.initParseErrorMap(['bilirubin', 'inr', 'albumin']);
 
     super.initState();
   }
@@ -118,11 +114,11 @@ class CpsFormState extends State<CpsForm> with Observable {
                           _buildResult(formBloc),
                         ])
                       : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        _buildDataFields(formBloc),
-                        _buildResult(formBloc),
-                      ]),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                              _buildDataFields(formBloc),
+                              _buildResult(formBloc),
+                            ]),
                   Column(
                     children: <Widget>[
                       RightBottomTitle(
@@ -346,50 +342,29 @@ class CpsFormState extends State<CpsForm> with Observable {
   }
 
   void calculateCps(CpsFormBloc formBloc) {
-    /*prefs.isMapError()
-        ? errorPrueba = "hay al menos un error"
-        : errorPrueba = "no hay errores";
-    prefs.isMapError() ? showErrorDialog() : errorPrueba = "no hay errores";*/
     if (prefs.isEmptyFieldsError()) {
       showErrorDialog('fill_empty_fields'); //print("error empty");
     } else if (prefs.isParseError()) {
       showErrorDialog('format_error'); //print("error parse");
     }
-
     formBloc.submit();
-
-    /*print(prefs.getEmptyFieldsErrorMap());
-    if (prefs.isEmptyFieldsError() &&
-        prefs.getEmptyFieldsErrorMap()['parse'] == false) {
-      print("faltan datos");
-      showErrorDialog();
-    } else if (prefs.isEmptyFieldsError() &&
-        prefs.getEmptyFieldsErrorMap()['parse'] == true) {
-      print("error de parseado");
-    }*/
-
-    //prefs.isMapError() ? showErrorDialog() : null;
-
-    //try {
-    //formBloc.submit();
-    //} catch (e) {
-    //  print("excepcion fuera $e");
-    // print(e.toString());
-    //}
     reset = false;
     setState(() {});
   }
 
   showErrorDialog(String content) {
     bool isLandscape = context.isLandscape;
+    bool isTablet = context.diagonalInches >= 7;
+
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return PopUpDialog(
             title: 'error',
             content: content,
-            height: context.heightPct(isLandscape ? 0.20 : 0.12),
-            width: context.widthPct(isLandscape ? 0.3 : 0.5),
+            height: context
+                .heightPct(isLandscape ? (isTablet ? 0.20 : 0.25) : 0.12),
+            width: context.widthPct(isLandscape ? (isTablet ? 0.3 : 0.4) : 0.5),
           );
         });
   }
