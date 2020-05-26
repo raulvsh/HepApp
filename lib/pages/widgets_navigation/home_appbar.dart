@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final BuildContext context;
-  HomeAppBar(this.context);
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
