@@ -147,7 +147,7 @@ class AlbertaAlgorithm {
     print("Ascitis: " + data.ascites);
     print("Tamaño de tumor: " + data.tumourSize.toString());
     print("AFP: " + data.afp.toString());
-    print("\nresultados : ${treatments}" + "\n**************");
+    print("\nresultados : $treatments" + "\n**************");
   }
 
   String calculatePortalHypertension(
