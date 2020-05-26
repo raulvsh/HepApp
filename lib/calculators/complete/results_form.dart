@@ -41,7 +41,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       appBar: CustomAppBar(
         'calculators_all_algorithms_results',
         selScreenshot: true,
-        controller: widget.controller,
+        pageController: widget.controller,
         calcBack: true,
       ),
       drawer: MenuWidget(),

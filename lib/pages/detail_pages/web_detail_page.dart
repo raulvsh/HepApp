@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class WebDetailPage extends StatefulWidget {
@@ -14,14 +15,22 @@ class WebDetailPage extends StatefulWidget {
 }
 
 class _WebDetailPageState extends State<WebDetailPage> {
+  ScreenshotController webScreenshotController = ScreenshotController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(widget.title),
-      drawer: MenuWidget(),
-      body: WebView(
-        initialUrl: widget.url,
-        javascriptMode: JavascriptMode.unrestricted,
+    return Screenshot(
+      controller: webScreenshotController,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          widget.title,
+          screenshotController: webScreenshotController,
+        ),
+        drawer: MenuWidget(),
+        body: WebView(
+          initialUrl: widget.url,
+          javascriptMode: JavascriptMode.unrestricted,
+        ),
       ),
     );
   }

@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/shared_preferences/full_calc_settings.dart';
+import 'package:hepapp/widgets/screenshot_button.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
+  @required
   final String title;
   final bool selScreenshot;
   final bool selFullSettings;
   final bool calcBack;
-  final PageController controller;
+  final PageController pageController;
+  @required
+  final ScreenshotController screenshotController;
 
   CustomAppBar(this.title,
-      {this.selScreenshot,
-        this.selFullSettings,
-        this.calcBack = false,
-        this.controller});
+      {this.selScreenshot = true,
+      this.selFullSettings = false,
+      this.calcBack = false,
+      this.pageController,
+      this.screenshotController});
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -38,7 +44,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
       ),
       title: Center(
         child: Container(
-
           width: double.infinity,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -74,11 +79,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
         ),
       ),
       actions: <Widget>[
-        (widget.selScreenshot == true) ? _screenshotIcon(context) : Container(),
-        (widget.selFullSettings == true)
-            ? _fullSettingsIcon(context)
+        //(widget.selScreenshot == true) ? _screenshotIcon(context) : Container(),
+        widget.selScreenshot
+            ? ScreenShotButton(widget.screenshotController)
             : Container(),
-
+        widget.selFullSettings ? _fullSettingsIcon(context) : Container(),
       ],
     );
   }
@@ -102,7 +107,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return GestureDetector(
       onTap: () =>
       widget.calcBack
-          ? widget.controller.previousPage(
+          ? widget.pageController.previousPage(
           duration: Duration(seconds: 1), curve: Curves.easeInOut)
           : Navigator.pop(context),
       child: Container(
@@ -125,7 +130,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
       ),
     );
   }
-
 
   IconButton _fullSettingsIcon(BuildContext context) {
     return IconButton(

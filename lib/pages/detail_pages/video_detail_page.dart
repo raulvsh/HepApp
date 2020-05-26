@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoDetailPage extends StatefulWidget {
@@ -13,10 +14,10 @@ class VideoDetailPage extends StatefulWidget {
 }
 
 class _VideoDetailPageState extends State<VideoDetailPage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   YoutubePlayerController _controller;
   TextEditingController _idController;
   TextEditingController _seekToController;
+  ScreenshotController videoScreenshotController = ScreenshotController();
 
   PlayerState _playerState;
   YoutubeMetaData _videoMetaData;
@@ -96,37 +97,42 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: CustomAppBar(
-        _playerState == PlayerState.unknown ? 'vodcasts' : _videoMetaData.title,
-      ),
-      body: ListView(
-        children: [
-          _buildYoutubePlayer(),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _space,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _previousButton,
-                    _pausePlayButton,
-                    _muteButton,
-                    _fullScreenButton,
-                    _nextButton,
-                  ],
-                ),
-                _space,
-                _volumeController,
-                _space,
-              ],
+    return Screenshot(
+      controller: videoScreenshotController,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          _playerState == PlayerState.unknown
+              ? 'vodcasts'
+              : _videoMetaData.title,
+          screenshotController: videoScreenshotController,
+        ),
+        body: ListView(
+          children: [
+            _buildYoutubePlayer(),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _space,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _previousButton,
+                      _pausePlayButton,
+                      _muteButton,
+                      _fullScreenButton,
+                      _nextButton,
+                    ],
+                  ),
+                  _space,
+                  _volumeController,
+                  _space,
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

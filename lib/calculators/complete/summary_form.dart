@@ -39,7 +39,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
             appBar: CustomAppBar(
               'calculators_all_algorithms_summary',
               selScreenshot: true,
-              controller: widget.controller,
+              pageController: widget.controller,
               calcBack: true,
             ),
             drawer: MenuWidget(),

@@ -3,6 +3,7 @@ import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/draw_bottom_bar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:painter/painter.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
 class DrawingDetailPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class DrawingDetailPage extends StatefulWidget {
 
 class _FigureDetailPageState extends State<DrawingDetailPage> {
   PainterController _controller;
+  ScreenshotController screenShotController = ScreenshotController();
 
   @override
   void initState() {
@@ -39,35 +41,41 @@ class _FigureDetailPageState extends State<DrawingDetailPage> {
   @override
   Widget build(BuildContext context) {
     bool isLandscape = context.isLandscape;
-    return Scaffold(
-      appBar: CustomAppBar(widget.title),
-      drawer: MenuWidget(),
-      body: Container(
-        height: context.heightPct(isLandscape ? 0.75 : 0.85),
-        child: Card(
-          margin: EdgeInsets.all(10),
-          child: Stack(
-            alignment: Alignment.topCenter,
-            children: <Widget>[
-              Center(
-                child: Hero(
-                  tag: widget.url,
-                  child: Image.asset(
-                    'assets/images/${widget.url}',
-                    fit: BoxFit.scaleDown,
+    return Screenshot(
+      controller: screenShotController,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          widget.title,
+          screenshotController: screenShotController,
+        ),
+        drawer: MenuWidget(),
+        body: Container(
+          height: context.heightPct(isLandscape ? 0.75 : 0.85),
+          child: Card(
+            margin: EdgeInsets.all(10),
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: <Widget>[
+                Center(
+                  child: Hero(
+                    tag: widget.url,
+                    child: Image.asset(
+                      'assets/images/${widget.url}',
+                      fit: BoxFit.scaleDown,
+                    ),
                   ),
                 ),
-              ),
-              Painter(_controller),
-            ],
+                Painter(_controller),
+              ],
+            ),
           ),
         ),
-      ),
-      bottomSheet: Stack(
-        children: <Widget>[
-          DrawBottomBar(controller: _controller),
-          widget.bottomSheet
-        ],
+        bottomSheet: Stack(
+          children: <Widget>[
+            DrawBottomBar(controller: _controller),
+            widget.bottomSheet
+          ],
+        ),
       ),
     );
   }

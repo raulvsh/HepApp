@@ -54,7 +54,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
         'calculators_all_algorithms_clinical',
         selScreenshot: true,
         selFullSettings: true,
-        controller: widget.controller,
+        pageController: widget.controller,
         calcBack: true,
       ),
       drawer: MenuWidget(),

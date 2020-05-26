@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:screenshot/screenshot.dart';
 
 import 'common_grid_page.dart';
@@ -24,21 +21,23 @@ class CommonPage extends StatefulWidget {
 }
 
 class _CommonPageState extends State<CommonPage> {
-  ScreenshotController screenshotController = ScreenshotController();
+  ScreenshotController commonScreenShotController = ScreenshotController();
 
-  GlobalKey commonKey = GlobalKey();
-  File _imageFile;
+  //GlobalKey commonKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Screenshot(
-      controller: screenshotController,
+      controller: commonScreenShotController,
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
           child: Stack(
             children: <Widget>[
-              CustomAppBar(widget.title),
+              CustomAppBar(
+                widget.title,
+                screenshotController: commonScreenShotController,
+              ),
             ],
           ),
         ),
@@ -47,7 +46,8 @@ class _CommonPageState extends State<CommonPage> {
           data: widget.data,
           type: widget.type,
         ),
-        floatingActionButton: FloatingActionButton(
+        //floatingActionButton: ScreenShotButton(commonScreenShotController),
+        /*FloatingActionButton(
           onPressed: () {
             _imageFile = null;
             screenshotController.capture().then((File image) async {
@@ -64,8 +64,9 @@ class _CommonPageState extends State<CommonPage> {
           },
           tooltip: 'Increment',
           child: Icon(Icons.add),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
+        ),*/ // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }
 }
+

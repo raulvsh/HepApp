@@ -6,6 +6,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
 
 class PdfDetailPage extends StatefulWidget {
   final String path;
@@ -19,46 +20,46 @@ class PdfDetailPage extends StatefulWidget {
 
 class _PdfDetailPageState extends State<PdfDetailPage> {
   bool pdfReady = false;
-
-  @override
-  Future<void> initState() {
-    super.initState();
-  }
+  ScreenshotController pdfScreenshotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(widget.title),
-      drawer: MenuWidget(),
-      body: Stack(
-        children: <Widget>[
-          PDFView(
-            filePath: widget.path,
-            autoSpacing: true,
-            enableSwipe: true,
-            pageSnap: true,
-            swipeHorizontal: true,
-            nightMode: false,
-            onError: (e) {
-              print(e);
-            },
-            onRender: (_pages) {
-              setState(() {
-                pdfReady = true;
-              });
-            },
+    return Screenshot(
+      controller: pdfScreenshotController,
+      child: Scaffold(
+        appBar: CustomAppBar(widget.title, selScreenshot: false,),
+        //screenshotController: pdfScreenshotController,),
+        drawer: MenuWidget(),
+        body: Stack(
+          children: <Widget>[
+            PDFView(
+              filePath: widget.path,
+              autoSpacing: true,
+              enableSwipe: true,
+              pageSnap: true,
+              swipeHorizontal: true,
+              nightMode: false,
+              onError: (e) {
+                print(e);
+              },
+              onRender: (_pages) {
+                setState(() {
+                  pdfReady = true;
+                });
+              },
 
-            onPageChanged: (int page, int total) {
-              setState(() {});
-            },
-            onPageError: (page, e) {},
-          ),
-          !pdfReady
-              ? Center(
-            child: CircularProgressIndicator(),
-          )
-              : Offstage()
-        ],
+              onPageChanged: (int page, int total) {
+                setState(() {});
+              },
+              onPageError: (page, e) {},
+            ),
+            !pdfReady
+                ? Center(
+              child: CircularProgressIndicator(),
+            )
+                : Offstage()
+          ],
+        ),
       ),
     );
   }

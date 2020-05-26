@@ -1,14 +1,9 @@
-import 'dart:async';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hepapp/data/home_sections.dart';
-import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/pages/widgets_navigation/home_appbar.dart';
-import 'package:image_picker_saver/image_picker_saver.dart';
-import 'package:sized_context/sized_context.dart';
+import 'package:hepapp/widgets/screenshot_button.dart';
+import 'package:screenshot/screenshot.dart';
 
 import 'common_pages/common_grid_page.dart';
 
@@ -21,19 +16,30 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var numHomeSections = homeSections.length;
-  GlobalKey mainScaffold = GlobalKey();
+
+  //GlobalKey mainScaffold = GlobalKey();
+  ScreenshotController homeScreenshotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(
-      key: mainScaffold,
+    return Screenshot(
+      controller: homeScreenshotController,
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(90),
           child: Stack(
             children: <Widget>[
               HomeAppBar(),
-              _screenShotButton,
+              //_screenShotButton,
+              Container(
+                  //color: Colors.red,
+                  margin: EdgeInsets.only(top: 16),
+                  height: 20,
+                  alignment: Alignment.centerRight,
+                  child: ScreenShotButton(
+                    homeScreenshotController,
+                    iconSize: 20,
+                  )),
             ],
           ),
         ),
@@ -49,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Container get _screenShotButton {
+/* Container get _screenShotButton {
     AppLocalizations aux = AppLocalizations.of(context);
 
     return Container(
@@ -75,13 +81,13 @@ class _HomePageState extends State<HomePage> {
             }),
       ),
     );
-  }
+  }*/
 
-  takeScreenShot() async {
+/* takeScreenShot() async {
     await Future<void>.delayed(Duration(milliseconds: 300));
 
     RenderRepaintBoundary boundary =
-    mainScaffold.currentContext.findRenderObject();
+        mainScaffold.currentContext.findRenderObject();
     ui.Image image = await boundary.toImage(pixelRatio: 3);
     ByteData byteData = await image.toByteData(
       format: ui.ImageByteFormat.png,
@@ -91,5 +97,5 @@ class _HomePageState extends State<HomePage> {
       fileData: byteData.buffer.asUint8List(),
     );
     print(filePath);
-  }
+  }*/
 }

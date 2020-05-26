@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
 class FigureDetailPage extends StatefulWidget {
@@ -16,35 +17,43 @@ class FigureDetailPage extends StatefulWidget {
 }
 
 class _FigureDetailPageState extends State<FigureDetailPage> {
+  ScreenshotController screenShotController = ScreenshotController();
+
   @override
   Widget build(BuildContext context) {
     bool isLandscape = context.isLandscape;
-    return Scaffold(
-      appBar: CustomAppBar(widget.title),
-      drawer: MenuWidget(),
-      body: Center(
-        heightFactor: 1,
-        child: Container(
-          height: isLandscape ? context.heightPx * 0.77 : null,
-          width: !isLandscape ? context.widthPx : null,
-          child: Card(
-            margin: EdgeInsets.all(15),
-            elevation: 5,
-            child: Container(
-              margin: EdgeInsets.all(10),
-              child: Hero(
-                tag: widget.url,
-                child: Image.asset(
-                  'assets/images/${widget.url}',
-                  fit: BoxFit.contain,
-                  alignment: Alignment.topCenter,
+    return Screenshot(
+      controller: screenShotController,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          widget.title,
+          screenshotController: screenShotController,
+        ),
+        drawer: MenuWidget(),
+        body: Center(
+          heightFactor: 1,
+          child: Container(
+            height: isLandscape ? context.heightPx * 0.77 : null,
+            width: !isLandscape ? context.widthPx : null,
+            child: Card(
+              margin: EdgeInsets.all(15),
+              elevation: 5,
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: Hero(
+                  tag: widget.url,
+                  child: Image.asset(
+                    'assets/images/${widget.url}',
+                    fit: BoxFit.contain,
+                    alignment: Alignment.topCenter,
+                  ),
                 ),
               ),
             ),
           ),
         ),
+        bottomSheet: widget.bottomSheet,
       ),
-      bottomSheet: widget.bottomSheet,
     );
   }
 }

@@ -61,7 +61,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
         'calculators_all_algorithms_laboratory',
         selScreenshot: true,
         selFullSettings: true,
-        controller: widget.controller,
+        pageController: widget.controller,
         calcBack: true,
       ),
       drawer: MenuWidget(),

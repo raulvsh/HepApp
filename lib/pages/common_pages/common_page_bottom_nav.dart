@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/pages/widgets_navigation/bottom_navigation_sheet.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
+import 'package:screenshot/screenshot.dart';
 
 import 'common_grid_page.dart';
 
@@ -28,22 +29,25 @@ class CommonPageWithBottomNav extends StatefulWidget {
 }
 
 class _CommonPageWithBottomNavState extends State<CommonPageWithBottomNav> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  ScreenshotController commonScreenShotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: MenuWidget(),
-      appBar: CustomAppBar(widget.title),
-      body: CommonGridPage(
-        data: widget.data,
-        type: widget.type,
+    return Screenshot(
+      controller: commonScreenShotController,
+      child: Scaffold(
+        drawer: MenuWidget(),
+        appBar: CustomAppBar(
+          widget.title,
+          screenshotController: commonScreenShotController,
+        ),
+        body: CommonGridPage(
+          data: widget.data,
+          type: widget.type,
+        ),
+        bottomSheet: BottomNavigationSheet(
+            widget.initialPage, widget.route, widget.numPages),
       ),
-      bottomSheet: BottomNavigationSheet(
-          widget.initialPage, widget.route, widget.numPages),
     );
   }
 }

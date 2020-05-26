@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
 class InteractiveDetailPage extends StatefulWidget {
@@ -29,31 +30,39 @@ class InteractiveDetailPage extends StatefulWidget {
 
 class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
   var opacityValue = 0.0; //Valor incial de la opacidad
+  ScreenshotController screenShotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
     bool isLandscape = context.isLandscape;
-    return Scaffold(
-      appBar: CustomAppBar(widget.title),
-      drawer: MenuWidget(),
-      body: Center(
-        heightFactor: 1,
-        child: Container(
-          height: isLandscape ? context.heightPx * 0.75 : null,
-          width: !isLandscape ? context.widthPx : null,
-          child: Card(
-            margin: isLandscape ? EdgeInsets.only(top: 15) : EdgeInsets.all(15),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                _buildImgStack(),
-                _buildTxtRow(context),
-              ],
+    return Screenshot(
+      controller: screenShotController,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          widget.title,
+          screenshotController: screenShotController,
+        ),
+        drawer: MenuWidget(),
+        body: Center(
+          heightFactor: 1,
+          child: Container(
+            height: isLandscape ? context.heightPx * 0.75 : null,
+            width: !isLandscape ? context.widthPx : null,
+            child: Card(
+              margin:
+                  isLandscape ? EdgeInsets.only(top: 15) : EdgeInsets.all(15),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  _buildImgStack(),
+                  _buildTxtRow(context),
+                ],
+              ),
             ),
           ),
         ),
+        bottomSheet: widget.bottomSheet,
       ),
-      bottomSheet: widget.bottomSheet,
     );
   }
 
