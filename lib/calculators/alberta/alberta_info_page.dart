@@ -36,28 +36,36 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
     widget.content.forEach((key, value) {
       listRows.add(_textRow(key, value));
     });
-    return Stack(
-      children: <Widget>[
-        SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.only(bottom: 15),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: listRows,
-            ),
-          ),
-        ),
-        Column(
+    return SingleChildScrollView(
+      child: Container(
+        //color: Colors.amber,
+        width: context.widthPx,
+        height: context.heightPct(2.1),
+        child: Stack(
           children: <Widget>[
-            RightBottomTitle(
-              title: widget.title,
-              alignment: Alignment.topRight,
-              padding: EdgeInsets.fromLTRB(0, 40, 10, 0),
+            // SingleChildScrollView(
+            //child:
+            Container(
+              padding: EdgeInsets.only(bottom: 15),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: listRows,
+              ),
+              //),
+            ),
+            Column(
+              children: <Widget>[
+                RightBottomTitle(
+                  title: widget.title,
+                  alignment: Alignment.topRight,
+                  padding: EdgeInsets.fromLTRB(0, 40, 10, 0),
+                ),
+              ],
             ),
           ],
         ),
-      ],
+      ),
     );
   }
 
