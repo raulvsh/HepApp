@@ -32,10 +32,13 @@ class _FigureDetailPageState extends State<FigureDetailPage> {
             elevation: 5,
             child: Container(
               margin: EdgeInsets.all(10),
-              child: Image.asset(
-                'assets/images/${widget.url}',
-                fit: BoxFit.contain,
-                alignment: Alignment.topCenter,
+              child: Hero(
+                tag: widget.url,
+                child: Image.asset(
+                  'assets/images/${widget.url}',
+                  fit: BoxFit.contain,
+                  alignment: Alignment.topCenter,
+                ),
               ),
             ),
           ),

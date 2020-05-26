@@ -50,9 +50,12 @@ class _FigureDetailPageState extends State<DrawingDetailPage> {
             alignment: Alignment.topCenter,
             children: <Widget>[
               Center(
-                child: Image.asset(
-                  'assets/images/${widget.url}',
-                  fit: BoxFit.scaleDown,
+                child: Hero(
+                  tag: widget.url,
+                  child: Image.asset(
+                    'assets/images/${widget.url}',
+                    fit: BoxFit.scaleDown,
+                  ),
                 ),
               ),
               Painter(_controller),

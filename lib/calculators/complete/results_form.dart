@@ -149,10 +149,12 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           fit: BoxFit.scaleDown,
           child: Center(
               child: Text(
-                aux.tr('staging_algorithms').toUpperCase(),
-                style: TextStyle(
-                  color: Colors.black, fontSize: isTablet ? 16 : 14,),
-              )),
+            aux.tr('staging_algorithms').toUpperCase(),
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: isTablet ? 16 : 14,
+            ),
+          )),
         ));
   }
 
@@ -184,7 +186,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
                 textAlignment: MainAxisAlignment.start,
               ),
             ),
-
           ],
         ),
       ),
@@ -348,12 +349,17 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               builder: (BuildContext dialogContext) {
                 return AlertDialog(
                   title: Text(aux.tr('error')),
-                  content: Text(aux.tr('error_alberta')),
+                  content: Text(
+                    aux.tr('error_alberta'),
+                    style: TextStyle(color: Colors.black),
+                  ),
                   actions: <Widget>[
                     FlatButton(
                       child: Text(
                         aux.tr('continue'),
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Theme
+                            .of(context)
+                            .primaryColor),
                       ),
                       onPressed: () {
                         Navigator.pop(context);

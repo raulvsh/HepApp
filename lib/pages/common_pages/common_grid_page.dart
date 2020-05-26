@@ -33,7 +33,7 @@ class _CommonGridPageState extends State<CommonGridPage> {
       height: double.infinity,
       child: FractionallySizedBox(
         widthFactor:
-        isLandscape ? (isTablet ? 0.7 : 0.7) : (isTablet ? 0.6 : 0.7),
+            isLandscape ? (isTablet ? 0.7 : 0.7) : (isTablet ? 0.6 : 0.7),
         alignment: Alignment.topCenter,
         child: GridView.count(
           padding: isLandscape
@@ -52,11 +52,7 @@ class _CommonGridPageState extends State<CommonGridPage> {
     List<Widget> widgets = [];
     for (int i = 0; i < dataLength; i++) {
       if (widget.type == 'figure') {
-        widgets.add(FigureButton(
-          context,
-          widget.data[i],
-          i,
-        ));
+        widgets.add(FigureButton(context, widget.data[i], i));
       } else {
         widgets
             .add(ComboButton(context, widget.data[i], i)); //+ widget.index));

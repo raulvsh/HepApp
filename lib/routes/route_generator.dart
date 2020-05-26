@@ -186,8 +186,7 @@ class RouteGenerator {
                 type: 'figure'));
 
       case '/PathologyDetailPV':
-        var initialPage = settings.arguments as int;
-
+        var initialPage = int.parse(settings.arguments);
         return MaterialPageRoute(
             builder: (_) =>
                 CommonDetailPageView(
@@ -196,7 +195,7 @@ class RouteGenerator {
                   route: '/PathologyDetailPV',
                 ));
 
-      case '/PathologyDetail':
+      /*case '/PathologyDetail':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
             builder: (_) =>
@@ -204,7 +203,7 @@ class RouteGenerator {
                   initialPage: initialPage,
                   data: pathology1 + pathology2,
                   route: '/PathologyDetailPV',
-                ));
+                ));*/
 
       case '/InteractiveFig':
         return MaterialPageRoute(

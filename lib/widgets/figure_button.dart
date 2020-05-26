@@ -7,7 +7,7 @@ class FigureButton extends StatelessWidget {
   final List<String> type;
   final int page;
 
-  FigureButton(this.context, this.type, [this.page]); //, this.destWidget);
+  FigureButton(this.context, this.type, [this.page]);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,11 @@ class FigureButton extends StatelessWidget {
       margin: EdgeInsets.all(4),
       child: GestureDetector(
         child: buildStack(),
-        onTap: () => Navigator.pushNamed(context, type[2], arguments: page),
+        /*Solo se pasa específicamente el destino en las cadenas de texto de pathology
+          porque es el único apartado que tiene más de 8 elementos.*/
+        onTap: type[2] == '/PathologyDetailPV'
+            ? () => Navigator.pushNamed(context, type[2], arguments: type[3])
+            : () => Navigator.pushNamed(context, type[2], arguments: page),
       ),
     );
   }
@@ -32,9 +36,12 @@ class FigureButton extends StatelessWidget {
           padding: isTablet
               ? EdgeInsets.only(top: 10, left: 10, right: 10, bottom: 0)
               : EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 0),
-          child: Image.asset(
-            'assets/images/${type[1]}',
-            fit: BoxFit.scaleDown,
+          child: Hero(
+            tag: type[1],
+            child: Image.asset(
+              'assets/images/${type[1]}',
+              fit: BoxFit.scaleDown,
+            ),
           ),
         ),
         Expanded(

@@ -64,8 +64,11 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
           margin: EdgeInsets.all(10),
           width: 300,
           height: 300,
-          child: Image.asset(
-            'assets/images/${widget.img1}',
+          child: Hero(
+            tag: widget.img1,
+            child: Image.asset(
+              'assets/images/${widget.img1}',
+            ),
           ),
         ),
         Container(
