@@ -331,7 +331,9 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     return CalculatorButton(
       width: isTablet ? 250.0 : 175.0,
       title: 'more_information',
-      onPressed: () => Navigator.pushNamed(context, '/AlbertaInfoPage'),
+      //TODO pasar aquí el argumento según el resultado
+      onPressed: () =>
+          Navigator.pushNamed(context, '/AlbertaInfoPage', arguments: 0),
     );
   }
 
@@ -363,7 +365,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
                       ),
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.pushNamed(context, '/Alberta',
+                        Navigator.pushNamed(context, '/AlbertaDiagram',
                             arguments: coloredFields);
                       },
                     ),
@@ -372,7 +374,8 @@ class ResultsFormState extends State<ResultsForm> with Observable {
               },
             );
           } else {
-            Navigator.pushNamed(context, '/Alberta', arguments: coloredFields);
+            Navigator.pushNamed(context, '/AlbertaDiagram',
+                arguments: coloredFields);
           }
         });
   }

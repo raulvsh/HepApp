@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hepapp/calculators/widgets_calc/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
+import 'package:hepapp/pages/widgets_navigation/bottom_navigation_sheet.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:sized_context/sized_context.dart';
 
@@ -8,12 +9,18 @@ class AlbertaInfoPage extends StatefulWidget {
   final String title;
   final List<String> subTitle;
   final Map<String, List<String>> content;
+  final route;
+  final initialPage;
+  final numPages;
 
   const AlbertaInfoPage({
     Key key,
     this.title,
     this.subTitle,
     this.content,
+    this.route,
+    this.initialPage,
+    this.numPages,
   }) : super(key: key);
 
   @override
@@ -26,6 +33,8 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
     return Scaffold(
       appBar: CustomAppBar('calculator'),
       body: _buildBody(),
+      bottomSheet: BottomNavigationSheet(
+          widget.initialPage, widget.route, widget.numPages),
     );
   }
 
@@ -40,13 +49,13 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
       child: Container(
         //color: Colors.amber,
         width: context.widthPx,
-        height: context.heightPct(2.1),
+        //height: context.heightPct(2.1),
         child: Stack(
           children: <Widget>[
             // SingleChildScrollView(
             //child:
             Container(
-              padding: EdgeInsets.only(bottom: 15),
+              padding: EdgeInsets.only(bottom: 60),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,14 +63,21 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
               ),
               //),
             ),
-            Column(
-              children: <Widget>[
-                RightBottomTitle(
-                  title: widget.title,
-                  alignment: Alignment.topRight,
-                  padding: EdgeInsets.fromLTRB(0, 40, 10, 0),
-                ),
-              ],
+            Container(
+              height: 200,
+              width: context.widthPx,
+              //color: Colors.amber,
+              alignment: Alignment.topRight,
+              child: Column(
+                children: <Widget>[
+                  RightBottomTitle(
+                    title: widget.title,
+                    alignment: Alignment.topRight,
+                    padding: EdgeInsets.fromLTRB(0, 40, 10, 0),
+                  ),
+                ],
+              ),
+
             ),
           ],
         ),

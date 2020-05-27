@@ -1,12 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hepapp/data/best_supportive_care.dart';
 import 'package:hepapp/data/rfa.dart';
-import 'package:hepapp/data/sbrt.dart';
-import 'package:hepapp/data/sorafenib.dart';
-import 'package:hepapp/data/tace.dart';
-import 'package:hepapp/data/tare.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:observable/observable.dart';
@@ -16,8 +11,9 @@ import 'alberta_info_page.dart';
 
 class AlbertaInfoPageView extends StatefulWidget with Observable {
   final initialPage;
+  final data;
 
-  AlbertaInfoPageView({Key key, this.initialPage}) : super(key: key);
+  AlbertaInfoPageView({Key key, this.initialPage, this.data}) : super(key: key);
 
   @override
   AlbertaInfoPageViewState createState() => AlbertaInfoPageViewState();
@@ -32,7 +28,7 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
   @override
   void initState() {
     controller = PageController(
-      initialPage: 3, //widget.initialPage,
+      initialPage: widget.initialPage,
     );
     super.initState();
   }
@@ -51,13 +47,48 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
   @override
   Widget build(BuildContext context) {
     bool isTablet = context.diagonalInches >= 7;
+    var numPages = widget.data.length;
+
     if (!isTablet)
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.landscapeRight,
         DeviceOrientation.landscapeLeft,
       ]);
 
-    return PageView(
+    List<Widget> widgets = [];
+    for (int i = 0; i < numPages; i++) {
+      widgets.add(
+        AlbertaInfoPage(
+          title: 'early_stage_rfa',
+          subTitle: [
+            'early_stage_hepatocellular_carcinoma',
+            'definitions_goals_recommendations'
+          ],
+          content: rfa,
+          initialPage: i,
+          numPages: numPages,
+          route: '/AlbertaInfoPage',
+        ),
+
+        /*CommonPageWithBottomNav(
+          title: widget.data[i][0],
+          data: widget.data[i][1],
+          route: widget.data[i][2],
+          initialPage: widget.data[i][3],
+          type: widget.type,
+          numPages: numPages,
+        ),*/
+      );
+    }
+
+    return Scaffold(
+      body: PageView(
+        controller: controller,
+        children: widgets,
+      ),
+    );
+
+    /*return PageView(
       controller: controller,
       //physics: NeverScrollableScrollPhysics(),
 
@@ -69,6 +100,9 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
             'definitions_goals_recommendations'
           ],
           content: rfa,
+          initialPage: 0,
+          numPages: 6,
+          route: '/AlbertaInfoPage',
         ),
         AlbertaInfoPage(
           title: 'intermediate_stage_tare',
@@ -77,6 +111,9 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
             'definitions_goals_recommendations'
           ],
           content: tare,
+          initialPage: 1,
+          numPages: 6,
+          route: '/AlbertaInfoPage',
         ),
         AlbertaInfoPage(
           title: 'intermediate_stage_tace',
@@ -85,6 +122,9 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
             'definitions_goals_recommendations'
           ],
           content: tace,
+          initialPage: 2,
+          numPages: 6,
+          route: '/AlbertaInfoPage',
         ),
         AlbertaInfoPage(
           title: 'advanced_stage_sorafenib',
@@ -93,6 +133,9 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
             'definitions_goals_recommendations'
           ],
           content: sorafenib,
+          initialPage: 3,
+          numPages: 6,
+          route: '/AlbertaInfoPage',
         ),
         AlbertaInfoPage(
           title: 'advanced_stage_sbrt',
@@ -101,6 +144,9 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
             'definitions_goals_recommendations'
           ],
           content: sbrt,
+          initialPage: 4,
+          numPages: 6,
+          route: '/AlbertaInfoPage',
         ),
 
         AlbertaInfoPage(
@@ -110,9 +156,12 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
             'definitions_goals_recommendations'
           ],
           content: bestSupportiveCare,
+          initialPage: 5,
+          numPages: 6,
+          route: '/AlbertaInfoPage',
         ),
         //AlbertaInfoPage(title: 'close', content: 'contenido 2'),
       ],
-    );
+    );*/
   }
 }

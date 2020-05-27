@@ -23,7 +23,11 @@ class _ScreenShotButtonState extends State<ScreenShotButton> {
     return IconButton(
       onPressed: () {
         _imageFile = null;
-        widget.screenshotController.capture().then((File image) async {
+        widget.screenshotController
+            .capture(
+          pixelRatio: 3.0,
+        )
+            .then((File image) async {
           //print("Capture Done");
           setState(() {
             _imageFile = image;

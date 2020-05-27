@@ -15,7 +15,7 @@ final rfa = {
   'recommendation': [
     'rfa_recomm_0',
   ],
-  'radiofrequency_ablation_or_precutaneous': [
+  'radiofrequency_ablation_or_percutaneous': [
     'rfa_desc_0',
     'rfa_desc_1',
     'rfa_desc_2',
