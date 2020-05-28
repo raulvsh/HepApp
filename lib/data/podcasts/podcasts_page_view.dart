@@ -1,6 +1,6 @@
-import 'package:hepapp/data/podcasts1.dart';
-import 'package:hepapp/data/podcasts2.dart';
-import 'package:hepapp/data/podcasts3.dart';
+import 'file:///D:/GitHub/HepApp/lib/data/podcasts/podcasts1.dart';
+import 'file:///D:/GitHub/HepApp/lib/data/podcasts/podcasts2.dart';
+import 'file:///D:/GitHub/HepApp/lib/data/podcasts/podcasts3.dart';
 
 /*||título | contenido | ruta | índice del pageview ||*/
 final podcastsPageView = [

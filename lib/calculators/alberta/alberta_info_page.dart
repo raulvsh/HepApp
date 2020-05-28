@@ -52,8 +52,6 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
         //height: context.heightPct(2.1),
         child: Stack(
           children: <Widget>[
-            // SingleChildScrollView(
-            //child:
             Container(
               padding: EdgeInsets.only(bottom: 60),
               child: Column(
@@ -61,12 +59,10 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: listRows,
               ),
-              //),
             ),
             Container(
               height: 200,
               width: context.widthPx,
-              //color: Colors.amber,
               alignment: Alignment.topRight,
               child: Column(
                 children: <Widget>[

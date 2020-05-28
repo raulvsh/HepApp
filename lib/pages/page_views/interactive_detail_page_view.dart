@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hepapp/data/interactive.dart';
+import 'package:hepapp/data/figures/interactive.dart';
 import 'package:hepapp/pages/detail_pages/interactive_detail_page.dart';
 import 'package:hepapp/pages/widgets_navigation/bottom_navigation_sheet.dart';
 
