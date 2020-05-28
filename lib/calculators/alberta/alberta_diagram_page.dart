@@ -21,13 +21,8 @@ bool isSelectedGlobal = false;
 class AlbertaPage extends StatefulWidget {
   final isSelected;
 
-  //final data;
-  //final type;
-
   AlbertaPage({
     this.isSelected,
-    //this.data,
-    //this.type,
   });
 
   @override
@@ -99,24 +94,6 @@ class _AlbertaPageState extends State<AlbertaPage> {
                     painter: AlbertaDiagramPainter(),
                   ),
                 ),
-                /*Container(
-                  alignment: Alignment.topCenter,
-                  height: totalHeight,
-                  width: totalWidth,
-                  margin: EdgeInsets.all(20),
-                  child: RaisedButton(
-                    //: EdgeInsets.all(5),
-
-                    child: Text(
-                      'ON/OFF',
-                      style: TextStyle(fontSize: 10),
-                    ),
-                    onPressed: () {
-                      isSelected = !isSelected;
-                      setState(() {});
-                    },
-                  ),
-                )*/
               ],
             ),
           ),
@@ -135,31 +112,21 @@ class _AlbertaPageState extends State<AlbertaPage> {
       child: Row(
         children: <Widget>[
           SizedBox(width: 15.0),
-          /*Container(
-            height: heightTitleRow,
-            width: 15.0,
-            color: Colors.white,
-          ),*/
           AlbertaHeader(
             height: heightTitleRow,
             width: 75.0,
             txt: 'bclc',
             isSelected: widget.isSelected[0],
-
-            //color: Colors.red,
           ),
           AlbertaHeader(
             height: heightTitleRow,
             width: 80.0,
             txt: 'stage_0_very_early',
             isSelected: widget.isSelected[1],
-
-            //color: Colors.yellow,
           ),
           AlbertaHeader(
             height: heightTitleRow,
             width: 105.0,
-            //color: Colors.pink,
             txt: 'stage_a_early',
             isSelected: widget.isSelected[2],
           ),
@@ -168,24 +135,18 @@ class _AlbertaPageState extends State<AlbertaPage> {
             width: 110.0,
             txt: 'stage_b_intermediate',
             isSelected: widget.isSelected[3],
-
-            // color: Colors.orange,
           ),
           AlbertaHeader(
             height: heightTitleRow,
             width: 85.0,
             txt: 'stage_c_advanced',
             isSelected: widget.isSelected[4],
-
-            //color: Colors.purple,
           ),
           AlbertaHeader(
             height: heightTitleRow,
             width: 60.0,
             txt: 'stage_d_end_stage',
             isSelected: widget.isSelected[5],
-
-            //color: Colors.blueGrey,
           )
         ],
       ),
@@ -218,7 +179,6 @@ class _AlbertaPageState extends State<AlbertaPage> {
             width: 75.0,
             upperCase: true,
             txt: 'tumour',
-            //color: Colors.pinkAccent,
           ),
           AlbertaRectangleField(
             //height: heightTumourRow,
@@ -226,9 +186,6 @@ class _AlbertaPageState extends State<AlbertaPage> {
             txt: '1_(≤2cm)',
             isSelected: widget.isSelected[6],
             color: blueTumourColor,
-
-            // padding: EdgeInsets.all(8),
-            //color: Colors.green,
           ),
           AlbertaRectangleField(
             height: heightTumourRow,
@@ -236,8 +193,6 @@ class _AlbertaPageState extends State<AlbertaPage> {
             txt: '1_(≥2cm)_or_up_to_3_(≤3cm)',
             isSelected: widget.isSelected[7],
             color: blueTumourColor,
-            //padding: EdgeInsets.all(4),
-            //color: Colors.deepPurpleAccent,
           ),
           AlbertaRectangleField(
             width: 110.0,

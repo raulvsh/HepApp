@@ -56,7 +56,6 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
 
     List<Widget> widgets = [];
     for (int i = 0; i < numPages; i++) {
-      print(widget.data[i]);
       widgets.add(
         AlbertaInfoPage(
           title: widget.data[i][0],
