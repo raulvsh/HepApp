@@ -28,16 +28,19 @@ class _ScreenShotButtonState extends State<ScreenShotButton> {
           pixelRatio: 3.0,
         )
             .then((File image) async {
-          //print("Capture Done");
           setState(() {
             _imageFile = image;
           });
-          final result = await ImageGallerySaver.saveImage(image
-              .readAsBytesSync()); // Save image to gallery,  Needs plugin  https://pub.dev/packages/image_gallery_saver
+          final result =
+              await ImageGallerySaver.saveImage(image.readAsBytesSync());
           print("File Saved to Gallery");
           Scaffold.of(context).showSnackBar(
             SnackBar(
-              backgroundColor: Theme.of(context).primaryColor,
+              behavior: SnackBarBehavior.floating,
+              backgroundColor: Theme
+                  .of(context)
+                  .primaryColor
+                  .withOpacity(100),
               content: Text(aux.tr('screenshot_saved')),
             ),
           );

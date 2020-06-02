@@ -7,6 +7,7 @@ import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:observable/observable.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
 import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/right_bottom_title.dart';
@@ -15,15 +16,17 @@ import 'complete_form_bloc.dart';
 
 class SummaryForm extends StatefulWidget with Observable {
   final CompleteFormBloc formBloc;
-  final PageController controller;
+  final PageController pageController;
 
-  SummaryForm({Key key, this.formBloc, this.controller}) : super(key: key);
+  SummaryForm({Key key, this.formBloc, this.pageController}) : super(key: key);
 
   @override
   SummaryFormState createState() => SummaryFormState();
 }
 
 class SummaryFormState extends State<SummaryForm> with Observable {
+  ScreenshotController screenShotController = ScreenshotController();
+
   var reset = false;
   var previous = false;
   final prefs = UserSettings();
@@ -35,15 +38,19 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       builder: (context) => CompleteFormBloc(),
       child: Builder(
         builder: (context) {
-          return Scaffold(
-            appBar: CustomAppBar(
-              'calculators_all_algorithms_summary',
-              selScreenshot: true,
-              pageController: widget.controller,
-              calcBack: true,
+          return Screenshot(
+            controller: screenShotController,
+            child: Scaffold(
+              appBar: CustomAppBar(
+                'calculators_all_algorithms_summary',
+                selScreenshot: true,
+                pageController: widget.pageController,
+                calcBack: true,
+                screenshotController: screenShotController,
+              ),
+              drawer: MenuWidget(),
+              body: _buildBody(),
             ),
-            drawer: MenuWidget(),
-            body: _buildBody(),
           );
         },
       ),
@@ -101,7 +108,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       'nodes': aux.tr(widget.formBloc.nodesField.value),
       'metastasis': aux.tr(widget.formBloc.metastasisField.value),
       'portal_hypertension':
-          aux.tr(widget.formBloc.portalHypertensionField.value),
+      aux.tr(widget.formBloc.portalHypertensionField.value),
       'pvt': aux.tr(widget.formBloc.pvtField.value),
     };
     var unionMap = {};
@@ -164,7 +171,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
         ? units.albuminUds[0]
         : units.albuminUds[1];
     var udSodi =
-        prefs.getInternationalUnits() ? units.sodiumUds[0] : units.sodiumUds[1];
+    prefs.getInternationalUnits() ? units.sodiumUds[0] : units.sodiumUds[1];
 
     var internationalUnits =
     prefs.getInternationalUnits() ? aux.tr('yes') : aux.tr('no');

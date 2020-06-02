@@ -5,23 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:hepapp/calculators/widgets_calc/boolean_select.dart';
 import 'package:hepapp/calculators/widgets_calc/calc_bottom_button.dart';
+import 'package:hepapp/calculators/widgets_calc/calc_group_field.dart';
+import 'package:hepapp/calculators/widgets_calc/calc_result_widget.dart';
+import 'package:hepapp/calculators/widgets_calc/calc_text_field.dart';
 import 'package:hepapp/calculators/widgets_calc/calculator_button.dart';
+import 'package:hepapp/calculators/widgets_calc/right_bottom_title.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
-import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/right_bottom_title.dart';
-
-import '../widgets_calc/boolean_select.dart';
-import '../widgets_calc/calc_group_field.dart';
-import '../widgets_calc/calc_result_widget.dart';
-import '../widgets_calc/calc_text_field.dart';
 import 'okuda_form_bloc.dart';
+
+final bool debug = false;
 
 class OkudaForm extends StatefulWidget with Observable {
   OkudaForm({Key key}) : super(key: key);
@@ -35,7 +37,7 @@ class OkudaFormState extends State<OkudaForm> with Observable {
   var previous = false;
   final prefs = UserSettings();
   final units = Units();
-
+  ScreenshotController screenShotController = ScreenshotController();
   bool _internationalUnits = true;
 
   Map<String, bool> _emptyFieldsErrorMap;
@@ -100,38 +102,41 @@ class OkudaFormState extends State<OkudaForm> with Observable {
         builder: (context) {
           final formBloc = BlocProvider.of<OkudaFormBloc>(context);
           return FormBlocListener<OkudaFormBloc, String, String>(
-            child: Scaffold(
-              appBar: CustomAppBar(
-                'calculators_okuda',
-                selScreenshot: true,
-                //selPartialSettings: true,
-              ),
-              drawer: MenuWidget(),
-              body: Stack(
-                children: <Widget>[
-                  isLandscape
-                      ? Row(children: <Widget>[
-                    _buildDataFields(formBloc),
-                    _buildResult(formBloc),
-                  ])
-                      : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            child: Screenshot(
+              controller: screenShotController,
+              child: Scaffold(
+                appBar: CustomAppBar(
+                  'calculators_okuda',
+                  selScreenshot: true,
+                  screenshotController: screenShotController,
+                ),
+                drawer: MenuWidget(),
+                body: Stack(
+                  children: <Widget>[
+                    isLandscape
+                        ? Row(children: <Widget>[
+                            _buildDataFields(formBloc),
+                            _buildResult(formBloc),
+                          ])
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                                _buildDataFields(formBloc),
+                                _buildResult(formBloc),
+                              ]),
+                    Column(
                       children: <Widget>[
-                        _buildDataFields(formBloc),
-                        _buildResult(formBloc),
-                      ]),
-                  Column(
-                    children: <Widget>[
-                      RightBottomTitle(
-                        title: 'okuda',
-                        padding:
-                        EdgeInsets.fromLTRB(10, 0, isTablet ? 45 : 17, 50),
-                      ),
-                    ],
-                  ),
-                ],
+                        RightBottomTitle(
+                          title: 'okuda',
+                          padding: EdgeInsets.fromLTRB(
+                              10, 0, isTablet ? 45 : 17, 50),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                bottomSheet: _buildBottomSheet(formBloc),
               ),
-              bottomSheet: _buildBottomSheet(formBloc),
             ),
           );
         },
@@ -160,18 +165,17 @@ class OkudaFormState extends State<OkudaForm> with Observable {
               _buildTumourExtentRow(formBloc),
               SizedBox(height: 20),
               _buildCalcButton(formBloc),
-              Text(prefs.getEmptyFieldsErrorMap().toString()),
-              Text(prefs
-                  .getEmptyFieldsErrorMap()
-                  .values
-                  .toString()),
-              Text(prefs.isEmptyFieldsError().toString()),
-              Text(prefs.getParseErrorMap().toString()),
-              Text(prefs
-                  .getParseErrorMap()
-                  .values
-                  .toString()),
-              Text(prefs.isParseError().toString()),
+              debug
+                  ? Text(prefs.getEmptyFieldsErrorMap().toString())
+                  : Container(),
+              debug
+                  ? Text("Error empty fields: " +
+                  prefs.isEmptyFieldsError().toString())
+                  : Container(),
+              debug ? Text(prefs.getParseErrorMap().toString()) : Container(),
+              debug
+                  ? Text("Error parseo: " + prefs.isParseError().toString())
+                  : Container(),
             ],
           ),
         ),

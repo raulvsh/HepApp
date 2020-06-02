@@ -79,7 +79,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
         ),
       ),
       actions: <Widget>[
-        //(widget.selScreenshot == true) ? _screenshotIcon(context) : Container(),
         widget.selScreenshot
             ? ScreenShotButton(widget.screenshotController)
             : Container(),
@@ -91,11 +90,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
   IconButton _homeIcon(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.home),
-      /*Image.asset(
-        'assets/images/homeicon.png',
-        width: 18,
-        height: 18,
-      ),*/
       onPressed: () => Navigator.pushReplacementNamed(context, '/'),
     );
   }
@@ -145,21 +139,4 @@ class _CustomAppBarState extends State<CustomAppBar> {
     );
   }
 
-  IconButton _screenshotIcon(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.photo_camera),
-      onPressed: () {
-        //TODO Añadir función captura de pantalla _screenCapture()
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Camera"),
-              content: Text("captura de pantalla"),
-            );
-          },
-        );
-      },
-    );
-  }
 }

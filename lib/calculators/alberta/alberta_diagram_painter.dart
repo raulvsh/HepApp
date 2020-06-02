@@ -13,8 +13,8 @@ class AlbertaDiagramPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final pointMode = ui.PointMode.polygon;
     /*final points = [
-      Offset(430, 183),
-      Offset(500, 183),
+      Offset(405, 197),
+      Offset(405, 226),
     ];*/
     final paintBlue = Paint()
       ..color = blueTreatmentColor
@@ -51,6 +51,7 @@ class AlbertaDiagramPainter extends CustomPainter {
     canvas.drawPoints(pointMode, arrow22, paintBlue);
     canvas.drawPoints(pointMode, arrow23, paintBlue);
     canvas.drawPoints(pointMode, arrow24, paintBlue);
+    canvas.drawPoints(pointMode, arrow24b, paintBlue);
     canvas.drawPoints(pointMode, arrow25, paintBlue);
     canvas.drawPoints(pointMode, arrow26, paintBlue);
     canvas.drawPoints(pointMode, arrow27, paintBlue);
@@ -60,6 +61,7 @@ class AlbertaDiagramPainter extends CustomPainter {
     canvas.drawPoints(pointMode, arrow31, paintBlue);
     canvas.drawPoints(pointMode, arrow32, paintBlue);
     canvas.drawPoints(pointMode, arrow33, paintBlue);
+    canvas.drawPoints(pointMode, arrow33b, paintBlue);
     canvas.drawPoints(pointMode, arrow34, paintBlue);
     canvas.drawPoints(pointMode, arrow35, paintBlue);
     canvas.drawPoints(pointMode, arrow36, paintGrey);

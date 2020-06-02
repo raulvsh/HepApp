@@ -59,13 +59,11 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
       widgets.add(
         AlbertaInfoPage(
           title: widget.data[i][0],
-          //'early_stage_rfa',
           subTitle: [
-            widget.data[i][1], //'early_stage_hepatocellular_carcinoma',
-            widget.data[i][2], //'definitions_goals_recommendations'
+            widget.data[i][1],
+            widget.data[i][2],
           ],
           content: widget.data[i][3],
-          //rfa,
           initialPage: i,
           numPages: numPages,
           route: '/AlbertaInfoPage',

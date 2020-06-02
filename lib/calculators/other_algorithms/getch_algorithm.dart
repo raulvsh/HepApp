@@ -3,6 +3,8 @@ import 'package:hepapp/shared_preferences/user_settings.dart';
 
 import 'getch_data.dart';
 
+final bool debug = false;
+
 class GetchAlgorithm {
   final GetchData getchData;
 
@@ -24,7 +26,7 @@ class GetchAlgorithm {
     ptsPvt = _getPvtPoints();
 
     int resultado = ptsEcog + ptsBilirubin + ptsAlp + ptsAfp + ptsPvt;
-    showPts(resultado);
+    if (debug) showPts(resultado);
 
     if (resultado == 0) {
       return 'A ($resultado)';
@@ -52,12 +54,11 @@ class GetchAlgorithm {
   int _getPvtPoints() => getchData.pvt == 'no' ? 0 : 2;
 
   void showPts(int resultado) {
-    print(
-        "\n\n**********PUNTOS GETCH\nPuntos ecog: ${getchData.ecog} ${_getEcogPoints()}");
+    print("\n\n*** Puntos GETCH***");
+    print("Puntos ecog: ${getchData.ecog} ${_getEcogPoints()}");
     print("Puntos bili: ${getchData.bilirubin}  ${_getBilirubinPoints()}");
     print(
-        "Puntos alp: ${getchData.alp}  ${getchData
-            .alpUpperLimit}  ${_getAlpPoints()}");
+        "Puntos alp: ${getchData.alp}  ${getchData.alpUpperLimit}  ${_getAlpPoints()}");
     print("Puntos afp: ${getchData.afp}");
     print("Puntos pvt: ${getchData.pvt}");
     print("Resultado: $resultado");

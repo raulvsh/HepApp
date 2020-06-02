@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
 import 'alberta_circle_field.dart';
@@ -30,10 +31,7 @@ class AlbertaPage extends StatefulWidget {
 }
 
 class _AlbertaPageState extends State<AlbertaPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  ScreenshotController screenShotController = ScreenshotController();
 
   @override
   dispose() {
@@ -57,44 +55,50 @@ class _AlbertaPageState extends State<AlbertaPage> {
         DeviceOrientation.landscapeLeft,
       ]);
     }
-    return Scaffold(
-      appBar: CustomAppBar('calculators_all_algorithms_alberta'),
-      drawer: MenuWidget(),
-      body: Center(
-        heightFactor: isLandscape ? 2 : 0.5,
-        child: FractionallySizedBox(
-          heightFactor: 0.90,
-          alignment: Alignment.topCenter,
-          child: FittedBox(
-            fit: BoxFit.contain,
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  //color: Colors.pink.withAlpha(25),
-                  height: totalHeight,
-                  width: totalWidth,
-                  child: Column(
-                    children: <Widget>[
-                      _buildTitleRow(),
-                      _buildSeparator(),
-                      _buildTumourRow(),
-                      _buildCpsRow(),
-                      _buildClinicalRow(),
-                      _buildTreatmentRow(),
-                      _buildPrognosisRow()
-                    ],
+    return Screenshot(
+      controller: screenShotController,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          'calculators_all_algorithms_alberta',
+          screenshotController: screenShotController,
+        ),
+        drawer: MenuWidget(),
+        body: Center(
+          heightFactor: isLandscape ? 2 : 0.5,
+          child: FractionallySizedBox(
+            heightFactor: 0.90,
+            alignment: Alignment.topCenter,
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    //color: Colors.pink.withAlpha(25),
+                    height: totalHeight,
+                    width: totalWidth,
+                    child: Column(
+                      children: <Widget>[
+                        _buildTitleRow(),
+                        _buildSeparator(),
+                        _buildTumourRow(),
+                        _buildCpsRow(),
+                        _buildClinicalRow(),
+                        _buildTreatmentRow(),
+                        _buildPrognosisRow()
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  //color: Colors.green,
-                  height: totalHeight,
-                  width: totalWidth,
-                  child: CustomPaint(
-                    size: Size(totalHeight, totalWidth),
-                    painter: AlbertaDiagramPainter(),
+                  Container(
+                    //color: Colors.green,
+                    height: totalHeight,
+                    width: totalWidth,
+                    child: CustomPaint(
+                      size: Size(totalHeight, totalWidth),
+                      painter: AlbertaDiagramPainter(),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -529,13 +533,20 @@ class _AlbertaPageState extends State<AlbertaPage> {
             color: redClinicalColor,
             padding: EdgeInsets.fromLTRB(30, 4, 15, 4),
           ),
+          SizedBox(width: 10),
           AlbertaCircleField(
             height: rowMainPvtHeight,
-            width: 85.0,
-            txt: '0_2',
+            width: 30.0,
+            txt: '≤1',
             isSelected: widget.isSelected[30],
             color: redClinicalColor,
-            padding: EdgeInsets.only(right: 20),
+          ),
+          AlbertaCircleField(
+            height: rowMainPvtHeight,
+            width: 30.0,
+            txt: '=2',
+            isSelected: widget.isSelected[47],
+            color: redClinicalColor,
           ),
         ],
       ),
@@ -682,9 +693,17 @@ class _AlbertaPageState extends State<AlbertaPage> {
                       ),
                       AlbertaRectangleField(
                         height: 24.0,
-                        width: 80.0,
+                        width: 30.0,
+                        txt: 'lenvatinib',
+                        padding: EdgeInsets.fromLTRB(2, 4, 0, 2),
+                        isSelected: widget.isSelected[48],
+                        color: blueTreatmentColor,
+                      ),
+                      AlbertaRectangleField(
+                        height: 24.0,
+                        width: 50.0,
                         txt: 'sorafenib',
-                        padding: EdgeInsets.fromLTRB(2, 4, 4, 2),
+                        padding: EdgeInsets.fromLTRB(0, 4, 4, 2),
                         isSelected: widget.isSelected[39],
                         color: blueTreatmentColor,
                       )

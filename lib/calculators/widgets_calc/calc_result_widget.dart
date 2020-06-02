@@ -25,10 +25,9 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
     bool isTablet = context.diagonalInches >= 7;
 
     return Container(
-      width: isTablet ? 400 : 200,
+      width: isTablet ? 400 : 250,
       height: isTablet ? 200 : 170,
-      //margin: EdgeInsets.fromLTRB(0, 30, 50, 0),
-      padding: EdgeInsets.only(left: 15, right: 10),
+      padding: EdgeInsets.only(left: 15, right: 5),
       decoration: BoxDecoration(
         border: Border.all(
           color: Color.fromARGB(255, 210, 242, 245),
@@ -48,7 +47,7 @@ class _CalcResultWidgetState extends State<CalcResultWidget> {
     AppLocalizations aux = AppLocalizations.of(context);
     List<Row> rowList = [];
     widget.resultMap.forEach(
-          (key, value) {
+      (key, value) {
         rowList.add(
           Row(
             mainAxisAlignment: alignment,

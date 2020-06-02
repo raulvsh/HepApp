@@ -21,14 +21,12 @@ class CommonPage extends StatefulWidget {
 }
 
 class _CommonPageState extends State<CommonPage> {
-  ScreenshotController commonScreenShotController = ScreenshotController();
-
-  //GlobalKey commonKey = GlobalKey();
+  ScreenshotController screenShotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
     return Screenshot(
-      controller: commonScreenShotController,
+      controller: screenShotController,
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
@@ -36,7 +34,7 @@ class _CommonPageState extends State<CommonPage> {
             children: <Widget>[
               CustomAppBar(
                 widget.title,
-                screenshotController: commonScreenShotController,
+                screenshotController: screenShotController,
               ),
             ],
           ),

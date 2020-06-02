@@ -42,7 +42,7 @@ class PopUpDialog extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.black,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.justify,
                 )),
             Expanded(
               child: Container(

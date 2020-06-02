@@ -16,14 +16,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var numHomeSections = homeSections.length;
-
-  //GlobalKey mainScaffold = GlobalKey();
-  ScreenshotController homeScreenshotController = ScreenshotController();
+  ScreenshotController screenShotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
     return Screenshot(
-      controller: homeScreenshotController,
+      controller: screenShotController,
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(90),
@@ -37,7 +35,7 @@ class _HomePageState extends State<HomePage> {
                   height: 20,
                   alignment: Alignment.centerRight,
                   child: ScreenShotButton(
-                    homeScreenshotController,
+                    screenShotController,
                     iconSize: 20,
                   )),
             ],

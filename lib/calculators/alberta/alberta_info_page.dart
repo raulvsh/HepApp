@@ -3,6 +3,7 @@ import 'package:hepapp/calculators/widgets_calc/right_bottom_title.dart';
 import 'package:hepapp/lang/app_localizations.dart';
 import 'package:hepapp/pages/widgets_navigation/bottom_navigation_sheet.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
 class AlbertaInfoPage extends StatefulWidget {
@@ -28,13 +29,20 @@ class AlbertaInfoPage extends StatefulWidget {
 }
 
 class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
+  ScreenshotController screenShotController = ScreenshotController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar('calculator'),
-      body: _buildBody(),
-      bottomSheet: BottomNavigationSheet(
-          widget.initialPage, widget.route, widget.numPages),
+    return Screenshot(
+      controller: screenShotController,
+      child: Scaffold(
+
+        appBar: CustomAppBar(
+          'calculator', screenshotController: screenShotController,),
+        body: _buildBody(),
+        bottomSheet: BottomNavigationSheet(
+            widget.initialPage, widget.route, widget.numPages),
+      ),
     );
   }
 
@@ -47,9 +55,7 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
     });
     return SingleChildScrollView(
       child: Container(
-        //color: Colors.amber,
         width: context.widthPx,
-        //height: context.heightPct(2.1),
         child: Stack(
           children: <Widget>[
             Container(
@@ -126,13 +132,13 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
       listTxt.add(
         textList[i] != 'sorafenib_data_table'
             ? Text(
-                aux.tr(textList[i]),
-                style: TextStyle(color: Colors.black, height: 1.5
-                    //fontSize: 10
-                    ),
-                textAlign: TextAlign.justify,
-                maxLines: 4,
-              )
+          aux.tr(textList[i]),
+          style: TextStyle(color: Colors.black, height: 1.5
+            //fontSize: 10
+          ),
+          textAlign: TextAlign.justify,
+          maxLines: 4,
+        )
             : _buildSoranefibTable(),
       );
     }
@@ -179,10 +185,10 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
 
   Widget get _separator => Container(
     margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
-        width: context.widthPx,
-        height: 2,
-        color: Theme.of(context).primaryColor,
-      );
+    width: context.widthPx,
+    height: 2,
+    color: Theme.of(context).primaryColor,
+  );
 
 
 }

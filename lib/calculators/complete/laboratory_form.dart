@@ -3,32 +3,36 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hepapp/calculators/widgets_calc/calc_bottom_button.dart';
+import 'package:hepapp/calculators/widgets_calc/calc_multiple_text_field.dart';
+import 'package:hepapp/calculators/widgets_calc/right_bottom_title.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
-
-import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/calc_multiple_text_field.dart';
-import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/right_bottom_title.dart';
 
 import '../widgets_calc/calc_group_field.dart';
 import '../widgets_calc/calc_text_field.dart';
 import 'complete_form_bloc.dart';
 
+final bool debug = false;
+
 class LaboratoryForm extends StatefulWidget with Observable {
   final CompleteFormBloc formBloc;
-  final PageController controller;
+  final PageController pageController;
 
-  LaboratoryForm({Key key, this.formBloc, this.controller}) : super(key: key);
+  LaboratoryForm({Key key, this.formBloc, this.pageController})
+      : super(key: key);
 
   @override
   LaboratoryFormState createState() => LaboratoryFormState();
 }
 
 class LaboratoryFormState extends State<LaboratoryForm> with Observable {
+  ScreenshotController screenShotController = ScreenshotController();
   var reset = false;
   var previous = false;
   final prefs = UserSettings();
@@ -39,7 +43,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   @override
   void initState() {
     streamSubIUnits = prefs.iUnitsUpdates.listen(
-      (newVal) => setState(() {
+          (newVal) => setState(() {
         _internationalUnits = newVal;
       }),
     );
@@ -56,26 +60,30 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        'calculators_all_algorithms_laboratory',
-        selScreenshot: true,
-        selFullSettings: true,
-        pageController: widget.controller,
-        calcBack: true,
+    return Screenshot(
+      controller: screenShotController,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          'calculators_all_algorithms_laboratory',
+          selScreenshot: true,
+          selFullSettings: true,
+          pageController: widget.pageController,
+          calcBack: true,
+          screenshotController: screenShotController,
+        ),
+        drawer: MenuWidget(),
+        body: Stack(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                _buildDataFields(widget.formBloc),
+                _buildRightBottomTitle(widget.formBloc),
+              ],
+            ),
+          ],
+        ),
+        bottomSheet: _buildBottomSheet(widget.formBloc),
       ),
-      drawer: MenuWidget(),
-      body: Stack(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              _buildDataFields(widget.formBloc),
-              _buildRightBottomTitle(widget.formBloc),
-            ],
-          ),
-        ],
-      ),
-      bottomSheet: _buildBottomSheet(widget.formBloc),
     );
   }
 
@@ -102,9 +110,10 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
             _buildASTRow(formBloc),
             _buildALPRow(formBloc),
             _buildDialysisRow(formBloc),
-            Text(prefs.getParseErrorMap().toString()),
-            Text(prefs.getParseErrorMap().values.toString()),
-            Text(prefs.isParseError().toString()),
+            debug ? Text(prefs.getParseErrorMap().toString()) : Container(),
+            debug
+                ? Text("Error parseo: " + prefs.isParseError().toString())
+                : Container(),
             SizedBox(
               height: kToolbarHeight + 10,
             )
@@ -135,7 +144,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
       textFieldBloc: formBloc.creatinineField,
       title: 'creatinine',
       uds:
-          _internationalUnits ? units.creatinineUds[0] : units.creatinineUds[1],
+      _internationalUnits ? units.creatinineUds[0] : units.creatinineUds[1],
     );
   }
 
@@ -197,9 +206,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     return isLandscape
         ? astCompleteRow
         : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[ast, astUpperLimit],
-          );
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[ast, astUpperLimit],
+    );
   }
 
   _buildALPRow(CompleteFormBloc formBloc) {
@@ -226,9 +235,9 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
     return isLandscape
         ? alpCompleteRow
         : Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[alp, alpUpperLimit],
-          );
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[alp, alpUpperLimit],
+    );
   }
 
   _buildDialysisRow(CompleteFormBloc formBloc) {
@@ -285,7 +294,7 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
                     if (prefs.isParseError()) {
                       showErrorDialog('format_error'); //print("error parse");
                     } else {
-                      widget.controller.nextPage(
+                      widget.pageController.nextPage(
                           duration: Duration(seconds: 1),
                           curve: Curves.easeInOut);
                     }

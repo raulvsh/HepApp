@@ -102,10 +102,10 @@ class CompleteFormState extends State<CompleteForm> with Observable {
               physics: NeverScrollableScrollPhysics(),
               children: <Widget>[
                 DiagnosticForm(formBloc: formBloc, controller: controller),
-                LaboratoryForm(formBloc: formBloc, controller: controller),
-                ClinicalForm(formBloc: formBloc, controller: controller),
-                ResultsForm(formBloc: formBloc, controller: controller),
-                SummaryForm(formBloc: formBloc, controller: controller),
+                LaboratoryForm(formBloc: formBloc, pageController: controller),
+                ClinicalForm(formBloc: formBloc, pageController: controller),
+                ResultsForm(formBloc: formBloc, pageController: controller),
+                SummaryForm(formBloc: formBloc, pageController: controller),
               ],
             ),
           );

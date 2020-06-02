@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 /* Las flechas están numeradas de izquierda a derecha y de arriba a abajo.
  * arrow00: Flecha vertical que va de "1 (<=2cm)" a "A"
  * arrow36: Flecha horizontal que va de "TARE" a "LT"
- * Cambiando desde aquí los datos no se redibuja el widget, si se añade una nueva
- * línea probarla en alberta_diagram_painter y luego pasar aquí
+ * Cambiando desde aquí los datos no se redibuja el widget, si se añade una
+ * nueva línea probarla en alberta_diagram_painter con la variable points y
+ * crear aquí nueva variable arrowXX.
  */
 
 final List<Offset> arrow00 = [
@@ -179,13 +180,23 @@ final List<Offset> arrow23 = [
   Offset(385, 122),
   Offset(388, 119),
 ];
+
 final List<Offset> arrow24 = [
-  Offset(417, 110),
-  Offset(417, 172),
-  Offset(414, 169),
-  Offset(417, 172),
-  Offset(420, 169),
+  Offset(410, 110),
+  Offset(410, 172),
+  Offset(407, 169),
+  Offset(410, 172),
+  Offset(413, 169),
 ];
+
+final List<Offset> arrow24b = [
+  Offset(440, 110),
+  Offset(440, 172),
+  Offset(437, 169),
+  Offset(440, 172),
+  Offset(443, 169),
+];
+
 final List<Offset> arrow25 = [
   Offset(399, 135),
   Offset(500, 135),
@@ -243,11 +254,18 @@ final List<Offset> arrow32 = [
   Offset(363, 195),
 ];
 final List<Offset> arrow33 = [
-  Offset(417, 197),
-  Offset(417, 226),
-  Offset(414, 223),
-  Offset(417, 226),
-  Offset(420, 223),
+  Offset(410, 197),
+  Offset(410, 226),
+  Offset(407, 223),
+  Offset(410, 226),
+  Offset(413, 223),
+];
+final List<Offset> arrow33b = [
+  Offset(440, 197),
+  Offset(440, 226),
+  Offset(437, 223),
+  Offset(440, 226),
+  Offset(443, 223),
 ];
 final List<Offset> arrow34 = [
   Offset(316, 222),

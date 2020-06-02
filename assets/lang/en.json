@@ -310,6 +310,8 @@
   "prognosis": "Prognosis",
   "1_(≤2cm)": "1 (≤2cm)",
   "1_(≥2cm)_or_up_to_3_(≤3cm)": "1 (≥2cm) or up to 3 (≤3cm)",
+  "≤1": "≤1",
+  "=2": "=2",
   ">_milan_criteria": "> Milan Criteria",
   "a": "A",
   "b": "B",
@@ -384,8 +386,8 @@
   "advanced_tumreq_0": "• Disease ineligible for, or that progressed after, surgical or locoregional therapy.",
   "advanced_goal_0": "• To maintain or to improve the patient's quality of life (to control or to delay the onset of tumor-related symptoms).",
   "advanced_goal_1": "• To prolong life, if possible.",
-  "advanced_recomm_0": "• First-line treatment: Sorafenib or participation in a clinical trial, if available.",
-  "advanced_recomm_1": "• Second-line treatment: participation in a clinical trial, if available.",
+  "advanced_recomm_0": "• First-line treatment: Sorafenib, Lenvatinib, or participation in a clinical trial36, if available.",
+  "advanced_recomm_1": "• Second-line treatment: Regorafenib (if previously tolerated Sorafenib),\nCabozantinib, or participation in a clinical trial36, if available.",
   "sbrt_desc_0": "• There is growing experience with providing ionizing radiotherapy to HCC using very conformal dose distribution, with image guidance and motion management to provide high doses of radiation to the HCC while minimizing exposure to the adjacent liver or other tissues.",
   "sbrt_desc_1": "• SBRT can provide good local control of HCC range (ranging from 43% to 100% at 1 year) which can depend on factors such as lesion size and number, and the delivered radiation dose. It has been used in patients with portal vein invasion and to bridge patients to liver transplantation.",
   "sbrt_desc_2": "• Patients should be discussed at multidisciplinary rounds. SBRT can be considered when alternative therapies such as ablation/embolization techniques have failed or are contraindicated.",
@@ -450,7 +452,7 @@
   "lt_desc_1": "• Offers a five-year disease-free survival of up to 70% and a short-term mortality of 5 to 10%.",
   "lt_desc_2": "• In Alberta, transplantation is not recommended if the total tumour volume (TTV) exceeds 115 cm3, the alpha-fetoprotein exceeds 400 ng/mL, vascular invasion and/or extra-hepatic disease exist, significant comorbidities exist, or the patient fails to abstain from alcohol for at least six months.",
   "lt_desc_3": "• Patients may be considered for liver transplantation after being “down-staged” if their initial total tumour volume was under 250 cm3 and both the total tumour volume and the AFP remain under 115 cm3 and 400 ng/mL, respectively, for more than six months20,21.",
-  "early_stage_lt": " Early Stage:\nLT",
+  "early_stage_lt": " Early Stage:\nLiver Transplant",
   "advanced_stage_lenvatinib": "Advanced Stage:\nLenvatinib",
   "advanced_stage_regorafenib": "Advanced Stage:\nRegorafenib",
   "advanced_stage_cabozantinib": "Advanced Stage:\nCabozantinib",
@@ -479,6 +481,7 @@
   "ramucirumab_desc_2": "• Median progression-free survival was 2.8 months with ramucirumab and 1.6 months with placebo (HR 0.452; 95% CI 0.339-0.603, p<0.0001).",
   "ramucirumab_desc_3": "• Most common high-grade adverse events associated with ramucirumab were hypertension (13%) and hyponatremia (6%).",
   "ramucirumab_desc_4": "• Ramucirumab is not publicly funded.",
+  "lenvatinib": "Lenvatinib",
 
 
 

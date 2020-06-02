@@ -10,6 +10,7 @@ import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:observable/observable.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
 import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/calc_result_widget.dart';
@@ -19,51 +20,57 @@ import 'complete_form_bloc.dart';
 
 class ResultsForm extends StatefulWidget with Observable {
   final CompleteFormBloc formBloc;
-  final PageController controller;
+  final PageController pageController;
 
-  ResultsForm({Key key, this.formBloc, this.controller}) : super(key: key);
+  ResultsForm({Key key, this.formBloc, this.pageController}) : super(key: key);
 
   @override
   ResultsFormState createState() => ResultsFormState();
 }
 
 class ResultsFormState extends State<ResultsForm> with Observable {
+  ScreenshotController screenShotController = ScreenshotController();
   var debug = false;
   var reset = false;
   var previous = false;
   final prefs = UserSettings();
   final units = Units();
   List<bool> coloredFields = [];
+  AlbertaAlgorithm albertaAlgorithm = AlbertaAlgorithm();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        'calculators_all_algorithms_results',
-        selScreenshot: true,
-        pageController: widget.controller,
-        calcBack: true,
+    return Screenshot(
+      controller: screenShotController,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          'calculators_all_algorithms_results',
+          selScreenshot: true,
+          pageController: widget.pageController,
+          calcBack: true,
+          screenshotController: screenShotController,
+        ),
+        drawer: MenuWidget(),
+        body: Stack(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                _buildResultsRow(widget.formBloc),
+                _buildTreatmentsRow()
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                RightBottomTitle(
+                  title: 'results',
+                  padding: EdgeInsets.fromLTRB(10, 0, 15, 45),
+                )
+              ],
+            )
+          ],
+        ),
+        bottomSheet: _buildBottomSheet(widget.formBloc),
       ),
-      drawer: MenuWidget(),
-      body: Stack(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              _buildResultsRow(widget.formBloc),
-              _buildTreatmentsRow()
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              RightBottomTitle(
-                title: 'results',
-                padding: EdgeInsets.fromLTRB(10, 0, 15, 45),
-              )
-            ],
-          )
-        ],
-      ),
-      bottomSheet: _buildBottomSheet(widget.formBloc),
     );
   }
 
@@ -91,7 +98,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
       'cirrhosis': aux.tr(formBloc.cirrhosisField.value),
       'apri': formBloc.resultsField['apri'],
       'child_pugh_score_oneline':
-          formBloc.resultsField['child_pugh_score_oneline'],
+      formBloc.resultsField['child_pugh_score_oneline'],
       'meld': formBloc.resultsField['meld'],
       'meld_na': formBloc.resultsField['meld_na'],
       '5v_meld': formBloc.resultsField['5v_meld'],
@@ -127,21 +134,20 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     bool isLandscape = context.isLandscape;
     return Container(
         margin: EdgeInsets.only(right: 10),
-        width: isTablet ? 400 : 200,
+        width: isTablet ? 400 : 250,
         height: isTablet ? 30 : 20,
         color: Color.fromARGB(255, 210, 242, 245),
         child: Center(
             child: Text(
-          aux.tr('liver_function').toUpperCase(),
-          style: TextStyle(color: Colors.black, fontSize: isTablet ? 16 : 13),
-        )));
+              aux.tr('liver_function').toUpperCase(),
+              style: TextStyle(color: Colors.black, fontSize: isTablet ? 16 : 13),
+            )));
   }
 
-  Container _buildStagingAlgorithmsHeader(
-      bool isLandscape, bool isTablet, AppLocalizations aux) {
+  Container _buildStagingAlgorithmsHeader(bool isLandscape, bool isTablet, AppLocalizations aux) {
     return Container(
         margin: EdgeInsets.only(right: 20),
-        width: isTablet ? 400 : 200,
+        width: isTablet ? 400 : 250,
         height: isTablet ? 30 : 20,
         color: Color.fromARGB(255, 210, 242, 245),
         padding: EdgeInsets.symmetric(horizontal: 8),
@@ -149,12 +155,12 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           fit: BoxFit.scaleDown,
           child: Center(
               child: Text(
-            aux.tr('staging_algorithms').toUpperCase(),
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: isTablet ? 16 : 14,
-            ),
-          )),
+                aux.tr('staging_algorithms').toUpperCase(),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: isTablet ? 16 : 14,
+                ),
+              )),
         ));
   }
 
@@ -204,9 +210,12 @@ class ResultsFormState extends State<ResultsForm> with Observable {
             : EdgeInsets.only(left: 10, top: 5, bottom: 10),
         child: isLandscape
             ? Row(
-          children: <Widget>[
-            _buildRecommendedTreatments(),
-            SizedBox(width: isTablet ? 20 : 0),
+                crossAxisAlignment: isTablet
+                    ? CrossAxisAlignment.center
+                    : CrossAxisAlignment.start,
+                children: <Widget>[
+                  _buildRecommendedTreatments(),
+                  SizedBox(width: isTablet ? 20 : 0),
                   _buildMoreInfoButton(),
             SizedBox(width: isTablet ? 30 : 10),
             _buildAlbertaButton(widget.formBloc),
@@ -233,7 +242,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   _buildRecommendedTreatments() {
     bool isTablet = context.diagonalInches >= 7;
     AppLocalizations aux = AppLocalizations.of(context);
-    AlbertaAlgorithm albertaAlgorithm = AlbertaAlgorithm();
     var data = AlbertaData(
       bclc: widget.formBloc.resultsField['bclc'],
       cps: widget.formBloc.resultsField['child_pugh_score_oneline'],
@@ -283,7 +291,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
                 ),
                 buildRecommendedTreatmentRow(
                     '2', albertaAlgorithm.treatments[1]),
-                SizedBox(height: 2)
+                SizedBox(height: 8),
               ],
             ),
           ),
@@ -317,9 +325,7 @@ class ResultsFormState extends State<ResultsForm> with Observable {
                     fontSize: isTablet ? 16 : 12, color: Colors.black),
               )),
         ),
-        SizedBox(
-          width: 10,
-        ),
+        SizedBox(width: 10),
         Text(aux.tr(title)),
       ],
     );
@@ -331,9 +337,9 @@ class ResultsFormState extends State<ResultsForm> with Observable {
     return CalculatorButton(
       width: isTablet ? 250.0 : 175.0,
       title: 'more_information',
-      //TODO pasar aquí el argumento según el resultado
       onPressed: () =>
-          Navigator.pushNamed(context, '/AlbertaInfoPage', arguments: 0),
+          Navigator.pushNamed(context, '/AlbertaInfoPage',
+              arguments: getIndexPage()),
     );
   }
 
@@ -399,22 +405,22 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   _buildBottomSheet(CompleteFormBloc formBloc) {
     var diagnosticButton = CalcBottomButton(
       title: 'diagnostic_imaging',
-      onPressed: () => widget.controller.jumpToPage(0),
+      onPressed: () => widget.pageController.jumpToPage(0),
     );
 
     var laboratoryButton = CalcBottomButton(
       title: 'laboratory_values',
-      onPressed: () => widget.controller.jumpToPage(1),
+      onPressed: () => widget.pageController.jumpToPage(1),
     );
 
     var clinicalButton = CalcBottomButton(
         title: 'clinical_questions',
-        onPressed: () => widget.controller.jumpToPage(2));
+        onPressed: () => widget.pageController.jumpToPage(2));
 
     var summaryButton = CalcBottomButton(
       title: 'value_summary',
       onPressed: () =>
-          widget.controller
+          widget.pageController
               .nextPage(
               duration: Duration(seconds: 1), curve: Curves.easeInOut),
     );
@@ -451,5 +457,39 @@ class ResultsFormState extends State<ResultsForm> with Observable {
           .add(double.parse(widget.formBloc.tumourSizeField[i].value));
     }
     return tumourSizeList;
+  }
+
+  getIndexPage() {
+    int index;
+    switch (albertaAlgorithm.treatments[0]) {
+      case 'resection':
+        index = 0;
+        break;
+      case 'lt_long':
+        index = 1;
+        break;
+      case 'rfa':
+        index = 2;
+        break;
+      case 'tare':
+        index = 3;
+        break;
+      case 'tace':
+        index = 4;
+        break;
+      case 'sorafenib':
+        index = 5;
+        break;
+      case 'lenvatinib':
+        index = 6;
+        break;
+      case 'best_supportive_care_oneline':
+        index = 11;
+        break;
+      default:
+        index = 0;
+        break;
+    }
+    return index;
   }
 }

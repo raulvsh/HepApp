@@ -2,6 +2,8 @@ import 'package:hepapp/data/units.dart';
 
 import 'apri_data.dart';
 
+final bool debug = false;
+
 class ApriAlgorithm {
   final ApriData apriData;
 
@@ -12,15 +14,15 @@ class ApriAlgorithm {
   String obtenerResultado() {
     double resultado =
         ((apriData.ast / apriData.astUpperLimit) / apriData.platelets) * 100;
-    showPts(resultado);
+    if (debug) showPts(resultado);
     return resultado.toStringAsFixed(2);
   }
 
   void showPts(double resultado) {
-    print("\n\n*****************OBJETO APRI: "
-            "\nast : ${apriData.ast}" +
-        "\nast limite : ${apriData.astUpperLimit}" +
-        "\nplatelets : ${apriData.platelets}" +
-        "\n resultado : $resultado");
+    print("\n\n*** Objeto APRI: ");
+    print("ast : ${apriData.ast}");
+    print("\nast limite : ${apriData.astUpperLimit}");
+    print("\nplatelets : ${apriData.platelets}");
+    print("\n resultado : $resultado");
   }
 }

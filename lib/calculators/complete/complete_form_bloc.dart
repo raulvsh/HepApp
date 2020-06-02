@@ -25,7 +25,7 @@ import 'diagnostic_data.dart';
 import 'laboratory_data.dart';
 
 class CompleteFormBloc extends FormBloc<String, String> {
-  bool debug = true;
+  bool debug = false;
   final prefs = UserSettings();
   final units = Units();
 
@@ -176,7 +176,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
 
   @override
   Stream<FormBlocState<String, String>> onSubmitting() async* {
-    print("inicio submit");
 
     this.resultsField['apri'] = comprobarApri() ? calcularApri() : '-';
     this.resultsField['child_pugh_score_oneline'] =
@@ -275,7 +274,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   void printCps() {
-    print("\n*****CALCULAR cps");
+    print("\n***CHILD PUGH SCORE***");
     print("Campo bilirrubina: " + bilirubinField.value);
     print("Campo inr: " + inrField.value);
     print("Campo albumina: " + albuminField.value);
@@ -320,7 +319,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   void printMeld() {
-    print("\n*****CALCULAR meld");
+    print("\n***MELD***");
     print("Campo bilirrubina: " + bilirubinField.value);
     print("Campo inr: " + inrField.value);
     print("Campo creat: " + creatinineField.value);
@@ -351,7 +350,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   void printOkuda() {
-    print("\n*****CALCULAR OKUDA");
+    print("\n***OKUDA***");
     print("Campo bilirrubina: " + bilirubinField.value);
     print("Campo albumina: " + albuminField.value);
     print("Campo ascites: " + ascitesField.value);
@@ -383,7 +382,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   void printClip() {
-    print("\n*****CALCULAR CLIP");
+    print("\n***CLIP***");
     print("Campo AFP: " + afpField.value);
     print("Campo cps: " + calcularCPS());
     print("Campo numero: " + tumourNumberField.value);
@@ -464,7 +463,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   void printCupi(String tnm) {
-    print("\n*****CALCULAR CUPI");
+    print("\n*** CUPI ***");
     print("Campo TNM: " + tnm);
     print("Campo ascites: " + ascitesField.value);
     print("Campo afp: " + afpField.value);
@@ -489,7 +488,6 @@ class CompleteFormBloc extends FormBloc<String, String> {
     int tN = int.parse(tumourNumber);
     for (int i = 0; i < tN; i++) {
       if (tumourSizeField[i].value == '0') {
-        print("tumor $i " + tumourSizeField[i].value.toString() + " falso");
         return false;
       }
     }
@@ -513,7 +511,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
   }
 
   void printBclc(cps) {
-    print("\n*****CALCULAR bclc");
+    print("\n*** BCLC ***");
     print("Campo numero de tumores: ${tumourNumberField.value}");
     print("Campo tamaño de tumores: ${tumourSizeField.toString()}");
     print("Campo pvi: ${nodesField.toString()}");
@@ -635,7 +633,7 @@ class CompleteFormBloc extends FormBloc<String, String> {
     );
     printLaboratoryData();
 
-    this.bilirubinField = TextFieldBloc(); //.updateValue('0');
+    this.bilirubinField = TextFieldBloc();
     this.inrField = TextFieldBloc();
     this.creatinineField = TextFieldBloc();
     this.albuminField = TextFieldBloc();

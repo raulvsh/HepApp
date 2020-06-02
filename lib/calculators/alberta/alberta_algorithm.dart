@@ -10,9 +10,10 @@ class AlbertaAlgorithm {
   final prefs = UserSettings();
   List<String> treatments = ['-', '-'];
   List<bool> coloredFields = [];
+  final bool debug = false;
 
   initList() {
-    for (int i = 0; i <= 46; i++) {
+    for (int i = 0; i <= 48; i++) {
       coloredFields.add(false);
     }
   }
@@ -35,10 +36,13 @@ class AlbertaAlgorithm {
         data.cps == 'B (8)' || data.cps == 'B (9)' || data.cps[0] == 'C';
     bool cpsAB7 = data.cps[0] == 'A' || data.cps == 'B (7)';
     bool ecog01 = data.ecog == '0' || data.ecog == '1';
-    bool ecog2;
-    data.ecog != '-' ? ecog2 = int.parse(data.ecog) >= 2 : ecog2 = false;
+    bool ecogGreaterOrEqual2;
+    data.ecog != '-'
+        ? ecogGreaterOrEqual2 = int.parse(data.ecog) >= 2
+        : ecogGreaterOrEqual2 = false;
+    bool ecog2 = data.ecog == '2';
 
-    printAlbertaObject(data);
+    if (debug) printAlbertaObject(data);
 
     if (data.bclc == 'very_early_0' &&
         data.cps[0] == 'A' &&
@@ -82,7 +86,7 @@ class AlbertaAlgorithm {
       treatments[0] = 'lt_long';
     } else if (data.bclc == 'early_a' && data.cps[0] == 'C' && ltCandidate) {
       markColored([2, 7, 12, 19, 27, 35, 41, 43]);
-      treatments[0] = 'rfa';
+      treatments[0] = 'lt_long';
     } else if (data.bclc == 'early_a' && data.cps[0] == 'C' && !ltCandidate) {
       markColored([2, 7, 12, 19, 28, 40, 46]);
       treatments[0] = 'best_supportive_care_oneline';
@@ -96,7 +100,7 @@ class AlbertaAlgorithm {
         cpsAB7 &&
         ecog01 &&
         data.pvt == 'no') {
-      markColored([3, 8, 14, 20, 22, 29, 31, 37, 37, 42, 44]);
+      markColored([3, 8, 14, 20, 22, 29, 31, 36, 37, 42, 44]);
       treatments[0] = 'tare';
       treatments[1] = 'tace';
     } else if (data.bclc == 'intermediate_b' &&
@@ -105,15 +109,21 @@ class AlbertaAlgorithm {
         data.pvt == 'yes') {
       markColored([3, 8, 14, 20, 22, 29, 32, 38, 42, 44]);
       treatments[0] = 'tare';
-    } else if (data.bclc == 'intermediate_b' && cpsAB7 && ecog2) {
+    } else if (data.bclc == 'intermediate_b' && cpsAB7 && ecogGreaterOrEqual2) {
       markColored([3, 8, 14, 20, 23, 40, 46]);
       treatments[0] = 'best_supportive_care_oneline';
     } else if (data.bclc == 'advanced_c' && data.cps[0] == 'A' && ecog2) {
+      markColored([4, 9, 15, 21, 47, 39, 42, 45]);
+      treatments[0] = 'sorafenib';
+    } else if (data.bclc == 'advanced_c' &&
+        data.cps[0] == 'A' &&
+        ecogGreaterOrEqual2) {
       markColored([4, 9, 15, 21, 23, 40, 46]);
       treatments[0] = 'best_supportive_care_oneline';
     } else if (data.bclc == 'advanced_c' && data.cps[0] == 'A' && ecog01) {
-      markColored([4, 9, 15, 21, 30, 39, 42, 45]);
-      treatments[0] = 'sorafenib';
+      markColored([4, 9, 15, 21, 30, 48, 39, 42, 45]);
+      treatments[0] = 'lenvatinib';
+      treatments[1] = 'sorafenib';
     } else if (data.bclc == 'advanced_c' &&
         (data.cps[0] == 'B' || data.cps[0] == 'C')) {
       markColored([4, 9, 16, 40, 46]);
@@ -122,8 +132,6 @@ class AlbertaAlgorithm {
       markColored([5, 40, 46]);
       treatments[0] = 'best_supportive_care_oneline';
     }
-
-    // print(coloredFields);
 
     return coloredFields;
   }
@@ -157,7 +165,7 @@ class AlbertaAlgorithm {
     if (data.pvt == 'yes' ||
         platelets < 100 ||
         ((data.encephalopaty == 'grade_1_2' ||
-            data.encephalopaty == 'grade_3_4') ||
+                data.encephalopaty == 'grade_3_4') ||
             (data.ascites == 'controlled' || data.ascites == 'refractory') ||
             data.varices == 'yes')) {
       return 'yes';
@@ -250,12 +258,6 @@ class AlbertaAlgorithm {
   bool criterioUpToSeven(AlbertaData data) {
     int tN = prefs.getTumourNumber(); //int.parse(data.tumourNumber);
     bool upToSeven = false;
-    /*bool firstCondition = data.tumourSize[0] < 6;
-    bool secondCondition = data.tumourSize[1]<5;
-    bool thirdCondition = data.tumourSize[2]<4;
-    bool fourthCondition = data.tumourSize[3]<3;
-    bool fifthCondition = data.tumourSize[4]<2;
-    bool sixthCondition = data.tumourSize[5]<1;*/
 
     print(data.tumourSize);
     for (int i = 1; i < tN; i++) {
@@ -266,15 +268,7 @@ class AlbertaAlgorithm {
     }
     print("uptoseven $upToSeven");
 
-    /*switch (tN) {
-      case 0:
-        upToSeven = true;
-        break;
-      case 1:
-        if (data.tumourSize[0] < 6) upToSeven = true;
-      case 2:*/
     return upToSeven;
-    //}
   }
 
   calculateTTV(AlbertaData data) {

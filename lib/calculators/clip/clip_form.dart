@@ -13,6 +13,7 @@ import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
 import '../widgets_calc/calc_group_field.dart';
@@ -20,6 +21,8 @@ import '../widgets_calc/calc_result_widget.dart';
 import '../widgets_calc/calc_text_field.dart';
 import '../widgets_calc/right_bottom_title.dart';
 import 'clip_form_bloc.dart';
+
+final bool debug = false;
 
 class ClipForm extends StatefulWidget with Observable {
   ClipForm({Key key}) : super(key: key);
@@ -33,6 +36,7 @@ class ClipFormState extends State<ClipForm> with Observable {
   var previous = false;
   final prefs = UserSettings();
   final units = Units();
+  ScreenshotController screenShotController = ScreenshotController();
 
   Map<String, bool> _emptyFieldsErrorMap;
   StreamSubscription streamSubEmptyFieldsErrorMap;
@@ -94,37 +98,41 @@ class ClipFormState extends State<ClipForm> with Observable {
         builder: (context) {
           final formBloc = BlocProvider.of<ClipFormBloc>(context);
           return FormBlocListener<ClipFormBloc, String, String>(
-            child: Scaffold(
-              appBar: CustomAppBar(
-                'calculators_clip',
-                selScreenshot: true,
-              ),
-              drawer: MenuWidget(),
-              body: Stack(
-                children: <Widget>[
-                  isLandscape
-                      ? Row(children: <Widget>[
-                    _buildDataFields(formBloc),
-                    _buildResult(formBloc),
-                  ])
-                      : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            child: Screenshot(
+              controller: screenShotController,
+              child: Scaffold(
+                appBar: CustomAppBar(
+                  'calculators_clip',
+                  selScreenshot: true,
+                  screenshotController: screenShotController,
+                ),
+                drawer: MenuWidget(),
+                body: Stack(
+                  children: <Widget>[
+                    isLandscape
+                        ? Row(children: <Widget>[
+                      _buildDataFields(formBloc),
+                      _buildResult(formBloc),
+                    ])
+                        : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          _buildDataFields(formBloc),
+                          _buildResult(formBloc),
+                        ]),
+                    Column(
                       children: <Widget>[
-                        _buildDataFields(formBloc),
-                        _buildResult(formBloc),
-                      ]),
-                  Column(
-                    children: <Widget>[
-                      RightBottomTitle(
-                        title: 'clip',
-                        padding:
-                        EdgeInsets.fromLTRB(10, 0, isTablet ? 30 : 15, 50),
-                      ),
-                    ],
-                  ),
-                ],
+                        RightBottomTitle(
+                          title: 'clip',
+                          padding:
+                          EdgeInsets.fromLTRB(10, 0, isTablet ? 30 : 15, 50),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                bottomSheet: _buildBottomSheet(formBloc),
               ),
-              bottomSheet: _buildBottomSheet(formBloc),
             ),
           );
         },
@@ -154,18 +162,17 @@ class ClipFormState extends State<ClipForm> with Observable {
               _buildPVTRow(formBloc),
               SizedBox(height: 10),
               _buildCalcButton(formBloc),
-              Text(prefs.getEmptyFieldsErrorMap().toString()),
-              Text(prefs
-                  .getEmptyFieldsErrorMap()
-                  .values
-                  .toString()),
-              Text(prefs.isEmptyFieldsError().toString()),
-              Text(prefs.getParseErrorMap().toString()),
-              Text(prefs
-                  .getParseErrorMap()
-                  .values
-                  .toString()),
-              Text(prefs.isParseError().toString()),
+              debug
+                  ? Text(prefs.getEmptyFieldsErrorMap().toString())
+                  : Container(),
+              debug
+                  ? Text("Error empty fields: " +
+                  prefs.isEmptyFieldsError().toString())
+                  : Container(),
+              debug ? Text(prefs.getParseErrorMap().toString()) : Container(),
+              debug
+                  ? Text("Error parseo: " + prefs.isParseError().toString())
+                  : Container(),
             ],
           ),
         ),

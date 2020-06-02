@@ -10,9 +10,6 @@ class BclcAlgorithm {
   final units = Units();
   final debug = false;
   String obtenerResultado() {
-    //final prefs = UserSettings();
-    //final units = Units();
-
     if (debug) showPts();
     int tN = int.parse(bclcData.tumourNumber);
     bool pvi = bclcData.pvi == 'yes' ? true : false;
@@ -57,14 +54,10 @@ class BclcAlgorithm {
   bool upTo3Of3() {
     int tN = int.parse(bclcData.tumourNumber);
     if (tN > 3) return false;
-    print("tumour number " + bclcData.tumourNumber);
-    print(bclcData.tumourSize.toString());
     for (int i = 0; i < tN; i++) {
       if (bclcData.tumourSize[i] > 3) {
-        print("tamaño tumor $i " + bclcData.tumourSize[i].toString());
         return false;
       }
-      print("tamaño permitido tumor $i " + bclcData.tumourSize[i].toString());
     }
     return true;
   }

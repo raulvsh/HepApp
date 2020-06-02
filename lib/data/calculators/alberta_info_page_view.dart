@@ -37,17 +37,17 @@ final albertaInfoPageView = [
     '/AlbertaInfoPage',
   ],
   [
-    'intermediate_stage_tace',
-    'intermediate_stage_hepatocellular_carcinoma',
-    'definitions_goals_recommendations',
-    tace,
-    '/AlbertaInfoPage',
-  ],
-  [
     'intermediate_stage_tare',
     'intermediate_stage_hepatocellular_carcinoma',
     'definitions_goals_recommendations',
     tare,
+    '/AlbertaInfoPage',
+  ],
+  [
+    'intermediate_stage_tace',
+    'intermediate_stage_hepatocellular_carcinoma',
+    'definitions_goals_recommendations',
+    tace,
     '/AlbertaInfoPage',
   ],
   [

@@ -2,6 +2,8 @@ import 'package:hepapp/data/units.dart';
 
 import 'clip_data.dart';
 
+final bool debug = false;
+
 class ClipAlgorithm {
   final ClipData clipData;
 
@@ -18,7 +20,7 @@ class ClipAlgorithm {
     ptsAfp = _getAfpPoints();
 
     int result = ptsTumourNumber + ptsCps + ptsPvt + ptsAfp;
-    showpts(result);
+    if (debug) showpts(result);
 
     return result.toString();
   }
@@ -63,7 +65,7 @@ class ClipAlgorithm {
   }
 
   void showpts(int result) {
-    print("\n\n**********PUNTOS CLIP");
+    print("\n\n*** Puntos CLIP");
     print("Puntos numero: ${clipData.tumourNumber}  ${_getTumourPoints()}");
     print("Extension: ${clipData.tumourExtent}  ${_getTumourPoints()}");
     print("Puntos cps: ${clipData.cps}  ${_getCpsPoints()}");

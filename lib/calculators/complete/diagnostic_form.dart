@@ -9,6 +9,7 @@ import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
 import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/calc_multiple_text_field.dart';
@@ -16,6 +17,8 @@ import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/calc_multiple_text
 import '../widgets_calc/calc_group_field.dart';
 import '../widgets_calc/right_bottom_title.dart';
 import 'complete_form_bloc.dart';
+
+final bool debug = false;
 
 class DiagnosticForm extends StatefulWidget with Observable {
   final CompleteFormBloc formBloc;
@@ -31,6 +34,7 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
   var reset = false;
   var previous = false;
   final prefs = UserSettings();
+  ScreenshotController screenShotController = ScreenshotController();
 
   int _tumourNumber = -1;
   StreamSubscription streamTumourNumber;
@@ -60,21 +64,25 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
         DeviceOrientation.landscapeRight,
         DeviceOrientation.landscapeLeft,
       ]);
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: CustomAppBar(
-        'calculators_all_algorithms_diagnostic',
-        selScreenshot: true,
-        selFullSettings: true,
+    return Screenshot(
+      controller: screenShotController,
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        appBar: CustomAppBar(
+          'calculators_all_algorithms_diagnostic',
+          selScreenshot: true,
+          selFullSettings: true,
+          screenshotController: screenShotController,
+        ),
+        drawer: MenuWidget(),
+        body: Stack(
+          children: <Widget>[
+            _buildRightBottomTitle(),
+            _buildDataFields(widget.formBloc),
+          ],
+        ),
+        bottomSheet: _buildBottomSheet(widget.formBloc),
       ),
-      drawer: MenuWidget(),
-      body: Stack(
-        children: <Widget>[
-          _buildRightBottomTitle(),
-          _buildDataFields(widget.formBloc),
-        ],
-      ),
-      bottomSheet: _buildBottomSheet(widget.formBloc),
     );
   }
 
@@ -98,9 +106,14 @@ class DiagnosticFormState extends State<DiagnosticForm> with Observable {
             _buildMetastasisRow(formBloc),
             _buildPortalHypertensionRow(formBloc),
             _buildPvtRow(formBloc),
-            Text(prefs.getParseErrorMap().toString()),
-            Text(prefs.getParseErrorMap().values.toString()),
-            Text(prefs.isParseError().toString()),
+            debug
+                ? Text(
+              prefs.getParseErrorMap().toString(),
+            )
+                : Container(),
+            debug
+                ? Text("Error parseo: " + prefs.isParseError().toString())
+                : Container(),
             SizedBox(height: kToolbarHeight)
           ],
         ),

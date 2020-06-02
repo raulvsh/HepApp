@@ -7,6 +7,7 @@ import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:hepapp/shared_preferences/user_settings.dart';
 import 'package:hepapp/widgets/pop_up_dialog.dart';
 import 'package:observable/observable.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
 import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/right_bottom_title.dart';
@@ -16,59 +17,47 @@ import 'complete_form_bloc.dart';
 
 class ClinicalForm extends StatefulWidget with Observable {
   final formBloc;
-  final PageController controller;
+  final PageController pageController;
 
-  ClinicalForm({Key key, this.formBloc, this.controller}) : super(key: key);
+  ClinicalForm({Key key, this.formBloc, this.pageController}) : super(key: key);
 
   @override
   ClinicalFormState createState() => ClinicalFormState();
 }
 
 class ClinicalFormState extends State<ClinicalForm> with Observable {
+  ScreenshotController screenShotController = ScreenshotController();
   var reset = false;
   var previous = false;
   final prefs = UserSettings();
   final units = Units();
 
-  //StreamSubscription streamSubErrorMap;
-  //Map<String, bool> _errorMap;
-
-  @override
-  void initState() {
-    /*streamSubErrorMap = prefs.errorMapUpdates.listen((newVal) => setState(() {
-          _errorMap = newVal;
-        }));*/
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    //streamSubErrorMap.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        'calculators_all_algorithms_clinical',
-        selScreenshot: true,
-        selFullSettings: true,
-        pageController: widget.controller,
-        calcBack: true,
+    return Screenshot(
+      controller: screenShotController,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          'calculators_all_algorithms_clinical',
+          selScreenshot: true,
+          selFullSettings: true,
+          pageController: widget.pageController,
+          calcBack: true,
+          screenshotController: screenShotController,
+        ),
+        drawer: MenuWidget(),
+        body: Stack(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                _buildDataFields(widget.formBloc),
+                _buildRightBottomTitle(widget.formBloc),
+              ],
+            ),
+          ],
+        ),
+        bottomSheet: _buildBottomSheet(widget.formBloc),
       ),
-      drawer: MenuWidget(),
-      body: Stack(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              _buildDataFields(widget.formBloc),
-              _buildRightBottomTitle(widget.formBloc),
-            ],
-          ),
-        ],
-      ),
-      bottomSheet: _buildBottomSheet(widget.formBloc),
     );
   }
 
@@ -208,7 +197,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
                   title: 'next',
                   onPressed: () {
                     formBloc.submit();
-                    widget.controller.nextPage(
+                    widget.pageController.nextPage(
                         duration: Duration(seconds: 1),
                         curve: Curves.easeInOut);
                   }),
@@ -219,7 +208,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
       ),
     );
   }
-
 
   _buildRightBottomTitle(CompleteFormBloc formBloc) {
     return Column(

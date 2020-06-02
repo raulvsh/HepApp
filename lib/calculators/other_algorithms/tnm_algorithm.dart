@@ -2,6 +2,8 @@ import 'package:hepapp/data/units.dart';
 
 import 'tnm_data.dart';
 
+final bool debug = false;
+
 class TnmAlgorithm {
   final TnmData tnmData;
 
@@ -10,7 +12,7 @@ class TnmAlgorithm {
   final units = Units();
 
   String obtenerResultado() {
-    showPts();
+    if (debug) showPts();
 
     int tN = int.parse(tnmData.tumourNumber);
     bool pvi = tnmData.pvi == 'yes' ? true : false;
@@ -22,8 +24,9 @@ class TnmAlgorithm {
 
     if (tN == 1 && !pvi && !nodes && !metastasis) {
       return 'I';
-    } else
-    if ((firstConditionII || secondConditionII) && !nodes && !metastasis) {
+    } else if ((firstConditionII || secondConditionII) &&
+        !nodes &&
+        !metastasis) {
       return 'II';
     } else if (tN > 1 && !pvi && !nodes && !metastasis) {
       return 'III A';
@@ -37,21 +40,18 @@ class TnmAlgorithm {
   }
 
   void showPts() {
-    print("\n\n*****************OBJETO TnmData: "
-        "\nnumero de tumores : ${tnmData.tumourNumber}" +
-        "\n pvi : ${tnmData.pvi}" +
-        "\n nodos : ${tnmData.nodes}" +
-        "\n metastasis: ${tnmData.metastasis}" +
-        "\n**************");
+    print("\n\n*** Objeto tnmData: ");
+    print("\nNúmero de tumores : ${tnmData.tumourNumber}");
+    print("\nPvi : ${tnmData.pvi}");
+    print("\nNodos : ${tnmData.nodes}");
+    print("\nMetástasis: ${tnmData.metastasis}");
   }
 
   bool upTo6Of5() {
     int tN = int.parse(tnmData.tumourNumber);
-    print("tumour number $tN");
     print(tnmData.tumourSize.toString());
     for (int i = 0; i < tN; i++) {
       if (tnmData.tumourSize[i] >= 5) {
-        print("tamaño tumor $i " + tnmData.tumourSize[i].toString());
         return false;
       }
     }
