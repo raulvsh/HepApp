@@ -6,7 +6,20 @@ import 'package:hepapp/calculators/clip/clip_form.dart';
 import 'package:hepapp/calculators/complete/complete_form.dart';
 import 'package:hepapp/calculators/meld/meld_form.dart';
 import 'package:hepapp/calculators/okuda/okuda_form.dart';
+import 'package:hepapp/data/calculators/alberta_info_page_view.dart';
+import 'package:hepapp/data/calculators/calculators.dart';
+import 'package:hepapp/data/chapters/modules.dart';
+import 'package:hepapp/data/chapters/modules_page_view.dart';
+import 'package:hepapp/data/figures/draws.dart';
+import 'package:hepapp/data/figures/figures.dart';
 import 'package:hepapp/data/figures/interactive.dart';
+import 'package:hepapp/data/figures/maps.dart';
+import 'package:hepapp/data/figures/pathology_1.dart';
+import 'package:hepapp/data/figures/pathology_2.dart';
+import 'package:hepapp/data/figures/pathology_page_view.dart';
+import 'package:hepapp/data/figures/schemes.dart';
+import 'package:hepapp/data/figures/tocs.dart';
+import 'package:hepapp/data/podcasts/podcasts_page_view.dart';
 import 'package:hepapp/data/resources.dart';
 import 'package:hepapp/pages/common_pages/common_page.dart';
 import 'package:hepapp/pages/detail_pages/video_detail_page.dart';
@@ -16,20 +29,6 @@ import 'package:hepapp/pages/page_views/common_detail_page_view.dart';
 import 'package:hepapp/pages/page_views/common_page_view.dart';
 import 'package:hepapp/pages/page_views/drawing_page_view.dart';
 import 'package:hepapp/pages/page_views/interactive_detail_page_view.dart';
-
-import 'file:///D:/GitHub/HepApp/lib/data/calculators/alberta_info_page_view.dart';
-import 'file:///D:/GitHub/HepApp/lib/data/calculators/calculators.dart';
-import 'file:///D:/GitHub/HepApp/lib/data/chapters/modules.dart';
-import 'file:///D:/GitHub/HepApp/lib/data/chapters/modules_page_view.dart';
-import 'file:///D:/GitHub/HepApp/lib/data/figures/draws.dart';
-import 'file:///D:/GitHub/HepApp/lib/data/figures/figures.dart';
-import 'file:///D:/GitHub/HepApp/lib/data/figures/maps.dart';
-import 'file:///D:/GitHub/HepApp/lib/data/figures/pathology_1.dart';
-import 'file:///D:/GitHub/HepApp/lib/data/figures/pathology_2.dart';
-import 'file:///D:/GitHub/HepApp/lib/data/figures/pathology_page_view.dart';
-import 'file:///D:/GitHub/HepApp/lib/data/figures/schemes.dart';
-import 'file:///D:/GitHub/HepApp/lib/data/figures/tocs.dart';
-import 'file:///D:/GitHub/HepApp/lib/data/podcasts/podcasts_page_view.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -195,16 +194,6 @@ class RouteGenerator {
                   data: pathology1 + pathology2,
                   route: '/PathologyDetailPV',
                 ));
-
-      /*case '/PathologyDetail':
-        var initialPage = settings.arguments as int;
-        return MaterialPageRoute(
-            builder: (_) =>
-                CommonDetailPageView(
-                  initialPage: initialPage,
-                  data: pathology1 + pathology2,
-                  route: '/PathologyDetailPV',
-                ));*/
 
       case '/InteractiveFig':
         return MaterialPageRoute(

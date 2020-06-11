@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:hepapp/calculators/widgets_calc/boolean_select.dart';
 import 'package:hepapp/calculators/widgets_calc/calc_bottom_button.dart';
 import 'package:hepapp/calculators/widgets_calc/calculator_button.dart';
 import 'package:hepapp/calculators/widgets_calc/more_information.dart';
@@ -18,7 +19,6 @@ import 'package:observable/observable.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
-import '../widgets_calc/boolean_select.dart';
 import '../widgets_calc/calc_group_field.dart';
 import '../widgets_calc/calc_result_widget.dart';
 import '../widgets_calc/calc_text_field.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hepapp/data/figures/draws.dart';
 import 'package:hepapp/pages/detail_pages/drawing_detail_page.dart';
 import 'package:hepapp/pages/widgets_navigation/bottom_navigation_sheet.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 
-import 'file:///D:/GitHub/HepApp/lib/data/figures/draws.dart';
 
 class DrawingPageView extends StatefulWidget {
   final initialPage;

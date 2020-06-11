@@ -28,7 +28,7 @@ dependencies:
   #flutter_swiper: ^1.1.6 #
   #http: ^0.12.0+2
   #provider: ^3.1.0
-  shared_preferences: ^0.5.3+4
+  shared_preferences:
   #webview_flutter: ^0.3.15+1
   #webview_flutter:
   #flutter_webview_plugin:
@@ -45,7 +45,7 @@ dependencies:
   custom_radio: ^0.1.2
   #liquid_progress_indicator: ^0.3.2
   #image_picker: ^0.6.1+4
-  video_player:
+  #video_player:
   screenshot: ^0.1.1
   permission_handler:
   image_picker_saver:

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hepapp/calculators/widgets_calc/calc_bottom_button.dart';
+import 'package:hepapp/calculators/widgets_calc/calc_group_field.dart';
+import 'package:hepapp/calculators/widgets_calc/right_bottom_title.dart';
 import 'package:hepapp/data/units.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
@@ -10,9 +12,6 @@ import 'package:observable/observable.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:sized_context/sized_context.dart';
 
-import 'file:///D:/GitHub/HepApp/lib/calculators/widgets_calc/right_bottom_title.dart';
-
-import '../widgets_calc/calc_group_field.dart';
 import 'complete_form_bloc.dart';
 
 class ClinicalForm extends StatefulWidget with Observable {
