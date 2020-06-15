@@ -34,7 +34,6 @@ class LaboratoryForm extends StatefulWidget with Observable {
 class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   ScreenshotController screenShotController = ScreenshotController();
   var reset = false;
-  var previous = false;
   final prefs = UserSettings();
   final units = Units();
   bool _internationalUnits = true;
@@ -243,8 +242,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
   _buildDialysisRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
       reset: reset,
-      //previous: previous,
-      //initialValue: formBloc.dialysisField.value.toString(),
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.dialysisField,
       title: 'dialysis',
@@ -376,7 +373,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
   void resetValues(CompleteFormBloc formBloc) {
     reset = true;
-    //previous = true;
     formBloc.resetLaboratory();
     setState(() {});
     reset = false;
@@ -384,7 +380,6 @@ class LaboratoryFormState extends State<LaboratoryForm> with Observable {
 
   void previousValues(CompleteFormBloc formBloc) {
     reset = false;
-    previous = true;
     formBloc.previousLaboratory();
     setState(() {});
   }

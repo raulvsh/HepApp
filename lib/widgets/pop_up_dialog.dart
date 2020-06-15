@@ -36,7 +36,6 @@ class PopUpDialog extends StatelessWidget {
           children: <Widget>[
             Container(
                 width: width,
-                //padding: EdgeInsets.only(right: 20),
                 child: Text(
                   aux.tr(content),
                   style: TextStyle(

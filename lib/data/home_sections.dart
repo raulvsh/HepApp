@@ -1,6 +1,5 @@
 /*||título | imagen | ruta | tipo ||*/
 final homeSections = [
-  //['ok', 'items/4_figures.png', '/AlbertaInfoPage', 'Nav'],
   ['chapters', 'items/1_chapters.png', '/Chapters', 'Nav'],
   [
     'podcasts',

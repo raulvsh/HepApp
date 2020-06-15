@@ -21,8 +21,8 @@ class ApriAlgorithm {
   void showPts(double resultado) {
     print("\n\n*** Objeto APRI: ");
     print("ast : ${apriData.ast}");
-    print("\nast limite : ${apriData.astUpperLimit}");
-    print("\nplatelets : ${apriData.platelets}");
-    print("\n resultado : $resultado");
+    print("ast limite : ${apriData.astUpperLimit}");
+    print("platelets : ${apriData.platelets}");
+    print(" resultado : $resultado");
   }
 }

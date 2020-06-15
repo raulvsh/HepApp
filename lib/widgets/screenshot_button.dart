@@ -37,10 +37,7 @@ class _ScreenShotButtonState extends State<ScreenShotButton> {
           Scaffold.of(context).showSnackBar(
             SnackBar(
               behavior: SnackBarBehavior.floating,
-              backgroundColor: Theme
-                  .of(context)
-                  .primaryColor
-                  .withOpacity(100),
+              backgroundColor: Theme.of(context).primaryColor.withOpacity(50),
               content: Text(aux.tr('screenshot_saved')),
             ),
           );

@@ -32,7 +32,6 @@ class AlbertaCircleField extends StatelessWidget {
       width: width,
       color: Colors.white,
       padding: padding,
-      //shape ==BoxShape.rectangle?EdgeInsets.symmetric(horizontal: 8, vertical: 8):padding,
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,

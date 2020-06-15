@@ -19,25 +19,29 @@ class UserSettings {
 
   Map<String, bool> _emptyFieldsErrorMap = {};
   StreamController _streamController2 =
-  StreamController<Map<String, bool>>.broadcast();
+      StreamController<Map<String, bool>>.broadcast();
 
   Stream<Map<String, bool>> get emptyFieldsErrorMapUpdates =>
       _streamController2.stream;
 
   int _tumourNumber = 0;
   StreamController _streamController3 = StreamController<int>.broadcast();
+
   Stream<int> get tumourNumUpdates => _streamController3.stream;
 
   double _ageCutoff = 0.0;
   StreamController _streamController4 = StreamController<double>.broadcast();
+
   Stream<double> get ageUpdates => _streamController4.stream;
 
   String _ltCriteria = '';
   StreamController _streamController5 = StreamController<String>.broadcast();
+
   Stream<String> get ltCriteriaUpdates => _streamController5.stream;
 
   bool _precludeSurgery;
   StreamController _streamController6 = StreamController<bool>.broadcast();
+
   Stream<bool> get precludeSurgeryUpdates => _streamController6.stream;
 
   Map<String, bool> _parseErrorMap = {};
@@ -141,7 +145,6 @@ class UserSettings {
     _streamController3.close();
     _streamController4.close();
     _streamController5.close();
-
     _streamController6.close();
     _streamController7.close();
   }

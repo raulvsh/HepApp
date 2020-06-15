@@ -39,14 +39,6 @@ class TnmAlgorithm {
     }
   }
 
-  void showPts() {
-    print("\n\n*** Objeto tnmData: ");
-    print("\nNúmero de tumores : ${tnmData.tumourNumber}");
-    print("\nPvi : ${tnmData.pvi}");
-    print("\nNodos : ${tnmData.nodes}");
-    print("\nMetástasis: ${tnmData.metastasis}");
-  }
-
   bool upTo6Of5() {
     int tN = int.parse(tnmData.tumourNumber);
     print(tnmData.tumourSize.toString());
@@ -56,5 +48,13 @@ class TnmAlgorithm {
       }
     }
     return true;
+  }
+
+  void showPts() {
+    print("\n\n*** Objeto tnmData: ");
+    print("\nNúmero de tumores : ${tnmData.tumourNumber}");
+    print("\nPvi : ${tnmData.pvi}");
+    print("\nNodos : ${tnmData.nodes}");
+    print("\nMetástasis: ${tnmData.metastasis}");
   }
 }

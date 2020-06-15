@@ -1,4 +1,4 @@
-/*||título | imagen | ruta | tipo ||*/
+/*||título | imagen | índice | tipo ||*/
 final podcasts1 = [
   [
     'podcast_1',

@@ -74,8 +74,6 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
     list.add(Container(
-        //color: Colors.red,
-        //width: 90,
         padding: EdgeInsets.symmetric(horizontal: 5),
         child: Text(
           aux.tr(widget.titleList[i]),
@@ -91,11 +89,9 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
 
     list.add(
       Container(
-          //color: Colors.red,
-          //width: 90,
           padding: EdgeInsets.symmetric(horizontal: 5),
           child: Text(
-            widget.udsList[i], //'umol/L',
+            widget.udsList[i],
             style: TextStyle(
               color: Colors.black,
               fontSize: isTablet ? 15 : 12,
@@ -140,7 +136,7 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
               borderSide: BorderSide(
                 width: 1.3,
                 color: Color.fromARGB(255, 45, 145, 155),
-              ), //color: Colors.red),
+              ),
             ),
             contentPadding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
           ),
@@ -208,15 +204,15 @@ class _CalcMultipleTextFieldState extends State<CalcMultipleTextField> {
     bool isLandscape = context.isLandscape;
     widget.multiTitle && isLandscape
         ? prefs.getParseErrorMap().forEach((key, value) {
-      if (widget.titleList[i] == key) {
-        prefs.getParseErrorMap().update(key, (v) => true);
-      }
-    })
+            if (widget.titleList[i] == key) {
+              prefs.getParseErrorMap().update(key, (v) => true);
+            }
+          })
         : prefs.getParseErrorMap().forEach((key, value) {
-      if (widget.titleList[0] + "[$i]" == key) {
-        prefs.getParseErrorMap().update(key, (v) => true);
-      }
-    });
+            if (widget.titleList[0] + "[$i]" == key) {
+              prefs.getParseErrorMap().update(key, (v) => true);
+            }
+          });
   }
 
   void _markParseErrorFalse(i) {

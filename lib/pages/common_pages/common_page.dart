@@ -44,27 +44,7 @@ class _CommonPageState extends State<CommonPage> {
           data: widget.data,
           type: widget.type,
         ),
-        //floatingActionButton: ScreenShotButton(commonScreenShotController),
-        /*FloatingActionButton(
-          onPressed: () {
-            _imageFile = null;
-            screenshotController.capture().then((File image) async {
-              //print("Capture Done");
-              setState(() {
-                _imageFile = image;
-              });
-              final result = await ImageGallerySaver.saveImage(image
-                  .readAsBytesSync()); // Save image to gallery,  Needs plugin  https://pub.dev/packages/image_gallery_saver
-              print("File Saved to Gallery");
-            }).catchError((onError) {
-              print(onError);
-            });
-          },
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
-        ),*/ // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }
 }
-

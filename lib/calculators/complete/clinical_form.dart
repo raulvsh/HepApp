@@ -85,9 +85,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
 
   _buildCirrhosisRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
-      //initialValue: formBloc.cirrhosisField.value.toString(),
       reset: reset,
-      //previous: previous,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.cirrhosisField,
       title: 'cirrhosis',
@@ -100,9 +98,7 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
 
   _buildEncephalopatyRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
-      //initialValue: formBloc.encephalopatyField.value.toString(),
       reset: reset,
-      //previous: previous,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.encephalopatyField,
       title: 'encephalopaty',
@@ -115,8 +111,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
 
   _buildAscitesRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
-      //initialValue: formBloc.ascitesField.value.toString(),
-      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ascitesField,
@@ -130,8 +124,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
 
   _buildVaricesRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
-      //initialValue: formBloc.varicesField.value.toString(),
-      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.varicesField,
@@ -145,8 +137,6 @@ class ClinicalFormState extends State<ClinicalForm> with Observable {
 
   _buildEcogRow(CompleteFormBloc formBloc) {
     return CalcGroupField(
-      //initialValue: formBloc.ecogField.value.toString(),
-      //previous: previous,
       reset: reset,
       padding: EdgeInsets.only(left: 8),
       selectFieldBloc: formBloc.ecogField,

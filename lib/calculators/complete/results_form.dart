@@ -130,7 +130,6 @@ class ResultsFormState extends State<ResultsForm> with Observable {
   Container _buildLiverFunctionHeader() {
     AppLocalizations aux = AppLocalizations.of(context);
     bool isTablet = context.diagonalInches >= 7;
-    bool isLandscape = context.isLandscape;
     return Container(
         margin: EdgeInsets.only(right: 10),
         width: isTablet ? 400 : 250,

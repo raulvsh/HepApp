@@ -54,8 +54,7 @@ class _CommonGridPageState extends State<CommonGridPage> {
       if (widget.type == 'figure') {
         widgets.add(FigureButton(context, widget.data[i], i));
       } else {
-        widgets
-            .add(ComboButton(context, widget.data[i], i)); //+ widget.index));
+        widgets.add(ComboButton(context, widget.data[i], i));
       }
     }
     return widgets;

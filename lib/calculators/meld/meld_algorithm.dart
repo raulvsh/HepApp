@@ -93,13 +93,13 @@ class MeldAlgorithm {
   }
 
   void showPts(results) {
-    print("\n\n**********PUNTOS MELD");
-    print("\nbilirrubina : ${meldData.bilirubin}" +
-        "\ninr : ${meldData.inr}" +
-        "\ncreatinina : ${meldData.creatinine}" +
-        "\nalbumina : ${meldData.albumin}" +
-        "\nsodio : ${meldData.sodium}" +
-        "\ndialisis : ${meldData.dialysis}");
+    print("\n**********PUNTOS MELD");
+    print("bilirrubina : ${meldData.bilirubin}");
+    print("inr : ${meldData.inr}");
+    print("creatinina : ${meldData.creatinine}");
+    print("albumina : ${meldData.albumin}");
+    print("sodio : ${meldData.sodium}");
+    print("dialisis : ${meldData.dialysis}");
     print("Puntos meld: ${results['meld']}");
     print("Puntos meldna: ${results['meld_na']}");
     print("Puntos meld5v: ${results['5v_meld']}");

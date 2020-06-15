@@ -25,6 +25,7 @@ class _WebDetailPageState extends State<WebDetailPage> {
         appBar: CustomAppBar(
           widget.title,
           screenshotController: webScreenshotController,
+          selScreenshot: false,
         ),
         drawer: MenuWidget(),
         body: WebView(

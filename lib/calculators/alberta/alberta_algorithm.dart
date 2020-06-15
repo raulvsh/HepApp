@@ -143,14 +143,14 @@ class AlbertaAlgorithm {
   }
 
   void printAlbertaObject(AlbertaData data) {
-    print("\n\n*****************OBJETO albertaDATA: "
-            "\nbclc : ${data.bclc}" +
-        "\ncps : ${data.cps}" +
-        "\nportal ht : ${data.portalHypertension}" +
-        "\npvt : ${data.pvt}" +
-        "\nplatelets : ${data.platelets}" +
-        "\nvarices: ${data.varices}" +
-        "\nbilirrubina : ${data.bilirubin}");
+    print("\n*****************OBJETO albertaDATA: ");
+    print("bclc : ${data.bclc}");
+    print("cps : ${data.cps}");
+    print("portal ht : ${data.portalHypertension}");
+    print("pvt : ${data.pvt}");
+    print("platelets : ${data.platelets}");
+    print("varices: ${data.varices}");
+    print("bilirrubina : ${data.bilirubin}");
     print("Encefalopatía: " + data.encephalopaty);
     print("Ascitis: " + data.ascites);
     print("Tamaño de tumor: " + data.tumourSize.toString());

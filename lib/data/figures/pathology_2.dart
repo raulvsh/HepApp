@@ -1,4 +1,4 @@
-/*||título | imagen | ruta ||*/
+/*||título | imagen | ruta | índice ||*/
 final pathology2 = [
   [
     'autoimmune_hepatitis',

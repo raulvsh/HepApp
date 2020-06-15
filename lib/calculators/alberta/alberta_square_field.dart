@@ -30,8 +30,6 @@ class AlbertaRectangleField extends StatelessWidget {
       width: width,
       color: Colors.white,
       padding: padding,
-      //EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      //shape ==BoxShape.rectangle?EdgeInsets.symmetric(horizontal: 8, vertical: 8):padding,
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,

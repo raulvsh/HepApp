@@ -43,13 +43,13 @@ class AppLocalizations {
 // In this case, the localized strings will be gotten in an AppLocalizations object
 class _AppLocalizationsDelegate
     extends LocalizationsDelegate<AppLocalizations> {
-  // This delegate instance will never change (it doesn't even have fields!)
+  // This delegate instance will never change
   // It can provide a constant constructor.
   const _AppLocalizationsDelegate();
 
   @override
   bool isSupported(Locale locale) {
-    // Include all of your supported language codes here
+    // Include every supported language codes here
     return ['en', 'es'].contains(locale.languageCode);
   }
 

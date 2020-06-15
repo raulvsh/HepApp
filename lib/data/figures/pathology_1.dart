@@ -1,4 +1,4 @@
-/*||título | imagen | ruta ||*/
+/*||título | imagen | ruta | índice ||*/
 final pathology1 = [
   [
     'normal_histology',

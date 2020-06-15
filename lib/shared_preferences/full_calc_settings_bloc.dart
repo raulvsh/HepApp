@@ -23,8 +23,6 @@ class FullCalcSettingsBloc extends FormBloc<String, String> {
     prefs.setAgeCutoff(ageField.valueToDouble);
     prefs.setLtCriteria(ltCriteriaField.value);
 
-    //showFinalValues();
-
     await Future<void>.delayed(Duration(seconds: 1));
 
     yield currentState.toSuccess('Success');

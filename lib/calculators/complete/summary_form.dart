@@ -118,7 +118,6 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       width: isLandscape
           ? context.widthPct(isTablet ? 0.42 : 0.35)
           : context.widthPct(0.35),
-      //width:
       padding: EdgeInsets.only(left: 20, top: 10, bottom: 5),
       child: Column(
         children: <Widget>[
@@ -259,9 +258,7 @@ class SummaryFormState extends State<SummaryForm> with Observable {
       'ecog': widget.formBloc.ecogField.value,
       'preclude_major_surgery':
       prefs.getPrecludeSurgery() == true ? aux.tr('yes') : aux.tr('no'),
-      //prefs.getPrecludeSurgery() ? aux.tr('yes') : aux.tr('no'),
       'age': prefs.getAgeCutoff() != 0 ? prefs.getAgeCutoff().toString() : '-',
-      //widget.formBloc.
     };
 
     return Container(

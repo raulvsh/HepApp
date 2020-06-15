@@ -12,7 +12,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         height: 30,
         child: Center(
           child: Text(
-            aux.tr('app_title'), //title,
+            aux.tr('app_title'),
             style: TextStyle(
               fontSize: 15,
             ),

@@ -149,7 +149,7 @@ const List<Item> data = <Item>[
       Item(
         'assets/images/menu/10_subitem.png',
         'all_algorithms',
-        ['/AllCalc', 0],
+        ['/CompleteCalc', 0],
       ),
       Item(
         'assets/images/menu/10_subitem.png',

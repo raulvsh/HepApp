@@ -28,7 +28,6 @@ class _PdfDetailPageState extends State<PdfDetailPage> {
       controller: pdfScreenshotController,
       child: Scaffold(
         appBar: CustomAppBar(widget.title, selScreenshot: false,),
-        //screenshotController: pdfScreenshotController,),
         drawer: MenuWidget(),
         body: Stack(
           children: <Widget>[

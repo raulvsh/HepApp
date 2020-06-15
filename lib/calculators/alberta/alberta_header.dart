@@ -27,10 +27,8 @@ class AlbertaHeader extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      //color: color,
       decoration: BoxDecoration(
-        //borderRadius: BorderRadius.circular(3),
-        color: color, //Color.fromARGB(255, 68, 142,179),
+        color: color,
         shape: BoxShape.rectangle,
         border: isSelected
             ? Border.all(

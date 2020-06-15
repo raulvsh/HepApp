@@ -376,9 +376,9 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   void calculateMeld(MeldFormBloc formBloc) {
     if (prefs.isEmptyFieldsError()) {
-      showErrorDialog('fill_empty_fields'); //print("error empty");
+      showErrorDialog('fill_empty_fields');
     } else if (prefs.isParseError()) {
-      showErrorDialog('format_error'); //print("error parse");
+      showErrorDialog('format_error');
     }
 
     formBloc.submit();

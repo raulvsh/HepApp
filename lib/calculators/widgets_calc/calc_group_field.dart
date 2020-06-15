@@ -11,10 +11,6 @@ import 'package:sized_context/sized_context.dart';
 class CalcGroupField<Value> extends StatefulWidget {
   final reset;
   final error;
-
-  //final previous;
-
-  //final initialValue;
   final formBloc;
   final errorControl;
 
@@ -33,8 +29,6 @@ class CalcGroupField<Value> extends StatefulWidget {
     this.title,
     this.reset = false,
     this.error = false,
-    //this.previous = false,
-    //this.initialValue,
     this.formBloc,
   })  : assert(selectFieldBloc != null),
         assert(enableOnlyWhenFormBlocCanSubmit != null),
@@ -105,10 +99,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
 
           firstRun = false;
         }
-        /*if (widget.previous) {
-          updateMap(state);
-        }*/
-        //markInitialValue(state);
 
         updateMap(state);
 
@@ -135,16 +125,6 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
       isSelected[state.items.elementAt(i).toString()] = false;
     }
   }
-
-  /*markInitialValue(SelectFieldBlocState<Value> state) {
-    for (int i = 0; i < state.items.length; i++) {
-      if (state.items.elementAt(i).toString() ==
-          widget.initialValue.toString()) {
-        isSelected[state.items.elementAt(i).toString()] = true;
-      } else
-        isSelected[state.items.elementAt(i).toString()] = false;
-    }
-  }*/
 
   updateMap(SelectFieldBlocState<Value> state) {
     for (int i = 0; i < state.items.length; i++) {
@@ -255,25 +235,19 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                                 List<double> animValues,
                                 Function updateState,
                                 String value) {
-                              /*final alpha = (animValues[0] * 255).toInt();
-                                  var opacity =
-                                  (!_resetFlag && !_errorFlag) ? alpha : 0;*/
                               return Container(
                                 width: 100,
                                 height: 20,
-                                //Alineación del texto dentro del botón
 
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   //Color del fondo del botón
                                   color: isSelected[state.items
-                                      .elementAt(index)
-                                      .toString()] &&
-                                      (!_resetFlag && !_errorFlag)
-                                      ? Theme
-                                      .of(context)
-                                      .primaryColor
+                                              .elementAt(index)
+                                              .toString()] &&
+                                          (!_resetFlag && !_errorFlag)
+                                      ? Theme.of(context).primaryColor
                                       : Colors.white,
                                   border: Border.all(
                                     //Color del borde
@@ -283,7 +257,7 @@ class _CalcGroupFieldState<Value> extends State<CalcGroupField> {
                                     width: _errorFlag ? 0.9 : 1.3,
                                   ),
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(3.0)),
+                                      BorderRadius.all(Radius.circular(3.0)),
                                 ),
                                 // ),
                               );

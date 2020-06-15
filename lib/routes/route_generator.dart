@@ -44,8 +44,7 @@ class RouteGenerator {
 
       case '/PodcastsMain':
         return MaterialPageRoute(
-            builder: (_) =>
-                CommonPageView(
+            builder: (_) => CommonPageView(
                   initialPage: 0,
                   data: podcastsPageView,
                 ));
@@ -174,7 +173,7 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) =>
                 CommonPageView(
-                initialPage: 0, data: pathologyPageView, type: 'figure'));
+                    initialPage: 0, data: pathologyPageView, type: 'figure'));
 
       case '/PathologyPV':
         var initialPage = settings.arguments as int;
@@ -182,8 +181,8 @@ class RouteGenerator {
             builder: (_) =>
                 CommonPageView(
                     initialPage: initialPage,
-                data: pathologyPageView,
-                type: 'figure'));
+                    data: pathologyPageView,
+                    type: 'figure'));
 
       case '/PathologyDetailPV':
         var initialPage = int.parse(settings.arguments);
@@ -241,7 +240,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => OkudaForm());
       case '/AlbertaDiagram':
         var coloredFields = settings.arguments as List<bool>;
-        //print("colored fields " + coloredFields.toString());
         return MaterialPageRoute(
             builder: (_) => AlbertaPage(
                   isSelected: coloredFields,
@@ -249,10 +247,11 @@ class RouteGenerator {
       case '/AlbertaInfoPage':
         var initialPage = settings.arguments as int;
         return MaterialPageRoute(
-            builder: (_) => AlbertaInfoPageView(
-              initialPage: initialPage,
-              data: albertaInfoPageView,
-            ));
+            builder: (_) =>
+                AlbertaInfoPageView(
+                  initialPage: initialPage,
+                  data: albertaInfoPageView,
+                ));
 
       default:
         return MaterialPageRoute(
