@@ -7,7 +7,7 @@ class PopUpDialog extends StatelessWidget {
   final double height;
   final double width;
 
-  const PopUpDialog({
+  PopUpDialog({
     Key key,
     this.title = '',
     this.content = '',

@@ -21,13 +21,31 @@ class PdfDetailPage extends StatefulWidget {
 class _PdfDetailPageState extends State<PdfDetailPage> {
   bool pdfReady = false;
   ScreenshotController pdfScreenshotController = ScreenshotController();
+  Orientation _lastScreenOrientation;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _lastScreenOrientation = MediaQuery.of(context).orientation;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_lastScreenOrientation != null &&
+        _lastScreenOrientation != MediaQuery.of(context).orientation) {
+      //Si se ha cambiado de orientación, se recarga la página completa
+      Future.delayed(Duration(microseconds: 100), _repushViewer);
+    }
+
     return Screenshot(
       controller: pdfScreenshotController,
       child: Scaffold(
-        appBar: CustomAppBar(widget.title, selScreenshot: false,),
+        appBar: CustomAppBar(
+          widget.title,
+          selScreenshot: false,
+        ),
         drawer: MenuWidget(),
         body: Stack(
           children: <Widget>[
@@ -59,6 +77,19 @@ class _PdfDetailPageState extends State<PdfDetailPage> {
                 : Offstage()
           ],
         ),
+      ),
+    );
+  }
+
+  _repushViewer() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            PdfDetailPage(
+              path: widget.path,
+              title: widget.title,
+            ),
       ),
     );
   }
