@@ -417,7 +417,6 @@ class MeldFormState extends State<MeldForm> with Observable {
 
   void resetValues(MeldFormBloc formBloc) {
     reset = true;
-    previous = true;
     formBloc.reset();
     setState(() {});
     reset = false;

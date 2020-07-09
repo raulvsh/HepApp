@@ -14,7 +14,6 @@ class UserSettings {
 
   bool _internationalUnits;
   StreamController _streamController = StreamController<bool>.broadcast();
-
   Stream<bool> get iUnitsUpdates => _streamController.stream;
 
   Map<String, bool> _emptyFieldsErrorMap = {};

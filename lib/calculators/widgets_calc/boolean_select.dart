@@ -92,9 +92,7 @@ class _BooleanSelectState extends State<BooleanSelect> {
         } else if (widget.title == 'preclude_major_surgery') {
           _switchPrecludeSurgery(index);
         }
-        setState(() {
-
-        });
+        setState(() {});
       },
       isSelected: isSelected,
     );
