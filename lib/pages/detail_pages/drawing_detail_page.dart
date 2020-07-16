@@ -50,7 +50,7 @@ class _FigureDetailPageState extends State<DrawingDetailPage> {
         ),
         drawer: MenuWidget(),
         body: Container(
-          height: context.heightPct(isLandscape ? 0.75 : 0.85),
+          height: context.heightPct(isLandscape ? 0.65 : 0.8),
           child: Card(
             margin: EdgeInsets.all(10),
             child: Stack(
@@ -70,11 +70,19 @@ class _FigureDetailPageState extends State<DrawingDetailPage> {
             ),
           ),
         ),
-        bottomSheet: Stack(
-          children: <Widget>[
-            DrawBottomBar(controller: _controller),
-            widget.bottomSheet
-          ],
+        bottomSheet: Container(
+          width: context.widthPx,
+          height: 45, //kBottomNavigationBarHeight,//context.heightPx,
+          color: Colors.amber,
+          child: Stack(
+            children: <Widget>[
+              DrawBottomBar(controller: _controller), //),
+              Container(
+                  width: double.infinity,
+                  alignment: Alignment.topCenter,
+                  child: widget.bottomSheet),
+            ],
+          ),
         ),
       ),
     );

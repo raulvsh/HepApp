@@ -43,50 +43,64 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
           screenshotController: screenShotController,
         ),
         drawer: MenuWidget(),
-        body: Center(
-          heightFactor: 1,
-          child: Container(
-            height: isLandscape ? context.heightPx * 0.75 : null,
-            width: !isLandscape ? context.widthPx : null,
-            child: Card(
-              margin:
-                  isLandscape ? EdgeInsets.only(top: 15) : EdgeInsets.all(15),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  _buildImgStack(),
-                  _buildTxtRow(context),
-                ],
+        body: Stack(
+          children: <Widget>[
+            widget.bottomSheet,
+            Center(
+              heightFactor: 1,
+              child: Container(
+                height: isLandscape
+                    ? context.heightPx * 0.75
+                    : context.heightPx * 0.55,
+                width: !isLandscape ? context.widthPx : null,
+                child: Card(
+                  margin: isLandscape
+                      ? EdgeInsets.only(top: 10)
+                      : EdgeInsets.all(15),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(color: Colors.white, child: _buildImgStack()),
+                      Container(
+                          color: Colors.white, child: _buildTxtRow(context)),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
-        bottomSheet: widget.bottomSheet,
+        // bottomSheet: widget.bottomSheet,
       ),
     );
   }
 
   Stack _buildImgStack() {
+    bool isLandscape = context.isLandscape;
+
     return Stack(
       children: <Widget>[
         Container(
+          height: isLandscape ? context.heightPct(0.5) : null,
           margin: EdgeInsets.all(10),
-          width: 300,
-          height: 300,
           child: Hero(
             tag: widget.img1,
             child: Image.asset(
               'assets/images/${widget.img1}',
+              fit: BoxFit.contain,
             ),
           ),
         ),
         Container(
-          width: 300,
-          height: 300,
+          height: isLandscape ? context.heightPct(0.5) : null,
           margin: EdgeInsets.all(10),
           child: Opacity(
             opacity: opacityValue,
-            child: Image.asset('assets/images/${widget.img2}'),
+            child: Image.asset(
+              'assets/images/${widget.img2}',
+              fit: BoxFit.contain,
+            ),
           ),
         ),
       ],
@@ -99,6 +113,7 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
 
     return Container(
       width: isLandscape ? context.widthPct(0.6) : context.widthPx,
+      height: isLandscape ? context.heightPct(0.15) : null,
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -110,15 +125,18 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: isLandscape
+                    ? context.widthPct(0.015)
+                    : context.heightPct(0.02),
+              ),
             ),
           ),
           Expanded(
             flex: 1,
             child: Slider(
               value: opacityValue,
-              activeColor: Theme
-                  .of(context)
-                  .primaryColor,
+              activeColor: Theme.of(context).primaryColor,
               inactiveColor: Colors.lightBlue[0],
               min: 0.0,
               max: 1.0,
@@ -137,6 +155,11 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: isLandscape
+                    ? context.widthPct(0.015)
+                    : context.heightPct(0.02),
+              ),
             ),
           ),
         ],

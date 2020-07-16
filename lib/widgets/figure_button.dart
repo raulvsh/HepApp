@@ -18,7 +18,8 @@ class FigureButton extends StatelessWidget {
         /*Solo se pasa específicamente el destino en las cadenas de texto de pathology
           porque es el único apartado que tiene más de 8 elementos.*/
         onTap: type[2] == '/PathologyDetailPV'
-            ? () => Navigator.pushNamed(context, type[2], arguments: type[3])
+            ? () => Navigator.pushNamed(context, type[2],
+                arguments: int.parse(type[3]))
             : () => Navigator.pushNamed(context, type[2], arguments: page),
       ),
     );
@@ -55,7 +56,7 @@ class FigureButton extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: context.heightPct(isLandscape ? 0.025 : 0.014),
+                  fontSize: context.heightPct(isLandscape ? 0.022 : 0.014),
                 ),
               ),
             ),

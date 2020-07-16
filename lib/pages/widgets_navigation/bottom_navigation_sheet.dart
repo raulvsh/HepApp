@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BottomNavigationSheet extends StatelessWidget {
-  final currentPage;
+  final int currentPage;
   final route;
   final endPage;
 
@@ -20,21 +20,22 @@ class BottomNavigationSheet extends StatelessWidget {
       widgets.add(_buildNextIcon(context));
     }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: widgets,
+    return Container(
+      alignment: Alignment.bottomRight,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: widgets,
+      ),
     );
   }
 
   IconButton _buildBackIcon(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.arrow_back_ios),
-      color: Theme
-          .of(context)
-          .primaryColor,
-      onPressed: () =>
-          Navigator.pushReplacementNamed(context, '$route',
-              arguments: currentPage - 1),
+      color: Theme.of(context).primaryColor,
+      onPressed: () => Navigator.pushReplacementNamed(context, '$route',
+          arguments: currentPage - 1),
     );
   }
 

@@ -185,10 +185,9 @@ class RouteGenerator {
                     type: 'figure'));
 
       case '/PathologyDetailPV':
-        var initialPage = int.parse(settings.arguments);
+        int initialPage = settings.arguments; //int.parse(settings.arguments);
         return MaterialPageRoute(
-            builder: (_) =>
-                CommonDetailPageView(
+            builder: (_) => CommonDetailPageView(
                   initialPage: initialPage,
                   data: pathology1 + pathology2,
                   route: '/PathologyDetailPV',

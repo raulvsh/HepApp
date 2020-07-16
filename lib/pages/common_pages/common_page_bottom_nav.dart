@@ -41,12 +41,16 @@ class _CommonPageWithBottomNavState extends State<CommonPageWithBottomNav> {
           widget.title,
           screenshotController: commonScreenShotController,
         ),
-        body: CommonGridPage(
-          data: widget.data,
-          type: widget.type,
+        body: Stack(
+          children: <Widget>[
+            BottomNavigationSheet(
+                widget.initialPage, widget.route, widget.numPages),
+            CommonGridPage(
+              data: widget.data,
+              type: widget.type,
+            ),
+          ],
         ),
-        bottomSheet: BottomNavigationSheet(
-            widget.initialPage, widget.route, widget.numPages),
       ),
     );
   }

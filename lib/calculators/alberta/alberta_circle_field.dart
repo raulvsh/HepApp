@@ -3,14 +3,12 @@ import 'package:hepapp/lang/app_localizations.dart';
 
 Color blueTreatmentColor = Color.fromARGB(255, 85, 163, 188);
 
-
 class AlbertaCircleField extends StatelessWidget {
   final height;
   final width;
   final color;
   final txt;
   final isSelected;
-
   final padding;
 
   const AlbertaCircleField({
@@ -27,7 +25,6 @@ class AlbertaCircleField extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations aux = AppLocalizations.of(context);
     return Container(
-
       height: height,
       width: width,
       color: Colors.white,
@@ -48,7 +45,8 @@ class AlbertaCircleField extends StatelessWidget {
             child: Text(
               aux.tr(txt),
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 8,
+              style: TextStyle(
+                  fontSize: 8,
                   color: isSelected ? Colors.white : blueTreatmentColor),
             ),
           ),
