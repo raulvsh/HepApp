@@ -36,13 +36,20 @@ class _AlbertaInfoPageState extends State<AlbertaInfoPage> {
     return Screenshot(
       controller: screenShotController,
       child: Scaffold(
-
-        appBar: CustomAppBar(
-          'calculator', screenshotController: screenShotController,),
-        body: _buildBody(),
-        bottomSheet: BottomNavigationSheet(
-            widget.initialPage, widget.route, widget.numPages),
-      ),
+          appBar: CustomAppBar(
+            'calculator',
+            screenshotController: screenShotController,
+          ),
+          body: Stack(
+            children: <Widget>[
+              _buildBody(),
+              BottomNavigationSheet(
+                  widget.initialPage, widget.route, widget.numPages),
+            ],
+          )
+          //bottomSheet: BottomNavigationSheet(
+          //widget.initialPage, widget.route, widget.numPages),
+          ),
     );
   }
 
