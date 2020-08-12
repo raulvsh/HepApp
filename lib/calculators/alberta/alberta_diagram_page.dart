@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:screenshot/screenshot.dart';
@@ -33,7 +32,7 @@ class AlbertaPage extends StatefulWidget {
 class _AlbertaPageState extends State<AlbertaPage> {
   ScreenshotController screenShotController = ScreenshotController();
 
-  @override
+ /* @override
   dispose() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
@@ -42,19 +41,19 @@ class _AlbertaPageState extends State<AlbertaPage> {
       DeviceOrientation.portraitDown,
     ]);
     super.dispose();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
     bool isTablet = context.diagonalInches >= 7;
     bool isLandscape = context.isLandscape;
 
-    if (!isTablet) {
+    /*if (!isTablet) {
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.landscapeRight,
         DeviceOrientation.landscapeLeft,
       ]);
-    }
+    }*/
     return Screenshot(
       controller: screenShotController,
       child: Scaffold(
@@ -70,34 +69,36 @@ class _AlbertaPageState extends State<AlbertaPage> {
             alignment: Alignment.topCenter,
             child: FittedBox(
               fit: BoxFit.contain,
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    //color: Colors.pink.withAlpha(25),
-                    height: totalHeight,
-                    width: totalWidth,
-                    child: Column(
-                      children: <Widget>[
-                        _buildTitleRow(),
-                        _buildSeparator(),
-                        _buildTumourRow(),
-                        _buildCpsRow(),
-                        _buildClinicalRow(),
-                        _buildTreatmentRow(),
-                        _buildPrognosisRow()
-                      ],
+              child: InteractiveViewer(
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      //color: Colors.pink.withAlpha(25),
+                      height: totalHeight,
+                      width: totalWidth,
+                      child: Column(
+                        children: <Widget>[
+                          _buildTitleRow(),
+                          _buildSeparator(),
+                          _buildTumourRow(),
+                          _buildCpsRow(),
+                          _buildClinicalRow(),
+                          _buildTreatmentRow(),
+                          _buildPrognosisRow()
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    //color: Colors.green,
-                    height: totalHeight,
-                    width: totalWidth,
-                    child: CustomPaint(
-                      size: Size(totalHeight, totalWidth),
-                      painter: AlbertaDiagramPainter(),
+                    Container(
+                      //color: Colors.green,
+                      height: totalHeight,
+                      width: totalWidth,
+                      child: CustomPaint(
+                        size: Size(totalHeight, totalWidth),
+                        painter: AlbertaDiagramPainter(),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

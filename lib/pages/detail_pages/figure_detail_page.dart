@@ -39,20 +39,22 @@ class _FigureDetailPageState extends State<FigureDetailPage> {
               child: Container(
                 height: isLandscape ? context.heightPx * 0.77 : null,
                 width: !isLandscape ? context.widthPx : null,
-                child: Card(
-                  margin: EdgeInsets.all(15),
-                  elevation: 5,
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxWidth: context.widthPct(0.65),
-                    ),
-                    margin: EdgeInsets.all(10),
-                    child: Hero(
-                      tag: widget.url,
-                      child: Image.asset(
-                        'assets/images/${widget.url}',
-                        fit: BoxFit.contain,
-                        alignment: Alignment.center,
+                child: InteractiveViewer(
+                  child: Card(
+                    margin: EdgeInsets.all(15),
+                    elevation: 5,
+                    child: Container(
+                      constraints: BoxConstraints(
+                        maxWidth: context.widthPct(0.65),
+                      ),
+                      margin: EdgeInsets.all(10),
+                      child: Hero(
+                        tag: widget.url,
+                        child: Image.asset(
+                          'assets/images/${widget.url}',
+                          fit: BoxFit.contain,
+                          alignment: Alignment.center,
+                        ),
                       ),
                     ),
                   ),

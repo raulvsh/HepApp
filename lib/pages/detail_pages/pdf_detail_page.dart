@@ -7,6 +7,7 @@ import 'package:hepapp/pages/widgets_navigation/custom_appbar.dart';
 import 'package:hepapp/pages/widgets_navigation/drawer_menu.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:sized_context/sized_context.dart';
 
 class PdfDetailPage extends StatefulWidget {
   final String path;
@@ -33,6 +34,9 @@ class _PdfDetailPageState extends State<PdfDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    var isLandscape = context.isLandscape;
+    bool isTablet = context.diagonalInches >= 7;
+
     if (_lastScreenOrientation != null &&
         _lastScreenOrientation != MediaQuery.of(context).orientation) {
       //Si se ha cambiado de orientación, se recarga la página completa
@@ -47,35 +51,42 @@ class _PdfDetailPageState extends State<PdfDetailPage> {
           selScreenshot: false,
         ),
         drawer: MenuWidget(),
-        body: Stack(
-          children: <Widget>[
-            PDFView(
-              filePath: widget.path,
-              autoSpacing: true,
-              enableSwipe: true,
-              pageSnap: true,
-              swipeHorizontal: true,
-              nightMode: false,
-              onError: (e) {
-                print(e);
-              },
-              onRender: (_pages) {
-                setState(() {
-                  pdfReady = true;
-                });
-              },
+        body: Center(
+          child: Container(
+            width: isLandscape /*&& !isTablet*/
+                ? context.widthPct(0.5)
+                : context.widthPx,
+            child: Stack(
+              children: <Widget>[
+                PDFView(
+                  filePath: widget.path,
+                  autoSpacing: true,
+                  enableSwipe: true,
+                  pageSnap: true,
+                  swipeHorizontal: true,
+                  nightMode: false,
+                  onError: (e) {
+                    print(e);
+                  },
+                  onRender: (_pages) {
+                    setState(() {
+                      pdfReady = true;
+                    });
+                  },
 
-              onPageChanged: (int page, int total) {
-                setState(() {});
-              },
-              onPageError: (page, e) {},
+                  onPageChanged: (int page, int total) {
+                    setState(() {});
+                  },
+                  onPageError: (page, e) {},
+                ),
+                !pdfReady
+                    ? Center(
+                  child: CircularProgressIndicator(),
+                )
+                    : Offstage()
+              ],
             ),
-            !pdfReady
-                ? Center(
-              child: CircularProgressIndicator(),
-            )
-                : Offstage()
-          ],
+          ),
         ),
       ),
     );

@@ -23,6 +23,14 @@ class CommonPage extends StatefulWidget {
 class _CommonPageState extends State<CommonPage> {
   ScreenshotController screenShotController = ScreenshotController();
 
+  /*void initState() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);    super.initState();
+  }*/
   @override
   Widget build(BuildContext context) {
     return Screenshot(

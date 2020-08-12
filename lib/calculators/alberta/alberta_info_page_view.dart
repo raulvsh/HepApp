@@ -32,7 +32,7 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
     super.initState();
   }
 
-  @override
+  /*@override
   dispose() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
@@ -41,7 +41,7 @@ class AlbertaInfoPageViewState extends State<AlbertaInfoPageView>
       DeviceOrientation.portraitDown,
     ]);
     super.dispose();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

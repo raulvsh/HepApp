@@ -53,18 +53,20 @@ class _InteractiveDetailPageState extends State<InteractiveDetailPage> {
                     ? context.heightPx * 0.75
                     : context.heightPx * 0.55,
                 width: !isLandscape ? context.widthPx : null,
-                child: Card(
-                  margin: isLandscape
-                      ? EdgeInsets.only(top: 10)
-                      : EdgeInsets.all(15),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Container(color: Colors.white, child: _buildImgStack()),
-                      Container(
-                          color: Colors.white, child: _buildTxtRow(context)),
-                    ],
+                child: InteractiveViewer(
+                  child: Card(
+                    margin: isLandscape
+                        ? EdgeInsets.only(top: 10)
+                        : EdgeInsets.all(15),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Container(color: Colors.white, child: _buildImgStack()),
+                        Container(
+                            color: Colors.white, child: _buildTxtRow(context)),
+                      ],
+                    ),
                   ),
                 ),
               ),

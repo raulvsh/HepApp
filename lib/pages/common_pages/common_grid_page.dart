@@ -18,6 +18,12 @@ class _CommonGridPageState extends State<CommonGridPage> {
 
   @override
   void initState() {
+    /*SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);*/
     dataLength = widget.data.length;
     super.initState();
   }

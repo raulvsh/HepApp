@@ -9,6 +9,15 @@ Color blueTreatmentColor = Color.fromARGB(255, 85, 163, 188);
 
 class AlbertaDiagramPainter extends CustomPainter {
   @override
+  /*dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }*/
+  @override
   void paint(Canvas canvas, Size size) {
     final pointMode = ui.PointMode.polygon;
     /*final points = [

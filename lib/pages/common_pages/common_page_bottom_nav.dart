@@ -31,6 +31,15 @@ class CommonPageWithBottomNav extends StatefulWidget {
 class _CommonPageWithBottomNavState extends State<CommonPageWithBottomNav> {
   ScreenshotController commonScreenShotController = ScreenshotController();
 
+  /*void initState() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);    super.initState();
+  }
+*/
   @override
   Widget build(BuildContext context) {
     return Screenshot(
@@ -43,12 +52,12 @@ class _CommonPageWithBottomNavState extends State<CommonPageWithBottomNav> {
         ),
         body: Stack(
           children: <Widget>[
-            BottomNavigationSheet(
-                widget.initialPage, widget.route, widget.numPages),
             CommonGridPage(
               data: widget.data,
               type: widget.type,
             ),
+            BottomNavigationSheet(
+                widget.initialPage, widget.route, widget.numPages),
           ],
         ),
       ),

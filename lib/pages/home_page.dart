@@ -18,6 +18,15 @@ class _HomePageState extends State<HomePage> {
   var numHomeSections = homeSections.length;
   ScreenshotController screenShotController = ScreenshotController();
 
+  /*@override
+  void initState() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);    super.initState();
+  }*/
   @override
   Widget build(BuildContext context) {
     return Screenshot(
