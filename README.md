@@ -1,4 +1,4 @@
-# hepapp
+# HepApp
 
 HepApp Flutter application.
 
